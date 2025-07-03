@@ -220,12 +220,31 @@ Recent advances in machine learning have revolutionized various fields and appli
 
 ## Reference Materials
 
+### Core Course Materials
 - [CS229 Machine Learning Course](https://cs229.stanford.edu/) - Stanford University
-- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
-- [CS229 Decision Trees Notes](./reference/CS229_Decision-Trees-Notes.pdf)
-- [CS229 Lecture Notes](./reference/CS229_Lecture-Notes.pdf)
-- [CS229 Linear Algebra Review](./reference/CS229_Linear_Algebra_Review.pdf)
-- [CS229 Probability Review](./reference/CS229_Probability_Review.pdf)
+- [CS229 Lecture Notes](./reference/CS229_Lecture-Notes.pdf) - Comprehensive course notes
+- [CS229 Decision Trees Notes](./reference/CS229_Decision-Trees-Notes.pdf) - Decision tree algorithms and theory
+
+### Mathematical Foundations
+- [CS229 Linear Algebra Review](./reference/CS229_Linear_Algebra_Review.pdf) - Essential linear algebra concepts
+- [CS229 Probability Review](./reference/CS229_Probability_Review.pdf) - Probability theory fundamentals
+
+### Advanced Topics
+- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf) - Modern transformer architectures
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) - Visual guide to transformers
+
+### Additional Resources
+- [Python Review](https://github.com/darinz/Toolkit/tree/main/Python) - Essential Python concepts
+- [NumPy Review](https://github.com/darinz/Toolkit/tree/main/NumPy) - Numerical computing with NumPy
+- [Math Review](https://github.com/darinz/Math) - Mathematical foundations for machine learning
+
+### Cheatsheets and Quick References
+- [Machine Learning Cheatsheet](https://github.com/afshinea/stanford-cs-229-machine-learning) - Stanford CS229 cheatsheets
+- [Deep Learning Cheatsheet](https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-deep-learning) - Neural networks and deep learning
+- [Supervised Learning Cheatsheet](https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-supervised-learning) - Supervised learning algorithms
+- [Unsupervised Learning Cheatsheet](https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-unsupervised-learning) - Unsupervised learning techniques
+- [Python for Data Science Cheatsheet](https://www.datacamp.com/community/data-science-cheatsheets) - Python, NumPy, Pandas, Matplotlib
+- [Scikit-learn Cheatsheet](https://scikit-learn.org/stable/tutorial/machine_learning_map/) - Machine learning algorithm selection guide
 
 ## Development Guidelines
 
