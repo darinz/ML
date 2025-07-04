@@ -9,6 +9,7 @@ A comprehensive learning resource providing a broad introduction to machine lear
 ## Table of Contents
 
 - [Overview](#overview)
+- [Real-World Applications](#real-world-applications)
 - [Prerequisites](#prerequisites)
 - [Curriculum](#curriculum)
   - [I. Supervised Learning](#i-supervised-learning)
@@ -56,6 +57,27 @@ Upon completing this curriculum, learners will be able to:
 - Evaluate and improve model performance effectively
 - Stay current with recent advances in the field
 - Apply machine learning to real-world applications across domains
+
+## Real-World Applications
+
+Machine learning is transforming industries and solving complex problems across the globe. To see how the algorithms and techniques covered in this curriculum are applied in practice, explore our comprehensive guide to **[Machine Learning Applications](./ML_APPLICATIONS.md)**.
+
+This guide showcases real-world applications across 12 major domains:
+
+- **Healthcare & Medicine**: Medical imaging, drug discovery, personalized medicine
+- **Finance & Banking**: Fraud detection, algorithmic trading, risk assessment
+- **Technology & Software**: NLP, computer vision, software development
+- **Transportation & Logistics**: Autonomous vehicles, supply chain optimization
+- **Retail & E-commerce**: Recommendation systems, marketing optimization
+- **Manufacturing & Industry**: Predictive maintenance, process optimization
+- **Entertainment & Media**: Content creation, recommendation algorithms
+- **Environmental Science**: Climate modeling, conservation, renewable energy
+- **Education & Learning**: Personalized learning, educational technology
+- **Security & Cybersecurity**: Threat detection, digital forensics
+- **Agriculture & Food**: Precision agriculture, food safety
+- **Energy & Utilities**: Smart grids, resource optimization
+
+Understanding these applications will help you see the practical impact of machine learning and guide your learning journey toward domains that interest you most.
 
 ## Prerequisites
 
