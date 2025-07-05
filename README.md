@@ -30,23 +30,7 @@ This learning resource serves as a comprehensive guide for machine learning, cov
 
 ### Learning Approach
 
-The curriculum follows a progressive learning path that builds from fundamental concepts to advanced applications. Each topic includes theoretical foundations, mathematical derivations, and practical implementation examples. The material emphasizes both understanding the underlying principles and developing hands-on coding skills.
-
-### Key Features
-
-- **Comprehensive Coverage**: From classical machine learning algorithms to cutting-edge deep learning techniques
-- **Practical Implementation**: Code examples and implementation guidelines for real-world applications
-- **Mathematical Rigor**: Detailed derivations and proofs for understanding algorithm foundations
-- **Modern Applications**: Coverage of recent advances including transformers, large language models, and self-supervised learning
-- **Industry Relevance**: Focus on techniques and applications used in current industry practice
-
-### Target Audience
-
-This resource is designed for:
-- **Students**: Learning machine learning fundamentals and advanced topics
-- **Researchers**: Exploring cutting-edge techniques and implementations
-- **Practitioners**: Applying machine learning in real-world scenarios
-- **Educators**: Teaching machine learning concepts and methodologies
+The curriculum follows a progressive learning path that builds from fundamental concepts to advanced applications. Each topic includes theoretical foundations, mathematical derivations, and practical implementation examples. The material emphasizes both understanding the underlying principles and developing hands-on coding skills.es
 
 ### Learning Outcomes
 
@@ -93,17 +77,51 @@ To successfully work with the material in this repository, you should have:
 - [NumPy Review](https://github.com/darinz/Toolkit/tree/main/NumPy) - Numerical computing with NumPy
 - [Math Review](https://github.com/darinz/Math) - Mathematical foundations for machine learning
 
+For comprehensive foundational materials, see the **[00. Math, Python, and NumPy Review](#00-math-python-and-numpy-review)** section in the curriculum below.
+
 ## Curriculum
+
+### 00. Math, Python, and NumPy Review
+
+Essential prerequisites for machine learning, covering mathematical foundations, Python programming, and numerical computing with NumPy.
+
+**[📁 View Materials](./00_math_python_numpy_review/)**
+
+#### 00.1 Linear Algebra Review
+- Vector operations and matrix algebra
+- Eigenvalues and eigenvectors
+- Linear transformations and projections
+- Applications in machine learning
+
+#### 00.2 Probability Review
+- Probability theory fundamentals
+- Random variables and distributions
+- Bayes' theorem and conditional probability
+- Statistical inference concepts
+
+#### 00.3 Python and NumPy
+- Python programming essentials
+- NumPy for numerical computing
+- Data manipulation and visualization
+- Practical exercises and examples
+
+#### 00.4 Practice Problems
+- Mathematical problem sets
+- Programming exercises
+- Solutions and explanations
 
 ### I. Supervised Learning
 
 Supervised learning involves training models on labeled data to make predictions or classifications. This section covers fundamental algorithms that learn from input-output pairs, including linear models, classification techniques, and generative approaches for pattern recognition and prediction tasks.
 
-#### 01. Linear Models
-- Linear Regression
-- Classification and Logistic Regression
-- Generalized Linear Models
-- Ridge and Lasso Regression
+
+#### 01. [Linear Models](./01_linear_models/)
+- **[Linear Regression](./01_linear_models/01_linear_regression/)** - Basic linear regression implementation and theory
+- **[Classification and Logistic Regression](./01_linear_models/02_classification_logistic_regression/)** - Binary and multi-class classification with logistic regression
+- **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Extension of linear models to various response distributions
+- **[Ridge and Lasso Regression](./01_linear_models/04_ridge_lasso_regression/)** - Regularization techniques for linear models
+
+*Note: This section is currently under development.*
 
 #### 02. Advanced Classification
 - Support Vector Machines (SVM)
@@ -134,10 +152,11 @@ Neural networks and deep learning represent the cutting edge of machine learning
 
 #### 06. Transformers and Language Models
 - Self-Attention Mechanism
+- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
 - Transformer Architecture
 - BERT, GPT, and Modern Language Models
-- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
-- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
+
 
 #### 07. Computer Vision
 - Image Classification
@@ -248,8 +267,8 @@ Recent advances in machine learning have revolutionized various fields and appli
 - [CS229 Decision Trees Notes](./reference/CS229_Decision-Trees-Notes.pdf) - Decision tree algorithms and theory
 
 ### Mathematical Foundations
-- [CS229 Linear Algebra Review](./reference/CS229_Linear_Algebra_Review.pdf) - Essential linear algebra concepts
-- [CS229 Probability Review](./reference/CS229_Probability_Review.pdf) - Probability theory fundamentals
+- [Exponential Family Chapter 8](./reference/exponential_family_chapter8.pdf) - Exponential family distributions
+- [Gradient and Hessian Lecture 4 Extra Materials](./reference/gradient-hessian_lecture-4-extra-materials.pdf) - Advanced optimization concepts
 
 ### Advanced Topics
 - [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf) - Modern transformer architectures
@@ -259,12 +278,14 @@ Recent advances in machine learning have revolutionized various fields and appli
 - [Python Review](https://github.com/darinz/Toolkit/tree/main/Python) - Essential Python concepts
 - [NumPy Review](https://github.com/darinz/Toolkit/tree/main/NumPy) - Numerical computing with NumPy
 - [Math Review](https://github.com/darinz/Math) - Mathematical foundations for machine learning
+- [CIML v0.99 All](./reference/ciml-v0_99-all.pdf) - Comprehensive machine learning textbook
 
 ### Cheatsheets and Quick References
-- [Machine Learning Cheatsheet](https://github.com/afshinea/stanford-cs-229-machine-learning) - Stanford CS229 cheatsheets
-- [Deep Learning Cheatsheet](https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-deep-learning) - Neural networks and deep learning
-- [Supervised Learning Cheatsheet](https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-supervised-learning) - Supervised learning algorithms
-- [Unsupervised Learning Cheatsheet](https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-unsupervised-learning) - Unsupervised learning techniques
+- [Super Cheatsheet Machine Learning](./reference/super-cheatsheet-machine-learning.pdf) - Comprehensive ML reference
+- [Deep Learning Cheatsheet](./reference/cheatsheet-deep-learning.pdf) - Neural networks and deep learning
+- [Supervised Learning Cheatsheet](./reference/cheatsheet-supervised-learning.pdf) - Supervised learning algorithms
+- [Unsupervised Learning Cheatsheet](./reference/cheatsheet-unsupervised-learning.pdf) - Unsupervised learning techniques
+- [Machine Learning Tips and Tricks](./reference/cheatsheet-machine-learning-tips-and-tricks.pdf) - Practical ML advice
 - [Python for Data Science Cheatsheet](https://www.datacamp.com/community/data-science-cheatsheets) - Python, NumPy, Pandas, Matplotlib
 - [Scikit-learn Cheatsheet](https://scikit-learn.org/stable/tutorial/machine_learning_map/) - Machine learning algorithm selection guide
 
