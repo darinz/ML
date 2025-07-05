@@ -43,6 +43,15 @@ This section covers the fundamentals of linear regression, including:
   - **Closed-form Solution**: Direct computation of $θ = (X^T X)^(-1) X^T y$
   - **Comparison with Gradient Descent**: When to use analytical vs iterative methods
 
+- **[04_probabilistic_interpretation.md](04_probabilistic_interpretation.md)** - Statistical foundations and interpretation:
+  - **Linear Model Assumption**: $y^{(i)} = \theta^T x^{(i)} + \epsilon^{(i)}$ with error terms
+  - **Gaussian Noise Model**: IID error distribution $\epsilon^{(i)} \sim \mathcal{N}(0, \sigma^2)$
+  - **Conditional Distribution**: $p(y^{(i)}|x^{(i)}; \theta)$ as Gaussian distribution
+  - **Likelihood Function**: $L(\theta) = \prod_{i=1}^n p(y^{(i)} \mid x^{(i)}; \theta)$
+  - **Maximum Likelihood Estimation**: Connection to least squares optimization
+  - **Log-Likelihood Derivation**: Mathematical proof that MLE equals least squares
+  - **Statistical Justification**: Why least squares is a natural choice under Gaussian assumptions
+
 ### Code Examples
 - **[linear_regression_examples.py](linear_regression_examples.py)** - Complete Python implementation with:
   - **Data Visualization**: Housing data scatter plots and cost function surfaces
@@ -66,6 +75,14 @@ This section covers the fundamentals of linear regression, including:
   - **Closed-form Theta**: Implementation of $θ = (X^T X)^{-1} X^T y$
   - **Cost Function Verification**: Validation of analytical solutions
   - **Comparison Examples**: Side-by-side comparison with gradient descent results
+
+- **[probabilistic_linear_regression_examples.py](probabilistic_linear_regression_examples.py)** - Statistical interpretation implementations:
+  - **Data Generation**: Synthetic data with known true parameters and Gaussian noise
+  - **Gaussian Likelihood**: Computing $p(y_i | x_i; \theta)$ for individual data points
+  - **Log-Likelihood Function**: Complete dataset likelihood calculation
+  - **Maximum Likelihood Estimation**: Connection to least squares solution
+  - **Parameter Estimation**: Closed-form solution using normal equations
+  - **Model Validation**: Mean squared error computation and verification
 
 ### Supporting Materials
 - **img/housing_prices.png** - Visualization of house prices vs living area scatter plot
@@ -101,16 +118,19 @@ This section covers the fundamentals of linear regression, including:
 - Gradient computation and chain rule applications
 - Matrix calculus and derivatives
 - Normal equations and closed-form solutions
+- **Statistical foundations**: Gaussian distributions, likelihood functions, maximum likelihood estimation
+- **Probabilistic interpretation**: Error models, conditional distributions, statistical justification
 
 ## Getting Started
 
 1. Read through the main notes: `01_linear_regression.md`
 2. Study the optimization algorithms: `02_lms_algorithm.md`
 3. Explore the analytical solution: `03_normal_equations.md`
-4. Run the Python code examples to understand the concepts
-5. Experiment with the house price prediction example
-6. Explore the visualizations in the `img/` directory
-7. Practice with different gradient descent variants
-8. Compare iterative vs analytical solutions
+4. **Understand the statistical foundations**: `04_probabilistic_interpretation.md`
+5. Run the Python code examples to understand the concepts
+6. Experiment with the house price prediction example
+7. Explore the visualizations in the `img/` directory
+8. Practice with different gradient descent variants
+9. Compare iterative vs analytical solutions
 
 Materials include lecture notes, code samples, optimization algorithms, and practice problems. 
