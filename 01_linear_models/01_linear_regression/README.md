@@ -25,6 +25,14 @@ This section covers the fundamentals of linear regression, including:
   - **Python Code Examples**: Practical implementations with NumPy
   - **Multiple Features**: Extension to multivariate regression
 
+### Code Examples
+- **[linear_regression_examples.py](linear_regression_examples.py)** - Complete Python implementation with:
+  - **Data Visualization**: Housing data scatter plots and cost function surfaces
+  - **Hypothesis Function**: Implementation of h_θ(x) = θ^T x with detailed annotations
+  - **Cost Function Methods**: Non-vectorized, vectorized, and MSE implementations
+  - **Multiple Features**: Extension to multivariate regression examples
+  - **Interactive Examples**: Step-by-step code with inline explanations
+
 ### Supporting Materials
 - **img/housing_prices.png** - Visualization of house prices vs living area scatter plot
 - **img/learning_algorithm.png** - Diagram illustrating the supervised learning process
