@@ -11,6 +11,7 @@ This section covers the fundamentals of linear regression, including:
 - The least squares method
 - Model assumptions
 - Analytical and computational solutions
+- Gradient descent optimization algorithms
 - Practical applications and examples
 - Exercises and problem sets
 
@@ -25,6 +26,15 @@ This section covers the fundamentals of linear regression, including:
   - **Python Code Examples**: Practical implementations with NumPy
   - **Multiple Features**: Extension to multivariate regression
 
+- **[02_lms_algorithm.md](02_lms_algorithm.md)** - Detailed coverage of optimization algorithms:
+  - **Gradient Descent Fundamentals**: Mathematical and geometric intuition
+  - **LMS Algorithm Derivation**: Step-by-step mathematical derivation of update rules
+  - **Batch Gradient Descent**: Full dataset optimization with convergence analysis
+  - **Stochastic Gradient Descent (SGD)**: Single-example updates for large datasets
+  - **Mini-batch Gradient Descent**: Compromise between batch and stochastic methods
+  - **Learning Rate Analysis**: Convergence properties and hyperparameter tuning
+  - **Geometric Interpretations**: Visual understanding of optimization trajectories
+
 ### Code Examples
 - **[linear_regression_examples.py](linear_regression_examples.py)** - Complete Python implementation with:
   - **Data Visualization**: Housing data scatter plots and cost function surfaces
@@ -33,9 +43,19 @@ This section covers the fundamentals of linear regression, including:
   - **Multiple Features**: Extension to multivariate regression examples
   - **Interactive Examples**: Step-by-step code with inline explanations
 
+- **[lms_algorithm_examples.py](lms_algorithm_examples.py)** - Optimization algorithm implementations:
+  - **Single Example Updates**: Stochastic gradient descent for individual training examples
+  - **Batch Gradient Descent**: Full dataset optimization with vectorized computations
+  - **Stochastic Gradient Descent**: Random sampling for large-scale optimization
+  - **Mini-batch Gradient Descent**: Balanced approach with configurable batch sizes
+  - **Gradient Computation**: Efficient vectorized gradient calculations
+  - **Parameter Updates**: All three optimization variants with clear implementations
+
 ### Supporting Materials
 - **img/housing_prices.png** - Visualization of house prices vs living area scatter plot
 - **img/learning_algorithm.png** - Diagram illustrating the supervised learning process
+- **img/gradient_descent.png** - Contour plot showing gradient descent optimization trajectory
+- **img/results_from_gradient_descent.png** - Final fitted line with training data visualization
 
 ## Key Concepts Covered
 
@@ -44,23 +64,32 @@ This section covers the fundamentals of linear regression, including:
 - Hypothesis function: $h_\theta(x) = \theta^T x$
 - Cost function: $J(\theta) = \frac{1}{2} \sum_{i=1}^n (h_\theta(x^{(i)}) - y^{(i)})^2$
 
+### Optimization Algorithms
+- **Batch Gradient Descent**: $\theta := \theta + \alpha \sum_{i=1}^n (y^{(i)} - h_\theta(x^{(i)})) x^{(i)}$
+- **Stochastic Gradient Descent**: $\theta := \theta + \alpha (y^{(i)} - h_\theta(x^{(i)})) x^{(i)}$
+- **Mini-batch Gradient Descent**: $\theta := \theta + \alpha \frac{1}{m} \sum_{k=1}^m (y^{(k)} - h_\theta(x^{(k)})) x^{(k)}$
+
 ### Practical Implementation
 - Vectorized computations for efficiency
 - Mean squared error (MSE) calculations
 - Python implementations with NumPy
 - Real-world data visualization
+- Learning rate selection and convergence analysis
 
 ### Mathematical Foundations
 - Linear algebra concepts
 - Optimization principles
 - Geometric interpretations
 - Notation conventions
+- Gradient computation and chain rule applications
 
 ## Getting Started
 
 1. Read through the main notes: `01_linear_regression.md`
-2. Run the Python code examples to understand the concepts
-3. Experiment with the house price prediction example
-4. Explore the visualizations in the `img/` directory
+2. Study the optimization algorithms: `02_lms_algorithm.md`
+3. Run the Python code examples to understand the concepts
+4. Experiment with the house price prediction example
+5. Explore the visualizations in the `img/` directory
+6. Practice with different gradient descent variants
 
-Materials include lecture notes, code samples, and practice problems. 
+Materials include lecture notes, code samples, optimization algorithms, and practice problems. 
