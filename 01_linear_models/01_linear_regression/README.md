@@ -35,10 +35,18 @@ This section covers the fundamentals of linear regression, including:
   - **Learning Rate Analysis**: Convergence properties and hyperparameter tuning
   - **Geometric Interpretations**: Visual understanding of optimization trajectories
 
+- **[03_normal_equations.md](03_normal_equations.md)** - Analytical solution approach:
+  - **Matrix Derivatives**: Calculus with matrices and vectorized operations
+  - **Design Matrix Formulation**: Compact representation of training data
+  - **Normal Equations Derivation**: Closed-form solution for optimal parameters
+  - **Least Squares Revisited**: Matrix-vector notation and efficient computation
+  - **Closed-form Solution**: Direct computation of $θ = (X^T X)^(-1) X^T y$
+  - **Comparison with Gradient Descent**: When to use analytical vs iterative methods
+
 ### Code Examples
 - **[linear_regression_examples.py](linear_regression_examples.py)** - Complete Python implementation with:
   - **Data Visualization**: Housing data scatter plots and cost function surfaces
-  - **Hypothesis Function**: Implementation of h_θ(x) = θ^T x with detailed annotations
+  - **Hypothesis Function**: Implementation of $h_θ(x) = θ^T x$ with detailed annotations
   - **Cost Function Methods**: Non-vectorized, vectorized, and MSE implementations
   - **Multiple Features**: Extension to multivariate regression examples
   - **Interactive Examples**: Step-by-step code with inline explanations
@@ -50,6 +58,14 @@ This section covers the fundamentals of linear regression, including:
   - **Mini-batch Gradient Descent**: Balanced approach with configurable batch sizes
   - **Gradient Computation**: Efficient vectorized gradient calculations
   - **Parameter Updates**: All three optimization variants with clear implementations
+
+- **[normal_equations_examples.py](normal_equations_examples.py)** - Analytical solution implementations:
+  - **Matrix Derivative Examples**: Computing gradients with respect to matrices
+  - **Design Matrix Operations**: Efficient matrix-vector computations
+  - **Normal Equation Solution**: Direct computation of optimal parameters
+  - **Closed-form Theta**: Implementation of $θ = (X^T X)^{-1} X^T y$
+  - **Cost Function Verification**: Validation of analytical solutions
+  - **Comparison Examples**: Side-by-side comparison with gradient descent results
 
 ### Supporting Materials
 - **img/housing_prices.png** - Visualization of house prices vs living area scatter plot
@@ -68,6 +84,7 @@ This section covers the fundamentals of linear regression, including:
 - **Batch Gradient Descent**: $\theta := \theta + \alpha \sum_{i=1}^n (y^{(i)} - h_\theta(x^{(i)})) x^{(i)}$
 - **Stochastic Gradient Descent**: $\theta := \theta + \alpha (y^{(i)} - h_\theta(x^{(i)})) x^{(i)}$
 - **Mini-batch Gradient Descent**: $\theta := \theta + \alpha \frac{1}{m} \sum_{k=1}^m (y^{(k)} - h_\theta(x^{(k)})) x^{(k)}$
+- **Normal Equations (Analytical)**: $\theta = (X^T X)^{-1} X^T \vec{y}$
 
 ### Practical Implementation
 - Vectorized computations for efficiency
@@ -82,14 +99,18 @@ This section covers the fundamentals of linear regression, including:
 - Geometric interpretations
 - Notation conventions
 - Gradient computation and chain rule applications
+- Matrix calculus and derivatives
+- Normal equations and closed-form solutions
 
 ## Getting Started
 
 1. Read through the main notes: `01_linear_regression.md`
 2. Study the optimization algorithms: `02_lms_algorithm.md`
-3. Run the Python code examples to understand the concepts
-4. Experiment with the house price prediction example
-5. Explore the visualizations in the `img/` directory
-6. Practice with different gradient descent variants
+3. Explore the analytical solution: `03_normal_equations.md`
+4. Run the Python code examples to understand the concepts
+5. Experiment with the house price prediction example
+6. Explore the visualizations in the `img/` directory
+7. Practice with different gradient descent variants
+8. Compare iterative vs analytical solutions
 
 Materials include lecture notes, code samples, optimization algorithms, and practice problems. 
