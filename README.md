@@ -30,7 +30,26 @@ This learning resource serves as a comprehensive guide for machine learning, cov
 
 ### Learning Approach
 
-The curriculum follows a progressive learning path that builds from fundamental concepts to advanced applications. Each topic includes theoretical foundations, mathematical derivations, and practical implementation examples. The material emphasizes both understanding the underlying principles and developing hands-on coding skills.es
+The curriculum follows a progressive learning path that builds from fundamental concepts to advanced applications. Each topic includes theoretical foundations, mathematical derivations, and practical implementation examples. The material emphasizes both understanding the underlying principles and developing hands-on coding skills.
+
+#### Active Learning Strategies
+- **Rederive all calculations**: Don't just read the math—work through every derivation step-by-step on paper or in a notebook
+- **Implement from scratch**: Copy and paste code examples into your own Jupyter notebook or Python environment, then modify and experiment
+- **Build incrementally**: Start with simple implementations and gradually add complexity
+- **Test your understanding**: After each concept, try to explain it to yourself or others without referring to notes
+
+#### Retention Techniques
+- **Spaced repetition**: Review previous concepts regularly, especially before moving to related topics
+- **Create your own examples**: Apply algorithms to datasets you're interested in or create synthetic data
+- **Document your learning**: Keep a learning journal with key insights, common pitfalls, and personal examples
+- **Teach others**: Explain concepts to peers or write blog posts about what you've learned
+- **Build a portfolio**: Implement projects that combine multiple concepts from different sections
+
+#### Practical Implementation
+- **Use version control**: Track your code changes and experiments with Git
+- **Experiment systematically**: Vary one parameter at a time and document the results
+- **Visualize everything**: Create plots and graphs to understand data distributions, model behavior, and results
+- **Compare implementations**: Try different approaches to the same problem and analyze trade-offs
 
 ### Learning Outcomes
 
@@ -76,6 +95,7 @@ To successfully work with the material in this repository, you should have:
 - [Python Review](https://github.com/darinz/Toolkit/tree/main/Python) - Essential Python concepts
 - [NumPy Review](https://github.com/darinz/Toolkit/tree/main/NumPy) - Numerical computing with NumPy
 - [Math Review](https://github.com/darinz/Math) - Mathematical foundations for machine learning
+- [Machine Learning Notation Guide](./NOTATION.md) - Mathematical notation and symbols used throughout the curriculum
 
 For comprehensive foundational materials, see the **[00. Math, Python, and NumPy Review](#00-math-python-and-numpy-review)** section in the curriculum below.
 
@@ -83,32 +103,14 @@ For comprehensive foundational materials, see the **[00. Math, Python, and NumPy
 
 ### 00. Math, Python, and NumPy Review
 
-Essential prerequisites for machine learning, covering mathematical foundations, Python programming, and numerical computing with NumPy.
+Essential prerequisites covering linear algebra, probability theory, Python programming, and numerical computing with NumPy.
 
 **[📁 View Materials](./00_math_python_numpy_review/)**
 
-#### 00.1 Linear Algebra Review
-- Vector operations and matrix algebra
-- Eigenvalues and eigenvectors
-- Linear transformations and projections
-- Applications in machine learning
-
-#### 00.2 Probability Review
-- Probability theory fundamentals
-- Random variables and distributions
-- Bayes' theorem and conditional probability
-- Statistical inference concepts
-
-#### 00.3 Python and NumPy
-- Python programming essentials
-- NumPy for numerical computing
-- Data manipulation and visualization
-- Practical exercises and examples
-
-#### 00.4 Practice Problems
-- Mathematical problem sets
-- Programming exercises
-- Solutions and explanations
+- **Linear Algebra**: Vector operations, matrix algebra, eigenvalues, linear transformations
+- **Probability**: Probability theory, random variables, Bayes' theorem, statistical inference  
+- **Python & NumPy**: Programming essentials, numerical computing, data manipulation
+- **Practice Problems**: Mathematical exercises and programming challenges with solutions
 
 ### I. Supervised Learning
 
@@ -152,8 +154,9 @@ Neural networks and deep learning represent the cutting edge of machine learning
 
 #### 06. Transformers and Language Models
 - Self-Attention Mechanism
-- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
+- Large Language Models (LLMs): [original transformer paper](https://arxiv.org/abs/1706.03762), [wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
 - Transformer Architecture
 - BERT, GPT, and Modern Language Models
 
@@ -217,6 +220,7 @@ Reinforcement learning enables agents to learn optimal behaviors through interac
 - Markov Decision Processes (MDPs)
 - Value Functions and Policy Functions
 - Dynamic Programming
+- [RL: Sutton and Barto textbook](http://incompleteideas.net/book/the-book-2nd.html)
 
 #### 15. Model-Free Methods
 - Monte Carlo Methods
@@ -235,6 +239,11 @@ Reinforcement learning enables agents to learn optimal behaviors through interac
 - Differential Dynamic Programming (DDP)
 - Linear Quadratic Gaussian (LQG)
 
+#### 17.1 Multi-Armed Bandits
+- Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
+- Linear bandits: [linear bandits paper](https://papers.nips.cc/paper_files/paper/2011/hash/e1d5be1c7f2f456670de3d53c7b54f4a-Abstract.html), [generalized linear bandits paper](https://papers.nips.cc/paper_files/paper/2010/hash/c2626d850c80ea07e7511bbae4c76f4b-Abstract.html), [pure exploration/BAI paper](https://arxiv.org/abs/1409.6110)
+- Contextual bandits: [contextual bandits survey paper](https://www.ambujtewari.com/research/tewari17ads.pdf)
+
 ### VI. Recent Advances and Applications
 
 Recent advances in machine learning have revolutionized various fields and applications. This section explores cutting-edge developments including large language models, advanced computer vision techniques, and practical applications across domains. Topics cover the latest innovations in AI and their real-world implementations in industry and research.
@@ -244,6 +253,10 @@ Recent advances in machine learning have revolutionized various fields and appli
 - Prompt Engineering
 - Fine-tuning Strategies
 - Multimodal Models
+
+#### 18.1 Reinforcement Learning for training Large Language Models
+- Reinforcement Learning (RL): [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
+- RL for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
 
 #### 19. Computer Vision Advances
 - Vision Transformers (ViT)
@@ -299,4 +312,4 @@ This repository is under active development. Learning materials will be added as
 
 ## Acknowledgments
 
-This repository is based on Stanford University's [CS229 Machine Learning course](https://cs229.stanford.edu/) and incorporates additional modern machine learning concepts and applications.
+This repository is based on Stanford University's [CS229 Machine Learning course](https://cs229.stanford.edu/) and incorporates additional modern machine learning concepts and applications. Additional inspiration comes from the University of Washington's [CSE446: Machine Learning course](https://courses.cs.washington.edu/courses/cse446/).
