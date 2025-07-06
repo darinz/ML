@@ -105,7 +105,7 @@ For comprehensive foundational materials, see the **[00. Math, Python, and NumPy
 
 Essential prerequisites covering linear algebra, probability theory, Python programming, and numerical computing with NumPy.
 
-**[📁 View Materials](./00_math_python_numpy_review/)**
+**[View Materials](./00_math_python_numpy_review/)**
 
 - **Linear Algebra**: Vector operations, matrix algebra, eigenvalues, linear transformations
 - **Probability**: Probability theory, random variables, Bayes' theorem, statistical inference  
@@ -116,21 +116,20 @@ Essential prerequisites covering linear algebra, probability theory, Python prog
 
 Supervised learning involves training models on labeled data to make predictions or classifications. This section covers fundamental algorithms that learn from input-output pairs, including linear models, classification techniques, and generative approaches for pattern recognition and prediction tasks.
 
-
 #### 01. [Linear Models](./01_linear_models/)
 - **[Linear Regression](./01_linear_models/01_linear_regression/)** - Basic linear regression implementation and theory
 - **[Classification and Logistic Regression](./01_linear_models/02_classification_logistic_regression/)** - Binary and multi-class classification with logistic regression
 - **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Extension of linear models to various response distributions
 
-*Note: This section is currently under development.*
-
 #### 02. Generative Learning
 - Gaussian Discriminant Analysis (GDA)
 - Naive Bayes Classifiers
 
+*Note: This section is currently under development.*
+
 #### 03. Advanced Classification
-- Support Vector Machines (SVM)
 - Kernel Methods
+- Support Vector Machines (SVM)
 
 ### II. Deep Learning
 
@@ -174,7 +173,7 @@ Unsupervised learning discovers hidden patterns and structures in data without p
 - t-SNE and UMAP
 - Autoencoders
 
-#### 13. Modern Unsupervised Learning
+#### 09. Modern Unsupervised Learning
 - Self-Supervised Learning
 - Contrastive Learning
 - Foundation Models
@@ -185,30 +184,30 @@ Unsupervised learning discovers hidden patterns and structures in data without p
 
 Reinforcement learning enables agents to learn optimal behaviors through interaction with environments and feedback from rewards. This section covers algorithms for sequential decision-making, from basic dynamic programming to advanced policy gradient methods. Applications include robotics, game playing, autonomous systems, and control theory.
 
-#### 14. Fundamentals
+#### 10. Fundamentals
 - Markov Decision Processes (MDPs)
 - Value Functions and Policy Functions
 - Dynamic Programming
 - [RL: Sutton and Barto textbook](http://incompleteideas.net/book/the-book-2nd.html)
 
-#### 15. Model-Free Methods
+#### 11. Model-Free Methods
 - Monte Carlo Methods
 - Temporal Difference Learning
 - Q-Learning and SARSA
 - Deep Q-Networks (DQN)
 
-#### 16. Policy-Based Methods
+#### 12. Policy-Based Methods
 - Policy Gradient Methods
 - REINFORCE Algorithm
 - Actor-Critic Methods
 - Proximal Policy Optimization (PPO)
 
-#### 17. Advanced Control
+#### 13. Advanced Control
 - Linear Quadratic Regulator (LQR)
 - Differential Dynamic Programming (DDP)
 - Linear Quadratic Gaussian (LQG)
 
-#### 17.1 Multi-Armed Bandits
+#### 14 Multi-Armed Bandits
 - Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
 - Linear bandits: [linear bandits paper](https://papers.nips.cc/paper_files/paper/2011/hash/e1d5be1c7f2f456670de3d53c7b54f4a-Abstract.html), [generalized linear bandits paper](https://papers.nips.cc/paper_files/paper/2010/hash/c2626d850c80ea07e7511bbae4c76f4b-Abstract.html), [pure exploration/BAI paper](https://arxiv.org/abs/1409.6110)
 - Contextual bandits: [contextual bandits survey paper](https://www.ambujtewari.com/research/tewari17ads.pdf)
@@ -217,7 +216,7 @@ Reinforcement learning enables agents to learn optimal behaviors through interac
 
 Recent advances in machine learning have revolutionized various fields and applications. This section explores cutting-edge developments including large language models, advanced computer vision techniques, and practical applications across domains. Topics cover the latest innovations in AI and their real-world implementations in industry and research.
 
-#### 18. Transformers and Language Models
+#### 15. Transformers and Language Models
 - Self-Attention Mechanism
 - Large Language Models (LLMs): [original transformer paper](https://arxiv.org/abs/1706.03762), [wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
@@ -225,17 +224,17 @@ Recent advances in machine learning have revolutionized various fields and appli
 - Transformer Architecture
 - BERT, GPT, and Modern Language Models
 
-#### 18.1 Reinforcement Learning for training Large Language Models
+#### 16 Reinforcement Learning for training Large Language Models
 - Reinforcement Learning (RL): [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
 - RL for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
 
-#### 19. Computer Vision Advances
+#### 17. Computer Vision Advances
 - Vision Transformers (ViT)
 - Self-Supervised Learning in Vision
 - Contrastive Learning (SimCLR, MoCo)
 - Foundation Models for Vision
 
-#### 20. Practical Applications
+#### 18. Practical Applications
 - Natural Language Processing
 - Computer Vision
 - Speech Recognition
