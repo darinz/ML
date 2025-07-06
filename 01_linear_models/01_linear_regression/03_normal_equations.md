@@ -16,7 +16,9 @@ $$
 
 The gradient of a scalar-valued function with respect to a matrix is itself a matrix, where each entry is the partial derivative of the function with respect to the corresponding entry in the input matrix. This allows us to perform calculus operations in a compact, vectorized form, which is essential for efficient computation in machine learning.
 
-For example, suppose $A = \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}$ is a 2-by-2 matrix, and the function $f : \mathbb{R}^{2 \times 2} \mapsto \mathbb{R}$ is given by
+For example, suppose 
+$$A = \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}$$
+ is a 2-by-2 matrix, and the function $f : \mathbb{R}^{2 \times 2} \mapsto \mathbb{R}$ is given by
 
 $$
 f(A) = \frac{3}{2}A_{11} + 5A_{12}^2 + A_{21}A_{22}.
