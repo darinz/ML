@@ -88,9 +88,8 @@ This section explores classification problems, logistic regression, perceptron l
 
 $$
 g(z) = \begin{cases} 
-1 & 
-\text{if } z \geq 0 \\ 0 & 
-\text{if } z < 0 
+1 & \text{if } z \geq 0 \\ 
+0 & \text{if } z < 0 
 \end{cases}
 $$
 
