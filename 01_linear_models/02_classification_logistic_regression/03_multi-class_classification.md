@@ -83,9 +83,7 @@ $$
 
 - **Numerical stability:** When computing softmax, subtract the maximum logit from all logits before exponentiating to avoid overflow:
 
-$$
-\mathrm{softmax}(t)_i = \frac{\exp(t_i - \max_j t_j)}{\sum_{j=1}^k \exp(t_j - \max_j t_j)}
-$$
+$$\mathrm{softmax}(t)_i = \frac{\exp(t_i - \max_j t_j)}{\sum_{j=1}^k \exp(t_j - \max_j t_j)}$$
 
 - **Label encoding:** Labels should be integers $1, \ldots, k$ (or $0, \ldots, k-1$ depending on convention).
 - **Implementation:** Most ML libraries (NumPy, PyTorch, TensorFlow, scikit-learn) have built-in softmax and cross-entropy loss functions.
