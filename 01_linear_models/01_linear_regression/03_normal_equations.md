@@ -19,7 +19,11 @@ The gradient of a scalar-valued function with respect to a matrix is itself a ma
 For example, suppose 
 
 $$
-A = \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}
+A = 
+\begin{bmatrix} 
+A_{11} & A_{12} \\ 
+A_{21} & A_{22} 
+\end{bmatrix}
 $$
 
 is a 2-by-2 matrix, and the function $f : \mathbb{R}^{2 \times 2} \mapsto \mathbb{R}$ is given by
