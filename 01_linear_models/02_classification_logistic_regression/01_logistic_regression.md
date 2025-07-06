@@ -164,19 +164,25 @@ def logistic_loss(t, y):
 ```
 
 One can verify by plugging in $h_\theta(x) = 1/(1 + e^{-\theta^T x})$ that the negative log-likelihood (the negation of $\ell(\theta)$ in equation (2.1)) can be re-written as
+
 $$
 -\ell(\theta) = \ell_{\text{logistic}}(\theta^T x, y)
 $$
+
 Oftentimes $\theta^T x$ or $t$ is called the *logit*. Basic calculus gives us that
+
 $$
 \frac{\partial \ell_{\text{logistic}}(t, y)}{\partial t} = \frac{1}{1 + \exp(-t)} - y = h_\theta(x) - y
 $$
+
 This leads to the same gradient update as before.
 
 Then, using the chain rule, we have that
+
 $$
 \frac{\partial}{\partial \theta_j} \ell(\theta) = -\frac{\partial \ell_{\text{logistic}}(t, y)}{\partial t} \cdot \frac{\partial t}{\partial \theta_j} = (y - 1/(1 + \exp(-t))) \cdot x_j = (y - h_\theta(x)) x_j,
 $$
+
 which is consistent with the derivation in equation (2.2). We will see this viewpoint can be extended in nonlinear models in Section 7.1.
 
 ### Summary and Further Reading
