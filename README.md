@@ -121,85 +121,54 @@ Supervised learning involves training models on labeled data to make predictions
 - **[Linear Regression](./01_linear_models/01_linear_regression/)** - Basic linear regression implementation and theory
 - **[Classification and Logistic Regression](./01_linear_models/02_classification_logistic_regression/)** - Binary and multi-class classification with logistic regression
 - **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Extension of linear models to various response distributions
-- **[Ridge and Lasso Regression](./01_linear_models/04_ridge_lasso_regression/)** - Regularization techniques for linear models
 
 *Note: This section is currently under development.*
 
 #### 02. Advanced Classification
 - Support Vector Machines (SVM)
 - Kernel Methods
-- Decision Trees and Random Forests
-- Ensemble Methods (Bagging, Boosting, AdaBoost)
 
 #### 03. Generative Learning
-- Generative Learning Algorithms
 - Gaussian Discriminant Analysis (GDA)
 - Naive Bayes Classifiers
 
-### II. Neural Networks and Deep Learning
+### II. Deep Learning
 
 Neural networks and deep learning represent the cutting edge of machine learning, enabling complex pattern recognition through multi-layered architectures. This section explores artificial neural networks, from basic perceptrons to advanced architectures like transformers, covering both theoretical foundations and practical applications in computer vision, natural language processing, and beyond.
 
-#### 04. Fundamentals
+#### 04. Deep Learning
 - Neural Network Architecture (MLP)
 - Multi-Class Loss Functions
 - Backpropagation Algorithm
 - Activation Functions and Optimization
 
-#### 05. Modern Architectures
-- Convolutional Neural Networks (CNNs)
-- Recurrent Neural Networks (RNNs)
-- Long Short-Term Memory (LSTM)
-- Gated Recurrent Units (GRU)
-
-#### 06. Transformers and Language Models
-- Self-Attention Mechanism
-- Large Language Models (LLMs): [original transformer paper](https://arxiv.org/abs/1706.03762), [wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
-- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
-- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
-- Transformer Architecture
-- BERT, GPT, and Modern Language Models
-
-
-#### 07. Computer Vision
-- Image Classification
-- Object Detection
-- Semantic Segmentation
-- Transfer Learning and Pre-trained Models
-
-### III. Model Evaluation and Optimization
+### III. Generalization and Regularization
 
 Model evaluation and optimization are crucial for building effective machine learning systems. This section covers techniques for assessing model performance, preventing overfitting, and optimizing training processes. Topics include evaluation metrics, regularization strategies, and advanced optimization algorithms essential for practical machine learning applications.
 
-#### 08. Generalization and Regularization
+#### 05. Generalization
 - Bias-Variance Tradeoff
 - Overfitting and Underfitting
 - Regularization Techniques
 - Model Selection and Validation
 
-#### 09. Evaluation Metrics
+#### 06. Regularization and model selection
 - Classification Metrics (Accuracy, Precision, Recall, F1-Score)
 - Regression Metrics (MSE, MAE, R²)
 - ROC Curves and AUC
 - Cross-Validation Strategies
 
-#### 10. Optimization
-- Gradient Descent Variants
-- Stochastic Optimization
-- Learning Rate Scheduling
-- Advanced Optimizers (Adam, RMSprop)
-
 ### IV. Unsupervised Learning
 
 Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section explores algorithms for clustering, dimensionality reduction, and generative modeling. These techniques are fundamental for data exploration, feature learning, and understanding underlying data distributions in various domains.
 
-#### 11. Clustering
+#### 07. Clustering and k-means
 - K-Means Algorithm
 - Hierarchical Clustering
 - DBSCAN
 - Gaussian Mixture Models
 
-#### 12. Dimensionality Reduction
+#### 08. Dimensionality Reduction
 - Principal Component Analysis (PCA)
 - Independent Component Analysis (ICA)
 - t-SNE and UMAP
@@ -248,11 +217,13 @@ Reinforcement learning enables agents to learn optimal behaviors through interac
 
 Recent advances in machine learning have revolutionized various fields and applications. This section explores cutting-edge developments including large language models, advanced computer vision techniques, and practical applications across domains. Topics cover the latest innovations in AI and their real-world implementations in industry and research.
 
-#### 18. Large Language Models
-- Transformer Architecture Evolution
-- Prompt Engineering
-- Fine-tuning Strategies
-- Multimodal Models
+#### 18. Transformers and Language Models
+- Self-Attention Mechanism
+- Large Language Models (LLMs): [original transformer paper](https://arxiv.org/abs/1706.03762), [wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
+- Transformer Architecture
+- BERT, GPT, and Modern Language Models
 
 #### 18.1 Reinforcement Learning for training Large Language Models
 - Reinforcement Learning (RL): [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
