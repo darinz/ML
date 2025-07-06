@@ -471,6 +471,6 @@ def complete_svm_implementation(X, y, kernel_func=None):
 
 ---
 **Key insight:**
-This is the heart of the kernel trick: if we can compute $\langle x^{(i)}, x \rangle$ efficiently (or replace it with a kernel function $K(x^{(i)}, x)$), we can use SVMs for highly non-linear classification tasks without ever explicitly mapping data to a high-dimensional space.
+This is the heart of the kernel trick: if we can compute $\langle x^{(i)}, x \rangle$ efficiently or replace it with a kernel function $K(x^{(i)}, x)$, we can use SVMs for highly non-linear classification tasks without ever explicitly mapping data to a high-dimensional space.
 
 By examining the dual form of the optimization problem, we gained significant insight into the structure of the problem, and were also able to write the entire algorithm in terms of only inner products between input feature vectors. In the next section, we will exploit this property to apply the kernels to our classification problem. The resulting algorithm, **support vector machines**, will be able to efficiently learn in very high dimensional spaces.
