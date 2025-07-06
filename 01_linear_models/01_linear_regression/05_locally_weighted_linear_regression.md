@@ -12,7 +12,7 @@ LWR offers a compromise: it fits simple models, but only to local neighborhoods,
 
 As discussed previously, and as shown in the example above, the choice of features is important to ensuring good performance of a learning algorithm. (When we talk about model selection, we'll also see algorithms for automatically choosing a good set of features.) In this section, let us briefly talk about the locally weighted linear regression (LWR) algorithm which, assuming there is sufficient training data, makes the choice of features less critical. This treatment will be brief, since you'll get a chance to explore some of the properties of the LWR algorithm yourself in the homework.
 
-In the original linear regression algorithm, to make a prediction at a query point $x$ (i.e., to evaluate $h(x)$), we would:
+In the original linear regression algorithm, to make a prediction at a query point $x$ (i.e., to evaluate $h(x)$ ), we would:
 
 1. Fit $\theta$ to minimize $\sum_i (y^{(i)} - \theta^T x^{(i)})^2$.
 2. Output $\theta^T x$.
@@ -24,14 +24,17 @@ In contrast, the locally weighted linear regression algorithm does the following
 3. Outputs $\theta^T x$.
 
 The solution for $\theta$ (if $X$ is the design matrix and $W$ is a diagonal matrix of weights) is:
+
 $$
 \theta = (X^T W X)^{-1} X^T W y
 $$
 
 Here, the $w^{(i)}$'s are non-negative valued **weights**. Intuitively, if $w^{(i)}$ is large for a particular value of $i$, then in picking $\theta$, we'll try hard to make $(y^{(i)} - \theta^T x^{(i)})^2$ small. If $w^{(i)}$ is small, then the $(y^{(i)} - \theta^T x^{(i)})^2$ error term will be pretty much ignored in the fit. The most common choice for the weights is the Gaussian kernel:
+
 $$
 w^{(i)} = \exp\left( -\frac{(x^{(i)} - x)^2}{2\tau^2} \right)
 $$
+
 The parameter $\tau$ controls how quickly the weight of a training example falls off with distance of its $x^{(i)}$ from the query point $x$; $\tau$ is called the **bandwidth** parameter. Small $\tau$ means only very close points influence the fit (can lead to high variance), while large $\tau$ means many points influence the fit (can lead to high bias). Use cross-validation to find the value that gives the best predictive performance, and try several values to see the effect.
 
 Note that the weights depend on the particular point $x$ at which we're trying to evaluate $x$. Moreover, if $|x^{(i)} - x|$ is small, then $w^{(i)}$ is close to 1; and if $|x^{(i)} - x|$ is large, then $w^{(i)}$ is small. Hence, $\theta$ is chosen giving a much higher "weight" to the (errors on) training examples close to the query point $x$. (Note also that while the formula for the weights takes a form that is cosmetically similar to the density of a Gaussian distribution, the $w^{(i)}$'s do not directly have anything to do with Gaussians, and in particular the $w^{(i)}$'s are not random variables, normally distributed or otherwise.)
