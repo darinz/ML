@@ -85,12 +85,13 @@ This section explores classification problems, logistic regression, perceptron l
 
 ### Perceptron Learning Algorithm
 - **Threshold Function**:
-$
+
+$$
 g(z) = \begin{cases} 
 1 & \text{if } z \geq 0 \\ 
 0 & \text{if } z < 0 
 \end{cases}
-$
+$$
 
 - **Hypothesis Function**: $h_\theta(x) = g(\theta^T x)$
 - **Update Rule**: $\theta_j := \theta_j + \alpha \left( y^{(i)} - h_\theta(x^{(i)}) \right) x_j^{(i)}$
