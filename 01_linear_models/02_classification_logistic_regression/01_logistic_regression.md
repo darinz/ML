@@ -9,9 +9,11 @@ One might consider using linear regression for classification by thresholding it
 
 ### The Logistic (Sigmoid) Function
 The **logistic function**, also known as the **sigmoid function**, is defined as:
+
 $$
 g(z) = \frac{1}{1 + e^{-z}}
 $$
+
 This function has several important properties:
 - Its output is always between 0 and 1, making it suitable for modeling probabilities.
 - As $z \to \infty$, $g(z) \to 1$; as $z \to -\infty$, $g(z) \to 0$.
@@ -27,9 +29,11 @@ def sigmoid(z):
 ```
 
 In logistic regression, we model the probability that $y = 1$ given $x$ as:
+
 $$
 h_\theta(x) = g(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}
 $$
+
 where $\theta$ is the parameter vector.
 
 **Python code for the hypothesis:**
@@ -47,6 +51,7 @@ For now, let's take the choice of $g$ as given. Other functions that smoothly in
 
 #### Derivative of the Sigmoid Function
 Before moving on, here's a useful property of the derivative of the sigmoid function, which we write as $g'$:
+
 $$
 \begin{align*}
 g'(z) &= \frac{d}{dz} \frac{1}{1 + e^{-z}} \\
@@ -55,6 +60,7 @@ g'(z) &= \frac{d}{dz} \frac{1}{1 + e^{-z}} \\
       &= g(z)(1 - g(z)).
 \end{align*}
 $$
+
 This elegant result greatly simplifies the computation of gradients during optimization.
 
 **Python code for the derivative of the sigmoid function:**
@@ -67,27 +73,35 @@ def sigmoid_derivative(z):
 
 ### Probabilistic Interpretation
 Logistic regression provides a probabilistic framework for classification. We interpret the output of the model as the probability that the label is 1 given the input features:
+
 $$
 \begin{align*}
 P(y = 1 \mid x; \theta) &= h_\theta(x) \\
 P(y = 0 \mid x; \theta) &= 1 - h_\theta(x)
 \end{align*}
 $$
+
 This probabilistic interpretation allows us to use principles from statistics, such as maximum likelihood estimation, to fit the model parameters. It also means that logistic regression can be used not only for hard classification (predicting 0 or 1), but also for estimating the probability of class membership, which is useful in many applications.
 
 ### Likelihood and Log-Likelihood
 Given a dataset of $n$ independent training examples, the likelihood of the parameters $\theta$ is the probability of observing the data given the model:
+
 $$
 L(\theta) = \prod_{i=1}^n p(y^{(i)} \mid x^{(i)}; \theta)
 $$
+
 For logistic regression, this becomes:
+
 $$
 L(\theta) = \prod_{i=1}^n (h_\theta(x^{(i)}))^{y^{(i)}} (1 - h_\theta(x^{(i)}))^{1 - y^{(i)}}
 $$
+
 Maximizing the likelihood is equivalent to maximizing the log-likelihood:
+
 $$
 \ell(\theta) = \log L(\theta) = \sum_{i=1}^n y^{(i)} \log h_\theta(x^{(i)}) + (1 - y^{(i)}) \log(1 - h_\theta(x^{(i)}))
 $$
+
 The log-likelihood is easier to work with mathematically and numerically, as it turns products into sums and avoids numerical underflow for small probabilities.
 
 **Python code for the log-likelihood:**
@@ -100,13 +114,17 @@ def log_likelihood(theta, X, y):
 
 ### Gradient Ascent for Logistic Regression
 To find the parameters $\theta$ that maximize the log-likelihood, we use **gradient ascent** (since we are maximizing, not minimizing). The update rule for each parameter $\theta_j$ is:
+
 $$
 \theta_j := \theta_j + \alpha \frac{\partial}{\partial \theta_j} \ell(\theta)
 $$
+
 where $\alpha$ is the learning rate. The gradient for a single training example is:
+
 $$
 \frac{\partial}{\partial \theta_j} \ell(\theta) = (y - h_\theta(x)) x_j
 $$
+
 This update rule has a similar form to the update rule in linear regression, but here $h_\theta(x)$ is a nonlinear function of $\theta^T x$. The similarity in the update rules is a result of the mathematical structure of the models, but the learning problems and interpretations are distinct.
 
 **Python code for the gradient and parameter update:**
@@ -122,16 +140,20 @@ alpha = 0.01  # learning rate
 ```
 
 Above, we used the fact that $g'(z) = g(z)(1 - g(z))$. This therefore gives us the stochastic gradient ascent rule
+
 $$
 \theta_j := \theta_j + \alpha \left(y^{(i)} - h_\theta(x^{(i)})\right)x_j^{(i)}
 $$
+
 If we compare this to the LMS update rule, we see that it looks identical; but this is *not* the same algorithm, because $h_\theta(x^{(i)})$ is now defined as a non-linear function of $\theta^T x^{(i)}$. Nonetheless, it's a little surprising that we end up with the same update rule for a rather different algorithm and learning problem. Is this coincidence, or is there a deeper reason behind this? We'll answer this when we get to GLM models.
 
 ### The Logistic Loss and Logit
 The **logistic loss** (or log-loss) is another way to express the cost function for logistic regression:
+
 $$
 \ell_{\text{logistic}}(t, y) = y \log(1 + \exp(-t)) + (1 - y) \log(1 + \exp(t))
 $$
+
 where $t = \theta^T x$ is called the **logit**. The logit represents the unbounded score before applying the sigmoid function. The logistic loss penalizes incorrect predictions more heavily, especially when the model is confident but wrong.
 
 **Python code for the logistic loss:**
