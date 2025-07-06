@@ -128,9 +128,14 @@ Generative approaches that model the joint distribution p(x,y) through p(x|y) an
 - **[Naive Bayes Classifiers](./02_generative_learning/02_naive_bayes.md)** - Bernoulli and multinomial variants with feature independence
 - **Implementation Examples** - Complete Python implementations with parameter estimation and prediction
 
-#### 03. Advanced Classification
-- Kernel Methods
-- Support Vector Machines (SVM)
+#### 03. [Advanced Classification](./03_advanced_classification/)
+Comprehensive coverage of Support Vector Machines (SVM) and kernel methods for non-linear classification:
+- **[Kernel Methods](./03_advanced_classification/01_kernel_methods.md)** - Feature maps, kernel trick, polynomial and RBF kernels, computational efficiency
+- **[Kernel Properties](./03_advanced_classification/02_kernel_properties.md)** - Mercer's theorem, kernel validation, kernel matrix construction
+- **[SVM Margins](./03_advanced_classification/03_svm_margins.md)** - Functional vs geometric margins, optimal margin classifiers, Lagrange duality
+- **[SVM Optimal Margin](./03_advanced_classification/04_svm_optimal_margin.md)** - Dual formulation, support vectors, SMO algorithm, KKT conditions
+- **[SVM Regularization](./03_advanced_classification/05_svm_regularization.md)** - Soft margin SVM, slack variables, regularization parameter C
+- **Implementation Examples** - Complete Python implementations with kernel methods, SMO algorithm, and regularization techniques
 
 ### II. Deep Learning
 
