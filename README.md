@@ -117,15 +117,16 @@ Essential prerequisites covering linear algebra, probability theory, Python prog
 Supervised learning involves training models on labeled data to make predictions or classifications. This section covers fundamental algorithms that learn from input-output pairs, including linear models, classification techniques, and generative approaches for pattern recognition and prediction tasks.
 
 #### 01. [Linear Models](./01_linear_models/)
-- **[Linear Regression](./01_linear_models/01_linear_regression/)** - Basic linear regression implementation and theory
-- **[Classification and Logistic Regression](./01_linear_models/02_classification_logistic_regression/)** - Binary and multi-class classification with logistic regression
-- **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Extension of linear models to various response distributions
+Comprehensive coverage of fundamental linear models including:
+- **[Linear Regression](./01_linear_models/01_linear_regression/)** - Least squares, gradient descent, normal equations, and probabilistic interpretation
+- **[Classification and Logistic Regression](./01_linear_models/02_classification_logistic_regression/)** - Binary and multi-class classification with sigmoid and softmax functions
+- **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Exponential family distributions and unified framework for various response types
 
-#### 02. Generative Learning
-- Gaussian Discriminant Analysis (GDA)
-- Naive Bayes Classifiers
-
-*Note: This section is currently under development.*
+#### 02. [Generative Learning](./02_generative_learning/)
+Generative approaches that model the joint distribution p(x,y) through p(x|y) and p(y):
+- **[Gaussian Discriminant Analysis (GDA)](./02_generative_learning/01_gda.md)** - Multivariate normal modeling with shared covariance
+- **[Naive Bayes Classifiers](./02_generative_learning/02_naive_bayes.md)** - Bernoulli and multinomial variants with feature independence
+- **Implementation Examples** - Complete Python implementations with parameter estimation and prediction
 
 #### 03. Advanced Classification
 - Kernel Methods
