@@ -124,13 +124,13 @@ Supervised learning involves training models on labeled data to make predictions
 
 *Note: This section is currently under development.*
 
-#### 02. Advanced Classification
-- Support Vector Machines (SVM)
-- Kernel Methods
-
-#### 03. Generative Learning
+#### 02. Generative Learning
 - Gaussian Discriminant Analysis (GDA)
 - Naive Bayes Classifiers
+
+#### 03. Advanced Classification
+- Support Vector Machines (SVM)
+- Kernel Methods
 
 ### II. Deep Learning
 
