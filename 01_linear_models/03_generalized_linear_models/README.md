@@ -8,7 +8,7 @@
 
 This section introduces **Generalized Linear Models (GLMs)**, a powerful framework that unifies linear regression and logistic regression into a single theoretical framework. GLMs extend the capabilities of linear models to handle various types of response variables and distributions through the elegant mathematics of exponential families.
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this section, you will understand:
 
@@ -19,7 +19,7 @@ By the end of this section, you will understand:
 - **Applications**: How GLMs apply to regression, classification, and other prediction tasks
 - **Parameter Estimation**: Maximum likelihood estimation in the GLM framework
 
-## 📚 Materials Overview
+## Materials Overview
 
 ### Theory and Concepts
 
@@ -50,7 +50,7 @@ By the end of this section, you will understand:
   - Logistic Regression implementation
   - Parameter estimation demonstrations
 
-## 🔑 Key Concepts Covered
+## Key Concepts Covered
 
 ### Exponential Family Distributions
 The exponential family provides a unified framework for probability distributions:
@@ -85,7 +85,7 @@ Where:
 | **Poisson Regression** | Poisson | Log | Yes | Count data |
 | **Gamma Regression** | Gamma | Inverse | Yes | Positive continuous data |
 
-## 🚀 Quick Start Examples
+## Quick Start Examples
 
 ### Linear Regression as GLM
 ```python
@@ -110,7 +110,7 @@ print('Coefficients:', model.coef_)
 print('Probabilities:', model.predict_proba(X))
 ```
 
-## 📖 Prerequisites
+## Prerequisites
 
 - Understanding of linear regression and logistic regression
 - Basic probability and statistics
@@ -118,7 +118,7 @@ print('Probabilities:', model.predict_proba(X))
 - Knowledge of maximum likelihood estimation
 - Comfort with mathematical notation and calculus
 
-## 🎓 Learning Path
+## Learning Path
 
 1. **Start with Exponential Family** (`01_exponential_family.md`)
    - Understand the mathematical foundation
@@ -134,7 +134,7 @@ print('Probabilities:', model.predict_proba(X))
    - Select canonical link functions
    - Interpret coefficients and predictions
 
-## 🔬 Advanced Topics
+## Advanced Topics
 
 After mastering the basics, explore:
 - **Non-canonical link functions**: When to use alternatives to canonical links
@@ -143,7 +143,7 @@ After mastering the basics, explore:
 - **Bayesian GLMs**: Prior specification and posterior inference
 - **Regularization**: Ridge, Lasso, and Elastic Net for GLMs
 
-## 📊 Applications
+## Applications
 
 GLMs are widely used in:
 - **Healthcare**: Modeling disease outcomes and treatment effects
@@ -152,13 +152,13 @@ GLMs are widely used in:
 - **Ecology**: Species abundance and environmental modeling
 - **Economics**: Demand forecasting and policy analysis
 
-## 🔗 Related Sections
+## Related Sections
 
 - **Linear Regression** (`../01_linear_regression/`): Foundation for understanding linear predictors
 - **Logistic Regression** (`../02_classification_logistic_regression/`): Binary classification as a GLM
 - **Advanced Topics**: Mixed models, hierarchical GLMs, and Bayesian approaches
 
-## 📝 Notes and Tips
+## Notes and Tips
 
 - **Canonical Links**: Always prefer canonical link functions when possible, as they provide optimal statistical properties
 - **Model Diagnostics**: Check residuals, goodness-of-fit, and overdispersion
