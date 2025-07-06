@@ -3,6 +3,14 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/NumPy-1.21+-green.svg)](https://numpy.org/)
 [![Status](https://img.shields.io/badge/Status-In%20Development-orange.svg)]()
+[![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Comprehensive-brightgreen.svg)](https://en.wikipedia.org/wiki/Machine_learning)
+[![Deep Learning](https://img.shields.io/badge/Deep%20Learning-Neural%20Networks-red.svg)](https://en.wikipedia.org/wiki/Deep_learning)
+[![Reinforcement Learning](https://img.shields.io/badge/Reinforcement%20Learning-RL-purple.svg)](https://en.wikipedia.org/wiki/Reinforcement_learning)
+[![Transformers](https://img.shields.io/badge/Transformers-LLMs-yellow.svg)](https://arxiv.org/abs/1706.03762)
+[![Computer Vision](https://img.shields.io/badge/Computer%20Vision-CV-cyan.svg)](https://en.wikipedia.org/wiki/Computer_vision)
+[![NLP](https://img.shields.io/badge/NLP-Natural%20Language%20Processing-lightblue.svg)](https://en.wikipedia.org/wiki/Natural_language_processing)
+[![Stanford CS229](https://img.shields.io/badge/Stanford-CS229%20Based-navy.svg)](https://cs229.stanford.edu/)
+[![UW CSE446](https://img.shields.io/badge/UW-CSE446%20Inspired-purple.svg)](https://courses.cs.washington.edu/courses/cse446/)
 
 A comprehensive learning resource providing a broad introduction to machine learning and statistical pattern recognition. This collection covers fundamental concepts, modern algorithms, and practical applications in the field of machine learning.
 
@@ -12,9 +20,10 @@ A comprehensive learning resource providing a broad introduction to machine lear
 - [Real-World Applications](#real-world-applications)
 - [Prerequisites](#prerequisites)
 - [Curriculum](#curriculum)
+  - [Math, Python, and NumPy Review](#math-python-and-numpy-review)
   - [I. Supervised Learning](#i-supervised-learning)
-  - [II. Neural Networks and Deep Learning](#ii-neural-networks-and-deep-learning)
-  - [III. Model Evaluation and Optimization](#iii-model-evaluation-and-optimization)
+  - [II. Deep Learning](#ii-deep-learning)
+  - [III. Generalization and Regularization](#iii-generalization-and-regularization)
   - [IV. Unsupervised Learning](#iv-unsupervised-learning)
   - [V. Reinforcement Learning](#v-reinforcement-learning)
   - [VI. Recent Advances and Applications](#vi-recent-advances-and-applications)
@@ -97,11 +106,11 @@ To successfully work with the material in this repository, you should have:
 - [Math Review](https://github.com/darinz/Math) - Mathematical foundations for machine learning
 - [Machine Learning Notation Guide](./NOTATION.md) - Mathematical notation and symbols used throughout the curriculum
 
-For comprehensive foundational materials, see the **[00. Math, Python, and NumPy Review](#00-math-python-and-numpy-review)** section in the curriculum below.
+For comprehensive foundational materials, see the **[Math, Python, and NumPy Review](#math-python-and-numpy-review)** section in the curriculum below.
 
 ## Curriculum
 
-### 00. Math, Python, and NumPy Review
+### Math, Python, and NumPy Review
 
 Essential prerequisites covering linear algebra, probability theory, Python programming, and numerical computing with NumPy.
 
@@ -139,114 +148,101 @@ Comprehensive coverage of Support Vector Machines (SVM) and kernel methods for n
 
 ### II. Deep Learning
 
-Neural networks and deep learning represent the cutting edge of machine learning, enabling complex pattern recognition through multi-layered architectures. This section explores artificial neural networks, from basic perceptrons to advanced architectures like transformers, covering both theoretical foundations and practical applications in computer vision, natural language processing, and beyond.
+Deep learning extends supervised learning to non-linear models through artificial neural networks. This section covers the fundamental building blocks of modern neural networks, including network architectures, backpropagation for gradient computation, and efficient vectorized implementations for training on large datasets.
 
 #### 04. Deep Learning
-- Neural Network Architecture (MLP)
-- Multi-Class Loss Functions
-- Backpropagation Algorithm
-- Activation Functions and Optimization
+- Supervised learning with non-linear models
+- Neural networks
+- Modules in Modern Neural Networks
+- Backpropagation
+- Vectorization over training examples
 
 ### III. Generalization and Regularization
 
-Model evaluation and optimization are crucial for building effective machine learning systems. This section covers techniques for assessing model performance, preventing overfitting, and optimizing training processes. Topics include evaluation metrics, regularization strategies, and advanced optimization algorithms essential for practical machine learning applications.
+Understanding model generalization and preventing overfitting are fundamental to successful machine learning. This section explores the bias-variance tradeoff, the double descent phenomenon in modern models, and sample complexity bounds. It also covers regularization techniques, implicit regularization effects in neural networks, cross-validation for model selection, and Bayesian approaches to regularization.
 
 #### 05. Generalization
 - Bias-Variance Tradeoff
-- Overfitting and Underfitting
-- Regularization Techniques
-- Model Selection and Validation
+- The double descent phenomenon
+- Sample complexity bounds
 
 #### 06. Regularization and model selection
-- Classification Metrics (Accuracy, Precision, Recall, F1-Score)
-- Regression Metrics (MSE, MAE, R²)
-- ROC Curves and AUC
-- Cross-Validation Strategies
+- Regularization
+- Implicit regularization eﬀect
+- Model selection via cross validation
+- Bayesian statistics and regularization
 
 ### IV. Unsupervised Learning
 
-Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section explores algorithms for clustering, dimensionality reduction, and generative modeling. These techniques are fundamental for data exploration, feature learning, and understanding underlying data distributions in various domains.
+Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section covers clustering algorithms including k-means, expectation-maximization (EM) methods, dimensionality reduction techniques like PCA, ICA, t-SNE, and UMAP, autoencoders for feature learning, and modern self-supervised learning approaches including foundation models for pretraining and adaptation.
 
-#### 07. Clustering and k-means
-- K-Means Algorithm
-- Hierarchical Clustering
-- DBSCAN
-- Gaussian Mixture Models
+#### 07. Clustering and the k-means algorithm 
 
-#### 08. Dimensionality Reduction
+#### 08. EM algorithms
+
+#### 09. Dimensionality Reduction
 - Principal Component Analysis (PCA)
 - Independent Component Analysis (ICA)
 - t-SNE and UMAP
 - Autoencoders
 
-#### 09. Modern Unsupervised Learning
-- Self-Supervised Learning
-- Contrastive Learning
-- Foundation Models
-- Generative Adversarial Networks (GANs)
-- Variational Autoencoders (VAEs)
+#### 10. Self-supervised learning and foundation models 
+- Pretraining and adaptation
+- Pretraining methods in computer vision
+- Pretrained large language models
 
 ### V. Reinforcement Learning
 
-Reinforcement learning enables agents to learn optimal behaviors through interaction with environments and feedback from rewards. This section covers algorithms for sequential decision-making, from basic dynamic programming to advanced policy gradient methods. Applications include robotics, game playing, autonomous systems, and control theory.
+Reinforcement learning enables agents to learn optimal behaviors through interaction with environments and feedback from rewards. This section covers Markov Decision Processes (MDPs), value and policy iteration algorithms, model-based and model-free learning approaches, continuous state spaces, finite-horizon control problems, Linear Quadratic Regulation (LQR) and Gaussian (LQG) control, and policy gradient methods including REINFORCE for direct policy optimization.
 
-#### 10. Fundamentals
+#### 11. Reinforcement Learning
 - Markov Decision Processes (MDPs)
-- Value Functions and Policy Functions
-- Dynamic Programming
-- [RL: Sutton and Barto textbook](http://incompleteideas.net/book/the-book-2nd.html)
+- Value iteration and policy iteration
+- Learning a model for an MDP
+- Continuous state MDPs
+- Connections between Policy and Value Iteration
 
-#### 11. Model-Free Methods
-- Monte Carlo Methods
-- Temporal Difference Learning
-- Q-Learning and SARSA
-- Deep Q-Networks (DQN)
-
-#### 12. Policy-Based Methods
-- Policy Gradient Methods
-- REINFORCE Algorithm
-- Actor-Critic Methods
-- Proximal Policy Optimization (PPO)
-
-#### 13. Advanced Control
-- Linear Quadratic Regulator (LQR)
-- Differential Dynamic Programming (DDP)
+#### 12. Advanced Control: LQR, DDP and LQG
+- Finite-horizon MDPs
+- Linear Quadratic Regulation (LQR)
+- From non-linear dynamics to LQR
 - Linear Quadratic Gaussian (LQG)
 
-#### 14 Multi-Armed Bandits
+#### 13. Policy Gradient (REINFORCE)
+
+### VI. Recent Advances and Applications
+
+Recent advances in machine learning have revolutionized various fields and applications. This section covers transformer architectures and large language models, multi-armed bandits for sequential decision-making, reinforcement learning techniques for training language models, modern computer vision advances including vision transformers and self-supervised learning, and practical applications across natural language processing, computer vision, speech recognition, robotics, healthcare, and recommendation systems.
+
+#### 14. Transformers and Language Models
+- [CS224N Self-Attention and Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+- Transformer: [original transformer paper](https://arxiv.org/abs/1706.03762)
+- LLMs: [Wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
+
+#### 15. Multi-Armed Bandits
 - Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
 - Linear bandits: [linear bandits paper](https://papers.nips.cc/paper_files/paper/2011/hash/e1d5be1c7f2f456670de3d53c7b54f4a-Abstract.html), [generalized linear bandits paper](https://papers.nips.cc/paper_files/paper/2010/hash/c2626d850c80ea07e7511bbae4c76f4b-Abstract.html), [pure exploration/BAI paper](https://arxiv.org/abs/1409.6110)
 - Contextual bandits: [contextual bandits survey paper](https://www.ambujtewari.com/research/tewari17ads.pdf)
 
-### VI. Recent Advances and Applications
-
-Recent advances in machine learning have revolutionized various fields and applications. This section explores cutting-edge developments including large language models, advanced computer vision techniques, and practical applications across domains. Topics cover the latest innovations in AI and their real-world implementations in industry and research.
-
-#### 15. Transformers and Language Models
-- Self-Attention Mechanism
-- Large Language Models (LLMs): [original transformer paper](https://arxiv.org/abs/1706.03762), [wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
-- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
-- [CS224N Self-Attention, Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
-- Transformer Architecture
-- BERT, GPT, and Modern Language Models
-
-#### 16 Reinforcement Learning for training Large Language Models
-- Reinforcement Learning (RL): [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
-- RL for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
+#### 16. Reinforcement Learning for training Large Language Models
+- Reinforcement Learning Textbook: [Sutton and Barto](http://incompleteideas.net/book/the-book-2nd.html)
+- Deep Reinforcement Learning: [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
+- Reinforcement Learning for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
 
 #### 17. Computer Vision Advances
-- Vision Transformers (ViT)
-- Self-Supervised Learning in Vision
-- Contrastive Learning (SimCLR, MoCo)
-- Foundation Models for Vision
+- Vision Transformers (ViT): [original ViT paper](https://arxiv.org/abs/2010.11929), [ViT tutorial](https://pytorch.org/hub/pytorch_vision_vit/), [ViT implementation](https://github.com/lucidrains/vit-pytorch)
+- Self-Supervised Learning in Vision: [survey paper](https://arxiv.org/abs/1902.06162), [BYOL paper](https://arxiv.org/abs/2006.07733), [DINO paper](https://arxiv.org/abs/2104.14294)
+- Contrastive Learning (SimCLR, MoCo): [SimCLR paper](https://arxiv.org/abs/2002.05709), [MoCo paper](https://arxiv.org/abs/1911.05722), [MoCo v2](https://arxiv.org/abs/2003.04297), [MoCo v3](https://arxiv.org/abs/2104.02057)
+- Foundation Models for Vision: [CLIP paper](https://arxiv.org/abs/2103.00020), [DALL-E paper](https://arxiv.org/abs/2102.12092), [SAM paper](https://arxiv.org/abs/2304.02643), [Segment Anything](https://github.com/facebookresearch/segment-anything)
 
 #### 18. Practical Applications
-- Natural Language Processing
-- Computer Vision
-- Speech Recognition
-- Robotics and Control
-- Bioinformatics
-- Recommendation Systems
+- Natural Language Processing: [Neural-Machine-Translation](https://github.com/darinz/Neural-Machine-Translation)
+- Computer Vision: [Computer Vision for Perception](https://github.com/darinz/AI-Robotic-IoT/blob/main/docs/05_Technical_Approach_CV.md)
+- Speech Recognition: [Voice-Based Command & Interaction](https://github.com/darinz/AI-Robotic-IoT/blob/main/docs/04_Technical_Approach_NLP.md)
+- Robotics and Control: [AI, Robotic, and IoT](https://github.com/darinz/AI-Robotic-IoT)
+- Healthcare: [Text2Mol](https://github.com/darinz/DLH-Text2Mol)
+- Recommendation Systems: [Movie Recommendation System](https://github.com/darinz/Movie-Rec-Sys), [Item-Based Collaborative Filtering](https://github.com/darinz/Movie-Recommender)
 
 ## Reference Materials
 
