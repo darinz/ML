@@ -65,7 +65,7 @@ By slowly letting the learning rate $\alpha$ decrease to zero as the algorithm r
 
 Armed with the tools of matrix derivatives, let us now proceed to find in closed-form the value of $\theta$ that minimizes $J(\theta)$. We begin by re-writing $J$ in matrix-vectorial notation. The design matrix $X$ is a convenient way to represent all the input features of your training data in a single matrix. Each row corresponds to one training example, and each column corresponds to a feature (including the intercept term if present). This matrix formulation allows us to express the entire dataset and the linear model compactly, making it easier to apply linear algebra techniques.
 
-Given a training set, define the **design matrix** $X$ to be the $n$-by-$d$ matrix (actually $n$-by-$(d+1)$, if we include the intercept term) that contains the training examples' input values in its rows:
+Given a training set, define the **design matrix** $X$ to be the `n-by-d` matrix (actually `n-by-(d+1)`, if we include the intercept term) that contains the training examples' input values in its rows:
 
 $$
 X = \begin{bmatrix}
