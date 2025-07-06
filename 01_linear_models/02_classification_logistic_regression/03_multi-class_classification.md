@@ -20,15 +20,15 @@ This is achieved by the **softmax function**. Geometrically, softmax projects a 
 
 Let $x \in \mathbb{R}^d$ be the input features. We introduce $k$ parameter vectors $\theta_1, \ldots, \theta_k$, each in $\mathbb{R}^d$. For each class $i$, we compute a score (logit):
 
-$$
+```math
 t_i = \theta_i^\top x
-$$
+```
 
 The vector $t = (t_1, \ldots, t_k)$ is then passed through softmax:
 
-$$
+```math
 \mathrm{softmax}(t_1, \ldots, t_k) = \left[ \frac{\exp(t_1)}{\sum_{j=1}^k \exp(t_j)}, \ldots, \frac{\exp(t_k)}{\sum_{j=1}^k \exp(t_j)} \right]
-$$
+```
 
 The output is a probability vector $\phi = (\phi_1, \ldots, \phi_k)$, where $\phi_i$ is the probability assigned to class $i$.
 
@@ -41,9 +41,9 @@ The output is a probability vector $\phi = (\phi_1, \ldots, \phi_k)$, where $\ph
 
 Given input $x$, the model predicts:
 
-$$
+```math
 P(y = i \mid x; \theta) = \phi_i = \frac{\exp(\theta_i^\top x)}{\sum_{j=1}^k \exp(\theta_j^\top x)}
-$$
+```
 
 This is a generalization of logistic regression to multiple classes, sometimes called **multinomial logistic regression** or **softmax regression**.
 
@@ -51,15 +51,15 @@ This is a generalization of logistic regression to multiple classes, sometimes c
 
 The loss function for training is the **negative log-likelihood** (NLL) of the data under the model, also known as the **cross-entropy loss**:
 
-$$
+```math
 \ell(\theta) = \sum_{i=1}^n -\log \left( \frac{\exp(\theta_{y^{(i)}}^\top x^{(i)})}{\sum_{j=1}^k \exp(\theta_j^\top x^{(i)})} \right)
-$$
+```
 
 Or, using the cross-entropy notation:
 
-$$
+```math
 \ell_{ce}((t_1, \ldots, t_k), y) = -\log \left( \frac{\exp(t_y)}{\sum_{i=1}^k \exp(t_i)} \right)
-$$
+```
 
 **Intuition:**
 - The loss penalizes the model when it assigns low probability to the true class.
@@ -75,15 +75,17 @@ Suppose we have 3 classes and a single input $x$ with logits $t = (2, 1, 0)$. Co
 
 If the true class is 2 (indexing from 1), the cross-entropy loss is:
 
-$$
+```math
 -\log(0.245) \approx 1.40
-$$
+```
 
 ## Practical Considerations
 
 - **Numerical stability:** When computing softmax, subtract the maximum logit from all logits before exponentiating to avoid overflow:
 
-$$\mathrm{softmax}(t)_i = \frac{\exp(t_i - \max_j t_j)}{\sum_{j=1}^k \exp(t_j - \max_j t_j)}$$
+```math
+\mathrm{ softmax }( t )_i = \frac{ \exp( t_i - \max_j t_j )}{\sum_{j=1}^k \exp(t_j - \max_j t_j)}
+```
 
 - **Label encoding:** Labels should be integers $1, \ldots, k$ (or $0, \ldots, k-1$ depending on convention).
 - **Implementation:** Most ML libraries (NumPy, PyTorch, TensorFlow, scikit-learn) have built-in softmax and cross-entropy loss functions.
@@ -92,18 +94,18 @@ $$\mathrm{softmax}(t)_i = \frac{\exp(t_i - \max_j t_j)}{\sum_{j=1}^k \exp(t_j - 
 
 The cross-entropy loss has a simple and elegant gradient. For a single example:
 
-$$
+```math
 \frac{\partial \ell_{ce}(t, y)}{\partial t_i} = \phi_i - 1\{y = i\}
-$$
+```
 
 - The gradient is positive if the predicted probability is higher than the true label indicator, negative otherwise.
 - In vectorized form: $\nabla_t \ell_{ce}(t, y) = \phi - e_y$
 
 For the model parameters $\theta_i$:
 
-$$
+```math
 \frac{\partial \ell(\theta)}{\partial \theta_i} = \sum_{j=1}^n (\phi_i^{(j)} - 1\{y^{(j)} = i\}) x^{(j)}
-$$
+```
 
 This form is efficient to compute and is the basis for gradient descent and backpropagation in neural networks.
 
