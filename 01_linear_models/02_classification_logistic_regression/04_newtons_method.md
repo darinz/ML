@@ -59,7 +59,7 @@ H_{ij} = \frac{\partial^2 \ell(\theta)}{\partial \theta_i \partial \theta_j}.
 
 ### 5. Practical Tips and Fisher Scoring
 
-Newton's method typically enjoys faster convergence than (batch) gradient descent, and requires many fewer iterations to get very close to the minimum. One iteration of Newton's can, however, be more expensive than one iteration of gradient descent, since it requires finding and inverting an $d$-by-$d$ Hessian; but so long as $d$ is not too large, it is usually much faster overall.
+Newton's method typically enjoys faster convergence than (batch) gradient descent, and requires many fewer iterations to get very close to the minimum. One iteration of Newton's can, however, be more expensive than one iteration of gradient descent, since it requires finding and inverting an `d-by-d` Hessian; but so long as $d$ is not too large, it is usually much faster overall.
 
 - **When to use Newton's method:**
   - When the number of parameters is moderate (so the Hessian is not too large to invert).
