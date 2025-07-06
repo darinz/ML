@@ -188,19 +188,22 @@ The dimension of the features $\phi(x)$ is on the order of $d^3$. This is prohib
 **Proof by Induction**:
 1. **Base Case**: At initialization, $\theta = 0 = \sum_{i=1}^n 0 \cdot \phi(x^{(i)})$
 2. **Inductive Step**: Assume at some point, $\theta$ can be represented as:
-   ```math
-   \theta = \sum_{i=1}^n \beta_i \phi(x^{(i)}) \tag{5.6}
-   ```
+
+```math
+\theta = \sum_{i=1}^n \beta_i \phi(x^{(i)}) \tag{5.6}
+```
+
    for some $\beta_1, \ldots, \beta_n \in \mathbb{R}$.
 
 3. **Update Step**: After one gradient update:
-   ```math
-   \begin{align*}
-   \theta &:= \theta + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}) \\
-   &= \sum_{i=1}^n \beta_i \phi(x^{(i)}) + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}) \\
-   &= \sum_{i=1}^n \left( \beta_i + \alpha \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \right) \phi(x^{(i)}) \tag{5.7}
-   \end{align*}
-   ```
+
+```math
+\begin{align*}
+\theta &:= \theta + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}) \\
+&= \sum_{i=1}^n \beta_i \phi(x^{(i)}) + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}) \\
+&= \sum_{i=1}^n \left( \beta_i + \alpha \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \right) \phi(x^{(i)}) \tag{5.7}
+\end{align*}
+```
 
 This shows that $\theta$ remains a linear combination of the training feature vectors.
 
