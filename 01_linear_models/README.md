@@ -13,6 +13,5 @@ This directory contains foundational materials and resources for linear models i
 - **01_linear_regression/**: Linear regression fundamentals, least squares, and applications.
 - **02_classification_logistic_regression/**: Classification basics and logistic regression for binary and multiclass problems.
 - **03_generalized_linear_models/**: Generalized linear models (GLMs), link functions, and extensions beyond standard regression.
-- **04_ridge_lasso_regression/**: Regularization techniques including Ridge and Lasso regression, with theory and practical examples.
 
 Refer to each subfolder for detailed notes, code, and exercises. 
