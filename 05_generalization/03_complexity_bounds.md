@@ -1,4 +1,4 @@
-# 8.3 Sample complexity bounds (optional readings)
+# 8.3 Sample complexity bounds
 
 ## 8.3.1 Preliminaries
 
