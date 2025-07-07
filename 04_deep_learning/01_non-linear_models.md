@@ -65,7 +65,7 @@ print(mse(y_true, y_pred))  # Output: 0.0
 - Huber loss: Combines MSE and MAE, less sensitive to outliers than MSE.
 
 **Worked example:**
-Suppose $x = [1, 2]$, $y = [2, 4]$, and $h_\theta(x) = 2x$. Then $J^{(1)}(\theta) = \frac{1}{2}(2 \ast 1 - 2)^2 = 0$, $J^{(2)}(\theta) = \frac{1}{2}(2 \ast 2 - 4)^2 = 0$. So $J(\theta) = 0$ (perfect fit).
+Suppose $x = [1, 2]$, $y = [2, 4]$, and $h_\theta(x) = 2x$. Then $J^{(1)}(\theta) = \frac{1}{2}(2 \ast 1 - 2)^2 = 0 \text{ , } J^{(2)}(\theta) = \frac{1}{2}(2 \ast 2 - 4)^2 = 0$. So $J(\theta) = 0$ (perfect fit).
 
 ---
 
