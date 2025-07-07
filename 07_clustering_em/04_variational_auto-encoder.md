@@ -322,10 +322,10 @@ When $`z \in \mathbb{R}^k`$ is a continuous latent variable, there are several d
   - We assume that
 
 ```math
-Q_i = \mathcal{N}(q(x^{(i)}; \phi), \operatorname{diag}(v(x^{(i)}; \psi))^2)
+Q_i = \mathcal{N}(q(x^{(i)}; \phi), \text{diag}(v(x^{(i)}; \psi))^2)
 ```
 
-Here $`\operatorname{diag}(w)`$ means the $`k \times k`$ matrix with the entries of $`w \in \mathbb{R}^k`$ on the diagonal. In other words, the distribution $`Q_i`$ is assumed to be a Gaussian distribution with independent coordinates, and the mean and standard deviations are governed by $`q`$ and $`v`$.
+Here $`\text{diag}(w)`$ means the $`k \times k`$ matrix with the entries of $`w \in \mathbb{R}^k`$ on the diagonal. In other words, the distribution $`Q_i`$ is assumed to be a Gaussian distribution with independent coordinates, and the mean and standard deviations are governed by $`q`$ and $`v`$.
 
 - In variational auto-encoder, $`q`$ and $`v`$ are often neural networks.
 - In deep learning literature, $`q, v`$ are called the **encoder** (encoding the data into latent code), whereas $`g(z; \theta)`$ is the **decoder** (generating data from latent code).
@@ -419,7 +419,7 @@ Before optimizing the ELBO, let's first verify whether we can efficiently evalua
 \mathrm{ELBO}(\phi, \psi, \theta) = \sum_{i=1}^n \mathbb{E}_{z^{(i)} \sim Q_i} \left[ \log \frac{p(x^{(i)}, z^{(i)}; \theta)}{Q_i(z^{(i)})} \right]
 ```
 
-where $`Q_i = \mathcal{N}(q(x^{(i)}; \phi), \operatorname{diag}(v(x^{(i)}; \psi))^2)`$.
+where $`Q_i = \mathcal{N}(q(x^{(i)}; \phi), \text{diag}(v(x^{(i)}; \psi))^2)`$.
 
 - To evaluate $`Q_i(z^{(i)})`$ inside the expectation, we need to be able to **compute the density** of $`Q_i`$.
 - To estimate the expectation $`\mathbb{E}_{z^{(i)} \sim Q_i}`$, we need to be able to **sample from** $`Q_i`$ (i.e., draw random samples).
@@ -530,7 +530,7 @@ Mathematically, let $`\eta`$ be the learning rate, the gradient ascent step is
 
 ### The Reparameterization Trick
 
-The idea that comes to rescue is the so-called **re-parameterization trick**: we rewrite $`z^{(i)} \sim Q_i = \mathcal{N}(q(x^{(i)}; \phi), \operatorname{diag}(v(x^{(i)}; \psi))^2)`$ in an equivalent way:
+The idea that comes to rescue is the so-called **re-parameterization trick**: we rewrite $`z^{(i)} \sim Q_i = \mathcal{N}(q(x^{(i)}; \phi), \text{diag}(v(x^{(i)}; \psi))^2)`$ in an equivalent way:
 
 ```math
 z^{(i)} = q(x^{(i)}; \phi) + v(x^{(i)}; \psi) \odot \xi^{(i)} \quad \text{where} \quad \xi^{(i)} \sim \mathcal{N}(0, I_{k \times k})
