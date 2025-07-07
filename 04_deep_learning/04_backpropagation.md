@@ -87,8 +87,9 @@ which will indeed be used in some of the derivations in Section 7.4.3.
 **Key interpretation of the chain rule.** We can view the formula above (equation (7.53) or (7.54)) as a way to compute $`\frac{\partial J}{\partial z}`$ from $`\frac{\partial J}{\partial u}`$. Consider the following abstract problem. Suppose $`J`$ depends on $`z`$ via $`u`$ as defined in equation (7.52). However, suppose the function $`f`$ is not given or the function $`f`$ is complex, but we are given the value of $`\frac{\partial J}{\partial u_j}`$ for each $`j`$. Then, the formula in equation (7.54) gives us a way to compute $`\frac{\partial J}{\partial z}`$ from $`\frac{\partial J}{\partial u}`$:
 
 ```math
-\frac{\partial J}{\partial u} \xrightarrow[\text{chain rule, formula (7.54) only requires info about } g(z) \text{ and } z]{\phantom{chain rule}} \frac{\partial J}{\partial z}.
+\frac{\partial J}{\partial u} \longrightarrow \frac{\partial J}{\partial z}.
 ```
+
 (7.56)
 
 Moreover, this formula only involves knowledge about $`g`$ (more precisely $`\frac{\partial g_j}{\partial z_i}`$). We will repeatedly use this fact in situations where $`g`$ is a building block of a complex network $`f`$.
@@ -153,7 +154,7 @@ In the **backward pass**, we first compute the derivatives w.r.t to the intermed
 We first see why $`\frac{\partial J}{\partial u^{[i-1]}}`$ can be computed efficiently from $`\frac{\partial J}{\partial u^{[i]}}`$ and $`u^{[i-1]}`$ by invoking the discussion in Section 7.4.1 on the chain rule. We instantiate the discussion by setting $`u = u^{[i]}`$ and $`z = u^{[i-1]}`$, and $`f(u) = M_k(M_{k-1}(\cdots M_{i+1}(u)))`$, and $`g(z) = M_i(\cdot)`$. Note that $`f`$ is very complex but we don't need any concrete information about $`f`$. Then, the conclusive equation (7.56) corresponds to
 
 ```math
-\frac{\partial J}{\partial u^{[i-1]}} \xrightarrow[\text{chain rule, only requires info about } M_i(\cdot) \text{ and } u^{[i-1]}]{\phantom{chain rule}} \frac{\partial J}{\partial u^{[i]}}.
+\frac{\partial J}{\partial u^{[i-1]}} \longrightarrow \frac{\partial J}{\partial u^{[i]}}.
 ```
 (7.61)
 
