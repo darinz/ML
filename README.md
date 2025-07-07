@@ -191,11 +191,13 @@ Comprehensive coverage of generalization theory and practice including:
 - **[Sample Complexity Bounds](./05_generalization/03_complexity_bounds.md)** - Learning theory concepts including union bound, Hoeffding/Chernoff bounds, empirical risk minimization, VC dimension, and sample complexity with step-by-step derivations
 - **Implementation Examples** - Complete Python implementations with bias-variance decomposition, double descent simulation, and complexity bounds visualization
 
-#### 06. Regularization and model selection
-- Regularization
-- Implicit regularization eﬀect
-- Model selection via cross validation
-- Bayesian statistics and regularization
+#### 06. [Regularization, Model Selection, and Bayesian Methods](./06_regularization_model_selection/)
+Comprehensive notes and code for:
+- **[Regularization](./06_regularization_model_selection/01_regularization.md)**
+- **[Model Selection & Cross-Validation](./06_regularization_model_selection/02_model_selection.md)**
+- **Python Examples**: 
+  - [regularization_examples.py](./06_regularization_model_selection/regularization_examples.py)
+  - [model_selection_and_bayes_examples.py](./06_regularization_model_selection/model_selection_and_bayes_examples.py)
 
 ### IV. Unsupervised Learning
 
