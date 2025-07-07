@@ -203,9 +203,13 @@ Comprehensive notes and code for:
 
 Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section covers clustering algorithms including k-means, expectation-maximization (EM) methods, dimensionality reduction techniques like PCA, ICA, t-SNE, and UMAP, autoencoders for feature learning, and modern self-supervised learning approaches including foundation models for pretraining and adaptation.
 
-#### 07. Clustering and EM Algorithms
-- Clustering and the k-means algorithm
-- Expectation-Maximization (EM) algorithms
+#### 07. [Clustering and EM Algorithms](./07_clustering_em/)
+Comprehensive coverage of unsupervised learning algorithms for clustering and probabilistic modeling including:
+- **[K-means Clustering](./07_clustering_em/01_clustering.md)** - Distance-based clustering algorithm with iterative assignment and update steps, mathematical formulation, and convergence analysis
+- **[EM for Mixture of Gaussians](./07_clustering_em/02_em_mixture_of_gaussians.md)** - Probabilistic clustering using Gaussian Mixture Models with E-step (posterior computation) and M-step (parameter updates)
+- **[General EM Algorithm](./07_clustering_em/03_general_em.md)** - Framework for maximum likelihood estimation with latent variables, Evidence Lower BOund (ELBO), and alternating maximization
+- **[Variational Auto-Encoders](./07_clustering_em/04_variational_auto-encoder.md)** - Deep generative models with neural network parameterization, reparameterization trick, and encoder-decoder architecture
+- **Implementation Examples** - Complete Python implementations with PyTorch for VAEs, comprehensive visualizations, and practical applications
 
 #### 08. Dimensionality Reduction
 - Principal Component Analysis (PCA)
