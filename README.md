@@ -184,10 +184,12 @@ Comprehensive coverage of deep learning fundamentals including:
 
 Understanding model generalization and preventing overfitting are fundamental to successful machine learning. This section explores the bias-variance tradeoff, the double descent phenomenon in modern models, and sample complexity bounds. It also covers regularization techniques, implicit regularization effects in neural networks, cross-validation for model selection, and Bayesian approaches to regularization.
 
-#### 05. Generalization
-- Bias-Variance Tradeoff
-- The double descent phenomenon
-- Sample complexity bounds
+#### 05. [Generalization](./05_generalization/)
+Comprehensive coverage of generalization theory and practice including:
+- **[Bias-Variance Tradeoff](./05_generalization/01_bias-variance_tradeoﬀ.md)** - Mathematical derivations, intuitive explanations, and visualization of the fundamental tradeoff between underfitting and overfitting
+- **[Double Descent Phenomenon](./05_generalization/02_double_descent.md)** - Modern observation that test error can decrease, then increase, then decrease again as model complexity grows, covering both model-wise and sample-wise double descent
+- **[Sample Complexity Bounds](./05_generalization/03_complexity_bounds.md)** - Learning theory concepts including union bound, Hoeffding/Chernoff bounds, empirical risk minimization, VC dimension, and sample complexity with step-by-step derivations
+- **Implementation Examples** - Complete Python implementations with bias-variance decomposition, double descent simulation, and complexity bounds visualization
 
 #### 06. Regularization and model selection
 - Regularization
