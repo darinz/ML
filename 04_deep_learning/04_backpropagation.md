@@ -380,7 +380,7 @@ This algorithm describes how to compute gradients for all parameters in a multi-
    - **Explanation:**
      - The backward pass starts by computing the gradient of the loss with respect to the output of the network (the logits $z^{[r]}$).
      - For logistic loss, this is the difference between the predicted probability (after applying the sigmoid function) and the true label $y$.
-     - The notation $\mathcal{B}[\ell_{\text{logistic}}, z^{[r]}](1)$ means we apply the backward function for the logistic loss to the scalar $1$ (since $J$ is a scalar).
+     - The notation $`\mathcal{B}[\ell_{\text{logistic}}, z^{[r]}](1)`$ means we apply the backward function for the logistic loss to the scalar $1$ (since $J$ is a scalar).
 
 3. **for** $k = r \to 1$ **do**
    1. Compute the gradient with respect to parameters $W^{[k+1]}$ and $b^{[k+1]}$:
