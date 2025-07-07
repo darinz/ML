@@ -327,6 +327,6 @@ print("MAP coefficients (logistic regression):", logreg.coef_)
 - For small datasets, prefer k-fold or leave-one-out cross validation.
 - Regularization is essential when the number of features is large compared to the number of examples.
 
-[^7]: Since we are now viewing $`\theta`$ as a random variable, it is okay to condition on it value, and write "$`p(y|x, \theta)`$" instead of "$`p(y|x; \theta)`$".
+[ $`^7`$ ]: Since we are now viewing $`\theta`$ as a random variable, it is okay to condition on it value, and write $`p(y|x, \theta)`$ instead of $`p(y|x; \theta)`$.
 
-[^8]: The integral below would be replaced by a summation if $`y`$ is discrete-valued.
+[ $`^8`$ ]: The integral below would be replaced by a summation if $`y`$ is discrete-valued.
