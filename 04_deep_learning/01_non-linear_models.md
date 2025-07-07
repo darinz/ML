@@ -156,7 +156,7 @@ logits = np.array([2, 1, 0])
 print(softmax(logits))  # Output: [0.66524096 0.24472847 0.09003057]
 ```
 
-where $\hat{h}_\theta(x)_s$ denotes the $s$-th coordinate of $\hat{h}_\theta(x)$.
+where $`\hat{h}_\theta(x)_s`$ denotes the $`s`$-th coordinate of $`\hat{h}_\theta(x)`$.
 
 **Why softmax?**
 - Softmax generalizes the sigmoid to multiple classes, ensuring the outputs are positive and sum to 1.
