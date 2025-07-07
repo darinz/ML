@@ -14,6 +14,8 @@
 
 A comprehensive learning resource providing a broad introduction to machine learning and statistical pattern recognition. This collection covers fundamental concepts, modern algorithms, and practical applications in the field of machine learning.
 
+> **Note**: This is a math-heavy version focused on theoretical foundations and mathematical derivations. While we plan to add applied machine learning materials in the future (which will be less math-intensive), understanding the mathematical principles behind algorithms is invaluable for research and comprehending academic papers. This foundation enables deeper insights into model behavior and more effective algorithm selection and tuning.
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -37,13 +39,24 @@ A comprehensive learning resource providing a broad introduction to machine lear
 
 This learning resource serves as a comprehensive guide for machine learning, covering topics from basic supervised learning to advanced deep learning and reinforcement learning techniques. The material is designed to provide both theoretical understanding and practical implementation skills for students, researchers, and practitioners in the field.
 
+### Learning Outcomes
+
+Upon completing this curriculum, learners will be able to:
+- Develop sufficient skills and knowledge to pursue research or professional roles such as Machine Learning Engineer (MLE), Data Scientist, Research Scientist, or similar ML-focused positions
+- Understand fundamental machine learning concepts and algorithms
+- Implement and optimize various ML models from scratch
+- Apply deep learning techniques to complex problems
+- Evaluate and improve model performance effectively
+- Stay current with recent advances in the field
+- Apply machine learning to real-world applications across domains
+
 ### Learning Approach
 
 The curriculum follows a progressive learning path that builds from fundamental concepts to advanced applications. Each topic includes theoretical foundations, mathematical derivations, and practical implementation examples. The material emphasizes both understanding the underlying principles and developing hands-on coding skills.
 
 #### Active Learning Strategies
 - **Rederive all calculations**: Don't just read the math—work through every derivation step-by-step on paper or in a notebook
-- **Implement from scratch**: Copy and paste code examples into your own Jupyter notebook or Python environment, then modify and experiment
+- **Implement from scratch**: Retype code examples into your own Jupyter notebook or Python environment, then modify and experiment
 - **Build incrementally**: Start with simple implementations and gradually add complexity
 - **Test your understanding**: After each concept, try to explain it to yourself or others without referring to notes
 
@@ -59,16 +72,6 @@ The curriculum follows a progressive learning path that builds from fundamental 
 - **Experiment systematically**: Vary one parameter at a time and document the results
 - **Visualize everything**: Create plots and graphs to understand data distributions, model behavior, and results
 - **Compare implementations**: Try different approaches to the same problem and analyze trade-offs
-
-### Learning Outcomes
-
-Upon completing this curriculum, learners will be able to:
-- Understand fundamental machine learning concepts and algorithms
-- Implement and optimize various ML models from scratch
-- Apply deep learning techniques to complex problems
-- Evaluate and improve model performance effectively
-- Stay current with recent advances in the field
-- Apply machine learning to real-world applications across domains
 
 ## Real-World Applications
 
@@ -150,12 +153,15 @@ Comprehensive coverage of Support Vector Machines (SVM) and kernel methods for n
 
 Deep learning extends supervised learning to non-linear models through artificial neural networks. This section covers the fundamental building blocks of modern neural networks, including network architectures, backpropagation for gradient computation, and efficient vectorized implementations for training on large datasets.
 
-#### 04. Deep Learning
-- Supervised learning with non-linear models
-- Neural networks
-- Modules in Modern Neural Networks
-- Backpropagation
-- Vectorization over training examples
+
+#### 04. [Deep Learning](./04_deep_learning/)
+Comprehensive coverage of deep learning fundamentals including:
+- **[Non-Linear Models](./04_deep_learning/01_non-linear_models.md)** - Moving beyond linear models, loss functions for regression and classification
+- **[Neural Networks](./04_deep_learning/02_neural_networks.md)** - Single neurons to multi-layer architectures, biological inspiration
+- **[Modern Neural Network Modules](./04_deep_learning/03_modules.md)** - Residual connections, layer normalization, convolutional layers
+- **[Backpropagation](./04_deep_learning/04_backpropagation.md)** - Efficient gradient computation, chain rule applications, computational graphs
+- **[Vectorization](./04_deep_learning/05_vectorization.md)** - Parallel computation, matrix operations, broadcasting for scalable implementations
+- **Implementation Examples** - Complete Python implementations with practical examples and visualizations
 
 ### III. Generalization and Regularization
 
@@ -176,17 +182,17 @@ Understanding model generalization and preventing overfitting are fundamental to
 
 Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section covers clustering algorithms including k-means, expectation-maximization (EM) methods, dimensionality reduction techniques like PCA, ICA, t-SNE, and UMAP, autoencoders for feature learning, and modern self-supervised learning approaches including foundation models for pretraining and adaptation.
 
-#### 07. Clustering and the k-means algorithm 
+#### 07. Clustering and EM Algorithms
+- Clustering and the k-means algorithm
+- Expectation-Maximization (EM) algorithms
 
-#### 08. EM algorithms
-
-#### 09. Dimensionality Reduction
+#### 08. Dimensionality Reduction
 - Principal Component Analysis (PCA)
 - Independent Component Analysis (ICA)
 - t-SNE and UMAP
 - Autoencoders
 
-#### 10. Self-supervised learning and foundation models 
+#### 09. Self-supervised learning and foundation models
 - Pretraining and adaptation
 - Pretraining methods in computer vision
 - Pretrained large language models
@@ -195,48 +201,48 @@ Unsupervised learning discovers hidden patterns and structures in data without p
 
 Reinforcement learning enables agents to learn optimal behaviors through interaction with environments and feedback from rewards. This section covers Markov Decision Processes (MDPs), value and policy iteration algorithms, model-based and model-free learning approaches, continuous state spaces, finite-horizon control problems, Linear Quadratic Regulation (LQR) and Gaussian (LQG) control, and policy gradient methods including REINFORCE for direct policy optimization.
 
-#### 11. Reinforcement Learning
+#### 10. Reinforcement Learning
 - Markov Decision Processes (MDPs)
 - Value iteration and policy iteration
 - Learning a model for an MDP
 - Continuous state MDPs
 - Connections between Policy and Value Iteration
 
-#### 12. Advanced Control: LQR, DDP and LQG
+#### 11. Advanced Control: LQR, DDP and LQG
 - Finite-horizon MDPs
 - Linear Quadratic Regulation (LQR)
 - From non-linear dynamics to LQR
 - Linear Quadratic Gaussian (LQG)
 
-#### 13. Policy Gradient (REINFORCE)
+#### 12. Policy Gradient (REINFORCE)
 
 ### VI. Recent Advances and Applications
 
 Recent advances in machine learning have revolutionized various fields and applications. This section covers transformer architectures and large language models, multi-armed bandits for sequential decision-making, reinforcement learning techniques for training language models, modern computer vision advances including vision transformers and self-supervised learning, and practical applications across natural language processing, computer vision, speech recognition, robotics, healthcare, and recommendation systems.
 
-#### 14. Transformers and Language Models
+#### 13. Transformers and Language Models
 - [CS224N Self-Attention and Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
 - Transformer: [original transformer paper](https://arxiv.org/abs/1706.03762)
 - LLMs: [Wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
 
-#### 15. Multi-Armed Bandits
+#### 14. Multi-Armed Bandits
 - Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
 - Linear bandits: [linear bandits paper](https://papers.nips.cc/paper_files/paper/2011/hash/e1d5be1c7f2f456670de3d53c7b54f4a-Abstract.html), [generalized linear bandits paper](https://papers.nips.cc/paper_files/paper/2010/hash/c2626d850c80ea07e7511bbae4c76f4b-Abstract.html), [pure exploration/BAI paper](https://arxiv.org/abs/1409.6110)
 - Contextual bandits: [contextual bandits survey paper](https://www.ambujtewari.com/research/tewari17ads.pdf)
 
-#### 16. Reinforcement Learning for training Large Language Models
+#### 15. Reinforcement Learning for training Large Language Models
 - Reinforcement Learning Textbook: [Sutton and Barto](http://incompleteideas.net/book/the-book-2nd.html)
 - Deep Reinforcement Learning: [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
 - Reinforcement Learning for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
 
-#### 17. Computer Vision Advances
+#### 16. Computer Vision Advances
 - Vision Transformers (ViT): [original ViT paper](https://arxiv.org/abs/2010.11929), [ViT tutorial](https://pytorch.org/hub/pytorch_vision_vit/), [ViT implementation](https://github.com/lucidrains/vit-pytorch)
 - Self-Supervised Learning in Vision: [survey paper](https://arxiv.org/abs/1902.06162), [BYOL paper](https://arxiv.org/abs/2006.07733), [DINO paper](https://arxiv.org/abs/2104.14294)
 - Contrastive Learning (SimCLR, MoCo): [SimCLR paper](https://arxiv.org/abs/2002.05709), [MoCo paper](https://arxiv.org/abs/1911.05722), [MoCo v2](https://arxiv.org/abs/2003.04297), [MoCo v3](https://arxiv.org/abs/2104.02057)
 - Foundation Models for Vision: [CLIP paper](https://arxiv.org/abs/2103.00020), [DALL-E paper](https://arxiv.org/abs/2102.12092), [SAM paper](https://arxiv.org/abs/2304.02643), [Segment Anything](https://github.com/facebookresearch/segment-anything)
 
-#### 18. Practical Applications
+#### 17. Practical Applications
 - Natural Language Processing: [Neural-Machine-Translation](https://github.com/darinz/Neural-Machine-Translation)
 - Computer Vision: [Computer Vision for Perception](https://github.com/darinz/AI-Robotic-IoT/blob/main/docs/05_Technical_Approach_CV.md)
 - Speech Recognition: [Voice-Based Command & Interaction](https://github.com/darinz/AI-Robotic-IoT/blob/main/docs/04_Technical_Approach_NLP.md)
@@ -250,6 +256,7 @@ Recent advances in machine learning have revolutionized various fields and appli
 - [CS229 Machine Learning Course](https://cs229.stanford.edu/) - Stanford University
 - [CS229 Lecture Notes](./reference/CS229_Lecture-Notes.pdf) - Comprehensive course notes
 - [CS229 Decision Trees Notes](./reference/CS229_Decision-Trees-Notes.pdf) - Decision tree algorithms and theory
+- [CSE446: Machine Learning Course](https://courses.cs.washington.edu/courses/cse446/) - University of Washington
 
 ### Mathematical Foundations
 - [Exponential Family Chapter 8](./reference/exponential_family_chapter8.pdf) - Exponential family distributions
