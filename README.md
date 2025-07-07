@@ -20,6 +20,7 @@ A comprehensive learning resource providing a broad introduction to machine lear
 
 - [Overview](#overview)
 - [Real-World Applications](#real-world-applications)
+- [Capstone Project](#capstone-project)
 - [Prerequisites](#prerequisites)
 - [Curriculum](#curriculum)
   - [Math, Python, and NumPy Review](#math-python-and-numpy-review)
@@ -93,6 +94,22 @@ This guide showcases real-world applications across 12 major domains:
 - **Energy & Utilities**: Smart grids, resource optimization
 
 Understanding these applications will help you see the practical impact of machine learning and guide your learning journey toward domains that interest you most.
+
+## Capstone Project
+
+To apply and demonstrate your understanding of the concepts covered in this learning path, we recommend completing a comprehensive machine learning project. Our **[Project Guide](./PROJECT.md)** provides detailed guidance on:
+
+- **Project Types**: Application, algorithmic, and theoretical project options
+- **Project Examples**: Real-world implementations across different domains
+- **Project Structure**: Step-by-step methodology from problem definition to final report
+- **Deliverables**: Code, documentation, and presentation requirements
+- **Evaluation Criteria**: Technical quality, originality, and communication standards
+- **Getting Started**: Practical steps to begin your project journey
+- **Conference Submissions**: Information on submitting your work to machine learning conferences
+
+The project serves as a capstone experience that combines all the theoretical knowledge and practical skills you've developed throughout this curriculum. It's an opportunity to work on a real-world problem that interests you and build a portfolio piece that demonstrates your machine learning expertise.
+
+**[View Project Guide →](./PROJECT.md)**
 
 ## Prerequisites
 
