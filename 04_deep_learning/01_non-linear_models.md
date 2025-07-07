@@ -138,7 +138,7 @@ J(\theta) = \frac{1}{n} \sum_{i=1}^n J^{(i)}(\theta).
 
 ### Multi-class classification
 
-Following Section 2.3, we consider a classification problem where the response variable $y$ can take on any one of $k$ values, i.e. $y \in \{1, 2, \ldots, k\}$. Let $\hat{h}_\theta$ : $\mathbb{R}^d \to \mathbb{R}^k$ be a parameterized model. We call the outputs $\hat{h}_\theta(x) \in \mathbb{R}^k$ the logits. Each logit corresponds to the prediction for one of the $k$ classes. Analogous to Section 2.3, we use the softmax function to turn the logits $\hat{h}_\theta(x)$ into a probability vector with non-negative entries that sum up to 1:
+Following Section 2.3, we consider a classification problem where the response variable $y$ can take on any one of $k$ values, i.e. $y \in \{1, 2, \ldots, k\}$. Let $\hat{h}_{\theta}$ : $\mathbb{R} ^d \to \mathbb{R} ^k$ be a parameterized model. We call the outputs $\hat{h}_\theta(x) \in \mathbb{R}^k$ the logits. Each logit corresponds to the prediction for one of the $k$ classes. Analogous to Section 2.3, we use the softmax function to turn the logits $\hat{h}_\theta(x)$ into a probability vector with non-negative entries that sum up to 1:
 
 ```math
 P(y = s \mid x; \theta) = \frac{\exp(\hat{h}_\theta(x)_s)}{\sum_{j=1}^k \exp(\hat{h}_\theta(x)_j)},
