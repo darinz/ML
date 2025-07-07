@@ -20,7 +20,7 @@ J_\lambda(\theta) = J(\theta) + \lambda R(\theta)
 J_lambda = J_theta + lambda_ * R_theta
 ```
 
-Here $`J_\lambda`$ is often called the regularized loss, and $`\lambda \geq 0`$ is called the regularization parameter. The regularizer $`R(\theta)`$ is a nonnegative function (in almost all cases). In classical methods, $`R(\theta)`$ is purely a function of the parameter $`\theta`$, but some modern approaches allow $`R(\theta)`$ to depend on the training dataset.\
+Here $`J_\lambda`$ is often called the regularized loss, and $`\lambda \geq 0`$ is called the regularization parameter. The regularizer $`R(\theta)`$ is a nonnegative function (in almost all cases). In classical methods, $`R(\theta)`$ is purely a function of the parameter $`\theta`$, but some modern approaches allow $`R(\theta)`$ to depend on the training dataset.
 
 **Intuitive explanation:**
 - $`J(\theta)`$ measures how well the model fits the training data (e.g., mean squared error for regression).
@@ -46,7 +46,7 @@ This means we penalize the sum of the squares of the weights. It encourages the 
 
 **Analogy:** Think of regularization as a way to "keep your model on a leash"—it can still learn, but it can't wander too far into overly complex solutions.
 
-Besides encouraging simpler models, regularization can also impose inductive biases or structures on the model parameters. For example, suppose we had a prior belief that the number of non-zeros in the ground-truth model parameters is small\(^2\)—which is oftentimes called sparsity of the model—we can impose a regularization on the number of non-zeros in $`\theta`$, denoted by $`\|\theta\|_0`$, to leverage such a prior belief. Imposing additional structure of the parameters narrows our search space and makes the complexity of the model family smaller—e.g., the family of sparse models can be thought of as having lower complexity than the family of all models—and thus tends to lead to a better generalization. On the other hand, imposing additional structure may risk increasing the bias. For example, if we regularize the sparsity strongly but no sparse models can predict the label accurately, we will suffer from large bias (analogously to the situation when we use linear models to learn data than can only be represented by quadratic functions in Section 8.1.)
+Besides encouraging simpler models, regularization can also impose inductive biases or structures on the model parameters. For example, suppose we had a prior belief that the number of non-zeros in the ground-truth model parameters is small $`^2`$—which is oftentimes called sparsity of the model—we can impose a regularization on the number of non-zeros in $`\theta`$, denoted by $`\|\theta\|_0`$, to leverage such a prior belief. Imposing additional structure of the parameters narrows our search space and makes the complexity of the model family smaller—e.g., the family of sparse models can be thought of as having lower complexity than the family of all models—and thus tends to lead to a better generalization. On the other hand, imposing additional structure may risk increasing the bias. For example, if we regularize the sparsity strongly but no sparse models can predict the label accurately, we will suffer from large bias (analogously to the situation when we use linear models to learn data than can only be represented by quadratic functions in Section 8.1.)
 
 **Sparsity explained:**
 - Sparsity means most of the parameters are zero. This is useful when we believe only a few features are truly important.
@@ -104,7 +104,7 @@ In most classical settings, the loss or regularized loss has a unique global min
 
 <img src="./img/neural_networks_trained.png" width="700px"/>
 
-**Figure 9.2:** **Left:** Performance of neural networks trained by two different learning rates schedules on the CIFAR-10 dataset. Although both experiments used exactly the same regularized losses and the optimizers fit the training data perfectly, the models' generalization performance differ much. **Right:** On a different synthetic dataset, optimizers with different initializations have the same training error but different generalization performance.$^4$
+**Figure 9.2:** **Left:** Performance of neural networks trained by two different learning rates schedules on the CIFAR-10 dataset. Although both experiments used exactly the same regularized losses and the optimizers fit the training data perfectly, the models' generalization performance differ much. **Right:** On a different synthetic dataset, optimizers with different initializations have the same training error but different generalization performance.$`^4`$
 
 **Key takeaway:**
 - The choice of optimizer does not only affect minimizing the training loss, but also imposes implicit regularization and affects the generalization of the model. Even if your current optimizer already converges to a small training error perfectly, you may still need to tune your optimizer for a better generalization.
