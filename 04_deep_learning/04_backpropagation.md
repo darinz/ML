@@ -258,7 +258,7 @@ print('Backward for MM, dJ/dz:', backward_z)
 (7.67)
 
 ```math
-= \operatorname{diag}(\sigma'(z_1), \ldots, \sigma'(z_n)) v
+= \text{diag}(\sigma'(z_1), \ldots, \sigma'(z_n)) v
 ```
 (7.68)
 
@@ -267,7 +267,7 @@ print('Backward for MM, dJ/dz:', backward_z)
 ```
 (7.69)
 
-Here, we used the fact that $`\frac{\partial \sigma_i(z)}{\partial z_j} = 0`$ when $`i \neq j`$; $`\operatorname{diag}(\lambda_1, \ldots, \lambda_n)`$ denotes the diagonal matrix with $`\lambda_1, \ldots, \lambda_n`$ on the diagonal, and $`\odot`$ denotes the element-wise product of two vectors with the same dimension, and $`\sigma'(z)`$ is the element-wise application of the derivative of the activation function $`\sigma(\cdot)`$.
+Here, we used the fact that $`\frac{\partial \sigma_i(z)}{\partial z_j} = 0`$ when $`i \neq j`$; $`\text{diag}(\lambda_1, \ldots, \lambda_n)`$ denotes the diagonal matrix with $`\lambda_1, \ldots, \lambda_n`$ on the diagonal, and $`\odot`$ denotes the element-wise product of two vectors with the same dimension, and $`\sigma'(z)`$ is the element-wise application of the derivative of the activation function $`\sigma(\cdot)`$.
 
 Regarding computational efficiency, we note that at the first sight, equation (7.69) appears to indicate the backward function takes $`O(n^2)`$ time, but since the diagonal matrix is sparse, it is $`O(n)`$ time in practice.
 
@@ -297,7 +297,7 @@ For logistic loss, by equation 2.6, we have
 For cross-entropy loss, by equation 2.17, we have
 
 ```math
-\mathcal{B}[\ell_{\text{ce}}, t](v) = \frac{\partial \ell_{\text{ce}}}{\partial t} v = (\hat{y} - y) \cdot v, \quad \hat{y} = \operatorname{softmax}(t).
+\mathcal{B}[\ell_{\text{ce}}, t](v) = \frac{\partial \ell_{\text{ce}}}{\partial t} v = (\hat{y} - y) \cdot v, \quad \hat{y} = \text{softmax}(t).
 ```
 (7.71)
 
