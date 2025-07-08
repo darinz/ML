@@ -114,7 +114,7 @@ For example, we can format an example as a question:
 
 $`x_{\text{task}} = (x_{\text{task},1}, \cdots, x_{\text{task},R}) = \text{"Is the speed of light a universal constant?"}`$
 
-Then, we compute the most likely next word predicted by the language model given this question, that is, computing $`\operatorname{argmax}_{x_{T+1}} p(x_{T+1} \mid x_{\text{task},1}, \cdots, x_{\text{task},R})`$. In this case, if the most likely next word $`x_{T+1}`$ is "No", then we solve the task. (The speed of light is only a constant in vacuum.)
+Then, we compute the most likely next word predicted by the language model given this question, that is, computing $`\text{argmax}_{x_{T+1}} p(x_{T+1} \mid x_{\text{task},1}, \cdots, x_{\text{task},R})`$. In this case, if the most likely next word $`x_{T+1}`$ is "No", then we solve the task. (The speed of light is only a constant in vacuum.)
 
 - **Why does this work?** During pretraining, the model has seen so many examples of language that it can often generalize to new questions or tasks, even if it has never seen them before.
 - **Tip:** Zero-shot is useful when you have no labeled data for your task, or want to quickly test what a model can do "out of the box."
