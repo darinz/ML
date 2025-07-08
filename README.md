@@ -214,8 +214,6 @@ Comprehensive coverage of unsupervised learning algorithms for clustering and pr
 #### 08. Dimensionality Reduction
 - Principal Component Analysis (PCA)
 - Independent Component Analysis (ICA)
-- t-SNE and UMAP
-- Autoencoders
 
 #### 09. Self-supervised learning and foundation models
 - Pretraining and adaptation
