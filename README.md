@@ -211,9 +211,13 @@ Comprehensive coverage of unsupervised learning algorithms for clustering and pr
 - **[Variational Auto-Encoders](./07_clustering_em/04_variational_auto-encoder.md)** - Deep generative models with neural network parameterization, reparameterization trick, and encoder-decoder architecture
 - **Implementation Examples** - Complete Python implementations with PyTorch for VAEs, comprehensive visualizations, and practical applications
 
-#### 08. Dimensionality Reduction
-- Principal Component Analysis (PCA)
-- Independent Component Analysis (ICA)
+#### 08. [Dimensionality Reduction](./08_dimensionality_reduction/)
+Comprehensive coverage of linear dimensionality reduction techniques including:
+- **[Principal Component Analysis (PCA)](./08_dimensionality_reduction/01_pca.md)** – Finds new axes (principal components) that maximize variance and decorrelate the data. Useful for visualization, compression, and noise reduction. Includes [pca_examples.py](./08_dimensionality_reduction/pca_examples.py) for hands-on code.
+- **[Independent Component Analysis (ICA)](./08_dimensionality_reduction/02_ica.md)** – Finds statistically independent components in the data, especially useful for separating mixed signals (e.g., the cocktail party problem). Includes [ica_examples.py](./08_dimensionality_reduction/ica_examples.py) for hands-on code.
+- **Figures and diagrams** in [img/](./08_dimensionality_reduction/img/)
+
+For installation and running instructions, see the [08_dimensionality_reduction/README.md](./08_dimensionality_reduction/README.md).
 
 #### 09. Self-supervised learning and foundation models
 - Pretraining and adaptation
