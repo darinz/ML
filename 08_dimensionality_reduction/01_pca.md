@@ -119,8 +119,7 @@ Thus, whereas $` x^{(i)} \in \mathbb{R}^d `$ , the vector $` y^{(i)} `$ now give
 
 PCA can also be derived by picking the basis that minimizes the approximation error arising from projecting the data onto the $` k `$-dimensional subspace spanned by them. (See more in homework.)
 
-[^eig]:
-If you haven't seen this before, try using the method of Lagrange multipliers to maximize $u^T \Sigma u$ subject to $`u^T u = 1`$ . You should be able to show that $`\Sigma u = \lambda u`$ for some $`\lambda`$ , which implies $`u`$ is an eigenvector of $`\Sigma`$ , with eigenvalue $`\lambda`$ .
+[^eig]: If you haven't seen this before, try using the method of Lagrange multipliers to maximize $u^T \Sigma u$ subject to $u^T u = 1$ . You should be able to show that $\Sigma u = \lambda u$ for some $\lambda$ , which implies $u$ is an eigenvector of $\Sigma$ , with eigenvalue $\lambda$ .
 
 [^orth]:
 Because $`\Sigma`$ is symmetric, the $`u_i`$'s will (or always can be chosen to be) orthogonal to each other.
