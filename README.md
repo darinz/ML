@@ -219,10 +219,14 @@ Comprehensive coverage of linear dimensionality reduction techniques including:
 
 For installation and running instructions, see the [08_dimensionality_reduction/README.md](./08_dimensionality_reduction/README.md).
 
-#### 09. Self-supervised learning and foundation models
-- Pretraining and adaptation
-- Pretraining methods in computer vision
-- Pretrained large language models
+#### 09. [Self-Supervised Learning and Foundation Models](./09_self-supervised_learning/)
+Comprehensive coverage of modern self-supervised learning and foundation models including:
+- **[Pretraining Methods](./09_self-supervised_learning/01_pretraining.md)** – Self-supervised learning fundamentals, contrastive learning (SimCLR), and adaptation strategies (linear probe, finetuning) for computer vision applications
+- **[Large Language Models (LLMs)](./09_self-supervised_learning/02_pretrain_llm.md)** – Language modeling, Transformer architecture, autoregressive text generation, and modern adaptation techniques (finetuning, zero-shot, in-context learning)
+- **Implementation Examples** – Complete Python implementations with [pretraining_examples.py](./09_self-supervised_learning/pretraining_examples.py) for vision tasks and [pretrain_llm_examples.py](./09_self-supervised_learning/pretrain_llm_examples.py) for language modeling
+- **Figures and diagrams** in [img/](./09_self-supervised_learning/img/)
+
+For installation and running instructions, see the [09_self-supervised_learning/README.md](./09_self-supervised_learning/README.md).
 
 ### V. Reinforcement Learning
 
