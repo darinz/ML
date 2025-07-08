@@ -248,6 +248,7 @@ Recent advances in machine learning have revolutionized various fields and appli
 #### 13. Transformers and Language Models
 - [CS224N Self-Attention and Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+- [Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/)
 - Transformer: [original transformer paper](https://arxiv.org/abs/1706.03762)
 - LLMs: [Wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
 
