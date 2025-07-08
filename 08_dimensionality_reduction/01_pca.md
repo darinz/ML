@@ -119,9 +119,11 @@ Thus, whereas $` x^{(i)} \in \mathbb{R}^d `$ , the vector $` y^{(i)} `$ now give
 
 PCA can also be derived by picking the basis that minimizes the approximation error arising from projecting the data onto the $` k `$-dimensional subspace spanned by them. (See more in homework.)
 
-[^eig]: If you haven't seen this before, try using the method of Lagrange multipliers to maximize $`u^T \Sigma u`$ subject to $`u^T u = 1`$ . You should be able to show that $`\Sigma u = \lambda u`$ for some $`\lambda`$ , which implies $`u`$ is an eigenvector of $`\Sigma`$ , with eigenvalue $`\lambda`$ .
+[^eig]:
+If you haven't seen this before, try using the method of Lagrange multipliers to maximize $u^T \Sigma u$ subject to $`u^T u = 1`$ . You should be able to show that $`\Sigma u = \lambda u`$ for some $`\lambda`$ , which implies $`u`$ is an eigenvector of $`\Sigma`$ , with eigenvalue $`\lambda`$ .
 
-[^orth]: Because $`\Sigma`$ is symmetric, the $`u_i`$'s will (or always can be chosen to be) orthogonal to each other.
+[^orth]:
+Because $`\Sigma`$ is symmetric, the $`u_i`$'s will (or always can be chosen to be) orthogonal to each other.
 
 PCA has many applications; we will close our discussion with a few examples. First, compression—representing $` x^{(i)} `$'s with lower dimension $` y^{(i)} `$'s—is an obvious application. If we reduce high dimensional data to $` k = 2 `$ or 3 dimensions, then we can also plot the $` y^{(i)} `$'s to visualize the data. For instance, if we were to reduce our automobiles data to 2 dimensions, then we can plot it (one point in our plot would correspond to one car type, say) to see what cars are similar to each other and what groups of cars may cluster together.
 
