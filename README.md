@@ -28,7 +28,7 @@ A comprehensive learning resource providing a broad introduction to machine lear
   - [II. Deep Learning](#ii-deep-learning)
   - [III. Generalization and Regularization](#iii-generalization-and-regularization)
   - [IV. Unsupervised Learning](#iv-unsupervised-learning)
-  - [V. Reinforcement Learning](#v-reinforcement-learning)
+  - [V. Reinforcement Learning](#v-reinforcement-learning-and-control)
   - [VI. Recent Advances and Applications](#vi-recent-advances-and-applications)
 - [Reference Materials](#reference-materials)
 - [Development Guidelines](#development-guidelines)
@@ -230,12 +230,22 @@ For installation and running instructions, see the [09_self-supervised_learning/
 
 ### V. Reinforcement Learning and Control
 
-Reinforcement learning enables agents to learn optimal behaviors through interaction with environments and feedback from rewards. This section covers Markov Decision Processes (MDPs), value and policy iteration algorithms, model-based and model-free learning approaches, continuous state spaces, finite-horizon control problems, Linear Quadratic Regulation (LQR) and Gaussian (LQG) control, and policy gradient methods including REINFORCE for direct policy optimization.
+Comprehensive coverage of reinforcement learning and optimal control, including foundational theory, advanced control methods, and policy gradient algorithms. This section provides both mathematical derivations and practical implementation examples.
 
-#### 10. Reinforcement Learning and Control
-- Reinforcement Learning
-- Advanced Control: LQR, DDP and LQG
-- Policy Gradient (REINFORCE)
+**[View Materials](./10_reinforcement_learning/)**
+
+- **[Markov Decision Processes (MDP)](./10_reinforcement_learning/01_markov_decision_processes.md)** – Formal definition of MDPs, value functions, Bellman equations, dynamic programming, and solution methods (value iteration, policy iteration)
+- **[Continuous State MDPs](./10_reinforcement_learning/02_continuous_state_mdp.md)** – Extension of MDPs to continuous state/action spaces, discretization, and function approximation
+- **[Advanced Control: LQR, DDP, LQG](./10_reinforcement_learning/03_advanced_control.md)** – Linear Quadratic Regulation (LQR), Differential Dynamic Programming (DDP), Linear Quadratic Gaussian (LQG) control, and connections to reinforcement learning
+- **[Policy Gradient Methods (REINFORCE)](./10_reinforcement_learning/04_policy_gradient.md)** – Direct policy optimization, score function estimator, REINFORCE algorithm, variance reduction, and practical considerations
+- **Implementation Examples**:
+  - [markov_decision_processes_examples.py](./10_reinforcement_learning/markov_decision_processes_examples.py)
+  - [continuous_state_mdp_examples.py](./10_reinforcement_learning/continuous_state_mdp_examples.py)
+  - [advanced_control_examples.py](./10_reinforcement_learning/advanced_control_examples.py)
+  - [policy_gradient_examples.py](./10_reinforcement_learning/policy_gradient_examples.py)
+- **Figures and diagrams** in [img/](./10_reinforcement_learning/img/)
+
+For installation and running instructions, see the [10_reinforcement_learning/README.md](./10_reinforcement_learning/README.md).
 
 ### VI. Recent Advances and Applications
 
