@@ -1,266 +1,703 @@
-# 7.5 Vectorization over training examples
+# Vectorization: The Key to Efficient Deep Learning
 
-As we discussed in Section 7.1, in the implementation of neural networks, we will leverage the parallelism across the multiple examples. This means that we will need to write the forward pass (the evaluation of the outputs) of the neural network and the backward pass (backpropagation) for multiple training examples in matrix notation.
+## Introduction to Vectorization
 
----
+Vectorization is a fundamental technique in deep learning that transforms explicit loops into efficient matrix operations. It's the difference between slow, sequential processing and fast, parallel computation that can leverage modern hardware accelerators like GPUs and TPUs.
 
-**The basic idea.**  The basic idea is simple. Suppose you have a training set with three examples $`x^{(1)}, x^{(2)}, x^{(3)}`$. The first-layer activations for each example are as follows:
+### What is Vectorization?
 
-```math
-\begin{align*}
-    z^{[1](1)} &= W^{[1]}x^{(1)} + b^{[1]} \\
-    z^{[1](2)} &= W^{[1]}x^{(2)} + b^{[1]} \\
-    z^{[1](3)} &= W^{[1]}x^{(3)} + b^{[1]}
-\end{align*}
-```
+Vectorization is the process of rewriting algorithms to:
+1. **Replace explicit loops** with array/matrix operations
+2. **Leverage hardware parallelism** (SIMD, GPU, TPU)
+3. **Use optimized linear algebra libraries** (BLAS, cuBLAS)
+4. **Reduce Python overhead** by moving computation to C/C++ level
 
-Note the difference between square brackets $`[\,]`$, which refer to the layer number, and parenthesis $`(\,)`$, which refer to the training example number. Intuitively, one would implement this using a for loop. It turns out, we can vectorize these operations as well. First, define:
+### Why Vectorization Matters
 
-```math
-X = \begin{bmatrix} \vert & \vert & \vert \\ x^{(1)} & x^{(2)} & x^{(3)} \\ \vert & \vert & \vert \end{bmatrix} \in \mathbb{R}^{d \times 3}
-```
+The performance difference between vectorized and non-vectorized code can be dramatic:
 
-Note that we are stacking training examples in columns and not rows. We can then combine this into a single unified formulation:
+- **Speed**: 10-100x faster execution
+- **Memory**: More efficient memory usage
+- **Scalability**: Better utilization of modern hardware
+- **Maintainability**: Cleaner, more readable code
 
-```math
-Z^{[1]} = \begin{bmatrix} \vert & \vert & \vert \\ z^{[1](1)} & z^{[1](2)} & z^{[1](3)} \\ \vert & \vert & \vert \end{bmatrix} = W^{[1]}X + b^{[1]}
-```
+### Historical Context
 
-You may notice that we are attempting to add $`b^{[1]} \in \mathbb{R}^{d \times 1}`$ to $`W^{[1]}X \in \mathbb{R}^{d \times 3}`$. Strictly following the rules of linear algebra, this is not allowed. In practice however, this addition is performed using **broadcasting**. We create an intermediate $`\tilde{b}^{[1]} \in \mathbb{R}^{d \times 3}`$:
-
-```math
-\tilde{b}^{[1]} = \begin{bmatrix} \vert & \vert & \vert \\ b^{[1]} & b^{[1]} & b^{[1]} \\ \vert & \vert & \vert \end{bmatrix}
-```
-
-We can then perform the computation: $`Z^{[1]} = W^{[1]}X + \tilde{b}^{[1]}`$. Often times, it is not necessary to explicitly construct $`\tilde{b}^{[1]}`$. By inspecting the dimensions in $`(7.82)`$, you can assume $`\tilde{b}^{[1]} \in \mathbb{R}^{d \times 3}`$ is correctly broadcast to $`W^{[1]}X \in \mathbb{R}^{d \times 3}`$.
-
-The matricization approach as above can easily generalize to multiple layers, with one subtlety though, as discussed below.
+Vectorization has been crucial since the early days of scientific computing:
+- **1960s**: Vector processors introduced
+- **1980s**: BLAS (Basic Linear Algebra Subprograms) standardized
+- **2000s**: GPU computing revolutionized parallel processing
+- **2010s**: Deep learning frameworks made vectorization automatic
 
 ---
 
-## Complications/Subtlety in the Implementation
+## 7.5 Mathematical Foundations
 
-All the deep learning packages or implementations put the data points in the rows of a data matrix. (If the data point itself is a matrix or tensor, then the data is often flattened along the zero-th dimension.) However, most of the deep learning literature and notation stack the data points as columns, as above. Be careful to check the convention used in your implementation.
+### The Basic Idea
 
-Many deep learning papers use a similar notation to these notes where the data points are treated as column vectors. There is a simple conversion to deal with the mismatch: in the implementation, all the columns become row vectors, row vectors become column vectors, all the matrices are transposed, and the orders of the matrix multiplications are flipped. 
+Consider processing multiple training examples. Instead of looping through each example individually, we can process all examples simultaneously using matrix operations.
 
-In the example above, using the row major convention, the data matrix is $`X \in \mathbb{R}^{3 \times d}`$, the first layer weight matrix has dimensionality $`d \times m`$ (instead of $`m \times d`$ as in the two layer neural net section), and the bias vector $`b^{[1]} \in \mathbb{R}^{1 \times m}`$. The computation for the hidden activation becomes
-
-```math
-Z^{[1]} = X W^{[1]} + b^{[1]} \in \mathbb{R}^{3 \times m}
-```
-
----
-
-## Why Vectorization Matters
-
-Vectorization is the process of rewriting algorithms to replace explicit loops with array operations. In neural networks, this means expressing computations over all training examples as matrix operations, which are highly optimized in libraries like NumPy, PyTorch, and TensorFlow. This leads to:
-
-- **Significant speedups** due to parallelism and hardware acceleration (SIMD, GPUs).
-- **Cleaner, more concise code** that is easier to debug and maintain.
-- **Mathematical clarity**: the equations closely match the code.
-
----
-
-## Mathematical Deep Dive
-
-### Forward Pass: From For-Loops to Matrix Multiplication
-
-Suppose you have $`m`$ training examples, each $`d`$-dimensional, stacked as columns in $`X \in \mathbb{R}^{d \times m}`$ (column-major, as in most ML theory). For a single-layer network:
-
-```math
-z^{[1](i)} = W^{[1]} x^{(i)} + b^{[1]}, \quad \forall i = 1, \ldots, m
-```
-
-Vectorized:
-
-```math
-Z^{[1]} = W^{[1]} X + b^{[1]}
-```
-
-where $`Z^{[1]} \in \mathbb{R}^{h \times m}`$, $`W^{[1]} \in \mathbb{R}^{h \times d}`$, $`b^{[1]} \in \mathbb{R}^{h \times 1}`$, and $`h`$ is the number of hidden units.
-
-**Broadcasting**: $`b^{[1]}`$ is automatically broadcast across all columns.
-
-### Row-Major Convention (Implementation)
-
-In most deep learning libraries, data is stored as rows: $`X \in \mathbb{R}^{m \times d}`$. The equivalent computation is:
-
-```math
-Z^{[1]} = X W^{[1]T} + b^{[1]}
-```
-
-where $`W^{[1]} \in \mathbb{R}^{h \times d}`$, $`b^{[1]} \in \mathbb{R}^{h}`$, and $`Z^{[1]} \in \mathbb{R}^{m \times h}`$.
-
-**Conversion**: To switch between conventions, transpose $`X`$ and $`W`$, and adjust the order of multiplication.
-
----
-
-## Practical Example: For-Loop vs. Vectorized
-
-Below is a Python example comparing a for-loop implementation to a fully vectorized one for a single-layer neural network:
+#### For-Loop Approach
 
 ```python
-import numpy as np
+# Non-vectorized (slow)
+for i in range(m):
+    z[i] = W @ x[i] + b
+```
 
-# 1000 examples, 4 features, 3 output neurons
-np.random.seed(0)
-X = np.random.rand(1000, 4)
-W = np.random.randn(3, 4)
-b = np.random.randn(3)
+#### Vectorized Approach
 
-# For-loop (slow)
-outputs_loop = np.zeros((1000, 3))
-for i in range(1000):
-    for j in range(3):
-        outputs_loop[i, j] = np.dot(W[j], X[i]) + b[j]
-
+```python
 # Vectorized (fast)
-outputs_vec = X @ W.T + b  # shape: (1000, 3)
-
-print('Difference:', np.abs(outputs_loop - outputs_vec).max())
+Z = W @ X + b
 ```
 
-This code demonstrates that the vectorized version produces the same result as the for-loop, but is much faster and more concise.
+### Matrix Notation
+
+#### Column-Major Convention (Theory)
+
+In mathematical literature, data points are typically stacked as columns:
+
+```math
+X = \begin{bmatrix} 
+\vert & \vert & \vert & \vert \\
+x^{(1)} & x^{(2)} & \cdots & x^{(m)} \\
+\vert & \vert & \vert & \vert
+\end{bmatrix} \in \mathbb{R}^{d \times m}
+```
+
+Where:
+- $d$ is the input dimension
+- $m$ is the number of training examples
+- Each column $x^{(i)}$ is a training example
+
+#### Row-Major Convention (Implementation)
+
+In most deep learning libraries, data points are stored as rows:
+
+```math
+X = \begin{bmatrix} 
+- & x^{(1)} & - \\
+- & x^{(2)} & - \\
+\vdots & \vdots & \vdots \\
+- & x^{(m)} & -
+\end{bmatrix} \in \mathbb{R}^{m \times d}
+```
+
+### Broadcasting
+
+Broadcasting is a powerful feature that allows operations between arrays of different shapes.
+
+#### Mathematical Definition
+
+For arrays $A$ and $B$ with shapes $(a_1, a_2, \ldots, a_n)$ and $(b_1, b_2, \ldots, b_n)$, broadcasting works if:
+
+1. **Shape compatibility**: For each dimension $i$, either $a_i = b_i$, $a_i = 1$, or $b_i = 1$
+2. **Automatic expansion**: Dimensions with size 1 are expanded to match the other array
+
+#### Example: Bias Addition
+
+Consider adding a bias vector $b \in \mathbb{R}^h$ to a matrix $Z \in \mathbb{R}^{h \times m}$:
+
+```math
+Z + b = \begin{bmatrix} 
+z_{11} & z_{12} & \cdots & z_{1m} \\
+z_{21} & z_{22} & \cdots & z_{2m} \\
+\vdots & \vdots & \ddots & \vdots \\
+z_{h1} & z_{h2} & \cdots & z_{hm}
+\end{bmatrix} + \begin{bmatrix} 
+b_1 \\
+b_2 \\
+\vdots \\
+b_h
+\end{bmatrix}
+```
+
+The bias vector is automatically broadcast across all columns:
+
+```math
+Z + b = \begin{bmatrix} 
+z_{11} + b_1 & z_{12} + b_1 & \cdots & z_{1m} + b_1 \\
+z_{21} + b_2 & z_{22} + b_2 & \cdots & z_{2m} + b_2 \\
+\vdots & \vdots & \ddots & \vdots \\
+z_{h1} + b_h & z_{h2} + b_h & \cdots & z_{hm} + b_h
+\end{bmatrix}
+```
 
 ---
 
-## Broadcasting and Tiling
+## Forward Pass Vectorization
 
-Broadcasting allows you to add a vector to each row or column of a matrix without explicit replication. For example, adding $`b \in \mathbb{R}^h`$ to $`Z \in \mathbb{R}^{m \times h}`$:
+### Single Layer Network
 
-- **Broadcasting**: $`Z + b`$ automatically adds $`b`$ to each row.
-- **Tiling**: Equivalent to `np.tile(b, (m, 1))` in NumPy, but more efficient.
+#### For-Loop Implementation
 
-**Example:**
+```python
+# Non-vectorized
+for i in range(m):
+    z[i] = W @ x[i] + b
+    a[i] = sigma(z[i])
+```
+
+#### Vectorized Implementation
+
+**Column-Major (Theory)**:
+```math
+Z = W X + b \\
+A = \sigma(Z)
+```
+
+Where:
+- $W \in \mathbb{R}^{h \times d}$ is the weight matrix
+- $X \in \mathbb{R}^{d \times m}$ is the input data
+- $b \in \mathbb{R}^{h \times 1}$ is the bias vector
+- $Z \in \mathbb{R}^{h \times m}$ are the pre-activations
+- $A \in \mathbb{R}^{h \times m}$ are the activations
+
+**Row-Major (Implementation)**:
+```math
+Z = X W^T + b \\
+A = \sigma(Z)
+```
+
+Where:
+- $X \in \mathbb{R}^{m \times d}$ is the input data
+- $W \in \mathbb{R}^{h \times d}$ is the weight matrix
+- $b \in \mathbb{R}^{h}$ is the bias vector
+- $Z \in \mathbb{R}^{m \times h}$ are the pre-activations
+- $A \in \mathbb{R}^{m \times h}$ are the activations
+
+### Multi-Layer Network
+
+#### For-Loop Implementation
+
+```python
+# Non-vectorized
+for i in range(m):
+    a = x[i]
+    for l in range(L):
+        z = W[l] @ a + b[l]
+        a = sigma(z)
+    output[i] = a
+```
+
+#### Vectorized Implementation
+
+**Column-Major (Theory)**:
+```math
+A^{[0]} = X \\
+\text{for } l = 1, 2, \ldots, L: \\
+\quad Z^{[l]} = W^{[l]} A^{[l-1]} + b^{[l]} \\
+\quad A^{[l]} = \sigma(Z^{[l]})
+```
+
+**Row-Major (Implementation)**:
+```math
+A^{[0]} = X \\
+\text{for } l = 1, 2, \ldots, L: \\
+\quad Z^{[l]} = A^{[l-1]} W^{[l]T} + b^{[l]} \\
+\quad A^{[l]} = \sigma(Z^{[l]})
+```
+
+### Activation Functions
+
+Activation functions are applied element-wise to matrices:
+
+```math
+\sigma(Z) = \begin{bmatrix} 
+\sigma(z_{11}) & \sigma(z_{12}) & \cdots & \sigma(z_{1m}) \\
+\sigma(z_{21}) & \sigma(z_{22}) & \cdots & \sigma(z_{2m}) \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma(z_{h1}) & \sigma(z_{h2}) & \cdots & \sigma(z_{hm})
+\end{bmatrix}
+```
+
+#### Common Vectorized Activations
+
+**ReLU**:
+```math
+\text{ReLU}(Z) = \max(0, Z)
+```
+
+**Sigmoid**:
+```math
+\sigma(Z) = \frac{1}{1 + e^{-Z}}
+```
+
+**Softmax** (applied row-wise):
+```math
+\text{softmax}(Z)_i = \frac{e^{z_i}}{\sum_{j=1}^k e^{z_j}}
+```
+
+---
+
+## Backpropagation Vectorization
+
+### Gradient Computation
+
+#### For-Loop Implementation
+
+```python
+# Non-vectorized gradients
+for i in range(m):
+    grad_W += delta[i] @ a_prev[i].T
+    grad_b += delta[i]
+```
+
+#### Vectorized Implementation
+
+**Column-Major (Theory)**:
+```math
+\frac{\partial J}{\partial W^{[l]}} = \Delta^{[l]} (A^{[l-1]})^T \\
+\frac{\partial J}{\partial b^{[l]}} = \sum_{i=1}^m \delta^{[l](i)}
+```
+
+**Row-Major (Implementation)**:
+```math
+\frac{\partial J}{\partial W^{[l]}} = A^{[l-1]T} \Delta^{[l]} \\
+\frac{\partial J}{\partial b^{[l]}} = \sum_{i=1}^m \delta^{[l](i)}
+```
+
+### Error Propagation
+
+#### For-Loop Implementation
+
+```python
+# Non-vectorized error propagation
+for i in range(m):
+    delta_prev[i] = W.T @ delta[i]
+    delta_prev[i] *= sigma_prime(z_prev[i])
+```
+
+#### Vectorized Implementation
+
+**Column-Major (Theory)**:
+```math
+\Delta^{[l-1]} = (W^{[l]})^T \Delta^{[l]} \odot \sigma'(Z^{[l-1]})
+```
+
+**Row-Major (Implementation)**:
+```math
+\Delta^{[l-1]} = \Delta^{[l]} W^{[l]} \odot \sigma'(Z^{[l-1]})
+```
+
+### Loss Function Gradients
+
+#### Mean Squared Error
+
+**For-Loop**:
+```python
+for i in range(m):
+    grad_output[i] = output[i] - target[i]
+```
+
+**Vectorized**:
+```math
+\frac{\partial J}{\partial A^{[L]}} = A^{[L]} - Y
+```
+
+#### Cross-Entropy Loss
+
+**For-Loop**:
+```python
+for i in range(m):
+    grad_output[i] = softmax(output[i]) - target[i]
+```
+
+**Vectorized**:
+```math
+\frac{\partial J}{\partial A^{[L]}} = \text{softmax}(A^{[L]}) - Y
+```
+
+---
+
+## Practical Implementation
+
+### NumPy Example
 
 ```python
 import numpy as np
-Z = np.random.randn(5, 3)
-b = np.array([1, 2, 3])
-print(Z + b)  # Broadcasting
-print(np.tile(b, (5, 1)))  # Tiling
+
+# Non-vectorized
+def forward_pass_loop(W, X, b):
+    m = X.shape[1]  # number of examples
+    Z = np.zeros((W.shape[0], m))
+    for i in range(m):
+        Z[:, i] = W @ X[:, i] + b.flatten()
+    return Z
+
+# Vectorized
+def forward_pass_vectorized(W, X, b):
+    return W @ X + b
+
+# Performance comparison
+W = np.random.randn(100, 50)
+X = np.random.randn(50, 1000)
+b = np.random.randn(100, 1)
+
+# Vectorized is much faster
+%timeit forward_pass_loop(W, X, b)
+%timeit forward_pass_vectorized(W, X, b)
 ```
 
----
-
-## Deep Networks: Multi-Layer Vectorization
-
-For a deep network with $`L`$ layers, the forward pass is:
-
-```math
-A^{[0]} = X \\
-Z^{[l]} = W^{[l]} A^{[l-1]} + b^{[l]} \\
-A^{[l]} = \sigma(Z^{[l]})
-```
-
-or, in row-major code:
-
-```math
-A^{[0]} = X \\
-Z^{[l]} = A^{[l-1]} W^{[l]T} + b^{[l]} \\
-A^{[l]} = \sigma(Z^{[l]})
-```
-
----
-
-## Backpropagation: Vectorized Gradients
-
-The backward pass is also vectorized. For example, the gradient of the loss $`J`$ with respect to $`W^{[l]}`$ is:
-
-```math
-\frac{\partial J}{\partial W^{[l]}} = \delta^{[l]} (A^{[l-1]})^T
-```
-
-where $`\delta^{[l]}`$ is the error term for layer $`l`$.
-
-**In code:**
+### PyTorch Example
 
 ```python
-# Assume dZ is (m, h), A_prev is (m, d)
-dW = A_prev.T @ dZ  # (d, h)
-db = np.sum(dZ, axis=0)  # (h,)
+import torch
+
+# Non-vectorized
+def forward_pass_loop(W, X, b):
+    m = X.shape[1]
+    Z = torch.zeros(W.shape[0], m)
+    for i in range(m):
+        Z[:, i] = W @ X[:, i] + b
+    return Z
+
+# Vectorized
+def forward_pass_vectorized(W, X, b):
+    return W @ X + b
+
+# GPU acceleration
+if torch.cuda.is_available():
+    W = W.cuda()
+    X = X.cuda()
+    b = b.cuda()
+    
+# Vectorized automatically uses GPU
+Z = forward_pass_vectorized(W, X, b)
 ```
 
----
-
-## Subtleties and Pitfalls
-
-- **Shape mismatches**: Always check the shapes of your matrices and vectors, especially when switching between row-major and column-major conventions.
-- **Batch dimension**: In practice, computations are often performed on mini-batches, not the entire dataset.
-- **Numerical stability**: Vectorized code can sometimes hide numerical issues (e.g., overflow in softmax).
-
----
-
-## Summary Table: Column-Major vs. Row-Major
-
-| Notation         | Theory (Column-Major)         | Implementation (Row-Major) |
-|------------------|-------------------------------|----------------------------|
-| Data matrix      | $`X \in \mathbb{R}^{d \times m}`$ | $`X \in \mathbb{R}^{m \times d}`$ |
-| Weight matrix    | $`W \in \mathbb{R}^{h \times d}`$ | $`W \in \mathbb{R}^{h \times d}`$ |
-| Forward formula  | $`Z = W X + b`$                 | $`Z = X W^T + b`$            |
-| Output shape     | $`Z \in \mathbb{R}^{h \times m}`$ | $`Z \in \mathbb{R}^{m \times h}`$ |
-
----
-
-## Worked Example: Two-Layer Neural Network (Vectorized)
-
-Below is a worked example of a two-layer fully-connected neural network using vectorized operations in NumPy:
+### TensorFlow Example
 
 ```python
-import numpy as np
+import tensorflow as tf
 
-# Example: 200 data points, 4 input features, 3 hidden neurons, 1 output
-np.random.seed(42)
-X = np.random.rand(200, 4)
-true_W1 = np.array([[1.2, -0.7, 0.5, 2.0],
-                   [0.3, 1.5, -1.0, 0.7],
-                   [2.0, 0.1, 0.3, -0.5]])  # (3, 4)
-true_b1 = np.array([0.5, -0.2, 0.1])
-H = np.maximum(X @ true_W1.T + true_b1, 0)  # Hidden layer (ReLU)
-true_W2 = np.array([1.0, -2.0, 0.5])
-true_b2 = 0.3
-y = H @ true_W2 + true_b2 + np.random.normal(0, 0.2, size=H.shape[0])
+# Non-vectorized
+def forward_pass_loop(W, X, b):
+    return tf.map_fn(lambda x: tf.matmul(W, x) + b, tf.transpose(X))
 
-# Initialize parameters
-W1 = np.random.randn(3, 4)
-b1 = np.zeros(3)
-W2 = np.random.randn(3)
-b2 = 0.0
-lr = 0.05
+# Vectorized
+def forward_pass_vectorized(W, X, b):
+    return tf.matmul(W, X) + b
 
-# Training loop
-for epoch in range(600):
-    # Forward pass
-    Z1 = X @ W1.T + b1
-    A1 = np.maximum(Z1, 0)  # ReLU
-    y_pred = A1 @ W2 + b2
-    # Loss (MSE)
-    loss = np.mean((y_pred - y) ** 2)
-    # Backpropagation
-    grad_y_pred = 2 * (y_pred - y) / len(y)
-    grad_W2 = A1.T @ grad_y_pred
-    grad_b2 = np.sum(grad_y_pred)
-    grad_A1 = np.outer(grad_y_pred, W2)
-    grad_Z1 = grad_A1 * (Z1 > 0)
-    grad_W1 = grad_Z1.T @ X
-    grad_b1 = np.sum(grad_Z1, axis=0)
-    # Update
-    W1 -= lr * grad_W1
-    b1 -= lr * grad_b1
-    W2 -= lr * grad_W2
-    b2 -= lr * grad_b2
-    if epoch % 100 == 0:
-        print(f"Epoch {epoch}, Loss: {loss:.4f}")
+# Automatic differentiation
+with tf.GradientTape() as tape:
+    Z = forward_pass_vectorized(W, X, b)
+    loss = tf.reduce_mean(tf.square(Z - Y))
 
-# Visualize predictions vs. true values
-import matplotlib.pyplot as plt
-plt.scatter(y, y_pred, alpha=0.6)
-plt.xlabel('True Value')
-plt.ylabel('Predicted Value')
-plt.title('Two-Layer Fully-Connected Neural Network')
-plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
-plt.show()
+gradients = tape.gradient(loss, [W, b])
 ```
 
-This example demonstrates how vectorization enables efficient training and prediction for neural networks, and how the code closely matches the mathematical formulation.
+---
+
+## Advanced Vectorization Techniques
+
+### Batch Processing
+
+Instead of processing the entire dataset at once, we use mini-batches:
+
+```python
+def train_with_batches(model, X, y, batch_size=32):
+    n_batches = len(X) // batch_size
+    for i in range(n_batches):
+        start_idx = i * batch_size
+        end_idx = start_idx + batch_size
+        X_batch = X[start_idx:end_idx]
+        y_batch = y[start_idx:end_idx]
+        
+        # Vectorized forward pass on batch
+        output = model.forward(X_batch)
+        loss = compute_loss(output, y_batch)
+        
+        # Vectorized backward pass
+        gradients = compute_gradients(loss, model.parameters)
+        update_parameters(model.parameters, gradients)
+```
+
+### Memory-Efficient Vectorization
+
+#### Gradient Accumulation
+
+For large models that don't fit in memory:
+
+```python
+def train_with_gradient_accumulation(model, X, y, accumulation_steps=4):
+    gradients = [torch.zeros_like(p) for p in model.parameters()]
+    
+    for i in range(0, len(X), batch_size):
+        X_batch = X[i:i+batch_size]
+        y_batch = y[i:i+batch_size]
+        
+        output = model.forward(X_batch)
+        loss = compute_loss(output, y_batch) / accumulation_steps
+        loss.backward()
+        
+        # Accumulate gradients
+        for j, param in enumerate(model.parameters()):
+            gradients[j] += param.grad
+            param.grad.zero_()
+        
+        # Update every accumulation_steps
+        if (i // batch_size + 1) % accumulation_steps == 0:
+            for j, param in enumerate(model.parameters()):
+                param.data -= learning_rate * gradients[j]
+            gradients = [torch.zeros_like(p) for p in model.parameters()]
+```
+
+#### Mixed Precision
+
+Using lower precision to reduce memory usage:
+
+```python
+import torch.cuda.amp as amp
+
+# Automatic mixed precision
+scaler = amp.GradScaler()
+
+with amp.autocast():
+    output = model.forward(X)
+    loss = compute_loss(output, y)
+
+scaler.scale(loss).backward()
+scaler.step(optimizer)
+scaler.update()
+```
+
+### Parallel Vectorization
+
+#### Data Parallelism
+
+```python
+import torch.nn.parallel
+
+# Wrap model for data parallelism
+model = torch.nn.DataParallel(model)
+
+# Automatically distributes across multiple GPUs
+output = model(X)  # X is automatically split across GPUs
+```
+
+#### Model Parallelism
+
+```python
+# Split model across devices
+layer1 = torch.nn.Linear(100, 50).to('cuda:0')
+layer2 = torch.nn.Linear(50, 10).to('cuda:1')
+
+def forward_split(X):
+    X = layer1(X.to('cuda:0'))
+    X = layer2(X.to('cuda:1'))
+    return X
+```
+
+---
+
+## Performance Optimization
+
+### Memory Layout
+
+#### Contiguous Memory
+
+Ensure arrays are stored in contiguous memory:
+
+```python
+# Non-contiguous (slow)
+X = torch.randn(100, 100).transpose(0, 1)
+Z = W @ X  # May be slow due to memory layout
+
+# Contiguous (fast)
+X = torch.randn(100, 100).transpose(0, 1).contiguous()
+Z = W @ X  # Fast due to optimal memory layout
+```
+
+#### Memory Alignment
+
+Align data to hardware requirements:
+
+```python
+# Ensure proper alignment for SIMD operations
+def align_tensor(tensor, alignment=16):
+    size = tensor.numel() * tensor.element_size()
+    padding = (alignment - (size % alignment)) % alignment
+    if padding > 0:
+        tensor = torch.cat([tensor, torch.zeros(padding // tensor.element_size())])
+    return tensor
+```
+
+### Algorithmic Optimizations
+
+#### Matrix Multiplication Order
+
+Choose optimal multiplication order:
+
+```python
+# Less efficient: (A @ B) @ C
+result = (A @ B) @ C
+
+# More efficient: A @ (B @ C) if B is large
+result = A @ (B @ C)
+```
+
+#### Sparse Operations
+
+Use sparse matrices when appropriate:
+
+```python
+import torch.sparse
+
+# Dense operation
+Z = W @ X
+
+# Sparse operation (if W is sparse)
+W_sparse = torch.sparse_coo_tensor(W.nonzero(), W[W.nonzero()])
+Z = torch.sparse.mm(W_sparse, X)
+```
+
+---
+
+## Common Pitfalls and Solutions
+
+### Shape Mismatches
+
+#### Problem
+
+```python
+# Common error
+W = torch.randn(100, 50)
+X = torch.randn(50, 1000)
+b = torch.randn(100)  # Wrong shape
+Z = W @ X + b  # Broadcasting error
+```
+
+#### Solution
+
+```python
+# Correct shapes
+W = torch.randn(100, 50)
+X = torch.randn(50, 1000)
+b = torch.randn(100, 1)  # Correct shape for broadcasting
+Z = W @ X + b
+```
+
+### Numerical Stability
+
+#### Problem
+
+```python
+# Potential overflow in softmax
+def softmax_unstable(Z):
+    exp_Z = torch.exp(Z)
+    return exp_Z / torch.sum(exp_Z, dim=1, keepdim=True)
+```
+
+#### Solution
+
+```python
+# Numerically stable softmax
+def softmax_stable(Z):
+    Z_shifted = Z - torch.max(Z, dim=1, keepdim=True)[0]
+    exp_Z = torch.exp(Z_shifted)
+    return exp_Z / torch.sum(exp_Z, dim=1, keepdim=True)
+```
+
+### Memory Leaks
+
+#### Problem
+
+```python
+# Memory leak in gradient computation
+for epoch in range(num_epochs):
+    output = model(X)
+    loss = criterion(output, y)
+    loss.backward()
+    # Gradients accumulate if not cleared
+```
+
+#### Solution
+
+```python
+# Proper gradient clearing
+for epoch in range(num_epochs):
+    optimizer.zero_grad()  # Clear gradients
+    output = model(X)
+    loss = criterion(output, y)
+    loss.backward()
+    optimizer.step()
+```
+
+---
+
+## Benchmarking and Profiling
+
+### Performance Measurement
+
+```python
+import time
+import torch.profiler
+
+# Simple timing
+start_time = time.time()
+output = model(X)
+end_time = time.time()
+print(f"Forward pass time: {end_time - start_time:.4f} seconds")
+
+# Detailed profiling
+with torch.profiler.profile(
+    activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA],
+    record_shapes=True
+) as prof:
+    output = model(X)
+    loss = criterion(output, y)
+    loss.backward()
+
+print(prof.key_averages().table(sort_by="cuda_time_total"))
+```
+
+### Memory Profiling
+
+```python
+# Memory usage tracking
+def memory_usage():
+    if torch.cuda.is_available():
+        return torch.cuda.memory_allocated() / 1024**2  # MB
+    return 0
+
+print(f"Memory usage: {memory_usage():.2f} MB")
+```
+
+---
+
+## Summary and Best Practices
+
+### Key Takeaways
+
+1. **Always vectorize**: Replace loops with matrix operations
+2. **Use broadcasting**: Leverage automatic shape expansion
+3. **Choose correct conventions**: Be consistent with row/column major
+4. **Profile performance**: Measure and optimize bottlenecks
+5. **Handle memory**: Use appropriate batch sizes and precision
+
+### Best Practices
+
+1. **Start simple**: Implement non-vectorized version first
+2. **Test correctness**: Ensure vectorized version produces same results
+3. **Profile bottlenecks**: Focus optimization efforts where they matter
+4. **Use appropriate libraries**: Leverage optimized linear algebra
+5. **Consider hardware**: Adapt to available accelerators
+
+### Performance Checklist
+
+- [ ] Replace explicit loops with matrix operations
+- [ ] Use appropriate data types (float32 vs float64)
+- [ ] Ensure memory contiguity
+- [ ] Leverage hardware acceleration (GPU/TPU)
+- [ ] Use appropriate batch sizes
+- [ ] Profile and optimize bottlenecks
+- [ ] Handle numerical stability issues
+- [ ] Clear gradients properly
+- [ ] Use mixed precision when beneficial
+- [ ] Consider memory-efficient techniques
+
+---
+
+*This concludes our comprehensive exploration of vectorization in deep learning. Vectorization is not just an optimization technique—it's a fundamental paradigm that enables the scalability and efficiency that make modern deep learning possible.*
