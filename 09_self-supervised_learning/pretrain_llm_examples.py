@@ -30,6 +30,8 @@ random.seed(42)
 def chain_rule_example():
     """
     Demonstrate the chain rule for language modeling with a toy example.
+    The chain rule decomposes the joint probability of a sequence into a product of conditionals:
+        P(x1, x2, ..., xT) = P(x1) * P(x2|x1) * ... * P(xT|x1,...,xT-1)
     """
     print("\n=== LANGUAGE MODELING: CHAIN RULE EXAMPLE ===")
     # Suppose we have a vocabulary of 3 words: ["I", "like", "cats"]
@@ -48,6 +50,10 @@ def chain_rule_example():
     joint = p[0, x[0]] * p[1, x[1]] * p[2, x[2]]
     print(f"Sentence: {' '.join([vocab[i] for i in x])}")
     print(f"Joint probability (chain rule): {joint:.4f}")
+    print("\nExplanation:")
+    print("- The model predicts the probability of each word given the previous context.")
+    print("- The joint probability is the product of these conditionals.")
+    print("- This is the foundation of autoregressive language modeling.")
 
 # ============================================================================
 # 2. TRANSFORMER INPUT/OUTPUT INTERFACE
@@ -56,6 +62,7 @@ def chain_rule_example():
 def transformer_io_example():
     """
     Show how to tokenize text and get logits from a pretrained Transformer.
+    Demonstrates the input/output interface of modern LLMs.
     """
     print("\n=== TRANSFORMER INPUT/OUTPUT INTERFACE ===")
     tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
@@ -75,6 +82,9 @@ def transformer_io_example():
     print("Top 5 next-token predictions:")
     for idx, prob in zip(topk.indices, topk.values):
         print(f"  {tokenizer.decode(idx.item())!r}: {prob.item():.3f}")
+    print("\nExplanation:")
+    print("- The model outputs a probability distribution over the vocabulary for the next token.")
+    print("- The highest-probability tokens are likely continuations.")
 
 # ============================================================================
 # 3. AUTOREGRESSIVE TEXT GENERATION (SAMPLING, TEMPERATURE)
@@ -83,6 +93,7 @@ def transformer_io_example():
 def autoregressive_generation_example():
     """
     Demonstrate text generation with temperature sampling.
+    Shows how temperature affects randomness and creativity in generation.
     """
     print("\n=== AUTOREGRESSIVE TEXT GENERATION (TEMPERATURE) ===")
     tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
@@ -102,6 +113,9 @@ def autoregressive_generation_example():
         )
         generated = tokenizer.decode(output[0][input_ids.shape[1]:], skip_special_tokens=True)
         print(f"Generated: {generated.strip()}")
+    print("\nExplanation:")
+    print("- Higher temperature increases randomness and diversity.")
+    print("- Lower temperature makes output more deterministic and focused.")
 
 # ============================================================================
 # 4. FINETUNING (CONCEPTUAL, WITH HUGGINGFACE)
@@ -127,6 +141,10 @@ trainer = Trainer(
 trainer.train()
     """)
     print("This will finetune the model for your specific task.")
+    print("\nBest practices:")
+    print("- Use a small learning rate for the pretrained layers.")
+    print("- Use a larger learning rate for the new head.")
+    print("- Monitor for overfitting and catastrophic forgetting.")
 
 # ============================================================================
 # 5. ZERO-SHOT AND IN-CONTEXT LEARNING (PROMPTING)
@@ -135,6 +153,7 @@ trainer.train()
 def zero_shot_and_in_context_example():
     """
     Show zero-shot and in-context learning with prompting.
+    Demonstrates how LLMs can adapt to new tasks without parameter updates.
     """
     print("\n=== ZERO-SHOT AND IN-CONTEXT LEARNING ===")
     tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
@@ -157,6 +176,27 @@ def zero_shot_and_in_context_example():
     answer = tokenizer.decode(output[0][input_ids.shape[1]:], skip_special_tokens=True)
     print(f"\nIn-context prompt:\n{prompt_few_shot}")
     print(f"Model answer: {answer.strip()}")
+    print("\nExplanation:")
+    print("- Zero-shot: The model uses pretraining knowledge to answer new questions.")
+    print("- In-context: The model infers the pattern from examples in the prompt.")
+    print("- This is the basis for prompt engineering and few-shot learning.")
+
+# ============================================================================
+# PRACTICAL NOTES AND BEST PRACTICES
+# ============================================================================
+
+def practical_notes():
+    """
+    Print practical notes and best practices for LLM pretraining and adaptation.
+    """
+    print("\n=== PRACTICAL NOTES AND BEST PRACTICES ===")
+    print("- Pretraining requires massive data and compute; use existing models when possible.")
+    print("- Always preprocess and clean your data.")
+    print("- Use prompt engineering to adapt LLMs to new tasks.")
+    print("- Monitor for bias and hallucination in outputs.")
+    print("- Evaluate on real downstream tasks, not just perplexity.")
+    print("- Use finetuning for domain adaptation when you have labeled data.")
+    print("- For most users, in-context learning and prompting are the most practical ways to use LLMs.")
 
 # ============================================================================
 # MAIN EXECUTION
@@ -168,6 +208,8 @@ def main():
     autoregressive_generation_example()
     finetuning_example()
     zero_shot_and_in_context_example()
+    practical_notes()
+    print("\nAll examples completed. See comments for further explanation and best practices.")
 
 if __name__ == "__main__":
     main() 
