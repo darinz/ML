@@ -71,7 +71,7 @@ By the end of this section, you will be able to:
 
 ### 2. Neural Networks (`02_neural_networks.md`)
 
-**🎯 Core Concept**: Building complex learning systems from simple mathematical operations, inspired by biological neural systems but optimized for computational efficiency.
+**Core Concept**: Building complex learning systems from simple mathematical operations, inspired by biological neural systems but optimized for computational efficiency.
 
 **Topics Covered**:
 - **Single Neuron Models**: Linear and non-linear transformations with ReLU activation
@@ -217,7 +217,7 @@ python vectorization_examples.py
 python -c "from non_linear_models_equations import main; main()"
 ```
 
-## 🔬 Key Mathematical Concepts
+## Key Mathematical Concepts
 
 ### Neural Network Forward Pass
 For a multi-layer perceptron with $L$ layers:
@@ -278,7 +278,7 @@ Deep learning has revolutionized numerous fields:
 - Disease detection, drug discovery, medical image analysis
 - Personalized medicine, genomics
 
-## 📚 Further Reading
+## Further Reading
 
 ### Foundational Papers
 - **"Deep Learning"** by LeCun, Bengio, and Hinton (Nature, 2015)
