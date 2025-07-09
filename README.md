@@ -149,7 +149,7 @@ Supervised learning involves training models on labeled data to make predictions
 Comprehensive coverage of fundamental linear models including:
 - **[Linear Regression](./01_linear_models/01_linear_regression/)** - Least squares, gradient descent, normal equations, and probabilistic interpretation
 - **[Classification and Logistic Regression](./01_linear_models/02_classification_logistic_regression/)** - Binary and multi-class classification with sigmoid and softmax functions
-- **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Exponential family distributions and unified framework for various response types
+- **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Comprehensive exponential family distributions, systematic GLM construction, and unified framework for various response types with real-world applications
 
 #### 02. [Generative Learning](./02_generative_learning/)
 Generative approaches that model the joint distribution p(x,y) through p(x|y) and p(y):
@@ -185,11 +185,15 @@ Comprehensive coverage of deep learning fundamentals including:
 Understanding model generalization and preventing overfitting are fundamental to successful machine learning. This section explores the bias-variance tradeoff, the double descent phenomenon in modern models, and sample complexity bounds. It also covers regularization techniques, implicit regularization effects in neural networks, cross-validation for model selection, and Bayesian approaches to regularization.
 
 #### 05. [Generalization](./05_generalization/)
-Comprehensive coverage of generalization theory and practice including:
-- **[Bias-Variance Tradeoff](./05_generalization/01_bias-variance_tradeoﬀ.md)** - Mathematical derivations, intuitive explanations, and visualization of the fundamental tradeoff between underfitting and overfitting
-- **[Double Descent Phenomenon](./05_generalization/02_double_descent.md)** - Modern observation that test error can decrease, then increase, then decrease again as model complexity grows, covering both model-wise and sample-wise double descent
-- **[Sample Complexity Bounds](./05_generalization/03_complexity_bounds.md)** - Learning theory concepts including union bound, Hoeffding/Chernoff bounds, empirical risk minimization, VC dimension, and sample complexity with step-by-step derivations
-- **Implementation Examples** - Complete Python implementations with bias-variance decomposition, double descent simulation, and complexity bounds visualization
+**Enhanced comprehensive coverage of generalization theory and practice including:**
+- **[Bias-Variance Tradeoff](./05_generalization/01_bias-variance_tradeoﬀ.md)** - **Enhanced** with detailed mathematical derivations, intuitive explanations, case studies (linear, polynomial, quadratic models), practical implications, and modern extensions connecting to deep learning
+- **[Double Descent Phenomenon](./05_generalization/02_double_descent.md)** - **Enhanced** with comprehensive coverage of classical vs. modern regimes, model-wise and sample-wise double descent, interpolation threshold analysis, implicit regularization effects, and regularization strategies
+- **[Sample Complexity Bounds](./05_generalization/03_complexity_bounds.md)** - **Enhanced** with detailed theoretical foundations including concentration inequalities, union bound applications, empirical vs. generalization error analysis, VC dimension visualization, and learning curve demonstrations
+- **Enhanced Implementation Examples** - **Comprehensive Python implementations** with:
+  - `bias_variance_decomposition_examples.py` - Modular design with type hints, multiple demonstrations, interactive visualizations, and educational output
+  - `double_descent_examples.py` - Advanced demonstrations of modern ML phenomena with regularization effects and implicit regularization analysis
+  - `complexity_bounds_examples.py` - Theoretical concepts with practical implementations including Monte Carlo simulations and visual proofs
+- **Educational Features** - Progress indicators, comprehensive annotations, cross-references to markdown theory, and self-study friendly structure
 
 #### 06. [Regularization, Model Selection, and Bayesian Methods](./06_regularization_model_selection/)
 Comprehensive notes and code for:
@@ -204,12 +208,17 @@ Comprehensive notes and code for:
 Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section covers clustering algorithms including k-means, expectation-maximization (EM) methods, dimensionality reduction techniques like PCA, ICA, t-SNE, and UMAP, autoencoders for feature learning, and modern self-supervised learning approaches including foundation models for pretraining and adaptation.
 
 #### 07. [Clustering and EM Algorithms](./07_clustering_em/)
-Comprehensive coverage of unsupervised learning algorithms for clustering and probabilistic modeling including:
-- **[K-means Clustering](./07_clustering_em/01_clustering.md)** - Distance-based clustering algorithm with iterative assignment and update steps, mathematical formulation, and convergence analysis
-- **[EM for Mixture of Gaussians](./07_clustering_em/02_em_mixture_of_gaussians.md)** - Probabilistic clustering using Gaussian Mixture Models with E-step (posterior computation) and M-step (parameter updates)
-- **[General EM Algorithm](./07_clustering_em/03_general_em.md)** - Framework for maximum likelihood estimation with latent variables, Evidence Lower BOund (ELBO), and alternating maximization
-- **[Variational Auto-Encoders](./07_clustering_em/04_variational_auto-encoder.md)** - Deep generative models with neural network parameterization, reparameterization trick, and encoder-decoder architecture
-- **Implementation Examples** - Complete Python implementations with PyTorch for VAEs, comprehensive visualizations, and practical applications
+**Enhanced comprehensive coverage of unsupervised learning algorithms for clustering and probabilistic modeling including:**
+- **[K-means Clustering](./07_clustering_em/01_clustering.md)** - **Enhanced** with detailed mathematical derivations, geometric intuition, convergence analysis, initialization strategies (k-means++), and practical considerations
+- **[EM for Mixture of Gaussians](./07_clustering_em/02_em_mixture_of_gaussians.md)** - **Enhanced** with comprehensive coverage of mixture models, EM algorithm derivation, Jensen's inequality, parameter estimation, and comparison with k-means
+- **[General EM Algorithm](./07_clustering_em/03_general_em.md)** - **Enhanced** with detailed framework for latent variable models, ELBO derivation, coordinate ascent, KL divergence, and variational inference principles
+- **[Variational Auto-Encoders](./07_clustering_em/04_variational_auto-encoder.md)** - **Enhanced** with comprehensive coverage of variational inference, generative models, mean field approximation, reparameterization trick, and encoder-decoder architecture
+- **Enhanced Implementation Examples** - **Comprehensive Python implementations** with:
+  - `kmeans_examples.py` - Multiple initialization methods, convergence monitoring, evaluation metrics, and visualization
+  - `em_mog_examples.py` - Complete EM implementation with ELBO computation, initialization strategies, and comparison with k-means
+  - `general_em_examples.py` - Flexible EM framework with Jensen's inequality demonstrations, KL divergence analysis, and multiple model support
+  - `variational_auto_encoder_examples.py` - Full VAE implementation with PyTorch, generative model, encoder, ELBO computation, and sample generation
+- **Educational Features** - Progress indicators, comprehensive annotations, cross-references to markdown theory, and self-study friendly structure
 
 #### 08. [Dimensionality Reduction](./08_dimensionality_reduction/)
 Comprehensive coverage of linear dimensionality reduction techniques including:
