@@ -1026,4 +1026,10 @@ if __name__ == "__main__":
     print("- Explore other exponential family distributions")
     print("- Implement non-canonical link functions")
     print("- Apply GLMs to your own prediction problems")
-    print("- Study advanced topics like regularization and mixed models") 
+    print("- Study advanced topics like regularization and mixed models")
+    print("- Explore advanced materials in exponential_family/ directory")
+    
+    print("\nAdditional Resources:")
+    print("- exponential_family/ directory contains comprehensive reference materials")
+    print("- MIT, Princeton, Berkeley, Columbia, and Purdue materials available")
+    print("- Study advanced theoretical treatments and practical applications") 
