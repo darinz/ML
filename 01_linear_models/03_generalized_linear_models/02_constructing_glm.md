@@ -1,23 +1,77 @@
-## 3.2 Constructing GLMs
+# Constructing Generalized Linear Models: A Systematic Approach
 
-Suppose you would like to build a model to estimate the number $y$ of customers arriving in your store (or number of page-views on your website) in any given hour, based on certain features $x$ such as store promotions, recent advertising, weather, day-of-week, etc. We know that the Poisson distribution usually gives a good model for numbers of visitors. Knowing this, how can we come up with a model for our problem? Fortunately, the Poisson is an exponential family distribution, so we can apply a Generalized Linear Model (GLM). In this section, we will describe a method for constructing GLM models for problems such as these.
+## Introduction and Motivation
 
-**Intuition:**
-Generalized Linear Models (GLMs) provide a unified framework for modeling a wide variety of prediction problems, including regression and classification. The key insight is that many common distributions (Gaussian, Bernoulli, Poisson, etc.) belong to the exponential family, which allows us to use a common recipe for building models. This recipe involves:
-- Choosing a response distribution from the exponential family,
-- Defining a linear predictor (a linear combination of input features),
-- Specifying a link function that connects the linear predictor to the mean of the response,
-- Estimating parameters, typically via maximum likelihood.
+Suppose you would like to build a model to estimate the number $y$ of customers arriving in your store (or number of page-views on your website) in any given hour, based on certain features $x$ such as store promotions, recent advertising, weather, day-of-week, etc. We know that the Poisson distribution usually gives a good model for numbers of visitors. 
 
-GLMs are powerful because they allow us to model different types of data (continuous, binary, counts, etc.) using a consistent approach, and they provide interpretable coefficients and well-understood statistical properties.
+**The Challenge**: How can we systematically construct a model for this problem?
 
-More generally, consider a classification or regression problem where we would like to predict the value of some random variable $y$ as a function of $x$. To derive a GLM for this problem, we will make the following three assumptions about the conditional distribution of $y$ given $x$ and about our model:
+**The Solution**: Fortunately, the Poisson is an exponential family distribution, so we can apply a **Generalized Linear Model (GLM)**. This section provides a systematic recipe for constructing GLMs for any prediction problem.
 
-1. $y \mid x; \theta \sim \text{ExponentialFamily}(\eta)$. I.e., given $x$ and $\theta$, the distribution of $y$ follows some exponential family distribution, with parameter $\eta$.
+## 3.2 The GLM Construction Framework
 
-2. Given $x$, our goal is to predict the expected value of $T(y)$ given $x$. In most of our examples, we will have $T(y) = y$, so this means we would like the prediction $h(x)$ output by our learned hypothesis $h$ to satisfy $h(x) = \mathbb{E}[y|x]$. (Note that this assumption is satisfied in the choices for $h_\theta(x)$ for both logistic regression and linear regression. For instance, in logistic regression, we had $h_\theta(x) = p(y = 1|x; \theta) = 0 \cdot p(y = 0|x; \theta) + 1 \cdot p(y = 1|x; \theta) = \mathbb{E}[y|x; \theta]$.)
+### Core Intuition
 
-3. The natural parameter $\eta$ and the inputs $x$ are related linearly: $\eta = \theta^T x$. (Or, if $y$ is vector-valued, then $\eta_i = \theta_i^T x$.)
+Generalized Linear Models (GLMs) provide a unified framework for modeling a wide variety of prediction problems, including regression and classification. The key insight is that many common distributions (Gaussian, Bernoulli, Poisson, etc.) belong to the exponential family, which allows us to use a common recipe for building models.
+
+**Why GLMs are Powerful:**
+- **Unified Approach**: Same mathematical framework for different data types
+- **Interpretable**: Coefficients have clear statistical meaning
+- **Flexible**: Can handle various response distributions
+- **Theoretically Sound**: Well-understood statistical properties
+- **Computationally Efficient**: Fast training and prediction
+
+### The GLM Recipe
+
+The GLM construction process involves four key steps:
+
+1. **Choose Response Distribution**: Select from exponential family (Gaussian, Bernoulli, Poisson, etc.)
+2. **Define Linear Predictor**: $\eta = \theta^T x$
+3. **Specify Link Function**: Connect $\eta$ to the mean parameter $\mu$
+4. **Estimate Parameters**: Use maximum likelihood or other methods
+
+## 3.2.1 The Three Fundamental Assumptions
+
+To derive a GLM for any prediction problem, we make three fundamental assumptions about the conditional distribution of $y$ given $x$:
+
+### Assumption 1: Exponential Family Response
+```math
+y \mid x; \theta \sim \text{ExponentialFamily}(\eta)
+```
+
+**What this means**: Given $x$ and $\theta$, the distribution of $y$ follows some exponential family distribution with natural parameter $\eta$.
+
+**Why this matters**: This ensures we can use the mathematical properties of exponential families, including:
+- Simple gradient calculations
+- Convex optimization problems
+- Well-understood statistical properties
+
+### Assumption 2: Prediction Goal
+```math
+h(x) = \mathbb{E}[y|x]
+```
+
+**What this means**: Our goal is to predict the expected value of $y$ given $x$.
+
+**Verification**: This assumption is satisfied in both logistic regression and linear regression:
+- **Logistic regression**: $h_\theta(x) = p(y = 1|x; \theta) = \mathbb{E}[y|x; \theta]$
+- **Linear regression**: $h_\theta(x) = \mathbb{E}[y|x; \theta] = \mu$
+
+### Assumption 3: Linear Relationship
+```math
+\eta = \theta^T x
+```
+
+**What this means**: The natural parameter $\eta$ is a linear function of the input features.
+
+**Why this design choice**: This linearity assumption:
+- Makes the model interpretable (each feature contributes additively)
+- Enables efficient parameter estimation
+- Provides a natural extension of linear models
+
+### The Complete Framework
+
+Combining all three assumptions:
 
 ```math
 \begin{align*}
@@ -27,91 +81,302 @@ h(x)\ &=\ \mathbb{E}[y|x] \\
 \end{align*}
 ```
 
-The third of these assumptions might seem the least well justified of the above, and it might be better thought of as a "design choice" in our recipe for designing GLMs, rather than as an assumption per se. These three assumptions/design choices will allow us to derive a very elegant class of learning algorithms, namely GLMs, that have many desirable properties such as ease of learning. Furthermore, the resulting models are often very effective for modelling different types of distributions over $y$; for example, we will shortly show that both logistic regression and ordinary least squares can both be derived as GLMs.
+**Key Insight**: These three assumptions are sufficient to derive the entire GLM framework, including the form of the hypothesis function and the learning algorithm.
 
----
+## 3.2.2 Ordinary Least Squares as a GLM
 
-### 3.2.1 Ordinary least squares
+### Problem Setup
 
-To show that ordinary least squares is a special case of the GLM family of models, consider the setting where the target variable $y$ (also called the **response variable** in GLM terminology) is continuous, and we model the conditional distribution of $y$ given $x$ as a Gaussian $\mathcal{N}(\mu, \sigma^2)$. (Here, $\mu$ may depend on $x$.) So, we let the $ExponentialFamily(\eta)$ distribution above be the Gaussian distribution. As we saw previously, in the formulation of the Gaussian as an exponential family distribution, we had $\mu = \eta$. So, we have
+Consider a regression problem where:
+- **Response variable**: $y$ is continuous
+- **Goal**: Predict $y$ as a function of $x$
+- **Data**: $(x^{(i)}, y^{(i)})$ pairs
+
+### Step 1: Choose Response Distribution
+
+We model the conditional distribution of $y$ given $x$ as Gaussian:
+```math
+y \mid x; \theta \sim \mathcal{N}(\mu, \sigma^2)
+```
+
+**Why Gaussian?**
+- Natural choice for continuous data
+- Well-understood properties
+- Mathematically tractable
+
+### Step 2: Apply GLM Assumptions
+
+From our exponential family derivation, we know that for the Gaussian:
+- **Natural parameter**: $\eta = \mu$
+- **Canonical link**: Identity function
+
+Applying the GLM assumptions:
 
 ```math
 \begin{align*}
-h_\theta(x) &= \mathbb{E}[y|x; \theta] \\
-            &= \mu \\
-            &= \eta \\
-            &= \theta^T x
+h_\theta(x) &= \mathbb{E}[y|x; \theta] \quad \text{(Assumption 2)} \\
+            &= \mu \quad \text{(Gaussian mean)} \\
+            &= \eta \quad \text{(Natural parameter)} \\
+            &= \theta^T x \quad \text{(Assumption 3)}
 \end{align*}
 ```
 
-The first equality follows from Assumption 2, above; the second equality follows from the fact that $y|x; \theta \sim \mathcal{N}(\mu, \sigma^2)$, and so its expected value is given by $\mu$; the third equality follows from Assumption 1 (and our earlier derivation showing that $\mu = \eta$ in the formulation of the Gaussian as an exponential family distribution); and the last equality follows from Assumption 3.
+### Step 3: Derive the Hypothesis Function
 
-**Geometric Interpretation:**
-Ordinary least squares (OLS) finds the line (or hyperplane) that minimizes the sum of squared vertical distances to the data points. This is equivalent to projecting the data onto the closest point in the subspace defined by the model.
-
-**Link Function:**
-The identity function, meaning the mean of $y$ is modeled directly as $\theta^T x$.
-
-**Practical Note:**
-OLS is optimal (in the sense of minimum variance unbiased estimation) when the errors are normally distributed and homoscedastic (constant variance). It is also computationally efficient and forms the basis for many extensions in statistics and machine learning.
-
-**Python Example:**
-```python
-import numpy as np
-from sklearn.linear_model import LinearRegression
-
-X = np.array([[1, 2], [2, 3], [3, 4]])
-y = np.array([2, 3, 4])
-model = LinearRegression().fit(X, y)
-print(model.coef_, model.intercept_)
+This gives us the familiar linear regression hypothesis:
+```math
+h_\theta(x) = \theta^T x
 ```
 
----
+### Step 4: Understand the Link Function
 
-### 3.2.2 Logistic regression
+**Canonical Link**: Identity function $g(\eta) = \eta$
 
-We now consider logistic regression. Here we are interested in binary classification, so $y \in \{0, 1\}$. Given that $y$ is binary-valued, it therefore seems natural to choose the Bernoulli family of distributions to model the conditional distribution of $y$ given $x$. In our formulation of the Bernoulli distribution as an exponential family distribution, we had $\phi = 1/(1 + e^{-\eta})$. Furthermore, note that if $y|x; \theta \sim \text{Bernoulli}(\phi)$, then $\mathbb{E}[y|x; \theta] = \phi$. So, following a similar derivation as the one for ordinary least squares, we get:
+**Interpretation**: The mean of $y$ is modeled directly as a linear function of $x$.
+
+### Geometric and Statistical Interpretation
+
+#### Geometric Interpretation
+OLS finds the line (or hyperplane) that minimizes the sum of squared vertical distances to the data points. This is equivalent to:
+- Projecting the data onto the closest point in the subspace defined by the model
+- Finding the orthogonal projection of the response vector onto the feature space
+
+#### Statistical Properties
+- **Optimality**: OLS is the best linear unbiased estimator (BLUE) under Gaussian assumptions
+- **Efficiency**: Maximum likelihood estimator when errors are normally distributed
+- **Interpretability**: Coefficients represent the change in $y$ for a unit change in $x$
+
+#### Practical Considerations
+- **Assumptions**: Requires normally distributed, homoscedastic errors
+- **Robustness**: Sensitive to outliers
+- **Extensions**: Basis for ridge regression, lasso, and other regularized methods
+
+## 3.2.3 Logistic Regression as a GLM
+
+### Problem Setup
+
+Consider a binary classification problem where:
+- **Response variable**: $y \in \{0, 1\}$
+- **Goal**: Predict the probability that $y = 1$
+- **Data**: $(x^{(i)}, y^{(i)})$ pairs with binary outcomes
+
+### Step 1: Choose Response Distribution
+
+We model the conditional distribution of $y$ given $x$ as Bernoulli:
+```math
+y \mid x; \theta \sim \text{Bernoulli}(\phi)
+```
+
+**Why Bernoulli?**
+- Natural choice for binary outcomes
+- Models probability of success
+- Mathematically tractable
+
+### Step 2: Apply GLM Assumptions
+
+From our exponential family derivation, we know that for the Bernoulli:
+- **Natural parameter**: $\eta = \log\left(\frac{\phi}{1-\phi}\right)$ (log-odds)
+- **Canonical response function**: $\phi = \frac{1}{1 + e^{-\eta}}$ (sigmoid)
+
+Applying the GLM assumptions:
 
 ```math
 \begin{align*}
-h_\theta(x) &= \mathbb{E}[y|x; \theta] \\
-            &= \phi \\
-            &= \frac{1}{1 + e^{-\eta}} \\
-            &= \frac{1}{1 + e^{-\theta^T x}}
+h_\theta(x) &= \mathbb{E}[y|x; \theta] \quad \text{(Assumption 2)} \\
+            &= \phi \quad \text{(Bernoulli mean)} \\
+            &= \frac{1}{1 + e^{-\eta}} \quad \text{(Canonical response)} \\
+            &= \frac{1}{1 + e^{-\theta^T x}} \quad \text{(Assumption 3)}
 \end{align*}
 ```
 
-So, this gives us hypothesis functions of the form $h_\theta(x) = 1/(1 + e^{-\theta^T x})$. If you are previously wondering how we came up with the form of the logistic function $1/(1 + e^{-z})$, this gives one answer: Once we assume that $y$ conditioned on $x$ is Bernoulli, it arises as a consequence of the definition of GLMs and exponential family distributions.
+### Step 3: Derive the Hypothesis Function
 
-**Intuition:**
-The log-odds of the probability of $y=1$ is modeled as a linear function of $x$. This means that each feature contributes additively to the log-odds, making the model interpretable and robust.
-
-**Link Function:**
-The logit function (inverse of the logistic/sigmoid), which maps probabilities to the real line.
-
-**Geometric Interpretation:**
-Logistic regression finds the hyperplane that best separates the two classes in terms of probability. The decision boundary is where $h_\theta(x) = 0.5$.
-
-**Practical Note:**
-Logistic regression is robust, interpretable, and forms the basis for more complex classification models. It is widely used in practice for binary classification tasks.
-
-**Python Example:**
-```python
-import numpy as np
-from sklearn.linear_model import LogisticRegression
-
-X = np.array([[1, 2], [2, 3], [3, 4]])
-y = np.array([0, 1, 1])
-model = LogisticRegression().fit(X, y)
-print(model.coef_, model.intercept_)
-print(model.predict_proba(X))
+This gives us the familiar logistic regression hypothesis:
+```math
+h_\theta(x) = \frac{1}{1 + e^{-\theta^T x}}
 ```
 
-To introduce a little more terminology, the function $g$ giving the distribution's mean as a function of the natural parameter ($g(\eta) = \mathbb{E}[T(y); \eta]$) is called the **canonical response function**. Its inverse, $g^{-1}$, is called the **canonical link function**. Thus, the canonical response function for the Gaussian family is just the identity function; and the canonical response function for the Bernoulli is the logistic function.\footnote{Many texts use $g$ to denote the link function, and $g^{-1}$ to denote the response function; but the notation we're using here, inherited from the early machine learning literature, will be more consistent with the notation used in the rest of the class.}
+### Step 4: Understand the Link Function
 
----
+**Canonical Link**: Logit function $g^{-1}(\phi) = \log\left(\frac{\phi}{1-\phi}\right)$
 
-**Further Reading & Extensions:**
-- GLMs can be extended to other distributions (Poisson for counts, Gamma for positive continuous data, etc.).
-- The choice of link function and response distribution is guided by the nature of the data and the scientific question.
-- For more, see the `01_exponential_family.md` for mathematical details and `exponential_family_examples.py` for code.
+**Canonical Response**: Sigmoid function $g(\eta) = \frac{1}{1 + e^{-\eta}}$
+
+**Interpretation**: The log-odds of the probability of $y=1$ is modeled as a linear function of $x$.
+
+### The Sigmoid Function: Why It's Natural
+
+**Key Insight**: The sigmoid function $1/(1 + e^{-z})$ isn't arbitrary - it's the canonical response function for the Bernoulli distribution!
+
+**Mathematical Derivation**:
+1. Start with log-odds: $\eta = \log\left(\frac{\phi}{1-\phi}\right)$
+2. Exponentiate: $e^{\eta} = \frac{\phi}{1-\phi}$
+3. Solve for $\phi$: $\phi = \frac{e^{\eta}}{1 + e^{\eta}} = \frac{1}{1 + e^{-\eta}}$
+
+This explains why logistic regression uses the sigmoid function - it's mathematically inevitable given the Bernoulli assumption.
+
+### Geometric and Statistical Interpretation
+
+#### Geometric Interpretation
+Logistic regression finds the hyperplane that best separates the two classes in terms of probability:
+- **Decision boundary**: Where $h_\theta(x) = 0.5$ (i.e., $\theta^T x = 0$)
+- **Probability interpretation**: Distance from decision boundary relates to prediction confidence
+- **Linear separability**: Works best when classes are linearly separable in log-odds space
+
+#### Statistical Properties
+- **Interpretability**: Coefficients represent changes in log-odds
+- **Calibration**: Predicted probabilities are well-calibrated
+- **Robustness**: Less sensitive to outliers than linear regression
+- **Regularization**: Natural extension to L1/L2 regularization
+
+#### Practical Considerations
+- **Assumptions**: Requires independent observations, linear relationship in log-odds
+- **Extensions**: Basis for multinomial logistic regression, neural networks
+- **Interpretation**: Odds ratios provide intuitive interpretation
+
+## 3.2.4 Link Functions and Response Functions
+
+### Terminology and Definitions
+
+**Response Function** $g(\eta)$: Maps the natural parameter $\eta$ to the mean $\mu$
+```math
+\mu = g(\eta) = \mathbb{E}[y|\eta]
+```
+
+**Link Function** $g^{-1}(\mu)$: Maps the mean $\mu$ to the natural parameter $\eta$
+```math
+\eta = g^{-1}(\mu)
+```
+
+**Canonical Link**: The link function that makes $\eta = \theta^T x$ the natural parameter
+
+### Examples of Canonical Links
+
+| Distribution | Canonical Link | Canonical Response | Use Case |
+|--------------|----------------|-------------------|----------|
+| **Gaussian** | Identity | Identity | Continuous data |
+| **Bernoulli** | Logit | Sigmoid | Binary classification |
+| **Poisson** | Log | Exponential | Count data |
+| **Gamma** | Inverse | Reciprocal | Positive continuous |
+
+### Why Canonical Links Matter
+
+**Mathematical Advantages**:
+- Simplest form of the model
+- Natural parameter interpretation
+- Optimal statistical properties
+
+**Practical Advantages**:
+- Easier interpretation
+- Better numerical stability
+- Standard software implementations
+
+## 3.2.5 Parameter Estimation in GLMs
+
+### Maximum Likelihood Estimation
+
+The standard approach for estimating GLM parameters is maximum likelihood estimation (MLE).
+
+**Likelihood Function**:
+```math
+L(\theta) = \prod_{i=1}^n p(y^{(i)}|x^{(i)}; \theta)
+```
+
+**Log-Likelihood**:
+```math
+\ell(\theta) = \sum_{i=1}^n \log p(y^{(i)}|x^{(i)}; \theta)
+```
+
+### Iteratively Reweighted Least Squares (IRLS)
+
+For canonical links, the MLE can be computed using IRLS:
+
+1. **Initialize**: $\theta^{(0)} = 0$
+2. **Iterate**:
+   - Compute working responses: $z^{(i)} = \eta^{(i)} + \frac{y^{(i)} - \mu^{(i)}}{g'(\mu^{(i)})}$
+   - Compute weights: $w^{(i)} = \frac{1}{g'(\mu^{(i)})^2 \text{Var}(y^{(i)})}$
+   - Update: $\theta^{(t+1)} = (X^T W X)^{-1} X^T W z$
+
+### Gradient Descent Alternative
+
+For non-canonical links or large datasets, gradient descent can be used:
+
+```math
+\theta^{(t+1)} = \theta^{(t)} - \alpha \nabla_\theta \ell(\theta^{(t)})
+```
+
+## 3.2.6 Model Diagnostics and Validation
+
+### Residual Analysis
+
+**Deviance Residuals**: Measure the contribution of each observation to the model fit
+```math
+d_i = \text{sign}(y_i - \hat{\mu}_i) \sqrt{2[\ell(y_i; y_i) - \ell(y_i; \hat{\mu}_i)]}
+```
+
+**Pearson Residuals**: Standardized residuals
+```math
+r_i = \frac{y_i - \hat{\mu}_i}{\sqrt{\text{Var}(y_i)}}
+```
+
+### Goodness of Fit
+
+**Deviance**: Overall measure of model fit
+```math
+D = 2[\ell_{\text{saturated}} - \ell_{\text{model}}]
+```
+
+**AIC/BIC**: Model selection criteria that balance fit and complexity
+
+### Overdispersion
+
+**Detection**: When the variance exceeds what the model predicts
+**Solutions**: Quasi-likelihood, negative binomial, or mixed models
+
+## 3.2.7 Extensions and Advanced Topics
+
+### Non-Canonical Links
+
+Sometimes non-canonical links are preferred:
+- **Probit link**: $\Phi^{-1}(\mu)$ for binary data
+- **Complementary log-log**: $\log(-\log(1-\mu))$ for survival data
+- **Power links**: $\mu^\lambda$ for specific applications
+
+### Regularization
+
+**Ridge Regression (L2)**:
+```math
+\ell_{\text{ridge}}(\theta) = \ell(\theta) - \lambda \sum_{j=1}^p \theta_j^2
+```
+
+**Lasso (L1)**:
+```math
+\ell_{\text{lasso}}(\theta) = \ell(\theta) - \lambda \sum_{j=1}^p |\theta_j|
+```
+
+### Mixed Models
+
+**Random Effects**: Account for hierarchical structure
+```math
+\eta = \theta^T x + b^T z
+```
+where $b \sim \mathcal{N}(0, \Sigma)$
+
+## Summary
+
+The GLM construction framework provides a systematic approach to building models for diverse prediction problems:
+
+1. **Choose Response Distribution**: Based on data type and scientific question
+2. **Apply GLM Assumptions**: Exponential family, prediction goal, linear relationship
+3. **Derive Hypothesis Function**: Using canonical response functions
+4. **Estimate Parameters**: Using MLE or other methods
+5. **Validate Model**: Using diagnostics and goodness-of-fit measures
+
+This framework unifies linear regression, logistic regression, and many other models under a single theoretical umbrella, providing both mathematical elegance and practical utility.
+
+**Key Takeaways**:
+- GLMs provide a unified framework for diverse prediction problems
+- The exponential family assumption enables systematic model construction
+- Canonical links provide optimal statistical properties
+- The framework extends naturally to regularization and mixed models
+- Model diagnostics ensure appropriate model fit and interpretation
