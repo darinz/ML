@@ -1,601 +1,635 @@
-# 7.2 Neural Networks
+# Neural Networks: From Single Neurons to Deep Architectures
 
-Neural networks are a powerful class of models that can represent a wide variety of non-linear relationships between inputs and outputs. At their core, neural networks are built from simple mathematical operations—primarily matrix multiplications and non-linear functions—stacked together in layers. This layered structure allows neural networks to learn complex patterns in data that are difficult or impossible for traditional linear models to capture.
+## Introduction to Neural Networks
 
-To unify the treatment of regression and classification problems, we consider the output of a neural network as $`\hat{h}_\theta(x)`$. For regression, $`h_\theta(x) = \hat{h}_\theta(x)`$ is the predicted value. For classification, $`\hat{h}_\theta(x)`$ is often called the "logits" and is passed through a non-linear function (like the sigmoid or softmax) to produce probabilities:
+Neural networks represent one of the most powerful and flexible approaches to machine learning, capable of learning complex patterns and relationships from data. At their core, neural networks are computational models inspired by biological neural systems, consisting of interconnected processing units (neurons) organized in layers.
 
-```math
-h_\theta(x) = \frac{1}{1+\exp(-\hat{h}_\theta(x))} \quad \text{(binary classification)}
-```
+### What Are Neural Networks?
 
-```math
-h_\theta(x) = \text{softmax}(\hat{h}_\theta(x)) \quad \text{(multi-class classification)}
-```
+Neural networks are mathematical models that can approximate any continuous function given sufficient capacity. They consist of:
 
-We will start with the simplest possible neural network and gradually build up to more complex architectures, providing intuition and practical code along the way.
+1. **Input Layer**: Receives the raw data
+2. **Hidden Layers**: Process and transform the data through non-linear operations
+3. **Output Layer**: Produces the final prediction or classification
 
-## A Neural Network with a Single Neuron
+### Key Characteristics
 
-Let's revisit the classic housing price regression problem: given the size of a house, predict its price. In traditional linear regression, we fit a straight line to the data. However, this can lead to nonsensical predictions, such as negative house prices. To address this, we can use a simple neural network with a single neuron and a non-linear activation function.
+- **Non-linear**: Can model complex, non-linear relationships
+- **Universal**: Can approximate any continuous function (Universal Approximation Theorem)
+- **Hierarchical**: Learn features at multiple levels of abstraction
+- **Adaptive**: Parameters are learned from data through optimization
 
-**Conceptual Intuition:**
-- Think of a single neuron as a tiny decision-maker. It takes the input (e.g., house size), multiplies it by a weight, adds a bias, and then applies a non-linear function (activation) to produce the output.
-- The non-linearity (e.g., ReLU) allows the neuron to model relationships that aren't just straight lines. For example, it can "clip" negative predictions to zero, which makes sense for prices.
+### Mathematical Foundation
 
-**Mathematical Formulation:**
-
-```math
-\hat{h}_\theta(x) = \max(wx + b, 0), \quad \text{where } \theta = (w, b),\; \theta \in \mathbb{R}^2
-```
-
-Here, $`w`$ is the weight (how much the input matters), and $`b`$ is the bias (the baseline prediction). The $`\max`$ function is called the ReLU (Rectified Linear Unit) activation, which outputs zero for negative values and the input itself for positive values.
-
-When the input $`x \in \mathbb{R}^d`$ has multiple dimensions, a neural network with a single neuron can be written as:
+A neural network can be viewed as a composition of functions:
 
 ```math
-\hat{h}_\theta(x) = \text{ReLU}(w^\top x + b), \quad \text{where } w \in \mathbb{R}^d,\; b \in \mathbb{R},\; \theta = (w, b)
+f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
 ```
 
-<img src="./img/housing_price.png" width="350px"/>
+Where each $f_i$ represents a layer transformation, and $\circ$ denotes function composition.
 
-*Figure 7.1: Housing prices with a "kink" in the graph.*
+---
 
-**Practical Code Example (Single Neuron Regression with ReLU):**
+## 7.2 From Linear to Non-Linear: The Single Neuron
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+### The Building Block: The Artificial Neuron
 
-# Generate some example data: house sizes and prices
-np.random.seed(0)
-x = np.linspace(500, 3500, 50)  # house sizes
-true_w, true_b = 0.3, 50
-noise = np.random.normal(0, 30, size=x.shape)
-y = np.maximum(true_w * x + true_b + noise, 0)  # true prices, clipped at 0
+The artificial neuron is the fundamental computational unit of neural networks. It performs three basic operations:
 
-# Initialize parameters
-w, b = 0.1, 0.0
-learning_rate = 1e-7
+1. **Linear Combination**: $z = w^T x + b$
+2. **Non-linear Activation**: $a = \sigma(z)$
+3. **Output**: The activated value becomes the neuron's output
 
-# Training loop (simple gradient descent)
-for epoch in range(1000):
-    y_pred = np.maximum(w * x + b, 0)  # ReLU activation
-    error = y_pred - y
-    grad_w = np.mean(error * (x * (y_pred > 0)))
-    grad_b = np.mean(error * (y_pred > 0))
-    w -= learning_rate * grad_w
-    b -= learning_rate * grad_b
+### Mathematical Formulation
 
-# Plot results
-plt.scatter(x, y, label='Data')
-plt.plot(x, np.maximum(w * x + b, 0), color='red', label='Single Neuron Fit')
-plt.xlabel('House Size')
-plt.ylabel('Price')
-plt.legend()
-plt.title('Single Neuron Regression with ReLU')
-plt.show()
-```
-
-**Key Takeaways:**
-- A single neuron with a non-linear activation can already model more realistic relationships than a plain linear model.
-- The parameters $`w`$ and $`b`$ are learned from data using optimization (e.g., gradient descent).
-- The activation function (like ReLU) is crucial for introducing non-linearity and making the model more flexible.
-
-## Stacking Neurons: Building More Complex Networks
-
-While a single neuron can model simple non-linear relationships, real-world data often requires more complex models. By stacking neurons—connecting the output of one neuron as the input to another—we can build networks that learn much richer functions.
-
-**Conceptual Intuition:**
-- Think of stacking neurons like stacking Lego bricks: each layer can build on the features learned by the previous layer, allowing the network to capture more complex patterns.
-- The first layer might learn simple features (e.g., "size" or "number of bedrooms"), while the next layer can combine these to learn more abstract features (e.g., "family size" or "walkability").
-- Each neuron in a new layer can use all outputs from the previous layer, enabling the network to mix and match features in creative ways.
-
-**Mathematical Example:**
-Suppose we have four input features: size, number of bedrooms, zip code, and wealth. We can define intermediate features (hidden neurons):
+For a single neuron with input $x \in \mathbb{R}^d$:
 
 ```math
-a_1 = \text{ReLU}(\theta_1 x_1 + \theta_2 x_2 + \theta_3)
-a_2 = \text{ReLU}(\theta_4 x_3 + \theta_5)
-a_3 = \text{ReLU}(\theta_6 x_3 + \theta_7 x_4 + \theta_8)
+z = w^T x + b
+a = \sigma(z)
 ```
 
-The final output is:
+Where:
+- $w \in \mathbb{R}^d$ is the weight vector
+- $b \in \mathbb{R}$ is the bias term
+- $\sigma: \mathbb{R} \rightarrow \mathbb{R}$ is the activation function
+- $z$ is the pre-activation (or logit)
+- $a$ is the activation (or output)
+
+### Why Non-Linear Activation Functions?
+
+**The Problem with Linear Activations**: If we used $\sigma(z) = z$ (linear activation), then:
 
 ```math
-\hat{h}_\theta(x) = \theta_9 a_1 + \theta_{10} a_2 + \theta_{11} a_3 + \theta_{12}
+f(x) = w_2^T (W_1 x + b_1) + b_2 = (w_2^T W_1) x + (w_2^T b_1 + b_2) = W' x + b'
 ```
 
-<img src="./img/nn_housing_diagram.png" width="400px"/>
+This reduces to a linear function, losing the power of non-linearity.
 
-*Figure 7.2: Diagram of a small neural network for predicting housing prices.*
+**The Solution**: Non-linear activation functions introduce the ability to model complex, non-linear relationships.
 
-**Why does stacking help?**
-- A single neuron with a non-linear activation can only create a single "kink" or threshold in the data (like a piecewise linear function with one bend).
-- By stacking layers, the network can create multiple bends, curves, and more intricate shapes, allowing it to fit much more complex data.
+### Common Activation Functions
 
-**Practical Code Example (Two-Layer Neural Network in Numpy):**
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Example data: house size, bedrooms, zip code, wealth (4 features)
-np.random.seed(1)
-X = np.random.rand(100, 4)  # 100 houses, 4 features each
-true_w1 = np.array([2.0, 1.5, 0.5, 1.0])
-true_b1 = 0.5
-hidden = np.maximum(X @ true_w1 + true_b1, 0)  # First layer (ReLU)
-true_w2 = 3.0
-true_b2 = 2.0
-y = true_w2 * hidden + true_b2 + np.random.normal(0, 0.5, size=hidden.shape)  # Output
-
-# Initialize parameters for a two-layer network
-w1 = np.random.randn(4)
-b1 = 0.0
-w2 = 1.0
-b2 = 0.0
-lr = 0.05
-
-# Training loop
-for epoch in range(500):
-    # Forward pass
-    z1 = X @ w1 + b1
-    a1 = np.maximum(z1, 0)  # ReLU
-    y_pred = w2 * a1 + b2
-    # Compute loss (MSE)
-    loss = np.mean((y_pred - y) ** 2)
-    # Backpropagation (manual gradients)
-    grad_y_pred = 2 * (y_pred - y) / len(y)
-    grad_w2 = np.sum(grad_y_pred * a1)
-    grad_b2 = np.sum(grad_y_pred)
-    grad_a1 = grad_y_pred * w2
-    grad_z1 = grad_a1 * (z1 > 0)
-    grad_w1 = grad_z1.T @ X
-    grad_b1 = np.sum(grad_z1)
-    # Update parameters
-    w1 -= lr * grad_w1
-    b1 -= lr * grad_b1
-    w2 -= lr * grad_w2
-    b2 -= lr * grad_b2
-    if epoch % 100 == 0:
-        print(f"Epoch {epoch}, Loss: {loss:.4f}")
-
-# Visualize predictions vs. true values
-plt.scatter(y, y_pred)
-plt.xlabel('True Price')
-plt.ylabel('Predicted Price')
-plt.title('Two-Layer Neural Network Predictions')
-plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
-plt.show()
+#### 1. Rectified Linear Unit (ReLU)
+```math
+\sigma(z) = \max(0, z)
 ```
 
-**Key Takeaways:**
-- Stacking neurons (layers) allows the network to learn more complex, hierarchical features.
-- Each layer transforms the data, enabling the next layer to build on top of previous features.
-- Even with just two layers, the network can fit much more complicated relationships than a single neuron.
+**Properties**:
+- **Range**: $[0, \infty)$
+- **Derivative**: $\sigma'(z) = \begin{cases} 1 & \text{if } z > 0 \\ 0 & \text{if } z \leq 0 \end{cases}$
+- **Advantages**: Simple, computationally efficient, helps with vanishing gradient problem
+- **Disadvantages**: Can cause "dying ReLU" problem (neurons stuck at zero)
 
-## Inspiration from Biological Neural Networks
+#### 2. Sigmoid Function
+```math
+\sigma(z) = \frac{1}{1 + e^{-z}}
+```
 
-Neural networks are inspired by the structure and function of the human brain, but with important differences. Understanding this connection can help demystify why neural networks are called "neural" and why certain design choices are made.
+**Properties**:
+- **Range**: $(0, 1)$
+- **Derivative**: $\sigma'(z) = \sigma(z)(1 - \sigma(z))$
+- **Advantages**: Smooth, bounded output, interpretable as probability
+- **Disadvantages**: Suffers from vanishing gradient problem
 
-**Conceptual Intuition:**
-- In the brain, a neuron receives signals from other neurons, processes them, and sends an output signal to other neurons. The strength of these connections (synapses) can change, allowing the brain to learn.
-- In artificial neural networks, each "neuron" is a mathematical function that takes inputs, multiplies them by weights (analogous to synapse strengths), adds a bias, and applies a non-linear activation function. The output is then passed to other neurons in the next layer.
-- Learning in neural networks means adjusting the weights and biases so that the network produces the correct output for given inputs—just as the brain strengthens or weakens synapses based on experience.
+#### 3. Hyperbolic Tangent (tanh)
+```math
+\sigma(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
+```
 
-**Practical Analogy:**
-- Imagine a group of people (neurons) working together to solve a problem. Each person receives information from others, processes it in their own way, and passes their conclusion to the next group. Over time, the group learns to solve the problem more efficiently by adjusting how much they trust each other's input (changing the weights).
+**Properties**:
+- **Range**: $(-1, 1)$
+- **Derivative**: $\sigma'(z) = 1 - \sigma(z)^2$
+- **Advantages**: Zero-centered, bounded
+- **Disadvantages**: Still suffers from vanishing gradient problem
 
-**Key Points:**
-- The "neurons" in artificial neural networks are much simpler than biological neurons, but the inspiration comes from the idea of learning by adjusting connections.
-- The activation function (like ReLU) in artificial neurons is a simplified version of how biological neurons "fire" only when their input exceeds a certain threshold.
-- While the analogy is helpful, modern neural networks are designed for mathematical convenience and computational efficiency, not to perfectly mimic the brain.
+### Single Neuron Example: Housing Price Prediction
 
-**Why This Matters:**
-- Understanding the biological inspiration can help you remember why neural networks are structured in layers and why learning involves adjusting weights.
-- However, don't get too caught up in the analogy—artificial neural networks are powerful because of their mathematical properties and ability to approximate complex functions, not because they are perfect models of the brain.
-
-## Two-layer Fully-Connected Neural Networks
-
-A two-layer fully-connected neural network is the simplest example of a "deep" neural network. It consists of an input layer, one hidden layer (with multiple neurons), and an output layer. Each neuron in the hidden layer receives all the input features, and the output neuron receives all the hidden layer outputs.
-
-**Mathematical Formulation:**
+Consider predicting house prices based on house size. A single neuron with ReLU activation can model the relationship:
 
 ```math
-a_1 = \text{ReLU}(w_1^\top x + b_1), \quad w_1 \in \mathbb{R}^4, b_1 \in \mathbb{R}
-a_2 = \text{ReLU}(w_2^\top x + b_2), \quad w_2 \in \mathbb{R}^4, b_2 \in \mathbb{R}
-a_3 = \text{ReLU}(w_3^\top x + b_3), \quad w_3 \in \mathbb{R}^4, b_3 \in \mathbb{R}
+\hat{h}_\theta(x) = \max(w \cdot x + b, 0)
 ```
 
-The output is:
+Where:
+- $x$ is the house size (square feet)
+- $w$ is the price per square foot
+- $b$ is the base price
+- The ReLU ensures non-negative predictions
+
+**Intuition**: The neuron learns to predict a price that increases linearly with size, but never goes below zero (which makes sense for house prices).
+
+### Mathematical Analysis
+
+**Why ReLU Works Well**:
+1. **Non-linearity**: Introduces a "kink" at $x = -b/w$
+2. **Sparsity**: Can produce exact zeros, leading to sparse representations
+3. **Gradient Flow**: Simple derivative prevents vanishing gradients
+4. **Computational Efficiency**: Simple max operation
+
+**Parameter Learning**:
+The parameters $w$ and $b$ are learned through gradient descent by minimizing a loss function (e.g., mean squared error):
 
 ```math
-\hat{h}_\theta(x) = w^{[2]}_1 a_1 + w^{[2]}_2 a_2 + w^{[2]}_3 a_3 + b^{[2]}
+J(w, b) = \frac{1}{n} \sum_{i=1}^n (y^{(i)} - \hat{h}_\theta(x^{(i)}))^2
 ```
 
-For a general two-layer network with $`m`$ hidden units and $`d`$-dimensional input $`x \in \mathbb{R}^d`$:
+---
+
+## Stacking Neurons: Multi-Layer Networks
+
+### The Power of Composition
+
+While a single neuron can model simple non-linear relationships, real-world problems often require more complex functions. By stacking multiple neurons in layers, we can create networks that learn hierarchical representations.
+
+### Mathematical Motivation
+
+**Universal Approximation Theorem**: A neural network with a single hidden layer containing a sufficient number of neurons can approximate any continuous function on a compact domain to arbitrary precision.
+
+**Intuition**: Just as any function can be approximated by a sum of basis functions, any function can be approximated by a combination of non-linear transformations.
+
+### Two-Layer Network Architecture
+
+A two-layer network consists of:
+1. **Input Layer**: $x \in \mathbb{R}^d$
+2. **Hidden Layer**: $h$ neurons with activations $a_1, a_2, \ldots, a_h$
+3. **Output Layer**: Final prediction
+
+#### Mathematical Formulation
+
+For a two-layer network with $h$ hidden neurons:
+
+**Hidden Layer**:
+```math
+z_j = w_j^T x + b_j, \quad j = 1, 2, \ldots, h
+a_j = \sigma(z_j), \quad j = 1, 2, \ldots, h
+```
+
+**Output Layer**:
+```math
+\hat{y} = w_{out}^T a + b_{out}
+```
+
+Where:
+- $w_j \in \mathbb{R}^d$ are the weights for the $j$-th hidden neuron
+- $b_j \in \mathbb{R}$ are the biases for the $j$-th hidden neuron
+- $a = [a_1, a_2, \ldots, a_h]^T$ is the vector of hidden activations
+- $w_{out} \in \mathbb{R}^h$ and $b_{out} \in \mathbb{R}$ are the output layer parameters
+
+#### Vectorized Form
+
+We can write this more compactly using matrix notation:
+
+**Hidden Layer**:
+```math
+Z = W x + b
+A = \sigma(Z)
+```
+
+Where:
+- $W \in \mathbb{R}^{h \times d}$ is the weight matrix
+- $b \in \mathbb{R}^h$ is the bias vector
+- $Z, A \in \mathbb{R}^h$ are the pre-activations and activations
+
+**Output Layer**:
+```math
+\hat{y} = w_{out}^T A + b_{out}
+```
+
+### Feature Learning Interpretation
+
+Each hidden neuron learns to detect a specific feature or pattern in the input:
+
+1. **Feature Detectors**: Each neuron becomes specialized in recognizing certain input patterns
+2. **Feature Combination**: The output layer learns to combine these features for the final prediction
+3. **Hierarchical Learning**: Complex features are built from simpler ones
+
+### Example: Housing Price Prediction with Multiple Features
+
+Consider predicting house prices using multiple features: size, bedrooms, location, age.
+
+**Hidden Layer Features**:
+- Neuron 1: "Family size indicator" (combines size and bedrooms)
+- Neuron 2: "Location premium" (based on zip code)
+- Neuron 3: "Maintenance cost" (based on age and size)
+
+**Output Layer**: Combines these features to predict the final price.
+
+### Why Stacking Helps
+
+**Expressiveness**: Each additional layer increases the network's capacity to represent complex functions.
+
+**Mathematical Intuition**: 
+- Single neuron: Can create one "kink" or threshold
+- Two neurons: Can create two kinks
+- $h$ neurons: Can create $h$ kinks, approximating any piecewise linear function
+- Multiple layers: Can create exponentially more complex patterns
+
+---
+
+## Biological Inspiration and Analogies
+
+### Connection to Biological Neural Networks
+
+While artificial neural networks are inspired by biological systems, they are simplified mathematical models rather than accurate simulations.
+
+#### Biological Neuron Structure
+
+A biological neuron consists of:
+1. **Dendrites**: Receive signals from other neurons
+2. **Cell Body**: Processes the signals
+3. **Axon**: Transmits signals to other neurons
+4. **Synapses**: Connection points where signals are transmitted
+
+#### Artificial vs. Biological Neurons
+
+| Aspect | Biological Neuron | Artificial Neuron |
+|--------|-------------------|-------------------|
+| Input | Electrical/chemical signals | Numerical values |
+| Processing | Complex biochemical processes | Simple mathematical operations |
+| Output | Action potential (spike) | Continuous value |
+| Learning | Synaptic plasticity | Gradient descent |
+| Speed | Milliseconds | Nanoseconds |
+
+### Key Insights from Biology
+
+1. **Connectivity**: Neurons are highly interconnected
+2. **Plasticity**: Connections can strengthen or weaken based on activity
+3. **Hierarchy**: Information processing occurs in stages
+4. **Parallelism**: Many neurons operate simultaneously
+
+### Limitations of the Biological Analogy
+
+1. **Simplification**: Artificial neurons are much simpler than biological ones
+2. **Learning**: Biological learning is more complex than gradient descent
+3. **Architecture**: Biological networks have more complex connectivity patterns
+4. **Purpose**: Artificial networks are designed for mathematical convenience, not biological accuracy
+
+---
+
+## Two-Layer Fully-Connected Neural Networks
+
+### Architecture Overview
+
+A two-layer fully-connected network is the simplest form of a "deep" neural network. It consists of:
+
+1. **Input Layer**: $x \in \mathbb{R}^d$
+2. **Hidden Layer**: $m$ neurons with full connectivity
+3. **Output Layer**: Final prediction
+
+### Mathematical Formulation
+
+#### Layer-by-Layer Computation
+
+**Layer 1 (Hidden Layer)**:
+```math
+z_j^{[1]} = (w_j^{[1]})^T x + b_j^{[1]}, \quad j = 1, 2, \ldots, m
+a_j^{[1]} = \sigma(z_j^{[1]}), \quad j = 1, 2, \ldots, m
+```
+
+**Layer 2 (Output Layer)**:
+```math
+z^{[2]} = (w^{[2]})^T a^{[1]} + b^{[2]}
+\hat{y} = z^{[2]} \quad \text{(for regression)}
+\hat{y} = \sigma(z^{[2]}) \quad \text{(for classification)}
+```
+
+#### Matrix Notation
+
+**Forward Pass**:
+```math
+Z^{[1]} = W^{[1]} x + b^{[1]}
+A^{[1]} = \sigma(Z^{[1]})
+Z^{[2]} = W^{[2]} A^{[1]} + b^{[2]}
+\hat{y} = Z^{[2]}
+```
+
+Where:
+- $W^{[1]} \in \mathbb{R}^{m \times d}$: Weight matrix for layer 1
+- $b^{[1]} \in \mathbb{R}^m$: Bias vector for layer 1
+- $W^{[2]} \in \mathbb{R}^{1 \times m}$: Weight matrix for layer 2
+- $b^{[2]} \in \mathbb{R}$: Bias for layer 2
+
+### Parameter Sharing and Efficiency
+
+#### Computational Complexity
+
+- **Forward Pass**: $O(md + m) = O(md)$ operations
+- **Memory**: $O(md + m + m + 1) = O(md)$ parameters
+- **Expressiveness**: Can represent any function that can be approximated by $m$ basis functions
+
+#### Comparison with Single Layer
+
+| Aspect | Single Neuron | Two-Layer Network |
+|--------|---------------|-------------------|
+| Parameters | $d + 1$ | $md + m + m + 1$ |
+| Expressiveness | Limited | High |
+| Training Time | Fast | Slower |
+| Overfitting Risk | Low | Higher |
+
+### Training Process
+
+#### Loss Function
+
+For regression:
+```math
+J(\theta) = \frac{1}{n} \sum_{i=1}^n (y^{(i)} - \hat{y}^{(i)})^2
+```
+
+For classification:
+```math
+J(\theta) = -\frac{1}{n} \sum_{i=1}^n [y^{(i)} \log(\hat{y}^{(i)}) + (1-y^{(i)}) \log(1-\hat{y}^{(i)})]
+```
+
+#### Gradient Computation
+
+The gradients are computed using backpropagation:
 
 ```math
-\forall j \in [1, ..., m], \quad z_j = {w_j^{[1]}}^\top x + b_j^{[1]}, \quad w_j^{[1]} \in \mathbb{R}^d, b_j^{[1]} \in \mathbb{R}
-a_j = \text{ReLU}(z_j)
-a = [a_1, \ldots, a_m]^\top \in \mathbb{R}^m
-\hat{h}_\theta(x) = {w^{[2]}}^\top a + b^{[2]}, \quad w^{[2]} \in \mathbb{R}^m, b^{[2]} \in \mathbb{R}
-```
-
-**Practical Code Example (Two-Layer Fully-Connected Network in Numpy):**
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Example data: 4 input features, 1 output
-np.random.seed(42)
-X = np.random.rand(200, 4)
-true_W1 = np.array([[1.2, -0.7, 0.5, 2.0],
-                   [0.3, 1.5, -1.0, 0.7],
-                   [2.0, 0.1, 0.3, -0.5]])  # 3 hidden neurons
-true_b1 = np.array([0.5, -0.2, 0.1])
-H = np.maximum(X @ true_W1.T + true_b1, 0)  # Hidden layer (ReLU)
-true_W2 = np.array([1.0, -2.0, 0.5])
-true_b2 = 0.3
-y = H @ true_W2 + true_b2 + np.random.normal(0, 0.2, size=H.shape[0])
-
-# Initialize parameters
-W1 = np.random.randn(3, 4)
-b1 = np.zeros(3)
-W2 = np.random.randn(3)
-b2 = 0.0
-lr = 0.05
-
-# Training loop
-for epoch in range(600):
-    # Forward pass
-    Z1 = X @ W1.T + b1
-    A1 = np.maximum(Z1, 0)  # ReLU
-    y_pred = A1 @ W2 + b2
-    # Loss (MSE)
-    loss = np.mean((y_pred - y) ** 2)
-    # Backpropagation
-    grad_y_pred = 2 * (y_pred - y) / len(y)
-    grad_W2 = A1.T @ grad_y_pred
-    grad_b2 = np.sum(grad_y_pred)
-    grad_A1 = np.outer(grad_y_pred, W2)
-    grad_Z1 = grad_A1 * (Z1 > 0)
-    grad_W1 = grad_Z1.T @ X
-    grad_b1 = np.sum(grad_Z1, axis=0)
-    # Update
-    W1 -= lr * grad_W1
-    b1 -= lr * grad_b1
-    W2 -= lr * grad_W2
-    b2 -= lr * grad_b2
-    if epoch % 100 == 0:
-        print(f"Epoch {epoch}, Loss: {loss:.4f}")
-
-# Visualize predictions vs. true values
-plt.scatter(y, y_pred, alpha=0.6)
-plt.xlabel('True Value')
-plt.ylabel('Predicted Value')
-plt.title('Two-Layer Fully-Connected Neural Network')
-plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
-plt.show()
-```
-
-**Key Takeaways:**
-- A two-layer fully-connected network can learn to extract useful features from raw data, without hand-crafting them.
-- Each neuron in the hidden layer acts as a feature detector, and the output layer combines these features to make predictions.
-- This approach is much more flexible and powerful than manually designing features, especially for complex or high-dimensional data.
-
-## Vectorization: Efficient Computation for Neural Networks
-
-We vectorize the two-layer fully-connected neural network as below. We define a weight matrix $`W^{[1]}`$ in $`\mathbb{R}^{m \times d}`$ as the concatenation of all the vectors $`w_j^{[1]}`$'s in the following way:
-
-```math
-W^{[1]} = \begin{bmatrix}
-  - {w_1^{[1]}}^\top - \\
-  - {w_2^{[1]}}^\top - \\
-  \vdots \\
-  - {w_m^{[1]}}^\top -
-\end{bmatrix} \in \mathbb{R}^{m \times d}
-```
-
-Now by the definition of matrix vector multiplication, we can write $`z = [z_1, \ldots, z_m]^\top \in \mathbb{R}^m`$ as
-
-```math
-\begin{bmatrix}
-  z_1 \\
-  \vdots \\
-  z_m
-\end{bmatrix}
-= 
-\begin{bmatrix}
-  - {w_1^{[1]}}^\top - \\
-  - {w_2^{[1]}}^\top - \\
-  \vdots \\
-  - {w_m^{[1]}}^\top -
-\end{bmatrix}
-\begin{bmatrix}
-  x_1 \\
-  x_2 \\
-  \vdots \\
-  x_d
-\end{bmatrix}
-+
-\begin{bmatrix}
-  b_1^{[1]} \\
-  b_2^{[1]} \\
-  \vdots \\
-  b_m^{[1]}
-\end{bmatrix}
-```
-
-Or succinctly,
-
-```math
-z = W^{[1]} x + b^{[1]}
-```
-
-Computing the activations $`a \in \mathbb{R}^m`$ from $`z \in \mathbb{R}^m`$ involves an element-wise non-linear application of the ReLU function:
-
-```math
-a = \text{ReLU}(z)
-```
-
-Define $`W^{[2]} = \left[w^{[2]}\right]^\top \in \mathbb{R}^{1 \times m}`$ similarly. Then, the model can be summarized as:
-
-```math
-a = \text{ReLU}(W^{[1]}x + b^{[1]})
-\hat{h}_\theta(x) = W^{[2]}a + b^{[2]}
-```
-
-**Practical Code Example: For-loop vs. Vectorized Layer**
-
-```python
-import numpy as np
-
-# Example: 1000 data points, 4 input features, 3 output neurons
-np.random.seed(0)
-X = np.random.rand(1000, 4)
-W = np.random.randn(3, 4)
-b = np.random.randn(3)
-
-# For-loop implementation (slow)
-outputs_loop = np.zeros((1000, 3))
-for i in range(1000):
-    for j in range(3):
-        outputs_loop[i, j] = np.dot(W[j], X[i]) + b[j]
-
-# Vectorized implementation (fast)
-outputs_vec = X @ W.T + b  # shape: (1000, 3)
-
-# Check that the results are (almost) the same
-print('Difference:', np.abs(outputs_loop - outputs_vec).max())
-```
-
-## Multi-layer Fully-Connected Neural Networks (Deep Learning)
-
-A multi-layer (or "deep") fully-connected neural network is simply a stack of several layers, where each layer learns to transform the data in increasingly abstract ways. This is the foundation of deep learning.
-
-**Mathematical Formulation:**
-
-For a network with $`r`$ layers:
-
-```math
-a^{[1]} = \text{ReLU}(W^{[1]}x + b^{[1]})
-a^{[2]} = \text{ReLU}(W^{[2]}a^{[1]} + b^{[2]})
-\ldots
-a^{[r-1]} = \text{ReLU}(W^{[r-1]}a^{[r-2]} + b^{[r-1]})
-\hat{h}_\theta(x) = W^{[r]}a^{[r-1]} + b^{[r]}
-```
-
-Or recursively:
-
-```math
-a^{[k]} = \text{ReLU}(W^{[k]}a^{[k-1]} + b^{[k]}), \forall k = 1, \ldots, r-1
-```
-
-**Practical Code Example (Multi-layer Neural Network in Numpy):**
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Example: 4 input features, 2 hidden layers (5 and 3 neurons), 1 output
-np.random.seed(123)
-X = np.random.rand(300, 4)
-true_W1 = np.random.randn(5, 4)
-true_b1 = np.random.randn(5)
-true_W2 = np.random.randn(3, 5)
-true_b2 = np.random.randn(3)
-true_W3 = np.random.randn(3)
-true_b3 = 0.5
-
-# True function (unknown to the network)
-H1 = np.maximum(X @ true_W1.T + true_b1, 0)
-H2 = np.maximum(H1 @ true_W2.T + true_b2, 0)
-y = H2 @ true_W3 + true_b3 + np.random.normal(0, 0.2, size=H2.shape[0])
-
-# Initialize parameters
-W1 = np.random.randn(5, 4)
-b1 = np.zeros(5)
-W2 = np.random.randn(3, 5)
-b2 = np.zeros(3)
-W3 = np.random.randn(3)
-b3 = 0.0
-lr = 0.03
-
-# Training loop
-for epoch in range(800):
-    # Forward pass
-    Z1 = X @ W1.T + b1
-    A1 = np.maximum(Z1, 0)
-    Z2 = A1 @ W2.T + b2
-    A2 = np.maximum(Z2, 0)
-    y_pred = A2 @ W3 + b3
-    # Loss (MSE)
-    loss = np.mean((y_pred - y) ** 2)
-    # Backpropagation
-    grad_y_pred = 2 * (y_pred - y) / len(y)
-    grad_W3 = A2.T @ grad_y_pred
-    grad_b3 = np.sum(grad_y_pred)
-    grad_A2 = np.outer(grad_y_pred, W3)
-    grad_Z2 = grad_A2 * (Z2 > 0)
-    grad_W2 = grad_Z2.T @ A1
-    grad_b2 = np.sum(grad_Z2, axis=0)
-    grad_A1 = grad_Z2 @ W2
-    grad_Z1 = grad_A1 * (Z1 > 0)
-    grad_W1 = grad_Z1.T @ X
-    grad_b1 = np.sum(grad_Z1, axis=0)
-    # Update
-    W1 -= lr * grad_W1
-    b1 -= lr * grad_b1
-    W2 -= lr * grad_W2
-    b2 -= lr * grad_b2
-    W3 -= lr * grad_W3
-    b3 -= lr * grad_b3
-    if epoch % 200 == 0:
-        print(f"Epoch {epoch}, Loss: {loss:.4f}")
-
-# Visualize predictions vs. true values
-plt.scatter(y, y_pred, alpha=0.6)
-plt.xlabel('True Value')
-plt.ylabel('Predicted Value')
-plt.title('Multi-layer (Deep) Neural Network')
-plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
-plt.show()
-```
-
-**Key Takeaways:**
-- Deep (multi-layer) networks can learn highly complex, hierarchical representations of data.
-- Each additional layer allows the network to build on previous features, enabling it to solve more difficult problems.
-- In practice, most state-of-the-art models in vision, language, and speech are deep neural networks with many layers.
-
-## Other Activation Functions
-
-The activation function is a crucial component of a neural network. It introduces non-linearity, allowing the network to learn complex relationships. While ReLU is the most popular, there are many other activation functions, each with its own strengths and weaknesses.
-
-**Common Activation Functions:**
-
-```math
-\sigma(z) = \frac{1}{1 + e^{-z}} \quad \text{(sigmoid)}
+\frac{\partial J}{\partial W^{[2]}} = \frac{1}{n} \sum_{i=1}^n (a^{[1](i)})^T (y^{(i)} - \hat{y}^{(i)})
 ```
 
 ```math
-\sigma(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}} \quad \text{(tanh)}
+\frac{\partial J}{\partial W^{[1]}} = \frac{1}{n} \sum_{i=1}^n x^{(i)} (\sigma'(z^{[1](i)}) \odot (W^{[2]})^T (y^{(i)} - \hat{y}^{(i)}))^T
 ```
+
+Where $\odot$ denotes element-wise multiplication.
+
+### Practical Considerations
+
+#### Initialization
+
+**Weight Initialization**: Important for training success
+- **Xavier/Glorot Initialization**: $W \sim \mathcal{N}(0, \frac{2}{n_{in} + n_{out}})$
+- **He Initialization**: $W \sim \mathcal{N}(0, \frac{2}{n_{in}})$ (for ReLU)
+
+**Bias Initialization**: Usually initialized to zero or small positive values
+
+#### Regularization
+
+**L2 Regularization**:
+```math
+J_{reg}(\theta) = J(\theta) + \frac{\lambda}{2} (\|W^{[1]}\|_F^2 + \|W^{[2]}\|_F^2)
+```
+
+**Dropout**: Randomly set some activations to zero during training
+
+#### Hyperparameter Tuning
+
+- **Number of hidden units**: Start with $m = \sqrt{d}$ or $m = 2d$
+- **Learning rate**: Start with 0.01 and adjust based on convergence
+- **Batch size**: Balance between memory usage and training stability
+
+---
+
+## Multi-Layer Networks: Going Deeper
+
+### Why Go Deeper?
+
+#### Theoretical Motivation
+
+**Representation Learning**: Deep networks can learn hierarchical representations automatically.
+
+**Parameter Efficiency**: Deep networks can represent complex functions with fewer parameters than shallow networks.
+
+**Feature Hierarchy**: Early layers learn low-level features, later layers learn high-level abstractions.
+
+#### Mathematical Intuition
+
+A deep network with $L$ layers can be written as:
 
 ```math
-\sigma(z) = \max\{z, \gamma z\},\; \gamma \in (0, 1) \quad \text{(leaky ReLU)}
+f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
 ```
+
+Each layer $f_i$ transforms the input into a new representation that becomes the input for the next layer.
+
+### Deep Network Architecture
+
+#### General Formulation
+
+For a network with $L$ layers:
+
+**Layer $l$**:
+```math
+Z^{[l]} = W^{[l]} A^{[l-1]} + b^{[l]}
+A^{[l]} = \sigma^{[l]}(Z^{[l]})
+```
+
+Where:
+- $A^{[0]} = x$ (input)
+- $\sigma^{[l]}$ is the activation function for layer $l$
+- $W^{[l]} \in \mathbb{R}^{n_l \times n_{l-1}}$ is the weight matrix
+- $b^{[l]} \in \mathbb{R}^{n_l}$ is the bias vector
+
+#### Activation Functions by Layer
+
+- **Hidden Layers**: Usually ReLU or variants
+- **Output Layer**: 
+  - Regression: Linear (no activation)
+  - Binary Classification: Sigmoid
+  - Multi-class Classification: Softmax
+
+### Training Deep Networks
+
+#### Challenges
+
+1. **Vanishing/Exploding Gradients**: Gradients can become very small or very large
+2. **Overfitting**: More parameters increase risk of overfitting
+3. **Computational Cost**: Training time increases with depth
+4. **Hyperparameter Tuning**: More parameters to tune
+
+#### Solutions
+
+**Gradient Issues**:
+- **Batch Normalization**: Normalize activations within each batch
+- **Residual Connections**: Skip connections to help gradient flow
+- **Proper Initialization**: Use appropriate weight initialization schemes
+
+**Overfitting**:
+- **Regularization**: L2 regularization, dropout
+- **Early Stopping**: Stop training when validation loss increases
+- **Data Augmentation**: Increase effective dataset size
+
+**Computational Efficiency**:
+- **GPU Acceleration**: Use specialized hardware
+- **Mini-batch Training**: Process data in batches
+- **Optimized Libraries**: Use frameworks like PyTorch, TensorFlow
+
+### Modern Architectures
+
+#### Residual Networks (ResNets)
+
+Add skip connections to help with gradient flow:
 
 ```math
-\sigma(z) = \frac{z}{2} \left[1 + \operatorname{erf}\left(\frac{z}{\sqrt{2}}\right)\right] \quad \text{(GELU)}
+A^{[l+1]} = \sigma(Z^{[l+1]} + A^{[l]})
 ```
+
+#### Batch Normalization
+
+Normalize activations to stabilize training:
 
 ```math
-\sigma(z) = \frac{1}{\beta} \log(1 + \exp(\beta z)),\; \beta > 0 \quad \text{(Softplus)}
+A_{norm}^{[l]} = \frac{A^{[l]} - \mu}{\sqrt{\sigma^2 + \epsilon}}
+A^{[l]} = \gamma A_{norm}^{[l]} + \beta
 ```
 
-<img src="./img/activation_functions.png" width="500px"/>
+#### Attention Mechanisms
 
-*Figure 7.3: Activation functions in deep learning.*
-
-**Practical Code Example: Comparing Activation Functions**
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.special import erf
-
-z = np.linspace(-4, 4, 200)
-relu = np.maximum(0, z)
-sigmoid = 1 / (1 + np.exp(-z))
-tanh = np.tanh(z)
-leaky_relu = np.where(z > 0, z, 0.1 * z)
-gelu = 0.5 * z * (1 + erf(z / np.sqrt(2)))
-softplus = np.log(1 + np.exp(z))
-
-plt.figure(figsize=(8, 5))
-plt.plot(z, relu, label='ReLU')
-plt.plot(z, sigmoid, label='Sigmoid')
-plt.plot(z, tanh, label='Tanh')
-plt.plot(z, leaky_relu, label='Leaky ReLU')
-plt.plot(z, gelu, label='GELU')
-plt.plot(z, softplus, label='Softplus')
-plt.legend()
-plt.title('Common Activation Functions')
-plt.xlabel('z')
-plt.ylabel('Activation')
-plt.grid(True)
-plt.show()
-```
-
-**When to use which activation?**
-- **ReLU:** Default for hidden layers in most modern networks. Simple and effective.
-- **Sigmoid:** Use for binary classification output (last layer only).
-- **Tanh:** Sometimes used in hidden layers, but less common than ReLU.
-- **Leaky ReLU:** Use if you notice "dead" neurons with ReLU (outputs stuck at zero).
-- **GELU:** Preferred in some state-of-the-art NLP models.
-- **Softplus:** Rarely used, but can be helpful if you want a smooth version of ReLU.
-
-**Key Takeaways:**
-- The activation function is what makes neural networks powerful and flexible.
-- Try ReLU first for hidden layers, and experiment with others if you run into issues like vanishing gradients or dead neurons.
-
-## Connection to the Kernel Method
-
-Neural networks and kernel methods both aim to model complex, non-linear relationships between inputs and outputs. However, they do so in fundamentally different ways.
-
-**Mathematical Formulation:**
-
-Suppose $`\sigma(z) = z`$, then for a two-layer neural network, we have:
+Allow the network to focus on relevant parts of the input:
 
 ```math
-\hat{h}_\theta(x) = W^{[2]}a^{[1]}
-= W^{[2]}z^{[1]}
-= W^{[2]}W^{[1]}x
-= \tilde{W}x, \quad \text{where } \tilde{W} = W^{[2]}W^{[1]}
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 ```
 
-This shows that without non-linear activation functions, the neural network simply performs linear regression.
+---
 
-**Practical Code Example: Fixed Kernel vs. Learned Features**
+## Activation Functions Deep Dive
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.svm import SVC
-from sklearn.neural_network import MLPClassifier
-from sklearn.datasets import make_circles
+### Why Activation Functions Matter
 
-# Generate a toy dataset
-X, y = make_circles(n_samples=300, factor=0.5, noise=0.1, random_state=0)
+Activation functions are crucial because they introduce non-linearity, enabling neural networks to learn complex patterns.
 
-# Kernel method: SVM with RBF kernel (fixed feature map)
-svm = SVC(kernel='rbf', gamma=2)
-svm.fit(X, y)
+### Properties of Good Activation Functions
 
-# Neural network: learns its own feature map
-mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation='relu', max_iter=2000)
-mlp.fit(X, y)
+1. **Non-linearity**: Essential for modeling complex relationships
+2. **Differentiability**: Required for gradient-based optimization
+3. **Monotonicity**: Helps with optimization stability
+4. **Boundedness**: Can help prevent exploding gradients
+5. **Computational Efficiency**: Should be fast to compute
 
-# Plot decision boundaries
-xx, yy = np.meshgrid(np.linspace(-1.5, 1.5, 200), np.linspace(-1.5, 1.5, 200))
-Z_svm = svm.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
-Z_mlp = mlp.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+### Detailed Analysis of Common Activations
 
-plt.figure(figsize=(12, 5))
-plt.subplot(1, 2, 1)
-plt.contourf(xx, yy, Z_svm, alpha=0.3)
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='bwr', edgecolor='k')
-plt.title('SVM with RBF Kernel (Fixed Feature Map)')
-plt.subplot(1, 2, 2)
-plt.contourf(xx, yy, Z_mlp, alpha=0.3)
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='bwr', edgecolor='k')
-plt.title('Neural Network (Learned Feature Map)')
-plt.show()
+#### ReLU (Rectified Linear Unit)
+
+**Definition**: $\sigma(z) = \max(0, z)$
+
+**Advantages**:
+- **Computational Efficiency**: Simple max operation
+- **Sparsity**: Can produce exact zeros
+- **Gradient Flow**: Simple derivative prevents vanishing gradients
+- **Biological Plausibility**: Similar to biological neuron firing
+
+**Disadvantages**:
+- **Dying ReLU**: Neurons can get stuck at zero
+- **Not Zero-Centered**: Output is always non-negative
+- **Not Bounded**: Output can grow arbitrarily large
+
+**Variants**:
+- **Leaky ReLU**: $\sigma(z) = \max(\alpha z, z)$ where $\alpha < 1$
+- **Parametric ReLU**: $\alpha$ is learned
+- **ELU**: $\sigma(z) = \begin{cases} z & \text{if } z > 0 \\ \alpha(e^z - 1) & \text{if } z \leq 0 \end{cases}$
+
+#### Sigmoid
+
+**Definition**: $\sigma(z) = \frac{1}{1 + e^{-z}}$
+
+**Advantages**:
+- **Bounded**: Output always between 0 and 1
+- **Smooth**: Continuous and differentiable everywhere
+- **Interpretable**: Can be interpreted as probability
+
+**Disadvantages**:
+- **Vanishing Gradient**: Derivative approaches zero for large inputs
+- **Not Zero-Centered**: Output is always positive
+- **Saturation**: Neurons can get stuck in saturation regions
+
+#### Tanh (Hyperbolic Tangent)
+
+**Definition**: $\sigma(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$
+
+**Advantages**:
+- **Zero-Centered**: Output ranges from -1 to 1
+- **Bounded**: Output is always between -1 and 1
+- **Smooth**: Continuous and differentiable
+
+**Disadvantages**:
+- **Vanishing Gradient**: Still suffers from gradient vanishing
+- **Saturation**: Can get stuck in saturation regions
+
+#### GELU (Gaussian Error Linear Unit)
+
+**Definition**: $\sigma(z) = z \cdot \Phi(z)$ where $\Phi$ is the cumulative distribution function of the standard normal distribution
+
+**Advantages**:
+- **Smooth**: Continuous and differentiable
+- **Non-monotonic**: Can model more complex relationships
+- **Performance**: Often performs better than ReLU in practice
+
+**Disadvantages**:
+- **Computational Cost**: More expensive to compute
+- **Complexity**: More complex than ReLU
+
+### Choosing Activation Functions
+
+#### Guidelines
+
+1. **Hidden Layers**: ReLU is usually a good default choice
+2. **Output Layer**: 
+   - Regression: Linear (no activation)
+   - Binary Classification: Sigmoid
+   - Multi-class Classification: Softmax
+3. **Special Cases**: Consider alternatives based on specific requirements
+
+#### Empirical Considerations
+
+- **ReLU**: Good default for most cases
+- **Leaky ReLU**: If you observe dying ReLU problem
+- **Tanh**: If you need bounded outputs
+- **GELU**: For transformer-based architectures
+
+---
+
+## Connection to Kernel Methods
+
+### Theoretical Relationship
+
+Neural networks and kernel methods are both approaches to non-linear learning, but they work in fundamentally different ways.
+
+#### Kernel Methods
+
+Kernel methods rely on the "kernel trick" to implicitly map data to high-dimensional spaces:
+
+```math
+f(x) = \sum_{i=1}^n \alpha_i K(x, x_i)
 ```
 
-**Key Takeaways:**
-- Kernel methods rely on hand-crafted feature maps, while neural networks learn the feature map from data.
-- Neural networks can adapt to new data and tasks more easily, making them more powerful for many real-world problems.
-- However, kernel methods can still be very effective for small datasets or when you have strong domain knowledge about the right features.
+Where $K$ is a kernel function measuring similarity between points.
+
+#### Neural Networks
+
+Neural networks learn explicit feature mappings:
+
+```math
+f(x) = W^{[L]} \sigma(W^{[L-1]} \sigma(\cdots \sigma(W^{[1]} x + b^{[1]}) \cdots) + b^{[L-1]}) + b^{[L]}
+```
+
+### Key Differences
+
+| Aspect | Kernel Methods | Neural Networks |
+|--------|----------------|-----------------|
+| Feature Learning | Fixed kernel functions | Learned feature mappings |
+| Scalability | Limited by number of training examples | Limited by model capacity |
+| Interpretability | Kernel functions are interpretable | Learned features may not be |
+| Flexibility | Limited by choice of kernel | Highly flexible architecture |
+
+### Mathematical Connection
+
+#### Neural Tangent Kernel (NTK)
+
+Recent research has shown that in the limit of infinite width, neural networks behave like kernel methods with a specific kernel called the Neural Tangent Kernel.
+
+**Intuition**: As the number of neurons approaches infinity, the network's behavior becomes more predictable and can be characterized by a kernel function.
+
+#### Practical Implications
+
+1. **Understanding**: NTK helps understand why neural networks work
+2. **Design**: Can guide architecture design
+3. **Training**: Provides insights into optimization behavior
+4. **Generalization**: Helps understand generalization properties
+
+---
+
+*This concludes our exploration of neural network fundamentals. In the next sections, we will dive deeper into specific architectures, training algorithms, and practical implementation details.*
