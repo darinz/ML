@@ -380,3 +380,22 @@ This framework unifies linear regression, logistic regression, and many other mo
 - Canonical links provide optimal statistical properties
 - The framework extends naturally to regularization and mixed models
 - Model diagnostics ensure appropriate model fit and interpretation
+
+## Further Reading and Advanced Resources
+
+For deeper theoretical understanding and advanced perspectives on GLM construction and exponential families, the `exponential_family/` directory contains comprehensive reference materials from leading institutions:
+
+### **Academic Reference Materials**
+- **MIT Lecture Notes** (`the-exponential-family_MIT18_655S16_LecNote7.pdf`): Comprehensive coverage of exponential families with rigorous mathematical treatment and GLM applications
+- **Princeton Lectures** (`exponential-families_princeton.pdf`, `lecture11_princeton.pdf`): Clear explanations of exponential families with practical GLM construction examples
+- **Berkeley Materials** (`exponential_family_chapter8.pdf`, `the-exponential-family_chapter8_berkeley.pdf`): Advanced probability theory perspective on exponential families and their role in GLMs
+- **Columbia Lecture** (`the-exponential-family_lecture12_columbia.pdf`): Focused treatment of exponential family properties and their application to GLM construction
+- **Purdue Materials** (`expfamily_purdue.pdf`): Comprehensive treatment with detailed examples of exponential families in GLM contexts
+
+### **Recommended Study Path for GLM Construction**
+1. **Foundation**: Master the concepts in this document and practice with `constructing_glm_examples.py`
+2. **Theoretical Deepening**: Study `the-exponential-family_lecture12_columbia.pdf` for clear explanations of exponential family foundations
+3. **Advanced Applications**: Dive into `the-exponential-family_MIT18_655S16_LecNote7.pdf` for comprehensive coverage of GLM theory and applications
+4. **Specialized Topics**: Use institution-specific materials for particular GLM extensions and advanced topics
+
+These resources provide multiple perspectives on GLM construction, from different teaching approaches to advanced theoretical treatments, complementing the practical implementation focus of this course.
