@@ -542,6 +542,42 @@ glm_model = sm.GLM(y, X, family=sm.families.Gaussian())
 - **Bootstrap**: Estimate uncertainty in coefficients
 - **Sensitivity Analysis**: Test robustness of conclusions
 
+## Additional Resources and Reference Materials
+
+### Exponential Family Reference Materials
+
+The `exponential_family/` directory contains comprehensive reference materials from leading institutions that provide deeper theoretical foundations and advanced perspectives on exponential family distributions:
+
+#### **Academic Resources**
+- **`expfamily_purdue.pdf`** (226KB) - Purdue University's comprehensive treatment of exponential families
+- **`exponential-families_princeton.pdf`** (135KB) - Princeton University's lecture notes on exponential families
+- **`exponential_family_chapter8.pdf`** (144KB) - Chapter 8 from Berkeley's advanced probability course
+- **`the-exponential-family_chapter8_berkeley.pdf`** (144KB) - Alternative Berkeley treatment of exponential families
+- **`lecture11_princeton.pdf`** (147KB) - Princeton's Lecture 11 on exponential family properties
+- **`the-exponential-family_lecture12_columbia.pdf`** (61KB) - Columbia University's Lecture 12 on exponential families
+- **`the-exponential-family_MIT18_655S16_LecNote7.pdf`** (743KB) - MIT's comprehensive lecture notes on exponential families
+
+#### **Learning Path with Reference Materials**
+1. **Start with Theory**: Read `01_exponential_family.md` for foundational concepts
+2. **Practice Implementation**: Work through `exponential_family_examples.py` for hands-on learning
+3. **Deepen Understanding**: Study the PDF materials in `exponential_family/` for advanced perspectives
+4. **Apply to GLMs**: Use `02_constructing_glm.md` and `constructing_glm_examples.py` for practical applications
+
+#### **Recommended Reading Order**
+- **Beginner**: Start with `01_exponential_family.md` and `exponential_family_examples.py`
+- **Intermediate**: Study `the-exponential-family_lecture12_columbia.pdf` for clear explanations
+- **Advanced**: Dive into `the-exponential-family_MIT18_655S16_LecNote7.pdf` for comprehensive coverage
+- **Specialized**: Use `expfamily_purdue.pdf` and `exponential-families_princeton.pdf` for specific topics
+
+### Reference Materials Integration
+
+These PDF resources complement the course materials by providing:
+- **Multiple Perspectives**: Different teaching styles and approaches from various institutions
+- **Advanced Topics**: Deeper mathematical treatments and proofs
+- **Historical Context**: Understanding of how exponential families developed
+- **Practical Applications**: Real-world examples and case studies
+- **Theoretical Rigor**: Formal mathematical treatments for advanced learners
+
 ## Related Sections and Prerequisites
 
 ### Prerequisites from This Course
