@@ -44,16 +44,19 @@ Complete treatment of classification problems including:
 **Key Files**: `01_logistic_regression.md`, `02_perceptron.md`, `03_multi-class_classification.md`, `04_newtons_method.md`
 
 ### **03_generalized_linear_models/** - Generalized Linear Models (GLMs)
-Unified framework extending linear models through:
-- **Exponential Family Distributions**: Mathematical foundation unifying probability distributions
-- **GLM Construction**: Three fundamental assumptions and step-by-step recipe
-- **Link Functions**: Connecting linear predictors to response distributions
-- **Canonical Forms**: Understanding canonical link functions and their properties
-- **Applications**: Linear regression, logistic regression, Poisson regression as GLMs
-- **Parameter Estimation**: Maximum likelihood estimation in the GLM framework
-- **Code Implementation**: Python examples demonstrating GLM construction
+Comprehensive unified framework extending linear models through:
+- **Exponential Family Distributions**: Mathematical foundation unifying probability distributions with detailed derivations
+- **GLM Construction**: Three fundamental assumptions and systematic four-step recipe
+- **Link Functions**: Connecting linear predictors to response distributions with canonical and non-canonical options
+- **Canonical Forms**: Understanding canonical link functions and their optimal properties
+- **Applications**: Linear regression, logistic regression, Poisson regression, and Gamma regression as GLMs
+- **Parameter Estimation**: Maximum likelihood, IRLS, and gradient descent methods
+- **Model Diagnostics**: Comprehensive residual analysis and goodness-of-fit measures
+- **Real-World Examples**: Healthcare, finance, marketing, and environmental applications
+- **Advanced Topics**: Regularization, mixed models, and Bayesian extensions
+- **Code Implementation**: Complete Python frameworks with educational annotations and best practices
 
-**Key Files**: `01_exponential_family.md`, `02_constructing_glm.md`
+**Key Files**: `01_exponential_family.md`, `02_constructing_glm.md`, `exponential_family_examples.py`, `constructing_glm_examples.py`
 
 ## Getting Started
 
