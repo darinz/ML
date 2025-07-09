@@ -62,9 +62,9 @@ The Hessian $`\nabla^2 f(x)`$ of a function $`f : \mathbb{R}^n \to \mathbb{R}`$ 
    - $`\nabla_x (x^T A x) = (A + A)x = 2Ax`$
 
 4. **Combine results:**
-   ```math
-   \nabla f(x) = \frac{1}{2} \cdot 2Ax + b = Ax + b
-   ```
+```math
+\nabla f(x) = \frac{1}{2} \cdot 2Ax + b = Ax + b
+```
 
 **Why this matters:** This result is crucial for gradient descent algorithms. When you have a quadratic objective function (common in least squares problems), the gradient is linear in $`x`$, making optimization much more tractable.
 
@@ -79,9 +79,9 @@ The Hessian $`\nabla^2 f(x)`$ of a function $`f : \mathbb{R}^n \to \mathbb{R}`$ 
    - An outer function $`g: \mathbb{R} \to \mathbb{R}`$
 
 2. **Apply the chain rule:** For scalar-valued functions, the chain rule states:
-   ```math
-   \nabla f(x) = g'(h(x)) \nabla h(x)
-   ```
+```math
+\nabla f(x) = g'(h(x)) \nabla h(x)
+```
 
 3. **Interpretation:** 
    - $`g'(h(x))`$ is the derivative of the outer function evaluated at $`h(x)`$
@@ -97,9 +97,9 @@ The Hessian $`\nabla^2 f(x)`$ of a function $`f : \mathbb{R}^n \to \mathbb{R}`$ 
 **Step-by-step reasoning:**
 
 1. **Recall Hessian definition:** The Hessian is the matrix of second derivatives:
-   ```math
-   [\nabla^2 f(x)]_{ij} = \frac{\partial^2 f}{\partial x_i \partial x_j}
-   ```
+```math
+[\nabla^2 f(x)]_{ij} = \frac{\partial^2 f}{\partial x_i \partial x_j}
+```
 
 2. **Apply to each term:**
    - For the quadratic term: $`\nabla^2_x (x^T A x) = A + A^T`$
@@ -108,9 +108,9 @@ The Hessian $`\nabla^2 f(x)`$ of a function $`f : \mathbb{R}^n \to \mathbb{R}`$ 
 3. **Use symmetry:** Since $`A`$ is symmetric, $`A + A^T = 2A`$
 
 4. **Combine with coefficient:** The $`\frac{1}{2}`$ factor cancels the 2:
-   ```math
-   \nabla^2 f(x) = \frac{1}{2} \cdot 2A + 0 = A
-   ```
+```math
+\nabla^2 f(x) = \frac{1}{2} \cdot 2A + 0 = A
+```
 
 **Why this matters:** 
 - If $`A`$ is positive definite, the function is strictly convex and has a unique global minimum
@@ -167,9 +167,10 @@ A matrix $`A \in \mathbb{R}^{n \times n}`$ is **positive semi-definite** (PSD), 
 2. **Check symmetry:** $`A^T = (zz^T)^T = zz^T = A`$, so $`A`$ is symmetric
 
 3. **Check positive semidefiniteness:** For any vector $`x \in \mathbb{R}^n`$:
-   ```math
-   x^T A x = x^T (zz^T) x = (x^T z)(z^T x) = (z^T x)^2 \geq 0
-   ```
+```math
+x^T A x = x^T (zz^T) x = (x^T z)(z^T x) = (z^T x)^2 \geq 0
+```
+
    The last inequality holds because any real number squared is non-negative.
 
 4. **Conclusion:** Since $`A`$ is symmetric and $`x^T A x \geq 0`$ for all $`x`$, $`A`$ is positive semidefinite.
@@ -220,9 +221,9 @@ A matrix $`A \in \mathbb{R}^{n \times n}`$ is **positive semi-definite** (PSD), 
 2. **Check symmetry:** $`(BAB^T)^T = (B^T)^T A^T B^T = BAB^T`$ (since $`A`$ is symmetric)
 
 3. **Check positive semidefiniteness:** For any vector $`y \in \mathbb{R}^m`$:
-   ```math
-   y^T BAB^T y = (B^T y)^T A (B^T y)
-   ```
+```math
+y^T BAB^T y = (B^T y)^T A (B^T y)
+```
 
 4. **Key insight:** Let $`v = B^T y`$. Since $`A`$ is PSD, $`v^T A v \geq 0`$ for all $`v`$
 
@@ -280,9 +281,9 @@ Let $`\lambda_i = \lambda_i(A)`$ denote the $`i`$-th eigenvalue of $`A`$.
 3. **Use standard basis:** Let $`e_i`$ be the $`i`$-th standard basis vector (all zeros except 1 in position $`i`$)
 
 4. **Compute $`A t^{(i)}`$:**
-   ```math
-   A t^{(i)} = T \Lambda T^{-1} t^{(i)}
-   ```
+```math
+A t^{(i)} = T \Lambda T^{-1} t^{(i)}
+```
 
 5. **Simplify using orthogonality:** Since $`T^{-1} T = I`$, we have $`T^{-1} t^{(i)} = e_i`$
 
@@ -308,9 +309,9 @@ Let $`\lambda_i = \lambda_i(A)`$ denote the $`i`$-th eigenvalue of $`A`$.
 2. **Key property of orthogonal matrices:** $`U^T U = I`$, so $`U^T u^{(i)} = e_i`$
 
 3. **Compute $`A u^{(i)}`$:**
-   ```math
-   A u^{(i)} = U \Lambda U^T u^{(i)}
-   ```
+```math
+A u^{(i)} = U \Lambda U^T u^{(i)}
+```
 
 4. **Simplify:** $`U^T u^{(i)} = e_i`$ (the $`i`$-th standard basis vector)
 
@@ -379,14 +380,14 @@ Suppose $`X = (X_1, \ldots, X_n)`$ is sampled from a multivariate Gaussian distr
 2. **Linear transformation:** $`Y = \sum_{i=1}^n X_i = \mathbf{1}^T X`$ where $`\mathbf{1}`$ is the vector of all ones
 
 3. **Mean calculation:** 
-   ```math
-   \mathbb{E}[Y] = \mathbb{E}[\sum_{i=1}^n X_i] = \sum_{i=1}^n \mathbb{E}[X_i] = \sum_{i=1}^n \mu_i = \mathbf{1}^T \mu
-   ```
+```math
+\mathbb{E}[Y] = \mathbb{E}[\sum_{i=1}^n X_i] = \sum_{i=1}^n \mathbb{E}[X_i] = \sum_{i=1}^n \mu_i = \mathbf{1}^T \mu
+```
 
 4. **Variance calculation:** 
-   ```math
-   \text{Var}(Y) = \text{Var}(\sum_{i=1}^n X_i) = \sum_{i=1}^n \sum_{j=1}^n \text{Cov}(X_i, X_j) = \mathbf{1}^T \Sigma \mathbf{1}
-   ```
+```math
+\text{Var}(Y) = \text{Var}(\sum_{i=1}^n X_i) = \sum_{i=1}^n \sum_{j=1}^n \text{Cov}(X_i, X_j) = \mathbf{1}^T \Sigma \mathbf{1}
+```
 
 5. **Distribution:** Since $`Y`$ is a linear combination of jointly Gaussian variables, it is also Gaussian
 
@@ -410,14 +411,15 @@ Suppose $`X = (X_1, \ldots, X_n)`$ is sampled from a multivariate Gaussian distr
 1. **Setup:** We need to find $`\mathbb{E}[X^T \Sigma^{-1} X]`$ where $`X \sim \mathcal{N}(\mu, \Sigma)`$
 
 2. **Key formula:** For any matrix $`A`$ and Gaussian $`X \sim \mathcal{N}(\mu, \Sigma)`$:
-   ```math
-   \mathbb{E}[X^T A X] = \text{tr}(A \Sigma) + \mu^T A \mu
-   ```
+
+```math
+\mathbb{E}[X^T A X] = \text{tr}(A \Sigma) + \mu^T A \mu
+```
 
 3. **Apply with $`A = \Sigma^{-1}`$:**
-   ```math
-   \mathbb{E}[X^T \Sigma^{-1} X] = \text{tr}(\Sigma^{-1} \Sigma) + \mu^T \Sigma^{-1} \mu
-   ```
+```math
+\mathbb{E}[X^T \Sigma^{-1} X] = \text{tr}(\Sigma^{-1} \Sigma) + \mu^T \Sigma^{-1} \mu
+```
 
 4. **Simplify:** $`\text{tr}(\Sigma^{-1} \Sigma) = \text{tr}(I) = n`$
 
