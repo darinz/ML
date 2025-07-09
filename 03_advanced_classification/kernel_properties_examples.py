@@ -1,287 +1,416 @@
 """
-Kernel Properties Examples
-==========================
+Kernel Properties and Mercer's Theorem: Implementation Examples
+============================================================
 
-This file contains all the Python code examples from the kernel properties section,
-demonstrating various kernel functions, their implementations, and applications.
+This file implements the key concepts from the kernel properties document:
+- Positive definite kernels and their properties
+- Mercer's theorem and its implications
+- Kernel construction rules and validation
+- Multiple kernel learning and advanced applications
+
+The implementations demonstrate both theoretical concepts and practical
+validation methods with detailed mathematical explanations.
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics.pairwise import polynomial_kernel, rbf_kernel
-from sklearn import svm
-from sklearn.datasets import make_moons
-from collections import Counter
+from sklearn.metrics.pairwise import rbf_kernel, polynomial_kernel, linear_kernel
+from sklearn.decomposition import KernelPCA
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score
+from sklearn.datasets import make_circles, make_moons, make_classification
+import time
 
 
-def quadratic_kernel_examples():
-    """Examples of quadratic kernel K(x, z) = (x^T z)^2"""
-    print("=== Quadratic Kernel Examples ===")
+# ============================================================================
+# Section 5.5: Kernel Properties and Mercer's Theorem
+# ============================================================================
+
+def is_positive_definite(K, tolerance=1e-10):
+    """
+    Check if a kernel matrix is positive definite.
     
-    # Pure Python implementation
-    x = [1, 2, 3]
-    z = [4, 5, 6]
+    A kernel matrix K is positive definite if all eigenvalues are non-negative.
+    This is a necessary condition for a valid kernel function.
     
-    def quadratic_kernel(x, z):
-        return sum(xi * zi for xi, zi in zip(x, z)) ** 2
+    Args:
+        K: Kernel matrix (n x n)
+        tolerance: Numerical tolerance for eigenvalue check
+        
+    Returns:
+        bool: True if positive definite, False otherwise
+        
+    Mathematical foundation:
+        K is positive definite if for any vector z: z^T K z ≥ 0
+        This is equivalent to all eigenvalues being non-negative.
+    """
+    # Compute eigenvalues
+    eigenvalues = np.linalg.eigvals(K)
     
-    print(f"Pure Python quadratic kernel: {quadratic_kernel(x, z)}")
+    # Check if all eigenvalues are non-negative (within tolerance)
+    is_pd = np.all(eigenvalues.real >= -tolerance)
     
-    # NumPy implementation
-    x_np = np.array([1, 2, 3])
-    z_np = np.array([4, 5, 6])
+    return is_pd, eigenvalues
+
+
+def test_kernel_positive_definiteness():
+    """
+    Test various kernels for positive definiteness.
     
-    def quadratic_kernel_np(x, z):
-        return np.dot(x, z) ** 2
+    This demonstrates how to validate kernel functions using
+    the positive definiteness property.
+    """
+    print("=== Testing Kernel Positive Definiteness ===")
     
-    print(f"NumPy quadratic kernel: {quadratic_kernel_np(x_np, z_np)}")
+    # Generate sample data
+    np.random.seed(42)
+    X = np.random.randn(50, 3)  # 50 samples, 3 features
     
-    # Expanded form implementation
-    def expanded_quadratic_kernel(x, z):
-        d = len(x)
-        return sum(x[i] * x[j] * z[i] * z[j] for i in range(d) for j in range(d))
+    # Test different kernels
+    kernels = [
+        ("Linear", lambda X: linear_kernel(X)),
+        ("Polynomial (degree=2)", lambda X: polynomial_kernel(X, degree=2)),
+        ("RBF (γ=1)", lambda X: rbf_kernel(X, gamma=1.0)),
+        ("RBF (γ=0.1)", lambda X: rbf_kernel(X, gamma=0.1))
+    ]
     
-    print(f"Expanded form quadratic kernel: {expanded_quadratic_kernel(x, z)}")
+    results = {}
     
-    # Explicit feature mapping for d=3
-    def phi_quadratic(x):
-        return [x[0]*x[0], x[0]*x[1], x[0]*x[2],
-                x[1]*x[0], x[1]*x[1], x[1]*x[2],
-                x[2]*x[0], x[2]*x[1], x[2]*x[2]]
+    for kernel_name, kernel_func in kernels:
+        print(f"\n--- {kernel_name} ---")
+        
+        # Compute kernel matrix
+        K = kernel_func(X)
+        
+        # Check positive definiteness
+        is_pd, eigenvalues = is_positive_definite(K)
+        
+        results[kernel_name] = {
+            'is_positive_definite': is_pd,
+            'eigenvalues': eigenvalues,
+            'min_eigenvalue': np.min(eigenvalues.real),
+            'max_eigenvalue': np.max(eigenvalues.real)
+        }
+        
+        print(f"Positive definite: {is_pd}")
+        print(f"Eigenvalue range: [{np.min(eigenvalues.real):.6f}, {np.max(eigenvalues.real):.6f}]")
+        print(f"Condition number: {np.max(eigenvalues.real) / (np.min(eigenvalues.real) + 1e-10):.2f}")
     
-    print(f"Explicit feature mapping φ(x): {phi_quadratic([1, 2, 3])}")
+    return results
+
+
+def demonstrate_mercer_theorem():
+    """
+    Demonstrate Mercer's theorem in practice.
+    
+    Mercer's theorem states that any positive definite kernel corresponds
+    to an inner product in some feature space. This example shows how
+    to construct an approximate feature map from a kernel matrix.
+    """
+    print("=== Mercer's Theorem Demonstration ===")
+    
+    # Generate data
+    np.random.seed(42)
+    X = np.random.randn(30, 2)
+    
+    # Compute RBF kernel matrix
+    K = rbf_kernel(X, gamma=1.0)
+    
+    # Eigenvalue decomposition (spectral decomposition)
+    eigenvalues, eigenvectors = np.linalg.eigh(K)
+    
+    # Sort in descending order
+    idx = eigenvalues.argsort()[::-1]
+    eigenvalues = eigenvalues[idx]
+    eigenvectors = eigenvectors[:, idx]
+    
+    print(f"Kernel matrix shape: {K.shape}")
+    print(f"Number of positive eigenvalues: {np.sum(eigenvalues > 1e-10)}")
+    print(f"Eigenvalue spectrum: {eigenvalues[:10]}")  # Show first 10
+    
+    # Construct approximate feature map
+    # φ(x_i) ≈ √λ_j * v_ij where v_ij is the j-th component of eigenvector i
+    positive_eigenvalues = eigenvalues[eigenvalues > 1e-10]
+    positive_eigenvectors = eigenvectors[:, eigenvalues > 1e-10]
+    
+    # Feature map: φ(x_i) = [√λ_1 * v_i1, √λ_2 * v_i2, ...]
+    feature_map = np.sqrt(positive_eigenvalues) * positive_eigenvectors.T
+    
+    print(f"Feature map dimension: {feature_map.shape[0]}")
+    print(f"Number of features: {feature_map.shape[1]}")
+    
+    # Verify that K ≈ φ^T φ
+    K_reconstructed = feature_map.T @ feature_map
+    reconstruction_error = np.mean((K - K_reconstructed) ** 2)
+    
+    print(f"Reconstruction error: {reconstruction_error:.2e}")
+    print("This demonstrates that the kernel matrix can be reconstructed")
+    print("from the feature map, confirming Mercer's theorem.")
+    
+    return feature_map, eigenvalues, eigenvectors
+
+
+def kernel_construction_rules():
+    """
+    Demonstrate kernel construction rules.
+    
+    If K1 and K2 are valid kernels, then the following are also valid kernels:
+    1. a*K1 where a > 0 (scalar multiplication)
+    2. K1 + K2 (addition)
+    3. K1 * K2 (multiplication)
+    4. K1(f(x), f(z)) where f is any function (composition)
+    """
+    print("=== Kernel Construction Rules ===")
+    
+    # Generate data
+    np.random.seed(42)
+    X = np.random.randn(20, 2)
+    
+    # Base kernels
+    K1 = rbf_kernel(X, gamma=1.0)  # RBF kernel
+    K2 = polynomial_kernel(X, degree=2)  # Polynomial kernel
+    
+    # Test construction rules
+    kernels = [
+        ("K1 (RBF)", K1),
+        ("K2 (Polynomial)", K2),
+        ("2*K1 (Scalar multiplication)", 2 * K1),
+        ("K1 + K2 (Addition)", K1 + K2),
+        ("K1 * K2 (Multiplication)", K1 * K2),
+        ("K1 + 0.5*K2 (Combination)", K1 + 0.5 * K2)
+    ]
+    
+    print("Testing kernel construction rules:")
+    print("-" * 50)
+    
+    for kernel_name, K in kernels:
+        is_pd, eigenvalues = is_positive_definite(K)
+        min_eigenval = np.min(eigenvalues.real)
+        
+        print(f"{kernel_name:25s} | Positive definite: {is_pd:5s} | Min eigenvalue: {min_eigenval:8.6f}")
+    
+    print("\nAll constructed kernels should be positive definite!")
     print()
 
 
-def polynomial_kernel_examples():
-    """Examples of polynomial kernel K(x, z) = (x^T z + c)^k"""
-    print("=== Polynomial Kernel Examples ===")
+def multiple_kernel_learning(X, y, kernel_list, alpha_weights=None):
+    """
+    Implement multiple kernel learning.
     
-    x = np.array([1, 2, 3])
-    z = np.array([4, 5, 6])
+    This combines multiple kernels with learned weights to capture
+    different aspects of the data.
     
-    # (x^T z + c)^2 kernel
-    def poly2_kernel(x, z, c=1.0):
-        return (np.dot(x, z) + c) ** 2
+    Args:
+        X: Training data
+        y: Target labels
+        kernel_list: List of kernel functions
+        alpha_weights: Initial weights for kernels (optional)
+        
+    Returns:
+        optimal_weights: Learned kernel weights
+        combined_kernel: Combined kernel matrix
+    """
+    print("=== Multiple Kernel Learning ===")
     
-    print(f"Polynomial kernel (c=2.0): {poly2_kernel(x, z, c=2.0)}")
+    n_kernels = len(kernel_list)
     
-    # Explicit feature mapping for (x^T z + c)^2 (d=3)
-    def phi_poly2(x, c=1.0):
-        import math
-        return [x[0]*x[0], x[0]*x[1], x[0]*x[2],
-                x[1]*x[0], x[1]*x[1], x[1]*x[2],
-                x[2]*x[0], x[2]*x[1], x[2]*x[2],
-                math.sqrt(2*c)*x[0], math.sqrt(2*c)*x[1], math.sqrt(2*c)*x[2], c]
+    # Initialize weights uniformly if not provided
+    if alpha_weights is None:
+        alpha_weights = np.ones(n_kernels) / n_kernels
     
-    print(f"Explicit feature mapping φ(x) for (x^T z + c)^2: {phi_poly2([1, 2, 3], c=2.0)}")
+    # Compute individual kernel matrices
+    kernel_matrices = []
+    for kernel_func in kernel_list:
+        K = kernel_func(X)
+        kernel_matrices.append(K)
     
-    # General polynomial kernel
-    def poly_kernel(x, z, c=1.0, degree=3):
-        return (np.dot(x, z) + c) ** degree
+    # Simple optimization: try different weight combinations
+    best_score = -1
+    best_weights = alpha_weights.copy()
     
-    print(f"General polynomial kernel (degree=3): {poly_kernel(x, z, c=1.0, degree=3)}")
+    # Grid search over weight combinations
+    weight_values = [0.0, 0.25, 0.5, 0.75, 1.0]
     
-    # Using scikit-learn
-    X = np.array([[1, 2, 3], [4, 5, 6]])
-    sk_poly = polynomial_kernel(X, X, degree=3, coef0=1.0)
-    print(f"scikit-learn polynomial kernel:\n{sk_poly}")
-    print()
+    for w1 in weight_values:
+        for w2 in weight_values:
+            if w1 + w2 <= 1.0:  # Constraint: sum of weights ≤ 1
+                w3 = 1.0 - w1 - w2
+                weights = np.array([w1, w2, w3])
+                
+                # Combine kernels
+                combined_kernel = sum(w * K for w, K in zip(weights, kernel_matrices))
+                
+                # Evaluate using cross-validation
+                try:
+                    clf = SVC(kernel='precomputed')
+                    scores = cross_val_score(clf, combined_kernel, y, cv=3)
+                    avg_score = np.mean(scores)
+                    
+                    if avg_score > best_score:
+                        best_score = avg_score
+                        best_weights = weights.copy()
+                except:
+                    continue
+    
+    # Final combined kernel with optimal weights
+    final_kernel = sum(w * K for w, K in zip(best_weights, kernel_matrices))
+    
+    print(f"Optimal kernel weights: {best_weights}")
+    print(f"Best cross-validation score: {best_score:.4f}")
+    
+    return best_weights, final_kernel
 
 
-def rbf_kernel_examples():
-    """Examples of Gaussian (RBF) kernel K(x, z) = exp(-||x-z||^2/(2σ^2))"""
-    print("=== RBF Kernel Examples ===")
+def example_multiple_kernel_learning():
+    """
+    Example of multiple kernel learning on synthetic data.
+    """
+    print("=== Multiple Kernel Learning Example ===")
     
-    x = [1, 2, 3]
-    z = [4, 5, 6]
+    # Create synthetic data with multiple patterns
+    np.random.seed(42)
+    X, y = make_circles(n_samples=100, noise=0.1, factor=0.5)
     
-    def rbf_kernel_custom(x, z, sigma=1.0):
-        diff = np.array(x) - np.array(z)
-        return np.exp(-np.dot(diff, diff) / (2 * sigma ** 2))
+    # Define different kernels
+    kernels = [
+        ("Linear", lambda X: linear_kernel(X)),
+        ("RBF", lambda X: rbf_kernel(X, gamma=1.0)),
+        ("Polynomial", lambda X: polynomial_kernel(X, degree=2))
+    ]
     
-    print(f"Custom RBF kernel (σ=2.0): {rbf_kernel_custom(x, z, sigma=2.0)}")
+    # Test individual kernels
+    print("Individual kernel performance:")
+    for kernel_name, kernel_func in kernels:
+        K = kernel_func(X)
+        clf = SVC(kernel='precomputed')
+        scores = cross_val_score(clf, K, y, cv=3)
+        print(f"{kernel_name:12s}: {np.mean(scores):.4f} ± {np.std(scores):.4f}")
     
-    # Using scikit-learn
-    X = np.array([[1, 2, 3], [4, 5, 6]])
-    sk_rbf = rbf_kernel(X, X, gamma=1/(2*2.0**2))  # gamma = 1/(2*sigma^2)
-    print(f"scikit-learn RBF kernel:\n{sk_rbf}")
-    print()
+    # Multiple kernel learning
+    optimal_weights, combined_kernel = multiple_kernel_learning(X, y, [k[1] for k in kernels])
+    
+    # Evaluate combined kernel
+    clf = SVC(kernel='precomputed')
+    scores = cross_val_score(clf, combined_kernel, y, cv=3)
+    print(f"Combined kernel: {np.mean(scores):.4f} ± {np.std(scores):.4f}")
+    
+    return optimal_weights, combined_kernel
 
 
-def kernel_matrix_examples():
-    """Examples of computing kernel matrices and checking properties"""
-    print("=== Kernel Matrix Examples ===")
+def kernel_pca_example():
+    """
+    Demonstrate Kernel PCA for dimensionality reduction.
     
-    def kernel_matrix(X, kernel_func):
-        n = len(X)
-        K = np.zeros((n, n))
-        for i in range(n):
-            for j in range(n):
-                K[i, j] = kernel_func(X[i], X[j])
-        return K
+    Kernel PCA performs Principal Component Analysis in the feature space
+    without explicitly computing the features.
+    """
+    print("=== Kernel PCA Example ===")
     
-    X = [[1, 0], [0, 1], [1, 1]]
+    # Create non-linear data (swiss roll-like)
+    np.random.seed(42)
+    t = np.linspace(0, 4*np.pi, 200)
+    X = np.column_stack([
+        t * np.cos(t) + np.random.normal(0, 0.1, 200),
+        t * np.sin(t) + np.random.normal(0, 0.1, 200)
+    ])
     
-    def quadratic_kernel(x, z):
-        return sum(xi * zi for xi, zi in zip(x, z)) ** 2
+    # Apply Kernel PCA
+    kpca = KernelPCA(kernel='rbf', gamma=1.0, n_components=2)
+    X_kpca = kpca.fit_transform(X)
     
-    K = kernel_matrix(X, quadratic_kernel)
-    print(f"Kernel matrix:\n{K}")
+    # Compare with linear PCA
+    from sklearn.decomposition import PCA
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X)
     
-    # Check if matrix is symmetric
-    is_symmetric = np.allclose(K, K.T)
-    print(f"Is symmetric: {is_symmetric}")
+    # Plot results
+    plt.figure(figsize=(12, 4))
     
-    # Check if matrix is positive semidefinite
-    eigvals = np.linalg.eigvalsh(K)
-    print(f"Eigenvalues: {eigvals}")
-    is_psd = np.all(eigvals >= -1e-10)  # Allow for small numerical errors
-    print(f"Is positive semidefinite: {is_psd}")
-    print()
-
-
-def svm_with_kernels_example():
-    """Example of SVM with RBF kernel using scikit-learn"""
-    print("=== SVM with Kernels Example ===")
+    plt.subplot(1, 3, 1)
+    plt.scatter(X[:, 0], X[:, 1], c=t, cmap='viridis')
+    plt.title('Original Data')
+    plt.xlabel('X1')
+    plt.ylabel('X2')
     
-    # Generate moon dataset
-    X, y = make_moons(n_samples=100, noise=0.1, random_state=42)
+    plt.subplot(1, 3, 2)
+    plt.scatter(X_pca[:, 0], X_pca[:, 1], c=t, cmap='viridis')
+    plt.title('Linear PCA')
+    plt.xlabel('PC1')
+    plt.ylabel('PC2')
     
-    # Create SVM with RBF kernel
-    clf = svm.SVC(kernel='rbf', gamma=2.0)
-    clf.fit(X, y)
+    plt.subplot(1, 3, 3)
+    plt.scatter(X_kpca[:, 0], X_kpca[:, 1], c=t, cmap='viridis')
+    plt.title('Kernel PCA (RBF)')
+    plt.xlabel('KPC1')
+    plt.ylabel('KPC2')
     
-    print(f"SVM trained on {len(X)} samples")
-    print(f"Number of support vectors: {clf.n_support_}")
-    
-    # Create mesh for plotting decision boundary
-    xx, yy = np.meshgrid(np.linspace(X[:,0].min()-1, X[:,0].max()+1, 200),
-                         np.linspace(X[:,1].min()-1, X[:,1].max()+1, 200))
-    
-    # Get decision function values
-    Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
-    
-    # Plot
-    plt.figure(figsize=(10, 8))
-    plt.contourf(xx, yy, Z, levels=np.linspace(Z.min(), 0, 7), cmap=plt.cm.PuBu)
-    plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
-    plt.scatter(X[:,0], X[:,1], c=y, cmap=plt.cm.Paired, edgecolors='k')
-    plt.title('SVM with RBF Kernel')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.colorbar()
     plt.tight_layout()
-    plt.savefig('svm_rbf_kernel.png', dpi=300, bbox_inches='tight')
     plt.show()
     
-    print("SVM with RBF kernel visualization saved as 'svm_rbf_kernel.png'")
+    print("Kernel PCA successfully captures the non-linear structure!")
     print()
 
 
-def string_kernel_example():
-    """Example of substring kernel for string similarity"""
-    print("=== String Kernel Example ===")
+def validate_custom_kernel():
+    """
+    Demonstrate how to validate a custom kernel function.
     
-    def substring_kernel(x, z, k=3):
+    This shows the process of checking if a proposed function
+    is a valid kernel using Mercer's theorem.
+    """
+    print("=== Custom Kernel Validation ===")
+    
+    # Define a custom kernel function
+    def custom_kernel(x, z, sigma=1.0):
         """
-        Compute substring kernel between two strings x and z
-        K(x, z) = sum over all k-length substrings of their co-occurrence counts
+        Custom kernel: K(x, z) = exp(-||x - z||^2 / (2*sigma^2))
+        This is actually the RBF kernel with γ = 1/(2*sigma^2)
         """
-        def k_substrings(s):
-            return [s[i:i+k] for i in range(len(s)-k+1)]
-        
-        cx = Counter(k_substrings(x))
-        cz = Counter(k_substrings(z))
-        
-        # Dot product in substring count space
-        return sum(cx[sub] * cz[sub] for sub in set(cx) | set(cz))
+        diff = x - z
+        return np.exp(-np.dot(diff, diff) / (2 * sigma**2))
     
-    # Example with DNA sequences
-    seq1 = 'GATTACA'
-    seq2 = 'TACAGAT'
+    # Generate test data
+    np.random.seed(42)
+    X = np.random.randn(20, 3)
     
-    print(f"String 1: {seq1}")
-    print(f"String 2: {seq2}")
+    # Compute kernel matrix
+    K = np.zeros((len(X), len(X)))
+    for i in range(len(X)):
+        for j in range(len(X)):
+            K[i, j] = custom_kernel(X[i], X[j], sigma=1.0)
     
-    # k=2 substrings
-    k2_similarity = substring_kernel(seq1, seq2, k=2)
-    print(f"Substring kernel (k=2): {k2_similarity}")
+    # Validate the kernel
+    is_pd, eigenvalues = is_positive_definite(K)
     
-    # k=3 substrings
-    k3_similarity = substring_kernel(seq1, seq2, k=3)
-    print(f"Substring kernel (k=3): {k3_similarity}")
+    print(f"Custom kernel validation:")
+    print(f"Positive definite: {is_pd}")
+    print(f"Eigenvalue range: [{np.min(eigenvalues.real):.6f}, {np.max(eigenvalues.real):.6f}]")
+    print(f"Condition number: {np.max(eigenvalues.real) / (np.min(eigenvalues.real) + 1e-10):.2f}")
     
-    # Show substrings for k=2
-    def show_substrings(s, k):
-        substrings = [s[i:i+k] for i in range(len(s)-k+1)]
-        return substrings
+    if is_pd:
+        print("✓ Custom kernel is valid!")
+    else:
+        print("✗ Custom kernel is not valid!")
     
-    print(f"k=2 substrings of '{seq1}': {show_substrings(seq1, 2)}")
-    print(f"k=2 substrings of '{seq2}': {show_substrings(seq2, 2)}")
-    print()
-
-
-def kernel_properties_demo():
-    """Demonstrate various kernel properties and validations"""
-    print("=== Kernel Properties Demonstration ===")
-    
-    # Test different kernel functions
-    x = np.array([1, 2, 3])
-    z = np.array([4, 5, 6])
-    
-    kernels = {
-        'Linear': lambda x, z: np.dot(x, z),
-        'Quadratic': lambda x, z: np.dot(x, z) ** 2,
-        'Polynomial (degree=3)': lambda x, z: (np.dot(x, z) + 1) ** 3,
-        'RBF (σ=1)': lambda x, z: np.exp(-np.linalg.norm(x-z)**2 / 2),
-        'RBF (σ=2)': lambda x, z: np.exp(-np.linalg.norm(x-z)**2 / 8)
-    }
-    
-    print("Kernel function values:")
-    for name, kernel_func in kernels.items():
-        value = kernel_func(x, z)
-        print(f"{name}: {value:.4f}")
-    
-    # Test kernel matrix properties
-    X_test = np.array([[1, 0], [0, 1], [1, 1], [2, 0]])
-    
-    print(f"\nTesting kernel matrix properties with {len(X_test)} points:")
-    
-    for name, kernel_func in kernels.items():
-        K = kernel_matrix(X_test, kernel_func)
-        
-        # Check symmetry
-        is_sym = np.allclose(K, K.T)
-        
-        # Check positive semidefinite
-        eigvals = np.linalg.eigvalsh(K)
-        is_psd = np.all(eigvals >= -1e-10)
-        
-        print(f"{name}: Symmetric={is_sym}, PSD={is_psd}")
-    
-    print()
+    return is_pd, eigenvalues
 
 
 def main():
-    """Run all kernel examples"""
-    print("Kernel Properties Examples")
-    print("=" * 50)
-    print()
+    """
+    Main function to run all kernel property examples.
+    """
+    print("Kernel Properties and Mercer's Theorem: Examples")
+    print("=" * 60)
     
     # Run all examples
-    quadratic_kernel_examples()
-    polynomial_kernel_examples()
-    rbf_kernel_examples()
-    kernel_matrix_examples()
-    string_kernel_example()
-    kernel_properties_demo()
+    test_kernel_positive_definiteness()
+    demonstrate_mercer_theorem()
+    kernel_construction_rules()
+    example_multiple_kernel_learning()
+    kernel_pca_example()
+    validate_custom_kernel()
     
-    # Uncomment to run SVM visualization
-    # svm_with_kernels_example()
-    
-    print("All examples completed!")
+    print("\nAll kernel property examples completed!")
 
 
 if __name__ == "__main__":
