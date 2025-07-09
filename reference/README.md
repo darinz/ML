@@ -28,7 +28,7 @@ This folder contains comprehensive reference materials for machine learning, inc
 - **CS224N_Self-Attention-Transformers-2023_Draft.pdf** (2.2MB) - Latest notes on self-attention and transformers
 
 ### Additional Course Materials
-- **exponential_family_chapter8.pdf** (144KB) - Chapter 8 on exponential families
+- **[Exponential Family Materials](../01_linear_models/03_generalized_linear_models/exponential_family/)** - Comprehensive exponential family reference materials from MIT, Princeton, Berkeley, Columbia, and Purdue
 - **gradient-hessian_lecture-4-extra-materials.pdf** (141KB) - Additional materials on gradients and Hessians
 
 ### Comprehensive Textbooks
@@ -50,7 +50,7 @@ This folder contains comprehensive reference materials for machine learning, inc
 
 ### For Intermediate Learners
 1. Study **CS229_Decision-Trees-Notes.pdf** for tree-based methods
-2. Explore **exponential_family_chapter8.pdf** for advanced probabilistic concepts
+2. Explore **[Exponential Family Materials](../01_linear_models/03_generalized_linear_models/exponential_family/)** for advanced probabilistic concepts
 3. Review **gradient-hessian_lecture-4-extra-materials.pdf** for optimization
 
 ### For Advanced Learners
