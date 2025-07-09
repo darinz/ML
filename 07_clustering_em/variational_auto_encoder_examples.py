@@ -10,7 +10,22 @@ This file contains comprehensive implementations of:
 6. Complete VAE training framework
 7. Sample generation from learned model
 
+Key Concepts:
+1. Variational inference for intractable posteriors
+2. ELBO as a lower bound on log-likelihood
+3. Mean field assumption for tractable inference
+4. Reparameterization trick for gradient-based optimization
+5. Encoder-decoder architecture
+6. Trade-off between reconstruction and KL divergence
+
+Mathematical Foundation:
+- Generative model: p(x,z) = p(z) * p(x|z; θ)
+- Approximate posterior: q(z|x; φ) ≈ p(z|x; θ)
+- ELBO: L(θ,φ) = E_{z~q}[log p(x|z;θ)] - KL(q(z|x;φ) || p(z))
+- Reparameterization: z = μ + σ * ε, where ε ~ N(0,1)
+
 Based on Kingma and Welling (2013) "Auto-Encoding Variational Bayes"
+and concepts from 04_variational_auto-encoder.md
 """
 
 import numpy as np
@@ -19,6 +34,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal, Independent
 import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.manifold import TSNE
 
 # Set random seed for reproducibility
 torch.manual_seed(42)
@@ -28,6 +45,8 @@ class GenerativeModel:
     """
     Implements the generative model p(x, z; θ) = p(z) * p(x|z; θ)
     where z ~ N(0, I) and x|z ~ N(g(z; θ), σ²I)
+    
+    This represents the true data-generating process that we want to learn.
     """
     
     def __init__(self, latent_dim=2, data_dim=784, hidden_dim=512, sigma=1.0):
@@ -78,13 +97,16 @@ class GenerativeModel:
 
 def demonstrate_posterior_intractability():
     """
-    Demonstrate why posterior inference is intractable for neural network models
+    Demonstrate why posterior inference is intractable for neural network models.
+    
+    This shows the fundamental challenge that motivates variational inference.
     """
     print("=== Posterior Inference Challenge ===")
     
     # For a simple linear model, posterior is tractable
     print("1. Linear model: z ~ N(0,1), x|z ~ N(az + b, σ²)")
     print("   Posterior: z|x ~ N(μ_post, σ²_post) - CLOSED FORM!")
+    print("   μ_post = (a(x-b))/(a² + σ²), σ²_post = σ²/(a² + σ²)")
     
     # For neural network model, posterior is intractable
     print("\n2. Neural network model: z ~ N(0,1), x|z ~ N(NN(z), σ²)")
@@ -97,6 +119,12 @@ def demonstrate_posterior_intractability():
     print("   - Computing p(x|z) for each")
     print("   - Normalizing - EXPENSIVE!")
     
+    # Demonstrate with a simple example
+    print("\n4. Example: Computing p(z|x) for a single data point")
+    print("   - Need to integrate over all possible z values")
+    print("   - p(z|x) = p(x|z)p(z) / ∫ p(x|z)p(z) dz")
+    print("   - Denominator is intractable for complex models")
+    
     return True
 
 
@@ -108,6 +136,17 @@ def compute_elbo_components(x, z, q_z, log_p_xz, log_p_z):
          = E_{z~Q}[log p(x|z) + log p(z) - log Q(z)]
          = E_{z~Q}[log p(x|z)] + E_{z~Q}[log p(z) - log Q(z)]
          = Reconstruction term + KL divergence term
+    
+    Args:
+        x: Data point
+        z: Latent sample
+        q_z: Variational distribution
+        log_p_xz: Log-likelihood log p(x|z)
+        log_p_z: Log-prior log p(z)
+    
+    Returns:
+        reconstruction_term: E_{z~Q}[log p(x|z)]
+        kl_term: E_{z~Q}[log p(z) - log Q(z)] = KL(Q||p)
     """
     # Reconstruction term: E_{z~Q}[log p(x|z)]
     reconstruction_term = log_p_xz
@@ -122,6 +161,15 @@ def compute_elbo_monte_carlo(x, q_dist, generative_model, n_samples=10):
     """
     Compute ELBO using Monte Carlo estimation
     ELBO = E_{z~Q}[log p(x,z) - log Q(z)]
+    
+    Args:
+        x: Data point
+        q_dist: Variational distribution Q(z)
+        generative_model: Generative model p(x,z)
+        n_samples: Number of samples for Monte Carlo estimation
+    
+    Returns:
+        elbo: Estimated ELBO value
     """
     batch_size = x.shape[0]
     total_elbo = 0
@@ -143,6 +191,9 @@ def compute_elbo_monte_carlo(x, q_dist, generative_model, n_samples=10):
 
 
 def demonstrate_elbo():
+    """
+    Demonstrate ELBO computation and its properties.
+    """
     print("\n=== ELBO Computation ===")
     
     # Create simple example
@@ -165,6 +216,12 @@ def demonstrate_elbo():
     print(f"KL divergence term: {kl_term.mean():.4f}")
     print(f"Total ELBO: {elbo.mean():.4f}")
     
+    # Demonstrate that ELBO is a lower bound
+    print(f"\nELBO Properties:")
+    print(f"- ELBO ≤ log p(x) (lower bound)")
+    print(f"- Gap = log p(x) - ELBO = KL(Q(z) || p(z|x))")
+    print(f"- When Q(z) = p(z|x), gap = 0 and ELBO = log p(x)")
+    
     return elbo
 
 
@@ -173,6 +230,8 @@ class MeanFieldApproximation:
     Implements mean field approximation for continuous latent variables
     Q(z) = Q_1(z_1) * Q_2(z_2) * ... * Q_k(z_k)
     where each Q_i is a Gaussian distribution
+    
+    This is a key assumption that makes variational inference tractable.
     """
     
     def __init__(self, latent_dim):
@@ -198,6 +257,13 @@ class MeanFieldApproximation:
         """
         Compute KL divergence between Q (mean field) and P (prior)
         KL(Q||P) where P is typically N(0,1) for each dimension
+        
+        Args:
+            q_means, q_stds: Parameters of Q distribution
+            p_means, p_stds: Parameters of P distribution (default: N(0,1))
+        
+        Returns:
+            kl_div: KL divergence for each sample
         """
         if p_means is None:
             p_means = torch.zeros_like(q_means)
@@ -216,6 +282,9 @@ class MeanFieldApproximation:
 
 
 def demonstrate_mean_field():
+    """
+    Demonstrate mean field approximation and its properties.
+    """
     print("\n=== Mean Field Approximation ===")
     
     mf = MeanFieldApproximation(latent_dim=3)
@@ -233,6 +302,12 @@ def demonstrate_mean_field():
     kl_div = mf.compute_kl_divergence(q_means, q_stds)
     print(f"KL divergence with prior: {kl_div}")
     
+    # Demonstrate independence
+    print(f"\nMean field assumption:")
+    print(f"- Q(z) = Q_1(z_1) * Q_2(z_2) * Q_3(z_3)")
+    print(f"- Each dimension is independent")
+    print(f"- This is an approximation to the true posterior")
+    
     return mf
 
 
@@ -240,6 +315,9 @@ class Encoder(nn.Module):
     """
     Encoder network that parameterizes the approximate posterior Q(z|x)
     Maps x to parameters of Q(z|x) = N(μ(x), σ²(x))
+    
+    This is the key innovation of VAEs - using a neural network to
+    learn the parameters of the approximate posterior.
     """
     
     def __init__(self, data_dim, latent_dim, hidden_dim=512):
@@ -288,6 +366,9 @@ class Encoder(nn.Module):
 
 
 def demonstrate_encoder():
+    """
+    Demonstrate encoder network and its role in variational inference.
+    """
     print("\n=== Encoder Network ===")
     
     data_dim = 784  # MNIST image size
@@ -306,6 +387,12 @@ def demonstrate_encoder():
     q_dist = encoder.create_posterior(x)
     z_samples = q_dist.sample()
     print(f"Sampled z shape: {z_samples.shape}")
+    
+    # Demonstrate the role of the encoder
+    print(f"\nEncoder's role in variational inference:")
+    print(f"- Maps data x to parameters of Q(z|x)")
+    print(f"- Learns to approximate the true posterior p(z|x)")
+    print(f"- Enables efficient sampling from Q(z|x)")
     
     return encoder
 
@@ -361,6 +448,9 @@ def compute_vae_elbo(x, encoder, decoder, n_samples=1):
 
 
 def demonstrate_vae_elbo():
+    """
+    Demonstrate VAE ELBO computation and its components.
+    """
     print("\n=== VAE ELBO Computation ===")
     
     data_dim = 784
@@ -383,12 +473,21 @@ def demonstrate_vae_elbo():
     print(f"Reconstruction loss: {recon_loss:.4f}")
     print(f"KL divergence: {kl_loss:.4f}")
     
+    # Demonstrate the trade-off
+    print(f"\nELBO Trade-off:")
+    print(f"- Reconstruction loss: measures how well we can reconstruct x from z")
+    print(f"- KL divergence: measures how close Q(z|x) is to p(z)")
+    print(f"- We want to minimize both, but they often conflict")
+    
     return elbo, recon_loss, kl_loss
 
 
 class VAE(nn.Module):
     """
     Complete Variational Auto-Encoder implementation
+    
+    This combines the encoder and decoder into a single model that can be
+    trained end-to-end using the ELBO objective.
     """
     
     def __init__(self, data_dim, latent_dim, hidden_dim=512):
@@ -426,6 +525,13 @@ class VAE(nn.Module):
         """
         Reparameterization trick: z = μ + σ * ε, where ε ~ N(0,1)
         This allows gradients to flow through the sampling process
+        
+        Args:
+            mu: [batch_size, latent_dim] - posterior mean
+            log_var: [batch_size, latent_dim] - posterior log variance
+        
+        Returns:
+            z: [batch_size, latent_dim] - sampled latent variables
         """
         std = torch.exp(0.5 * log_var)
         eps = torch.randn_like(std)  # Sample from N(0,1)
@@ -453,6 +559,11 @@ class VAE(nn.Module):
             mu: posterior mean
             log_var: posterior log variance
             beta: weight for KL divergence (β-VAE)
+        
+        Returns:
+            total_loss: combined loss
+            recon_loss: reconstruction loss
+            kl_loss: KL divergence loss
         """
         # Reconstruction loss (assuming Bernoulli for binary data)
         recon_loss = F.binary_cross_entropy(x_recon, x, reduction='sum')
@@ -474,7 +585,16 @@ class VAE(nn.Module):
 
 
 def train_vae(vae, dataloader, optimizer, device, epochs=10):
-    """Train VAE model"""
+    """
+    Train VAE model using the ELBO objective.
+    
+    Args:
+        vae: VAE model
+        dataloader: Data loader
+        optimizer: Optimizer
+        device: Device to train on
+        epochs: Number of training epochs
+    """
     vae.train()
     
     for epoch in range(epochs):
@@ -516,6 +636,9 @@ def train_vae(vae, dataloader, optimizer, device, epochs=10):
 
 
 def demonstrate_complete_vae():
+    """
+    Demonstrate complete VAE implementation and training.
+    """
     print("\n=== Complete VAE Implementation ===")
     
     # Create VAE
@@ -555,12 +678,23 @@ def demonstrate_complete_vae():
     z_with_grad = vae.reparameterize(mu, log_var)
     print(f"z with reparameterization: {z_with_grad}")
     
+    print(f"\nReparameterization trick enables:")
+    print(f"- Gradient flow through sampling")
+    print(f"- End-to-end training of encoder and decoder")
+    print(f"- Efficient backpropagation")
+    
     return vae
 
 
 def visualize_latent_space(vae, dataloader, device, n_samples=1000):
     """
-    Visualize the learned latent space by plotting encoded data points
+    Visualize the learned latent space by plotting encoded data points.
+    
+    Args:
+        vae: Trained VAE model
+        dataloader: Data loader
+        device: Device
+        n_samples: Number of samples to visualize
     """
     vae.eval()
     z_points = []
@@ -578,7 +712,11 @@ def visualize_latent_space(vae, dataloader, device, n_samples=1000):
     z_points = torch.cat(z_points, dim=0)[:n_samples]
     labels = labels[:n_samples]
     
-    # Plot latent space (first 2 dimensions)
+    # Use t-SNE for dimensionality reduction if latent_dim > 2
+    if z_points.shape[1] > 2:
+        z_points = TSNE(n_components=2, random_state=42).fit_transform(z_points)
+    
+    # Plot latent space
     plt.figure(figsize=(10, 8))
     scatter = plt.scatter(z_points[:, 0], z_points[:, 1], c=labels, cmap='tab10', alpha=0.6)
     plt.colorbar(scatter)
@@ -590,7 +728,12 @@ def visualize_latent_space(vae, dataloader, device, n_samples=1000):
 
 def generate_and_visualize_samples(vae, n_samples=16, image_size=28):
     """
-    Generate and visualize samples from the trained VAE
+    Generate and visualize samples from the trained VAE.
+    
+    Args:
+        vae: Trained VAE model
+        n_samples: Number of samples to generate
+        image_size: Size of generated images
     """
     vae.eval()
     with torch.no_grad():
@@ -609,6 +752,66 @@ def generate_and_visualize_samples(vae, n_samples=16, image_size=28):
     plt.suptitle('Generated Samples from VAE')
     plt.tight_layout()
     plt.show()
+
+
+def demonstrate_vae_training():
+    """
+    Demonstrate VAE training on synthetic data.
+    """
+    print("\n=== VAE Training Demonstration ===")
+    
+    # Generate synthetic data (simulating MNIST-like data)
+    np.random.seed(42)
+    n_samples = 1000
+    data_dim = 784
+    
+    # Create simple patterns (simulating digits)
+    X = np.random.rand(n_samples, data_dim)
+    # Add some structure to make it more interesting
+    for i in range(n_samples):
+        # Create simple patterns
+        pattern = np.random.choice([0, 1], size=data_dim, p=[0.7, 0.3])
+        X[i] = X[i] * pattern
+    
+    # Convert to PyTorch tensors
+    X_tensor = torch.FloatTensor(X)
+    
+    # Create data loader
+    from torch.utils.data import DataLoader, TensorDataset
+    dataset = TensorDataset(X_tensor, torch.zeros(len(X_tensor)))
+    dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
+    
+    # Create and train VAE
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    vae = VAE(data_dim, latent_dim=10, hidden_dim=256).to(device)
+    optimizer = torch.optim.Adam(vae.parameters(), lr=1e-3)
+    
+    print("Training VAE...")
+    train_vae(vae, dataloader, optimizer, device, epochs=5)
+    
+    # Generate samples
+    print("\nGenerating samples...")
+    with torch.no_grad():
+        samples = vae.sample(n_samples=8)
+    
+    # Visualize samples
+    plt.figure(figsize=(12, 6))
+    
+    plt.subplot(2, 4, 1)
+    plt.imshow(X[0].reshape(28, 28), cmap='gray')
+    plt.title('Original Sample')
+    plt.axis('off')
+    
+    for i in range(7):
+        plt.subplot(2, 4, i + 2)
+        plt.imshow(samples[i].cpu().reshape(28, 28), cmap='gray')
+        plt.title(f'Generated {i+1}')
+        plt.axis('off')
+    
+    plt.tight_layout()
+    plt.show()
+    
+    return vae
 
 
 def main():
@@ -642,6 +845,9 @@ def main():
     
     # 7. Demonstrate complete VAE
     complete_vae = demonstrate_complete_vae()
+    
+    # 8. Demonstrate VAE training
+    trained_vae = demonstrate_vae_training()
     
     print("\n=== Summary ===")
     print("This implementation includes:")
