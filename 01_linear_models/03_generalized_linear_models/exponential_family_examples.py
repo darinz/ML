@@ -830,4 +830,10 @@ if __name__ == "__main__":
     print("\nNext Steps:")
     print("- Study the GLM construction document")
     print("- Implement GLM parameter estimation")
-    print("- Apply to real-world prediction problems") 
+    print("- Apply to real-world prediction problems")
+    print("- Explore advanced materials in exponential_family/ directory")
+    
+    print("\nAdditional Resources:")
+    print("- exponential_family/ directory contains comprehensive reference materials")
+    print("- MIT, Princeton, Berkeley, Columbia, and Purdue materials available")
+    print("- Study advanced theoretical treatments and practical applications") 
