@@ -13,7 +13,7 @@ A comprehensive review of essential mathematical foundations and Python programm
 
 ## Overview
 
-This repository contains foundational materials for machine learning prerequisites, including mathematical concepts and programming skills. The content is structured to provide a solid foundation before diving into machine learning algorithms and applications.
+This section contains foundational materials for machine learning prerequisites, including mathematical concepts and programming skills. The content is structured to provide a solid foundation before diving into machine learning algorithms and applications.
 
 ## Table of Contents
 
