@@ -152,7 +152,7 @@ Comprehensive coverage of fundamental linear models including:
 - **[Generalized Linear Models](./01_linear_models/03_generalized_linear_models/)** - Comprehensive exponential family distributions, systematic GLM construction, and unified framework for various response types with real-world applications
 
 #### 02. [Generative Learning](./02_generative_learning/)
-Generative approaches that model the joint distribution p(x,y) through p(x|y) and p(y):
+Generative approaches that model the joint distribution $`p(x,y)`$ through $`p(x|y)`$ and $`p(y)`$:
 - **[Gaussian Discriminant Analysis (GDA)](./02_generative_learning/01_gda.md)** - Multivariate normal modeling with shared covariance
 - **[Naive Bayes Classifiers](./02_generative_learning/02_naive_bayes.md)** - Bernoulli and multinomial variants with feature independence
 - **Implementation Examples** - Complete Python implementations with parameter estimation and prediction
@@ -205,7 +205,7 @@ Comprehensive notes and code for:
 
 ### IV. Unsupervised Learning
 
-Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section covers clustering algorithms including k-means, expectation-maximization (EM) methods, dimensionality reduction techniques like PCA, ICA, t-SNE, and UMAP, autoencoders for feature learning, and modern self-supervised learning approaches including foundation models for pretraining and adaptation.
+Unsupervised learning discovers hidden patterns and structures in data without predefined labels. This section covers clustering algorithms including k-means, expectation-maximization (EM) methods, dimensionality reduction techniques like PCA, ICA, and autoencoders for feature learning, and modern self-supervised learning approaches including foundation models for pretraining and adaptation.
 
 #### 07. [Clustering and EM Algorithms](./07_clustering_em/)
 **Enhanced comprehensive coverage of unsupervised learning algorithms for clustering and probabilistic modeling including:**
@@ -300,7 +300,7 @@ Recent advances in machine learning have revolutionized various fields and appli
 - [CSE446: Machine Learning Course](https://courses.cs.washington.edu/courses/cse446/) - University of Washington
 
 ### Mathematical Foundations
-- [Exponential Family Chapter 8](./reference/exponential_family_chapter8.pdf) - Exponential family distributions
+- [Exponential Family Materials](./01_linear_models/03_generalized_linear_models/exponential_family/) - Comprehensive exponential family reference materials from MIT, Princeton, Berkeley, Columbia, and Purdue
 - [Gradient and Hessian Lecture 4 Extra Materials](./reference/gradient-hessian_lecture-4-extra-materials.pdf) - Advanced optimization concepts
 
 ### Advanced Topics
