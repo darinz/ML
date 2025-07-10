@@ -80,7 +80,7 @@ Comprehensive unified framework extending linear models through:
    - Apply the unified framework to various problems
 
 ### **Practical Implementation**
-- Run Python code examples in each subfolder
+- Run Python code examples in each module
 - Experiment with different datasets and parameters
 - Visualize results using provided images and plots
 - Compare different optimization algorithms
