@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-yellow.svg)](https://python.org)
 [![NumPy](https://img.shields.io/badge/NumPy-Scientific%20Computing-red.svg)](https://numpy.org)
 
-This directory contains comprehensive materials and resources for linear models in machine learning. Each subfolder covers fundamental topics with detailed theory, practical implementations, and hands-on examples.
+This section contains comprehensive materials and resources for linear models in machine learning. Each covers fundamental topics with detailed theory, practical implementations, and hands-on examples.
 
 ## Learning Objectives
 
@@ -17,7 +17,7 @@ By the end of this section, you will understand:
 - **Optimization**: Gradient descent, Newton's method, and analytical solutions
 - **Implementation**: Python code with NumPy, vectorized operations, and real-world applications
 
-## Subfolders
+## Topics
 
 ### **01_linear_regression/** - Linear Regression Fundamentals
 Comprehensive coverage of linear regression including:
