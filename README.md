@@ -16,6 +16,16 @@ A comprehensive learning resource providing a broad introduction to machine lear
 
 > **Note**: This is a math-heavy version focused on theoretical foundations and mathematical derivations. While we plan to add applied machine learning materials in the future (which will be less math-intensive), understanding the mathematical principles behind algorithms is invaluable for research and comprehending academic papers. This foundation enables deeper insights into model behavior and more effective algorithm selection and tuning.
 
+## Complementary Learning Resources
+
+For additional practical machine learning topics not covered in this theoretical curriculum, explore **[Practical Statistical Learning (PSL)](https://github.com/darinz/PSL)**. This complementary resource covers:
+
+- **Regression and Classification Trees**: Decision tree algorithms, CART, random forests, and ensemble methods
+- **Recommender Systems**: Collaborative filtering, content-based methods, and hybrid approaches
+- **Statistical Learning Methods**: Additional statistical approaches and techniques
+
+PSL provides a more applied, hands-on approach that complements the theoretical foundations covered in this repository.
+
 ## Table of Contents
 
 - [Overview](#overview)
