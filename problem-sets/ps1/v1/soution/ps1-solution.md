@@ -697,6 +697,8 @@ p(y; \phi) = (1 - \phi)^{y-1} \phi,\ \ y = 1, 2, 3, \ldots.
 
 Show that the geometric distribution is in the exponential family, and give $`b(y)`$, $`\eta`$, $`T(y)`$, and $`a(\eta)`$.
 
+
+
 (b) Consider performing regression using a GLM model with a geometric response variable. What is the canonical response function for the family? You may use the fact that the mean of a geometric distribution is given by $`1/\phi`$.
 
 (c) For a training set $`\{(x^{(i)}, y^{(i)});\ i = 1, \ldots, m\}`$, let the log-likelihood of an example be $`\log p(y^{(i)}|x^{(i)}; \theta)`$. By taking the derivative of the log-likelihood with respect to $`\theta_j`$, derive the stochastic gradient ascent rule for learning using a GLM model with geometric responses $`y`$ and the canonical response function.
