@@ -697,7 +697,43 @@ p(y; \phi) = (1 - \phi)^{y-1} \phi,\ \ y = 1, 2, 3, \ldots.
 
 Show that the geometric distribution is in the exponential family, and give $`b(y)`$, $`\eta`$, $`T(y)`$, and $`a(\eta)`$.
 
+**Answer:**
 
+```math
+p(y; \phi) = (1 - \phi)^{y-1} \phi
+```
+
+```math
+= \exp \left[ \log(1 - \phi)^{y-1} + \log \phi \right]
+```
+
+```math
+= \exp \left[ (y - 1) \log(1 - \phi) + \log \phi \right]
+```
+
+```math
+= \exp \left[ y \log(1 - \phi) - \log \left( \frac{1 - \phi}{\phi} \right) \right]
+```
+
+Then
+
+```math
+b(y) = 1
+```
+
+```math
+\eta = \log(1 - \phi)
+```
+
+```math
+T(y) = y
+```
+
+```math
+a(\eta) = \log \left( \frac{1 - \phi}{\phi} \right) = \log \left( \frac{e^\eta}{1 - e^\eta} \right),
+```
+
+where the last line follows because $\eta = \log(1 - \phi) \Rightarrow e^\eta = 1 - \phi \Rightarrow \phi = 1 - e^\eta$.
 
 (b) Consider performing regression using a GLM model with a geometric response variable. What is the canonical response function for the family? You may use the fact that the mean of a geometric distribution is given by $`1/\phi`$.
 
