@@ -293,6 +293,8 @@ Y = \begin{bmatrix}
 
 and then work out how to express $`J(\Theta)`$ in terms of these matrices.]
 
+
+
 (b) Find the closed form solution for $`\Theta`$ which minimizes $`J(\Theta)`$. This is the equivalent to the normal equations for the multivariate case.
 
 (c) Suppose instead of considering the multivariate vectors $`y^{(i)}`$ all at once, we instead compute each variable $`y_j^{(i)}`$ separately for each $`j = 1, \ldots, p`$. In this case, we have a $`p`$ individual linear models, of the form
