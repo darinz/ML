@@ -809,4 +809,50 @@ This form allows us to use the standard GLM framework for geometric regression.
 g(\eta) = E[y; \phi] = \frac{1}{\phi} = \frac{1}{1 - e^\eta}
 ```
 
+**Explanation:**
+
+To find the canonical response function for the geometric distribution in a GLM, we need to understand the relationship between the natural parameter $\eta$ and the expected value of the response variable.
+
+**Step 1: Recall the relationship between $\eta$ and $\phi$**
+From part (a), we established that:
+- $\eta = \log(1 - \phi)$
+- $\phi = 1 - e^\eta$
+
+**Step 2: Use the given mean of the geometric distribution**
+The problem states that the mean of a geometric distribution is given by:
+```math
+E[y; \phi] = \frac{1}{\phi}
+```
+
+**Step 3: Express the mean in terms of the natural parameter**
+Substituting $\phi = 1 - e^\eta$ into the mean expression:
+```math
+E[y; \phi] = \frac{1}{\phi} = \frac{1}{1 - e^\eta}
+```
+
+**Step 4: Identify the canonical response function**
+In GLM theory, the canonical response function $g(\eta)$ is the function that maps the natural parameter $\eta$ to the expected value of the response variable:
+```math
+g(\eta) = E[y; \eta]
+```
+
+Since we have $E[y; \phi] = \frac{1}{1 - e^\eta}$, and $\phi$ is related to $\eta$ through the transformation $\phi = 1 - e^\eta$, the canonical response function is:
+```math
+g(\eta) = \frac{1}{1 - e^\eta}
+```
+
+**Step 5: Verify the canonical link property**
+The canonical response function has the property that:
+- $g(\eta) = E[y; \eta] = \frac{1}{1 - e^\eta}$
+- This function maps from the natural parameter space to the mean parameter space
+- It is the inverse of the canonical link function (which would be $\eta = \log(1 - \frac{1}{\mu})$ where $\mu = E[y]$)
+
+**Summary:**
+The canonical response function for the geometric distribution in GLM is:
+```math
+g(\eta) = \frac{1}{1 - e^\eta}
+```
+
+This function transforms the natural parameter $\eta$ to the expected value of the geometric random variable, allowing us to model the mean response as a function of the linear predictor in the GLM framework.
+
 (c) For a training set $`\{(x^{(i)}, y^{(i)});\ i = 1, \ldots, m\}`$, let the log-likelihood of an example be $`\log p(y^{(i)}|x^{(i)}; \theta)`$. By taking the derivative of the log-likelihood with respect to $`\theta_j`$, derive the stochastic gradient ascent rule for learning using a GLM model with geometric responses $`y`$ and the canonical response function.
