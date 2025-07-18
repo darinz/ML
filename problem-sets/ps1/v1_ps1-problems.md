@@ -76,3 +76,20 @@ y = \Theta^T x,
 ```
 
 where $`\Theta \in \mathbb{R}^{n \times p}`$.
+
+(a) The cost function for this case is
+
+```math
+J(\Theta) = \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^p \left( (\Theta^T x^{(i)})_j - y_j^{(i)} \right)^2.
+```
+
+Write $`J(\Theta)`$ in matrix-vector notation (i.e., without using any summations). [Hint: Start with the $`m \times n`$ design matrix
+
+```math
+X = \begin{bmatrix}
+  --- & (x^{(1)})^T & --- \\
+  --- & (x^{(2)})^T & --- \\
+  & \vdots & \\
+  --- & (x^{(m)})^T & ---
+\end{bmatrix}
+```
