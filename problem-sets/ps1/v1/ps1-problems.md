@@ -20,7 +20,7 @@
 \ell(\theta) = -\frac{\lambda}{2} \theta^T \theta + \sum_{i=1}^m w^{(i)} \left[ y^{(i)} \log h_\theta(x^{(i)}) + (1 - y^{(i)}) \log(1 - h_\theta(x^{(i)})) \right].
 ```
 
-   The $`-\frac{\lambda}{2} \theta^T \theta`$ here is what is known as a regularization parameter, which will be discussed in a future lecture, but which we include here because it is needed for Newton’s method to perform well on this task. For the entirety of this problem you can use the value $`\lambda = 0.0001`$.
+   The $`-\frac{\lambda}{2} \theta^T \theta`$ here is what is known as a regularization parameter, which will be discussed in a future section, but which we include here because it is needed for Newton’s method to perform well on this task. For the entirety of this problem you can use the value $`\lambda = 0.0001`$.
 
    Using this definition, the gradient of $`\ell(\theta)`$ is given by
 
@@ -54,14 +54,31 @@ D_{ii} = -w^{(i)} h_\theta(x^{(i)})(1 - h_\theta(x^{(i)}))
 w^{(i)} = \exp \left( - \frac{\|x - x^{(i)}\|^2}{2\tau^2} \right).
 ```
 
-Much like the locally weighted linear regression that was discussed in class, this weighting
-scheme gives more when the “nearby” points when predicting the class of a new example.
+Much like the locally weighted linear regression that was discussed in one of our sections, this weighting scheme gives more when the “nearby” points when predicting the class of a new example.
 
 (a) Implement the Newton-Raphson algorithm for optimizing $`\ell(\theta)`$ for a new query point $`x`$, and use this to predict the class of $`x`$.
 
-The q2/ directory contains data and code for this problem. You should implement the $`y = \text{lwlr}(X_{\text{train}}, y_{\text{train}}, x, \tau)`$ function in the lwlr.m file. This function takes as input the training set (the $`X_{\text{train}}`$ and $`y_{\text{train}}`$ matrices, in the form described in the class notes), a new query point $`x`$ and the weight bandwidth $`\tau`$. Given this input the function should 1) compute weights $`w^{(i)}`$ for each training example, using the formula above, 2) maximize $`\ell(\theta)`$ using Newton’s method, and finally 3) output $`y = 1\{h_\theta(x) > 0.5\}`$ as the prediction.
+The q2/ directory contains data and code for this problem. You should implement the function
 
-We provide two additional functions that might help. The [X_train, y_train] = load_data; function will load the matrices from files in the data/ folder. The function plot_lwlr(X_train, y_train, tau, resolution) will plot the resulting classifier (assuming you have properly implemented lwlr.m). This function evaluates the locally weighted logistic regression classifier over a large grid of points and plots the resulting prediction as blue (predicting y = 0) or red (predicting y = 1). Depending on how fast your lwlr function is, creating the plot might take some time, so we recommend debugging your code with resolution = 50; and later increase it to at least 200 to get a better idea of the decision boundary.
+```python
+y = lwlr(X_train, y_train, x, tau)
+```
+
+in the `lwlr.py` file. This function takes as input the training set (the `X_train` and `y_train` matrices, in the form described in the class notes), a new query point `x`, and the weight bandwidth `tau`. Given this input, the function should 1) compute weights $`w^{(i)}`$ for each training example, using the formula above, 2) maximize $`\ell(\theta)`$ using Newton’s method (or a suitable optimizer), and finally 3) output $`y = 1\{h_\theta(x) > 0.5\}`$ as the prediction.
+
+We provide two additional functions that might help. The function
+
+```python
+X_train, y_train = load_data()
+```
+
+in `load_data.py` will load the matrices from files in the `data/` folder. The function
+
+```python
+plot_lwlr(X_train, y_train, tau, resolution)
+```
+
+in `plot_lwlr.py` will plot the resulting classifier (assuming you have properly implemented `lwlr.py`). This function evaluates the locally weighted logistic regression classifier over a large grid of points and plots the resulting prediction as blue (predicting y = 0) or red (predicting y = 1). Depending on how fast your `lwlr` function is, creating the plot might take some time, so we recommend debugging your code with `resolution = 50`; and later increase it to at least 200 to get a better idea of the decision boundary.
 
 (b) Evaluate the system with a variety of different bandwidth parameters $`\tau`$. In particular, try $`\tau = 0.01, 0.05, 0.1, 0.51, 0.5, 5.0`$. How does the classification boundary change when varying this parameter? Can you predict what the decision boundary of ordinary (unweighted) logistic regression would look like?
 
