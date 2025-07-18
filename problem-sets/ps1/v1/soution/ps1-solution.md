@@ -517,6 +517,8 @@ p(x|y=1) = \prod_{j=1}^n p(x_j|y=1)
 
 (a) Find the joint likelihood function $`\ell(\varphi) = \log \prod_{i=1}^m p(x^{(i)}, y^{(i)}; \varphi)`$ in terms of the model parameters given above. Here, $`\varphi`$ represents the entire set of parameters $`\{\phi_y,\ \phi_{j|y=0},\ \phi_{j|y=1},\ j = 1, \ldots, n\}`$.
 
+
+
 (b) Show that the parameters which maximize the likelihood function are the same as
 
 ```math
