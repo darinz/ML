@@ -893,3 +893,103 @@ which is
 \theta_j := \theta_j + \alpha \left( y^{(i)} - \frac{1}{1 - e^{\theta^T x^{(i)}}} \right) x_j^{(i)}.
 ```
 
+**Explanation:**
+
+This problem requires us to derive the stochastic gradient ascent update rule for a GLM with geometric responses. Let's break down the derivation step by step.
+
+**Step 1: Understanding the log-likelihood function**
+The log-likelihood for a single example $(x^{(i)}, y^{(i)})$ is:
+```math
+l_i(\theta) = \log p(y^{(i)}|x^{(i)}; \theta)
+```
+
+**Step 2: Expressing the likelihood in exponential family form**
+From part (a), we know the geometric distribution in exponential family form is:
+```math
+p(y; \phi) = \exp\left(\eta y - \log\left(\frac{e^\eta}{1 - e^\eta}\right)\right)
+```
+
+Using the GLM assumption $\eta = \theta^T x^{(i)}$, we get:
+```math
+l_i(\theta) = \log \left[ \exp \left( \theta^T x^{(i)} \cdot y^{(i)} - \log \left( \frac{e^{\theta^T x^{(i)}}}{1 - e^{\theta^T x^{(i)}}} \right) \right) \right]
+```
+
+**Step 3: Simplifying the log-likelihood expression**
+We can simplify the expression inside the log:
+```math
+= \log \left[ \exp \left( \theta^T x^{(i)} \cdot y^{(i)} - \log \left( \frac{1}{e^{-\theta^T x^{(i)}} - 1} \right) \right) \right]
+```
+
+The key insight here is that $\frac{e^{\theta^T x^{(i)}}}{1 - e^{\theta^T x^{(i)}}} = \frac{1}{e^{-\theta^T x^{(i)}} - 1}$ by multiplying numerator and denominator by $e^{-\theta^T x^{(i)}}$.
+
+**Step 4: Further simplification using log properties**
+Since $\log(e^a) = a$, we can simplify to:
+```math
+= \theta^T x^{(i)} \cdot y^{(i)} + \log \left( e^{-\theta^T x^{(i)}} - 1 \right)
+```
+
+**Step 5: Computing the partial derivative with respect to $\theta_j$**
+We need to find $\frac{\partial}{\partial \theta_j} l_i(\theta)$. Let's break this down:
+
+The first term $\theta^T x^{(i)} \cdot y^{(i)}$ has derivative:
+```math
+\frac{\partial}{\partial \theta_j} [\theta^T x^{(i)} \cdot y^{(i)}] = x_j^{(i)} y^{(i)}
+```
+
+The second term $\log \left( e^{-\theta^T x^{(i)}} - 1 \right)$ requires the chain rule:
+```math
+\frac{\partial}{\partial \theta_j} \log \left( e^{-\theta^T x^{(i)}} - 1 \right) = \frac{1}{e^{-\theta^T x^{(i)}} - 1} \cdot \frac{\partial}{\partial \theta_j} \left( e^{-\theta^T x^{(i)}} - 1 \right)
+```
+
+Since $\frac{\partial}{\partial \theta_j} e^{-\theta^T x^{(i)}} = e^{-\theta^T x^{(i)}} \cdot (-x_j^{(i)})$, we get:
+```math
+= \frac{e^{-\theta^T x^{(i)}}}{e^{-\theta^T x^{(i)}} - 1} (-x_j^{(i)})
+```
+
+**Step 6: Combining the partial derivatives**
+Putting both terms together:
+```math
+\frac{\partial}{\partial \theta_j} l_i(\theta) = x_j^{(i)} y^{(i)} + \frac{e^{-\theta^T x^{(i)}}}{e^{-\theta^T x^{(i)}} - 1} (-x_j^{(i)})
+```
+
+**Step 7: Simplifying the expression**
+We can factor out $x_j^{(i)}$ and simplify:
+```math
+= x_j^{(i)} y^{(i)} - \frac{1}{1 - e^{\theta^T x^{(i)}}} x_j^{(i)}
+```
+
+The key transformation here is:
+```math
+\frac{e^{-\theta^T x^{(i)}}}{e^{-\theta^T x^{(i)}} - 1} = \frac{1}{1 - e^{\theta^T x^{(i)}}}
+```
+
+This is because:
+```math
+\frac{e^{-\eta}}{e^{-\eta} - 1} = \frac{1}{e^\eta - e^\eta \cdot e^{-\eta}} = \frac{1}{e^\eta - 1} = \frac{1}{1 - e^{-\eta}}
+```
+
+**Step 8: Final form of the gradient**
+Factoring out $x_j^{(i)}$:
+```math
+= \left( y^{(i)} - \frac{1}{1 - e^{\theta^T x^{(i)}}} \right) x_j^{(i)}
+```
+
+**Step 9: Stochastic gradient ascent update rule**
+The stochastic gradient ascent update rule is:
+```math
+\theta_j := \theta_j + \alpha \frac{\partial l_i(\theta)}{\partial \theta_j}
+```
+
+Substituting our gradient expression:
+```math
+\theta_j := \theta_j + \alpha \left( y^{(i)} - \frac{1}{1 - e^{\theta^T x^{(i)}}} \right) x_j^{(i)}
+```
+
+**Interpretation:**
+This update rule has an intuitive interpretation:
+- $y^{(i)}$ is the observed value
+- $\frac{1}{1 - e^{\theta^T x^{(i)}}}$ is the predicted mean (canonical response function)
+- The difference $(y^{(i)} - \text{predicted mean})$ is the prediction error
+- The update scales this error by the learning rate $\alpha$ and the feature value $x_j^{(i)}$
+
+This follows the standard form of gradient ascent where parameters are updated in the direction that increases the log-likelihood.
