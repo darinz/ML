@@ -2,7 +2,7 @@
 
 ## 1. **Newton’s method for computing least squares**
 
-   In this problem, we will prove that if we use Newton’s method solve the least squares optimization problem, then we only need one iteration to converge to $`\theta^*`$.
+   In this problem, we will prove that if we use Newton’s method to solve the least squares optimization problem, then we only need one iteration to converge to $`\theta^*`$.
 
    (a) Find the Hessian of the cost function $`J(\theta) = \frac{1}{2} \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)})^2`$.
 
