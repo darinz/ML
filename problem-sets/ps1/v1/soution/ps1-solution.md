@@ -427,8 +427,38 @@ X^T X \Theta = X^T Y
 y_j^{(i)} = \theta_j^T x^{(i)}, \quad j = 1, \ldots, p.
 ```
 
-
 (So here, each $`\theta_j \in \mathbb{R}^n`$). How do the parameters from these $`p`$ independent least squares problems compare to the multivariate solution?
+
+**Answer:** This time, we construct a set of vectors
+
+```math
+\vec{y}_j = \begin{bmatrix}
+  y_j^{(1)} \\
+  y_j^{(2)} \\
+  \vdots \\
+  y_j^{(m)}
+\end{bmatrix}, \quad j = 1, \ldots, p.
+```
+
+Then our $`j`$-th linear model can be solved by the least squares solution
+
+```math
+\theta_j = (X^T X)^{-1} X^T \vec{y}_j.
+```
+
+If we line up our $\theta_j$, we see that we have the following equation:
+
+```math
+\begin{align*}
+[\theta_1\ \theta_2\ \cdots\ \theta_p]
+&= [(X^T X)^{-1} X^T \vec{y}_1\ \ (X^T X)^{-1} X^T \vec{y}_2\ \cdots\ (X^T X)^{-1} X^T \vec{y}_p] \\
+&= (X^T X)^{-1} X^T [\vec{y}_1\ \vec{y}_2\ \cdots\ \vec{y}_p] \\
+&= (X^T X)^{-1} X^T Y \\
+&= \Theta.
+\end{align*}
+```
+
+Thus, our $p$ individual least squares problems give the exact same solution as the multivariate least squares.
 
 ## 4. **Naive Bayes**
 
