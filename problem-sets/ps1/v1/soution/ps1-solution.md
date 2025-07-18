@@ -857,3 +857,39 @@ This function transforms the natural parameter $\eta$ to the expected value of t
 
 (c) For a training set $`\{(x^{(i)}, y^{(i)});\ i = 1, \ldots, m\}`$, let the log-likelihood of an example be $`\log p(y^{(i)}|x^{(i)}; \theta)`$. By taking the derivative of the log-likelihood with respect to $`\theta_j`$, derive the stochastic gradient ascent rule for learning using a GLM model with geometric responses $`y`$ and the canonical response function.
 
+**Answer:**
+
+The log-likelihood of an example $(x^{(i)}, y^{(i)})$ is defined as $l(\theta) = \log p(y^{(i)}|x^{(i)}; \theta)$. To derive the stochastic gradient ascent rule, use the results from previous parts and the standard GLM assumption that $\eta = \theta^T x$.
+
+```math
+l_i(\theta) = \log \left[ \exp \left( \theta^T x^{(i)} \cdot y^{(i)} - \log \left( \frac{e^{\theta^T x^{(i)}}}{1 - e^{\theta^T x^{(i)}}} \right) \right) \right]
+```
+```math
+= \log \left[ \exp \left( \theta^T x^{(i)} \cdot y^{(i)} - \log \left( \frac{1}{e^{-\theta^T x^{(i)}} - 1} \right) \right) \right]
+```
+```math
+= \theta^T x^{(i)} \cdot y^{(i)} + \log \left( e^{-\theta^T x^{(i)}} - 1 \right)
+```
+
+```math
+\frac{\partial}{\partial \theta_j} l_i(\theta) = x_j^{(i)} y^{(i)} + \frac{e^{-\theta^T x^{(i)}}}{e^{-\theta^T x^{(i)}} - 1} (-x_j^{(i)})
+```
+```math
+= x_j^{(i)} y^{(i)} - \frac{1}{1 - e^{\theta^T x^{(i)}}} x_j^{(i)}
+```
+```math
+= \left( y^{(i)} - \frac{1}{1 - e^{\theta^T x^{(i)}}} \right) x_j^{(i)}.
+```
+
+Thus the stochastic gradient ascent update rule should be
+
+```math
+\theta_j := \theta_j + \alpha \frac{\partial l_i(\theta)}{\partial \theta_j},
+```
+
+which is
+
+```math
+\theta_j := \theta_j + \alpha \left( y^{(i)} - \frac{1}{1 - e^{\theta^T x^{(i)}}} \right) x_j^{(i)}.
+```
+
