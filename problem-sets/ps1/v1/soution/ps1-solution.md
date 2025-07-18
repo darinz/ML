@@ -1,4 +1,4 @@
-# Problem Set #1: Supervised Learning
+# Problem Set #1 Solutions: Supervised Learning
 
 ## 1. **Newton’s method for computing least squares**
 
