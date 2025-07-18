@@ -93,3 +93,26 @@ X = \begin{bmatrix}
   --- & (x^{(m)})^T & ---
 \end{bmatrix}
 ```
+
+and the $`m \times p`$ target matrix
+
+```math
+Y = \begin{bmatrix}
+  --- & (y^{(1)})^T & --- \\
+  --- & (y^{(2)})^T & --- \\
+  & \vdots & \\
+  --- & (y^{(m)})^T & ---
+\end{bmatrix}
+```
+
+and then work out how to express $`J(\Theta)`$ in terms of these matrices.]
+
+(b) Find the closed form solution for $`\Theta`$ which minimizes $`J(\Theta)`$. This is the equivalent to the normal equations for the multivariate case.
+
+(c) Suppose instead of considering the multivariate vectors $`y^{(i)}`$ all at once, we instead compute each variable $`y_j^{(i)}`$ separately for each $`j = 1, \ldots, p`$. In this case, we have a $`p`$ individual linear models, of the form
+
+```math
+y_j^{(i)} = \theta_j^T x^{(i)}, \quad j = 1, \ldots, p.
+```
+
+(So here, each $`\theta_j \in \mathbb{R}^n`$). How do the parameters from these $`p`$ independent least squares problems compare to the multivariate solution?
