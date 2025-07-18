@@ -460,6 +460,43 @@ If we line up our $\theta_j$, we see that we have the following equation:
 
 Thus, our $p$ individual least squares problems give the exact same solution as the multivariate least squares.
 
+**Explanation:**
+
+In part (c), we consider solving $p$ separate least squares problems, one for each output variable $y_j$. For each $j = 1, \ldots, p$:
+- We form the vector $\vec{y}_j$ containing the $j$-th component of all $m$ training examples.
+- We solve the least squares problem for $y_j$ independently:
+
+```math
+\theta_j = (X^T X)^{-1} X^T \vec{y}_j
+```
+
+**Step 1: Stack the solutions for all $j$**
+- If we collect all $\theta_j$ as columns in a matrix $[\theta_1\ \theta_2\ \cdots\ \theta_p]$, we get:
+
+```math
+[\theta_1\ \theta_2\ \cdots\ \theta_p] = [(X^T X)^{-1} X^T \vec{y}_1\ \cdots\ (X^T X)^{-1} X^T \vec{y}_p]
+```
+
+**Step 2: Matrix form using $Y$**
+- The matrix $Y$ has columns $\vec{y}_1, \ldots, \vec{y}_p$.
+- Therefore, $[\vec{y}_1\ \cdots\ \vec{y}_p] = Y$.
+- We can factor out $(X^T X)^{-1} X^T$:
+
+```math
+[\theta_1\ \cdots\ \theta_p] = (X^T X)^{-1} X^T Y
+```
+
+**Step 3: Connection to the multivariate solution**
+- This is exactly the same as the closed-form solution for the multivariate least squares problem:
+
+```math
+\Theta = (X^T X)^{-1} X^T Y
+```
+
+**Summary:**
+- Solving $p$ independent least squares problems for each output variable $y_j$ and stacking the solutions as columns gives the same result as solving the multivariate least squares problem in matrix form.
+- The reason is that the least squares objective is separable in the columns of $Y$; there is no interaction between the different output variables in the loss function, so the optimal $\Theta$ can be found by solving each output dimension independently.
+
 ## 4. **Naive Bayes**
 
 In this problem, we look at maximum likelihood parameter estimation using the naive Bayes assumption. Here, the input features $`x_j,\ j = 1, \ldots, n`$ to our model are discrete, binary-valued variables, so $`x_j \in \{0, 1\}`$. We call $`x = [x_1\ x_2\ \cdots\ x_n]^T`$ to be the input vector. For each training example, our output targets are a single binary-value $`y \in \{0, 1\}`$. Our model is then parameterized by $`\phi_{j|y=0} = p(x_j = 1|y = 0)`$, $`\phi_{j|y=1} = p(x_j = 1|y = 1)`$, and $`\phi_y = p(y = 1)`$. We model the joint distribution of $`(x, y)`$ according to
