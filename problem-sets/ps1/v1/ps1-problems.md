@@ -8,7 +8,7 @@
 
    (b) Show that the first iteration of Newton’s method gives us $`\theta^* = (X^T X)^{-1} X^T \vec{y}`$, the solution to our least squares problem.
 
-2. **Locally-weighted logistic regression**
+## 2. **Locally-weighted logistic regression**
 
    In this problem you will implement a locally-weighted version of logistic regression, where we weight different training examples differently according to the query point. The locally-weighted logistic regression problem is to maximize
 
