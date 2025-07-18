@@ -67,17 +67,38 @@ Therefore, the Hessian of $J(\theta)$ is $H = X^T X$. This can also be derived b
 
 **Answer:** Given any $\theta^{(0)}$, Newton’s method finds $\theta^{(1)}$ according to
 
+Recall that Newton's method for minimizing a twice-differentiable function $J(\theta)$ is:
+
 ```math
-\begin{align*}
-\theta^{(1)} &= \theta^{(0)} - H^{-1} \nabla_\theta J(\theta^{(0)}) \\
-&= \theta^{(0)} - (X^T X)^{-1} (X^T X \theta^{(0)} - X^T \vec{y}) \\
-&= \theta^{(0)} - \theta^{(0)} + (X^T X)^{-1} X^T \vec{y} \\
-&= (X^T X)^{-1} X^T \vec{y}.
-\end{align*}
+\theta^{(1)} = \theta^{(0)} - H^{-1} \nabla_\theta J(\theta^{(0)})
+```
+where $H$ is the Hessian matrix of $J(\theta)$ evaluated at $\theta^{(0)}$.
+
+For the least squares cost function,
+```math
+J(\theta) = \frac{1}{2} \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)})^2,
+```
+we have already shown that the gradient is
+```math
+\nabla_\theta J(\theta) = X^T X \theta - X^T \vec{y}
+```
+and the Hessian is
+```math
+H = X^T X
 ```
 
-Therefore, no matter what $\theta^{(0)}$ we pick, Newton’s method always finds $\theta^*$ after one iteration.
+Plugging these into the Newton update:
+```math
+\theta^{(1)} = \theta^{(0)} - (X^T X)^{-1} (X^T X \theta^{(0)} - X^T \vec{y})
+```
+Expanding the terms:
+```math
+= \theta^{(0)} - (X^T X)^{-1} X^T X \theta^{(0)} + (X^T X)^{-1} X^T \vec{y}
+= \theta^{(0)} - \theta^{(0)} + (X^T X)^{-1} X^T \vec{y}
+= (X^T X)^{-1} X^T \vec{y}
+```
 
+Therefore, regardless of the initial value $\theta^{(0)}$, Newton's method jumps directly to the unique minimizer $\theta^*$ in a single iteration. This is because the least squares cost function is quadratic in $\theta$, so its gradient is linear and its Hessian is constant, making Newton's method exact in one step.
 
 ## 2. **Locally-weighted logistic regression**
 
