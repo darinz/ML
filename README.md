@@ -26,6 +26,8 @@ For additional practical machine learning topics not covered in this theoretical
 
 PSL provides a more applied, hands-on approach that complements the theoretical foundations covered in this repository.
 
+**[Applied Machine Learning (AML)](https://github.com/darinz/AML)**. This curriculum focuses on practical implementation and application of machine learning algorithms, covering end-to-end workflows, real-world projects, and deployment strategies. AML is ideal for learners seeking hands-on experience and applied skills in building and deploying ML systems.
+
 ## Table of Contents
 
 - [Overview](#overview)
