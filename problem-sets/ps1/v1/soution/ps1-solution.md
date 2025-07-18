@@ -8,18 +8,56 @@
 
 **Answer:** As shown in the notes
 
-```math
-\frac{\partial J(\theta)}{\partial \theta_j} = \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)}) x_j^{(i)}.
-```
-
-So
+To find the Hessian of the cost function
 
 ```math
-\frac{\partial^2 J(\theta)}{\partial \theta_j \partial \theta_k} = \sum_{i=1}^m \frac{\partial}{\partial \theta_k} (\theta^T x^{(i)} - y^{(i)}) x_j^{(i)}
-= \sum_{i=1}^m x_j^{(i)} x_k^{(i)} = (X^T X)_{jk}
+J(\theta) = \frac{1}{2} \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)})^2,
+```
+we first compute the gradient with respect to $\theta$.
+
+**Step 1: Compute the gradient**
+
+The $j$-th component of the gradient is:
+
+```math
+\frac{\partial J(\theta)}{\partial \theta_j} = \frac{1}{2} \sum_{i=1}^m \frac{\partial}{\partial \theta_j} (\theta^T x^{(i)} - y^{(i)})^2
 ```
 
-Therefore, the Hessian of $`J(\theta)`$ is $`H = X^T X`$. This can also be derived by simply applying rules from the notes on Linear Algebra.
+Using the chain rule:
+
+```math
+= \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)}) \frac{\partial}{\partial \theta_j}(\theta^T x^{(i)} - y^{(i)})
+```
+
+But $\frac{\partial}{\partial \theta_j}(\theta^T x^{(i)}) = x_j^{(i)}$ and $\frac{\partial}{\partial \theta_j} y^{(i)} = 0$, so:
+
+```math
+= \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)}) x_j^{(i)}
+```
+
+**Step 2: Compute the Hessian**
+
+The $`(j, k)`$-th entry of the Hessian is:
+
+```math
+\frac{\partial^2 J(\theta)}{\partial \theta_j \partial \theta_k} = \sum_{i=1}^m \frac{\partial}{\partial \theta_k} \left[(\theta^T x^{(i)} - y^{(i)}) x_j^{(i)}\right]
+```
+
+Since $x_j^{(i)}$ does not depend on $\theta_k$:
+
+```math
+= \sum_{i=1}^m x_j^{(i)} \frac{\partial}{\partial \theta_k}(\theta^T x^{(i)} - y^{(i)})
+```
+
+Again, $\frac{\partial}{\partial \theta_k}(\theta^T x^{(i)}) = x_k^{(i)}$ and $\frac{\partial}{\partial \theta_k} y^{(i)} = 0$:
+
+```math
+= \sum_{i=1}^m x_j^{(i)} x_k^{(i)}
+```
+
+This is the $(j, k)$ entry of the matrix $X^T X$, where $X$ is the $m \times n$ data matrix whose $i$-th row is $(x^{(i)})^T$.
+
+Therefore, the Hessian of $J(\theta)$ is $H = X^T X$. This can also be derived by simply applying rules from the notes on Linear Algebra.
 
    (b) Show that the first iteration of Newton’s method gives us 
 ```math
