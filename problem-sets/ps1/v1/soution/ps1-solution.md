@@ -856,3 +856,4 @@ g(\eta) = \frac{1}{1 - e^\eta}
 This function transforms the natural parameter $\eta$ to the expected value of the geometric random variable, allowing us to model the mean response as a function of the linear predictor in the GLM framework.
 
 (c) For a training set $`\{(x^{(i)}, y^{(i)});\ i = 1, \ldots, m\}`$, let the log-likelihood of an example be $`\log p(y^{(i)}|x^{(i)}; \theta)`$. By taking the derivative of the log-likelihood with respect to $`\theta_j`$, derive the stochastic gradient ascent rule for learning using a GLM model with geometric responses $`y`$ and the canonical response function.
+
