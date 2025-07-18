@@ -735,6 +735,74 @@ a(\eta) = \log \left( \frac{1 - \phi}{\phi} \right) = \log \left( \frac{e^\eta}{
 
 where the last line follows because $\eta = \log(1 - \phi) \Rightarrow e^\eta = 1 - \phi \Rightarrow \phi = 1 - e^\eta$.
 
+**Explanation:**
+
+To show that the geometric distribution is in the exponential family, we need to express it in the standard form:
+
+```math
+p(y; \eta) = \exp[\eta T(y) - a(\eta) + b(y)]
+```
+
+**Step 1: Start with the geometric distribution**
+The geometric distribution with parameter $\phi$ is:
+
+```math
+p(y; \phi) = (1 - \phi)^{y-1} \phi
+```
+
+**Step 2: Apply the exponential-logarithmic transformation**
+We use the identity $x = \exp[\log(x)]$ to rewrite the probability mass function:
+
+```math
+= \exp \left[ \log((1 - \phi)^{y-1} \phi) \right]
+```
+
+**Step 3: Expand the logarithm using log properties**
+Using $\log(ab) = \log(a) + \log(b)$ and $\log(a^b) = b \log(a)$:
+
+```math
+= \exp \left[ \log((1 - \phi)^{y-1}) + \log(\phi) \right]
+= \exp \left[ (y - 1) \log(1 - \phi) + \log(\phi) \right]
+```
+
+**Step 4: Rearrange to isolate the sufficient statistic**
+We want to isolate $y$ (the sufficient statistic) from the other terms:
+
+```math
+= \exp \left[ y \log(1 - \phi) - \log(1 - \phi) + \log(\phi) \right]
+= \exp \left[ y \log(1 - \phi) - \log \left( \frac{1 - \phi}{\phi} \right) \right]
+```
+
+**Step 5: Identify the exponential family components**
+Comparing with the standard form $\exp[\eta T(y) - a(\eta) + b(y)]$, we can identify:
+
+- **Natural parameter**: $\eta = \log(1 - \phi)$
+- **Sufficient statistic**: $T(y) = y$
+- **Log-partition function**: $a(\eta) = \log \left( \frac{1 - \phi}{\phi} \right)$
+- **Base measure**: $b(y) = 1$ (constant)
+
+**Step 6: Express $a(\eta)$ in terms of $\eta$**
+Since $\eta = \log(1 - \phi)$, we have:
+- $e^\eta = 1 - \phi$
+- $\phi = 1 - e^\eta$
+
+Substituting into $a(\eta)$:
+
+```math
+a(\eta) = \log \left( \frac{1 - \phi}{\phi} \right) = \log \left( \frac{e^\eta}{1 - e^\eta} \right)
+```
+
+**Summary:**
+The geometric distribution is indeed in the exponential family with:
+- $b(y) = 1$ (constant base measure)
+- $\eta = \log(1 - \phi)$ (natural parameter)
+- $T(y) = y$ (sufficient statistic)
+- $a(\eta) = \log \left( \frac{e^\eta}{1 - e^\eta} \right)$ (log-partition function)
+
+This form allows us to use the standard GLM framework for geometric regression.
+
 (b) Consider performing regression using a GLM model with a geometric response variable. What is the canonical response function for the family? You may use the fact that the mean of a geometric distribution is given by $`1/\phi`$.
+
+
 
 (c) For a training set $`\{(x^{(i)}, y^{(i)});\ i = 1, \ldots, m\}`$, let the log-likelihood of an example be $`\log p(y^{(i)}|x^{(i)}; \theta)`$. By taking the derivative of the log-likelihood with respect to $`\theta_j`$, derive the stochastic gradient ascent rule for learning using a GLM model with geometric responses $`y`$ and the canonical response function.
