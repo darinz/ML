@@ -373,6 +373,54 @@ Setting this expression to zero we obtain
 
 This looks very similar to the closed form solution in the univariate case, except now $Y$ is a $m \times p$ matrix, so then $\Theta$ is also a matrix, of size $n \times p$.
 
+**Explanation:**
+
+To find the closed-form solution for $\Theta$ that minimizes the multivariate least squares objective, we start from the matrix formulation:
+
+```math
+J(\Theta) = \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right)
+```
+
+**Step 1: Expand the objective using properties of the trace**
+- Recall that $\operatorname{tr}(A^T B) = \operatorname{tr}(B^T A)$ and $\operatorname{tr}(A + B) = \operatorname{tr}(A) + \operatorname{tr}(B)$.
+- Expand $(X\Theta - Y)^T (X\Theta - Y)$:
+
+```math
+(X\Theta - Y)^T (X\Theta - Y) = \Theta^T X^T X \Theta - \Theta^T X^T Y - Y^T X \Theta + Y^T Y
+```
+
+**Step 2: Take the gradient with respect to $\Theta$**
+- Use the following matrix calculus results:
+  - $\nabla_\Theta \operatorname{tr}(\Theta^T A \Theta) = A\Theta + A^T \Theta$
+  - $\nabla_\Theta \operatorname{tr}(B^T \Theta) = B$
+- Apply these to each term:
+  - $\operatorname{tr}(\Theta^T X^T X \Theta)$ gives $X^T X \Theta + X^T X \Theta = 2 X^T X \Theta$
+  - $\operatorname{tr}(\Theta^T X^T Y)$ gives $X^T Y$
+  - $\operatorname{tr}(Y^T X \Theta)$ gives $X^T Y$
+  - $\operatorname{tr}(Y^T Y)$ is constant with respect to $\Theta$, so its gradient is zero.
+- Combine the terms:
+
+```math
+\nabla_\Theta J(\Theta) = \frac{1}{2} [2 X^T X \Theta - 2 X^T Y] = X^T X \Theta - X^T Y
+```
+
+**Step 3: Set the gradient to zero and solve for $\Theta$**
+- Setting $\nabla_\Theta J(\Theta) = 0$ gives:
+
+```math
+X^T X \Theta = X^T Y
+```
+- Provided $X^T X$ is invertible, solve for $\Theta$:
+
+```math
+\Theta = (X^T X)^{-1} X^T Y
+```
+
+**Summary:**
+- This solution generalizes the normal equations from univariate least squares to the multivariate case.
+- $Y$ is $m \times p$, so $\Theta$ is $n \times p$.
+- Each column of $\Theta$ corresponds to the solution for one output variable, but all are solved simultaneously in matrix form.
+
 (c) Suppose instead of considering the multivariate vectors $`y^{(i)}`$ all at once, we instead compute each variable $`y_j^{(i)}`$ separately for each $`j = 1, \ldots, p`$. In this case, we have a $`p`$ individual linear models, of the form
 
 ```math
