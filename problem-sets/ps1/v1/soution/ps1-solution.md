@@ -293,7 +293,22 @@ Y = \begin{bmatrix}
 
 and then work out how to express $`J(\Theta)`$ in terms of these matrices.]
 
+**Answer:** The objective function can be expressed as
 
+```math
+J(\Theta) = \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right).
+```
+
+To see this, note that
+
+```math
+\begin{align*}
+J(\Theta) &= \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right) \\
+&= \frac{1}{2} \sum_i (X\Theta - Y)^T (X\Theta - Y)_{ii} \\
+&= \frac{1}{2} \sum_i \sum_j (X\Theta - Y)_{ij}^2 \\
+&= \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^p \left( (\Theta^T x^{(i)})_j - y_j^{(i)} \right)^2
+\end{align*}
+```
 
 (b) Find the closed form solution for $`\Theta`$ which minimizes $`J(\Theta)`$. This is the equivalent to the normal equations for the multivariate case.
 
