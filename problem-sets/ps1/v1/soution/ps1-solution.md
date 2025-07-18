@@ -168,6 +168,8 @@ plot_lwlr(X_train, y_train, tau, resolution)
 
 in `plot_lwlr.py` will plot the resulting classifier (assuming you have properly implemented `lwlr.py`). This function evaluates the locally weighted logistic regression classifier over a large grid of points and plots the resulting prediction as blue (predicting y = 0) or red (predicting y = 1). Depending on how fast your `lwlr` function is, creating the plot might take some time, so we recommend debugging your code with `resolution = 50`; and later increase it to at least 200 to get a better idea of the decision boundary.
 
+
+
 (b) Evaluate the system with a variety of different bandwidth parameters $`\tau`$. In particular, try $`\tau = 0.01, 0.05, 0.1, 0.51, 0.5, 5.0`$. How does the classification boundary change when varying this parameter? Can you predict what the decision boundary of ordinary (unweighted) logistic regression would look like?
 
 ## 3. **Multivariate least squares**
