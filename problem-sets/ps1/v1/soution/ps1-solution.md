@@ -296,14 +296,14 @@ and then work out how to express $`J(\Theta)`$ in terms of these matrices.]
 **Answer:** The objective function can be expressed as
 
 ```math
-J(\Theta) = \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right).
+J(\Theta) = \frac{1}{2} \text{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right).
 ```
 
 To see this, note that
 
 ```math
 \begin{align*}
-J(\Theta) &= \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right) \\
+J(\Theta) &= \frac{1}{2} \text{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right) \\
 &= \frac{1}{2} \sum_i (X\Theta - Y)^T (X\Theta - Y)_{ii} \\
 &= \frac{1}{2} \sum_i \sum_j (X\Theta - Y)_{ij}^2 \\
 &= \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^p \left( (\Theta^T x^{(i)})_j - y_j^{(i)} \right)^2
@@ -333,15 +333,15 @@ We want to express this in matrix notation, without explicit summations. Let $X$
   - This matches the original double sum in the definition of $J(\Theta)$.
 
 - **Step 4: Trace notation**
-  - The trace of a square matrix is the sum of its diagonal entries: $\operatorname{tr}(A) = \sum_k A_{kk}$.
-  - For any matrix $A$, $\operatorname{tr}(A^T A) = \sum_{i,j} A_{ij}^2 = \|A\|_F^2$.
-  - Therefore, $\operatorname{tr}((X\Theta - Y)^T (X\Theta - Y)) = \|X\Theta - Y\|_F^2$.
+  - The trace of a square matrix is the sum of its diagonal entries: $\text{tr}(A) = \sum_k A_{kk}$.
+  - For any matrix $A$, $\text{tr}(A^T A) = \sum_{i,j} A_{ij}^2 = \|A\|_F^2$.
+  - Therefore, $\text{tr}((X\Theta - Y)^T (X\Theta - Y)) = \|X\Theta - Y\|_F^2$.
 
 - **Step 5: Final matrix notation**
   - We can write the objective as:
 
 ```math
-J(\Theta) = \frac{1}{2} \|X\Theta - Y\|_F^2 = \frac{1}{2} \operatorname{tr}\left((X\Theta - Y)^T (X\Theta - Y)\right)
+J(\Theta) = \frac{1}{2} \|X\Theta - Y\|_F^2 = \frac{1}{2} \text{tr}\left((X\Theta - Y)^T (X\Theta - Y)\right)
 ```
 
 - **Summary:**
@@ -356,10 +356,10 @@ J(\Theta) = \frac{1}{2} \|X\Theta - Y\|_F^2 = \frac{1}{2} \operatorname{tr}\left
 ```math
 \begin{align*}
 \nabla_\Theta J(\Theta)
-&= \nabla_\Theta \left[ \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right) \right] \\
-&= \nabla_\Theta \left[ \frac{1}{2} \operatorname{tr} (\Theta^T X^T X \Theta - \Theta^T X^T Y - Y^T X \Theta + Y^T Y) \right] \\
-&= \frac{1}{2} \nabla_\Theta \left[ \operatorname{tr}(\Theta^T X^T X \Theta) - \operatorname{tr}(\Theta^T X^T Y) - \operatorname{tr}(Y^T X \Theta) + \operatorname{tr}(Y^T Y) \right] \\
-&= \frac{1}{2} \nabla_\Theta \left[ \operatorname{tr}(\Theta^T X^T X \Theta) - 2\operatorname{tr}(Y^T X \Theta) + \operatorname{tr}(Y^T Y) \right] \\
+&= \nabla_\Theta \left[ \frac{1}{2} \text{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right) \right] \\
+&= \nabla_\Theta \left[ \frac{1}{2} \text{tr} (\Theta^T X^T X \Theta - \Theta^T X^T Y - Y^T X \Theta + Y^T Y) \right] \\
+&= \frac{1}{2} \nabla_\Theta \left[ \text{tr}(\Theta^T X^T X \Theta) - \text{tr}(\Theta^T X^T Y) - \text{tr}(Y^T X \Theta) + \text{tr}(Y^T Y) \right] \\
+&= \frac{1}{2} \nabla_\Theta \left[ \text{tr}(\Theta^T X^T X \Theta) - 2\text{tr}(Y^T X \Theta) + \text{tr}(Y^T Y) \right] \\
 &= \frac{1}{2} \left[ X^T X \Theta + X^T X \Theta - 2 X^T Y \right] \\
 &= X^T X \Theta - X^T Y
 \end{align*}
@@ -378,11 +378,11 @@ This looks very similar to the closed form solution in the univariate case, exce
 To find the closed-form solution for $\Theta$ that minimizes the multivariate least squares objective, we start from the matrix formulation:
 
 ```math
-J(\Theta) = \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right)
+J(\Theta) = \frac{1}{2} \text{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right)
 ```
 
 **Step 1: Expand the objective using properties of the trace**
-- Recall that $\operatorname{tr}(A^T B) = \operatorname{tr}(B^T A)$ and $\operatorname{tr}(A + B) = \operatorname{tr}(A) + \operatorname{tr}(B)$.
+- Recall that $\text{tr}(A^T B) = \text{tr}(B^T A)$ and $\text{tr}(A + B) = \text{tr}(A) + \text{tr}(B)$.
 - Expand $(X\Theta - Y)^T (X\Theta - Y)$:
 
 ```math
@@ -391,13 +391,13 @@ J(\Theta) = \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \
 
 **Step 2: Take the gradient with respect to $\Theta$**
 - Use the following matrix calculus results:
-  - $\nabla_\Theta \operatorname{tr}(\Theta^T A \Theta) = A\Theta + A^T \Theta$
-  - $\nabla_\Theta \operatorname{tr}(B^T \Theta) = B$
+  - $\nabla_\Theta \text{tr}(\Theta^T A \Theta) = A\Theta + A^T \Theta$
+  - $\nabla_\Theta \text{tr}(B^T \Theta) = B$
 - Apply these to each term:
-  - $\operatorname{tr}(\Theta^T X^T X \Theta)$ gives $X^T X \Theta + X^T X \Theta = 2 X^T X \Theta$
-  - $\operatorname{tr}(\Theta^T X^T Y)$ gives $X^T Y$
-  - $\operatorname{tr}(Y^T X \Theta)$ gives $X^T Y$
-  - $\operatorname{tr}(Y^T Y)$ is constant with respect to $\Theta$, so its gradient is zero.
+  - $\text{tr}(\Theta^T X^T X \Theta)$ gives $X^T X \Theta + X^T X \Theta = 2 X^T X \Theta$
+  - $\text{tr}(\Theta^T X^T Y)$ gives $X^T Y$
+  - $\text{tr}(Y^T X \Theta)$ gives $X^T Y$
+  - $\text{tr}(Y^T Y)$ is constant with respect to $\Theta$, so its gradient is zero.
 - Combine the terms:
 
 ```math
