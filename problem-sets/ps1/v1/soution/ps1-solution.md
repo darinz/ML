@@ -225,6 +225,28 @@ y = double(x'*theta > 0);
 
 For smaller $\tau$, the classifier appears to overfit the data set, obtaining zero training error, but outputting a sporadic looking decision boundary. As $\tau$ grows, the resulting decision boundary becomes smoother, eventually converging (in the limit as $\tau \to \infty$ to the unweighted linear regression solution).
 
+**Detailed Explanation:**
+
+The parameter $\tau$ in locally weighted logistic regression controls the width of the weighting kernel, which determines how much influence each training point has on the prediction for a given query point $x$.
+
+- **Small $\tau$ (narrow kernel):**
+  - The weights $w^{(i)} = \exp\left(-\frac{\|x - x^{(i)}\|^2}{2\tau^2}\right)$ decay very quickly with distance.
+  - Only training points very close to the query point $x$ have significant weight; distant points have negligible influence.
+  - As a result, the classifier can fit the training data very closely, potentially achieving zero training error.
+  - However, this can lead to a highly irregular, "noisy" decision boundary that overfits the training data and does not generalize well to new points.
+
+- **Large $\tau$ (wide kernel):**
+  - The weights decay slowly, so many or all training points contribute significantly to the prediction at $x$.
+  - The influence of any single point is reduced, and the classifier becomes less sensitive to local variations in the data.
+  - The decision boundary becomes smoother and less complex, reducing the risk of overfitting.
+  - In the limit as $\tau \to \infty$, all weights become equal ($w^{(i)} \approx 1$ for all $i$), and the method reduces to standard (unweighted) logistic regression, where the decision boundary is determined by the global structure of the data.
+
+**Summary:**
+- Small $\tau$ $\rightarrow$ overfitting, complex and irregular decision boundary.
+- Large $\tau$ $\rightarrow$ underfitting, smooth and simple decision boundary, converging to the unweighted logistic regression solution.
+
+This behavior illustrates the classic bias-variance tradeoff: small $\tau$ yields low bias but high variance, while large $\tau$ yields higher bias but lower variance.
+
 ## 3. **Multivariate least squares**
 
 So far, we have only considered cases where our target variable $`y`$ is a scalar value. Suppose that instead of trying to predict a single output, we have a training set with multiple outputs for each example:
