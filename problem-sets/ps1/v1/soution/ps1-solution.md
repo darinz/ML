@@ -661,6 +661,32 @@ p(y = 1|x) \geq p(y = 0|x) \text{ if and only if } \theta^T \begin{bmatrix} 1 \\
 
 (Assume $`\theta_0`$ is an intercept term.)
 
+**Answer:**
+
+```math
+\begin{align*}
+p(y = 1|x) \geq p(y = 0|x)
+&\leftrightarrow \frac{p(y = 1|x)}{p(y = 0|x)} \geq 1 \\
+&\leftrightarrow \frac{\left( \prod_{j=1}^n p(x_j|y = 1) \right) p(y = 1)}{\left( \prod_{j=1}^n p(x_j|y = 0) \right) p(y = 0)} \geq 1 \\
+&\leftrightarrow \frac{\left( \prod_{j=1}^n \phi_{j|y=1}^{x_j} (1 - \phi_{j|y=1})^{1-x_j} \right) \phi_y}{\left( \prod_{j=1}^n \phi_{j|y=0}^{x_j} (1 - \phi_{j|y=0})^{1-x_j} \right) (1 - \phi_y)} \geq 1 \\
+&\leftrightarrow \sum_{j=1}^n \left( x_j \log \frac{\phi_{j|y=1}}{\phi_{j|y=0}} + (1 - x_j) \log \frac{1 - \phi_{j|y=1}}{1 - \phi_{j|y=0}} \right) + \log \frac{\phi_y}{1 - \phi_y} \geq 0 \\
+&\leftrightarrow \sum_{j=1}^n x_j \log \frac{(\phi_{j|y=1})(1 - \phi_{j|y=0})}{(\phi_{j|y=0})(1 - \phi_{j|y=1})} + \sum_{j=1}^n \log \frac{1 - \phi_{j|y=1}}{1 - \phi_{j|y=0}} + \log \frac{\phi_y}{1 - \phi_y} \geq 0 \\
+&\leftrightarrow \theta^T \begin{bmatrix} 1 \\ x \end{bmatrix} \geq 0
+\end{align*}
+```
+
+where
+
+```math
+\theta_0 = \sum_{j=1}^n \log \left( \frac{1 - \phi_{j|y=1}}{1 - \phi_{j|y=0}} \right) + \log \left( \frac{\phi_y}{1 - \phi_y} \right)
+```
+
+and
+
+```math
+\theta_j = \log \left( \frac{(\phi_{j|y=1})(1 - \phi_{j|y=0})}{(\phi_{j|y=0})(1 - \phi_{j|y=1})} \right), \quad j = 1,\ldots,n.
+```
+
 ## 5. **Exponential family and the geometric distribution**
 
 (a) Consider the geometric distribution parameterized by $`\phi`$:
