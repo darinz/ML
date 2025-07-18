@@ -87,7 +87,7 @@ in `plot_lwlr.py` will plot the resulting classifier (assuming you have properly
 So far, we have only considered cases where our target variable $`y`$ is a scalar value. Suppose that instead of trying to predict a single output, we have a training set with multiple outputs for each example:
 
 ```math
-\{(x^{(i)}, y^{(i)}),\ i = 1, \ldots, m,\ x^{(i)} \in \mathbb{R}^n,\ y^{(i)} \in \mathbb{R}^p\}.
+\{(x^{(i)}, y^{(i)}),\ i = 1, \ldots, m\},\ x^{(i)} \in \mathbb{R}^n,\ y^{(i)} \in \mathbb{R}^p.
 ```
 
 Thus for each training example, $`y^{(i)}`$ is vector-valued, with $`p`$ entries. We wish to use a linear model to predict the outputs, as in least squares, by specifying the parameter matrix $`\Theta`$ in
