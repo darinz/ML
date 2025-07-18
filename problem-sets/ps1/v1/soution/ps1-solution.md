@@ -310,6 +310,45 @@ J(\Theta) &= \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) 
 \end{align*}
 ```
 
+**Explanation:**
+
+The multivariate least squares objective is
+
+```math
+J(\Theta) = \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^p \left( (\Theta^T x^{(i)})_j - y_j^{(i)} \right)^2
+```
+
+We want to express this in matrix notation, without explicit summations. Let $X$ be the $m \times n$ design matrix whose $i$-th row is $(x^{(i)})^T$, and $Y$ be the $m \times p$ target matrix whose $i$-th row is $(y^{(i)})^T$.
+
+- **Step 1: Matrix multiplication $X\Theta$**
+  - $X$ is $m \times n$, $\Theta$ is $n \times p$, so $X\Theta$ is $m \times p$.
+  - The $i$-th row of $X\Theta$ is $(x^{(i)})^T \Theta$, which is a $1 \times p$ row vector. This is the same as $((\Theta^T x^{(i)})^T)$, so the $j$-th entry is $(\Theta^T x^{(i)})_j$.
+
+- **Step 2: The difference $X\Theta - Y$**
+  - This is an $m \times p$ matrix whose $(i, j)$ entry is $(\Theta^T x^{(i)})_j - y_j^{(i)}$.
+
+- **Step 3: Squared Frobenius norm**
+  - The squared Frobenius norm of a matrix $A$ is $\|A\|_F^2 = \sum_{i=1}^m \sum_{j=1}^p A_{ij}^2$.
+  - Therefore, $\|X\Theta - Y\|_F^2 = \sum_{i=1}^m \sum_{j=1}^p \left((\Theta^T x^{(i)})_j - y_j^{(i)}\right)^2$.
+  - This matches the original double sum in the definition of $J(\Theta)$.
+
+- **Step 4: Trace notation**
+  - The trace of a square matrix is the sum of its diagonal entries: $\operatorname{tr}(A) = \sum_k A_{kk}$.
+  - For any matrix $A$, $\operatorname{tr}(A^T A) = \sum_{i,j} A_{ij}^2 = \|A\|_F^2$.
+  - Therefore, $\operatorname{tr}((X\Theta - Y)^T (X\Theta - Y)) = \|X\Theta - Y\|_F^2$.
+
+- **Step 5: Final matrix notation**
+  - We can write the objective as:
+
+```math
+J(\Theta) = \frac{1}{2} \|X\Theta - Y\|_F^2 = \frac{1}{2} \operatorname{tr}\left((X\Theta - Y)^T (X\Theta - Y)\right)
+```
+
+- **Summary:**
+  - The original double sum over $i$ and $j$ is just the sum of the squared entries of the matrix $X\Theta - Y$.
+  - The Frobenius norm and the trace notation are compact ways to write this sum in matrix form.
+  - This matrix formulation is very useful for deriving gradients and closed-form solutions in multivariate regression.
+
 (b) Find the closed form solution for $`\Theta`$ which minimizes $`J(\Theta)`$. This is the equivalent to the normal equations for the multivariate case.
 
 (c) Suppose instead of considering the multivariate vectors $`y^{(i)}`$ all at once, we instead compute each variable $`y_j^{(i)}`$ separately for each $`j = 1, \ldots, p`$. In this case, we have a $`p`$ individual linear models, of the form
