@@ -6,6 +6,21 @@
 
    (a) Find the Hessian of the cost function $`J(\theta) = \frac{1}{2} \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)})^2`$.
 
+**Answer:** As shown in the notes
+
+```math
+\frac{\partial J(\theta)}{\partial \theta_j} = \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)}) x_j^{(i)}.
+```
+
+So
+
+```math
+\frac{\partial^2 J(\theta)}{\partial \theta_j \partial \theta_k} = \sum_{i=1}^m \frac{\partial}{\partial \theta_k} (\theta^T x^{(i)} - y^{(i)}) x_j^{(i)}
+= \sum_{i=1}^m x_j^{(i)} x_k^{(i)} = (X^T X)_{jk}
+```
+
+Therefore, the Hessian of $`J(\theta)`$ is $`H = X^T X`$. This can also be derived by simply applying rules from the notes on Linear Algebra.
+
    (b) Show that the first iteration of Newton’s method gives us 
 ```math
 \theta^* = (X^T X)^{-1} X^T \vec{y}
