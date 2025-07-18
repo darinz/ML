@@ -64,7 +64,7 @@ The q2/ directory contains data and code for this problem. You should implement 
 y = lwlr(X_train, y_train, x, tau)
 ```
 
-in the `lwlr.py` file. This function takes as input the training set (the `X_train` and `y_train` matrices, in the form described in the class notes), a new query point `x`, and the weight bandwidth `tau`. Given this input, the function should 1) compute weights $`w^{(i)}`$ for each training example, using the formula above, 2) maximize $`\ell(\theta)`$ using Newton’s method (or a suitable optimizer), and finally 3) output $`y = 1\{h_\theta(x) > 0.5\}`$ as the prediction.
+in the `lwlr.py` file. This function takes as input the training set (the `X_train` and `y_train` matrices), a new query point `x`, and the weight bandwidth `tau`. Given this input, the function should 1) compute weights $`w^{(i)}`$ for each training example, using the formula above, 2) maximize $`\ell(\theta)`$ using Newton’s method (or a suitable optimizer), and finally 3) output $`y = 1\{h_\theta(x) > 0.5\}`$ as the prediction.
 
 We provide two additional functions that might help. The function
 
