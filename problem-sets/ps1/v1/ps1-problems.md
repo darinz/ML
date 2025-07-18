@@ -10,7 +10,7 @@
 ```math
 \theta^* = (X^T X)^{-1} X^T \vec{y}
 ```
-      , the solution to our least squares problem.
+   , the solution to our least squares problem.
 
 ## 2. **Locally-weighted logistic regression**
 
