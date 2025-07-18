@@ -61,7 +61,7 @@ We provide two additional functions that might help. The [X_train, y_train] = lo
 
 (b) Evaluate the system with a variety of different bandwidth parameters $`\tau`$. In particular, try $`\tau = 0.01, 0.05, 0.1, 0.51, 0.5, 5.0`$. How does the classification boundary change when varying this parameter? Can you predict what the decision boundary of ordinary (unweighted) logistic regression would look like?
 
-3. **Multivariate least squares**
+## 3. **Multivariate least squares**
 
 So far in class, we have only considered cases where our target variable $`y`$ is a scalar value. Suppose that instead of trying to predict a single output, we have a training set with multiple outputs for each example:
 
@@ -117,7 +117,7 @@ y_j^{(i)} = \theta_j^T x^{(i)}, \quad j = 1, \ldots, p.
 
 (So here, each $`\theta_j \in \mathbb{R}^n`$). How do the parameters from these $`p`$ independent least squares problems compare to the multivariate solution?
 
-4. **Naive Bayes**
+## 4. **Naive Bayes**
 
 In this problem, we look at maximum likelihood parameter estimation using the naive Bayes assumption. Here, the input features $`x_j,\ j = 1, \ldots, n`$ to our model are discrete, binary-valued variables, so $`x_j \in \{0, 1\}`$. We call $`x = [x_1\ x_2\ \cdots\ x_n]^T`$ to be the input vector. For each training example, our output targets are a single binary-value $`y \in \{0, 1\}`$. Our model is then parameterized by $`\phi_{j|y=0} = p(x_j = 1|y = 0)`$, $`\phi_{j|y=1} = p(x_j = 1|y = 1)`$, and $`\phi_y = p(y = 1)`$. We model the joint distribution of $`(x, y)`$ according to
 
@@ -159,7 +159,7 @@ p(y = 1|x) \geq p(y = 0|x) \text{ if and only if } \theta^T \begin{bmatrix} 1 \\
 
 (Assume $`\theta_0`$ is an intercept term.)
 
-5. **Exponential family and the geometric distribution**
+## 5. **Exponential family and the geometric distribution**
 
 (a) Consider the geometric distribution parameterized by $`\phi`$:
 
