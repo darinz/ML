@@ -168,7 +168,54 @@ plot_lwlr(X_train, y_train, tau, resolution)
 
 in `plot_lwlr.py` will plot the resulting classifier (assuming you have properly implemented `lwlr.py`). This function evaluates the locally weighted logistic regression classifier over a large grid of points and plots the resulting prediction as blue (predicting y = 0) or red (predicting y = 1). Depending on how fast your `lwlr` function is, creating the plot might take some time, so we recommend debugging your code with `resolution = 50`; and later increase it to at least 200 to get a better idea of the decision boundary.
 
+**Answer:** Our implementation of lwlr.py and lwlr.m:
 
+**Python implementation:**
+
+```python
+import numpy as np
+from scipy.special import expit as sigmoid
+
+def lwlr(X_train, y_train, x, tau):
+    m, n = X_train.shape
+    theta = np.zeros(n)
+    # compute weights
+    w = np.exp(-np.sum((X_train - x) ** 2, axis=1) / (2 * tau))
+    reg_lambda = 1e-4
+    g = np.ones(n)
+    while np.linalg.norm(g) > 1e-6:
+        h = sigmoid(X_train @ theta)
+        g = X_train.T @ (w * (y_train - h)) - reg_lambda * theta
+        D = w * h * (1 - h)
+        H = -X_train.T @ (D[:, None] * X_train) - reg_lambda * np.eye(n)
+        theta = theta - np.linalg.solve(H, g)
+    y_pred = sigmoid(x @ theta)
+    return float(y_pred > 0.5)
+```
+
+**Matlab implementation:**
+```matlab
+function y = lwlr(X_train, y_train, x, tau)
+
+m = size(X_train,1);
+n = size(X_train,2);
+theta = zeros(n,1);
+
+% compute weights
+w = exp(-sum((X_train - repmat(x', m, 1)).^2, 2) / (2*tau));
+
+% perform Newton’s method
+g = ones(n,1);
+while (norm(g) > 1e-6)
+  h = 1 ./ (1 + exp(-X_train * theta));
+  g = X_train' * (w.*(y_train - h)) - 1e-4*theta;
+  H = -X_train' * diag(w.*h.*(1-h)) * X_train - 1e-4*eye(n);
+  theta = theta - H \ g;
+end
+
+% return predicted y
+y = double(x'*theta > 0);
+```
 
 (b) Evaluate the system with a variety of different bandwidth parameters $`\tau`$. In particular, try $`\tau = 0.01, 0.05, 0.1, 0.51, 0.5, 5.0`$. How does the classification boundary change when varying this parameter? Can you predict what the decision boundary of ordinary (unweighted) logistic regression would look like?
 
