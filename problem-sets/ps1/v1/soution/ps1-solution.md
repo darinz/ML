@@ -65,6 +65,20 @@ Therefore, the Hessian of $J(\theta)$ is $H = X^T X$. This can also be derived b
 ```
    , the solution to our least squares problem.
 
+**Answer:** Given any $\theta^{(0)}$, Newton’s method finds $\theta^{(1)}$ according to
+
+```math
+\begin{align*}
+\theta^{(1)} &= \theta^{(0)} - H^{-1} \nabla_\theta J(\theta^{(0)}) \\
+&= \theta^{(0)} - (X^T X)^{-1} (X^T X \theta^{(0)} - X^T \vec{y}) \\
+&= \theta^{(0)} - \theta^{(0)} + (X^T X)^{-1} X^T \vec{y} \\
+&= (X^T X)^{-1} X^T \vec{y}.
+\end{align*}
+```
+
+Therefore, no matter what $\theta^{(0)}$ we pick, Newton’s method always finds $\theta^*$ after one iteration.
+
+
 ## 2. **Locally-weighted logistic regression**
 
    In this problem you will implement a locally-weighted version of logistic regression, where we weight different training examples differently according to the query point. The locally-weighted logistic regression problem is to maximize
