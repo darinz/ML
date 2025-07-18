@@ -351,11 +351,34 @@ J(\Theta) = \frac{1}{2} \|X\Theta - Y\|_F^2 = \frac{1}{2} \operatorname{tr}\left
 
 (b) Find the closed form solution for $`\Theta`$ which minimizes $`J(\Theta)`$. This is the equivalent to the normal equations for the multivariate case.
 
+**Answer:** First we take the gradient of $J(\Theta)$ with respect to $\Theta$.
+
+```math
+\begin{align*}
+\nabla_\Theta J(\Theta)
+&= \nabla_\Theta \left[ \frac{1}{2} \operatorname{tr} \left( (X\Theta - Y)^T (X\Theta - Y) \right) \right] \\
+&= \nabla_\Theta \left[ \frac{1}{2} \operatorname{tr} (\Theta^T X^T X \Theta - \Theta^T X^T Y - Y^T X \Theta + Y^T Y) \right] \\
+&= \frac{1}{2} \nabla_\Theta \left[ \operatorname{tr}(\Theta^T X^T X \Theta) - \operatorname{tr}(\Theta^T X^T Y) - \operatorname{tr}(Y^T X \Theta) + \operatorname{tr}(Y^T Y) \right] \\
+&= \frac{1}{2} \nabla_\Theta \left[ \operatorname{tr}(\Theta^T X^T X \Theta) - 2\operatorname{tr}(Y^T X \Theta) + \operatorname{tr}(Y^T Y) \right] \\
+&= \frac{1}{2} \left[ X^T X \Theta + X^T X \Theta - 2 X^T Y \right] \\
+&= X^T X \Theta - X^T Y
+\end{align*}
+```
+
+Setting this expression to zero we obtain
+
+```math
+\Theta = (X^T X)^{-1} X^T Y.
+```
+
+This looks very similar to the closed form solution in the univariate case, except now $Y$ is a $m \times p$ matrix, so then $\Theta$ is also a matrix, of size $n \times p$.
+
 (c) Suppose instead of considering the multivariate vectors $`y^{(i)}`$ all at once, we instead compute each variable $`y_j^{(i)}`$ separately for each $`j = 1, \ldots, p`$. In this case, we have a $`p`$ individual linear models, of the form
 
 ```math
 y_j^{(i)} = \theta_j^T x^{(i)}, \quad j = 1, \ldots, p.
 ```
+
 
 (So here, each $`\theta_j \in \mathbb{R}^n`$). How do the parameters from these $`p`$ independent least squares problems compare to the multivariate solution?
 
