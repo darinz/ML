@@ -91,3 +91,76 @@ For reference, computing the ICA $`W`$ matrix for the entire set of image patche
 
 After you’ve learned the $`U`$ matrix for PCA (the columns of $`U`$ should contain the principal components of the data) and the $`W`$ matrix of ICA, you can plot the basis functions using the plot-ica_bases(W); and plot-pca_bases(U); functions we have provide. Comment briefly on the difference between the two sets of basis functions.
 
+
+4. **Convergence of Policy Iteration**
+
+In this problem we show that the Policy Iteration algorithm, described in the lecture notes, is guarenteed to find the optimal policy for an MDP. First, define $`B^{\pi}`$ to be the Bellman operator for policy $`\pi`$, defined as follows: if $`V' = B(V)`$, then
+
+```math
+V'(s) = R(s) + \gamma \sum_{s' \in S} P_{\pi(s)}(s')(V(s')).
+```
+
+(a) Prove that if $`V_1(s) \leq V_2(s)`$ for all $`s \in S`$, then $`B(V_1)(s) \leq B(V_2)(s)`$ for all $`s \in S`$.
+
+(b) Prove that for any $`V`$,
+
+```math
+\|B^{\pi}(V) - V^{\pi}\|_{\infty} \leq \gamma \|V - V^{\pi}\|_{\infty}
+```
+
+where $`\|V\|_{\infty} = \max_{s \in S} |V(s)|`$. Intuitively, this means that applying the Bellman operator $`B^{\pi}`$ to any value function $`V`$, brings that value function “closer” to the value function for $`\pi`$, $`V^{\pi}`$. This also means that applying $`B^{\pi}`$ repeatedly (an infinite number of times)
+
+```math
+B^{\pi}(B^{\pi}(\ldots B^{\pi}(V)\ldots))
+```
+
+will result in the value function $`V^{\pi}`$ (a little bit more is needed to make this completely formal, but we won’t worry about that here).
+
+[Hint: Use the fact that for any $`\alpha, x \in \mathbb{R}^n`$, if $`\sum_i \alpha_i = 1`$ and $`\alpha_i \geq 0`$, then $`\sum_i \alpha_i x_i \leq \max_i x_i`$.]
+
+(c) Now suppose that we have some policy $`\pi`$, and use Policy Iteration to choose a new policy $`\pi'`$ according to
+
+```math
+\pi'(s) = \arg\max_{a \in A} \sum_{s' \in S} P_{sa}(s')V^{\pi}(s').
+```
+
+Show that this policy will never perform worse that the previous one — i.e., show that for all $`s \in S`$, $`V^{\pi}(s) \leq V^{\pi'}(s)`$.
+
+[Hint: First show that $`V^{\pi}(s) \leq B^{\pi'}(V^{\pi})(s)`$, then use the proceeding excercises to show that $`B^{\pi'}(V^{\pi})(s) \leq V^{\pi'}(s)`$.]
+
+(d) Use the proceeding exercises to show that policy iteration will eventually converge (i.e., produce a policy $`\pi' = \pi`$). Furthermore, show that it must converge to the optimal policy $`\pi^*`$. For the later part, you may use the property that if some value function satisfies
+
+```math
+V(s) = R(s) + \gamma \max_{a \in A} \sum_{s' \in S} P_{sa}(s')V(s')
+```
+
+then $`V = V^*`$.
+
+---
+
+5. **Reinforcement Learning: The Mountain Car**
+
+In this problem you will implement the Q-Learning reinforcement learning algorithm described in class on a standard control domain known as the Mountain Car. The Mountain Car domain simulates a car trying to drive up a hill, as shown in the figure below.
+
+[figure: mountain car diagram]
+
+All states except those at the top of the hill have a constant reward $`R(s) = -1`$, while the goal state at the hilltop has reward $`R(s) = 0`$; thus an optimal agent will try to get to the top of the hill as fast as possible (when the car reaches the top of the hill, the episode is over, and the car is reset to its initial position). However, when starting at the bottom of the hill, the car does not have enough power to reach the top by driving forward, so it must first accerltaterate backwards, building up enough momentum to reach the top of the hill. This strategy of moving away from the goal in order to reach the goal makes the problem difficult for many classical control algorithms.
+
+As discussed in class, Q-learning maintains a table of Q-values, $`Q(s, a)`$, for each state and action. These Q-values are useful because, in order to select an action in state $`s`$, we only need to check to see which Q-value is greatest. That is, in state $`s`$ we take the action
+
+```math
+\arg\max_{a \in A} Q(s, a).
+```
+
+The Q-learning algorithm adjusts its estimates of the Q-values as follows. If an agent is in state $`s`$, takes action $`a`$, then ends up in state $`s'`$, Q-learning will update $`Q(s, a)`$ by
+
+```math
+Q(s, a) = (1 - \alpha)Q(s, a) + \gamma(R(s') + \gamma \max_{a' \in A} Q(s', a')).
+```
+
+At each time, your implementation of Q-learning can execute the greedy policy $`\pi(s) = \arg\max_{a \in A} Q(s, a)`$.
+
+Implement the $`[q, steps_per_episode] = qlearning(episodes)`$ function in the q5/ directory. As input, the function takes the total number of episodes (each episode starts with the car at the bottom of the hill, and lasts until the car reaches the top), and outputs a matrix of the Q-values and a vector indicating how many steps it took before the car was able to reach the top of the hill. You should use the $`[x, s, absorb] = mountain.car(x, actions(a))`$ function to simulate one control cycle for the task — the $`x`$ variable describes the true (continuous) state of the system, whereas the $`s`$ variable describes the discrete index of the state, which you’ll use to build the Q values.
+
+Plot a graph showing the average number of steps before the car reaches the top of the hill versus the episode number (there is quite a bit of variation in this quantity, so you will probably want to average these over a large number of episodes, as this will give you a better idea of how the number of steps before reaching the hilltop is decreasing). You can also visualize your resulting controller by calling the draw.mountain.car(q) function.
+
