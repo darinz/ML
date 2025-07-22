@@ -91,3 +91,14 @@ In class we proved that for any finite set of hypotheses $`\mathcal{H} = \{h_1, 
 
 where $`\varepsilon(h)`$ is the generalization error of hypothesis $`h_i`$. Now consider a special case (often called the realizable case) where we know, a priori, that there is some hypothesis in our class $`\mathcal{H}`$ that achieves zero error on the distribution from which the data is drawn. Then we could obviously just use the above bound with $`\min_i \varepsilon(h_i) = 0`$; however, we can prove a better bound than this.
 
+
+(a) Consider a learning algorithm which, after looking at $`m`$ training examples, chooses some hypothesis $`\hat{h} \in \mathcal{H}`$ that makes zero mistakes on this training data. (By our assumption, there is at least one such hypothesis, possibly more.) Show that with probability $`1 - \delta`$
+
+```math
+\varepsilon(\hat{h}) \leq \frac{1}{m} \log \frac{k}{\delta}.
+```
+
+Notice that since we do not have a square root here, this bound is much tighter. [Hint: Consider the probability that a hypothesis with generalization error greater than $`\gamma`$ makes no mistakes on the training data. Instead of the Hoeffding bound, you might also find the following inequality useful: $`(1 - \gamma)^m \leq e^{-\gamma m}`$.]
+
+(b) Rewrite the above bound as a sample complexity bound, i.e., in the form: for fixed $`\delta`$ and $`\gamma`$, for $`\varepsilon(\hat{h}) \leq \gamma`$ to hold with probability at least $`(1 - \delta)`$, it suffices that $`m \geq f(k, \gamma, \delta)`$ (i.e., $`f(\cdot)`$ is some function of $`k`$, $`\gamma`$, and $`\delta`$).
+
