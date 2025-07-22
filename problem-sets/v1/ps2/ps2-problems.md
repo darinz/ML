@@ -61,25 +61,22 @@ Assume that the training data $`\{(x^{(1)}, y^{(1)}), \ldots, (x^{(m)}, y^{(m)})
 
 (c) Suppose we run the SMO algorithm to train an SVM with slack variables, under the conditions stated above, using the value of $`\tau`$ you picked in the previous part, and using some arbitrary value of $`C`$ (which you do not know beforehand). Will this necessarily result in a classifier that achieve zero training error? Why or why not? Again, a short explanation is sufficient.
 
-## 4. Naive Bayes and SVMs for Spam Classification
+## 4. Naive Bayes and SVMs for Spam Classification (Python Version)
 
-In this question you’ll look into the Naive Bayes and Support Vector Machine algorithms for a spam classification problem. However, instead of implementing the algorithms yourself, you’ll use a freely available machine learning library. There are many such libraries available, with different strengths and weaknesses, but for this problem you’ll use the WEKA machine learning package, available at http://www.cs.waikato.ac.nz/ml/weka/.
+In this question you’ll look into the Naive Bayes and Support Vector Machine algorithms for a spam classification problem using Python. Instead of implementing the algorithms yourself, you’ll use the scikit-learn machine learning library (or similar Python libraries). You should use the provided dataset in the `@/q4` directory if possible. The files are in ARFF format, which can be loaded in Python using the `liac-arff` package or by converting to CSV. If you encounter issues with the provided dataset, you may use a public spam dataset that works with Python, such as the [UCI Spambase dataset](https://archive.ics.uci.edu/ml/datasets/spambase) or the built-in datasets in scikit-learn.
 
-WEKA implements many standard machine learning algorithms, is written in Java, and has both a GUI and a command line interface. It is not the best library for very large-scale data sets, but it is very nice for playing around with many different algorithms on medium size problems.
+**Instructions:**
 
-You can download and install WEKA by following the instructions given on the website above. To use it from the command line, you first need to install a java runtime environment, then add the weka.jar file to your CLASSPATH environment variable. Finally, you can call WEKA using the command:
+- Install required packages: `scikit-learn`, `pandas`, and `liac-arff` (if using ARFF files).
+- Load the dataset(s) and preprocess as needed (e.g., convert ARFF to pandas DataFrame).
+- Use the same train/test split as in the provided files (e.g., `spam_test.arff` for testing, various `spam_train_*.arff` for training).
+- If using a different dataset, use its standard train/test split or create your own.
 
-    java <classifier> -t <training file> -T <test file>
+(a) Train a Naive Bayes classifier (e.g., `sklearn.naive_bayes.MultinomialNB`) on the dataset and report the resulting error rates. Evaluate the performance of the classifier using each of the different training files (but each time using the same test file, e.g., `spam_test.arff`). Plot the error rate of the classifier versus the number of training examples.
 
-For example, to run the Naive Bayes classifier (using the multinomial event model) on our provided spam data set by running the command:
+(b) Repeat the previous part, but using a Support Vector Machine classifier (e.g., `sklearn.svm.SVC`). How does the performance of the SVM compare to that of Naive Bayes?
 
-    java weka.classifiers.bayes.NaiveBayesMultinomial -t spam.train.1000.arff -T spam.test.arff
-
-The spam classification dataset in the q4/ directory was provided courtesy of Christian Shelton (cshelton@cs.ucr.edu). Each example corresponds to a particular email, and each feature corresponds to a particular word. For privacy reasons we have removed the actual words themselves from the data set, and instead label the features generically as f1, f2, etc. However, the data set is from a real spam classification task, so the results demonstrate the performance of these algorithms on a real-world problem. The q4/ directory actually contains several different training files, named spam.train.50.arff, spam.train.100.arff, etc (the “.arff” format is the default format by WEKA), each containing the corresponding number of training examples. There is also a single test set spam.test.arff, which is a hold out set used for evaluating the classifier’s performance.
-
-(a) Run the weka.classifiers.bayes.NaiveBayesMultinomial classifier on the dataset and report the resulting error rates. Evaluate the performance of the classifier using each of the different training files (but each time using the same test file, spam.test.arff). Plot the error rate of the classifier versus the number of training examples.
-
-(b) Repeat the previous part, but using the weka.classifiers.functions.SMO classifier, which implements the SMO algorithm to train an SVM. How does the performance of the SVM compare to that of Naive Bayes?
+*Note: If you use a different dataset, clearly state which dataset you used and how you split the data for training and testing.*
 
 ## 5. Uniform convergence
 
