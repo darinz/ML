@@ -91,7 +91,7 @@ For each of the possible values of $`s_i`$, compute the resulting optimal value 
 
 In this problem you’ll implement the K-means clustering algorithm on a synthetic data set. There is code and data for this problem in the q4/ directory. Run load 'X.dat'; to load the data file for clustering. Implement the [clusters, centers] = k_means(X, k) function in this directory. As input, this function takes the m × n data matrix X and the number of clusters k. It should output a m element vector, clusters, which indicates which of the clusters each data point belongs to, and a k × n matrix, centers, which contains the centroids of each cluster. Run the algorithm on the data provided, with k = 3 and k = 4. Plot the cluster assignments and centroids for each iteration of the algorithm using the draw_clusters(X, clusters, centroids) function. For each k, be sure to run the algorithm several times using different initial centroids.
 
-5. **The Generalized EM algorithm**
+## 5. **The Generalized EM algorithm**
 
 When attempting to run the EM algorithm, it may sometimes be difficult to perform the M step exactly — recall that we often need to implement numerical optimization to perform the maximization, which can be costly. Therefore, instead of finding the global maximum of our lower bound on the log-likelihood, and alternative is to just increase this lower bound a little bit, by taking one step of gradient ascent, for example. This is commonly known as the Generalized EM (GEM) algorithm.
 
