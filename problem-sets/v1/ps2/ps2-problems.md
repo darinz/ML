@@ -29,7 +29,7 @@ If you want, you can try to prove this as well, though this is not required for 
 
 ## 2. $`\ell_2`$ norm soft margin SVMs
 
-In class, we saw that if our data is not linearly separable, then we need to modify our support vector machine algorithm by introducing an error margin that must be minimized. Specifically, the formulation we have looked at is known as the $`\ell_1`$ norm soft margin SVM. In this problem we will consider an alternative method, known as the $`\ell_2`$ norm soft margin SVM. This new algorithm is given by the following optimization problem (notice that the slack penalties are now squared):
+In the notes, we saw that if our data is not linearly separable, then we need to modify our support vector machine algorithm by introducing an error margin that must be minimized. Specifically, the formulation we have looked at is known as the $`\ell_1`$ norm soft margin SVM. In this problem we will consider an alternative method, known as the $`\ell_2`$ norm soft margin SVM. This new algorithm is given by the following optimization problem (notice that the slack penalties are now squared):
 
 ```math
 \min_{w, b, \xi} \quad \frac{1}{2} \|w\|^2 + \frac{C}{2} \sum_{i=1}^m \xi_i^2 \\
