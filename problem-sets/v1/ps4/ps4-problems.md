@@ -1,6 +1,5 @@
 # Problem Set #4: Unsupervised Learning and Reinforcement Learning
 
-
 1. **EM for supervised learning**
 
 In class we applied EM to the unsupervised learning setting. In particular, we represented $`p(x)`$ by marginalizing over a latent random variable
