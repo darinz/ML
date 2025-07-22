@@ -91,7 +91,7 @@ For reference, computing the ICA $`W`$ matrix for the entire set of image patche
 After you’ve learned the $`U`$ matrix for PCA (the columns of $`U`$ should contain the principal components of the data) and the $`W`$ matrix of ICA, you can plot the basis functions using the plot-ica_bases(W); and plot-pca_bases(U); functions we have provide. Comment briefly on the difference between the two sets of basis functions.
 
 
-4. **Convergence of Policy Iteration**
+## 4. **Convergence of Policy Iteration**
 
 In this problem we show that the Policy Iteration algorithm, described in the lecture notes, is guarenteed to find the optimal policy for an MDP. First, define $`B^{\pi}`$ to be the Bellman operator for policy $`\pi`$, defined as follows: if $`V' = B(V)`$, then
 
