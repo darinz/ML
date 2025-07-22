@@ -137,7 +137,7 @@ then $`V = V^*`$.
 
 ---
 
-5. **Reinforcement Learning: The Mountain Car**
+## 5. **Reinforcement Learning: The Mountain Car**
 
 In this problem you will implement the Q-Learning reinforcement learning algorithm described in class on a standard control domain known as the Mountain Car. The Mountain Car domain simulates a car trying to drive up a hill, as shown in the figure below.
 
