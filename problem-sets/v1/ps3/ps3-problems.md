@@ -43,7 +43,7 @@ Use this to prove the final bound given at the beginning of this problem.
 
 ---
 
-2. **VC Dimension**
+## 2. **VC Dimension**
 
 Let the input domain of a learning problem be $`\mathcal{X} = \mathbb{R}`$. Give the VC dimension for each of the following classes of hypotheses. In each case, if you claim that the VC dimension is $`d`$, then you need to show that the hypothesis class can shatter $`d`$ points, and explain why there are no $`d+1`$ points it can shatter.
 
@@ -54,7 +54,7 @@ Let the input domain of a learning problem be $`\mathcal{X} = \mathbb{R}`$. Give
 
 ---
 
-3. **$`\ell_1`$ regularization for least squares**
+## 3. **$`\ell_1`$ regularization for least squares**
 
 In the previous problem set, we looked at the least squares problem where the objective function is augmented with an additional regularization term $`\lambda\|\theta\|_2^2`$. In this problem we’ll consider a similar regularized objective but this time with a penalty on the $`\ell_1`$ norm of the parameters $`\lambda\|\theta\|_1`$, where $`\|\theta\|_1`$ is defined as $`\sum_i |\theta_i|`$. That is, we want to minimize the objective
 
@@ -72,7 +72,7 @@ The $`\ell_1`$ regularized least squares problem is more difficult than the unre
 J(\theta) = \frac{1}{2}\|X\vec{\theta} - \vec{y}\|_2^2 + \lambda\|\vec{\theta}\|_1 = \frac{1}{2}\|X\bar{\theta} + X_i\theta_i - \vec{y}\|_2^2 + \lambda\|\bar{\theta}\|_1 + \lambda|\theta_i|
 ```
 
-where $`X_i \in \mathbb{R}^m`$ denotes the $`i`$th column of $`X`$, and $`\bar{\theta}`$ is equal to $`\theta`$ except with $`\bar{\theta}_i = 0`$; all we have done in rewriting the above expression is to make the $`\theta_i`$ term explicit in the objective. However, this still contains the $`|\theta_i|`$ term, which is non-differentiable and therefore difficult to optimize. To get around this we make the observation that the sign of $`\theta_i`$ must either be non-negative or non-positive. But if we knew the sign of $`\theta_i`$, then $`|\theta_i|`$ becomes just a linear term. That is, we can write
+where $`X_i \in \mathbb{R}^m`$ denotes the $`i`$-th column of $`X`$, and $`\bar{\theta}`$ is equal to $`\theta`$ except with $`\bar{\theta}_i = 0`$; all we have done in rewriting the above expression is to make the $`\theta_i`$ term explicit in the objective. However, this still contains the $`|\theta_i|`$ term, which is non-differentiable and therefore difficult to optimize. To get around this we make the observation that the sign of $`\theta_i`$ must either be non-negative or non-positive. But if we knew the sign of $`\theta_i`$, then $`|\theta_i|`$ becomes just a linear term. That is, we can write
 
 ```math
 J(\theta) = \frac{1}{2}\|X\bar{\theta} + X_i\theta_i - \vec{y}\|_2^2 + \lambda\|\bar{\theta}\|_1 + \lambda s_i\theta_i
