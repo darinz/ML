@@ -36,7 +36,7 @@ Intuitively, the process behind model can be thought of as follows. Given a data
 
 ---
 
-2. **Factor Analysis and PCA**
+## 2. **Factor Analysis and PCA**
 
 In this problem we look at the relationship between two unsupervised learning algorithms we discussed in class: Factor Analysis and Principle Component Analysis.
 
@@ -71,7 +71,7 @@ respectively. Finally, show that if $`U`$ doesn’t change after this update, it
 
 ---
 
-3. **PCA and ICA for Natural Images**
+## 3. **PCA and ICA for Natural Images**
 
 In this problem we’ll apply Principal Component Analysis and Independent Component Analysis to images patches collected from “natural” image scenes (pictures of leaves, grass, etc). This is one of the classical applications of the ICA algorithm, and sparked a great deal of interest in the algorithm; it was observed that the bases recovered by ICA closely resemble image filters present in the first layer of the visual cortex.
 
