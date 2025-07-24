@@ -1,5 +1,7 @@
 # Machine Learning
 
+> **⚠️ This repository is under construction. Content, structure, and materials are actively being updated and expanded. Check back frequently for new additions and improvements! ⚠️**
+
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/NumPy-1.21+-green.svg)](https://numpy.org/)
 [![Status](https://img.shields.io/badge/Status-In%20Development-orange.svg)]()
