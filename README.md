@@ -20,15 +20,15 @@ A comprehensive learning resource providing a broad introduction to machine lear
 
 ## Complementary Learning Resources
 
-For additional practical machine learning topics not covered in this theoretical curriculum, explore **[Practical Statistical Learning (PSL)](https://github.com/darinz/PSL)**. This complementary resource covers:
+For additional practical machine learning topics not covered in this curriculum, explore **[Practical Statistical Learning (PSL)](https://github.com/darinz/PSL)**. This complementary resource covers:
 
-- **Regression and Classification Trees**: Decision tree algorithms, CART, random forests, and ensemble methods
+- **Regression and Classification Trees**: Decision tree algorithms, random forests, and ensemble methods
 - **Recommender Systems**: Collaborative filtering, content-based methods, and hybrid approaches
 - **Statistical Learning Methods**: Additional statistical approaches and techniques
 
 PSL provides a more applied, hands-on approach that complements the theoretical foundations covered in this repository.
 
-**[Applied Machine Learning (AML)](https://github.com/darinz/AML)**. This curriculum focuses on practical implementation and application of machine learning algorithms, covering end-to-end workflows, real-world projects, and deployment strategies. AML is ideal for learners seeking hands-on experience and applied skills in building and deploying ML systems.
+**[Applied Machine Learning (AML)](https://github.com/darinz/AML)**. This curriculum focuses on practical implementation and application of machine learning algorithms. AML is ideal for learners seeking hands-on experience and applied skills in building ML systems.
 
 ## Table of Contents
 
