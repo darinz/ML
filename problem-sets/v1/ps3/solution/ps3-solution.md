@@ -73,7 +73,13 @@ proving the desired bound.
 
 Use this to prove the final bound given at the beginning of this problem.
 
+**Answer:** The bounds in parts (a) and (c) both hold simultaneously with probability $`(1 - \frac{\delta}{2})^2 = 1 - \delta + \frac{\delta^2}{4} > 1 - \delta`$, so with probability greater than $`1 - \delta`$,
 
+```math
+\varepsilon(\hat{h}) \leq \varepsilon(h_j^*) + 2\sqrt{\frac{1}{2(1-\gamma)m} \log \frac{2|\mathcal{H}_j|}{\delta/2}} + 2\sqrt{\frac{1}{2\gamma m} \log \frac{2k}{\delta/2}}
+```
+
+which is equivalent to the bound we want to show.
 
 ---
 
