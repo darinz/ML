@@ -301,7 +301,16 @@ After you’ve learned the $`U`$ matrix for PCA (the columns of $`U`$ should con
 
 **Answer:** See ./q3_solution for our implementations of pca.py and ica.py.
 
+PCA produces the following bases:
 
+
+
+while ICA produces the following bases
+
+
+
+The PCA bases capture global features of the images, while the ICA bases capture more local
+features.
 
 ## 4. **Convergence of Policy Iteration**
 
