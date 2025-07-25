@@ -41,13 +41,18 @@ You start on the 2nd floor of CSE1, and then make a random choice:
 - With probability $`p_1`$ you run up 2 flights of stairs.  
 - With probability $`p_2`$ you run up 1 flight of stairs.  
 - With probability $`p_3`$ you walk down 1 flight of stairs.  
+
 Where $`p_1 + p_2 + p_3 = 1`$
 
-You do two iterations of the exercise scheme. Let X be the floor you're on at the end. Start at floor 2.
+You will do two iterations of your exercise scheme (with each draw being independent). Let X be the floor you’re on at the end of your exercise routine. Recall you start on floor 2.
 
-#### (i) Let Y be the difference in one iteration. What is $`E[Y]`$?
+#### (i) Let $`Y`$ be the difference between your ending floor and your starting floor in one iteration. What is $`E[Y]`$ (in terms of $`p_1, p_2, p_3`$)?
 
-$`E[Y] = 2 \cdot p_1 + 1 \cdot p_2 + (-1) \cdot p_3`$
+Solution:
+
+Recall for a random variable $`X, E[X] = \sum _i x_i \cdot  p_i`$
+
+So, $`E[Y] = 2 \cdot p_1 + 1 \cdot p_2 + (-1) \cdot p_3`$
 
 #### (ii) What is $`E[X]`$?
 
