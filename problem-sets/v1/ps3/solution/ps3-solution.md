@@ -88,7 +88,21 @@ which is equivalent to the bound we want to show.
 Let the input domain of a learning problem be $`\mathcal{X} = \mathbb{R}`$. Give the VC dimension for each of the following classes of hypotheses. In each case, if you claim that the VC dimension is $`d`$, then you need to show that the hypothesis class can shatter $`d`$ points, and explain why there are no $`d+1`$ points it can shatter.
 
 - $`h(x) = 1\{a < x\}`$, with parameter $`a \in \mathbb{R}`$.
+
+**Answer:**  **VC-dimension = 1.**
+
+(a) It can shatter point $`\{0\}`$, by choosing $`a`$ to be 2 and $`-2`$.
+
+(b) It cannot shatter any two points $`\{x_1, x_2\}`$, $`x_1 < x_2`$, because the labelling $`x_1 = 1`$ and $`x_2 = 0`$ cannot be realized.
+
 - $`h(x) = 1\{a < x < b\}`$, with parameters $`a, b \in \mathbb{R}`$.
+
+**Answer:**  **VC-dimension = 2.**
+
+(a) It can shatter points $`\{0, 2\}`$ by choosing $`(a, b)`$ to be (3, 5), (−1, 1), (1, 3), (−1, 3).
+
+(b) It cannot shatter any three points $`\{x_1, x_2, x_3\}`$, $`x_1 < x_2 < x_3`$, because the labelling $`x_1 = x_3 = 1, x_2 = 0`$ cannot be realized.
+
 - $`h(x) = 1\{a \sin x > 0\}`$, with parameter $`a \in \mathbb{R}`$.
 - $`h(x) = 1\{\sin(x + a) > 0\}`$, with parameter $`a \in \mathbb{R}`$.
 
