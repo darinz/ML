@@ -116,20 +116,50 @@ Let $`X \in \mathbb{R}^{m \times n}`$. $X$ may not have full rank. We explore pr
 
 #### (a)
 
-Show $`\|Xw - Y\|_2^2 = \sum_{i=1}^m (x_i^T w - y_i)^2`$
+Let $`w \in \mathbb{R}^n`$ and $`Y \in \mathbb{R}^m`$. Let $`x_i^T`$ denote each row in $`X`$ and $`y_i`$ in $`Y`$. Show $`\|Xw - Y\|_2^2 = \sum_{i=1}^m (x_i^T w - y_i)^2`$
 
-**Solution:**  
-$`\|Xw - Y\|_2^2 = (Xw - Y)^T (Xw - Y) = \sum (x_i^T w - y_i)^2`$
+**Solution:**
+
+$`Xw - Y`$ is a vector in $`\mathbb{R}^m`$, and its $`i`$-th component is $`(x_i^T w - y_i)`$.
+
+For any vector $`P`$:
+- $`\|P\|_2 = \sqrt{\sum P_i^2}`$
+- $`P^T P = P \cdot P = \sum P_i^2`$
+
+Therefore, $`\|P\|_2^2 = \sum P_i^2 = P^T P`$
+
+Substituting $`P = Xw - Y`$:
+$`\|Xw - Y\|_2^2 = \sum_{i=1}^m (x_i^T w - y_i)^2`$
 
 #### (b)
 
-What is $`\nabla_w L(w)`$ where $`L(w) = \|Xw - Y\|_2^2`$?
+Let $`L(w) = \|Xw - Y\|_2^2`$. What is $`\nabla_w L(w)`$? (Hint: You can use either summation or matrix form from first sub-problem)
 
-Matrix form:  
-$`\nabla_w L(w) = 2X^T (Xw - Y)`$
+**Matrix Form:**
 
-Summation form:  
-$`\nabla_w L(w) = \left[ \sum 2(x^T w - y) x_j \right]_{j=1}^n = 2X^T (Xw - Y)`$
+$`\nabla_w L(w) = \nabla_w \|Xw - Y\|_2^2`$
+
+$`= \nabla_w (Xw - Y)^T (Xw - Y)`$
+
+$`= X^T (Xw - Y) + X^T (Xw - Y)`$
+
+$`= 2X^T (Xw - Y)`$
+
+**Summation Form: For an element $`w_j`$**
+
+$`\frac{\partial L(w)}{\partial w_j} = \frac{\partial}{\partial w_j} \sum_{i=1}^m (x_i^T w - y_i)^2`$
+
+$`= \frac{\partial}{\partial w_j} \sum_{i=1}^m \left( \left(\sum_{k=1}^n x_{ik} w_k\right) - y_i \right)^2`$
+
+$`= \sum_{i=1}^m \frac{\partial}{\partial w_j} \left( \left(\sum_{k=1}^n x_{ik} w_k\right) - y_i \right)^2`$
+
+$`= \sum_{i=1}^m 2 \left( \left(\sum_{k=1}^n x_{ik} w_k\right) - y_i \right) \frac{\partial}{\partial w_j} \left(\sum_{k=1}^n x_{ik} w_k\right)`$ [chain rule]
+
+$`= \sum_{i=1}^m 2 \left( \left(\sum_{k=1}^n x_{ik} w_k\right) - y_i \right) x_{ij}`$
+
+Note that on line 4, when evaluating $`\frac{\partial}{\partial w_j} \sum_{k=1}^n x_{ik} w_k`$, the summation can be decomposed to $`\frac{\partial}{\partial w_j} \left( \left(\sum_{k \neq j} x_{ik} w_k\right) + x_{ij} w_j \right)`$. The partial derivative of $`\sum_{k \neq j} x_{ik} w_k`$ will evaluate to 0, since it is not in terms of $`w_j`$. The partial derivative of $`x_{ij} w_j`$ will evaluate to $`x_{ij}`$.
+
+
 
 ### 2.2 Subspaces of X
 
