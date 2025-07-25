@@ -182,9 +182,50 @@ f(x) = \sum_{i=1}^m \alpha_i y^{(i)} K(x^{(i)}, x) + b.
 
 Assume that the training data $`\{(x^{(1)}, y^{(1)}), \ldots, (x^{(m)}, y^{(m)})\}`$ consists of points which are separated by at least a distance of $`\epsilon`$; that is, $`\|x^{(j)} - x^{(i)}\| \geq \epsilon`$ for any $`i \neq j`$. Find values for the set of parameters $`\{\alpha_1, \ldots, \alpha_m, b\}`$ and Gaussian kernel width $`\tau`$ such that $`x^{(i)}`$ is correctly classified, for all $`i = 1, \ldots, m`$. [Hint: Let $`\alpha_i = 1`$ for all $`i`$ and $`b = 0`$. Now notice that for $`y \in \{-1, +1\}`$ the prediction on $`x^{(i)}`$ will be correct if $`|f(x^{(i)}) - y^{(i)}| < 1`$, so find a value of $`\tau`$ that satisfies this inequality for all $`i`$.]
 
+**Answer:**  First we set $`\alpha_i = 1`$ for all $`i = 1, \ldots, m`$ and $`b = 0`$. Then, for a training example $`\{x^{(i)}, y^{(i)}\}`$, we get
 
+```math
+\left| f(x^{(i)}) - y^{(i)} \right| = \left| \sum_{j=1}^m y^{(j)} K(x^{(j)}, x^{(i)}) - y^{(i)} \right|
+```
+```math
+= \left| \sum_{j=1}^m y^{(j)} \exp\left(-\|x^{(j)} - x^{(i)}\|^2 / \tau^2\right) - y^{(i)} \right|
+```
+```math
+= \left| y^{(i)} + \sum_{j \neq i} y^{(j)} \exp\left(\|x^{(j)} - x^{(i)}\|^2 / \tau^2\right) - y^{(i)} \right|
+```
+```math
+= \left| \sum_{j \neq i} y^{(j)} \exp\left(-\|x^{(j)} - x^{(i)}\|^2 / \tau^2\right) \right|
+```
+```math
+\leq \sum_{j \neq i} \left| y^{(j)} \right| \exp\left(-\|x^{(j)} - x^{(i)}\|^2 / \tau^2\right)
+```
+```math
+= \sum_{j \neq i} \exp\left(-\|x^{(j)} - x^{(i)}\|^2 / \tau^2\right)
+```
+```math
+\leq \sum_{j \neq i} \exp(-\epsilon^2 / \tau^2)
+```
+```math
+= (m-1) \exp(-\epsilon^2 / \tau^2).
+```
+
+The first inequality comes from repeated application of the triangle inequality $`|a + b| \leq |a| + |b|`$, and the second inequality (1) from the assumption that $`\|x^{(j)} - x^{(i)}\| \geq \epsilon`$ for all $`i \neq j`$. Thus we need to choose a $`\gamma`$ such that
+
+```math
+(m-1) \exp(-\epsilon^2 / \tau^2) < 1,
+```
+
+or
+
+```math
+\tau < \frac{\epsilon}{\log(m-1)}.
+```
+
+By choosing, for example, $`\tau = \epsilon / \log m`$ we are done.
 
 (b) Suppose we run a SVM with slack variables using the parameter $`\tau`$ you found in part (a). Will the resulting classifier necessarily obtain zero training error? Why or why not? A short explanation (without proof) will suffice.
+
+
 
 (c) Suppose we run the SMO algorithm to train an SVM with slack variables, under the conditions stated above, using the value of $`\tau`$ you picked in the previous part, and using some arbitrary value of $`C`$ (which you do not know beforehand). Will this necessarily result in a classifier that achieve zero training error? Why or why not? Again, a short explanation is sufficient.
 
