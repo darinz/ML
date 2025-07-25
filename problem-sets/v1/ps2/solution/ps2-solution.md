@@ -411,9 +411,34 @@ In this question you’ll look into the Naive Bayes and Support Vector Machine a
 
 Answer: See solution in ./q4_solution folder
 
+**Explanation:**
+
+For part (a):
+- The solution refers to code and results in the `./q4_solution` folder, which implements Naive Bayes classification for spam detection.
+- The typical steps are:
+  1. Load the ARFF dataset using a suitable Python library (e.g., `liac-arff` or convert to CSV and use `pandas`).
+  2. Preprocess the data as needed (e.g., handle missing values, encode categorical features).
+  3. Use `sklearn.naive_bayes.MultinomialNB` to train a Naive Bayes classifier on each training set.
+  4. Evaluate the classifier on the test set and record the error rate.
+  5. Plot the error rate versus the number of training examples to visualize learning behavior.
+- This approach demonstrates how the error rate typically decreases as the number of training examples increases, showing the effect of more data on model performance.
+
+---
+
 (b) Repeat the previous part, but using a Support Vector Machine classifier (e.g., `sklearn.svm.SVC`). How does the performance of the SVM compare to that of Naive Bayes?
 
 Answer: See solution in ./q4_solution folder
+
+**Explanation:**
+
+For part (b):
+- The solution refers to code and results in the `./q4_solution` folder, which implements SVM classification for spam detection.
+- The typical steps are:
+  1. Load and preprocess the data as in part (a).
+  2. Use `sklearn.svm.SVC` to train a Support Vector Machine classifier on each training set.
+  3. Evaluate the classifier on the test set and record the error rate.
+  4. Compare the SVM's performance to that of Naive Bayes for each training set size.
+- SVMs often outperform Naive Bayes on complex datasets, especially as the number of training examples increases, but may require more careful tuning of hyperparameters (e.g., kernel type, regularization parameter $C$).
 
 *Note: If you use a different dataset, clearly state which dataset you used and how you split the data for training and testing.*
 
