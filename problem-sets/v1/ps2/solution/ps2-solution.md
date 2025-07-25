@@ -97,11 +97,19 @@ In the notes, we saw that if our data is not linearly separable, then we need to
 
 (b) What is the Lagrangian of the $`\ell_2`$ soft margin SVM optimization problem?
 
+**Answer:**
 
+```math
+\mathcal{L}(w, b, \xi, \alpha) = \frac{1}{2} w^T w + \frac{C}{2} \sum_{i=1}^m \xi_i^2 - \sum_{i=1}^m \alpha_i [y^{(i)}(w^T x^{(i)} + b) - 1 + \xi_i],
+```
+
+where $`\alpha_i \geq 0`$ for $`i = 1, \ldots, m`$.
 
 (c) Minimize the Lagrangian with respect to $`w`$, $`b`$, and $`\xi`$ by taking the following gradients: $`\nabla_w \mathcal{L}`$, $`\frac{\partial}{\partial b} \mathcal{L}`$, and $`\nabla_\xi \mathcal{L}`$, and then setting them equal to 0. Here, $`\xi = [\xi_1, \xi_2, \ldots, \xi_m]^T`$.
 
 (d) What is the dual of the $`\ell_2`$ soft margin SVM optimization problem?
+
+
 
 ## 3. SVM with Gaussian kernel
 
