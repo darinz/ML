@@ -63,28 +63,54 @@ at the end of the routine.
 
 $`E[X] = 2 + E[Y] + E[Y] = 2 + 2E[Y]`$
 
-#### (iii) If you repeat the first choice for the second iteration, does $`E[X]`$ change?
+#### (iii) You change your scheme: instead of doing two independent iterations, you decide the second iteration of your regimen will just use the same random choice as your first (in particular they are no longer independent!). Does $`E[X]`$ change?
 
-No. $`E[X] = 2 + E[2Y] = 2 + 2E[Y]`$
+**Solution:**
+
+No! We can say using the same choice as the first will effectively double Y, thus by linearity of expectation, $`E[X] = 2 + E[2Y] = 2 + 2E[Y]`$
 
 **Fact 1:**  
-$`f_{X_{(j)}}(x) = \frac{n!}{(n-j)!(j-1)!} [F(x)]^{j-1}[1-F(x)]^{n-j} f(x)`$
+Let $`X_{(j)}`$ denote the jth order statistic in a sample of i.i.d. random variables; that is, the jth element when the items are sorted in increasing order $`X_{(1)} \leq X_{(2)} \leq \ldots \leq X_{(n)}`$.
+
+The PDF of $`X_{(j)}`$ is given by:
+
+```math
+f_{X_{(j)}}(x) = \frac{n!}{(n-j)!(j-1)!} [F(x)]^{j-1}[1-F(x)]^{n-j} f(x)
+```
 
 ### (b)
 
-Let n = 3, j = 2.  
-$`f_X(x) = 1`$ for $`x \in [0,1]`$, 0 otherwise  
-$`F_X(x) = x`$ for $`x \in [0,1]`$, 0 otherwise
+When a sample of $`2n + 1`$ i.i.d. random variables is observed, the $`(n+1)^{st}`$ smallest is called the sample median. If a sample of size 3 from a uniform distribution over $`[0, 1]`$ is observed, find the probability that the sample median is between $`1/4`$ and $`3/4`$. Hint: use Fact 1
 
-We want $`P(1/4 \leq X_{(2)} \leq 3/4)`$
+**Solution:**
 
-```math
-P = \int_{1/4}^{3/4} f_{X_{(2)}}(x) dx = 6 \int_{1/4}^{3/4} x(1-x) dx = \frac{11}{16}
-```
+We will use Fact 1. To apply Fact 1, we can note that $`n = 3, j = 2`$ and
+
+$`f_X(x) = \begin{cases} 
+0 & \text{if } x < 0 \\
+1 & \text{if } 0 \leq x \leq 1 \\
+0 & \text{if } x \geq 1
+\end{cases}`$
+
+$`F_X(x) = \begin{cases} 
+0 & \text{if } x < 0 \\
+x & \text{if } 0 \leq x \leq 1 \\
+1 & \text{if } x \geq 1
+\end{cases}`$
+
+We can use the PDF, which we compute via the above equations to compute the probability that the median lies in the specified range:
+
+$`P(1/4 \leq X_{(2)} \leq 3/4) = \int_{1/4}^{3/4} f_{X_{(2)}}(x)dx`$
+
+$`= 6 \int_{1/4}^{3/4} (x)(1-x)dx`$ (Using Fact 1 with $`n = 3, j = 2`$)
+
+$`= 6 \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_{x=1/4}^{x=3/4}`$
+
+$`= \frac{11}{16}`$
 
 ## 2. Linear Algebra Review
 
-Let $`X \in \mathbb{R}^{m \times n}`$.
+Let $`X \in \mathbb{R}^{m \times n}`$. $X$ may not have full rank. We explore properties about the four fundamental subspaces of $X$.
 
 ### 2.1 Summation vs Matrix form
 
