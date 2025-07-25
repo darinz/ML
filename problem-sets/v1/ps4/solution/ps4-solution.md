@@ -378,6 +378,32 @@ Show that this policy will never perform worse that the previous one — i.e., s
 
 [Hint: First show that $`V^{\pi}(s) \leq B^{\pi'}(V^{\pi})(s)`$, then use the proceeding excercises to show that $`B^{\pi'}(V^{\pi})(s) \leq V^{\pi'}(s)`$.]
 
+**Answer:**
+
+```math
+V^{\pi}(s) = R(s) + \gamma \sum_{s' \in S} P_{s\pi(s)}(s')V^{\pi}(s')
+```
+
+```math
+\leq R(s) + \gamma \max_{a \in A} \sum_{s' \in S} P_{sa}(s')V^{\pi}(s')
+```
+
+```math
+= R(s) + \gamma \sum_{s' \in S} P_{s\pi'(s)}(s')V^{\pi}(s') = B^{\pi'}(V^{\pi})(s)
+```
+
+Applying part (a),
+
+```math
+V^{\pi}(s) \leq B^{\pi'}(V^{\pi})(s) \Rightarrow B^{\pi'}(V^{\pi})(s) \leq B^{\pi'}(B^{\pi'}(V^{\pi}))(s)
+```
+
+Continually applying this property, and applying part (b), we obtain
+
+```math
+V^{\pi}(s) \leq B^{\pi'}(V^{\pi})(s) \leq B^{\pi'}(B^{\pi'}(V^{\pi}))(s) \leq \cdots \leq B^{\pi'}(B^{\pi'}(\cdots B^{\pi'}(V^{\pi})\cdots))(s) = V^{\pi'}(s).
+```
+
 (d) Use the proceeding exercises to show that policy iteration will eventually converge (i.e., produce a policy $`\pi' = \pi`$). Furthermore, show that it must converge to the optimal policy $`\pi^*`$. For the later part, you may use the property that if some value function satisfies
 
 ```math
@@ -386,7 +412,13 @@ V(s) = R(s) + \gamma \max_{a \in A} \sum_{s' \in S} P_{sa}(s')V(s')
 
 then $`V = V^*`$.
 
+**Answer:** We know that policy iteration must converge because there are only a finite number of possible policies (if there are $|S|$ states, each with $|A|$ actions, then that leads to a $|S|^{|A|}$ total possible policies). Since the policies are monotonically improving, as we showed in part (c), at some point we must stop generating new policies, so the algorithm must produce $\pi' = \pi$. Using the assumptions stated in the question, it is easy to show convergence to the optimal policy. If $\pi' = \pi$, then using the same logic as in part (c)
 
+```math
+V^{\pi}(s) = V^{\pi'}(s) = R(s) + \gamma \max_{a \in A} \sum_{s' \in S} P_{sa}(s')V^{\pi}(s)
+```
+
+So $V = V^*$, and therefore $\pi = \pi^*$.
 
 ---
 
