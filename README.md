@@ -44,6 +44,7 @@ PSL provides a more applied, hands-on approach that complements the theoretical 
   - [IV. Unsupervised Learning](#iv-unsupervised-learning)
   - [V. Reinforcement Learning](#v-reinforcement-learning-and-control)
   - [VI. Recent Advances and Applications](#vi-recent-advances-and-applications)
+- [Problem Sets](#problem-sets)
 - [Reference Materials](#reference-materials)
 - [Development Guidelines](#development-guidelines)
 - [Contributing](#contributing)
@@ -304,6 +305,27 @@ Recent advances in machine learning have revolutionized various fields and appli
 - Robotics and Control: [AI, Robotic, and IoT](https://github.com/darinz/AI-Robotic-IoT)
 - Healthcare: [Text2Mol](https://github.com/darinz/DLH-Text2Mol)
 - Recommendation Systems: [Movie Recommendation System](https://github.com/darinz/Movie-Rec-Sys), [Item-Based Collaborative Filtering](https://github.com/darinz/Movie-Recommender)
+
+## Problem Sets
+
+Comprehensive problem sets with solutions covering all topics from the curriculum. Each problem set includes detailed problem descriptions, starter code, datasets, and complete solutions.
+
+**[View Problem Sets](./problem-sets/v1/)**
+
+### Problem Set Overview
+
+- **[PS1: Linear Regression](./problem-sets/v1/ps1/)** - Linear regression fundamentals, locally weighted regression
+- **[PS2: Classification](./problem-sets/v1/ps2/)** - Spam detection, naive Bayes classification
+- **[PS3: Learning Theory & Clustering](./problem-sets/v1/ps3/)** - VC dimension, uniform convergence, k-means clustering
+- **[PS4: Dimensionality Reduction & RL](./problem-sets/v1/ps4/)** - PCA, ICA, reinforcement learning (mountain car)
+- **[PS5: Comprehensive Review](./problem-sets/v1/ps5/)** - All topics from PS1-PS4, theoretical proofs and applications
+
+### Features
+- **Complete Solutions**: Detailed worked solutions with explanations
+- **Multiple Implementations**: Python and MATLAB code where applicable
+- **Real Datasets**: Spam classification, image processing, reinforcement learning environments
+- **Visualizations**: Plots and diagrams for understanding results
+- **Educational Design**: Progressive difficulty, comprehensive coverage
 
 ## Reference Materials
 
