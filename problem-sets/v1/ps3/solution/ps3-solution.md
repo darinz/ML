@@ -271,4 +271,3 @@ so
 ```
 
 which is the same as the derivative of the log likelihood.
-
