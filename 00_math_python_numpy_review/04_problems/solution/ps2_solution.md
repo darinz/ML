@@ -54,9 +54,14 @@ Recall for a random variable $`X, E[X] = \sum _i x_i \cdot  p_i`$
 
 So, $`E[Y] = 2 \cdot p_1 + 1 \cdot p_2 + (-1) \cdot p_3`$
 
-#### (ii) What is $`E[X]`$?
+#### (ii) What is $`E[X]`$? (use your answer from the previous part)
 
-$`E[X] = 2 + 2E[Y]`$
+Solution:
+
+Since we start at floor 2, we can take 2 and add the difference ($`E[Y]`$) twice to get our expected floor
+at the end of the routine.
+
+$`E[X] = 2 + E[Y] + E[Y] = 2 + 2E[Y]`$
 
 #### (iii) If you repeat the first choice for the second iteration, does $`E[X]`$ change?
 
