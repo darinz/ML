@@ -1,4 +1,4 @@
-# Problem Set #3: Learning Theory and Unsupervised Learning
+# Problem Set #3 Solutions: Learning Theory and Unsupervised Learning
 
 
 ## 1. **Uniform convergence and Model Selection**
@@ -26,6 +26,8 @@ For this question you will prove the following bound. Let any $`\delta > 0`$ be 
 ```math
 |\varepsilon(\hat{h}_i) - \hat{\varepsilon}_{S_{\text{cv}}}(\hat{h}_i)| \leq \sqrt{\frac{1}{2\beta m} \log \frac{4k}{\delta}}.
 ```
+
+
 
 (b) Use part (a) to show that with probability $`1 - \frac{\delta}{2}`$,
 
