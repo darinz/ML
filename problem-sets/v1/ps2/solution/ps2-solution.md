@@ -339,6 +339,31 @@ or
 
 By choosing, for example, $`\tau = \epsilon / \log m`$ we are done.
 
+**Explanation:**
+
+For part (a):
+- We set $\alpha_i = 1$ for all $i$ and $b = 0$ as suggested by the hint.
+- The SVM decision function at a training point $x^{(i)}$ is:
+
+```math
+f(x^{(i)}) = \sum_{j=1}^m y^{(j)} K(x^{(j)}, x^{(i)})
+```
+- Subtracting the true label $y^{(i)}$ and taking the absolute value, we expand the sum and separate the $j = i$ term:
+
+```math
+|f(x^{(i)}) - y^{(i)}| = |y^{(i)} + \sum_{j \neq i} y^{(j)} \exp(-\|x^{(j)} - x^{(i)}\|^2 / \tau^2) - y^{(i)}|
+```
+- The $y^{(i)}$ terms cancel, leaving only the sum over $j \neq i$.
+- The triangle inequality is used to bound the sum of absolute values by the sum of the absolute values of each term.
+- Since $y^{(j)} \in \{-1, +1\}$, $|y^{(j)}| = 1$.
+- The assumption $\|x^{(j)} - x^{(i)}\| \geq \epsilon$ for $i \neq j$ allows us to bound each exponential by $\exp(-\epsilon^2 / \tau^2)$.
+- There are $m-1$ such terms, so the total is $(m-1) \exp(-\epsilon^2 / \tau^2)$.
+- To ensure $|f(x^{(i)}) - y^{(i)}| < 1$, we require $(m-1) \exp(-\epsilon^2 / \tau^2) < 1$.
+- Solving for $\tau$ gives $\tau < \epsilon / \log(m-1)$.
+- Choosing $\tau = \epsilon / \log m$ is a valid example.
+
+---
+
 (b) Suppose we run a SVM with slack variables using the parameter $`\tau`$ you found in part (a). Will the resulting classifier necessarily obtain zero training error? Why or why not? A short explanation (without proof) will suffice.
 
 **Answer:**  The classifier will obtain zero training error. The SVM without slack variables will always return zero training error if it is able to find a solution, so all that remains to be shown is that there exists at least one feasible point.
@@ -350,9 +375,26 @@ y^{(i)}(w^T x^{(i)} + b) = y^{(i)} \cdot f(x^{(i)}) > 0
 
 since $`f(x^{(i)})`$ and $`y^{(i)}`$ have the same sign, and shown above. Therefore, as we choose all the $`\alpha_i`$'s large enough, $`y^{(i)}(w^T x^{(i)} + b) > 1`$, so the optimization problem is feasible.
 
+**Explanation:**
+
+For part (b):
+- The SVM with slack variables may not achieve zero training error if the optimization problem allows for nonzero slack (i.e., misclassifications) to reduce the objective.
+- However, if the SVM is run without slack variables (i.e., hard margin), and a feasible solution exists, it will achieve zero training error.
+- The answer shows that for the constructed $\alpha_i$ and $b$, the margin constraint $y^{(i)}(w^T x^{(i)} + b) > 0$ is satisfied, and by increasing $\alpha_i$ further, the constraint $y^{(i)}(w^T x^{(i)} + b) > 1$ can be satisfied, so the problem is feasible and zero training error is possible.
+
+---
+
 (c) Suppose we run the SMO algorithm to train an SVM with slack variables, under the conditions stated above, using the value of $`\tau`$ you picked in the previous part, and using some arbitrary value of $`C`$ (which you do not know beforehand). Will this necessarily result in a classifier that achieve zero training error? Why or why not? Again, a short explanation is sufficient.
 
-**Answer:**  The resulting classifier will not necessarily obtain zero training error. The $`C`$ parameter controls the relative weights of the ($`C \sum_{i=1}^m \xi_i`$) and ($`\frac{1}{2} \|w\|^2`$) terms of the SVM training objective. If the $`C`$ parameter is sufficiently small, then the former component will have relatively little contribution to the objective. In this case, a weight vector which has a very small norm but does not achieve zero training error may achieve a lower objective value than one which achieves zero training error. For example, you can consider the extreme case where $`C = 0`$, and the objective is just the norm of $`w`$. In this case, $`w = 0`$ is the solution to the optimization problem regardless of the choise of $`\tau`$, this this may not obtain zero training error.
+**Answer:**  The resulting classifier will not necessarily obtain zero training error. The $`C`$ parameter controls the trade-off between minimizing the norm of $`w`$ and minimizing the training error (slack). If the $`C`$ parameter is sufficiently small, then the former component will have relatively little contribution to the objective. In this case, a weight vector which has a very small norm but does not achieve zero training error may achieve a lower objective value than one which achieves zero training error. For example, you can consider the extreme case where $`C = 0`$, and the objective is just the norm of $`w`$. In this case, $`w = 0`$ is the solution to the optimization problem regardless of the choise of $`\tau`$, this this may not obtain zero training error.
+
+**Explanation:**
+
+For part (c):
+- When using slack variables, the $`C`$ parameter controls the trade-off between minimizing the norm of $`w`$ and minimizing the training error (slack).
+- If $`C`$ is very small, the optimizer may prefer a small $`w`$ (even $`w = 0`$) over achieving zero training error, because the penalty for slack is negligible.
+- In the extreme case $`C = 0`$, the solution is $`w = 0`$ regardless of $\tau$, which may not classify all points correctly.
+- Therefore, with slack variables and arbitrary $`C`$, zero training error is not guaranteed.
 
 ## 4. Naive Bayes and SVMs for Spam Classification (Python Version)
 
