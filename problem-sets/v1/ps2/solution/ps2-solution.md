@@ -34,7 +34,6 @@ Setting the gradient to 0 gives us
 \theta = (X^T X + \lambda I)^{-1} X^T \vec{y}.
 ```
 
-
 (b) Suppose that we want to use kernels to implicitly represent our feature vectors in a high-dimensional (possibly infinite dimensional) space. Using a feature mapping $`\phi`$, the ridge regression cost function becomes
 ```math
 J(\theta) = \frac{1}{2} \sum_{i=1}^{m} (\theta^T \phi(x^{(i)}) - y^{(i)})^2 + \frac{\lambda}{2}||\theta||^2.
@@ -48,6 +47,41 @@ Making a prediction on a new input $`x_{new}`$ would now be done by computing $`
 ```
 If you want, you can try to prove this as well, though this is not required for the problem.]
 
+**Answer:**  Let $`\Phi`$ be the design matrix associated with the feature vectors $`\phi(x^{(i)})`$. Then from parts (a) and (b),
+
+```math
+\begin{align*}
+\theta &= (\Phi^T \Phi + \lambda I)^{-1} \Phi^T \vec{y} \\
+       &= \Phi^T (\Phi \Phi^T + \lambda I)^{-1} \vec{y} \\
+       &= \Phi^T (K + \lambda I)^{-1} \vec{y}.
+\end{align*}
+```
+
+where $`K`$ is the kernel matrix for the training set (since $`\Phi_{i,j} = \phi(x^{(i)})^T \phi(x^{(j)}) = K_{ij}`$.)
+To predict a new value $`y_{\text{new}}`$, we can compute
+
+```math
+\begin{align*}
+\vec{y}_{\text{new}} &= \theta^T \phi(x_{\text{new}}) \\
+              &= \vec{y}^T (K + \lambda I)^{-1} \Phi \phi(x_{\text{new}}) \\
+              &= \sum_{i=1}^m \alpha_i K(x^{(i)}, x_{\text{new}}).
+\end{align*}
+```
+
+where $`\alpha = (K + \lambda I)^{-1} \vec{y}`$. All these terms can be efficiently computing using the kernel function.
+To prove the identity from the hint, we left-multiply by $`\lambda(I + BA)`$ and right-multiply by $`\lambda(I + AB)`$ on both sides. That is,
+
+```math
+\begin{align*}
+(\lambda I + BA)^{-1} B &= B(\lambda I + AB)^{-1} \\
+B &= (\lambda I + BA)B(\lambda I + AB)^{-1} \\
+B(\lambda I + AB) &= (\lambda I + BA)B \\
+\lambda B + BAB &= \lambda B + BAB.
+\end{align*}
+```
+
+This last line clearly holds, proving the identity.
+
 
 ## 2. $`\ell_2`$ norm soft margin SVMs
 
@@ -59,6 +93,9 @@ In the notes, we saw that if our data is not linearly separable, then we need to
 ```
 
 (a) Notice that we have dropped the $`\xi_i \geq 0`$ constraint in the $`\ell_2`$ problem. Show that these non-negativity constraints can be removed. That is, show that the optimal value of the objective will be the same whether or not these constraints are present.
+
+
+**Answer:**  Consider a potential solution to the above problem with some $`\xi < 0`$. Then the constraint $`y^{(i)}(w^T x^{(i)} + b) \geq 1 - \xi_i`$ would also be satisfied for $`\xi_i = 0`$, and the objective function would be lower, proving that this could not be an optimal solution.
 
 (b) What is the Lagrangian of the $`\ell_2`$ soft margin SVM optimization problem?
 
@@ -120,4 +157,5 @@ where $`\varepsilon(h)`$ is the generalization error of hypothesis $`h_i`$. Now 
 Notice that since we do not have a square root here, this bound is much tighter. [Hint: Consider the probability that a hypothesis with generalization error greater than $`\gamma`$ makes no mistakes on the training data. Instead of the Hoeffding bound, you might also find the following inequality useful: $`(1 - \gamma)^m \leq e^{-\gamma m}`$.]
 
 (b) Rewrite the above bound as a sample complexity bound, i.e., in the form: for fixed $`\delta`$ and $`\gamma`$, for $`\varepsilon(\hat{h}) \leq \gamma`$ to hold with probability at least $`(1 - \delta)`$, it suffices that $`m \geq f(k, \gamma, \delta)`$ (i.e., $`f(\cdot)`$ is some function of $`k`$, $`\gamma`$, and $`\delta`$).
+
 
