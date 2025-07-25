@@ -218,7 +218,15 @@ where $`\alpha`$ is a learning rate which we assume is choosen small enough such
 
 (a) Prove that the GEM algorithm described above converges. To do this, you should show that the the likelihood is monotonically improving, as it does for the EM algorithm — i.e., show that $`\ell(\theta^{(t+1)}) \geq \ell(\theta^{(t)})`$.
 
+**Answer:** We use the same logic as for the standard EM algorithm. Specifically, just as for EM, we have for the GEM algorithm that
 
+```math
+\ell(\theta^{(t+1)}) \geq \sum_i \sum_{z^{(i)}} Q_i^{(t)}(z^{(i)}) \log \frac{p(x^{(i)}, z^{(i)}; \theta^{(t+1)})}{Q_i^{(t)}(z^{(i)})}
+\geq \sum_i \sum_{z^{(i)}} Q_i^{(t)}(z^{(i)}) \log \frac{p(x^{(i)}, z^{(i)}; \theta^{(t)})}{Q_i^{(t)}(z^{(i)})}
+= \ell(\theta^{(t)})
+```
+
+where as in EM the first line holds due to Jensen’s equality, and the last line holds because we choose the $`Q`$ distribution to make this hold with equality. The only difference between EM and GEM is the logic as to why the second line holds: for EM it held because $`\theta^{(t+1)}`$ was chosen to maximize this quantity, but for GEM it holds by our assumption that we take a gradient step small enough so as not to decrease the objective function.
 
 (b) Instead of using the EM algorithm at all, suppose we just want to apply gradient ascent to maximize the log-likelihood directly. In other words, we are trying to maximize the (non-convex) function
 
