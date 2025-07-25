@@ -28,7 +28,7 @@ where $`\sigma`$ is a known parameter and $`\phi, \theta_0, \theta_1 \in \mathbb
 
 Intuitively, the process behind model can be thought of as follows. Given a data point $`x`$, we first determine whether the data point belongs to one of two hidden classes $`z = 0`$ or $`z = 1`$, using a logistic regression model. We then determine $`y`$ as a linear function of $`x`$ (different linear functions for different values of $`z`$) plus Gaussian noise, as in the standard linear regression model. For example, the following data set could be well-represented by the model, but not by standard linear regression.
 
-![figure: x-y scatter plot](./img/x-y_scatter_plot.png)
+![figure: x-y scatter plot](..//img/x-y_scatter_plot.png)
 
 (a) Suppose $`x, y, z`$ are all observed, so that we obtain a training set $`\{(x^{(1)}, y^{(1)}, z^{(1)}), \ldots, (x^{(m)}, y^{(m)}, z^{(m)})\}`$. Write the log-likelihood of the parameters, and derive the maximum likelihood estimates for $`\phi, \theta_0, \theta_1`$. Note that because $`p(z|x)`$ is a logistic regression model, there will not exist a closed form estimate of $`\phi`$. In this case, derive the gradient and the Hessian of the likelihood with respect to $`\phi`$; in practice, these quantities can be used to numerically compute the ML estimate.
 
@@ -141,7 +141,7 @@ then $`V = V^*`$.
 
 In this problem you will implement the Q-Learning reinforcement learning algorithm described in class on a standard control domain known as the Mountain Car. The Mountain Car domain simulates a car trying to drive up a hill, as shown in the figure below.
 
-![figure: mountain car diagram](./img/mountain_car_diagram.png)
+![figure: mountain car diagram](../img/mountain_car_diagram.png)
 
 All states except those at the top of the hill have a constant reward $`R(s) = -1`$, while the goal state at the hilltop has reward $`R(s) = 0`$; thus an optimal agent will try to get to the top of the hill as fast as possible (when the car reaches the top of the hill, the episode is over, and the car is reset to its initial position). However, when starting at the bottom of the hill, the car does not have enough power to reach the top by driving forward, so it must first accerltaterate backwards, building up enough momentum to reach the top of the hill. This strategy of moving away from the goal in order to reach the goal makes the problem difficult for many classical control algorithms.
 
