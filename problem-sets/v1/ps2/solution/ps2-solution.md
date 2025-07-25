@@ -225,7 +225,14 @@ By choosing, for example, $`\tau = \epsilon / \log m`$ we are done.
 
 (b) Suppose we run a SVM with slack variables using the parameter $`\tau`$ you found in part (a). Will the resulting classifier necessarily obtain zero training error? Why or why not? A short explanation (without proof) will suffice.
 
+**Answer:**  The classifier will obtain zero training error. The SVM without slack variables will always return zero training error if it is able to find a solution, so all that remains to be shown is that there exists at least one feasible point.
+Consider the constraint $`y^{(i)}(w^T x^{(i)} + b)`$ for some $`i`$, and let $`b = 0`$. Then
 
+```math
+y^{(i)}(w^T x^{(i)} + b) = y^{(i)} \cdot f(x^{(i)}) > 0
+```
+
+since $`f(x^{(i)})`$ and $`y^{(i)}`$ have the same sign, and shown above. Therefore, as we choose all the $`\alpha_i`$'s large enough, $`y^{(i)}(w^T x^{(i)} + b) > 1`$, so the optimization problem is feasible.
 
 (c) Suppose we run the SMO algorithm to train an SVM with slack variables, under the conditions stated above, using the value of $`\tau`$ you picked in the previous part, and using some arbitrary value of $`C`$ (which you do not know beforehand). Will this necessarily result in a classifier that achieve zero training error? Why or why not? Again, a short explanation is sufficient.
 
