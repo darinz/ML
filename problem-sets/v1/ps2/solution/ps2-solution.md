@@ -82,7 +82,6 @@ B(\lambda I + AB) &= (\lambda I + BA)B \\
 
 This last line clearly holds, proving the identity.
 
-
 ## 2. $`\ell_2`$ norm soft margin SVMs
 
 In the notes, we saw that if our data is not linearly separable, then we need to modify our support vector machine algorithm by introducing an error margin that must be minimized. Specifically, the formulation we have looked at is known as the $`\ell_1`$ norm soft margin SVM. In this problem we will consider an alternative method, known as the $`\ell_2`$ norm soft margin SVM. This new algorithm is given by the following optimization problem (notice that the slack penalties are now squared):
@@ -94,10 +93,11 @@ In the notes, we saw that if our data is not linearly separable, then we need to
 
 (a) Notice that we have dropped the $`\xi_i \geq 0`$ constraint in the $`\ell_2`$ problem. Show that these non-negativity constraints can be removed. That is, show that the optimal value of the objective will be the same whether or not these constraints are present.
 
-
 **Answer:**  Consider a potential solution to the above problem with some $`\xi < 0`$. Then the constraint $`y^{(i)}(w^T x^{(i)} + b) \geq 1 - \xi_i`$ would also be satisfied for $`\xi_i = 0`$, and the objective function would be lower, proving that this could not be an optimal solution.
 
 (b) What is the Lagrangian of the $`\ell_2`$ soft margin SVM optimization problem?
+
+
 
 (c) Minimize the Lagrangian with respect to $`w`$, $`b`$, and $`\xi`$ by taking the following gradients: $`\nabla_w \mathcal{L}`$, $`\frac{\partial}{\partial b} \mathcal{L}`$, and $`\nabla_\xi \mathcal{L}`$, and then setting them equal to 0. Here, $`\xi = [\xi_1, \xi_2, \ldots, \xi_m]^T`$.
 
