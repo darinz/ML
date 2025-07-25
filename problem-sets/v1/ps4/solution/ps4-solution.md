@@ -252,6 +252,32 @@ w = \frac{XU}{U^T U}, \quad U = \frac{X^T w}{w^T w}
 
 respectively. Finally, show that if $`U`$ doesn’t change after this update, it must satisfy the eigenvector equation shown above.]
 
+**Answer:** For the E step, when $\sigma^2 \to 0$, $\mu_{z^{(i)}|x^{(i)}} = \frac{U^T x^{(i)}}{U^T U}$, so using $w$ as defined in the hint we have
+
+```math
+w = \frac{XU}{U^T U}
+```
+
+as desired.
+
+As mentioned in the hint, when $\sigma^2 \to 0$, $\Sigma_{z^{(i)}|x^{(i)}} = 0$, so
+
+```math
+U = \left( \sum_{i=1}^m x^{(i)} \mu_{z^{(i)}|x^{(i)}}^T \right) \left( \sum_{i=1}^m \Sigma_{z^{(i)}|x^{(i)}} + \mu_{z^{(i)}|x^{(i)}} \mu_{z^{(i)}|x^{(i)}}^T \right)^{-1}
+```
+
+```math
+= \left( \sum_{i=1}^m x^{(i)} w_i \right) \left( \sum_{i=1}^m w_i w_i \right)^{-1} = \frac{X^T w}{w^T w}
+```
+
+For $U$ to remain unchanged after an update requires that
+
+```math
+U = \frac{X^T XU}{U^T U} = X^T XU \frac{U^T U}{U^T X^T XU} = X^T XU \frac{1}{\lambda}
+```
+
+proving the desired equation.
+
 ---
 
 ## 3. **PCA and ICA for Natural Images**
