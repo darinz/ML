@@ -145,7 +145,29 @@ where $`\alpha = [\alpha_1, \alpha_2, \ldots, \alpha_m]^T`$. Thus, for each $`i 
 
 (d) What is the dual of the $`\ell_2`$ soft margin SVM optimization problem?
 
+**Answer:**  The objective function for the dual is
 
+```math
+\begin{align*}
+W(\alpha) &= \min_{w, b, \xi} \mathcal{L}(w, b, \xi, \alpha) \\
+&= \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m (\alpha_i y^{(i)} x^{(i)})^T (\alpha_j y^{(j)} x^{(j)}) + \frac{1}{2} \sum_{i=1}^m \frac{\alpha_i}{\xi_i} \xi_i^2 \\
+&\quad - \sum_{i=1}^m \alpha_i \left[ y^{(i)} \left( \left( \sum_{j=1}^m \alpha_j y^{(j)} x^{(j)} \right)^T x^{(i)} + b \right) - 1 + \xi_i \right] \\
+&= -\frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} + \frac{1}{2} \sum_{i=1}^m \alpha_i \xi_i \\
+&\quad - \left( \sum_{i=1}^m \alpha_i y^{(i)} \right) b + \sum_{i=1}^m \alpha_i - \sum_{i=1}^m \alpha_i \xi_i \\
+&= \sum_{i=1}^m \alpha_i - \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} - \frac{1}{2} \sum_{i=1}^m \alpha_i \xi_i \\
+&= \sum_{i=1}^m \alpha_i - \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} - \frac{1}{2} \sum_{i=1}^m \frac{\alpha_i^2}{C}.
+\end{align*}
+```
+
+Then the dual formulation of our problem is
+
+```math
+\begin{align*}
+\max_{\alpha} \quad & \sum_{i=1}^m \alpha_i - \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} - \frac{1}{2} \sum_{i=1}^m \frac{\alpha_i^2}{C} \\
+s.t. \quad & \alpha_i \geq 0, \quad i = 1, \ldots, m \\
+& \sum_{i=1}^m \alpha_i y^{(i)} = 0
+\end{align*}
+```
 
 ## 3. SVM with Gaussian kernel
 
@@ -159,6 +181,8 @@ f(x) = \sum_{i=1}^m \alpha_i y^{(i)} K(x^{(i)}, x) + b.
 ```
 
 Assume that the training data $`\{(x^{(1)}, y^{(1)}), \ldots, (x^{(m)}, y^{(m)})\}`$ consists of points which are separated by at least a distance of $`\epsilon`$; that is, $`\|x^{(j)} - x^{(i)}\| \geq \epsilon`$ for any $`i \neq j`$. Find values for the set of parameters $`\{\alpha_1, \ldots, \alpha_m, b\}`$ and Gaussian kernel width $`\tau`$ such that $`x^{(i)}`$ is correctly classified, for all $`i = 1, \ldots, m`$. [Hint: Let $`\alpha_i = 1`$ for all $`i`$ and $`b = 0`$. Now notice that for $`y \in \{-1, +1\}`$ the prediction on $`x^{(i)}`$ will be correct if $`|f(x^{(i)}) - y^{(i)}| < 1`$, so find a value of $`\tau`$ that satisfies this inequality for all $`i`$.]
+
+
 
 (b) Suppose we run a SVM with slack variables using the parameter $`\tau`$ you found in part (a). Will the resulting classifier necessarily obtain zero training error? Why or why not? A short explanation (without proof) will suffice.
 
