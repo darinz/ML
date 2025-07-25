@@ -3,34 +3,155 @@
 This directory contains a collection of machine learning problem sets and solutions, organized by topic and assignment. The problems cover a range of foundational topics in machine learning, including linear models, SVMs, kernels, generative models, deep learning, learning theory, unsupervised learning, and reinforcement learning.
 
 ## Structure
-- **ps1, ps2, ...**: Each subfolder contains a problem set, with a Markdown file describing the problems and (optionally) a `solution/` folder with solutions and supporting code.
-- **ps3/**: Problem Set 3, covering learning theory (e.g., VC dimension, uniform convergence, model selection) and unsupervised learning (e.g., clustering, EM, PCA, ICA).
-- **ps4/**: Problem Set 4, covering unsupervised learning (e.g., EM for supervised learning, factor analysis, PCA, ICA) and reinforcement learning (e.g., policy iteration, Q-learning, mountain car).
-- **q4/**: Contains datasets for the spam classification problem, including multiple training files and a test set in ARFF format.
-- **solution/**: Contains worked solutions, including Python scripts for coding problems.
+
+### Problem Set 1 (ps1/)
+**Topics**: Linear Regression, Locally Weighted Linear Regression
+- **ps1-problems.md**: Problem descriptions covering linear regression fundamentals
+- **q2/**: Locally Weighted Linear Regression (LWLR) implementation
+  - `lwlr.py`, `lwlr.m`: LWLR algorithm implementation
+  - `plot_lwlr.py`, `plot_lwlr.m`: Visualization scripts
+  - `load_data.py`, `load_data.m`: Data loading utilities
+  - `data/`: Contains x.dat and y.dat datasets
+- **solution/**: Complete solutions and supporting materials
+  - `ps1-solution.md`: Comprehensive solution document (38KB)
+  - `problem2b_solution.png`: Visualization of LWLR results
+  - `q2_solution/`: Complete solution code for question 2
+
+### Problem Set 2 (ps2/)
+**Topics**: Classification, Spam Detection, Naive Bayes
+- **ps2-problems.md**: Problem descriptions covering classification algorithms
+- **q4/**: Spam Classification with Naive Bayes
+  - Multiple training datasets: `spam_train_25.arff` to `spam_train_2000.arff`
+  - Test dataset: `spam_test.arff`
+  - Various dataset sizes for learning curve analysis
+- **solution/**: Complete solutions
+  - `ps2-solution.md`: Comprehensive solution document (26KB)
+  - `q4_solution/`: Complete solution code for spam classification
+
+### Problem Set 3 (ps3/)
+**Topics**: Learning Theory, Unsupervised Learning, Clustering
+- **ps3-problems.md**: Problem descriptions covering VC dimension, uniform convergence, and clustering
+- **q3/**: L1 Regularized Least Squares
+  - `l1ls.py`, `l1ls.m`: L1 regularization implementation
+  - `load_data.py`, `load_data.m`: Data loading utilities
+  - `theta.dat`, `x.dat`, `y.dat`: Training data
+- **q4/**: K-Means Clustering
+  - `k_means.py`, `k_means.m`: K-means algorithm implementation
+  - `draw_clusters.py`, `draw_clusters.m`: Visualization scripts
+  - `X.dat`: Clustering dataset
+- **solution/**: Complete solutions
+  - `ps3-solution.md`: Comprehensive solution document (18KB)
+  - `problem4_answer.png`: K-means clustering visualization
+  - `q3_solution/`, `q4_solution/`: Complete solution code
+
+### Problem Set 4 (ps4/)
+**Topics**: Unsupervised Learning, Dimensionality Reduction, Reinforcement Learning
+- **ps4-problems.md**: Problem descriptions covering PCA, ICA, and reinforcement learning
+- **q3/**: Principal Component Analysis (PCA) and Independent Component Analysis (ICA)
+  - `pca.py`, `pca.m`: PCA implementation
+  - `ica.py`, `ica.m`: ICA implementation
+  - `plot_pca_filters.py`, `plot_pca_filters.m`: PCA visualization
+  - `plot_ica_filters.py`, `plot_ica_filters.m`: ICA visualization
+  - `load_images.py`, `load_images.m`: Image loading utilities
+  - `images/`: Image datasets for dimensionality reduction
+- **q5/**: Reinforcement Learning - Mountain Car Problem
+  - `mountain_car.py`, `mountain_car.m`: Mountain car environment
+  - `qlearning.py`, `qlearning.m`: Q-learning implementation
+  - `plot_mountain_car.py`, `plot_mountain_car.m`: Environment visualization
+  - `plot_learning_curves.py`, `plot_learning_curves.m`: Learning curve analysis
+- **img/**: Supporting images and diagrams
+- **solution/**: Complete solutions
+  - `ps4-solution.md`: Comprehensive solution document (24KB)
+  - `q3_pca.png`, `q3_ica.png`: PCA and ICA result visualizations
+  - `q5_steps_per_episode.png`: Q-learning performance visualization
+  - `q3_solution/`, `q5_solution/`: Complete solution code
 
 ## How to Use
-- Read the problem descriptions in the `ps*-problems.md` files (e.g., `ps3/ps3-problems.md`, `ps4/ps4-problems.md`).
-- For coding problems, refer to the `solution/` subfolders for example solutions in Python.
-- For the spam classification problem (Problem 4 in ps2), you can:
-  - Use the provided ARFF datasets in the `q4/` folder (see the solution for how to load and use them in Python).
-  - Alternatively, use the UCI Spambase dataset as shown in the provided Python solution.
-- Most code solutions are provided as Python scripts and can be run directly. Some problems may be suitable for Jupyter notebooks as well.
+
+### Getting Started
+1. **Choose a Problem Set**: Start with ps1 for linear regression fundamentals, or jump to any topic of interest
+2. **Read the Problems**: Open the `ps*-problems.md` file for detailed problem descriptions
+3. **Examine the Data**: Each question folder contains relevant datasets and starter code
+4. **Check Solutions**: Refer to the `solution/` folders for complete worked solutions
+
+### For Specific Topics
+
+#### Linear Regression (ps1)
+- Implement linear regression from scratch
+- Learn locally weighted linear regression
+- Practice gradient descent optimization
+
+#### Classification (ps2)
+- Implement Naive Bayes for spam detection
+- Work with ARFF format datasets
+- Analyze learning curves with different dataset sizes
+
+#### Learning Theory & Clustering (ps3)
+- Study VC dimension and uniform convergence
+- Implement L1 regularized least squares
+- Practice K-means clustering algorithm
+
+#### Dimensionality Reduction & RL (ps4)
+- Implement PCA and ICA for image processing
+- Work with the mountain car reinforcement learning environment
+- Practice Q-learning algorithm
+
+### Code Implementation
+- **Python Files**: Most implementations are provided in Python (`.py` files)
+- **MATLAB Files**: Some problems also include MATLAB implementations (`.m` files)
+- **Data Files**: Various formats including `.dat`, `.arff`, and image files
+- **Visualization**: Plotting scripts for results analysis
 
 ## Requirements
-- Python 3.x
-- Common packages: `numpy`, `pandas`, `scikit-learn`, `matplotlib`
-- For ARFF files: `liac-arff` (if you want to load ARFF files directly)
 
-## Getting Started
-1. Install the required Python packages:
-   ```bash
-   pip install numpy pandas scikit-learn matplotlib liac-arff
-   ```
-2. Navigate to the relevant problem set and open the solution script or notebook.
-3. Follow the instructions in the problem set and solution files.
+### Core Dependencies
+```bash
+pip install numpy pandas scikit-learn matplotlib
+```
+
+### Additional Dependencies
+- **For ARFF files**: `liac-arff` (optional - solutions show alternative approaches)
+- **For image processing**: `PIL` or `opencv-python` (for ps4 image problems)
+- **For reinforcement learning**: `gym` (for mountain car environment)
+
+### Installation
+```bash
+# Install all required packages
+pip install numpy pandas scikit-learn matplotlib liac-arff pillow gym
+```
+
+## File Formats
+
+### Data Formats
+- **`.dat`**: Binary data files (use provided load functions)
+- **`.arff`**: Attribute-Relation File Format (spam datasets)
+- **`.jpg`**: Image files for dimensionality reduction problems
+
+### Code Formats
+- **`.py`**: Python implementations (primary)
+- **`.m`**: MATLAB implementations (alternative)
+- **`.md`**: Problem descriptions and solutions
 
 ## Notes
-- The problem sets are designed for educational purposes and follow the structure of classic machine learning courses.
-- Datasets in the `q4/` folder are for the spam classification problem and can be used with the provided Python code or your own implementation.
-- If you encounter issues with ARFF files, you can use the UCI Spambase dataset directly as shown in the solution.
+
+### Educational Design
+- Problems follow classic machine learning course structure
+- Solutions include both theoretical explanations and practical implementations
+- Visualizations help understand algorithm behavior and results
+
+### Dataset Usage
+- **Spam Classification**: Use provided ARFF files or UCI Spambase dataset
+- **Clustering**: Synthetic datasets for K-means practice
+- **Dimensionality Reduction**: Image datasets for PCA/ICA analysis
+- **Reinforcement Learning**: Mountain car environment for Q-learning
+
+### Solution Quality
+- Complete worked solutions with detailed explanations
+- Both Python and MATLAB implementations where applicable
+- Visualization scripts for result analysis
+- Performance analysis and learning curves
+
+### Troubleshooting
+- If ARFF files cause issues, solutions show alternative dataset loading
+- All Python code is tested and ready to run
+- MATLAB code provided for users preferring that environment
