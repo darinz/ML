@@ -193,6 +193,49 @@ where in both cases the last equality comes from the identity in the hint.
 
 (b) Using these distributions, derive an EM algorithm for the model. Clearly state the E-step and the M-step of the algorithm.
 
+**Answer:** Even though $z^{(i)}$ is a scalar value, in this problem we continue to use the notation $z^{(i)T}$, etc, to make the similarities to the Factor analysis case obvious.
+
+For the E-step, we compute the distribution $Q_i(z^{(i)}) = p(z^{(i)}|x^{(i)}; U)$ by computing $\mu_{z^{(i)}|x^{(i)}}$ and $\Sigma_{z^{(i)}|x^{(i)}}$ using the above formulas.
+
+For the M-step, we need to maximize
+
+```math
+\sum_{i=1}^m \int_{z^{(i)}} Q_i(z^{(i)}) \log \frac{p(x^{(i)}|z^{(i)}; U)p(z^{(i)})}{Q_i(z^{(i)})}
+```
+
+```math
+= \sum_{i=1}^m E_{z^{(i)} \sim Q_i} \left[ \log p(x^{(i)}|z^{(i)}; U) + \log p(z^{(i)}) - \log Q_i(z^{(i)}) \right]
+```
+
+Taking the gradient with respect to $U$ equal to zero, dropping terms that don't depend on $U$, and omitting the subscript on the expectation, this becomes
+
+```math
+\nabla_U \sum_{i=1}^m E \left[ \log p(x^{(i)}|z^{(i)}; U) \right] = \nabla_U \sum_{i=1}^m E \left[ -\frac{1}{2\sigma^2} (x^{(i)} - Uz^{(i)})^T (x^{(i)} - Uz^{(i)}) \right]
+```
+
+```math
+= -\frac{1}{2\sigma^2} \sum_{i=1}^m \nabla_U E \left[ \operatorname{tr}(z^{(i)T} U^T U z^{(i)}) - 2 \operatorname{tr}(z^{(i)T} U^T x^{(i)}) \right]
+```
+
+```math
+= -\frac{1}{2\sigma^2} \sum_{i=1}^m E \left[ Uz^{(i)}z^{(i)T} - x^{(i)}z^{(i)T} \right]
+```
+
+```math
+= \frac{1}{2\sigma^2} \sum_{i=1}^m \left[ -U E[z^{(i)}z^{(i)T}] + x^{(i)} E[z^{(i)T}] \right]
+```
+
+Using the same reasoning as in the Factor Analysis class notes. Setting this derivative to zero gives
+
+```math
+U = \left( \sum_{i=1}^m x^{(i)} E[z^{(i)T}] \right) \left( \sum_{i=1}^m E[z^{(i)}z^{(i)T}] \right)^{-1}
+```
+
+```math
+= \left( \sum_{i=1}^m x^{(i)} \mu_{z^{(i)}|x^{(i)}}^T \right) \left( \sum_{i=1}^m \Sigma_{z^{(i)}|x^{(i)}} + \mu_{z^{(i)}|x^{(i)}} \mu_{z^{(i)}|x^{(i)}}^T \right)^{-1}
+```
+
+All these terms were calculated in the E step, so this is our final M step update.
 
 
 (c) As $`\sigma^2 \to 0`$, show that if the EM algorithm convergences to a parameter vector $`U^*`$ (and such convergence is guaranteed by the argument presented in class), then $`U^*`$ must be an eigenvector of the sample covariance matrix $`S = \frac{1}{m} \sum_{i=1}^m x^{(i)} x^{(i)T}`$ — i.e., $`U^*`$ must satisfy
