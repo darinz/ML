@@ -1,4 +1,4 @@
-# Problem Set #4: Unsupervised Learning and Reinforcement Learning
+# Problem Set #4 Solutions: Unsupervised Learning and Reinforcement Learning
 
 ## 1. **EM for supervised learning**
 
