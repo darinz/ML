@@ -242,5 +242,3 @@ so we could simply use the update
 
 Show that this procedure in fact gives the same update as the GEM algorithm described above.
 
-
-
