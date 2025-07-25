@@ -104,7 +104,16 @@ Let the input domain of a learning problem be $`\mathcal{X} = \mathbb{R}`$. Give
 (b) It cannot shatter any three points $`\{x_1, x_2, x_3\}`$, $`x_1 < x_2 < x_3`$, because the labelling $`x_1 = x_3 = 1, x_2 = 0`$ cannot be realized.
 
 - $`h(x) = 1\{a \sin x > 0\}`$, with parameter $`a \in \mathbb{R}`$.
+
+**Answer:**  **VC-dimension = 1.** $`a`$ controls the *amplitude* of the sine curve.
+
+(a) It can shatter point $`\{\frac{\pi}{2}\}`$ by choosing $`a`$ to be 1 and $`-1`$.
+
+(b) It cannot shatter any two points $`\{x_1, x_2\}`$, since, the labellings of $`x_1`$ and $`x_2`$ will flip together. If $`x_1 = x_2 = 1`$ for some $`a`$, then we cannot achieve $`x_1 \neq x_2`$. If $`x_1 \neq x_2`$ for some $`a`$, then we cannot achieve $`x_1 = x_2 = 1`$ ($`x_1 = x_2 = 0`$ can be achieved by setting $`a = 0`$).
+
 - $`h(x) = 1\{\sin(x + a) > 0\}`$, with parameter $`a \in \mathbb{R}`$.
+
+
 
 ---
 
