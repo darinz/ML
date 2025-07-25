@@ -155,7 +155,45 @@ For simplicity, you can assume for the remainder of the problem that $`k = 1`$, 
 
 (a) Use the rules for manipulating Gaussian distributions to determine the joint distribution over $`(x, z)`$ and the conditional distribution of $`z|x`$. [Hint: for later parts of this problem, it will help significantly if you simplify your solution for the conditional distribution using the identity we first mentioned in problem set #1: $`(\lambda I + BA)^{-1}B = B(\lambda I + AB)^{-1}`$.]
 
+**Answer:** To compute the joint distribution, we compute the means and covariances of $x$ and $z$. First, $E[z] = 0$ and
+
+```math
+E[x] = E[Uz + \epsilon] = UE[z] + E[\epsilon] = 0, \quad (\text{where } \epsilon \sim \mathcal{N}(0, \sigma^2 I)).
+```
+
+Since both $x$ and $z$ have zero mean
+
+```math
+\Sigma_{zz} = E[zz^T] = I \quad ( = 1, \text{ since } z \text{ is a scalar when } k = 1)
+```
+```math
+\Sigma_{xz} = E[(Uz + \epsilon)z^T] = UE[zz^T] + E[\epsilon z^T] = U
+```
+```math
+\Sigma_{xx} = E[(Uz + \epsilon)(Uz + \epsilon)^T] = E[Uzz^T U^T + \epsilon z^T U^T + Uz \epsilon^T + \epsilon \epsilon^T]
+= UE[zz^T]U^T + E[\epsilon \epsilon^T] = UU^T + \sigma^2 I
+```
+
+Therefore,
+
+```math
+\begin{bmatrix} z \\ x \end{bmatrix} \sim \mathcal{N} \left( \begin{bmatrix} 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 1 & U^T \\ U & UU^T + \sigma^2 I \end{bmatrix} \right)
+```
+
+Using the rules for conditional Gaussian distributions, $z|x$ is also Gaussian with mean and covariance
+
+```math
+\mu_{z|x} = U^T (UU^T + \sigma^2 I)^{-1} x = \frac{U^T x}{U^T U + \sigma^2}
+```
+```math
+\Sigma_{z|x} = 1 - U^T (UU^T + \sigma^2 I)^{-1} U = 1 - \frac{U^T U}{U^T U + \sigma^2}
+```
+
+where in both cases the last equality comes from the identity in the hint.
+
 (b) Using these distributions, derive an EM algorithm for the model. Clearly state the E-step and the M-step of the algorithm.
+
+
 
 (c) As $`\sigma^2 \to 0`$, show that if the EM algorithm convergences to a parameter vector $`U^*`$ (and such convergence is guaranteed by the argument presented in class), then $`U^*`$ must be an eigenvector of the sample covariance matrix $`S = \frac{1}{m} \sum_{i=1}^m x^{(i)} x^{(i)T}`$ — i.e., $`U^*`$ must satisfy
 
