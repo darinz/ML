@@ -351,6 +351,21 @@ will result in the value function $`V^{\pi}`$ (a little bit more is needed to ma
 
 [Hint: Use the fact that for any $`\alpha, x \in \mathbb{R}^n`$, if $`\sum_i \alpha_i = 1`$ and $`\alpha_i \geq 0`$, then $`\sum_i \alpha_i x_i \leq \max_i x_i`$.]
 
+**Answer:**
+
+```math
+\|B^{\pi}(V) - V^{\pi}\|_{\infty} = \max_{s \in S} \left|R(s) + \gamma \sum_{s' \in S} P_{s\pi(s)}(s')V(s') - R(s) - \gamma \sum_{s' \in S} P_{s\pi(s)}(s')V^{\pi}(s')\right|
+```
+
+```math
+= \gamma \max_{s \in S} \left|\sum_{s' \in S} P_{s\pi(s)}(s')(V(s') - V^{\pi}(s'))\right|
+```
+
+```math
+\leq \gamma\|V - V^{\pi}\|_{\infty}
+```
+
+where the inequality follows from the hint above.
 
 
 (c) Now suppose that we have some policy $`\pi`$, and use Policy Iteration to choose a new policy $`\pi'`$ according to
@@ -370,6 +385,8 @@ V(s) = R(s) + \gamma \max_{a \in A} \sum_{s' \in S} P_{sa}(s')V(s')
 ```
 
 then $`V = V^*`$.
+
+
 
 ---
 
