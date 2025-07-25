@@ -13,6 +13,26 @@ J(\theta) = \frac{1}{2} \sum_{i=1}^{m} (\theta^T x^{(i)} - y^{(i)})^2 + \frac{\l
 
 (a) Use the vector notation described in class to find a closed-form expression for the value of $`\theta`$ which minimizes the ridge regression cost function.
 
+**Answer:**  Using the design matrix notation, we can rewrite $`J(\theta)`$ as
+
+```math
+J(\theta) = \frac{1}{2} (X\theta - \vec{y})^T (X\theta - \vec{y}) + \frac{\lambda}{2} \theta^T \theta.
+```
+
+Then the gradient is
+
+```math
+\nabla_{\theta} J(\theta) = X^T X \theta - X^T \vec{y} + \lambda \theta.
+```
+
+Setting the gradient to 0 gives us
+
+```math
+0 = X^T X \theta - X^T \vec{y} + \lambda \theta
+```
+```math
+\theta = (X^T X + \lambda I)^{-1} X^T \vec{y}.
+```
 
 
 (b) Suppose that we want to use kernels to implicitly represent our feature vectors in a high-dimensional (possibly infinite dimensional) space. Using a feature mapping $`\phi`$, the ridge regression cost function becomes
