@@ -27,12 +27,43 @@ For this question you will prove the following bound. Let any $`\delta > 0`$ be 
 |\varepsilon(\hat{h}_i) - \hat{\varepsilon}_{S_{\text{cv}}}(\hat{h}_i)| \leq \sqrt{\frac{1}{2\beta m} \log \frac{4k}{\delta}}.
 ```
 
+**Answer:** For each $\hat{h}_i$, the empirical error on the cross-validation set, $\hat{\varepsilon}(\hat{h}_i)$, represents the average of $\beta m$ random variables with mean $\varepsilon(\hat{h}_i)$, so by the Hoeffding inequality for any $\hat{h}_i$,
+
+$$
+P(|\varepsilon(\hat{h}_i) - \hat{\varepsilon}_{S_{\text{cv}}}(\hat{h}_i)| \geq \gamma) \leq 2 \exp(-2\gamma^2 \beta m).
+$$
+
+As in the class notes, to insure that this holds for all $\hat{h}_i$, we need to take the union over all $k$ of the $\hat{h}_i$'s.
+
+$$
+P(\exists i, \text{s.t.} |\varepsilon(\hat{h}_i) - \hat{\varepsilon}_{S_{\text{cv}}}(\hat{h}_i)| \geq \gamma) \leq 2k \exp(-2\gamma^2 \beta m).
+$$
+
+Setting this term equal to $\delta/2$ and solving for $\gamma$ yields
+
+$$
+\gamma = \sqrt{\frac{1}{2\beta m} \log \frac{4k}{\delta}}
+$$
+
+proving the desired bound.
 
 
 (b) Use part (a) to show that with probability $`1 - \frac{\delta}{2}`$,
 
 ```math
 \varepsilon(\hat{h}) \leq \min_{i=1,\ldots,k} \varepsilon(\hat{h}_i) + \sqrt{\frac{2}{\beta m} \log \frac{4k}{\delta}}.
+```
+
+**Answer:** Let $`j = \arg\min_i \varepsilon(\hat{h}_i)`$. Using part (a), with probability at least $`1 - \frac{\delta}{2}`$
+
+```math
+\begin{align*}
+\varepsilon(\hat{h}) &\leq \hat{\varepsilon}_{S_{\text{cv}}}(\hat{h}) + \sqrt{\frac{1}{2\beta m} \log \frac{4k}{\delta}} \\
+&= \min_i \hat{\varepsilon}_{S_{\text{cv}}}(\hat{h}_i) + \sqrt{\frac{1}{2\beta m} \log \frac{4k}{\delta}} \\
+&\leq \hat{\varepsilon}_{S_{\text{cv}}}(\hat{h}_j) + \sqrt{\frac{1}{2\beta m} \log \frac{4k}{\delta}} \\
+&\leq \varepsilon(\hat{h}_j) + 2\sqrt{\frac{1}{2\beta m} \log \frac{4k}{\delta}} \\
+&= \min_{i=1,\ldots,k} \varepsilon(\hat{h}_i) + \sqrt{\frac{2}{\beta m} \log \frac{4k}{\delta}}
+\end{align*}
 ```
 
 (c) Let $`j = \arg\min_i \varepsilon(\hat{h}_i)`$. We know from class that for $`\mathcal{H}_j`$, with probability $`1 - \frac{\delta}{2}`$
