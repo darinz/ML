@@ -195,11 +195,26 @@ Check the following facts regarding connections between subspaces:
 
 **(c) The nullspace of X^T is orthogonal to the columnspace of X. This can be written in shorthand as Null(X^T) = Range(X)⊥.**
 
-### 2.4 Facts in regression
+### 2.4 Linear algebra facts for linear regression
 
-(a) $`X^T X`$ is symmetric and PSD  
-(b) $`\text{Null}(X) = \text{Null}(X^T X)`$  
-(c) $`X^T X`$ is not always invertible  
-(d) If X is short and wide, $`X^T X`$ not invertible  
-(e) $`\text{Col}(X^T X) = \text{Row}(X)`$
+We saw in lecture on Linear Regression that the closed form expression for linear regression without an offset involves the term $`(X^T X)^{-1}`$.
 
+**(a)** Is it true that the matrix $`X^T X`$ is always symmetric and positive semidefinite?
+
+**Solution:** Yes. Symmetry can be checked by computing the transpose. For any vector $`u`$, we have $`u^T X^T X u = \|Xu\|_2^2 \geq 0`$.
+
+**(b)** State and prove the connection between the nullspace of $`X`$ and the nullspace of $`X^T X`$. That is, your statement should look like one of the following: $`\text{Null}(X) \subseteq \text{Null}(X^T X)`$, or $`\text{Null}(X) \supseteq \text{Null}(X^T X)`$ or $`\text{Null}(X) = \text{Null}(X^T X)`$.
+
+**Solution:** We have, $`\text{Null}(X) = \text{Null}(X^T X)`$. Let $`v \in \text{Null}(X)`$. Then, one can check that $`X^T X v = 0`$, leading to $`v \in \text{Null}(X^T X)`$, which proves $`\text{Null}(X) \subseteq \text{Null}(X^T X)`$. For the other direction, let $`0 \neq v \in \text{Null}(X^T X)`$. Then, $`0 = v^T X^T X v = \|Xv\|_2^2`$, which implies $`v \in \text{Null}(X)`$. Therefore, $`\text{Null}(X^T X) \subseteq \text{Null}(X)`$, which finishes the proof.
+
+**(c)** Is it true that $`X^T X`$ is always invertible?
+
+**Solution:** No, this isn't always the case. Since $`\text{Null}(X) = \text{Null}(X^T X)`$ (see the answer to the previous question), the matrix $`X^T X`$ is not invertible if $`X`$ has a non-empty nullspace.
+
+**(d)** Based on the above fact about the connection between the nullspaces of $`X`$ and $`X^T X`$ and the expression for linear regression without an offset (that we referred to two problems above), justify the use of "tall skinny" data matrix $`X`$ as opposed to a "short wide" matrix $`X`$.
+
+**Solution:** If $`X`$ is "short and wide", it has a non-empty nullspace. Therefore, $`X^T X`$ is not invertible.
+
+**(e)** The columnspace and rowspace of $`X^T X`$ are the same, and are equal to the rowspace of $`X`$. (Hint: Use the relationship between nullspace and rowspace.)
+
+**Solution:** $`X^T X`$ is symmetric, and from the previous parts, we have $`\text{Row}(X^T X) = \text{Col}((X^T X)^T) = \text{Col}(X^T X)`$. By previous parts again, we have: $`\text{Row}(X^T X) = \text{Null}(X^T X)^\perp = \text{Null}(X)^\perp = \text{Row}(X)`$.
