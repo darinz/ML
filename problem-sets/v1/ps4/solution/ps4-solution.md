@@ -448,3 +448,5 @@ Implement the $`[q, steps_per_episode] = qlearning(episodes)`$ function in the q
 
 Plot a graph showing the average number of steps before the car reaches the top of the hill versus the episode number (there is quite a bit of variation in this quantity, so you will probably want to average these over a large number of episodes, as this will give you a better idea of how the number of steps before reaching the hilltop is decreasing). You can also visualize your resulting controller by calling the draw.mountain.car(q) function.
 
+**Answer:** The solution implementation of qlearning.py is in ./q5_solution:
+
