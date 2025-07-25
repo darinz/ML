@@ -107,6 +107,42 @@ where $`\alpha_i \geq 0`$ for $`i = 1, \ldots, m`$.
 
 (c) Minimize the Lagrangian with respect to $`w`$, $`b`$, and $`\xi`$ by taking the following gradients: $`\nabla_w \mathcal{L}`$, $`\frac{\partial}{\partial b} \mathcal{L}`$, and $`\nabla_\xi \mathcal{L}`$, and then setting them equal to 0. Here, $`\xi = [\xi_1, \xi_2, \ldots, \xi_m]^T`$.
 
+**Answer:**  Taking the gradient with respect to $`w`$, we get
+
+```math
+0 = \nabla_w \mathcal{L} = w - \sum_{i=1}^m \alpha_i y^{(i)} x^{(i)},
+```
+
+which gives us
+
+```math
+w = \sum_{i=1}^m \alpha_i y^{(i)} x^{(i)}.
+```
+
+Taking the derivative with respect to $`b`$, we get
+
+```math
+0 = \frac{\partial \mathcal{L}}{\partial b} = -\sum_{i=1}^m \alpha_i y^{(i)},
+```
+
+giving us
+
+```math
+0 = \sum_{i=1}^m \alpha_i y^{(i)}.
+```
+
+Finally, taking the gradient with respect to $`\xi`$, we have
+
+```math
+0 = \nabla_{\xi} \mathcal{L} = C\xi - \alpha,
+```
+
+where $`\alpha = [\alpha_1, \alpha_2, \ldots, \alpha_m]^T`$. Thus, for each $`i = 1, \ldots, m`$, we get
+
+```math
+0 = C\xi_i - \alpha_i \implies C\xi_i = \alpha_i.
+```
+
 (d) What is the dual of the $`\ell_2`$ soft margin SVM optimization problem?
 
 
