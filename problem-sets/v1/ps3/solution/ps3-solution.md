@@ -113,7 +113,11 @@ Let the input domain of a learning problem be $`\mathcal{X} = \mathbb{R}`$. Give
 
 - $`h(x) = 1\{\sin(x + a) > 0\}`$, with parameter $`a \in \mathbb{R}`$.
 
+**Answer:**  **VC-dimension = 2.** $`a`$ controls the *phase* of the sine curve.
 
+(a) It can shatter points $`\{\frac{\pi}{4}, \frac{3\pi}{4}\}`$, by choosing $`a`$ to be 0, $`\frac{\pi}{2}`$, $`\pi`$, and $`\frac{3\pi}{2}`$.
+
+(b) It cannot shatter any three points $`\{x_1, x_2, x_3\}`$. Since sine has a period of $`2\pi`$, let's define $`x_i' = x_i \mod 2\pi`$. W.l.o.g., assume $`x_1' < x_2' < x_3'`$. If the labelling of $`x_1 = x_2 = x_3 = 1`$ can be realized, then the labelling of $`x_1 = x_3 = 1, x_2 = 0`$ will not be realizable. Notice the similarity to the second question.
 
 ---
 
