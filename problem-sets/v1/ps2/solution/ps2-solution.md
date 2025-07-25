@@ -174,6 +174,15 @@ In the notes, we saw that if our data is not linearly separable, then we need to
 
 **Answer:**  Consider a potential solution to the above problem with some $`\xi < 0`$. Then the constraint $`y^{(i)}(w^T x^{(i)} + b) \geq 1 - \xi_i`$ would also be satisfied for $`\xi_i = 0`$, and the objective function would be lower, proving that this could not be an optimal solution.
 
+**Explanation:**
+
+For part (a):
+- The $\ell_2$ soft margin SVM formulation omits the non-negativity constraint $\xi_i \geq 0$.
+- If any $\xi_i < 0$, the constraint $y^{(i)}(w^T x^{(i)} + b) \geq 1 - \xi_i$ is still satisfied for $\xi_i = 0$ (since $1 - \xi_i$ increases as $\xi_i$ decreases), and the objective $\frac{C}{2} \sum \xi_i^2$ is strictly smaller for $\xi_i = 0$ than for $\xi_i < 0$.
+- Therefore, at the optimum, $\xi_i \geq 0$ always holds, so the constraint can be omitted without changing the solution.
+
+---
+
 (b) What is the Lagrangian of the $`\ell_2`$ soft margin SVM optimization problem?
 
 **Answer:**
@@ -183,6 +192,16 @@ In the notes, we saw that if our data is not linearly separable, then we need to
 ```
 
 where $`\alpha_i \geq 0`$ for $`i = 1, \ldots, m`$.
+
+**Explanation:**
+
+For part (b):
+- The Lagrangian $\mathcal{L}(w, b, \xi, \alpha)$ is constructed by taking the primal objective and subtracting the constraints multiplied by Lagrange multipliers $\alpha_i \geq 0$.
+- The first term $\frac{1}{2} w^T w$ is the regularization on $w$.
+- The second term $\frac{C}{2} \sum \xi_i^2$ penalizes the slack variables quadratically.
+- The third term $-\sum \alpha_i [y^{(i)}(w^T x^{(i)} + b) - 1 + \xi_i]$ enforces the margin constraints.
+
+---
 
 (c) Minimize the Lagrangian with respect to $`w`$, $`b`$, and $`\xi`$ by taking the following gradients: $`\nabla_w \mathcal{L}`$, $`\frac{\partial}{\partial b} \mathcal{L}`$, and $`\nabla_\xi \mathcal{L}`$, and then setting them equal to 0. Here, $`\xi = [\xi_1, \xi_2, \ldots, \xi_m]^T`$.
 
@@ -222,6 +241,16 @@ where $`\alpha = [\alpha_1, \alpha_2, \ldots, \alpha_m]^T`$. Thus, for each $`i 
 0 = C\xi_i - \alpha_i \implies C\xi_i = \alpha_i.
 ```
 
+**Explanation:**
+
+For part (c):
+- To find the dual, we minimize the Lagrangian with respect to the primal variables $w$, $b$, and $\xi$ by setting their gradients to zero.
+- $\nabla_w \mathcal{L} = 0$ gives $w = \sum \alpha_i y^{(i)} x^{(i)}$ (the optimal $w$ is a linear combination of support vectors).
+- $\frac{\partial \mathcal{L}}{\partial b} = 0$ gives $\sum \alpha_i y^{(i)} = 0$ (the weighted sum of labels is zero).
+- $\nabla_{\xi} \mathcal{L} = 0$ gives $C \xi_i = \alpha_i$ for each $i$ (relating slack and Lagrange multipliers).
+
+---
+
 (d) What is the dual of the $`\ell_2`$ soft margin SVM optimization problem?
 
 **Answer:**  The objective function for the dual is
@@ -247,6 +276,14 @@ s.t. \quad & \alpha_i \geq 0, \quad i = 1, \ldots, m \\
 & \sum_{i=1}^m \alpha_i y^{(i)} = 0
 \end{align*}
 ```
+
+**Explanation:**
+
+For part (d):
+- Substitute the optimal values for $w$, $b$, and $\xi$ back into the Lagrangian to get the dual objective $W(\alpha)$.
+- The quadratic terms in $w$ and $\xi$ expand to sums over $\alpha_i$ and $y^{(i)}$.
+- The dual problem is to maximize $\sum \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} - \frac{1}{2} \sum \alpha_i^2 / C$ subject to $\alpha_i \geq 0$ and $\sum \alpha_i y^{(i)} = 0$.
+- The $\alpha_i^2 / C$ term comes from the quadratic penalty on the slack variables.
 
 ## 3. SVM with Gaussian kernel
 
