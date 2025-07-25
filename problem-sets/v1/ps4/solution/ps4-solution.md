@@ -299,6 +299,9 @@ For reference, computing the ICA $`W`$ matrix for the entire set of image patche
 
 After you’ve learned the $`U`$ matrix for PCA (the columns of $`U`$ should contain the principal components of the data) and the $`W`$ matrix of ICA, you can plot the basis functions using the plot-ica_bases(W); and plot-pca_bases(U); functions we have provide. Comment briefly on the difference between the two sets of basis functions.
 
+**Answer:** See ./q3_solution for our implementations of pca.py and ica.py.
+
+
 
 ## 4. **Convergence of Policy Iteration**
 
