@@ -322,6 +322,17 @@ V'(s) = R(s) + \gamma \sum_{s' \in S} P_{\pi(s)}(s')(V(s')).
 
 (a) Prove that if $`V_1(s) \leq V_2(s)`$ for all $`s \in S`$, then $`B(V_1)(s) \leq B(V_2)(s)`$ for all $`s \in S`$.
 
+**Answer:**
+
+```math
+B(V_1)(s) = R(s) + \gamma \sum_{s' \in S} P_{s\pi(s)}(s')V_1(s')
+```
+
+```math
+\leq R(s) + \gamma \sum_{s' \in S} P_{s\pi(s)}(s')V_2(s') = B(V_2)(s)
+```
+
+where the inequality holds because $P_{s\pi(s)}(s') \geq 0$.
 
 
 (b) Prove that for any $`V`$,
@@ -339,6 +350,8 @@ B^{\pi}(B^{\pi}(\ldots B^{\pi}(V)\ldots))
 will result in the value function $`V^{\pi}`$ (a little bit more is needed to make this completely formal, but we won’t worry about that here).
 
 [Hint: Use the fact that for any $`\alpha, x \in \mathbb{R}^n`$, if $`\sum_i \alpha_i = 1`$ and $`\alpha_i \geq 0`$, then $`\sum_i \alpha_i x_i \leq \max_i x_i`$.]
+
+
 
 (c) Now suppose that we have some policy $`\pi`$, and use Policy Iteration to choose a new policy $`\pi'`$ according to
 
