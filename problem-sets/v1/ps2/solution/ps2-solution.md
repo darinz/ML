@@ -1,4 +1,4 @@
-# Problem Set #2: Kernels, SVMs, and Theory
+# Problem Set #2 Solutions: Kernels, SVMs, and Theory
 
 ## 1. Kernel ridge regression
 
