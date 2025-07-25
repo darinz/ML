@@ -303,11 +303,11 @@ After you’ve learned the $`U`$ matrix for PCA (the columns of $`U`$ should con
 
 PCA produces the following bases:
 
-
+![PCA](./q3_pca.png)
 
 while ICA produces the following bases
 
-
+![ICA](./q3_ica.png)
 
 The PCA bases capture global features of the images, while the ICA bases capture more local
 features.
