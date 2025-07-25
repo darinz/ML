@@ -66,6 +66,37 @@ This directory contains a collection of machine learning problem sets and soluti
   - `q5_steps_per_episode.png`: Q-learning performance visualization
   - `q3_solution/`, `q5_solution/`: Complete solution code
 
+### Problem Set 5 (ps5/)
+**Topics**: Comprehensive Review - All Topics from PS1 to PS4
+- **ps5-problems.md**: Problem descriptions covering all foundational machine learning topics
+- **Problem 1**: Generalized Linear Models (13 points)
+  - Exponential family distributions and log-likelihood concavity
+  - Normal distribution case study
+- **Problem 2**: Bayesian Linear Regression (15 points)
+  - MAP estimation with Gaussian priors
+  - Closed-form parameter estimation
+- **Problem 3**: Kernels (18 points)
+  - Valid kernel proofs and properties
+  - Gaussian kernel validation
+  - Exponential kernel construction
+- **Problem 4**: One-class SVM (18 points)
+  - Primal and dual formulations
+  - Kernelization capabilities
+  - SMO-like optimization algorithms
+- **Problem 5**: Uniform Convergence (18 points)
+  - Concentration inequalities
+  - Sample complexity bounds
+  - Union bound applications
+- **Problem 6**: Short Answers (40 points)
+  - Binary classification with different covariances
+  - Perceptron and kernel perceptron analysis
+  - Mercer kernel existence
+  - Newton's method optimization
+  - VC dimension calculations
+  - L1-regularized SVM properties
+  - Locally weighted regression parameter selection
+  - Feature selection strategies
+
 ## How to Use
 
 ### Getting Started
@@ -95,6 +126,12 @@ This directory contains a collection of machine learning problem sets and soluti
 - Implement PCA and ICA for image processing
 - Work with the mountain car reinforcement learning environment
 - Practice Q-learning algorithm
+
+#### Comprehensive Review (ps5)
+- Review all foundational machine learning concepts
+- Practice theoretical proofs and mathematical derivations
+- Test understanding across multiple topics
+- Prepare for comprehensive assessments
 
 ### Code Implementation
 - **Python Files**: Most implementations are provided in Python (`.py` files)
