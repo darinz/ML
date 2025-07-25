@@ -54,42 +54,42 @@ Let the input domain of a learning problem be $`\mathcal{X} = \mathbb{R}`$. Give
 
 ---
 
-## 3. **$`\ell_1`$ regularization for least squares**
+## 3. **$\ell_1$ regularization for least squares (Python Version)**
 
-In the previous problem set, we looked at the least squares problem where the objective function is augmented with an additional regularization term $`\lambda\|\theta\|_2^2`$. In this problem we’ll consider a similar regularized objective but this time with a penalty on the $`\ell_1`$ norm of the parameters $`\lambda\|\theta\|_1`$, where $`\|\theta\|_1`$ is defined as $`\sum_i |\theta_i|`$. That is, we want to minimize the objective
+In the previous problem set, we looked at the least squares problem where the objective function is augmented with an additional regularization term $\lambda\|\theta\|_2^2$. In this problem we’ll consider a similar regularized objective but this time with a penalty on the $\ell_1$ norm of the parameters $\lambda\|\theta\|_1$, where $\|\theta\|_1$ is defined as $\sum_i |\theta_i|$. That is, we want to minimize the objective
 
 ```math
 J(\theta) = \frac{1}{2} \sum_{i=1}^m (\theta^T x^{(i)} - y^{(i)})^2 + \lambda \sum_{i=1}^n |\theta_i|.
 ```
 
-There has been a great deal of recent interest in $`\ell_1`$ regularization, which, as we will see, has the benefit of outputting sparse solutions (i.e., many components of the resulting $`\theta`$ are equal to zero).
+There has been a great deal of recent interest in $\ell_1$ regularization, which, as we will see, has the benefit of outputting sparse solutions (i.e., many components of the resulting $\theta$ are equal to zero).
 
-The $`\ell_1`$ regularized least squares problem is more difficult than the unregularized or $`\ell_2`$ regularized case, because the $`\ell_1`$ term is not differentiable. However, there have been many efficient algorithms developed for this problem that work well in practice. One very straightforward approach, which we have already seen in class, is the coordinate descent method. In this problem you’ll derive and implement a coordinate descent algorithm for $`\ell_1`$ regularized least squares, and apply it to test data.
+The $\ell_1$ regularized least squares problem is more difficult than the unregularized or $\ell_2$ regularized case, because the $\ell_1$ term is not differentiable. However, there have been many efficient algorithms developed for this problem that work well in practice. One very straightforward approach, which we have already seen in class, is the coordinate descent method. In this problem you’ll derive and implement a coordinate descent algorithm for $\ell_1$ regularized least squares, and apply it to test data.
 
-(a) Here we’ll derive the coordinate descent update for a given $`\theta_i`$. Given the $`X`$ and $`\vec{y}`$ matrices, as defined in the class notes, as well a parameter vector $`\theta`$, how can we adjust $`\theta_i`$ so as to minimize the optimization objective? To answer this question, we’ll rewrite the optimization objective above as
+(a) Here we’ll derive the coordinate descent update for a given $\theta_i$. Given the $X$ and $\vec{y}$ matrices, as defined in the class notes, as well a parameter vector $\theta$, how can we adjust $\theta_i$ so as to minimize the optimization objective? To answer this question, we’ll rewrite the optimization objective above as
 
 ```math
 J(\theta) = \frac{1}{2}\|X\vec{\theta} - \vec{y}\|_2^2 + \lambda\|\vec{\theta}\|_1 = \frac{1}{2}\|X\bar{\theta} + X_i\theta_i - \vec{y}\|_2^2 + \lambda\|\bar{\theta}\|_1 + \lambda|\theta_i|
 ```
 
-where $`X_i \in \mathbb{R}^m`$ denotes the $`i`$-th column of $`X`$, and $`\bar{\theta}`$ is equal to $`\theta`$ except with $`\bar{\theta}_i = 0`$; all we have done in rewriting the above expression is to make the $`\theta_i`$ term explicit in the objective. However, this still contains the $`|\theta_i|`$ term, which is non-differentiable and therefore difficult to optimize. To get around this we make the observation that the sign of $`\theta_i`$ must either be non-negative or non-positive. But if we knew the sign of $`\theta_i`$, then $`|\theta_i|`$ becomes just a linear term. That is, we can write
+where $X_i \in \mathbb{R}^m$ denotes the $i$-th column of $X$, and $\bar{\theta}$ is equal to $\theta$ except with $\bar{\theta}_i = 0$; all we have done in rewriting the above expression is to make the $\theta_i$ term explicit in the objective. However, this still contains the $|\theta_i|$ term, which is non-differentiable and therefore difficult to optimize. To get around this we make the observation that the sign of $\theta_i$ must either be non-negative or non-positive. But if we knew the sign of $\theta_i$, then $|\theta_i|$ becomes just a linear term. That is, we can write
 
 ```math
 J(\theta) = \frac{1}{2}\|X\bar{\theta} + X_i\theta_i - \vec{y}\|_2^2 + \lambda\|\bar{\theta}\|_1 + \lambda s_i\theta_i
 ```
 
-where $`s_i`$ denotes the sign of $`\theta_i`$, $`s_i \in \{-1, 1\}`$. In order to update $`\theta_i`$, we can just compute the optimal $`\theta_i`$ for both possible values of $`s_i`$ (making sure that we restrict the optimal $`\theta_i`$ to obey the sign restriction we used to solve for it), then look to see which achieves the best objective value.
+where $s_i$ denotes the sign of $\theta_i$, $s_i \in \{-1, 1\}$. In order to update $\theta_i$, we can just compute the optimal $\theta_i$ for both possible values of $s_i$ (making sure that we restrict the optimal $\theta_i$ to obey the sign restriction we used to solve for it), then look to see which achieves the best objective value.
 
-For each of the possible values of $`s_i`$, compute the resulting optimal value of $`\theta_i`$. [Hint: to do this, you can fix $`s_i`$ in the above equation, then differentiate with respect to $`\theta_i`$ to find the best value. Finally, clip $`\theta_i`$ so that it lies in the allowable range — i.e., for $`s_i = 1`$, you need to clip $`\theta_i`$ such that $`\theta_i \geq 0`$.]
+For each of the possible values of $s_i$, compute the resulting optimal value of $\theta_i$. [Hint: to do this, you can fix $s_i$ in the above equation, then differentiate with respect to $\theta_i$ to find the best value. Finally, clip $\theta_i$ so that it lies in the allowable range — i.e., for $s_i = 1$, you need to clip $\theta_i$ such that $\theta_i \geq 0$.]
 
-(b) Implement the above coordinate descent algorithm using the updates you found in the previous part. We have provided a skeleton `theta = l1ls(X,y,lambda)` function in the q3/ directory. To implement the coordinate descent algorithm, you should repeatedly iterate over all the $`\theta_i`$'s, adjusting each as you found above. You can terminate the process when $`\theta`$ changes by less than $`10^{-5}`$ after all $`n`$ of the updates.
+(b) Implement the above coordinate descent algorithm using the updates you found in the previous part. We have provided a skeleton `def l1ls(X, y, lambda_):` function in the q3/ directory. To implement the coordinate descent algorithm, you should repeatedly iterate over all the $\theta_i$'s, adjusting each as you found above. You can terminate the process when $\theta$ changes by less than $10^{-5}$ after all $n$ of the updates.
 
-(c) Test your implementation on the data provided in the q3/ directory. The `[X, y, theta.true] = load_data;` function will load all the data — the data was generated by $`y = X*\theta.true + 0.05*\text{randn}(20,1)`$, but $`\theta.true`$ is sparse, so that very few of the columns of $`X`$ actually contain relevant features. Run your `l1ls.m` implementation on this data set, ranging $`\lambda`$ from 0.001 to 10. Comment briefly on how this algorithm might be used for feature selection.
+(c) Test your implementation on the data provided in the q3/ directory. The `X, y, theta_true = load_data()` function will load all the data — the data was generated by $y = X*\theta_{true} + 0.05*\text{np.random.randn}(20,1)$, but $\theta_{true}$ is sparse, so that very few of the columns of $X$ actually contain relevant features. Run your `l1ls` implementation on this data set, ranging $\lambda$ from 0.001 to 10. Comment briefly on how this algorithm might be used for feature selection.
 
 
-## 4. **K-Means Clustering**
+## 4. **K-Means Clustering (Python Version)**
 
-In this problem you’ll implement the K-means clustering algorithm on a synthetic data set. There is code and data for this problem in the q4/ directory. Run load 'X.dat'; to load the data file for clustering. Implement the [clusters, centers] = k_means(X, k) function in this directory. As input, this function takes the m × n data matrix X and the number of clusters k. It should output a m element vector, clusters, which indicates which of the clusters each data point belongs to, and a k × n matrix, centers, which contains the centroids of each cluster. Run the algorithm on the data provided, with k = 3 and k = 4. Plot the cluster assignments and centroids for each iteration of the algorithm using the draw_clusters(X, clusters, centroids) function. For each k, be sure to run the algorithm several times using different initial centroids.
+In this problem you’ll implement the K-means clustering algorithm on a synthetic data set. There is code and data for this problem in the q4/ directory. Use `X = np.loadtxt('X.dat')` to load the data file for clustering. Implement the `def k_means(X, k):` function in this directory. As input, this function takes the m × n data matrix X and the number of clusters k. It should output an m-element vector, clusters, which indicates which of the clusters each data point belongs to, and a k × n matrix, centers, which contains the centroids of each cluster. Run the algorithm on the data provided, with k = 3 and k = 4. Plot the cluster assignments and centroids for each iteration of the algorithm using the `draw_clusters(X, clusters, centroids)` function. For each k, be sure to run the algorithm several times using different initial centroids.
 
 ## 5. **The Generalized EM algorithm**
 
