@@ -32,41 +32,57 @@ Intuitively, the process behind model can be thought of as follows. Given a data
 
 (a) Suppose $`x, y, z`$ are all observed, so that we obtain a training set $`\{(x^{(1)}, y^{(1)}, z^{(1)}), \ldots, (x^{(m)}, y^{(m)}, z^{(m)})\}`$. Write the log-likelihood of the parameters, and derive the maximum likelihood estimates for $`\phi, \theta_0, \theta_1`$. Note that because $`p(z|x)`$ is a logistic regression model, there will not exist a closed form estimate of $`\phi`$. In this case, derive the gradient and the Hessian of the likelihood with respect to $`\phi`$; in practice, these quantities can be used to numerically compute the ML estimate.
 
-**Answer:** The log-likelihood is given by
+**Answer:** The log likelihood is now:
 
 ```math
-\ell(\phi, \theta_0, \theta_1) = \log \prod_{i=1}^m p(y^{(i)}|x^{(i)}, z^{(i)}; \theta_0, \theta_1) p(z^{(i)}|x^{(i)}; \phi)
+\ell(\phi, \theta_0, \theta_1) = \log \prod_{i=1}^m \sum_{z^{(i)}} p(y^{(i)}|x^{(i)}, z^{(i)}; \theta_1, \theta_2) p(z^{(i)}|x^{(i)}; \phi)
 ```
 
 ```math
-= \sum_{i: z^{(i)}=0} \log \left( (1 - g(\phi^T x)) \frac{1}{\sqrt{2\pi}\sigma} \exp\left( \frac{-(y^{(i)} - \theta_0^T x^{(i)})^2}{2\sigma^2} \right) \right)
-+ \sum_{i: z^{(i)}=1} \log \left( (g(\phi^T x)) \frac{1}{\sqrt{2\pi}\sigma} \exp\left( \frac{-(y^{(i)} - \theta_1^T x^{(i)})^2}{2\sigma^2} \right) \right)
+= \sum_{i=1}^m \log \left( (1 - g(\phi^T x^{(i)}))^{1-z^{(i)}} \frac{1}{\sqrt{2\pi}\sigma} \exp\left( \frac{-(y^{(i)} - \theta_0^T x^{(i)})^2}{2\sigma^2} \right)
++ (g(\phi^T x^{(i)}))^{z^{(i)}} \frac{1}{\sqrt{2\pi}\sigma} \exp\left( \frac{-(y^{(i)} - \theta_1^T x^{(i)})^2}{2\sigma^2} \right) \right)
 ```
 
-Differentiating with respect to $`\theta_1`$ and setting it to 0,
+In the E-step of the EM algorithm we compute
 
 ```math
-0 = \nabla_{\theta_0} \ell(\phi, \theta_0, \theta_1) = \nabla_{\theta} \sum_{i: z^{(i)}=0} - (y^{(i)} - \theta_0^T x^{(i)})^2
+Q_i(z^{(i)}) = p(z^{(i)}|x^{(i)}, y^{(i)}; \phi, \theta_0, \theta_1) = \frac{p(y^{(i)}|x^{(i)}, z^{(i)}; \theta_0, \theta_1) p(z^{(i)}|x^{(i)}; \phi)}{\sum_z p(y^{(i)}|x^{(i)}, z; \theta_0, \theta_1) p(z|x^{(i)}; \phi)}
 ```
 
-But this is just a least-squares problem on a subset of the data. In particular, if we let $`X_0`$ and $`\vec{y}_0`$ be the design matrices formed by considering only those examples with $`z^{(i)} = 0`$, then using the same logic as for the derivation of the least squares solution we get the maximum likelihood estimate of $`\theta_0`$,
+Every probability in this term can be computed using the probability densities defined in the problem, so the E-step is tractable.
+
+For the M-step, we first define $`w_j^{(i)} = p(z^{(i)} = j|x^{(i)}, y^{(i)}; \phi, \theta_0, \theta_1)`$ for $`j = 0, 1`$ as computed in the E-step (of course we only need to compute one of these terms in the real E-step, since $`w_0^{(i)} = 1 - w_1^{(i)}`$, but we define both to simplify the expressions). Differentiating our lower bound on the likelihood with respect to $`\theta_0`$, removing terms that don't depend on $`\theta_0`$, and setting the expression equal to zero, we get
 
 ```math
-\theta_0 = (X_0^T X_0)^{-1} X_0^T \vec{y}_0
+0 = \nabla_{\theta_0} \sum_{i=1}^m \sum_{j=0,1} w_j^{(i)} \log \frac{p(y^{(i)}|x^{(i)}, z^{(i)} = j; \theta_j) p(z^{(i)} = j|x^{(i)}; \phi)}{w_j^{(i)}}
 ```
 
-The derivation for $`\theta_1`$ proceeds in the identical manner.
-
-Differentiating with respect to $`\phi`$, and ignoring terms that do not depend on $`\phi`$,
-
 ```math
-\nabla_{\phi} \ell(\phi, \theta_0, \theta_1) = \nabla_{\phi} \sum_{i=1}^m (1 - z^{(i)}) \log(1 - g(\phi^T x)) + z^{(i)} \log g(\phi^T x)
+= \nabla_{\theta_0} \sum_{i=1}^m w_0^{(i)} \log p(y^{(i)}|x^{(i)}, z^{(i)} = j; \theta_j)
 ```
 
-This is just the standard logistic regression objective function, for which we already know the gradient and Hessian
+```math
+= \nabla_{\theta_0} \sum_{i=1}^m -w_0^{(i)} (y^{(i)} - \theta_0^T x^{(i)})^2
+```
+
+This is just a weighted least-squares problem, which has solution
 
 ```math
-\nabla_{\phi} \ell(\phi, \theta_0, \theta_1) = X^T (\vec{z} - \vec{h}), \quad h_i = g(\phi^T x^{(i)})
+\theta_0 = (X_0^T W X_0)^{-1} X_0^T W \vec{y}_0, \quad W = \mathrm{diag}(w_0^{(1)}, \ldots, w_0^{(m)})
+```
+
+The derivation for $`\theta_1`$ proceeds similarly.
+
+Finally, as before, we can't compute the M-step update for $`\phi`$ in closed form, so we instead find the gradient and Hessian. However, to do this we note that
+
+```math
+\nabla_{\phi} \sum_{i=1}^m \sum_{j=0,1} w_j^{(i)} \log p(z^{(i)} = j|x^{(i)}; \phi) = \sum_{i=1}^m \left( w_0^{(i)} \log g(\phi^T x) + (1 - w_0^{(i)}) \log(1 - g(\phi^T x)) \right)
+```
+
+This term is the same as the objective for logistic regression task, but with the $`w^{(i)}`$ quantity replacing $`y^{(i)}`$. Therefore, the gradient and Hessian are given by
+
+```math
+\nabla_{\phi} \sum_{i=1}^m \sum_{j=0,1} w_j^{(i)} \log p(z^{(i)} = j|x^{(i)}; \phi) = X^T (\vec{w} - \vec{h}), \quad h_i = g(\phi^T x^{(i)})
 ```
 
 ```math
@@ -74,7 +90,6 @@ H = X^T D X, \quad D_{ii} = g(\phi^T x^{(i)})(1 - g(\phi^T x^{(i)}))
 ```
 
 (b) Now suppose $`z`$ is a latent (unobserved) random variable. Write the log-likelihood of the parameters, and derive an EM algorithm to maximize the log-likelihood. Clearly specify the E-step and M-step (again, the M-step will require a numerical solution, so find the appropriate gradients and Hessians).
-
 
 
 
