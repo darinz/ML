@@ -251,6 +251,8 @@ In this question you’ll look into the Naive Bayes and Support Vector Machine a
 
 (a) Train a Naive Bayes classifier (e.g., `sklearn.naive_bayes.MultinomialNB`) on the dataset and report the resulting error rates. Evaluate the performance of the classifier using each of the different training files (but each time using the same test file, e.g., `spam_test.arff`). Plot the error rate of the classifier versus the number of training examples.
 
+Answer: See solution in ./q4_solution folder
+
 (b) Repeat the previous part, but using a Support Vector Machine classifier (e.g., `sklearn.svm.SVC`). How does the performance of the SVM compare to that of Naive Bayes?
 
 *Note: If you use a different dataset, clearly state which dataset you used and how you split the data for training and testing.*
