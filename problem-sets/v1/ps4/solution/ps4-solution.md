@@ -77,6 +77,7 @@ H = X^T D X, \quad D_{ii} = g(\phi^T x^{(i)})(1 - g(\phi^T x^{(i)}))
 
 
 
+
 ---
 
 ## 2. **Factor Analysis and PCA**
