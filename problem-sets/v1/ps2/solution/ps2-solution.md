@@ -278,6 +278,46 @@ where $`\varepsilon(h)`$ is the generalization error of hypothesis $`h_i`$. Now 
 
 Notice that since we do not have a square root here, this bound is much tighter. [Hint: Consider the probability that a hypothesis with generalization error greater than $`\gamma`$ makes no mistakes on the training data. Instead of the Hoeffding bound, you might also find the following inequality useful: $`(1 - \gamma)^m \leq e^{-\gamma m}`$.]
 
+
+
 (b) Rewrite the above bound as a sample complexity bound, i.e., in the form: for fixed $`\delta`$ and $`\gamma`$, for $`\varepsilon(\hat{h}) \leq \gamma`$ to hold with probability at least $`(1 - \delta)`$, it suffices that $`m \geq f(k, \gamma, \delta)`$ (i.e., $`f(\cdot)`$ is some function of $`k`$, $`\gamma`$, and $`\delta`$).
+
+
+
+**Answer:**  Let $`h \in \mathcal{H}`$ be a hypothesis with true error greater than $`\gamma`$. Then
+
+```math
+P(\text{``}h \text{ predicts correctly''}) \leq 1 - \gamma,
+```
+
+so
+
+```math
+P(\text{``}h \text{ predicts correctly } m \text{ times''}) \leq (1 - \gamma)^m \leq e^{-\gamma m}.
+```
+
+Applying the union bound,
+
+```math
+P(\exists h \in \mathcal{H}, \text{ s.t. } \varepsilon(h) > \gamma \text{ and ``}h \text{ predicts correct } m \text{ times''}) \leq k e^{-\gamma m}.
+```
+
+We want to make this probability equal to $`\delta`$, so we set
+
+```math
+k e^{-\gamma m} = \delta,
+```
+
+which gives us
+
+```math
+\gamma = \frac{1}{m} \log \frac{k}{\delta}.
+```
+
+This implies that with probability $`1 - \delta`$,
+
+```math
+\varepsilon(\hat{h}) \leq \frac{1}{m} \log \frac{k}{\delta}.
+```
 
 
