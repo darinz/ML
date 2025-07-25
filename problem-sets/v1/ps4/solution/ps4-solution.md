@@ -450,3 +450,5 @@ Plot a graph showing the average number of steps before the car reaches the top 
 
 **Answer:** The solution implementation of qlearning.py is in ./q5_solution:
 
+Within 10000 episodes, the algorithm converges to a policy that usually gets the car up the hill in around 52-53 steps. The following plot shows the number of steps per episode (averaged over 500 episodes) versus the number of episodes.
+
