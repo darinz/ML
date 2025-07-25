@@ -1,4 +1,4 @@
-# Prerequisite Math Problems: Machine Learning
+# Problem Set #1: Math Review
 
 We encourage you to solve each of the following problems to brush up on your linear algebra and probability.
 
