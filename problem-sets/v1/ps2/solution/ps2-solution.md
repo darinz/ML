@@ -34,6 +34,55 @@ Setting the gradient to 0 gives us
 \theta = (X^T X + \lambda I)^{-1} X^T \vec{y}.
 ```
 
+**Explanation:**
+
+In ridge regression, we start with the regularized least squares cost function:
+
+```math
+J(\theta) = \frac{1}{2} (X\theta - \vec{y})^T (X\theta - \vec{y}) + \frac{\lambda}{2} \theta^T \theta.
+```
+
+- The first term measures the sum of squared errors between the predictions $`X\theta`$ and the true values $`\vec{y}`$.
+- The second term penalizes large values of $`\theta`$ to prevent overfitting, with $`\lambda`$ controlling the strength of regularization.
+
+To find the minimum, we take the gradient with respect to $`\theta`$:
+
+```math
+\nabla_{\theta} J(\theta) = X^T X \theta - X^T \vec{y} + \lambda \theta.
+```
+
+- $`X^T X \theta`$ comes from differentiating the quadratic term $`(X\theta - \vec{y})^T (X\theta - \vec{y})`$.
+- $`-X^T \vec{y}`$ is from the cross term.
+- $`\lambda \theta`$ is from the regularization term.
+
+Setting the gradient to zero gives the normal equations for ridge regression:
+
+```math
+0 = X^T X \theta - X^T \vec{y} + \lambda \theta
+```
+
+Rearranging terms:
+
+```math
+X^T X \theta + \lambda \theta = X^T \vec{y}
+```
+
+Factoring $`\theta`$:
+
+```math
+(X^T X + \lambda I) \theta = X^T \vec{y}
+```
+
+Solving for $`\theta`$ gives the closed-form solution:
+
+```math
+\theta = (X^T X + \lambda I)^{-1} X^T \vec{y}.
+```
+
+This formula shows how regularization modifies the normal equations by adding $`\lambda I`$ to the matrix being inverted, improving numerical stability and reducing overfitting.
+
+---
+
 (b) Suppose that we want to use kernels to implicitly represent our feature vectors in a high-dimensional (possibly infinite dimensional) space. Using a feature mapping $`\phi`$, the ridge regression cost function becomes
 ```math
 J(\theta) = \frac{1}{2} \sum_{i=1}^{m} (\theta^T \phi(x^{(i)}) - y^{(i)})^2 + \frac{\lambda}{2}||\theta||^2.
@@ -81,6 +130,36 @@ B(\lambda I + AB) &= (\lambda I + BA)B \\
 ```
 
 This last line clearly holds, proving the identity.
+
+**Explanation:**
+
+When using kernels, we map the data into a high-dimensional space via $`\phi(x)`$ and express the solution in terms of the kernel matrix $`K`$.
+
+- $`\Phi`$ is the design matrix of mapped features.
+- $`K = \Phi \Phi^T`$ is the kernel matrix, where $`K_{ij} = \phi(x^{(i)})^T \phi(x^{(j)})`$.
+
+The solution for $`\theta`$ can be rewritten using the matrix inversion identity:
+
+```math
+\theta = \Phi^T (K + \lambda I)^{-1} \vec{y}
+```
+
+To predict for a new input $`x_{\text{new}}`$:
+
+```math
+\vec{y}_{\text{new}} = \theta^T \phi(x_{\text{new}}) = \vec{y}^T (K + \lambda I)^{-1} \Phi \phi(x_{\text{new}})
+```
+
+- $`\Phi \phi(x_{\text{new}})`$ is a vector of kernel evaluations between $`x_{\text{new}}`$ and each training point.
+- The prediction can be written as a sum over training points:
+
+```math
+\sum_{i=1}^m \alpha_i K(x^{(i)}, x_{\text{new}})
+```
+
+where $`\alpha = (K + \lambda I)^{-1} \vec{y}`$.
+
+The matrix identity from the hint is proved by multiplying both sides by $`\lambda(I + AB)`$ and $`\lambda(I + BA)`$ and showing both sides are equal, confirming the equivalence of the two forms.
 
 ## 2. $`\ell_2`$ norm soft margin SVMs
 
