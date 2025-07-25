@@ -6,8 +6,10 @@
 
 Norms are incredibly useful, and they show up quite often! For any vector v that is n-dimensional, i.e. $`v \in \mathbb{R}^n`$, we have the following
 
-(a) One-norm ($`l^1`$): $`\|v\|_1 = \sum_{i=1}^n |v_i|`$  
-(b) Two-norm ($`l^2`$): $`\|v\|_2 = \sqrt{v^T v} = \sqrt{\sum_{i=1}^n v_i^2}`$  
+(a) One-norm ($`l_1`$): $`\|v\|_1 = \sum_{i=1}^n |v_i|`$
+
+(b) Two-norm ($`l_2`$): $`\|v\|_2 = \sqrt{v^T v} = \sqrt{\sum_{i=1}^n v_i^2}`$  
+
 (c) $`\infty`$-norm: $`\|v\|_\infty = \max_i |v_i|`$
 
 ### Symmetric Matrices and the Quadratic Form
