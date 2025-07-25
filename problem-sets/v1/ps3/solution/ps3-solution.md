@@ -194,6 +194,10 @@ In this problem you’ll implement the K-means clustering algorithm on a synthet
 
 **Answer:** See ./solution/q4_solution
 
+Below we show the centroid evolution for two typical runs with k = 3. Note that the diﬀerent starting positions of the clusters lead to do diﬀerent final clusterings.
+
+![Problem 4 answer](./problem4_answer.png)
+
 ## 5. **The Generalized EM algorithm**
 
 When attempting to run the EM algorithm, it may sometimes be difficult to perform the M step exactly — recall that we often need to implement numerical optimization to perform the maximization, which can be costly. Therefore, instead of finding the global maximum of our lower bound on the log-likelihood, and alternative is to just increase this lower bound a little bit, by taking one step of gradient ascent, for example. This is commonly known as the Generalized EM (GEM) algorithm.
