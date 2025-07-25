@@ -342,25 +342,13 @@ By choosing, for example, $`\tau = \epsilon / \log m`$ we are done.
 **Explanation:**
 
 For part (a):
-- We set $\alpha_i = 1$ for all $i$ and $b = 0$ as suggested by the hint.
-- The SVM decision function at a training point $x^{(i)}$ is:
-
-```math
-f(x^{(i)}) = \sum_{j=1}^m y^{(j)} K(x^{(j)}, x^{(i)})
-```
-- Subtracting the true label $y^{(i)}$ and taking the absolute value, we expand the sum and separate the $j = i$ term:
-
-```math
-|f(x^{(i)}) - y^{(i)}| = |y^{(i)} + \sum_{j \neq i} y^{(j)} \exp(-\|x^{(j)} - x^{(i)}\|^2 / \tau^2) - y^{(i)}|
-```
-- The $y^{(i)}$ terms cancel, leaving only the sum over $j \neq i$.
-- The triangle inequality is used to bound the sum of absolute values by the sum of the absolute values of each term.
-- Since $y^{(j)} \in \{-1, +1\}$, $|y^{(j)}| = 1$.
-- The assumption $\|x^{(j)} - x^{(i)}\| \geq \epsilon$ for $i \neq j$ allows us to bound each exponential by $\exp(-\epsilon^2 / \tau^2)$.
-- There are $m-1$ such terms, so the total is $(m-1) \exp(-\epsilon^2 / \tau^2)$.
-- To ensure $|f(x^{(i)}) - y^{(i)}| < 1$, we require $(m-1) \exp(-\epsilon^2 / \tau^2) < 1$.
-- Solving for $\tau$ gives $\tau < \epsilon / \log(m-1)$.
-- Choosing $\tau = \epsilon / \log m$ is a valid example.
+- We want to bound the generalization error of the hypothesis $\hat{h}$ that achieves zero training error, under the assumption that there exists at least one perfect hypothesis in $\mathcal{H}$.
+- For any $h \in \mathcal{H}$ with true error greater than $\gamma$, the probability it predicts correctly on a single example is at most $1 - \gamma$.
+- The probability it predicts correctly on all $m$ training examples is at most $(1 - \gamma)^m$.
+- Using the inequality $(1 - \gamma)^m \leq e^{-\gamma m}$, we get an exponential bound.
+- By the union bound, the probability that any of the $k$ hypotheses with error $> \gamma$ makes no mistakes on $m$ examples is at most $k e^{-\gamma m}$.
+- Setting this probability to $\delta$ and solving for $\gamma$ gives $\gamma = \frac{1}{m} \log \frac{k}{\delta}$.
+- Thus, with probability at least $1 - \delta$, the error of $\hat{h}$ is at most $\frac{1}{m} \log \frac{k}{\delta}$.
 
 ---
 
@@ -497,6 +485,19 @@ This implies that with probability $`1 - \delta`$,
 \varepsilon(\hat{h}) \leq \frac{1}{m} \log \frac{k}{\delta}.
 ```
 
+**Explanation:**
+
+For part (a):
+- We want to bound the generalization error of the hypothesis $\hat{h}$ that achieves zero training error, under the assumption that there exists at least one perfect hypothesis in $\mathcal{H}$.
+- For any $h \in \mathcal{H}$ with true error greater than $\gamma$, the probability it predicts correctly on a single example is at most $1 - \gamma$.
+- The probability it predicts correctly on all $m$ training examples is at most $(1 - \gamma)^m$.
+- Using the inequality $(1 - \gamma)^m \leq e^{-\gamma m}$, we get an exponential bound.
+- By the union bound, the probability that any of the $k$ hypotheses with error $> \gamma$ makes no mistakes on $m$ examples is at most $k e^{-\gamma m}$.
+- Setting this probability to $\delta$ and solving for $\gamma$ gives $\gamma = \frac{1}{m} \log \frac{k}{\delta}$.
+- Thus, with probability at least $1 - \delta$, the error of $\hat{h}$ is at most $\frac{1}{m} \log \frac{k}{\delta}$.
+
+---
+
 (b) Rewrite the above bound as a sample complexity bound, i.e., in the form: for fixed $`\delta`$ and $`\gamma`$, for $`\varepsilon(\hat{h}) \leq \gamma`$ to hold with probability at least $`(1 - \delta)`$, it suffices that $`m \geq f(k, \gamma, \delta)`$ (i.e., $`f(\cdot)`$ is some function of $`k`$, $`\gamma`$, and $`\delta`$).
 
 **Answer:**  From part (a), if we take the equation,
@@ -512,3 +513,10 @@ m = \frac{1}{\gamma} \log \frac{k}{\delta}.
 ```
 
 Therefore, for $`m`$ larger than this, $`\varepsilon(\hat{h}) \leq \gamma`$ will hold with probability at least $`1 - \delta`$.
+
+**Explanation:**
+
+For part (b):
+- We rearrange the equation $k e^{-\gamma m} = \delta$ from part (a) to solve for $m$ in terms of $\gamma$, $k$, and $\delta$.
+- Taking the natural logarithm of both sides and isolating $m$ gives $m = \frac{1}{\gamma} \log \frac{k}{\delta}$.
+- This tells us how many training examples are needed to guarantee, with probability at least $1 - \delta$, that the generalization error of $\hat{h}$ is at most $\gamma$.
