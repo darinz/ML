@@ -159,23 +159,41 @@ $`= \sum_{i=1}^m 2 \left( \left(\sum_{k=1}^n x_{ik} w_k\right) - y_i \right) x_{
 
 Note that on line 4, when evaluating $`\frac{\partial}{\partial w_j} \sum_{k=1}^n x_{ik} w_k`$, the summation can be decomposed to $`\frac{\partial}{\partial w_j} \left( \left(\sum_{k \neq j} x_{ik} w_k\right) + x_{ij} w_j \right)`$. The partial derivative of $`\sum_{k \neq j} x_{ik} w_k`$ will evaluate to 0, since it is not in terms of $`w_j`$. The partial derivative of $`x_{ij} w_j`$ will evaluate to $`x_{ij}`$.
 
+Therefore, $`\nabla_w L(w)`$ is a column vector with $`n`$ components, where the $`j`$-th component is:
+$`\sum_{i=1}^m 2 \left( \left(\sum_{k=1}^n x_{ik} w_k\right) - y_i \right) x_{ij}`$
+
+This expanded summation form is equivalent to the matrix form $`2X^T (Xw - Y)`$.
+
 
 
 ### 2.2 Subspaces of X
 
+Determine the rowspace, columnspace, nullspace, and rank of the matrix $`X`$.
+
 Given:  
 $`X = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}`$
 
-- Rowspace: span of rows  
-- Colspace: span of columns  
-- Nullspace: solution to $`Xv = 0`$, which gives span of $`(1,-2,1)`$  
-- Rank: 2
+**Rowspace:** the span (i.e., the set of all linear combinations) of the rows of $`X`$. Therefore, in this example, it is the subspace of vectors of the form $`(1x + 4y, 2x + 5y, 3x + 6y)`$ for all $`x`$ and $`y`$.
+
+**Columnspace (a.k.a. Range(X)):** is the span of the columns of $`X`$. In this example, it is the subspace of vectors of the form $`(1x + 2y + 3z, 4x + 5y + 6z)`$ for all $`x, y,`$ and $`z`$.
+
+**Nullspace (a.k.a. Null(X)):** is the set of vectors $`v`$ such that $`Xv = 0`$. In this example, the nullspace is the subspace spanned by $`(1, -2, 1)`$.
+
+**Rank:** The matrix $`X`$ can be reduced to the form $`\begin{pmatrix} 1 & 0 & -1 \\ 0 & 1 & 2 \end{pmatrix}`$. This matrix has submatrix $`\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}`$, which has rank 2. Observe that the third column, $`\begin{pmatrix} -1 \\ 2 \end{pmatrix}`$, is in the columnspace of this first submatrix.
 
 ### 2.3 Connections between subspaces
 
-(a) Rowspace of X is colspace of $`X^T`$ and vice versa  
-(b) Null(X) = Row(X)$`^\perp`$  
-(c) Null($`X^T`$) = Col(X)$`^\perp`$
+Check the following facts regarding connections between subspaces:
+
+**(a) The rowspace of X is the columnspace of X^T, and vice versa.**
+
+**Solution:** The matrix $`X^T`$ is $`\begin{pmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{pmatrix}`$. The rows of $`X`$ are the columns of $`X^T`$, and vice versa.
+
+**(b) The nullspace of X and the rowspace of X are orthogonal complements. This can be written in shorthand as Null(X) = Range(X^T)⊥. This is further equivalent to saying Range(X^T) = Null(X)⊥.**
+
+**Solution:** A vector $`v \in \text{Null}(X)`$ if and only if $`Xv = 0`$, which is true if and only if for every row $`X_i`$ of $`X`$, $`\langle X_i, v \rangle = 0`$. This is precisely the condition that $`v`$ is perpendicular to each row of $`X`$, which is the stated claim.
+
+**(c) The nullspace of X^T is orthogonal to the columnspace of X. This can be written in shorthand as Null(X^T) = Range(X)⊥.**
 
 ### 2.4 Facts in regression
 
@@ -185,13 +203,3 @@ $`X = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}`$
 (d) If X is short and wide, $`X^T X`$ not invertible  
 (e) $`\text{Col}(X^T X) = \text{Row}(X)`$
 
----
-
-## Topics Covered
-
-- Probability Review: PDF, CDF and Expectation  
-- Linear Algebra Review  
-  - Summation vs Matrix Form  
-  - Subspaces of X  
-  - Subspace Connections  
-  - Regression and $`X^T X`$
