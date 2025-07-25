@@ -322,6 +322,8 @@ V'(s) = R(s) + \gamma \sum_{s' \in S} P_{\pi(s)}(s')(V(s')).
 
 (a) Prove that if $`V_1(s) \leq V_2(s)`$ for all $`s \in S`$, then $`B(V_1)(s) \leq B(V_2)(s)`$ for all $`s \in S`$.
 
+
+
 (b) Prove that for any $`V`$,
 
 ```math
