@@ -255,6 +255,8 @@ Answer: See solution in ./q4_solution folder
 
 (b) Repeat the previous part, but using a Support Vector Machine classifier (e.g., `sklearn.svm.SVC`). How does the performance of the SVM compare to that of Naive Bayes?
 
+Answer: See solution in ./q4_solution folder
+
 *Note: If you use a different dataset, clearly state which dataset you used and how you split the data for training and testing.*
 
 ## 5. Uniform convergence
