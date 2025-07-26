@@ -171,3 +171,117 @@ A^T A = (USV^T)^T USV^T
 ```
 Since we can diagonalize $`A^T A`$ into $`VS^2V^T`$, it has eigenvectors that are columns of $`V`$ and associated eigenvalues $`S^2`$.
 
+### (c)
+
+Show that for a matrix $`A`$, given $`AA^T = US^2U^T`$ and $`A^T A = VS^2V^T`$, then $`A = USV^T`$. In other words, show that for any vector $`x \in \mathbb{R}^d`$, $`Ax = USV^T x`$.
+
+**Solution:**
+Let $`\{v_1, v_2, ..., v_n\}`$ be the rows of $`V^T`$. They are orthogonal and unit norm. Any $`x \in \mathbb{R}^d`$ can be written as $`x = \sum_{i=1}^d \alpha_i v_i`$.
+
+**First Derivation:**
+```math
+USV^T x = USV^T \sum_{i=1}^d \alpha_i v_i
+= \sum_{i=1}^d \alpha_i USV^T v_i
+= \sum_{i=1}^d \alpha_i US e_i
+= \sum_{i=1}^d \alpha_i U \lambda_i e_i
+= \sum_{i=1}^d \alpha_i \lambda_i u_i
+```
+
+**Intermediate Explanation:**
+*   $`v_i`$ is an eigenvector of $`A^T A`$, so $`A^T A v_i = \lambda_i^2 v_i`$ (equation 1).
+*   Multiplying equation (1) by $`A`$ on both sides: $`(AA^T) A v_i = \lambda_i^2 A v_i`$, so $`A v_i`$ is an eigenvector of $`AA^T`$.
+*   Multiplying equation (1) by $`v_i^T`$ on both sides: $`v_i^T A^T A v_i = \lambda_i^2 v_i^T v_i`$, which is $`||A v_i||^2 = \lambda_i^2 ||v_i||^2`$.
+*   So the length of vector $`A v_i`$ is $`\lambda_i`$.
+*   Normalize the vector $`A v_i`$: $`\frac{A v_i}{\lambda_i} = u_i`$.
+*   So $`\lambda_i u_i = A v_i`$.
+
+**Second Derivation:**
+Plug it back into the formula:
+```math
+USV^T x = \sum_{i=1}^d \alpha_i \lambda_i u_i
+= \sum_{i=1}^d \alpha_i A v_i
+= A \sum_{i=1}^d \alpha_i v_i
+= Ax
+```
+
+## 4. Convolutional Neural Networks
+
+### (a)
+
+Discuss the advantages of a convolutional layer compared to a fully connected one.
+
+**Solution:**
+Convolutional layers are more flexible than fully connected ones since not all input neurons affect all output neurons. In addition, the number of weights per layer is smaller than that of linear layers, which would ease computation with high-dimensional data.
+
+### (b)
+
+Discuss the advantages of maxpooling in CNN.
+
+**Solution:**
+Pooling layers are used to downsample feature maps, which make processing more efficient by reducing the number of parameters to learn.
+
+## 5. Shapes in Convolutional Neural Networks
+
+Understanding data shapes is crucial when designing convolutional neural networks. This problem set aims to provide experience and intuition regarding why CNNs require fewer parameters compared to fully connected layers.
+
+**Shape of a convolutional layer / maxpooling output:**
+For a $`n \times n`$ input, $`f \times f`$ filter, padding $`p`$, and stride $`s`$:
+```math
+o = \frac{n - f + 2p}{s} + 1
+```
+
+### (a)
+
+Pytorch `Conv2d` will represent 2D convolution and `MaxPool2d` will represent 2D max pooling. Given an initial input tensor shape of `(N, 3, 64, 64)` (a batch of `N` 64x64 RGB images), determine the new shape of the tensor after each operation. Note that activations are omitted as they don't change data shape.
+
+**Solution:**
+
+**1. Operation:** `Conv2D(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1)`
+**Solution:** `(N, 16, 64, 64)`
+
+**2. Operation:** `MaxPool2d(kernel_size=2, stride=2, padding=0)`
+**Solution:** `(N, 16, 32, 32)`
+
+**3. Operation:** `Conv2D(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=0)`
+**Solution:** `(N, 32, 30, 30)`
+
+**4. Operation:** `MaxPool2d(kernel_size=2, stride=2, padding=1)`
+**Solution:** `(N, 32, 16, 16)`
+
+**5. Operation:** `Conv2D(in_channels=32, out_channels=8, kernel_size=1, stride=1, padding=0)`
+**Solution:** `(N, 8, 16, 16)`
+
+### (b)
+
+For each convolutional and fully connected layer, compute the number of parameters. For convolutional layers, also compute the number of parameters for a hypothetical fully connected layer mapping from the flattened input channels to the flattened output channels. Parameter calculations can be left as products and additions.
+
+**Solution:**
+
+**Layer 1: `Conv2D(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1)`**
+*   **Conv Parameters:** $`3 * 16 * 3 * 3 + 16 = 448`$
+*   **Fully Connected Parameters (hypothetical):** $`3 * 64 * 64 * 16 * 64 * 64 + 16 * 64 * 64 = 805306512`$
+
+**Layer 2: `MaxPool2d(kernel_size=2, stride=2, padding=0)`**
+*   **Parameters:** $`0`$
+
+**Layer 3: `Conv2D(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=0)`**
+*   **Conv Parameters:** $`16 * 32 * 3 * 3 + 32 = 4640`$
+*   **Fully Connected Parameters (hypothetical):** $`16 * 32 * 32 * 32 * 30 * 30 + 32 * 30 * 30 = 471888000`$
+
+**Layer 4: `MaxPool2d(kernel_size=2, stride=2, padding=1)`**
+*   **Output Shape:** $`(N, 32, 16, 16)`$
+
+**Layer 5: `Conv2D(in_channels=32, out_channels=8, kernel_size=1, stride=1, padding=0)`**
+*   **Conv Parameters:** $`32 * 8 + 8 = 264`$
+*   **Fully Connected Parameters (hypothetical):** $`32 * 16 * 16 * 8 * 16 * 16 + 8 * 16 * 16 = 16779264`$
+
+**Layer 6: `Conv2D(in_channels=8, out_channels=4, kernel_size=5, stride=1, padding=0)`**
+*   **Conv Parameters:** $`8 * 4 * 5 * 5 + 4 = 804`$
+*   **Fully Connected Parameters (hypothetical):** $`8 * 16 * 16 * 4 * 12 * 12 + 4 * 12 * 12 = 1180224`$
+
+**Layer 7: `Flatten`**
+*   **Parameters:** $`0`$
+
+**Layer 8: `Linear(in_features=576, out_features=10)`**
+*   **Parameters:** $`576 * 10 + 10 = 5770`$
+
