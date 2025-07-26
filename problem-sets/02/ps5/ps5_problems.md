@@ -71,7 +71,7 @@ Find the values of the gradients $`\frac{\partial y}{\partial W^{(1)}}`$, $`\fra
 
 Observe the values of $`z_i`$, $`\frac{\partial y}{\partial W_i^{(1)}}`$, and $`\frac{\partial y}{\partial b_i^{(1)}}`$, and discuss what this implies for the network's expressiveness.
 
-## 3. The Chain Rule (Optional)
+## 3. The Chain Rule
 
 ### (a)
 
