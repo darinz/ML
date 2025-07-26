@@ -140,7 +140,7 @@ Observe the values of $`z_i`$, $`\frac{\partial y}{\partial W_i^{(1)}}`$, and $`
 **Solution:**
 If weights are initialized to the same value, all $`z_i`$ will be the same. Similarly, all $`W_i^{(1)}`$ and $`b_i^{(1)}`$ will be the same, effectively reducing the neural network to a single hidden unit. This pattern extends to gradients and subsequent updates during gradient descent, meaning all weights and biases remain the same after any number of steps.
 
-## 3. The Chain Rule (Optional)
+## 3. The Chain Rule
 
 ### (a)
 
