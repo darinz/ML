@@ -83,10 +83,50 @@ Practical programming skills with Python and NumPy:
 
 **Location**: `04_problems/`
 
-Hands-on exercises to reinforce learning:
+Comprehensive problem sets designed to reinforce mathematical foundations and programming skills essential for machine learning. Each problem set includes detailed solutions with step-by-step explanations.
 
-- **prereq_math_problems.md** - Problem set covering key topics
-- **solution/prereq_math_solution.md** - Complete solutions with explanations
+### Available Problem Sets
+
+- **ps1_problems.md** - **Gradients, Hessians, and Linear Algebra Fundamentals**
+  - Gradients and Hessians of quadratic functions
+  - Positive definite matrices and their properties
+  - Eigenvectors, eigenvalues, and the spectral theorem
+  - Probability and multivariate Gaussians
+  - **Solution**: `solution/ps1_solution.md` (21KB, 437 lines)
+
+- **ps2_problems.md** - **Probability Review and Linear Algebra Applications**
+  - Probability density functions and cumulative distribution functions
+  - Expectation calculations and random variable transformations
+  - Vector norms and matrix operations
+  - Fundamental subspaces of matrices
+  - **Solution**: `solution/ps2_solution.md` (11KB, 220 lines)
+
+- **ps3_problems.md** - **Advanced Linear Algebra and Optimization**
+  - Matrix decompositions and factorizations
+  - Optimization problems and constraints
+  - Advanced probability concepts
+  - **Solution**: `solution/ps3_solution.md` (11KB, 294 lines)
+
+- **ps4_problems.md** - **Dimensionality Reduction and Applications**
+  - Principal Component Analysis (PCA)
+  - Independent Component Analysis (ICA)
+  - Image processing applications
+  - **Solution**: `solution/ps4_solution.md` (13KB, 287 lines)
+
+- **ps5_problems.md** - **Advanced Topics and Integration**
+  - Advanced mathematical concepts
+  - Integration of multiple topics
+  - Real-world applications
+  - **Solution**: `solution/ps5_solution.md` (14KB, 228 lines)
+
+### Problem Set Features
+
+- **Comprehensive Coverage**: Each problem set covers multiple mathematical topics with increasing complexity
+- **Detailed Solutions**: Complete solutions with step-by-step explanations and mathematical reasoning
+- **Practical Applications**: Problems designed to connect theoretical concepts to machine learning applications
+- **Progressive Difficulty**: Problem sets build upon each other, reinforcing concepts from previous sets
+- **Mathematical Rigor**: Problems require formal mathematical proofs and derivations
+- **Programming Integration**: Some problems include computational components using Python/NumPy
 
 ## Getting Started
 
