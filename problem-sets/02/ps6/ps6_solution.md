@@ -11,6 +11,8 @@ Consider the following dataset, which is represented as three points in R². Not
 [ 6   12 ]
 ```
 
+![Q1 PCA](./q1_pca.png)
+
 **Scatter Plot:**
 A 2D scatter plot shows the three data points.
 *   **X-axis:** Ranges from 1 to 6, with major ticks at 1, 2, 3, 4, 5, 6.
@@ -61,6 +63,7 @@ In this particular dataset, we perfectly preserve this dataset (the points are a
 [ 6   -6  ]
 [ 2    2  ]
 ```
+![Q1 V2](./q1_v2_pca.png)
 
 ### (a)
 
