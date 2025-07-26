@@ -1,6 +1,6 @@
 # Problem Set #4 Solutions: Math Review
 
-In this section, we explore maximum likelihood estimation with more examples of noise densities, review some basics about subspaces in linear algebra, and go over data standardization and normalization.
+In this problem set, we explore maximum likelihood estimation with more examples of noise densities, review some basics about subspaces in linear algebra, and go over data standardization and normalization.
 
 ## Definitions, again!
 
