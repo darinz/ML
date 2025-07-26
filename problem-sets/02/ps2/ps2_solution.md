@@ -170,3 +170,4 @@ for idx, l1_penalty in enumerate(l1_penalties):
 l1_penalty_best = l1_penalties[np.argmin(err)]
 print('Best choice of l1_penalty = ', l1_penalty_best)
 ```
+
