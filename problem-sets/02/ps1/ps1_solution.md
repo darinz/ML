@@ -1,6 +1,4 @@
-# Problem Set 1 Solutions
-
-## Section 04: Train-Test Splitting, Generalized Least Squares Regression, MAP as Regularization
+# Problem Set 1 Solutions: Train-Test Splitting, Generalized Least Squares Regression, MAP as Regularization
 
 ### 1. Biased Test Error
 Is the test error unbiased for these programs? If not, how can we fix the code so it is?
