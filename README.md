@@ -282,21 +282,21 @@ Recent advances in machine learning have revolutionized various fields and appli
 - Transformer: [original transformer paper](https://arxiv.org/abs/1706.03762)
 - LLMs: [Wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
 
-#### 12. Multi-Armed Bandits
-- Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
-- Linear bandits: [linear bandits paper](https://papers.nips.cc/paper_files/paper/2011/hash/e1d5be1c7f2f456670de3d53c7b54f4a-Abstract.html), [generalized linear bandits paper](https://papers.nips.cc/paper_files/paper/2010/hash/c2626d850c80ea07e7511bbae4c76f4b-Abstract.html), [pure exploration/BAI paper](https://arxiv.org/abs/1409.6110)
-- Contextual bandits: [contextual bandits survey paper](https://www.ambujtewari.com/research/tewari17ads.pdf)
-
-#### 13. Reinforcement Learning for training Large Language Models
-- Reinforcement Learning Textbook: [Sutton and Barto](http://incompleteideas.net/book/the-book-2nd.html)
-- Deep Reinforcement Learning: [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
-- Reinforcement Learning for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
-
-#### 14. Computer Vision Advances
+#### 12. Computer Vision Advances
 - Vision Transformers (ViT): [original ViT paper](https://arxiv.org/abs/2010.11929), [ViT tutorial](https://pytorch.org/hub/pytorch_vision_vit/), [ViT implementation](https://github.com/lucidrains/vit-pytorch)
 - Self-Supervised Learning in Vision: [survey paper](https://arxiv.org/abs/1902.06162), [BYOL paper](https://arxiv.org/abs/2006.07733), [DINO paper](https://arxiv.org/abs/2104.14294)
 - Contrastive Learning (SimCLR, MoCo): [SimCLR paper](https://arxiv.org/abs/2002.05709), [MoCo paper](https://arxiv.org/abs/1911.05722), [MoCo v2](https://arxiv.org/abs/2003.04297), [MoCo v3](https://arxiv.org/abs/2104.02057)
 - Foundation Models for Vision: [CLIP paper](https://arxiv.org/abs/2103.00020), [DALL-E paper](https://arxiv.org/abs/2102.12092), [SAM paper](https://arxiv.org/abs/2304.02643), [Segment Anything](https://github.com/facebookresearch/segment-anything)
+
+#### 13. Multi-Armed Bandits
+- Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
+- Linear bandits: [linear bandits paper](https://papers.nips.cc/paper_files/paper/2011/hash/e1d5be1c7f2f456670de3d53c7b54f4a-Abstract.html), [generalized linear bandits paper](https://papers.nips.cc/paper_files/paper/2010/hash/c2626d850c80ea07e7511bbae4c76f4b-Abstract.html), [pure exploration/BAI paper](https://arxiv.org/abs/1409.6110)
+- Contextual bandits: [contextual bandits survey paper](https://www.ambujtewari.com/research/tewari17ads.pdf)
+
+#### 14. Reinforcement Learning for training Large Language Models
+- Reinforcement Learning Textbook: [Sutton and Barto](http://incompleteideas.net/book/the-book-2nd.html)
+- Deep Reinforcement Learning: [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
+- Reinforcement Learning for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
 
 #### 15. Practical Applications
 - Natural Language Processing: [Neural-Machine-Translation](https://github.com/darinz/Neural-Machine-Translation)
