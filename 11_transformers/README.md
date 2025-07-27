@@ -1,4 +1,4 @@
-# Transformers and Language Models
+# Transformers and Large Language Models
 
 This section contains comprehensive materials covering transformer architectures and large language models (LLMs), which have revolutionized natural language processing and artificial intelligence. Transformers represent a fundamental shift from recurrent and convolutional architectures to attention-based models that can process sequences in parallel and capture long-range dependencies effectively.
 
@@ -14,7 +14,6 @@ Upon completing this section, you will understand:
 - Self-attention, multi-head attention, and positional encoding
 - Large language model training and optimization techniques
 - Modern applications and deployment strategies
-- Ethical considerations and responsible AI practices
 
 ## Table of Contents
 
