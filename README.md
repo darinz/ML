@@ -287,7 +287,7 @@ Comprehensive coverage of multi-armed bandits, a fundamental framework for seque
 
 **Applications**: Online advertising, recommendation systems, clinical trials, dynamic pricing, A/B testing, and resource allocation
 
-For comprehensive coverage including theoretical foundations, algorithmic implementations, and real-world applications, see the [13_bandits/README.md](./13_bandits/README.md).
+For comprehensive coverage including theoretical foundations, algorithmic implementations, and real-world applications, see the [13_bandits/README.md](./11_bandits/README.md).
 
 #### 11. [Transformers and Language Models](./11_transformers/)
 Comprehensive coverage of transformer architectures and large language models (LLMs) that have revolutionized natural language processing and artificial intelligence. This section provides both theoretical foundations and practical implementations.
