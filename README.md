@@ -285,11 +285,16 @@ Comprehensive coverage of transformer architectures and large language models (L
 - **[Training and Optimization](./11_transformers/04_training_and_optimization.md)** - Optimization strategies, regularization techniques, evaluation metrics, and training stability
 - **[Applications and Use Cases](./11_transformers/05_applications_and_use_cases.md)** - NLP tasks, generative AI, multimodal applications, and real-world deployment
 
-#### 12. Computer Vision Advances
-- Vision Transformers (ViT): [original ViT paper](https://arxiv.org/abs/2010.11929), [ViT tutorial](https://pytorch.org/hub/pytorch_vision_vit/), [ViT implementation](https://github.com/lucidrains/vit-pytorch)
-- Self-Supervised Learning in Vision: [survey paper](https://arxiv.org/abs/1902.06162), [BYOL paper](https://arxiv.org/abs/2006.07733), [DINO paper](https://arxiv.org/abs/2104.14294)
-- Contrastive Learning (SimCLR, MoCo): [SimCLR paper](https://arxiv.org/abs/2002.05709), [MoCo paper](https://arxiv.org/abs/1911.05722), [MoCo v2](https://arxiv.org/abs/2003.04297), [MoCo v3](https://arxiv.org/abs/2104.02057)
-- Foundation Models for Vision: [CLIP paper](https://arxiv.org/abs/2103.00020), [DALL-E paper](https://arxiv.org/abs/2102.12092), [SAM paper](https://arxiv.org/abs/2304.02643), [Segment Anything](https://github.com/facebookresearch/segment-anything)
+#### 12. [Computer Vision Advances](./12_vision/)
+Comprehensive coverage of modern computer vision advances including vision transformers, self-supervised learning, contrastive learning, and foundation models. This section provides both theoretical foundations and practical implementations for cutting-edge computer vision techniques.
+
+**Core Topics:**
+- **[Vision Transformers (ViT)](./12_vision/01_vision_transformers.md)** - Transformer architecture adaptation for vision, patch embedding, self-attention mechanisms, and architectural variants (DeiT, Swin, ConvNeXt)
+- **[Self-Supervised Learning](./12_vision/02_self_supervised_learning.md)** - Pretext tasks (inpainting, jigsaw, rotation, colorization), representation learning, and transfer learning strategies
+- **[Contrastive Learning](./12_vision/03_contrastive_learning.md)** - Modern contrastive methods including SimCLR, MoCo, BYOL, and DINO with theoretical foundations and practical implementations
+- **[Foundation Models for Vision](./12_vision/04_foundation_models.md)** - CLIP for vision-language understanding, SAM for universal segmentation, DALL-E for text-to-image generation, and zero-shot learning capabilities
+
+**Applications**: Image classification, object detection, segmentation, image generation, medical imaging, and multi-modal vision-language tasks
 
 #### 13. Multi-Armed Bandits
 - Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
