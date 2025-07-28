@@ -26,6 +26,14 @@ Upon completing this section, you will understand:
 - [Implementation Examples](#implementation-examples)
 - [Reference Materials](#reference-materials)
 
+## Documentation Files
+
+- [01_fundamentals_of_rl_for_language_models.md](01_fundamentals_of_rl_for_language_models.md) - Core concepts and problem formulation
+- [02_human_feedback_collection.md](02_human_feedback_collection.md) - Data collection strategies and annotation guidelines
+- [03_reward_modeling.md](03_reward_modeling.md) - Reward function learning and validation
+- [04_policy_optimization.md](04_policy_optimization.md) - Policy gradient methods and optimization techniques
+- [05_alignment_techniques.md](05_alignment_techniques.md) - Advanced alignment methods and safety considerations
+
 ## Fundamentals of RL for Language Models
 
 ### Problem Formulation
