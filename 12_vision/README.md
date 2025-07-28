@@ -25,6 +25,13 @@ Upon completing this section, you will understand:
 - [Implementation Examples](#implementation-examples)
 - [Reference Materials](#reference-materials)
 
+### Detailed Documentation
+
+- [01_vision_transformers.md](01_vision_transformers.md) - Comprehensive guide to Vision Transformers
+- [02_self_supervised_learning.md](02_self_supervised_learning.md) - Self-supervised learning techniques in vision
+- [03_contrastive_learning.md](03_contrastive_learning.md) - Contrastive learning methods and frameworks
+- [04_foundation_models.md](04_foundation_models.md) - Foundation models for computer vision
+
 ## Vision Transformers (ViT)
 
 ### Architecture Overview
