@@ -299,7 +299,7 @@ Comprehensive coverage of transformer architectures and large language models (L
 - **[Training and Optimization](./12_llm/04_training_and_optimization.md)** - Optimization strategies, regularization techniques, evaluation metrics, and training stability
 - **[Applications and Use Cases](./12_llm/05_applications_and_use_cases.md)** - NLP tasks, generative AI, multimodal applications, and real-world deployment
 
-#### 12. [Computer Vision Advances](./12_vision/)
+#### 13. [Computer Vision Advances](./13_vision/)
 Comprehensive coverage of modern computer vision advances including vision transformers, self-supervised learning, contrastive learning, and foundation models. This section provides both theoretical foundations and practical implementations for cutting-edge computer vision techniques.
 
 **Core Topics:**
