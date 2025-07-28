@@ -59,7 +59,7 @@ In the classical multi-armed bandit problem, we have:
 
 **Upper Confidence Bound (UCB):**
 ```math
-a_t = \arg\max_{i} \left(\hat{\mu}_i + \sqrt{\frac{2 \log t}{n_i}}\right)
+a_t = \arg\max_{i} \left(\hat{\mu}_i + \sqrt{\frac{2 \log (t)}{n_i}}\right)
 ```
 Where:
 - $`\hat{\mu}_i`$: Empirical mean of arm $`i`$
