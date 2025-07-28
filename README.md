@@ -275,12 +275,38 @@ For installation and running instructions, see the [10_reinforcement_learning/RE
 
 Recent advances in machine learning have revolutionized various fields and applications. This section covers transformer architectures and large language models, multi-armed bandits for sequential decision-making, reinforcement learning techniques for training language models, modern computer vision advances including vision transformers and self-supervised learning, and practical applications across natural language processing, computer vision, speech recognition, robotics, healthcare, and recommendation systems.
 
-#### 11. Transformers and Language Models
-- [CS224N Self-Attention and Transformers Notes](./reference/CS224N_Self-Attention-Transformers-2023_Draft.pdf)
-- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
-- [Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/)
-- Transformer: [original transformer paper](https://arxiv.org/abs/1706.03762)
-- LLMs: [Wikipedia on LLMs](https://en.wikipedia.org/wiki/Large_language_model)
+#### 11. [Transformers and Language Models](./11_transformers/)
+Comprehensive coverage of transformer architectures and large language models (LLMs) that have revolutionized natural language processing and artificial intelligence. This section provides both theoretical foundations and practical implementations.
+
+**Core Topics:**
+- **[Attention Mechanisms](./11_transformers/01_attention_mechanism.md)** - Self-attention fundamentals, QKV framework, multi-head attention, scaled dot-product attention, and attention weight computation
+- **[Transformer Architecture](./11_transformers/02_transformer_architecture.md)** - Encoder-decoder structure, positional encoding, layer normalization, residual connections, and architectural variants (BERT, GPT, T5)
+- **[Large Language Models](./11_transformers/03_large_language_models.md)** - Model scaling laws, training techniques, pre-training objectives, and modern LLM architectures
+- **[Training and Optimization](./11_transformers/04_training_and_optimization.md)** - Optimization strategies, regularization techniques, evaluation metrics, and training stability
+- **[Applications and Use Cases](./11_transformers/05_applications_and_use_cases.md)** - NLP tasks, generative AI, multimodal applications, and real-world deployment
+
+**Implementation Examples:**
+- `attention.py` - Multi-head attention implementation
+- `transformer.py` - Complete transformer architecture
+- `positional_encoding.py` - Positional encoding methods
+- `flash_attention.py` - Memory-efficient attention
+- `rope_encoding.py` - Rotary positional encoding
+- `model_parallel.py` - Distributed training examples
+- `quantization.py` - Model compression techniques
+- `text_classification.py` - BERT-style classification
+- `text_generation.py` - GPT-style generation
+- `translation.py` - Sequence-to-sequence translation
+- `summarization.py` - Text summarization models
+- `training.py` - Training loop and optimization
+
+**Educational Features:**
+- Mathematical foundations with detailed derivations
+- Step-by-step implementation guides
+- Practical examples with real-world applications
+- Modern techniques including Flash Attention and RoPE
+- Comprehensive coverage of scaling laws and optimization strategies
+
+For installation and running instructions, see the [11_transformers/README.md](./11_transformers/README.md).
 
 #### 12. Computer Vision Advances
 - Vision Transformers (ViT): [original ViT paper](https://arxiv.org/abs/2010.11929), [ViT tutorial](https://pytorch.org/hub/pytorch_vision_vit/), [ViT implementation](https://github.com/lucidrains/vit-pytorch)
