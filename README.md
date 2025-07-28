@@ -296,10 +296,19 @@ Comprehensive coverage of modern computer vision advances including vision trans
 
 **Applications**: Image classification, object detection, segmentation, image generation, medical imaging, and multi-modal vision-language tasks
 
-#### 13. Multi-Armed Bandits
-- Multi-armed bandits: [Bandit Algorithms textbook](https://tor-lattimore.com/downloads/book/book.pdf), [informal notes](https://courses.cs.washington.edu/courses/cse541/24sp/resources/lecture_notes.pdf)
-- Linear bandits: [linear bandits paper](https://papers.nips.cc/paper_files/paper/2011/hash/e1d5be1c7f2f456670de3d53c7b54f4a-Abstract.html), [generalized linear bandits paper](https://papers.nips.cc/paper_files/paper/2010/hash/c2626d850c80ea07e7511bbae4c76f4b-Abstract.html), [pure exploration/BAI paper](https://arxiv.org/abs/1409.6110)
-- Contextual bandits: [contextual bandits survey paper](https://www.ambujtewari.com/research/tewari17ads.pdf)
+#### 13. [Multi-Armed Bandits](./13_bandits/)
+Comprehensive coverage of multi-armed bandits, a fundamental framework for sequential decision-making under uncertainty. This section provides both theoretical foundations and practical implementations for balancing exploration and exploitation in dynamic environments.
+
+**Core Topics:**
+- **[Classical Multi-Armed Bandits](./13_bandits/01_classical_multi_armed_bandits.md)** - Problem formulation, epsilon-greedy, UCB, Thompson sampling, regret analysis, and theoretical guarantees
+- **[Linear Bandits](./13_bandits/02_linear_bandits.md)** - Linear reward functions, LinUCB, linear Thompson sampling, feature engineering, and regret bounds
+- **[Contextual Bandits](./13_bandits/03_contextual_bandits.md)** - Context-dependent rewards, contextual UCB, neural bandits, and real-world applications
+- **[Best Arm Identification](./13_bandits/04_best_arm_identification.md)** - Pure exploration problems, successive elimination, racing algorithms, LUCB, and sample complexity analysis
+- **[Applications and Use Cases](./13_bandits/05_applications_and_use_cases.md)** - Online advertising, recommendation systems, clinical trials, dynamic pricing, and practical implementations
+
+**Applications**: Online advertising, recommendation systems, clinical trials, dynamic pricing, A/B testing, and resource allocation
+
+For comprehensive coverage including theoretical foundations, algorithmic implementations, and real-world applications, see the [13_bandits/README.md](./13_bandits/README.md).
 
 #### 14. Reinforcement Learning for training Large Language Models
 - Reinforcement Learning Textbook: [Sutton and Barto](http://incompleteideas.net/book/the-book-2nd.html)
