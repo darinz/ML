@@ -26,7 +26,17 @@ Upon completing this section, you will understand:
 - [Implementation Examples](#implementation-examples)
 - [Reference Materials](#reference-materials)
 
+## Documentation Files
+
+- [01_classical_multi_armed_bandits.md](01_classical_multi_armed_bandits.md) - Comprehensive guide to classical multi-armed bandit algorithms
+- [02_linear_bandits.md](02_linear_bandits.md) - Linear bandit algorithms and theoretical foundations
+- [03_contextual_bandits.md](03_contextual_bandits.md) - Contextual bandits with state-dependent rewards
+- [04_best_arm_identification.md](04_best_arm_identification.md) - Best arm identification and pure exploration problems
+- [05_applications_and_use_cases.md](05_applications_and_use_cases.md) - Real-world applications and practical implementations
+
 ## Classical Multi-Armed Bandits
+
+📖 **Detailed Guide**: [01_classical_multi_armed_bandits.md](01_classical_multi_armed_bandits.md)
 
 ### Problem Formulation
 
@@ -70,6 +80,8 @@ Where:
 
 ## Linear Bandits
 
+📖 **Detailed Guide**: [02_linear_bandits.md](02_linear_bandits.md)
+
 ### Problem Extension
 
 Linear bandits extend the classical setting by assuming rewards are linear functions of arm features:
@@ -109,6 +121,8 @@ Where:
 
 ## Contextual Bandits
 
+📖 **Detailed Guide**: [03_contextual_bandits.md](03_contextual_bandits.md)
+
 ### Problem Setting
 
 Contextual bandits introduce context (state) information that changes over time:
@@ -140,6 +154,8 @@ Where $`x_{a_t, t}`$ depends on both the arm and the current context.
 - **Dynamic Pricing**: Price optimization with customer features
 
 ## Best Arm Identification
+
+📖 **Detailed Guide**: [04_best_arm_identification.md](04_best_arm_identification.md)
 
 ### Pure Exploration
 
@@ -175,6 +191,8 @@ In best arm identification (BAI), the goal is to identify the best arm with high
 - Where $`\Delta_i = \mu_{i^*} - \mu_i`$ is the gap
 
 ## Applications and Use Cases
+
+📖 **Detailed Guide**: [05_applications_and_use_cases.md](05_applications_and_use_cases.md)
 
 ### Online Advertising
 
