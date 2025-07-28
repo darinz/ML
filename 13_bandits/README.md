@@ -63,7 +63,7 @@ a_t = \arg\max_{i} \left(\hat{\mu}_i + \sqrt{\frac{2 \log t}{n_i}}\right)
 ```
 Where:
 - $`\hat{\mu}_i`$: Empirical mean of arm $`i`$
-- $`n_i`$: Number of times arm $`i`` has been pulled
+- $`n_i`$: Number of times arm $`i`$ has been pulled
 - $`t`$: Current time step
 
 **Thompson Sampling:**
