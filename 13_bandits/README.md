@@ -375,7 +375,7 @@ P(\hat{\mu} \geq \mu + \epsilon) \leq \exp(-n \text{KL}(\mu + \epsilon \| \mu))
 **UCB Regret Bound:**
 For UCB algorithm with $`\alpha = 2`$:
 ```math
-\mathbb{E}[R(T)] \leq \sum_{i \neq i^*} \frac{8 \log T}{\Delta_i} + \left(1 + \frac{\pi^2}{3}\right) \sum_{i=1}^K \Delta_i
+\mathbb{E}[R(T)] \leq \sum_{i \neq i^*} \frac{8 \log (T)}{\Delta_i} + \left(1 + \frac{\pi^2}{3}\right) \sum_{i=1}^K \Delta_i
 ```
 
 ## Future Directions
