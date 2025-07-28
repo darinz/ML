@@ -283,7 +283,7 @@ Comprehensive coverage of multi-armed bandits, a fundamental framework for seque
 - **[Linear Bandits](./11_bandits/02_linear_bandits.md)** - Linear reward functions, LinUCB, linear Thompson sampling, feature engineering, and regret bounds
 - **[Contextual Bandits](./11_bandits/03_contextual_bandits.md)** - Context-dependent rewards, contextual UCB, neural bandits, and real-world applications
 - **[Best Arm Identification](./11_bandits/04_best_arm_identification.md)** - Pure exploration problems, successive elimination, racing algorithms, LUCB, and sample complexity analysis
-- **[Applications and Use Cases](./13_bandits/05_applications_and_use_cases.md)** - Online advertising, recommendation systems, clinical trials, dynamic pricing, and practical implementations
+- **[Applications and Use Cases](./11_bandits/05_applications_and_use_cases.md)** - Online advertising, recommendation systems, clinical trials, dynamic pricing, and practical implementations
 
 **Applications**: Online advertising, recommendation systems, clinical trials, dynamic pricing, A/B testing, and resource allocation
 
