@@ -285,29 +285,6 @@ Comprehensive coverage of transformer architectures and large language models (L
 - **[Training and Optimization](./11_transformers/04_training_and_optimization.md)** - Optimization strategies, regularization techniques, evaluation metrics, and training stability
 - **[Applications and Use Cases](./11_transformers/05_applications_and_use_cases.md)** - NLP tasks, generative AI, multimodal applications, and real-world deployment
 
-**Implementation Examples:**
-- `attention.py` - Multi-head attention implementation
-- `transformer.py` - Complete transformer architecture
-- `positional_encoding.py` - Positional encoding methods
-- `flash_attention.py` - Memory-efficient attention
-- `rope_encoding.py` - Rotary positional encoding
-- `model_parallel.py` - Distributed training examples
-- `quantization.py` - Model compression techniques
-- `text_classification.py` - BERT-style classification
-- `text_generation.py` - GPT-style generation
-- `translation.py` - Sequence-to-sequence translation
-- `summarization.py` - Text summarization models
-- `training.py` - Training loop and optimization
-
-**Educational Features:**
-- Mathematical foundations with detailed derivations
-- Step-by-step implementation guides
-- Practical examples with real-world applications
-- Modern techniques including Flash Attention and RoPE
-- Comprehensive coverage of scaling laws and optimization strategies
-
-For installation and running instructions, see the [11_transformers/README.md](./11_transformers/README.md).
-
 #### 12. Computer Vision Advances
 - Vision Transformers (ViT): [original ViT paper](https://arxiv.org/abs/2010.11929), [ViT tutorial](https://pytorch.org/hub/pytorch_vision_vit/), [ViT implementation](https://github.com/lucidrains/vit-pytorch)
 - Self-Supervised Learning in Vision: [survey paper](https://arxiv.org/abs/1902.06162), [BYOL paper](https://arxiv.org/abs/2006.07733), [DINO paper](https://arxiv.org/abs/2104.14294)
