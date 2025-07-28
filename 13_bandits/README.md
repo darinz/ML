@@ -115,7 +115,7 @@ Where:
 ### Regret Bounds
 
 **Theoretical Results:**
-- **LinUCB**: $`O(d\sqrt{T \log T})`$ regret bound
+- **LinUCB**: $`O(d\sqrt{T \log (T)})`$ regret bound
 - **Linear Thompson Sampling**: Similar guarantees under Bayesian assumptions
 - **Lower Bounds**: $`\Omega(d\sqrt{T})`$ for any algorithm
 
@@ -187,7 +187,7 @@ In best arm identification (BAI), the goal is to identify the best arm with high
 
 **Theoretical Results:**
 - **Gap-dependent bounds**: $`O(\sum_{i \neq i^*} \frac{1}{\Delta_i^2} \log \frac{1}{\delta})`$
-- **Gap-independent bounds**: $`O(K \log \frac{1}{\delta})`$
+- **Gap-independent bounds**: $`O(K \log (\frac{1}{\delta}))`$
 - Where $`\Delta_i = \mu_{i^*} - \mu_i`$ is the gap
 
 ## Applications and Use Cases
@@ -327,7 +327,7 @@ pip install pandas scikit-learn
 
 # Additional utilities
 pip install jupyter ipywidgets
-pip install tqdm for progress bars
+pip install tqdm # for progress bars
 ```
 
 ### Quick Start
