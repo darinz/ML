@@ -293,8 +293,8 @@ For comprehensive coverage including theoretical foundations, algorithmic implem
 Comprehensive coverage of transformer architectures and large language models (LLMs) that have revolutionized natural language processing and artificial intelligence. This section provides both theoretical foundations and practical implementations.
 
 **Core Topics:**
-- **[Attention Mechanisms](./12_transformers/01_attention_mechanism.md)** - Self-attention fundamentals, QKV framework, multi-head attention, scaled dot-product attention, and attention weight computation
-- **[Transformer Architecture](./11_transformers/02_transformer_architecture.md)** - Encoder-decoder structure, positional encoding, layer normalization, residual connections, and architectural variants (BERT, GPT, T5)
+- **[Attention Mechanisms](./12_llm/01_attention_mechanism.md)** - Self-attention fundamentals, QKV framework, multi-head attention, scaled dot-product attention, and attention weight computation
+- **[Transformer Architecture](./12_transformers/02_transformer_architecture.md)** - Encoder-decoder structure, positional encoding, layer normalization, residual connections, and architectural variants (BERT, GPT, T5)
 - **[Large Language Models](./11_transformers/03_large_language_models.md)** - Model scaling laws, training techniques, pre-training objectives, and modern LLM architectures
 - **[Training and Optimization](./11_transformers/04_training_and_optimization.md)** - Optimization strategies, regularization techniques, evaluation metrics, and training stability
 - **[Applications and Use Cases](./11_transformers/05_applications_and_use_cases.md)** - NLP tasks, generative AI, multimodal applications, and real-world deployment
