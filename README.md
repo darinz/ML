@@ -256,7 +256,7 @@ For installation and running instructions, see the [09_self-supervised_learning/
 
 Comprehensive coverage of reinforcement learning and optimal control, including foundational theory, advanced control methods, and policy gradient algorithms. This section provides both mathematical derivations and practical implementation examples.
 
-**[10. Reinforcement Learning](./10_reinforcement_learning/)**
+**10. [Reinforcement Learning](./10_reinforcement_learning/)**
 
 - **[Markov Decision Processes (MDP)](./10_reinforcement_learning/01_markov_decision_processes.md)** – Formal definition of MDPs, value functions, Bellman equations, dynamic programming, and solution methods (value iteration, policy iteration)
 - **[Continuous State MDPs](./10_reinforcement_learning/02_continuous_state_mdp.md)** – Extension of MDPs to continuous state/action spaces, discretization, and function approximation
