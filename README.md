@@ -275,6 +275,20 @@ For installation and running instructions, see the [10_reinforcement_learning/RE
 
 Recent advances in machine learning have revolutionized various fields and applications. This section covers transformer architectures and large language models, multi-armed bandits for sequential decision-making, reinforcement learning techniques for training language models, modern computer vision advances including vision transformers and self-supervised learning, and practical applications across natural language processing, computer vision, speech recognition, robotics, healthcare, and recommendation systems.
 
+#### 11. [Multi-Armed Bandits](./11_bandits/)
+Comprehensive coverage of multi-armed bandits, a fundamental framework for sequential decision-making under uncertainty. This section provides both theoretical foundations and practical implementations for balancing exploration and exploitation in dynamic environments.
+
+**Core Topics:**
+- **[Classical Multi-Armed Bandits](./11_bandits/01_classical_multi_armed_bandits.md)** - Problem formulation, epsilon-greedy, UCB, Thompson sampling, regret analysis, and theoretical guarantees
+- **[Linear Bandits](./11_bandits/02_linear_bandits.md)** - Linear reward functions, LinUCB, linear Thompson sampling, feature engineering, and regret bounds
+- **[Contextual Bandits](./13_bandits/03_contextual_bandits.md)** - Context-dependent rewards, contextual UCB, neural bandits, and real-world applications
+- **[Best Arm Identification](./13_bandits/04_best_arm_identification.md)** - Pure exploration problems, successive elimination, racing algorithms, LUCB, and sample complexity analysis
+- **[Applications and Use Cases](./13_bandits/05_applications_and_use_cases.md)** - Online advertising, recommendation systems, clinical trials, dynamic pricing, and practical implementations
+
+**Applications**: Online advertising, recommendation systems, clinical trials, dynamic pricing, A/B testing, and resource allocation
+
+For comprehensive coverage including theoretical foundations, algorithmic implementations, and real-world applications, see the [13_bandits/README.md](./13_bandits/README.md).
+
 #### 11. [Transformers and Language Models](./11_transformers/)
 Comprehensive coverage of transformer architectures and large language models (LLMs) that have revolutionized natural language processing and artificial intelligence. This section provides both theoretical foundations and practical implementations.
 
@@ -295,20 +309,6 @@ Comprehensive coverage of modern computer vision advances including vision trans
 - **[Foundation Models for Vision](./12_vision/04_foundation_models.md)** - CLIP for vision-language understanding, SAM for universal segmentation, DALL-E for text-to-image generation, and zero-shot learning capabilities
 
 **Applications**: Image classification, object detection, segmentation, image generation, medical imaging, and multi-modal vision-language tasks
-
-#### 13. [Multi-Armed Bandits](./11_bandits/)
-Comprehensive coverage of multi-armed bandits, a fundamental framework for sequential decision-making under uncertainty. This section provides both theoretical foundations and practical implementations for balancing exploration and exploitation in dynamic environments.
-
-**Core Topics:**
-- **[Classical Multi-Armed Bandits](./11_bandits/01_classical_multi_armed_bandits.md)** - Problem formulation, epsilon-greedy, UCB, Thompson sampling, regret analysis, and theoretical guarantees
-- **[Linear Bandits](./13_bandits/02_linear_bandits.md)** - Linear reward functions, LinUCB, linear Thompson sampling, feature engineering, and regret bounds
-- **[Contextual Bandits](./13_bandits/03_contextual_bandits.md)** - Context-dependent rewards, contextual UCB, neural bandits, and real-world applications
-- **[Best Arm Identification](./13_bandits/04_best_arm_identification.md)** - Pure exploration problems, successive elimination, racing algorithms, LUCB, and sample complexity analysis
-- **[Applications and Use Cases](./13_bandits/05_applications_and_use_cases.md)** - Online advertising, recommendation systems, clinical trials, dynamic pricing, and practical implementations
-
-**Applications**: Online advertising, recommendation systems, clinical trials, dynamic pricing, A/B testing, and resource allocation
-
-For comprehensive coverage including theoretical foundations, algorithmic implementations, and real-world applications, see the [13_bandits/README.md](./13_bandits/README.md).
 
 #### 14. Reinforcement Learning for training Large Language Models
 - Reinforcement Learning Textbook: [Sutton and Barto](http://incompleteideas.net/book/the-book-2nd.html)
