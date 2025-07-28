@@ -310,10 +310,21 @@ Comprehensive coverage of modern computer vision advances including vision trans
 
 **Applications**: Image classification, object detection, segmentation, image generation, medical imaging, and multi-modal vision-language tasks
 
-#### 14. Reinforcement Learning for training Large Language Models
-- Reinforcement Learning Textbook: [Sutton and Barto](http://incompleteideas.net/book/the-book-2nd.html)
-- Deep Reinforcement Learning: [OpenAI's spinning up](https://spinningup.openai.com/en/latest/)
-- Reinforcement Learning for LLMs: [KL-control](https://arxiv.org/abs/1611.02796), [reward model](https://arxiv.org/abs/1706.03741), [InstructGPT paper (ChatGPT)](https://arxiv.org/abs/2203.02155), [recent DeepSeek R1 paper](https://arxiv.org/abs/2501.12948)
+#### 14. [Reinforcement Learning for Training Large Language Models](./14_rlhf/)
+Comprehensive coverage of reinforcement learning techniques for training and aligning large language models (LLMs) with human preferences. This rapidly evolving field has revolutionized how we create more helpful, harmless, and honest AI systems.
+
+**Core Topics:**
+- **[Fundamentals of RL for Language Models](./14_rlhf/01_fundamentals_of_rl_for_language_models.md)** - Problem formulation, MDP framework, language generation specifics, and key challenges in RL for LLMs
+- **[Human Feedback Collection](./14_rlhf/02_human_feedback_collection.md)** - Preference data collection strategies, annotation guidelines, quality control, and bias mitigation techniques
+- **[Reward Modeling](./14_rlhf/03_reward_modeling.md)** - Reward function learning, preference learning objectives, reward model validation, and evaluation metrics
+- **[Policy Optimization](./14_rlhf/04_policy_optimization.md)** - Policy gradient methods, PPO for language models, TRPO, and optimization techniques
+- **[Alignment Techniques](./14_rlhf/05_alignment_techniques.md)** - Direct Preference Optimization (DPO), Constitutional AI, red teaming, and advanced alignment methods
+
+**Applications**: Conversational AI, content generation, code generation, educational systems, and safety-aligned language models
+
+**Reference Materials**: [Sutton and Barto RL Textbook](http://incompleteideas.net/book/the-book-2nd.html), [OpenAI's Spinning Up](https://spinningup.openai.com/en/latest/), [InstructGPT Paper](https://arxiv.org/abs/2203.02155), [DPO Paper](https://arxiv.org/abs/2305.18290), [Constitutional AI](https://arxiv.org/abs/2212.08073)
+
+For comprehensive coverage including theoretical foundations, practical implementations, and ethical considerations, see the [rlhf/README.md](./14_rlhf/README.md).
 
 #### 15. Practical Applications
 - Natural Language Processing: [Neural-Machine-Translation](https://github.com/darinz/Neural-Machine-Translation)
