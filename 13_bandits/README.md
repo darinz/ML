@@ -74,7 +74,7 @@ Where:
 ### Regret Analysis
 
 **Theoretical Guarantees:**
-- **UCB**: $`O(\sqrt{KT \log T})`$ regret bound
+- **UCB**: $`O(\sqrt{KT \log (T)})`$ regret bound
 - **Thompson Sampling**: Similar theoretical guarantees with Bayesian assumptions
 - **Lower Bounds**: $`\Omega(\sqrt{KT})`$ for any algorithm
 
