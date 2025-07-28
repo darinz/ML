@@ -306,7 +306,7 @@ Comprehensive coverage of modern computer vision advances including vision trans
 - **[Vision Transformers (ViT)](./13_vision/01_vision_transformers.md)** - Transformer architecture adaptation for vision, patch embedding, self-attention mechanisms, and architectural variants (DeiT, Swin, ConvNeXt)
 - **[Self-Supervised Learning](./13_vision/02_self_supervised_learning.md)** - Pretext tasks (inpainting, jigsaw, rotation, colorization), representation learning, and transfer learning strategies
 - **[Contrastive Learning](./13_vision/03_contrastive_learning.md)** - Modern contrastive methods including SimCLR, MoCo, BYOL, and DINO with theoretical foundations and practical implementations
-- **[Foundation Models for Vision](./12_vision/04_foundation_models.md)** - CLIP for vision-language understanding, SAM for universal segmentation, DALL-E for text-to-image generation, and zero-shot learning capabilities
+- **[Foundation Models for Vision](./13_vision/04_foundation_models.md)** - CLIP for vision-language understanding, SAM for universal segmentation, DALL-E for text-to-image generation, and zero-shot learning capabilities
 
 **Applications**: Image classification, object detection, segmentation, image generation, medical imaging, and multi-modal vision-language tasks
 
