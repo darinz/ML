@@ -1,5 +1,10 @@
 # Multi-Armed Bandits
 
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-orange.svg)](https://github.com/your-repo)
+[![Topics](https://img.shields.io/badge/Topics-Bandits%20%7C%20RL%20%7C%20Optimization-lightgrey.svg)](https://github.com/your-repo)
+[![Implementation](https://img.shields.io/badge/Implementation-Complete-blue.svg)](https://github.com/your-repo)
+
 This section contains comprehensive materials covering multi-armed bandits, a fundamental framework for sequential decision-making under uncertainty. Multi-armed bandits provide the theoretical foundation for balancing exploration and exploitation in dynamic environments, with applications ranging from clinical trials to online advertising and recommendation systems.
 
 ## Overview
