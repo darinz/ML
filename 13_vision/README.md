@@ -1,5 +1,12 @@
 # Computer Vision Advances
 
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
+[![Transformers](https://img.shields.io/badge/Transformers-4.0+-yellow.svg)](https://huggingface.co/transformers)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.0+-green.svg)](https://opencv.org/)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen.svg)](https://github.com/)
+[![Topics](https://img.shields.io/badge/Topics-Vision%20Transformers%20%7C%20Self--Supervised%20Learning%20%7C%20Contrastive%20Learning-orange.svg)](https://github.com/)
+
 This section contains comprehensive materials covering modern advances in computer vision, from the revolutionary Vision Transformers (ViT) to cutting-edge self-supervised learning techniques and foundation models. These developments have transformed how machines understand and process visual information, enabling breakthroughs in image recognition, generation, and understanding.
 
 ## Overview
