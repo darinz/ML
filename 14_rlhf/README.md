@@ -1,5 +1,12 @@
 # Reinforcement Learning for Training Large Language Models
 
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
+[![Transformers](https://img.shields.io/badge/Transformers-4.20+-yellow.svg)](https://huggingface.co/transformers)
+[![TRL](https://img.shields.io/badge/TRL-0.7+-green.svg)](https://github.com/huggingface/trl)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen.svg)](https://github.com/your-repo)
+[![Topics](https://img.shields.io/badge/Topics-RLHF%20%7C%20Alignment%20%7C%20LLMs-orange.svg)](https://github.com/your-repo)
+
 This section contains comprehensive materials covering the intersection of reinforcement learning and large language models (LLMs), a rapidly evolving field that has revolutionized how we train and align language models with human preferences. This area encompasses techniques like Reinforcement Learning from Human Feedback (RLHF), reward modeling, and policy optimization for language generation.
 
 ## Overview
