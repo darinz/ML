@@ -1,5 +1,11 @@
 # Transformers and Large Language Models
 
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
+[![Transformers](https://img.shields.io/badge/Transformers-4.0+-yellow.svg)](https://huggingface.co/transformers/)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen.svg)](https://github.com/your-repo)
+[![Topics](https://img.shields.io/badge/Topics-LLM%20%7C%20Transformers%20%7C%20Attention-orange.svg)](https://github.com/your-repo)
+
 This section contains comprehensive materials covering transformer architectures and large language models (LLMs), which have revolutionized natural language processing and artificial intelligence. Transformers represent a fundamental shift from recurrent and convolutional architectures to attention-based models that can process sequences in parallel and capture long-range dependencies effectively.
 
 ## Overview
