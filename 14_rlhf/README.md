@@ -47,11 +47,11 @@ Upon completing this section, you will understand:
 
 In RL for language models, we formulate the problem as:
 
-**Environment**: Text generation task (e.g., question answering, summarization)
-**Agent**: Language model policy $`\pi_\theta`$
-**State**: Current conversation context or prompt
-**Action**: Next token to generate
-**Reward**: Human preference score or learned reward function
+- **Environment**: Text generation task (e.g., question answering, summarization)
+- **Agent**: Language model policy $`\pi_\theta`$
+- **State**: Current conversation context or prompt
+- **Action**: Next token to generate
+- **Reward**: Human preference score or learned reward function
 
 ### Key Challenges
 
