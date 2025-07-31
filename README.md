@@ -338,22 +338,37 @@ For comprehensive coverage including theoretical foundations, practical implemen
 
 Comprehensive problem sets with solutions covering all topics from the curriculum. Each problem set includes detailed problem descriptions, starter code, datasets, and complete solutions.
 
-**[View Problem Sets](./problem-sets/v1/)**
+**[View Problem Sets](./problem-sets/)**
 
-### Problem Set Overview
+### Problem Set Series
 
-- **[PS1: Linear Regression](./problem-sets/v1/ps1/)** - Linear regression fundamentals, locally weighted regression
-- **[PS2: Classification](./problem-sets/v1/ps2/)** - Spam detection, naive Bayes classification
-- **[PS3: Learning Theory & Clustering](./problem-sets/v1/ps3/)** - VC dimension, uniform convergence, k-means clustering
-- **[PS4: Dimensionality Reduction & RL](./problem-sets/v1/ps4/)** - PCA, ICA, reinforcement learning (mountain car)
-- **[PS5: Comprehensive Review](./problem-sets/v1/ps5/)** - All topics from PS1-PS4, theoretical proofs and applications
+**Series 01: Foundational Machine Learning** `[01/](./problem-sets/01/)`
+- **PS1**: Linear Regression & Locally Weighted Regression
+- **PS2**: Classification & Spam Detection  
+- **PS3**: Learning Theory & K-Means Clustering
+- **PS4**: Dimensionality Reduction & Reinforcement Learning
+- **PS5**: Comprehensive Review
+
+**Series 02: Advanced Machine Learning & Deep Learning** `[02/](./problem-sets/02/)`
+- **PS1**: Optimization & Regularization
+- **PS2**: Cross-Validation & Lasso Regression
+- **PS3**: Gradient Descent & Stochastic Methods
+- **PS4**: Kernel Methods & Neural Networks
+- **PS5**: Neural Network Theory & Backpropagation
+- **PS6**: Dimensionality Reduction & Matrix Decompositions
+
+**Series 03: Modern ML & Deep Learning Applications** `[03/](./problem-sets/03/)`
+- **PS1**: Mathematical Foundations (Probability, Statistics, Linear Algebra)
+- **PS2**: Machine Learning Fundamentals & Bias-Variance Tradeoff
+- **PS3**: Optimization, Convexity & Regularization
+- **PS4**: Kernel Methods & Neural Networks with PyTorch
+- **PS5**: Computer Vision Applications & CNN Implementation
 
 ### Features
-- **Complete Solutions**: Detailed worked solutions with explanations
-- **Multiple Implementations**: Python and MATLAB code where applicable
-- **Real Datasets**: Spam classification, image processing, reinforcement learning environments
-- **Visualizations**: Plots and diagrams for understanding results
-- **Educational Design**: Progressive difficulty, comprehensive coverage
+- **Complete Solutions**: Detailed explanations and code implementations
+- **Multiple Languages**: Python, MATLAB, and PyTorch code
+- **Real Datasets**: Spam classification, image processing, reinforcement learning
+- **Progressive Difficulty**: From foundational concepts to advanced applications
 
 ## Reference Materials
 
