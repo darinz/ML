@@ -469,12 +469,7 @@ Which of the following facts can lead to misleading correlational statistics in 
 ## Question 46
 Which of the following functions is the logistic loss for label $y = +1$?
 
-The following plots show different functions:
-
-(A) A graph showing a piecewise linear function. It starts at approximately $(-3, 4)$ and decreases linearly to $(1, 0)$, then remains constant at $y=0$ for $x > 1$.  
-(B) A graph showing a parabolic curve opening upwards, with its vertex at $(1, 0)$. It passes through $(0, 1)$ and $(2, 1)$.  
-(C) A graph showing a curve that decreases exponentially. It passes through $(0, 1)$ and approaches $y=0$ as $x$ increases. For negative $x$, the value increases, e.g., at $(-3, \approx 1.5)$.  
-(D) A graph showing a curve that decreases exponentially, steeper than (C). It passes through $(0, 1)$ and approaches $y=0$ as $x$ increases. For negative $x$, the value increases significantly, e.g., at $(-3, \approx 4)$.  
+![Loss](./loss.png)
 
 **Solution:** The answer is (D).
 
