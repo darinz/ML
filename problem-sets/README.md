@@ -56,6 +56,27 @@ Advanced topics focusing on optimization theory, kernel methods, neural networks
 - PyTorch deep learning framework
 - Stochastic optimization methods
 
+### Series 03: Modern Machine Learning and Deep Learning Applications
+**Directory:** `03/`
+
+Comprehensive coverage of modern machine learning techniques with emphasis on deep learning, computer vision, and practical applications using PyTorch.
+
+**Problem Sets:**
+- **PS1**: Probability, Statistics, and Linear Algebra Foundations
+- **PS2**: Machine Learning Fundamentals and Bias-Variance Tradeoff
+- **PS3**: Optimization, Convexity, and Regularization
+- **PS4**: Kernel Methods and Neural Networks with PyTorch
+- **PS5**: Dimensionality Reduction and Computer Vision Applications
+
+**Key Topics Covered:**
+- Mathematical foundations (probability, statistics, linear algebra)
+- Bias-variance tradeoff and model selection
+- Convexity theory and optimization methods
+- Kernel methods and feature maps
+- Deep learning with PyTorch
+- Computer vision and CNN applications
+- Ethical considerations in machine learning
+
 ## Learning Progression
 
 ### Recommended Study Path
@@ -70,9 +91,15 @@ Advanced topics focusing on optimization theory, kernel methods, neural networks
    - Learn kernel methods and neural networks
    - Implement practical deep learning solutions
 
-3. **Cross-Reference**: Use both series together
+3. **Complete with Series 03**: Modern applications and deep learning
+   - Strengthen mathematical foundations
+   - Master PyTorch and modern deep learning
+   - Apply techniques to computer vision and real-world problems
+
+4. **Cross-Reference**: Use all series together
    - Series 01 provides foundational concepts
    - Series 02 offers advanced implementations
+   - Series 03 focuses on modern applications and deep learning
    - Many topics build upon each other across series
 
 ## Prerequisites
@@ -158,6 +185,13 @@ pip install pandas seaborn
 - Develop proficiency with modern ML frameworks
 - Learn to analyze algorithm convergence and complexity
 - Gain expertise in kernel methods and neural networks
+
+### Series 03 Objectives
+- Strengthen mathematical foundations in probability, statistics, and linear algebra
+- Master modern deep learning with PyTorch
+- Understand bias-variance tradeoff and model selection
+- Apply machine learning to computer vision and real-world problems
+- Develop critical thinking about ethical considerations in ML
 
 ## Additional Resources
 
