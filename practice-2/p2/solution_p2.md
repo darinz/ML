@@ -567,3 +567,90 @@ Disadvantage:
 **Explanation:**
 Possible advantages: no training, simple non-parametric. Possible disadvantages: need to store training data for inference, curse of dimensionality.
 
+## Problem 36
+
+36. Consider the following scatter plot of a multivariate Gaussian distribution. Draw the approximate first and second principal components on the graph and say which is which.
+
+<img src="./gaussian.png" width="350px">
+
+First principal component: ________
+
+Second principal component: ________
+
+**Explanation:**
+Data was generated to have principal components of (4, 1) and (-1,4).
+
+## Problem 37
+
+37. You are training a regression model to predict house prices. You decide to use zip-code as a feature in your model. Describe one possible problem with using zip-code as a feature in your model. [Note: zip-codes are numbers assigned to geographic regions. For example, going west from UW the zip-codes are 98105, 98103, then 98107.]
+
+Answer: ________
+
+**Explanation:**
+Answers should include something about how zip code is a categorical variable, and the relative value of zip-code numbers has no meaning, and thus performing regression with them makes no sense, because a $\Delta_1$ change in zip code cannot logically result in some $\Delta_2$ change in house price.
+
+## Problem 38
+
+38. The real matrix $A$ has the following singular value decomposition, $A = USV^T$. Describe the structure of $S$ and what $S$ contains. (Note: for your answer you can consider this to be the compact or regular formulation of the SVD.)
+
+Answer: ________
+
+**Explanation:**
+1) $S$ has values on its diagonal only / $S$ is a diagonal matrix
+2) The diagonal contains the singular values of $A$ ordered from largest to smallest starting at the top left.
+
+## Problem 39
+
+39. Describe two advantages of using non-linear pooling layers, such as max-pooling, in a convolutional neural network (CNN).
+
+Answer: ________
+
+**Explanation:**
+Two example reasons are adding non-linearity to the model and reducing the size of the input which speeds up evaluation and training
+
+## Problem 40
+
+40. What is the purpose of using multiple filters for a single convolutional layer in a neural network?
+
+Answer: ________
+
+**Explanation:**
+Capturing Different Features: To enable the detection of various features or patterns in the input data, each filter specializes in recognizing specific characteristics.
+Enhancing Model Robustness: Multiple filters help the model generalize better by learning diverse representations, making it more robust to variations and nuances in the input.
+
+## Problem 41
+
+41. You are tasked with designing a convolutional neural network (CNN) to classify images as one of three classes; cat, dog, and other. You have a dataset of 10,000 images each to train and test your model, each with an image resolution of 1024 x 1024 pixels. You also have a dataset with the same 10,000 images, but with a downsampled image resolution of 16 x 16 pixels. What is one advantage and one disadvantage of using the dataset with lower resolution images?
+
+Answer: ________
+
+**Explanation:**
+Advantage: smaller input size will be less computationally expensive; Disadvantage: images may not be as clear and accuracy may suffer
+
+## Problem 42
+
+42. You design a deep learning model. Describe one thing that could happen if you start training your model with too high of a learning rate:
+
+Answer: ________
+
+**Explanation:**
+Some possible explanations are overshooting the minimum, failure to converge, unstable training, exploding gradients.
+
+## Problem 43
+
+43. You are creating a deep learning model. Why is it important to perform hyper-parameter tuning on a different set of data than the data that you used to test your model?
+
+Answer: ________
+
+**Explanation:**
+Correct answers should include some mention of avoiding overfitting to the test data and or making the model better at generalizing to unseen data.
+
+## Problem 44
+
+44. You design a machine learning model. In your own words, conceptually describe what the bias of your model means. [Note: this is asking about the theoretical bias of the model, NOT the social biases that may be influencing training dataset.]
+
+Answer: ________
+
+**Explanation:**
+Bias is the difference between the optimal predictor and the expectation of the best possible trained version of your model (with respect to all possible training sets).
+The key for full points is describing a difference between optimal predictor (or the "real world distribution") and the best trained version of your model. The expectation part is not essential. Another acceptable response could describe bias as the inherent limitation of a specific model architecture that prevent it from being a better predictor.
