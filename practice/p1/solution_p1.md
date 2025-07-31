@@ -2,7 +2,9 @@
 
 Consider the following matrix $X$ with four data points in $\mathbb{R}^2$. We would like to use PCA to find a rank-1 linear representation of these data.
 
-$X = \begin{bmatrix} 4 & 1 \\ 5 & 4 \\ 1 & 2 \\ 1 & 0 \end{bmatrix}$
+$$
+X = \begin{bmatrix} 4 & 1 \\ 5 & 4 \\ 1 & 2 \\ 1 & 0 \end{bmatrix}
+$$
 
 ![pca](./pca.png)
 
