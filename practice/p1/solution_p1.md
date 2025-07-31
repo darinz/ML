@@ -265,11 +265,7 @@ Assume you train a neural network with SGD with a batch size of 10 on a dataset 
 
 **Solution:** The answer is (C).
 
-```
-Hidden
-Input
-Output
-```
+![NN](./nn.png)
 
 **Figure 3:** This figure depicts a 2-layer neural network.
 
