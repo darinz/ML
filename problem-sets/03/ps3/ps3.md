@@ -92,6 +92,7 @@ Before you get started, the following hints may be useful:
 **A6.** We will first try your solver with some synthetic data. A benefit of the Lasso is that if we believe many features are irrelevant for predicting $y$, the Lasso can be used to enforce a sparse solution, effectively differentiating between the relevant and irrelevant features.
 
 Suppose that $x \in \mathbb{R}^d$, $y \in \mathbb{R}$, $k < d$, and data are generated independently according to the model $y_i = w^T x_i + \epsilon_i$ where:
+
 $$w_j = \begin{cases} j/k & \text{if } j \in \{1,...,k\} \\ 0 & \text{otherwise} \end{cases} \quad (2)$$
 
 And $\epsilon_i \sim N(0, \sigma^2)$ is noise (note that in the model above $b = 0$). We can see from Equation (2) that since $k < d$ and $w_j = 0$ for $j > k$, the features $k+1$ through $d$ are irrelevant for predicting $y$.
