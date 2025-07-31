@@ -157,3 +157,9 @@ b. Run Lloyd's algorithm on the *training* dataset of MNIST with $k = 10$. Show 
 
 **Note on Time to Run:**
 The runtime of a good implementation for this problem should be fairly fast (a few minutes); if you find it taking upwards of one hour, please check your implementation! (Hint: **For loops are costly**. Can you vectorize it or use Numpy operations to make it faster in some ways? If not, is looping through data-points or through centers faster?)
+
+---
+
+¹ To be more precise, it is both NP-hard in d when k = 2 and k when d = 2.
+
+² See the references on the Wikipedia page for k-means and k-means++ for more details.
