@@ -472,3 +472,98 @@ $$ f(y) \ge f(x)+c(y - x) $$
 
 **Correct answers:** (b)
 
+## Problem 30
+
+30. Suppose that we want to train a predictor $\hat{f}(x) = \hat{w}^T x$ and we assume that $y = w^T x + \epsilon$, where $\epsilon \sim N(0, \sigma^2)$. Which of the following statements about bias-variance tradeoff is true?
+
+(a) (bias$^2$ + variance) is equal to the expected error between our trained predictor $\hat{f}(x)$ and the true data points ($y$'s).
+
+(b) Regularization is usually used to increase the variance of our trained predictor $\hat{f}(x)$.
+
+(c) Irreducible error comes from the variance of the data points $y$'s.
+
+**Correct answers:** (c)
+
+**Explanation:** Scatter plot is a Gaussian centered at 0 so b is correct
+
+## Problem 31
+
+31. Consider a dataset $x_1, x_2, ..., x_n$ drawn from a normal distribution $N(\mu, \sigma^2)$, with the density function given by $f(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$. Which of the following is true about the maximum likelihood estimation of $\mu$ and $\sigma^2$?
+
+(a) The MLE for both $\mu$ and $\sigma^2$ cannot be determined without additional information.
+
+(b) The MLE of $\mu$ is the sample mean $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$, but the MLE of $\sigma^2$ cannot be determined without additional information.
+
+(c) The MLE of $\mu$ is the sample mean, $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$, and the MLE of $\sigma^2$ is the sample variance, $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$.
+
+(d) The MLE of $\mu$ is the sample mean, $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$, and the MLE of $\sigma^2$ is given by $s^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2$.
+
+**Correct answers:** (d)
+
+**Explanation:** The maximum likelihood estimator for $\mu$ in a normal distribution is the sample mean, $\bar{x}$. However, the MLE for $\sigma^2$ is a biased estimator and is given by $\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2$. This is because MLE does not divide by $n-1$ (as in the unbiased sample variance formula) but by $n$, which makes it biased.
+
+## Problem 32
+
+32. In k-fold cross-validation, what is the primary advantage of setting k to a higher value (e.g., k=10) compared to a lower value (e.g., k=2)?
+
+(a) It increases the accuracy of the model on unseen data.
+
+(b) It provides a more reliable estimate of model performance.
+
+(c) It reduces computational time.
+
+(d) It eliminates the need for a separate test set.
+
+**Correct answers:** (b)
+
+## Problem 33
+
+33. Which of the following statements is true for ridge regression if the regularization parameter is too large?
+
+(a) The loss function will be the same as the ordinary least squares loss function.
+
+(b) The loss function will be the same as the Lasso regression loss function.
+
+(c) Large coefficients will not be penalized.
+
+(d) The model will overfit the data.
+
+(e) The model will underfit the data.
+
+**Correct answers:** (e)
+
+## Problem 34
+
+34. Consider a binary classification task, where $\hat{y}$ denotes the prediction and $y = +1$ or $y=-1$. Briefly describe the strength of minimizing logistic loss as opposed to 0-1 loss and sigmoid loss. The losses are formally defined as
+
+$$0-1 \text{ loss}(\hat{y}, y) = \begin{cases} 0 & \text{if sign}(y) = \text{sign}(\hat{y}) \\ 1 & \text{otherwise} \end{cases}$$
+
+$$\text{logistic loss}(\hat{y}, y) = \log(1+\exp(-y\hat{y}))$$
+
+$$\text{sigmoid loss}(\hat{y}, y) = \frac{1}{1 + \exp(y\hat{y})}$$
+
+The followings are example plots of each loss when $y = +1$.
+
+<img src="./loss.png" width="650px">
+
+(Image of three plots: "0-1 loss" (step function), "logistic loss" (decreasing curve), "sigmoid loss" (decreasing curve))
+
+Strength of logistic loss compared to 0-1 loss:
+
+Strength of logistic loss compared to sigmoid loss:
+
+**Explanation:**
+Possible strength compared to 0-1 loss: Differentiable everywhere
+Possible strength compared to sigmoid loss: Convexity
+
+## Problem 35
+
+35. Name one advantage and one disadvantage of applying $k$-nearest neighbors for classification.
+
+Advantage:
+
+Disadvantage:
+
+**Explanation:**
+Possible advantages: no training, simple non-parametric. Possible disadvantages: need to store training data for inference, curse of dimensionality.
+
