@@ -1,5 +1,7 @@
 # Machine Learning
 
+> **📝 Note**: Some files in this repository have both `.md` and `.ipynb` formats due to LaTeX rendering problems in `.md` files. This problem exists particularly on GitHub, which has limited LaTeX support. In those cases, see the `.ipynb` file for proper LaTeX math rendering. Alternatively, if you view the `.md` files with an editor that has proper LaTeX rendering support, that is another way to get around this problem.
+
 > **⚠️ This repository is under construction. Content, structure, and materials are actively being updated and expanded. Check back frequently for new additions and improvements! ⚠️**
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
