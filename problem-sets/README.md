@@ -75,25 +75,6 @@ Advanced topics focusing on optimization theory, kernel methods, neural networks
    - Series 02 offers advanced implementations
    - Many topics build upon each other across series
 
-## File Structure
-
-Each problem set follows a consistent structure:
-
-```
-psX/
-├── psX-problems.md          # Problem statements and questions
-├── psX_solution.md          # Complete solutions (Series 02)
-├── solution/                # Solution directory (Series 01)
-│   ├── psX-solution.md      # Comprehensive solutions
-│   ├── qY_solution/         # Question-specific solutions
-│   └── *.png               # Result visualizations
-├── qY/                     # Question-specific directories
-│   ├── *.py, *.m           # Implementation files
-│   ├── data/               # Datasets
-│   └── images/             # Supporting images
-└── *.ipynb                 # Jupyter notebooks (Series 02)
-```
-
 ## Prerequisites
 
 ### Mathematical Background
@@ -187,7 +168,6 @@ pip install pandas seaborn
 
 ### External Resources
 - **Textbooks**: Elements of Statistical Learning, Pattern Recognition and Machine Learning
-- **Online Courses**: CS229, CS231n, CS224n
 - **Documentation**: PyTorch, NumPy, Scikit-learn
 - **Research Papers**: Cited in problem sets for deeper understanding
 
@@ -199,14 +179,6 @@ These problem sets are designed for educational purposes. If you find errors or 
 2. Verify mathematical derivations independently
 3. Test implementations with different datasets
 4. Consider edge cases and robustness
-
-## Support
-
-For questions about specific problems:
-1. Review the comprehensive solution documents
-2. Check the implementation files for working examples
-3. Consult the main course materials for theoretical background
-4. Use the mathematical notation guide for clarity
 
 ---
 
