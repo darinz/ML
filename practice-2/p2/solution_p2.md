@@ -249,3 +249,226 @@ In which of the following plots are the points clustered by `k-means` clustering
 
 **Explanation:** Plot (b) shows the clustering that would result from k-means, where the algorithm divides the data into two clusters based on the geometric center of the data points, resulting in a horizontal division rather than following the natural crescent shapes of the data.
 
+## Problem 17
+
+17. What is the main purpose of the softmax activation function in the output layer of a neural network?
+
+(a) To introduce non-linearity.
+
+(b) To normalize the output to represent probabilities.
+
+(c) To speed up convergence during training.
+
+(d) To prevent overfitting.
+
+**Correct answers:** (b)
+
+## Problem 18
+
+18. Consider a fully-connected neural network with 3 input neurons, 4 hidden neurons, and 2 output neurons. What is the total number of parameters, including bias units for non-input layers?
+
+(a) 9
+
+(b) 11
+
+(c) 24
+
+(d) 26
+
+**Correct answers:** (d)
+
+**Explanation:** From the input layer to the hidden layer, you have 3 neurons fully connected to 4 neurons, which gives us $3 \cdot 4 = 12$ weights. Plus, there are 4 neurons in the hidden layer, which means there are 4 biases. So, for the first connection, there are $12+4 = 16$ parameters. From the hidden layer to the output layer, you have 4 neurons fully connected to 2 neurons, which gives us $4 \cdot 2 = 8$ weights. Plus, there are 2 neurons in the output layer, which means there are 2 biases. So, for the second connection, there are $8+2 = 10$ parameters. In total, we have $16+10 = 26$ parameters.
+
+## Problem 19
+
+19. Which of the following will guarantee that a neural network does not overfit to the training data during training?
+
+(a) Normalize the data before training.
+
+(b) Increase the number of layers in our network until the final training loss stops decreasing.
+
+(c) Neither of the above.
+
+**Correct answers:** (c)
+
+## Problem 20
+
+20. Given a simple two-layer neural network:
+
+*   Weights from input to hidden layer: $W^{(1)} = \begin{bmatrix} w_{11}^{(1)} & w_{12}^{(1)} \\ w_{21}^{(1)} & w_{22}^{(1)} \end{bmatrix}$, Bias for hidden layer: $[b_1^{(1)}, b_2^{(1)}]$, Activation function: $\sigma(z) = \frac{1}{1+e^{-z}}$
+*   Weights from hidden to output layer: $W^{(2)} = [w_1^{(2)}, w_2^{(2)}]$, Bias for output layer: $b^{(2)}$, Activation function: $\sigma(z) = \frac{1}{1+e^{-z}}$
+*   Target output: $y$; predicted output: $\hat{y}$
+*   Loss function: $\frac{1}{2}(y-\hat{y})^2$
+
+After performing a forward pass with input $[x_1, x_2]$ and computing the loss, you execute a backward pass to calculate the gradients of the loss with respect to the weights and biases. What are the correct gradients for the weight, $w_{11}^{(1)}$, after one round of backpropagation?
+
+Hint: Use chain rule to compute the gradients for $W^{(2)}$ and $W^{(1)}$. $\sigma'(z)$ is $\sigma(z) \cdot (1-\sigma(z))$.
+
+(a) $\frac{\partial Loss}{\partial w_{11}^{(1)}} = (y - \hat{y})^2 \cdot w_1^{(2)} \cdot \sigma'(z_1^{(1)}) \cdot x_1$
+
+(b) $\frac{\partial Loss}{\partial w_{11}^{(1)}} = (y - \hat{y}) \cdot \hat{y} \cdot w_1^{(2)} \cdot \sigma'(z_1^{(1)}) \cdot x_1$
+
+(c) $\frac{\partial Loss}{\partial w_{11}^{(1)}} = (y - \hat{y}) \cdot \hat{y} \cdot (1 - \hat{y}) \cdot w_1^{(2)} \cdot \sigma'(z_1^{(1)}) \cdot x_1$
+
+(d) $\frac{\partial Loss}{\partial w_{11}^{(1)}} = (y - \hat{y}) \cdot x_1$
+
+**Correct answers:** (c)
+
+**Explanation:** Gradient of Loss w.r.t. Output Layer Weights $W^{(2)}$: $\frac{\partial Loss}{\partial W^{(2)}}$
+
+Using chain rule, $\frac{\partial Loss}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial z^{(2)}} \cdot \frac{\partial z^{(2)}}{\partial W^{(2)}} = (y - \hat{y}) \cdot (-1) \cdot \hat{y} \cdot (1 - \hat{y}) \cdot a^{(1)}$
+
+Gradient of Loss w.r.t. Hidden Layer Weights $W^{(1)}$:
+
+For each weight $w_{ij}^{(1)}$, $\frac{\partial Loss}{\partial w_{ij}^{(1)}}$ Using chain rule, $\frac{\partial Loss}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial z^{(2)}} \cdot \frac{\partial z^{(2)}}{\partial a^{(1)}} \cdot \frac{\partial a^{(1)}}{\partial z^{(1)}} \cdot \frac{\partial z^{(1)}}{\partial w_{ij}^{(1)}}$
+
+For $w_{11}^{(1)}$: $(y - \hat{y}) \cdot (-1) \cdot \hat{y} \cdot (1 - \hat{y}) \cdot w_1^{(2)} \cdot \sigma'(z_1^{(1)}) \cdot x_1$
+
+## Problem 21
+
+21. Which of the following statement is true about the following code snippet?
+
+```python
+for i in range(epochs):
+    loss = 0
+    correct_labels = 0
+    total_labels = 0
+
+    for batch in tqdm(train_dataloader):
+        images, labels = batch
+        images, labels = images.to(device), labels.to(device)
+
+        optimizer.zero_grad()
+        y_hat = model(images) # (a)
+        batch_loss = F.cross_entropy(y_hat, labels) # (b)
+        batch_loss.backward() # (c)
+        optimizer.step() # (d)
+```
+
+(a) Step (a) completes the forward pass in backward propagation.
+
+(b) Step (b) calculates the batch loss using a loss function that consists of its own trainable parameters, and weighs each sample differently based on those parameters.
+
+(c) Step (c) never changes the weight parameters of any previous layer.
+
+(d) Step (d) by itself performs the stochastic gradient descent by calculating the gradients and updating parameterized weights (you may assume we are using torch.optim.SGD for optimizer).
+
+**Correct answers:** (c)
+
+## Problem 22
+
+22. Which of the follow is true about using backpropagation to train a neural network using a package such as PyTorch or TensorFlow?
+
+(a) You need to create a method that computes the gradient of each node of your neural network to call in the backpropagation step.
+
+(b) Automatic differentiation executed by these packages takes advantage of the fact that the gradients of most functions can be pre-computed.
+
+(c) The back-propagation executed by these packages is the process of computing the derivative of the nodes of a neural network starting with the first node at the beginning of the network and then proceeding to the next node(s).
+
+(d) These packages fail on models with ReLU layers because the ReLU function is not differentiable everywhere, and thus the packages cannot execute backpropagation.
+
+**Correct answers:** (b)
+
+## Problem 23
+
+23. How is Singular Value Decomposition (SVD) typically utilized in image compression?
+
+(a) Selecting important pixels
+
+(b) Discarding low-rank components
+
+(c) Enhancing color information
+
+(d) Increasing image resolution
+
+**Correct answers:** (b)
+
+## Problem 24
+
+24. In the context of image processing, which of the following will directly impact the total number of trainable weights in a convolutional layer of a convolutional neural network (CNN)?
+
+(a) The resolution of the input image
+
+(b) The kernel size of the layer
+
+(c) The stride of the layer
+
+(d) The amount of padding used
+
+**Correct answers:** (b)
+
+## Problem 25
+
+25. What is the key advantage of using Gaussian Mixture Models (GMMs) over $k$-means clustering for data clustering tasks?
+
+(a) GMMs are computationally more efficient than $k$-means and are better suited for large datasets due to their simpler calculations.
+
+(b) GMMs, unlike $k$-means, can automatically determine the optimal number of clusters in a dataset without requiring this as an input parameter.
+
+(c) GMMs can model complex cluster shapes and densities, accommodating elliptical shapes, as they do not assume clusters to be spherical like $k$-means.
+
+(d) GMMs inherently handle missing data and noise better than $k$-means due to their probabilistic approach, which accounts for uncertainty in the data.
+
+**Correct answers:** (c)
+
+## Problem 26
+
+26. Which of the following statements are true? Select all that apply.
+
+(a) The sum of two convex functions is always convex.
+
+(b) The sum of two concave functions is always concave.
+
+(c) The sum of a convex and concave function is always concave.
+
+**Correct answers:** (a), (b)
+
+## Problem 27
+
+27. Which of the following is **not** true about an arbitrary convex function $f: \mathbb{R} \to \mathbb{R}$ without any other assumptions? Select all that apply.
+
+(a) For all $x \in \mathbb{R}$, $f''(x) \ge 0$
+
+(b) The set
+$$ \{(x, y) \in \mathbb{R}^2 \mid y \ge f(x)\} $$
+is convex
+
+(c) If $c$ is a subgradient of $f$ at $x$, then for all $y \in \mathbb{R}$:
+$$ f(y) \ge f(x)+c(y - x) $$
+
+(d) $f$ cannot be concave
+
+**Correct answers:** (a), (d)
+
+**Explanation:** a is not true in general since we don't know that the second derivative exists; d is not true (e.g. $f(x) = x$)
+
+## Problem 28
+
+28. Suppose $f(x) = ax^2 + bx + c$, where $a, b, c \in \mathbb{R}$. Which of the following statements are true about the convexity of $f$?
+
+(a) $f$ is always convex since it is a polynomial.
+
+(b) $f$ is convex only when $a > 0, b > 0$, and $c > 0$.
+
+(c) If $a > 0$ then $f$ is convex.
+
+(d) If $a = 0$ then $f$ is never convex.
+
+**Correct answers:** (c)
+
+## Problem 29
+
+29. Given this 3-D scatter plot, which of the following basis functions would you use for linear regression?
+
+<img src="./scatter_plot.png" width="350px">
+
+(a) $\phi(x, y) = \begin{bmatrix} 1 \\ x \\ y \\ xy \\ x^2 \\ y^2 \end{bmatrix}$
+
+(b) $\phi(x, y) = \begin{bmatrix} e^{-x^2} \\ e^{-y^2} \\ e^{-(x^2+y^2)} \end{bmatrix}$
+
+(c) $\phi(x, y) = \begin{bmatrix} \cos(x) \\ \cos(y) \end{bmatrix}$
+
+(d) $\phi(x, y) = \begin{bmatrix} \sin(x) \\ \sin(y) \end{bmatrix}$
+
+**Correct answers:** (b)
+
