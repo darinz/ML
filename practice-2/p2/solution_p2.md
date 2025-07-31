@@ -248,3 +248,4 @@ In which of the following plots are the points clustered by `k-means` clustering
 **Correct answers:** (b)
 
 **Explanation:** Plot (b) shows the clustering that would result from k-means, where the algorithm divides the data into two clusters based on the geometric center of the data points, resulting in a horizontal division rather than following the natural crescent shapes of the data.
+
