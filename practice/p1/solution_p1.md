@@ -493,6 +493,8 @@ In linear regression, the loss function is $L(\alpha) = ||y - K\alpha||_2^2 + \l
 
 **Solution:** The answer is (B).
 
+![Figure 4](./figure_4.png)
+
 **Figure 4:** This figure depicts a neural network diagram with input nodes $x_1$ and $x_2$, hidden layer nodes $z_1$ and $z_2$, a bias node $b$, and an output node $\hat{y}$. Connections are shown from $x_1$ to $z_1$ and $z_2$, from $x_2$ to $z_1$ and $z_2$, and from $z_1$, $z_2$, and $b$ to $\hat{y}$.
 
 Use this figure to answer the following two questions.
