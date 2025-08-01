@@ -170,3 +170,4 @@ $$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
 **Answer:** For $x_0 \neq 0$, the gradient descent will head towards $\text{sign}(x_0) \infty$ very slowly.
 
 **Explanation:** For $x_0 = 0$ gradient descent is stationary and for $x_0 \neq 0$ it will head towards $\text{sign}(x_0) \infty$ very slowly.
+
