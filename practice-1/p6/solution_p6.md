@@ -114,3 +114,93 @@ A fresh graduate of CSE 446 is helping a biologist friend model the relationship
 
 **Correct answers:** (d)
 
+**11. In a neural network, what is the primary purpose of the activation function?**
+
+*   (a) To increase the number of parameters
+*   (b) To introduce non-linearity into the model
+*   (c) To reduce computational complexity
+*   (d) To normalize the input data
+
+**Correct answers:** (b)
+
+**12. Which of the following loss functions is most appropriate for binary classification?**
+
+*   (a) Mean Squared Error (MSE)
+*   (b) Binary Cross-Entropy
+*   (c) Mean Absolute Error (MAE)
+*   (d) Hinge Loss
+
+**Correct answers:** (b)
+
+**13. What is the main difference between Stochastic Gradient Descent (SGD) and Batch Gradient Descent?**
+
+*   (a) SGD uses momentum while Batch GD does not
+*   (b) SGD updates parameters using a single sample while Batch GD uses all samples
+*   (c) SGD is faster but less accurate than Batch GD
+*   (d) SGD requires more memory than Batch GD
+
+**Correct answers:** (b)
+
+**14. In the context of machine learning, what does the term "bias" refer to?**
+
+*   (a) The difference between predicted and actual values
+*   (b) The systematic error that occurs when a model is too simple
+*   (c) The random error in the data
+*   (d) The difference between training and validation performance
+
+**Correct answers:** (b)
+
+**15. Which of the following is a valid approach to handle imbalanced datasets?**
+
+*   (a) Always use accuracy as the evaluation metric
+*   (b) Use techniques like SMOTE or class weights
+*   (c) Remove samples from the majority class
+*   (d) Increase the learning rate
+
+**Correct answers:** (b)
+
+**16. What is the primary purpose of the validation set in machine learning?**
+
+*   (a) To train the final model
+*   (b) To evaluate model performance during training
+*   (c) To test the final model
+*   (d) To preprocess the data
+
+**Correct answers:** (b)
+
+**17. In the context of decision trees, what does "pruning" refer to?**
+
+*   (a) Adding more branches to the tree
+*   (b) Removing branches to prevent overfitting
+*   (c) Changing the splitting criteria
+*   (d) Increasing the depth of the tree
+
+**Correct answers:** (b)
+
+**18. Which of the following is NOT a common hyperparameter for a neural network?**
+
+*   (a) Learning rate
+*   (b) Number of layers
+*   (c) Number of epochs
+*   (d) Number of features
+
+**Correct answers:** (d)
+
+**19. What is the main advantage of using ensemble methods like Random Forest?**
+
+*   (a) They are always more accurate than single models
+*   (b) They reduce overfitting through averaging
+*   (c) They are computationally faster than single models
+*   (d) They require less data than single models
+
+**Correct answers:** (b)
+
+**20. In the context of clustering, what does the "elbow method" help determine?**
+
+*   (a) The optimal number of clusters
+*   (b) The best clustering algorithm
+*   (c) The distance metric to use
+*   (d) The initialization method
+
+**Correct answers:** (a)
+
