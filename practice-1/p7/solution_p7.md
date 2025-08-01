@@ -167,3 +167,162 @@ $$W = \begin{bmatrix} w_1 & 0 & \dots & 0 \\ 0 & w_2 & \dots & 0 \\ \vdots & \vd
 4. $h_4(x) = [1, \sin(\frac{4\pi}{25}x)]$
 
 **Explanation:** Plot (a): $h_4$, Plot(b): $h_2$, Plot (c): $h_1$, Plot (d): $h_3$
+
+**14. What is the purpose of general basis functions in linear regression?**
+
+*   (a) To increase convergence speed in gradient descent.
+*   (b) To encourage sparsity in learned weights.
+*   (c) To minimize computational complexity.
+*   (d) To transform input data into a higher-dimensional space to capture non-linear relationships.
+
+**Correct answers:** (d)
+
+**15. What is the best description of 'irreducible error' in a machine learning predictor?**
+
+*   (a) It's due to inherent noise that cannot be eliminated by any model.
+*   (b) It's minimized by cross-validation.
+*   (c) It can be minimized by increasing training data size.
+*   (d) It arises from feature engineering or irrelevant features.
+
+**Correct answers:** (a)
+
+**16. A polynomial regression model of degree $d=3$ approximates a quadratic function $g(x) = 7x^2 + \epsilon$, where $\epsilon$ is a Gaussian random variable with mean $\mu=0$ and variance $\sigma^2=4$. What is the irreducible error?**
+
+*   (a) 2
+*   (b) 0
+*   (c) 4
+*   (d) $x^3$
+
+**Correct answers:** (c)
+
+**17. True/False: Increasing the proportion of your dataset allocated to training (as opposed to testing) will guarantee better performance on unseen data.**
+
+*   (a) False
+*   (b) True
+
+**Correct answers:** (a)
+
+**18. Which of the following statements best describes a potential issue that can arise if the test dataset is not properly separated from the training dataset?**
+
+*   (a) The model will always underfit, regardless of the algorithm used.
+*   (b) The model will always overfit, regardless of the algorithm used.
+*   (c) The evaluation metrics will tend to overestimate the prediction error on unseen data.
+*   (d) The test data will influence the training process, leading to an overly optimistic estimate of the model's performance on new, unseen data.
+*   (e) The model's computational complexity will significantly increase, resulting in longer training times.
+
+**Correct answers:** (d)
+
+**19. How should data preprocessing be applied when using k-fold cross-validation? Select the most accurate answer.**
+
+*   (a) Preprocess the entire dataset before splitting into folds to maintain consistency.
+*   (b) Avoid preprocessing as it can bias the cross-validation results.
+*   (c) Only preprocess the test folds and train our model on raw (unprocessed) data.
+*   (d) Apply preprocessing separately on each iteration of k-fold validation to avoid data leakage.
+
+**Correct answers:** (d)
+
+**20. What is the main advantage of using k-fold cross-validation? One Answer**
+
+*   (a) It guarantees improvement in model accuracy on unseen data.
+*   (b) It provides an estimate of model performance for given hyperparameters.
+*   (c) It significantly reduces the training time of the model by dividing the dataset into smaller parts.
+*   (d) It eliminates the need for a separate test dataset.
+
+**Correct answers:** (b)
+
+**21. In Lasso regression, how does the regularization parameter $\lambda$ influence the risk of overfitting? Select all that apply.**
+
+*   (a) Increasing $\lambda$ always increases the risk of overfitting as it leads to higher model complexity.
+*   (b) Decreasing $\lambda$ to zero may increase the risk of overfitting.
+*   (c) Increasing $\lambda$ typically reduces the risk of overfitting by increasing sparsity.
+*   (d) The choice of $\lambda$ in Ridge regression has no impact on the risk of overfitting.
+
+**Correct answers:** (b), (c)
+
+**22. When comparing Lasso regression to Ridge regression, which of the following properties are true about Lasso regression? Select all that apply.**
+
+*   (a) Lasso regression can be used to select the most important features of a dataset.
+*   (b) Lasso regression tends to retain all features but with smaller coefficients.
+*   (c) Lasso regression is always better suited for handling high-dimensional data with a large number of features.
+*   (d) Lasso regression has fewer hyperparameters to tune.
+
+**Correct answers:** (a)
+
+**23. A student is using ridge regression for housing price prediction. They notice that increasing the regularization strength improves validation set performance but worsens training set performance. What does this suggest about the model before adjusting regularization?**
+
+*   (a) The choice of features was inappropriate.
+*   (b) The model was underfitting the training data.
+*   (c) The regularization strength was too high.
+*   (d) The model was overfitting the training data.
+
+**Correct answers:** (d)
+
+**Explanation:** The model was likely overfitting, capturing noise. Increasing regularization helps mitigate overfitting by penalizing large coefficients, leading to better generalization on unseen data (validation set).
+
+**24. For a twice-differentiable convex function $f: \mathbb{R}^d \to \mathbb{R}$, what are the properties of the Hessian matrix, $\nabla^2 f(x) \in \mathbb{R}^{d \times d}$?**
+
+**Hint:** Consider the $d=1$ case (second derivative and shape).
+
+*   (a) $\nabla^2 f(x)$ is negative semi-definite.
+*   (b) $\nabla^2 f(x)$ is negative definite.
+*   (c) $\nabla^2 f(x)$ is positive definite.
+*   (d) $\nabla^2 f(x)$ is positive semi-definite.
+
+**Correct answers:** (d)
+
+**25. True/False: A solution to a convex optimization problem is guaranteed to be a global minimum.**
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (a)
+
+**Explanation:** For a convex function, any local minimum is also a global minimum.
+
+**26. True/False: A solution to a convex optimization problem is guaranteed to be unique.**
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**Explanation:** The solution, while having minimal value, will not necessarily be unique. Consider the case of Least Squares with fewer data points than dimensions. There are an infinite number of solutions with the minimum value.
+
+**27. True/False: A convex optimization problem is guaranteed to have a closed-form solution.**
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**28. Briefly explain the main difference between Mini Batch Gradient Descent and Stochastic Gradient Descent. Then, describe one main advantage of using Mini Batch Gradient Descent over SGD.**
+
+**Answer:**
+
+**Explanation:**
+
+**Main Difference:** The main difference is that SGD uses a single training point to estimate the gradient, while Mini Batch chooses a set of $B$ training points (for some chosen constant $B$).
+
+**Main Advantage:** The main advantage of Mini Batch GD is that by using more points in the gradient estimation, we get a less noisy estimate which improves convergence.
+
+**29. True/False: Stochastic gradient descent provides biased estimates of the true gradient at each step.**
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**30. Consider some function $f(x): \mathbb{R}^d \to \mathbb{R}$, and assume that we want to run an iterative algorithm to find the maximizer of $f$. Which update rule should we use to do this (for some $\eta > 0$)?**
+
+*   (a) $x_{t+1} \leftarrow -x_t + \eta \cdot \nabla_x f(x_t)$
+*   (b) $x_{t+1} \leftarrow x_t - \eta \cdot \nabla_x f(x_t)$
+*   (c) $x_{t+1} \leftarrow -x_t - \eta \cdot \nabla_x f(x_t)$
+*   (d) $x_{t+1} \leftarrow x_t + \eta \cdot \nabla_x f(x_t)$
+
+**Correct answers:** (d)
+
+**31. You run a social media platform and are planning to implement a system to combat the spread of misinformation by detecting fake news articles. To keep things simple, the system only needs to identify articles as one of two classes: (1) being fake news, or (2) not being fake news. Of the model types we have learned in class so far, which would be the best choice to implement this system?**
+
+**Answer:**
+
+**Explanation:** Logistic Regression is the only classification model discussed so far that is fit for this task of binary classification.
