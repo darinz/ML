@@ -233,3 +233,103 @@ What is the output of this network given the current weights and input?
 
 **Correct answers:** (d)
 
+## Problem 15
+
+True/False: Given a set of points in a $d$-dimensional space, using PCA to reduce the dataset to $d' < d$ dimensions will **always** lead to loss of information.
+
+(a) True
+
+(b) False
+
+**Correct answers:** (b)
+
+## Problem 16
+
+True/False: The bootstrap method can be applied to both regression and classification questions.
+
+(a) True
+
+(b) False
+
+**Correct answers:** (a)
+
+## Problem 17
+
+Which of the following techniques can be helpful in reducing the original dimensions of input data? Select **all** that apply.
+
+(a) L1 Regularization (LASSO)
+
+(b) L2 Regularization (Ridge)
+
+(c) Principal Component Analysis (PCA)
+
+(d) $k$-means Clustering
+
+**Correct answers:** (a), (c)
+
+## Problem 18
+
+True/False: Given a dataset $X$ in a $d$-dimensional space, using PCA to project $X$ onto $d_1 < d_2 < d$ dimensions leads to the $d_1$ dimensional projection to being a subspace of the $d_2$-dimensional projection.
+
+(a) True
+
+(b) False
+
+**Correct answers:** (a)
+
+## Problem 19
+
+Shade in the region where decision boundaries that lie inside it have equal training error.
+
+<img src="./q19_problem.png" width="450px">
+
+A Cartesian coordinate system is shown with an x-axis ranging from 0 to 4 and a y-axis ranging from 0 to 4. Grid lines are present at 0.5 unit intervals.
+
+There are two types of points plotted:
+
+**Hollow points (circles):**
+- $(1, 2)$
+- $(2, 3)$
+- $(2, 4)$
+- $(3, 3)$
+- $(4, 3.5)$
+
+**Filled points (solid dots):**
+- $(0, 0)$
+- $(1, 0.25)$
+- $(2, 0.5)$
+- $(2, 1)$
+- $(3, 0.5)$
+
+**Explanation:** The solution for part 1 is:
+
+<img src="./q19_solution.png" width="450px">
+
+A Cartesian coordinate system is shown with an x-axis ranging from 0 to 4 and a y-axis ranging from 0 to 4. Grid lines are present. The same hollow and filled points as in the problem description are plotted.
+
+A region is shaded in gray. This shaded region is bounded by two dashed lines:
+- The upper dashed line passes through the points $(1, 2)$ and $(4, 3.5)$. Its equation is approximately $y = 0.5x + 1.5$.
+- The lower dashed line passes through the points $(0, 0)$ and $(3, 0.5)$. Its equation is approximately $y = \frac{1}{6}x$.
+
+The shaded region represents the area between these two dashed lines, inclusive of the lines themselves.
+
+## Problem 20
+
+Which of the following features could allow a logistic regression model to perfectly classify all data points in the following figure? Select all that apply.
+
+A Cartesian coordinate system is shown with an x-axis labeled 'X' ranging from -3 to 3 and a y-axis labeled 'y' ranging from -3 to 3. Major grid lines are present at integer values on both axes, and minor grid lines are present at 0.5 unit intervals.
+
+There are two types of data points:
+- **Crosses (x):** These points are distributed widely across the entire plot area, forming an outer region. They are present in all four quadrants.
+- **Solid Circles (•):** These points are clustered tightly around the origin, primarily within the region where X is approximately between -0.5 and 0.5, and Y is approximately between -0.5 and 0.5. This cluster of solid circles forms an inner region, completely surrounded by the crosses.
+
+(a) $|x_i|, |y_i|$
+
+(b) $x_i + y_i, x_i - y_i$
+
+(c) $x_i^2, y_i^2$
+
+(d) $x_i^3, y_i^3$
+
+**Correct answers:** (a), (c)
+
