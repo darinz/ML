@@ -5,8 +5,11 @@
 Scientists tell us that there is a 10% probability that a person will have the flu this winter. Meanwhile, the CDC reports that 30% of the population will experience flu-like symptoms and that 60% of people with the flu will be symptomatic. What's the probability that Sarah has the flu given that she has flu-like symptoms?
 
 (A) 60%
+
 (B) 20%
+
 (C) 30%
+
 (D) 10%
 
 **Solution:** The solution is (B).
