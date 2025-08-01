@@ -73,7 +73,7 @@ $$P(x|\lambda) = e^{-\lambda} \frac{\lambda^x}{x!}$$
 
 **Correct answers:** (d)
 
-**Explanation:** The MLE estimate of $\lambda$ for a Poisson distribution is simply the mean of the observed data. The mean is $\frac{39}{6} = 6.5$. This problem was sourced from "Homework 1, Question 2".
+**Explanation:** The MLE estimate of $\lambda$ for a Poisson distribution is simply the mean of the observed data. The mean is $\frac{39}{6} = 6.5$.
 
 **7. Assume a simple linear model $Y = Xw$. For simplicity, no intercept is considered. Given the following dataset:**
 
