@@ -32,3 +32,6 @@ A fresh graduate of CSE 446 is helping a biologist friend model the relationship
 *   **A:** time $x = 0$ to around 6 hours (represented by circles)
 *   **B:** time $x$ around 6 hours to $x$ around 12 hours (represented by squares)
 *   **C:** time $x$ around 12 hours to $x$ around 16 hours (represented by the symbol 'x')
+
+<img src="./experiment.png" width="350px">
+
