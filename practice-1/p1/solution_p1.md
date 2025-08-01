@@ -19,6 +19,7 @@ Scientists tell us that there is a 10% probability that a person will have the f
 True/False: The variance of a model typically decreases as the number of features increases.
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (B).
@@ -28,8 +29,11 @@ True/False: The variance of a model typically decreases as the number of feature
 Assume you're given two independent random variables X and Y. X is uniformly distributed on the interval [1, 3], whereas Y follows a normal distribution with mean 3 and standard deviation 1. What is $(E[XY])^2 – E[X]E[Y]$?
 
 (A) 3
+
 (B) 30
+
 (C) 6
+
 (D) 0
 
 **Solution:** The solution is (B).
@@ -39,6 +43,7 @@ Assume you're given two independent random variables X and Y. X is uniformly dis
 True/False: If the columns of A are orthogonal, then $A^TA$ is diagonal.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (A).
@@ -48,6 +53,7 @@ True/False: If the columns of A are orthogonal, then $A^TA$ is diagonal.
 True/False: Assume we train a model on a given dataset. If we were to remove 50% of samples from the dataset and re-train the model from scratch, the new model will be more likely to overfit to its training data than the old one.
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (A).
@@ -57,6 +63,7 @@ True/False: Assume we train a model on a given dataset. If we were to remove 50%
 True/False: If $\{v_1, v_2, \dots, v_n\}$ and $\{w_1, w_2, \dots, w_n\}$ are linearly independent, then $\{v_1 + w_1, v_2 + w_2, \dots, v_n + w_n\}$ are linearly independent.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (B).
@@ -66,6 +73,7 @@ True/False: If $\{v_1, v_2, \dots, v_n\}$ and $\{w_1, w_2, \dots, w_n\}$ are lin
 True/False: $E[\epsilon\epsilon^T] = I$ where $\epsilon_i \sim N(0, \sigma^2)$ such that $\epsilon$ is a column vector: $\epsilon \in \mathbb{R}^d$.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (B).
@@ -135,6 +143,7 @@ Let $x_1, x_2 \in \mathbb{R}$ be sampled from the distribution $N(\mu, 1)$, wher
 Suppose our data distribution has the property that $y_i = \beta x_i + c + \epsilon_i$ for $x_i, \beta \in \mathbb{R}^d$, $c \in \mathbb{R}$, $\epsilon_i \sim N(0, \sigma^2)$. Suppose we learn a model $\hat{\beta} = \operatorname{argmin}_{\gamma} ||\gamma X - y||_2^2$. True/False: $\hat{\beta}$ is an unbiased estimate of $\beta$.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (B).
@@ -155,6 +164,7 @@ How will regularizing the weights in a linear regression model change the bias a
 True/False: Given a fixed training set, the training loss is never larger in a polynomial regression of degree $d + 1$ than in one of degree $d$, where ($d \ge 1$).
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (A).
@@ -164,6 +174,7 @@ True/False: Given a fixed training set, the training loss is never larger in a p
 True/False: Given both a train and test set, the test loss is always lower in a polynomial regression of degree $d + 1$ than in one of degree $d$, where ($d \ge 1$).
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (B).
@@ -195,6 +206,7 @@ How does the irreducible error change if we increase the regularization coeffici
 True/False: k-fold cross-validation with $k = 100$ is computationally more expensive (slower) than "leave-one-out" cross validation. (Assume that there are enough data points to divide the dataset evenly by $k$.)
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (B).
@@ -214,6 +226,7 @@ Assume we have a data matrix $X$. Which of the following is a true statement whe
 True/False: LASSO is a convex optimization problem.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (A).
@@ -245,6 +258,7 @@ In a LASSO Regression, if the regularization parameter $\lambda$ is very high, w
 True/False: In LASSO regression, if the regularization parameter $\lambda$ is very large and two informative features are highly collinear (i.e., that there exists an $\alpha$ such that $x_{ij} \approx \alpha x_{ij'}$ for all $i \in [n]$), then LASSO will assign one of those coefficients to zero while ridge regression never will.
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (A).
@@ -267,6 +281,7 @@ True/False: For any convex function $f: \mathbb{R} \to \mathbb{R}$, for any $x \
 $f(\lambda x_1 + (1 - \lambda)x_2) \le (1-\lambda)f(x_1) + \lambda f(x_2)$
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (B).
@@ -276,6 +291,7 @@ $f(\lambda x_1 + (1 - \lambda)x_2) \le (1-\lambda)f(x_1) + \lambda f(x_2)$
 True/False: All local minimizers for a convex function $f$ are global minimizers for $f$.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (A).
@@ -307,6 +323,7 @@ Which of the following is not a convex set?
 True/False: We use stochastic gradient descent instead of gradient descent in order to speed up per-iteration computation at the expense of more variance.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (A).
@@ -353,6 +370,7 @@ Which of the following is a true statement about gradient descent (GD)?
 True/False: The bias of a model is defined as the expected difference between the prediction $\hat{y}$ and the true value $y$.
 
 (A) True
+
 (B) False
 
 **Solution:** In Autumn 2022, we accepted either answer due to ambiguity in the question.
@@ -362,6 +380,7 @@ True/False: The bias of a model is defined as the expected difference between th
 True/False: Consider the sets of features $S \subseteq S'$. True or false: the bias of the model trained on features in $S'$ is no larger than the bias of the model trained on features in $S$.
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (A).
@@ -371,6 +390,7 @@ True/False: Consider the sets of features $S \subseteq S'$. True or false: the b
 True/False: The cross-validation error is a better estimate of the true error than the training error.
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (A).
@@ -380,6 +400,7 @@ True/False: The cross-validation error is a better estimate of the true error th
 True/False: If a model is trained with "leave-one-out" cross validation, then the expected error of the model on unseen data is equal to the training error of the model.
 
 (A) True
+
 (B) False
 
 **Solution:** The solution is (B).
@@ -415,6 +436,7 @@ True/False: Let $x_1, \dots, x_n \in \mathbb{R}^+$ be sampled i.i.d. from the di
 True/False: In the least-squares linear regression setting, if we double the data matrix $X$, we double the resulting least squares solution $\hat{w}$.
 
 (A) True
+
 (B) False
 
 **Solution:** The answer is (B).
