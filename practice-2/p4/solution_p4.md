@@ -317,7 +317,10 @@ The shaded region represents the area between these two dashed lines, inclusive 
 
 Which of the following features could allow a logistic regression model to perfectly classify all data points in the following figure? Select all that apply.
 
+
 A Cartesian coordinate system is shown with an x-axis labeled 'X' ranging from -3 to 3 and a y-axis labeled 'y' ranging from -3 to 3. Major grid lines are present at integer values on both axes, and minor grid lines are present at 0.5 unit intervals.
+
+<img src="./q20_problem.png" width="450px" >
 
 There are two types of data points:
 - **Crosses (x):** These points are distributed widely across the entire plot area, forming an outer region. They are present in all four quadrants.
