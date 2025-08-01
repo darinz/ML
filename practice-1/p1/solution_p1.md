@@ -478,8 +478,11 @@ in terms of the $n \times d$ matrix $X$ whose $i$-th row is $x_i^T$ and the $n$ 
 True/False: Let $x_1, \dots, x_n \in \mathbb{R}^+$ be sampled i.i.d. from the distribution $\text{Exp}(\theta) = \theta e^{-\theta x}$, where $\theta \in \mathbb{R}^+$ is an unknown variable. By analyzing the log-likelihood, what is the maximum likelihood estimation of $\theta$ (in terms of the samples)?
 
 (A) $\frac{1}{n} \prod_{i=1}^{n} x_i$
+
 (B) $\frac{1}{n} \sum_{i=1}^{n} x_i$
+
 (C) $n / (\sum_{i=1}^{n} x_i)$
+
 (D) $-n / (\sum_{i=1}^{n} x_i)$
 
 **Solution:** The answer is (C).
