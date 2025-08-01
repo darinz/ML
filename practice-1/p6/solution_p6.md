@@ -203,4 +203,3 @@ A fresh graduate of CSE 446 is helping a biologist friend model the relationship
 *   (d) The initialization method
 
 **Correct answers:** (a)
-
