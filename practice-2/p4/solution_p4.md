@@ -350,3 +350,4 @@ $$\operatorname{sign}(x) = \begin{cases} +1 & x \ge 0 \\ -1 & x < 0 \end{cases}$
 **Answer:**
 
 **Explanation:** The solution is $\hat{\theta} \in [x_n, x_{n+1}]$
+
