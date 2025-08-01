@@ -203,3 +203,147 @@ You are building a model to detect fraudulent transactions from a dataset of 100
 **Correct answers:** (c)
 
 **Explanation:** A is incorrect since the validation and test set should be separate. B is incorrect since the data splits should be randomized. C is the correct as it is the standard data split method. D is incorrect since evaluating on the known train set induces bias.
+
+**12. One Answer**
+
+You are implementing a model to predict house prices. Your dataset contains 15 features (e.g., location, acres, proximity to city, etc.). However, you believe that many of these features are irrelevant to the house prices. Which method would be most suitable for your model?
+
+*   (a) Logistic regression with L1 regularization.
+*   (b) Logistic regression with L2 regularization.
+*   (c) Linear regression with L1 regularization.
+*   (d) Linear regression with L2 regularization.
+
+**Correct answers:** (c)
+
+**Explanation:** Since this is a regression not classification task, we use linear regression. Additionally, since we are interested in some kind of feature selection, L1 regularization would be more effective in setting unimportant features to 0.
+
+**13. Select All That Apply**
+
+While training a model, you notice that it has a small bias but a high variance on the training data. Which of the following are valid strategies to address the high variance?
+
+*   (a) Increase regularization constant.
+*   (b) Train on a model class that is simpler.
+*   (c) Increase the size of the training dataset.
+*   (d) Use higher-degree features to capture more complex patterns in the data.
+
+**Correct answers:** (a), (b), (c)
+
+**Explanation:** A and B are correct because increasing regularization and simplifying model complexity help decrease the impact of less important features, improving generalization and reducing variance. C is also correct because increasing the training set size allows the model to generalize better, which can reduce variance. D is incorrect since using higher-degree features increases model complexity and often leads to overfitting, increasing variance.
+
+**14. Select All That Apply**
+
+After a student trains and evaluates a Logistic Regression model, you notice their test accuracy is 99.99%. You know that this was supposed to be a difficult dataset to model, so you investigate. Which of the following are reasonable explanations for this excessively high accuracy? Note that if you select multiple answers, not all of them have to be true at the same time.
+
+*   (a) There was some form of train/test leakage, resulting in the model over-performing on the test set
+*   (b) The data was not linearly separable, making it very easy for the model to classify things correctly
+*   (c) The dataset was incredibly imbalanced, with most of the data points being labeled as positives
+*   (d) The dataset was incredibly imbalanced, with most of the data points being labeled as negatives
+
+**Correct answers:** (a), (c), (d)
+
+**Explanation:** A is true. Train/test leakage can result in incredibly high performance on the evaluation data. C and D are also true. A very imbalanced dataset can make it so that the model only predicts the majority class yet scores very high. B is false as having data that is not linearly separable does not make it easier for a linear model to separate the classes.
+
+**15. One Answer**
+
+Given $W \in \mathbb{R}^{m \times n}, X \in \mathbb{R}^{n \times n}, Y \in \mathbb{R}^{p \times m}, Z \in \mathbb{R}^{m \times m}$, and $a \in \mathbb{R}^n$. If $m, n, p$ are distinct, which one of the following expressions is valid?
+
+*   (a) $(X^{-1}aa^T W^T)^{-1}(X^T a)$
+*   (b) $Xa^T aW^T (Z^{-1}Y^T)$
+*   (c) $WXaa^T XZY^T$
+*   (d) None of the above
+
+**Correct answers:** (b)
+
+**Explanation:** A is incorrect because $X^{-1}aa^T W^T \in \mathbb{R}^{n \times m}$, and you cannot take the inverse of a non-square matrix. B is correct because even though $Xa^T$ is not possible ($n \times n, 1 \times n$), $a^T a$ becomes a scalar and allows for the expression to be valid. C is incorrect because $XZ$ is not possible ($n \times n, m \times m$). D is incorrect because B is correct.
+
+**16.**
+
+For what value of $k$ will $k$-fold cross-validation create cross-validation splits equivalent to Leave-one-out cross-validation (LOOCV)? Assume you have $n$ data points.
+
+**Answer:** $k = n$
+
+**Explanation:** If $k = n$, then there will be $n$ folds, each one only leaving 1 datapoint out. This is equivalent to LOOCV.
+
+**17. One Answer**
+
+We can decrease the variance of a model by increasing the model complexity.
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**Explanation:** As model complexity increases, this increases the variance error due to higher degree of freedom.
+
+**18. Select All That Apply**
+
+Which of the following statements are true about logistic regression? Recall that the sigmoid function is defined as $\sigma(x) = \frac{1}{1+e^{-x}}$ for $x \in \mathbb{R}$
+
+*   (a) L2 regularization is often used to reduce overfitting in logistic regression by adding a penalty for large coefficient values
+*   (b) The logistic sigmoid function is used to model the probability of the positive class in binary logistic regression
+*   (c) The maximum likelihood estimates for the logistic regression coefficients can be found in closed-form
+*   (d) For any finite input $x \in \mathbb{R}$, $\sigma(x)$ is strictly greater than 0 and strictly less than 1. Thus, a binary logistic regression model with finite input and weights can never output a probability of exactly 0 or 1, and can never achieve a training loss of exactly 0.
+
+**Correct answers:** (a), (b), (d)
+
+**Explanation:** The MLE for logistic regression coefficients cannot be found in closed-form which is why an iterative approach (eg. SGD) is used to find the coefficients.
+
+(d) True. $\sigma(x)$ has horizontal asymptotes at 0 and 1 and therefore is strictly bounded between those values. Because the output probability is the output of, this implies that the output probability is also strictly contained in (0,1). As it cannot output positive or negative labels with probability 1, it is therefore unable to reduce the training loss to exactly 0, though it can get arbitrarily close.
+
+**19. Select All That Apply**
+
+Below are several statements about the train/test/validation sets and cross-validation. Which of the following are correct?
+
+*   (a) k-fold cross validation (where $k > 1$) is faster but more biased than leave-one-out (LOO) cross validation.
+*   (b) k-fold cross validation (where $k > 1$) is faster and more accurate than leave-one-out (LOO) cross validation.
+*   (c) The test set can be used to evaluate models during training and for hyperparameter tuning.
+*   (d) The test error gives us an assessment of how our model does on unseen data.
+
+**Correct answers:** (a), (d)
+
+**Explanation:** A is correct since k-fold is faster but generally more biased. D is correct since the purpose of the test set is to test the model on unseen data and assess its performance.
+
+**20. Select All That Apply**
+
+Consider the principle of Maximum Likelihood Estimation (MLE), which is a method to estimate the parameters of a statistical model. Which of the following statements is correct?
+
+*   (a) For MLE, samples must be drawn i.i.d. (independent and identically distributed).
+*   (b) Once we have a log-likelihood function, we maximize it with respect to the parameter $\theta$ to find the parameter estimate $\hat{\theta}_{MLE}$.
+*   (c) MLE always provides an unbiased estimator of the true parameter.
+*   (d) MLE identifies the model parameters that maximize the likelihood of the observed data.
+
+**Correct answers:** (b), (d)
+
+**Explanation:** While i.i.d. is commonly assumed when doing MLE, it is not strictly necessary. Additionally, although it can sometimes be unbiased, MLE is generally a biased estimator.
+
+**21. One Answer**
+
+If we run gradient descent on $f(x)$, gradient descent guarantees that we will converge to the global minimum even if $\nabla^2f(x) \ge 0$ does not hold some $x$, i.e., the Hessian of the objective function is not positive semi-definite for some $x$.
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**Explanation:** Gradient descent only guarantees a global minimum if $f(x)$ is convex.
+
+**22. One Answer**
+
+Let $A_1, A_2,..., A_n \sim N(\mu, \sigma^2)$. What is $E[A_1 + A_2 + A_3]$?
+
+*   (a) $3\mu$
+*   (b) $6\mu$
+*   (c) $9\mu$
+*   (d) Cannot be determined from the given information.
+
+**Correct answers:** (a)
+
+**Explanation:** By linearity of expectation, $E[A_1 + A_2 + A_3] = E[A_1] + E[A_2] + E[A_3]$. Since $A_1, A_2,..., A_n \sim N(\mu, \sigma^2)$, $E[A_1] = E[A_2] = E[A_3] = \mu$. Thus, $E[A_1] + E[A_2] + E[A_3] = \mu + \mu + \mu = 3\mu$.
+
+**23.**
+
+Consider a function $f(x,y)$ representing a loss function in a 2-dimensional space, where gradient descent is used to minimize $f$. Given the function: $f(x, y) = x^2 + 2y^2 + 4xy$ where the initial point is $(x_0, y_0) = (1, 1)$ and the learning rate is 0.1, write down the $(x_1, y_1)$ you get after one step of gradient descent.
+
+**Answer:** $(x_1, y_1) = (0.4, 0.2)$
+
+**Explanation:** From the gradient descent algorithm: $x_1 = x_0 - \eta \cdot \frac{\partial f(x_0, y_0)}{\partial x}$ and $y_1 = y_0 - \eta \cdot \frac{\partial f(x_0, y_0)}{\partial y}$. It is given that $\eta = 0.1$. $\frac{\partial f(x,y)}{\partial x} = 2x + 4y$. $\frac{\partial f(x,y)}{\partial y} = 4y + 4x$. So, $x_1 = 1 - 0.1 \cdot 6 = 0.4$ and $y_1 = 1 - 0.1 \cdot 8 = 0.2$.
