@@ -276,6 +276,8 @@ Donovan is training some machine learning model, and is telling you about it. He
 
 The following plots show 3 data points and 3 models. The data is the same for all 3 models. Match the learned model to the equation used for linear regression.
 
+<img src="./plots.png" width="550px">
+
 $\hat{w} = (X^T X + \lambda I)^{-1} X^T y$. Plot number: 3 (for $\lambda > 0$)
 
 $\hat{w} = (X^T X)^{-1} X^T y$. Plot number: 1
