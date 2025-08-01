@@ -171,3 +171,76 @@ $$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
 
 **Explanation:** For $x_0 = 0$ gradient descent is stationary and for $x_0 \neq 0$ it will head towards $\text{sign}(x_0) \infty$ very slowly.
 
+**19. A bag contains 4 red balls and 3 green balls. We draw 3 balls from the bag without replacement. What is the probability that all 3 balls are red? Express your result as a fraction, or as a percentage rounded to the integer percentage (e.g. 77%).**
+
+**Answer:**
+
+**Explanation:** 11% or 4/35
+
+**20. True/False: For a matrix $X \in \mathbb{R}^{n \times d}$ of rank $d$, there exists an orthogonal matrix $V$ and diagonal matrix $D$ such that $X^T X = VDV^T$.**
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (a)
+
+**21. You have built a spam detection classifier to help you clean up your email inbox. Your system has uncovered that 90% of all spam emails contain the word "discount". If you assume that the overall probability of an email being spam is 5% and 15% of all incoming emails contain the word "discount", what is the probability that an email containing "discount" is actually spam?**
+
+*   (a) 0.9
+*   (b) 0.135
+*   (c) 0.3
+*   (d) 0.045
+
+**Correct answers:** (c)
+
+**22. Determine if the following statements about k-fold cross-validation are true or false:**
+
+**Statement (1):** For large datasets with $n$ samples, it is recommended to use k-fold cross-validation with a value of $k$ that is close to $n$.
+
+**Statement (2):** In k-fold cross-validation, a larger value of $k$ results in a more computationally efficient process, as it requires fewer model training.
+
+*   (a) Both statements are True
+*   (b) Both statements are False
+*   (c) Statement (1) is True, Statement (2) is False
+*   (d) Statement (1) is False, Statement (2) is True
+
+**Correct answers:** (b)
+
+**23. What is the primary encouragement of the L1 regularization term in Lasso regression?**
+
+*   (a) Encourages the model to fit the training data more closely.
+*   (b) Encourages the model to have large coefficients for all features.
+*   (c) Encourages the model to have small but non-zero coefficients for all features.
+*   (d) Encourages sparsity by driving some feature coefficients to zero.
+
+**Correct answers:** (d)
+
+**24. Consider fitting a linear model by minimizing the least squares objective $\hat{w} = \arg \min_w \sum_{i=1}^n (y_i - x_i^T w)^2$ for a training dataset of i.i.d. input-output pairs $\{(x_i, y_i)\}_{i=1}^n$. Which of the following statements about this objective is true?**
+
+*   (a) The least squares objective is equivalent to maximizing the likelihood function of the observed data assuming Gaussian noise.
+*   (b) The least squares objective is equivalent to minimizing the likelihood function of the observed data assuming Gaussian noise.
+*   (c) The least squares objective is equivalent to maximizing the likelihood function of the observed data assuming Laplace noise.
+*   (d) The least squares objective is equivalent to minimizing the likelihood function of the observed data assuming Laplace noise.
+
+**Correct answers:** (a)
+
+**25. Consider a matrix $A \in \mathbb{R}^{n \times n}$ that is symmetric and has orthonormal columns. Which of the following statements is true?**
+
+*   (a) All eigenvalues of $A$ are real.
+*   (b) At least one eigenvalue of $A$ is complex.
+*   (c) All eigenvalues of $A$ are either 0 or 1.
+*   (d) The eigenvalues of $A$ cannot be determined from the given information.
+
+**Correct answers:** (a)
+
+**26. Consider the closed form of the optimal weight for Ridge Regression, as derived in a previous homework (HW1):**
+
+$$\hat{W} = (X^T X + \lambda I)^{-1} X^T Y$$
+
+**where $X = [x_1 \cdots x_n]^T \in \mathbb{R}^{n \times d}$ and $Y = [y_1 \cdots y_n]^T \in \mathbb{R}^{n \times k}$.**
+
+**Show that when $\lambda > 0$, the matrix $X^T X + \lambda I$ is invertible.**
+
+**Answer:**
+
+**Explanation:** For any $v \in \mathbb{R}^k$, $v^T (X^T X + \lambda I)v = v^T X^T X v + \lambda v^T v > 0$. The matrix is positive-definite. Thus, it is invertible.
