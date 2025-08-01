@@ -54,6 +54,8 @@ Since all are valid, the answer is (D).
 
 Consider the following figure. Which shape is not convex?
 
+<img src="./shape.png" width="600px">
+
 (a) I.
 
 (b) II.
