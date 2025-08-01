@@ -144,7 +144,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** (a) is correct because the primary purpose of using general basis functions in regression is to transform nonlinear relationships into a form that allows linear modeling techniques to be applied. By mapping features into a higher-dimensional space, basis functions can capture nonlinear patterns in the data. (b) is false because general basis functions alone do not perform regularization. (c) is false because using general basis functions typically does not reduce the number of samples required. In fact, using more complex basis functions often requires more data to fit the model accurately. (d) is false because general basis functions often increase the number of features by expanding the feature space (for example, by adding polynomials or interaction terms). This does not simplify the model; rather, it increases its complexity.
 
-**9. 2 points One Answer**
+**9. One Answer**
 
 **In regression, when our prediction model is linear-Gaussian, i.e., $y_i \sim N(x_i^T w, \sigma^2)$ for target output $y_i \in \mathbb{R}$ and feature vectors $x_i \in \mathbb{R}^d$, finding the $w$ that maximizes the data likelihood is equivalent to minimizing the average absolute difference between the target output and predicted output.**
 *   (a) True
@@ -154,7 +154,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** False because it would be minimizing the sum of squared differences, not absolute differences for linear-Gaussian.
 
-**10. 6 points Select All That Apply**
+**10. Select All That Apply**
 
 **In ridge regression, we obtain $\hat{w}_{\text{ridge}} = (X^T X + \lambda I)^{-1} X^T y$ for $\lambda \geq 0$. Which of the following is true?**
 *   (a) $X^T X$ is always invertible.
