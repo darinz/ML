@@ -414,3 +414,34 @@ Based on these plots, which model is overfitting?
 (d) EfficientNetv2
 
 **Correct answers:** (b)
+
+## Problem 29
+
+True/False: For k-means clustering, the number of clusters $k$ should be that which minimizes the loss function.
+
+(a) True
+
+(b) False
+
+**Correct answers:** (b)
+
+## Problem 30
+
+We have a convolutional neural network that takes in input of images with dimensions $(3, 128, 128)$. The first convolutional layer (depicted below) has 32 filters each of size $(3,3,3)$ and uses a stride of 2 and padding of 1. One of these filters is shown in the diagram at a specific region of the input as well as the corresponding region of the output. After applying this convolutional layer, what must be the value of $a$, $b$, and $c$?
+Note that the diagram is not drawn to scale.
+
+<img src="./cnn.png" width="350px">
+
+(Diagram showing a 3D input volume (blue cuboid) with dimensions 3 (depth), 128 (width), and 128 (height). A smaller black 3x3x3 cuboid (representing a filter) is shown within the input volume, with arrows pointing to a corresponding black cuboid in a 3D output volume (darker blue cuboid). The output volume has dimensions $a$ (depth), $b$ (width), and $c$ (height). The filter is shown to have dimensions 3x3x3.)
+
+(a) $a = 1, b = 64, c = 32$
+
+(b) $a = 3, b = 64, c = 32$
+
+(c) $a = 1, b = 32, c = 64$
+
+(d) $a = 3, b = 32, c = 64$
+
+**Correct answers:** (a)
+
+**Explanation:** The depth of the output of applying one kernel on the input image is 1. We can compute the width and height of the output image with the formula $o = \lfloor \frac{h-f+2p}{s} \rfloor + 1 = \lfloor \frac{128-3+2(1)}{2} \rfloor + 1 = 64$. This convolutional layer has 32 filters, so the depth of the output image must be 32.
