@@ -174,7 +174,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 *   (e) is correct by definition of OLS.
 *   (f) is correct because the regularization term dominates, causing the ridge regression to shrink toward zero.
 
-**11. 2 points One Answer**
+**11. One Answer**
 
 **You have a dataset with many features. You know a priori that only a small portion of those features are relevant to your prediction problem, but you don't know which are the relevant features. Is it better to use Ridge regression or Lasso regression?**
 *   (a) Ridge regression
@@ -184,7 +184,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** The correct answer is (b), Lasso regression, because Lasso uses L1 regularization while Ridge uses L2. L1 penalizes all weights at the same rate unlike L2, so it encourages higher sparsity in the weights. We want higher sparsity in the weights because we know beforehand that only a small portion of the features are actually relevant. So, we want only a small portion of features to have weight that is not 0. If we used L2 regularization, then more features would have non-zero weight and we would assign meaning to many features that should not have any based on our a priori knowledge.
 
-**12. 2 points One Answer**
+**12. One Answer**
 
 **Which of the following best explains the effect of Lasso regression on the bias-variance tradeoff?**
 *   (a) Lasso regression reduces both bias and variance simultaneously, leading to a more accurate model.
@@ -196,7 +196,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** The correct answer is (c) because Lasso regression penalizes the $l_1$ norm of the weight vector, which shrinks coefficients (often to 0). This reduces the complexity of our model. A less complex model has higher bias and less variance. (a), (b), (d) are all incorrect because a less complex model has decreased variance.
 
-**13. 2 points One Answer**
+**13. One Answer**
 
 **In prediction, the total expected prediction error can be decomposed into three components: bias squared, variance, and irreducible error. By optimizing the model complexity and increasing the size of the dataset, it is possible to reduce all three components.**
 *   (a) True
@@ -206,7 +206,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** The correct answer is (b), False, because irreducible error is irreducible.
 
-**14. 2 points One Answer**
+**14. One Answer**
 
 **Which strategy is most effective for reducing variance in a high-variance, low-bias model?**
 *   (a) Increasing the number of training examples.
@@ -218,7 +218,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** The correct answer is (a). (b) is incorrect because increasing model complexity usually increases variance. (c) is incorrect because decreasing regularization will usually increase variance. (d) is incorrect because the variance of features is a difference concept than variance of a model—removing the high-variance features could increase or decrease the model variance and there is no way knowing a priori.
 
-**15. 2 points One Answer**
+**15. One Answer**
 
 **If your model has high validation loss and high training loss, which action is most appropriate to improve the model?**
 *   (a) Increase the model complexity.
