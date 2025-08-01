@@ -1,7 +1,5 @@
 # Practice 2 Solutions
 
-## Problem 1
-
 **1. Which of the following is the definition of irreducible error in machine learning?**
 *   (a) The error that cannot be eliminated by any model
 *   (b) The error that is caused by overfitting to the training data
@@ -26,8 +24,6 @@
 
 **Correct answers:** (b)
 
-## Problem 2
-
 **4. When $L(w,b) = \sum_{i=1}^{n}(y_i - (w^T x_i + b))^2$ is used as a loss function to train a model, which of the following is true?**
 *   (a) It minimizes the sum of the absolute differences between observed and predicted values.
 *   (b) It maximizes the correlation coefficient between the independent and dependent variables.
@@ -49,8 +45,6 @@
 *   (d) The loss function of logistic regression without regularization is non-convex, but the loss function of logistic regression with L2 regularization is convex.
 
 **Correct answers:** (a)
-
-## Problem 3
 
 **7. Which of the following is NOT an assumption of logistic regression?**
 *   (a) The output target is binary.
@@ -74,8 +68,6 @@
 *   (d) The data is linearly separable.
 
 **Correct answers:** (b)
-
-## Problem 4
 
 **10. Provide one advantage and one disadvantage of Stochastic Gradient Descent (SGD) over Gradient Descent (GD).**
 
