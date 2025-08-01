@@ -109,6 +109,8 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 
 **12. Suppose you're given a scatter plot of a dataset, and the pattern appears to be a periodic wave-like curve that repeats itself at regular intervals.**
 
+<img src="./scatter_plot.png" width="450px">
+
 **Which of the following basis functions might be most appropriate to capture the relationship between $x$ and $y$ for this dataset?**
 
 *   (a) Polynomial basis functions: $\phi(x) = \{1, x, x^2, x^3, ...\}$
