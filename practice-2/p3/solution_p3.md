@@ -276,3 +276,141 @@ True/False: Consider the dataset from the previous problem. KNN with $K = 1$ has
 (b) False
 
 **Correct answers:** (b)
+
+## Problem 20
+
+Consider two neural networks, A and B, trained on 100x100 images to predict 5 classes.
+- Neural network A consists of a single linear layer followed by a softmax output activation.
+- Neural network B consists of a sequence of layers with dimensions 128, 512, and 32, respectively, followed by a softmax output activation.
+
+Both networks are trained using an identical procedure (e.g., batch size, learning rate, epochs, etc.), and neither contains hidden activations.
+
+(a) A will outperform B
+
+(b) B will outperform A
+
+(c) A and B will perform roughly the same.
+
+**Correct answers:** (c)
+
+**Explanation:** NN B has no hidden activations, thus making it virtually identical to A.
+
+## Problem 21
+
+The probability of seeing data $D$ from a Gaussian distribution is given by:
+
+$P(D|\mu, \sigma) = \left(\frac{1}{\sigma\sqrt{2\pi}}\right)^n \prod_{i=1}^n e^{-\frac{(x_i-\mu)^2}{2\sigma^2}}$
+
+Which of the following statements are true about the MLEs $\hat{\mu}_{MLE}$ and $\hat{\sigma}^2_{MLE}$ from this distribution? Select all that apply.
+
+(a) $\hat{\mu}_{MLE}$ is dependent on $\hat{\sigma}^2_{MLE}$
+
+(b) $\hat{\sigma}^2_{MLE}$ is dependent on $\hat{\mu}_{MLE}$
+
+(c) $\hat{\mu}_{MLE}$ is a biased estimator
+
+(d) $\hat{\sigma}^2_{MLE}$ is a biased estimator
+
+**Correct answers:** (b), (d)
+
+## Problem 22
+
+True/False: The bootstrap method samples a dataset with replacement.
+
+(a) True
+
+(b) False
+
+**Correct answers:** (a)
+
+## Problem 23
+
+What does the PyTorch optimizer's `step()` function do when training neural networks?
+
+(a) Adjust the network's weights based on the gradients
+
+(b) Randomly initializing the network's weights.
+
+(c) Sets all the network's gradients to zero to prepare it for backpropagation
+
+(d) Compute the gradients of the network based on the error between predicted and actual outputs.
+
+**Correct answers:** (a)
+
+## Problem 24
+
+Below is a simple computation graph with inputs $x$ and $y$ with an initial computation of $z = xy$ before the unknown path to final loss $L$. A forward propagation pass has been completed with values $x = 3$ and $y = 4$, and the upstream gradient is given as $\partial L/\partial z = 5$. Complete the backpropagation pass by filling in the scalar answers to boxes $\partial L/\partial x$ and $\partial L/\partial y$.
+
+<img src="./computation_graph.png" width="500px">
+
+**Computation Graph:**
+- Input $x = 3$ and $y = 4$
+- Computation: $z = xy = 12$
+- Upstream gradient: $\partial L/\partial z = 5$
+- Find: $\partial L/\partial x$ and $\partial L/\partial y$
+
+**Correct answers:** $\partial L/\partial x = 20$ and $\partial L/\partial y = 15$
+
+**Explanation:** $\partial L/\partial x = 20$ and $\partial L/\partial y = 15$
+
+## Problem 25
+
+What are some ways to reduce overfitting in a neural network?
+
+**Explanation:** Several methods to reduce overfitting include:
+- Training on more data (or augmenting the dataset).
+- Applying regularization.
+- Using dropout layers.
+- Decreasing model complexity by removing layers or changing layer sizes.
+
+## Problem 26
+
+True/False: Suppose you set up and train a neural network on a classification task and converge to a final loss value. Keeping everything in the training process the exact same (e.g. learning rate, optimizer, epochs). It is possible to reach a lower loss value by ONLY changing the network initialization.
+
+(a) True
+
+(b) False
+
+**Correct answers:** (a)
+
+**Explanation:** Changing initialization can lead to a lower loss because neural networks are non-convex, meaning different initializations can converge to different (and potentially better) local minima.
+
+## Problem 27
+
+Why should ridge regression not be used for feature selection solely based on coefficient magnitude thresholds?
+
+**Explanation:** Selecting features based on coefficient magnitudes alone can lead to ignoring multicollinearity. Features with small magnitudes might be highly correlated with other features, and removing them could worsen model performance.
+
+## Problem 28
+
+4 Deep Neural Network models are trained on a classification task, and below are the plots of their losses:
+
+<img src="./dnn.png" width="500px">
+
+**DenseNet-121 Loss**
+
+(Plot showing Training Loss (blue solid line) decreasing from ~0.63 to ~0.57, and Validation Loss (red dashed line) decreasing initially from ~0.62 to ~0.60, then slightly increasing to ~0.61 over 10 epochs.)
+
+**VGG19 Loss**
+
+(Plot showing Training Loss (blue solid line) decreasing from ~0.65 to ~0.47, and Validation Loss (red dashed line) decreasing initially from ~0.63 to ~0.61, then increasing significantly from epoch 5 to ~0.68 by epoch 10 over 10 epochs.)
+
+**InceptionV3 Loss**
+
+(Plot showing Training Loss (blue solid line) decreasing from ~0.63 to ~0.57, and Validation Loss (red dashed line) fluctuating but generally staying around ~0.60, with a slight increase towards the end over 10 epochs.)
+
+**EfficientNetv2 Loss**
+
+(Plot showing Training Loss (blue solid line) decreasing from ~0.65 to ~0.58, and Validation Loss (red dashed line) fluctuating significantly but generally staying around ~0.60, with a peak around epoch 8 over 10 epochs.)
+
+Based on these plots, which model is overfitting?
+
+(a) DenseNet-121
+
+(b) VGG19
+
+(c) InceptionV3
+
+(d) EfficientNetv2
+
+**Correct answers:** (b)
