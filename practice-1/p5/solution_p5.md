@@ -292,7 +292,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** $\eta$ controls the step size in the gradient descent algorithm. $\eta$ and $w$ are independently set. A larger $\eta$ may cause model update to overshoot the global minimum. A smaller $\eta$ may cause model to get stuck in local minimum.
 
-**22. 4 points Select All That Apply**
+**22. Select All That Apply**
 
 **Which of the following functions are convex?**
 *   (a) $f(x) = x^3$
