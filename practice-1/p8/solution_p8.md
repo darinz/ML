@@ -128,3 +128,96 @@ Suppose you are designing a model that predicts whether or not a patient will be
 Describe a problem that might occur if you're training a Logistic Regression model and the data is linearly separable. Around 1-3 sentences.
 
 **Explanation:** The model will overfit extremely as the magnitudes of the weights increase towards infinity.
+
+**11. One Answer 1 points**
+
+Suppose we standardize a given dataset. The optimal bias term will be 0 in least-squares linear regression.
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**Explanation:** The offset is the average y value.
+
+**12. One Answer 1 points**
+
+Let $f,g: \mathbb{R} \to \mathbb{R}$ be convex. Which of the following functions is always convex?
+
+*   (a) $h(x) = f(x) \cdot g(x)$
+*   (b) $h(x) = f \circ g(x)$
+*   (c) $h(x) = \min(f(x), g(x))$
+*   (d) $h(x) = \max(f(x), g(x))$
+
+**Correct answers:** (d)
+
+**Explanation:** Pointwise maximum preserves convexity (see section 5)
+
+**13. One Answer 1 points**
+
+Given a small enough learning rate, gradient descent will converge to the global minima.
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**Explanation:** This is false because non-convex functions can have multiple local minima / saddle points and GD may converge to one of those.
+
+**14. 1 points**
+
+This is the equation for the bias-variance tradeoff. $\eta$ is the "squared-error-optimal" predictor. $D$ is a dataset $\{(x_i, y_i)\}_{i=1}^n$ sampled from $P_{XY}$. $\hat{f}_D \in F$ is the learned least-squares predictor for some function class $F$.
+
+Which terms correspond with which concepts? Write the number of the term next to the concept you think it corresponds with.
+
+$$E_{Y|X}[E_D[(Y - \hat{f}_D(x))^2]|X = x] = E_{Y|X}[(Y - \eta(x))^2|X = x]$$
+
+**Term 1:** $E_{Y|X}[(Y - \eta(x))^2|X = x]$
+
+**Term 2:** $+ (\eta(x) - E_D[\hat{f}_D(x)])^2$
+
+**Term 3:** $+ E_D[(E_D[\hat{f}_D(x)] - \hat{f}_D(x))^2]$
+
+**Variance:** _____
+
+**Bias:** _____
+
+**Irreducible error:** _____
+
+**Explanation:** Variance: term 3. Bias: term 2 Irreducible error: term 1.
+
+**15. One Answer 1 points**
+
+Which of the following is an advantage of using ridge regression over unregularized linear regression?
+
+*   (a) The ridge objective is concave
+*   (b) The ridge objective is convex
+*   (c) The ridge objective always has a unique solution
+*   (d) The ridge objective has a closed-form solution
+
+**Correct answers:** (c)
+
+**Explanation:** (a) Ridge objective is not concave (b) Unregularized linear regression objective is convex as well. (c) Unregularized linear regression does not always have a unique solution, L2 penalty fixes this. (d) Unregularized linear regression has a closed form solution as well
+
+**16. One Answer 1 points**
+
+True/False: Lasso Regression uses the square of the L2 norm while Ridge Regression uses the L1 Norm.
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**17. One Answer 1 points**
+
+You have independent random variables $X, Y$ such that $X \sim N(1,2)$ and $Y \sim N(3,4)$. What is $\text{Var}(5X+6Y+7)$?
+
+*   (a) 35
+*   (b) 34
+*   (c) 195
+*   (d) 194
+*   (e) Cannot be determined
+
+**Correct answers:** (d)
+
+**Explanation:** Because the variables are independent, $\text{Var}(5X+6Y+7)= \text{Var}(5X) + \text{Var}(6Y) + \text{Var}(7)$. The variance of a constant is 0, so we remove that term to get $\text{Var}(5X) + \text{Var}(6Y)$. Moving a coefficient outside of the variance function squares it. So we have $25\text{Var}(X) + 36\text{Var}(Y)$. We plug in the given variances for $X$ and $Y$ to get $25 \cdot 2 + 36 \cdot 4 = 194$
