@@ -342,6 +342,18 @@ Comprehensive problem sets with solutions covering all topics from the curriculu
 
 **[View Problem Sets](./problem-sets/)**
 
+### Practice Problem Series
+
+**Series 1: Foundational Concepts** `[practice-1/](./practice-1/)`
+- **Practice 1**: Probability, Statistics, Linear Algebra, Bias-Variance Tradeoff (10 problems)
+- **Practice 2**: Machine Learning Fundamentals, Linear Models, Optimization (26 problems)  
+- **Practice 3**: Advanced ML Concepts, Matrix Analysis, Optimization Theory (23 problems)
+
+**Series 2: Advanced Machine Learning** `[practice-2/](./practice-2/)`
+- **Practice 1**: Foundations & Linear Models - PCA, Kernel Methods, Logistic Regression, K-means, Decision Trees, Ridge Regression, Neural Networks
+- **Practice 2**: Probability & Classification - Conditional Probability, Eigenvalues, Multi-class Classification, Linear vs. Logistic Regression, Neural Networks, Kernel Ridge Regression
+- **Practice 3**: Neural Networks & Advanced Topics - Dimensionality Reduction, MLPs, Kernel Functions, Convexity, Ridge Regression Effects, Basis Expansions, K-NN, Cross-Validation
+
 ### Problem Set Series
 
 **Series 01: Foundational Machine Learning** `[01/](./problem-sets/01/)`
