@@ -83,7 +83,7 @@ $$0 = \sum_{i=1}^{n} \left[-(x_i - 1)\frac{1}{1 - \hat{p}} + \frac{1}{\hat{p}}\r
 The final expression for $\hat{p}$ is:
 $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
-**4. 5 points Select All That Apply**
+**4. Select All That Apply**
 
 **Which of the following is true about maximum likelihood estimation, in general?**
 *   (a) It always produces unbiased parameter estimates.
@@ -100,7 +100,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 *   D is true: MLE finds the model parameters that maximize the likelihood of the data.
 *   E is false: we do not define a probability distribution over the model parameters, so we cannot maximize its likelihood in the MLE framework. However, due to ambiguity in the option wording, we have decided to give everyone two points for D and E regardless of their answers.
 
-**5. 4 points Select All That Apply**
+**5. Select All That Apply**
 
 **Suppose $A \in \mathbb{R}^{n \times n}$ is a positive semi-definite (PSD) matrix. Which of the following is always true about $A$?**
 *   (a) All eigenvalues of $A$ are non-negative.
@@ -116,7 +116,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 *   Choice C is incorrect because if any eigenvalues of $A$ are equal to zero, $A$ is rank deficient and cannot be inverted.
 *   Choice D is incorrect because the inequality is written in the wrong direction (see choice A above).
 
-**6. 4 points**
+**6.**
 
 **Assume we have $X \in \mathbb{R}^{n \times p}$ representing $n$ data points with $p$ features each and $Y \in \mathbb{R}^n$ representing the corresponding outcomes. Using linear regression with no offset/intercept, provide an expression to predict the outcome for a new data point $x_{\text{new}} \in \mathbb{R}^p$ in terms of $X$ and $Y$.**
 
