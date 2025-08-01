@@ -88,8 +88,11 @@ Figure 1: The following graphic will be used as a representation of bias and var
 In Figure 1, subplot I, how are bias and variance related to the true model?
 
 (A) High bias, High variance
+
 (B) High bias, Low variance
+
 (C) Low bias, High variance
+
 (D) Low bias, Low variance
 
 **Solution:** The solution is (D).
