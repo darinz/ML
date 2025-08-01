@@ -130,3 +130,61 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 *   (c) If $f(x)$ is convex, then $f(x)$ is everywhere differentiable
 
 **Correct answers:** (a)
+
+## Problem 7
+
+**14. What are the unbiased maximum likelihood estimates (MLE) for the parameters $(\mu, \sigma)$ of a univariate Gaussian distribution, given a dataset of $n$ independently sampled 1-dimensional data points $X = \{x_1, ..., x_n\}$ and the sample mean $\bar{x}$?**
+
+*   (a) $\hat{\mu}_{MLE} = \bar{x}$, $\hat{\sigma}^2_{MLE} = \frac{1}{n} \sum_{i=1}^n x_i$
+*   (b) $\hat{\mu}_{MLE} = \bar{x}$, $\hat{\sigma}^2_{MLE} = \frac{1}{n} \sum_{i=1}^n (x_i - \hat{\mu}_{MLE})^2$
+*   (c) $\hat{\mu}_{MLE} = \bar{x}$, $\hat{\sigma}^2_{MLE} = \frac{1}{n-1} \sum_{i=1}^n (x_i - \hat{\mu}_{MLE})^2$
+*   (d) $\hat{\mu}_{MLE} = \frac{1}{n} \bar{x}$, $\hat{\sigma}^2_{MLE} = \frac{1}{n-1} \sum_{i=1}^n (x_i - \hat{\mu}_{MLE})^2$
+
+**Correct answers:** (c)
+
+**15. True/False: When performing gradient descent, decreasing the learning rate enough will slow down convergence but will eventually guarantee you arrive at the global minimum.**
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**16. Which of the following functions is strictly convex over its entire domain?**
+
+*   (a) $f(x) = -x^2$
+*   (b) $f(x) = x^3$
+*   (c) $f(x) = \ln(x)$
+*   (d) $f(x) = e^x$
+
+**Correct answers:** (d)
+
+## Problem 8
+
+**17. Which of the following is true about a validation set and how it is used?**
+
+*   (a) The validation set allows us to estimate how a model would perform on unseen data
+*   (b) When deciding to use a validation set, you do not need a separate test set
+*   (c) After hyperparameter tuning, the validation set is always added back into the training set before training the final model
+*   (d) The validation set allows us to train a model quicker by decreasing the size of our training data set
+
+**Correct answers:** (a)
+
+## Problem 9
+
+**18. (2 points) Suppose we have the function**
+
+$$f(x) = \begin{cases} 1 - e^{-\frac{1}{x^2}} & x \neq 0 \\ 1 & x = 0 \end{cases}$$
+
+<img src="./function.png" width="450px">
+
+**(a) (1 point) Suppose that we perform gradient descent starting at $x_0 = 0$ with step size $\eta = 1$. What is the asymptotic behavior of gradient descent given by Equation 12?**
+
+$$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
+
+**Answer:** The gradient descent will be stationary at $x=0$.
+
+**(b) (1 point) Now suppose that $x_0 \sim \mathcal{N}(0, \epsilon)$ for some small $\epsilon$. What is the behavior then?**
+
+**Answer:** For $x_0 \neq 0$, the gradient descent will head towards $\text{sign}(x_0) \infty$ very slowly.
+
+**Explanation:** For $x_0 = 0$ gradient descent is stationary and for $x_0 \neq 0$ it will head towards $\text{sign}(x_0) \infty$ very slowly.
