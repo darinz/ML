@@ -347,3 +347,80 @@ Consider a function $f(x,y)$ representing a loss function in a 2-dimensional spa
 **Answer:** $(x_1, y_1) = (0.4, 0.2)$
 
 **Explanation:** From the gradient descent algorithm: $x_1 = x_0 - \eta \cdot \frac{\partial f(x_0, y_0)}{\partial x}$ and $y_1 = y_0 - \eta \cdot \frac{\partial f(x_0, y_0)}{\partial y}$. It is given that $\eta = 0.1$. $\frac{\partial f(x,y)}{\partial x} = 2x + 4y$. $\frac{\partial f(x,y)}{\partial y} = 4y + 4x$. So, $x_1 = 1 - 0.1 \cdot 6 = 0.4$ and $y_1 = 1 - 0.1 \cdot 8 = 0.2$.
+
+**24. One Answer**
+
+For machine learning models and datasets in general, as the number of training data points grows, the prediction error of the model on unseen data (data not found in the training set) eventually reaches 0.
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**Explanation:** There is irreducible error that leads to non-zero error.
+
+**25. One Answer**
+
+Which of the following statements about ridge regression are true?
+
+*   (a) When there are correlated features, ridge regression typically sets the weights of all but one of the correlated features to 0.
+*   (b) Compared to unregularized linear regression, the additional computational cost of ridge regression increases proportional to the number of data points in the dataset.
+*   (c) Ridge regression reduces variance at the expense of increasing bias.
+*   (d) Using ridge and lasso regularization together (e.g., minimizing a training objective of the form $f(w) = \sum_{i=1}^n (y^{(i)} - x^{(i)T}w)^2 + \lambda_1||w||_1 + \lambda_2||w||_2^2$) makes the training loss no longer convex.
+
+**Correct answers:** (c)
+
+**Explanation:** Ridge regression typically shrinks the weights of correlated features about evenly. This means it probably won't set the weights of all but one of the correlated features to 0. That would be more akin to LASSO regression. The additional computational cost increases proportional to the number of weights in the dataset. Ridge-regression is an example of the bias-variance trade off. The sum of convex functions is convex so ridge and LASSO regression combined is still convex.
+
+**26. Select All That Apply**
+
+Let $n \in \mathbb{N}$ such that $n > 1$. Which of the following functions are convex (with respect to $x$) over its entire domain?
+
+*   (a) $f(x) = 5 + \sum_{i=1}^{n} x^{2i}$
+*   (b) $f(x) = 5 + \sum_{i=1}^{n} x^{2i+1}$
+*   (c) $f(x) = 3 \cdot e^{-\frac{x^2}{n}}$
+*   (d) $f(x) = x - \log_{\pi}(x^n)$ on $(0, \infty)$
+
+**Correct answers:** (a), (d)
+
+**Explanation:** Below is an explanation for each option:
+
+**(a) Explanation:** Even (positive) monomials are convex, and a sum over convex functions is convex.
+
+**(b) Explanation:** Similarly, odd monomials are strictly concave on $(-\infty, 0)$, so their sum will be strictly concave on $(-\infty, 0)$.
+
+**(c) Explanation:** $3 \cdot e^{-\frac{x^2}{n}}$ is not convex (recall the shape of the Gaussian).
+
+**(d) Explanation:** $\log x$ is concave, and $x$ is convex, so $x - \log_{\pi}(x^n) = x - n \cdot \log_{\pi}(x)$ is convex on $(0, \infty)$.
+
+**27.**
+
+Assume $n \neq d$. Suppose $x_1, x_2, \dots, x_n$ span $\mathbb{R}^d$. What is the rank of $\sum_{i=1}^{n} x_i x_i^T$? Write your answer in terms of $n$ and $d$. Hint: for any matrix $A$, $\text{rank}(A^T A) = \text{rank}(A)$.
+
+**Answer:** $d$
+
+**Explanation:** Let $X = \begin{bmatrix} x_1^T \\ \vdots \\ x_n^T \end{bmatrix}$. Note that since $x_1, x_2, \dots, x_n$ span $\mathbb{R}^d$, $\text{rank}(X) = d$. Also notice $X^T X = \sum_{i=1}^{n} x_i x_i^T$. So
+
+$\text{rank}\left(\sum_{i=1}^{n} x_i x_i^T\right) = \text{rank}(X^T X)$
+
+$= \text{rank}(X)$
+
+$= d$
+
+**Takeaway:** The takeaway here is that our design matrix $X^T X$ is full rank (invertible) if and only if our data spans $\mathbb{R}^d$.
+
+**28.**
+
+Describe one advantage of full-batch gradient descent over mini-batch gradient descent.
+
+**Answer:** Full batch gradient descent will be more accurate when calculating the gradient as it uses the whole dataset while mini-batch gradient descent uses a subset of the dataset to calculate gradient. This result in a more stable convergence.
+
+**Explanation:** Full batch gradient descent will be more accurate when calculating the gradient as it uses the whole dataset while mini-batch gradient descent uses a subset of the dataset to calculate gradient. This result in a more stable convergence.
+
+**29.**
+
+Describe one advantage of mini-batch stochastic gradient descent ($1 < B < n$) over stochastic gradient descent with batch size $B = 1$ (e.g., updating the parameters at each iteration based only on one randomly sampled training point).
+
+**Answer:** Mini-batch stochastic gradient descent will be more stable as it uses a subset of the training data for gradient calculation while stochastic gradient descent with batch-size 1 calculates gradient based on only one training data point making it more susceptible to noise.
+
+**Explanation:** Mini-batch stochastic gradient descent will be more stable as it uses a subset of the training data for gradient calculation while stochastic gradient descent with batch-size 1 calculates gradient based on only one training data point making it more susceptible to noise.
