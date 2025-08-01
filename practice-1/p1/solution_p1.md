@@ -102,8 +102,11 @@ In Figure 1, subplot I, how are bias and variance related to the true model?
 In Figure 1, subplot II, how are bias and variance related to the true model?
 
 (A) High bias, High variance
+
 (B) High bias, Low variance
+
 (C) Low bias, High variance
+
 (D) Low bias, Low variance
 
 **Solution:** The solution is (C).
@@ -113,8 +116,11 @@ In Figure 1, subplot II, how are bias and variance related to the true model?
 In Figure 1, subplot III, how are bias and variance related to the true model?
 
 (A) High bias, High variance
+
 (B) High bias, Low variance
+
 (C) Low bias, High variance
+
 (D) Low bias, Low variance
 
 **Solution:** The solution is (B).
@@ -124,8 +130,11 @@ In Figure 1, subplot III, how are bias and variance related to the true model?
 In Figure 1, subplot IV, how are bias and variance related to the true model?
 
 (A) High bias, High variance
+
 (B) High bias, Low variance
+
 (C) Low bias, High variance
+
 (D) Low bias, Low variance
 
 **Solution:** The solution is (A).
@@ -135,8 +144,11 @@ In Figure 1, subplot IV, how are bias and variance related to the true model?
 Let $x_1, x_2 \in \mathbb{R}$ be sampled from the distribution $N(\mu, 1)$, where $\mu \in \mathbb{R}$ is an unknown variable. Remember that the PDF of the normal distribution is $f(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2}}$. Using the log-likelihood, find the maximum likelihood estimation of $\mu$ in terms of $x_1, x_2$.
 
 (A) $\frac{2}{x_1+x_2}$
+
 (B) $\log \left(\frac{e^{x_1}+e^{x_2}}{2}\right)$
+
 (C) $\frac{\log(x_1)+\log(x_2)}{2}$
+
 (D) $\frac{x_1+x_2}{2}$
 
 **Solution:** The answer is (D).
