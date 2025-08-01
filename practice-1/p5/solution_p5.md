@@ -53,7 +53,7 @@ Simplify the fraction by dividing both by their greatest common divisor, which i
 $$P(D|T) = \frac{18 \div 2}{116 \div 2}$$
 $$P(D|T) = \frac{9}{58}$$
 
-**3. 10 points**
+**3.**
 
 **The probability mass function of a geometric distribution with unknown parameter $0 < p \le 1$ is**
 $$P(X=k|p) = (1-p)^{k-1}p$$
