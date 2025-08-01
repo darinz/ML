@@ -84,6 +84,8 @@ Each practice set includes:
 - **Visualizations** (PNG files) to aid understanding
 - **Mathematical formulations** using LaTeX notation
 
+**📝 Note**: Some files have both `.md` and `.ipynb` formats due to LaTeX rendering issues on GitHub. Use `.ipynb` files for proper math rendering, or view `.md` files in an editor with LaTeX support.
+
 ## Learning Outcomes
 
 After completing these practice sets, you should be able to:
