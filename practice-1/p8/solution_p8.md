@@ -1,6 +1,6 @@
 # Practice 8 Solutions
 
-**1. One Answer 1 points**
+**1. One Answer**
 
 Saket is building a classification model from a dataset with two classes of student reactions to the jokes he makes during section: Funny jokes (F) and Dull Jokes (D). The probability of a randomly selected joke being funny is 0.3. The probability the model makes the correct classification given that the joke is dull is 0.7, and the probability the model makes the correct classification given that a joke is funny is 0.2. What is the probability that a randomly selected joke is dull given that it has been classified as dull?
 
@@ -13,7 +13,7 @@ Saket is building a classification model from a dataset with two classes of stud
 
 **Explanation:** The answer is (b), which is $\frac{49}{73}$. Let A be the event that the sample is dull. Let B be the event that the sample is classified as dull. We have $P(A^c) = 0.3$ and $P(A) = 1 - P(A^c) = 1 - 0.3 = 0.7$. We have $P(B|A) = 0.7$ and $P(B^c|A^c) = 0.2$. (Note that $P(B|A^c) = 1 - P(B^c|A^c) = 1 - 0.2 = 0.8$) We want to calculate $P(A|B)$ here using Bayes Rule and the Law of Total Probability. $P(B) = P(B|A)P(A) + P(B|A^c)P(A^c) = 0.7 \cdot 0.7 + 0.8 \cdot 0.3 = 0.73$ $P(A|B) = \frac{P(B|A)P(A)}{P(B)} = \frac{0.7 \cdot 0.7}{0.73} = \frac{0.49}{0.73} = \frac{49}{73}$ Here, our answer is $P(A|B) = \frac{49}{73}$, which is (b).
 
-**2. One Answer 1 points**
+**2. One Answer**
 
 Suppose we train a model $f(x) = x^T \hat{w}$ on dataset $\mathcal{D} = \{x_i, y_i\}_{i=1}^n$, by optimizing the following objective:
 
@@ -30,7 +30,7 @@ for $k > 1$. As $k$ increases, what likely happens to the variance of our model?
 
 **Explanation:** As $k$ increases, the penalty term goes to zero, thus increasing the variance of our estimator.
 
-**3. One Answer 1 points**
+**3. One Answer**
 
 You are building a classification model for your favorite soccer team to determine whether a penalty kick will result in a goal or not, and your data set contains 300 positive examples (resulted in a goal) and 200 negative examples (did not result in a goal). After training, you find that your model has an accuracy of 70% and misclassifies 15% of negative examples as positive. What is the probability that your model will misclassify a positive example as negative?
 
