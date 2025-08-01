@@ -230,7 +230,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** If the validation and training losses are both high, it suggests that the model is underfitting (high bias), meaning it is too simple to capture the underlying patterns in the data. Increasing the model complexity
 
-**16. 4 points**
+**16.**
 
 **In a project using a customer purchase history dataset with a 60/20/20 train, validation, and test split, the validation accuracy remains consistently lower than the training accuracy. What could be a reason for this?**
 
@@ -238,7 +238,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** The validation accuracy is likely lower due to overfitting (the model is complex, variance is high). Overfitting happens when a model learns too much detail and noise from the training data, capturing specific patterns that don't apply to new, unseen data. This makes the model perform well on the training set but poorly on the validation or test sets, as it fails to generalize.
 
-**17. 2 points One Answer**
+**17. One Answer**
 
 **A consortium of 10 hospitals have pooled together their Electronic Health Records data and want to build a machine learning model to predict patient prognosis based on patient records in their hospitals. They want to maximize the accuracy of their model across all 10 hospitals and do not plan to deploy their model in other hospitals. How should they split the data into train / validation / test sets?**
 *   (a) Leave out data from 1 hospital for the validation set, data from another hospital for the test set, and use the rest for train set.
@@ -250,7 +250,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** D is the correct answer, as it is the only approach that avoids overfitting hyperparameters to data from only one or two hospitals. Each hospital may have a different distribution of patients, doctors, outcomes, etc. So we should not expect all data to be IID.
 
-**18. 2 points**
+**18.**
 
 **Given the task of determining loan approval for applicants using a predictive model given applicant features such as race, salary, education, etc., is it always best practice to allow the model to use all of the given features? Why or why not?**
 
@@ -258,7 +258,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** No, we should not ALWAYS use all the features. In addition to building an accurate model, we also want to build ethically-informed models and this requires us to be thoughtful about what features go into our analyses. For any feature we choose to include, our model may find correlations that are not necessarily causations, that are either coincidental or the result of pre-existing biases. Depending on the most informed choice to make, the best practice may or may not be to include all available features.
 
-**19. 2 points One Answer**
+**19. One Answer**
 
 **You are building a predictive model about users of a website. Suppose that after you train your model on historical user data, the distribution of users shifts dramatically. What can happen if you deploy your machine learning system without addressing this distribution shift?**
 *   (a) The model will automatically adapt to new data distributions.
@@ -270,7 +270,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** Machine learning models can only reliably generalize to data from the same distribution they were trained on; when faced with different distributions, their predictions may become unreliable or biased due to this domain shift, rather than becoming more diverse or accurate.
 
-**20. 2 points One Answer**
+**20. One Answer**
 
 **For a possibly non-convex optimization problem, gradient descent on the full dataset always finds a better solution than stochastic gradient descent.**
 *   (a) True
@@ -280,7 +280,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** Gradient descent is not always better than stochastic gradient descent. The variability of SGD can escape local minima more effectively than deterministic gradient descent.
 
-**21. 4 points Select All That Apply**
+**21. Select All That Apply**
 
 **Given the gradient descent algorithm, $w_{t+1} = w_t - \eta \frac{df(w)}{dw} \Big|_{w=w_t}$, which of the following statement is correct regarding the hyperparameter $\eta$?**
 *   (a) $\eta$ controls the magnitude of each step.
