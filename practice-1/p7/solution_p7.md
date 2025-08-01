@@ -68,6 +68,7 @@ $$P(x|\lambda) = e^{-\lambda} \frac{\lambda^x}{x!}$$
 
 *   (a) $e^{\frac{39}{6}}$
 *   (b) $\sqrt{\frac{39}{6}}$
+*   (b) $\sqrt{\frac{39}{6}}$
 *   (c) 6
 *   (d) $\frac{39}{6}$
 
