@@ -1,29 +1,8 @@
-# Practice Problem Set 2 - Machine Learning
+# Practice Problem Series 2 - Machine Learning
 
 This directory contains three comprehensive practice problem sets designed to reinforce fundamental concepts in machine learning. Each practice set covers different aspects of ML theory and applications, with both problem statements and detailed solutions provided.
 
-## 📁 Directory Structure
-
-```
-practice-2/
-├── p1/                    # Practice Set 1: Foundations & Linear Models
-│   ├── p1.md             # Problem statements
-│   ├── solution_p1.md    # Detailed solutions
-│   ├── solution_p1.ipynb # Interactive solutions (Jupyter)
-│   └── *.png             # Supporting figures and visualizations
-├── p2/                    # Practice Set 2: Probability & Classification
-│   ├── p2.md             # Problem statements
-│   ├── solution_p2.md    # Detailed solutions
-│   ├── solution_p2.ipynb # Interactive solutions (Jupyter)
-│   └── *.png             # Supporting figures and visualizations
-└── p3/                    # Practice Set 3: Neural Networks & Advanced Topics
-    ├── p3.md             # Problem statements
-    ├── solution_p3.md    # Detailed solutions
-    ├── solution_p3.ipynb # Interactive solutions (Jupyter)
-    └── *.png             # Supporting figures and visualizations
-```
-
-## 🎯 Practice Set Overview
+## Practice Set Overview
 
 ### Practice Set 1: Foundations & Linear Models
 **Topics Covered:**
@@ -78,7 +57,7 @@ practice-2/
 - Comprehend regularization effects on bias and variance
 - Apply cross-validation techniques
 
-## 📚 Problem Types
+## Problem Types
 
 Each practice set includes a variety of question formats:
 
@@ -88,7 +67,7 @@ Each practice set includes a variety of question formats:
 - **Computational Problems**: Implement algorithms and analyze results
 - **Visual Analysis**: Interpret plots and figures
 
-## 🛠️ How to Use
+## How to Use
 
 1. **Start with Problem Statements**: Begin with the `.md` files to understand the problems
 2. **Attempt Solutions**: Try solving problems before looking at solutions
@@ -96,7 +75,7 @@ Each practice set includes a variety of question formats:
 4. **Interactive Learning**: Use the Jupyter notebooks for hands-on practice
 5. **Visual Aids**: Reference the PNG files for graphical understanding
 
-## 📊 Supporting Materials
+## Supporting Materials
 
 Each practice set includes:
 - **Problem statements** in markdown format
@@ -105,7 +84,7 @@ Each practice set includes:
 - **Visualizations** (PNG files) to aid understanding
 - **Mathematical formulations** using LaTeX notation
 
-## 🎓 Learning Outcomes
+## Learning Outcomes
 
 After completing these practice sets, you should be able to:
 
@@ -119,7 +98,7 @@ After completing these practice sets, you should be able to:
 - **Validate kernel functions** and understand their properties
 - **Perform cross-validation** for model selection
 
-## 🔗 Related Topics
+## Related Topics
 
 These practice sets complement the main course materials in:
 - Linear Models (01_linear_models/)
@@ -127,7 +106,7 @@ These practice sets complement the main course materials in:
 - Deep Learning (04_deep_learning/)
 - Dimensionality Reduction (08_dimensionality_reduction/)
 
-## 📝 Notes
+## Notes
 
 - All mathematical expressions use LaTeX notation for clarity
 - Solutions include detailed explanations and justifications
