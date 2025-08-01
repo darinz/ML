@@ -124,7 +124,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** $\hat{y}_{\text{new}} = x_{\text{new}}^T (X^T X)^{-1} X^T Y$
 
-**7. 4 points**
+**7.**
 
 **Suppose you want to use linear regression to fit a weight vector $w \in \mathbb{R}^d$ and an offset/intercept term $b \in \mathbb{R}$ using data points $x_i \in \mathbb{R}^d$. What is the minimum number of data points $n$ required in your training set such that there will be a single unique solution?**
 
@@ -132,7 +132,7 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Explanation:** Correct answer: $n = d+1$. Since we are including an offset term, we build a data matrix $X \in \mathbb{R}^{n \times (d+1)}$, where each row $i$ is $[x_i^T \ 1] \in \mathbb{R}^{1 \times (d+1)}$. The solution to the regression requires computing $(X^T X)^{-1}$. That inverse only exists if $X^T X$ is full rank, which requires $n \ge d + 1$.
 
-**8. 2 points One Answer**
+**8. One Answer**
 
 **In a regression model, what is the primary purpose of using general basis functions?**
 *   (a) Transform nonlinear relationships between features and the target variable into a linear form.
