@@ -267,6 +267,20 @@ Which of the following techniques can be helpful in reducing the original dimens
 
 **Correct answers:** (a), (c)
 
+## Problem 21
+
+**Extra credit:** Suppose that we have $x_1, x_2, \dots, x_{2n}$ are independent and identically distributed realizations from the Laplacian distribution, the density of which is described by
+
+$$f(x | \theta) = \frac{1}{2}e^{-|x-\theta|}$$
+
+Find the M.L.E of $\theta$. Note that for this problem you may find the sign function useful, the definition of which is as follows
+
+$$\operatorname{sign}(x) = \begin{cases} +1 & x \ge 0 \\ -1 & x < 0 \end{cases}$$
+
+**Answer:**
+
+**Explanation:** The solution is $\hat{\theta} \in [x_n, x_{n+1}]$
+
 ## Problem 18
 
 True/False: Given a dataset $X$ in a $d$-dimensional space, using PCA to project $X$ onto $d_1 < d_2 < d$ dimensions leads to the $d_1$ dimensional projection to being a subspace of the $d_2$-dimensional projection.
