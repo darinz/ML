@@ -445,3 +445,194 @@ Note that the diagram is not drawn to scale.
 **Correct answers:** (a)
 
 **Explanation:** The depth of the output of applying one kernel on the input image is 1. We can compute the width and height of the output image with the formula $o = \lfloor \frac{h-f+2p}{s} \rfloor + 1 = \lfloor \frac{128-3+2(1)}{2} \rfloor + 1 = 64$. This convolutional layer has 32 filters, so the depth of the output image must be 32.
+
+## Problem 31
+
+In which of the following situations can logistic regression be used? Select all that apply.
+
+(a) Predicting whether an email is a spam email or not based on its contents.
+
+(b) Predicting the rainfall depth for a given day in a certain city based on the city's historical weather data.
+
+(c) Predicting the cost of a house based on features of the house.
+
+(d) Predicting if a patient has a disease or not based on the patient's symptoms and medical history.
+
+**Correct answers:** (a), (d)
+
+## Problem 32
+
+We train a model on some data using LASSO regression. Which of the following solutions offers the lowest bias and why?
+
+(a) The weights $\hat{w}$ after running the LASSO regression; because non-smooth loss functions tend to produce lower bias.
+
+(b) The weights $\hat{w}$ after running the LASSO regression; because sparse solutions have lower bias.
+
+(c) The weights $\hat{w}$ after running unregularized regression again on just the features with nonzero weights in the output of LASSO regression; because running multiple models tends to reduce bias.
+
+(d) The weights $\hat{w}$ after running unregularized regression again on just the features with nonzero weights in the output of LASSO regression; because regularization introduces some bias into the model.
+
+**Correct answers:** (d)
+
+**Explanation:** We can use LASSO to select features with nonzero weights. However, the regularization term in LASSO introduced some amount of bias in exchange for lower variance. Re-training the model on just the selected features with no regularization can be used to de-bias.
+
+## Problem 33
+
+Which of the following can result from choosing a smaller value of $k$ in k-nearest neighbors (KNN)? Select all that apply.
+
+(a) Increased underfitting.
+
+(b) Increased overfitting.
+
+(c) No impact on model fit.
+
+**Correct answers:** (b), (c)
+
+## Problem 34
+
+True/False: Suppose we are doing ordinary least-squares linear regression with a bias term. Projecting the sample points onto a lower-dimensional subspace with Principal Component Analysis (PCA) and performing regression on the projected points can make the training data loss smaller.
+
+(a) True
+
+(b) False
+
+**Correct answers:** (b)
+
+## Problem 35
+
+What is the purpose of the sigmoid function in logistic regression?
+
+(a) It converts continuous input into categorical data.
+
+(b) It standardizes the input to have zero mean and variance 1.
+
+(c) It optimizes the weights to reduce loss.
+
+(d) It transforms the output to a probability.
+
+**Correct answers:** (d)
+
+## Problem 36
+
+Consider the general least squares regression objective function $L(w) = ||Xw - Y||_2^2 + \lambda w^T D w$ whose gradient is $\nabla_w L(w) = 2(X^T X + \lambda D)w - 2X^T y$. Which conditions must be true for there to be a unique solution to minimizing the objective function? Select all that apply.
+
+(a) $X^T X + \lambda D$ must be invertible.
+
+(b) $X^T X + \lambda D$ must have a non-trivial nullspace.
+
+(c) $X^T X + \lambda D$ must have full rank.
+
+**Correct answers:** (a), (c)
+
+## Problem 37
+
+Which of the following are true about bagging and boosting? Select all that apply.
+
+(a) Bagging is a technique that predicts the average of the predictions outputted by independently trained models.
+
+(b) Random forests are an example of bagging.
+
+(c) Boosting is a technique that iteratively learns new models that correct for the error produced by previous models it learned.
+
+(d) Boosting weights the predictions of the different models it learns equally when computing the final prediction.
+
+**Correct answers:** (a), (b), (c)
+
+**Explanation:** A, B, C are correct. D is not correct because in boosting, we learn a parameter for each individual model that determines how much we weight it.
+
+## Problem 38
+
+Suppose that after solving a soft margin SVM problem we obtain that the best separating hyperplane is $w^T x + b = 0$ for $w = [1, -2]$ and $b = 3$. Consider the following points $x_1 = [2, 1]$, $x_2 = [-0.5, 1.5]$, $x_3 = [-1.75, 0.5]$. What are the labels (+1 or -1) assigned by our model to the three points?
+
+**Answer:** $y_1 = \_\_\_\_\_\_$, $y_2 = \_\_\_\_\_\_$, $y_3 = \_\_\_\_\_\_$
+
+**Explanation:** Labels:
+- $w^T x_1 + b = 3$, so $y_1 = 1$.
+- $w^T x_2 + b = -0.5$, so $y_2 = -1$.
+- $w^T x_3 + b = 0.25$, so $y_3 = 1$.
+
+## Problem 39
+
+Recall the RBF kernel: $K(\mathbf{x}, \mathbf{x}') = \exp(-\gamma||\mathbf{x} - \mathbf{x}'||^2)$ where $\gamma = \frac{1}{2\sigma^2}$.
+Which of the following statements about the RBF kernel is true?
+
+(a) The RBF kernel is only applicable to binary classification.
+
+(b) Increasing the $\gamma$ hyperparameter reduces overfitting.
+
+(c) The RBF kernel is positive semi-definite (where $\gamma > 0$).
+
+(d) The RBF kernel is invariant to feature scaling.
+
+**Correct answers:** (c)
+
+## Problem 40
+
+For a linear regression with bias term, we want to find $\hat{\mathbf{w}}_{LS}, \hat{b}_{LS}$ such that
+$\hat{\mathbf{w}}_{LS}, \hat{b}_{LS} = \operatorname{argmin}_{\mathbf{w}, b} ||\mathbf{y} - (\mathbf{Xw} + \mathbf{1}b)||^2$ for $\mathbf{X} \in \mathbb{R}^{n \times d}$, $\mathbf{w} \in \mathbb{R}^d$, $\mathbf{y} \in \mathbb{R}^n$. $\mathbf{1}$ indicates a vector of all ones.
+If $\mathbf{X}^T\mathbf{1} = \mathbf{0}$, what is $\hat{b}_{LS}$?
+
+**Answer:** $\hat{b}_{LS} = \frac{1}{n}\sum_{i=1}^n y_i$
+
+**Explanation:** $\hat{b}_{LS} = \frac{1}{n}\sum_{i=1}^n y_i$
+
+## Problem 41
+
+What is a commonly used optimization algorithm when training neural networks?
+
+**Answer:** 
+
+**Explanation:** Example answers: SGD, gradient descent
+
+## Problem 42
+
+In a linear regression model with normally distributed errors, which of the following is
+the likelihood function?
+
+(a) $L(y|X, w) = \sum_{i=1}^n (y_i - X_i w)^2$
+
+(b) $L(y|X, w) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( - \frac{(y_i - X_i w)^2}{2\sigma^2} \right)$
+
+(c) $L(y|X, w) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}} \exp \left( - \frac{(y_i - X_i w)^2}{2} \right)$
+
+(d) $L(y|X, w) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}} \exp \left( - \frac{(y_i - X_i w)}{2} \right)$
+
+**Correct answers:** (b)
+
+**Explanation:** Note: option c was also accepted as a correct answer.
+
+## Problem 43
+
+What is the role of nonlinear activation functions in neural networks? Briefly describe
+in 1-2 sentences and provide an example of an activation function that adds nonlinearity.
+
+**Answer:** Activation Function:
+
+**Answer:** Role:
+
+**Explanation:** Nonlinearity allows neural networks to model complex and nonlinear relationships in data. Examples include: Sigmoid, tanh, ReLU, Leaky ReLU, ELU
+
+## Problem 44
+
+What is the key reason why backpropagation is so important?
+
+(a) Backpropagation allows us to compute the gradient of any differentiable function.
+
+(b) Backpropagation is the only algorithm that enables us to update the weights of a
+Neural Network.
+
+(c) Backpropagation is an efficient dynamic program that enables us to compute the
+gradient of a function at the same time-complexity it takes to compute the function.
+
+(d) Backpropagation introduced Chain Rule into the world of mathematics, enabling
+significant advances in the field.
+
+**Correct answers:** (c)
+
+## Problem 45
+
+What is a commonly used loss function when training a neural network for a multi-class classification problem?
+
+**Answer:**
+
+**Explanation:** Cross entropy loss
