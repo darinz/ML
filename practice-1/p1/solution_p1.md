@@ -47,7 +47,7 @@ True/False: Assume we train a model on a given dataset. If we were to remove 50%
 (A) True
 (B) False
 
-**Solution:** No solution is provided for this question.
+**Solution:** The solution is (A).
 
 ## Problem 6
 
@@ -67,9 +67,12 @@ True/False: $E[\epsilon\epsilon^T] = I$ where $\epsilon_i \sim N(0, \sigma^2)$ s
 
 **Solution:** The answer is (B).
 
-## Problem 8
 
 <img src="./figure_1.png">
+
+Figure 1: The following graphic will be used as a representation of bias and variance. Imagine that a true/correct model is one that always predicts a location at the center of each target (being farther away from the center of the target indicates that a model’s predictions are worse). We retrain a model multiple times, and make a prediction with each trained model. For each of the targets, determine whether the bias and variance is low or high with respect to the true model.
+
+## Problem 8
 
 In Figure 1, subplot I, how are bias and variance related to the true model?
 
@@ -106,9 +109,3 @@ In Figure 1, subplot III, how are bias and variance related to the true model?
 
 In Figure 1, subplot IV, how are bias and variance related to the true model?
 
-(A) High bias, High variance
-(B) High bias, Low variance
-(C) Low bias, High variance
-(D) Low bias, Low variance
-
-**Solution:** No solution is provided for this question.
