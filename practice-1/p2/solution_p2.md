@@ -75,8 +75,6 @@
 
 **Explanation:** One possible upside: SGD is much faster than GD. One possible downside: Because of stochasticity in SGD, optimizing with SGD can result in a lot of noise in training metrics, making it hard to find a stopping point.
 
-## Problem 5
-
 **11. Assume a simple linear model $Y = \beta_1 X$. For simplicity, no intercept is considered. Given the following dataset:**
 
 $X = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$
@@ -96,8 +94,6 @@ $Y = \begin{pmatrix} 3 \\ 5 \\ 7 \end{pmatrix}$
 $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1) + 5(2) + 7(3)}{1^2 + 2^2 + 3^2} = \frac{3 + 10 + 21}{1 + 4 + 9} = \frac{34}{14} = \frac{17}{7}$
 
 2. Now, if $\beta_1$ is positive and greater than zero, the L1 penalty will encourage the coefficient to shrink towards zero. In other words, the Lasso regularization "penalizes" larger coefficients, pushing them towards zero. So, given the same data and a positive $\alpha$, the coefficient $\beta_1$ in Lasso regression will always be less than or equal to its value in simple linear regression without regularization.
-
-## Problem 6
 
 **12. Suppose you're given a scatter plot of a dataset, and the pattern appears to be a periodic wave-like curve that repeats itself at regular intervals.**
 
@@ -122,8 +118,6 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 *   (c) If $f(x)$ is convex, then $f(x)$ is everywhere differentiable
 
 **Correct answers:** (a)
-
-## Problem 7
 
 **14. What are the unbiased maximum likelihood estimates (MLE) for the parameters $(\mu, \sigma)$ of a univariate Gaussian distribution, given a dataset of $n$ independently sampled 1-dimensional data points $X = \{x_1, ..., x_n\}$ and the sample mean $\bar{x}$?**
 
@@ -150,8 +144,6 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 
 **Correct answers:** (d)
 
-## Problem 8
-
 **17. Which of the following is true about a validation set and how it is used?**
 
 *   (a) The validation set allows us to estimate how a model would perform on unseen data
@@ -160,8 +152,6 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 *   (d) The validation set allows us to train a model quicker by decreasing the size of our training data set
 
 **Correct answers:** (a)
-
-## Problem 9
 
 **18. (2 points) Suppose we have the function**
 
