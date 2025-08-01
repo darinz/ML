@@ -350,8 +350,11 @@ Which function is not a convex function?
 Which of the following is not a convex set?
 
 (A) Unit ball: $\{x \in \mathbb{R}^2 | ||x||_2 \le 1\}$
+
 (B) Unit sphere: $\{x \in \mathbb{R}^2 | ||x||_2 = 1\}$
+
 (C) Unit cube: $\{x \in \mathbb{R}^2 | 0 \le x_1 \le 1, 0 \le x_2 \le 1\}$
+
 (D) Line: $\{x \in \mathbb{R}^2 | x_1 + x_2 = 1\}$
 
 **Solution:** No solution is provided for this question.
@@ -375,8 +378,11 @@ Figure 2
 Which of the shapes shown in Figure 2 is a convex shape?
 
 (A) Heart
+
 (B) Diamonds
+
 (C) Club
+
 (D) Spade
 
 **Solution:** The answer is (B).
@@ -386,8 +392,11 @@ Which of the shapes shown in Figure 2 is a convex shape?
 Which of the following is *not* a true statement about gradient descent (GD) vs. stochastic gradient descent (SGD)?
 
 (A) Both provide unbiased estimates of the true gradient at each step.
+
 (B) The memory and compute requirements of a single update step for both methods scales linearly with the number of features.
+
 (C) The memory and compute requirements of a single update step for both methods scales linearly with the number of data points.
+
 (D) GD is likely to converge in fewer updates/iterations than SGD, with a properly selected learning rate.
 
 **Solution:** The solution is (C).
@@ -397,8 +406,11 @@ Which of the following is *not* a true statement about gradient descent (GD) vs.
 Which of the following is a true statement about gradient descent (GD)?
 
 (A) When training, we should not update the bias (aka offset, or intercept) term using GD.
+
 (B) Decreasing the learning rate, keeping all other hyperparameters fixed, guarantees that the error of our estimated parameters will decrease.
+
 (C) GD can be expensive to run on datasets with a large number of samples.
+
 (D) An advantage of GD over SGD is that GD requires only a single update step to converge.
 
 **Solution:** The solution is (C).
@@ -452,8 +464,11 @@ $L(w) = \sum_{i=1}^{n}(y_i - x_i^T w)^2$
 in terms of the $n \times d$ matrix $X$ whose $i$-th row is $x_i^T$ and the $n$ by $1$ vector $y$ whose $i$-th entry is $y_i$. (You may assume that any relevant matrix is invertible.)
 
 (A) $\hat{w} = 2(X^T X)^{-1}X^T y$
+
 (B) $\hat{w} = (X^T X)^{-1}X^T y$
+
 (C) $\hat{w} = (X^T X)^{-1}X y$
+
 (D) $\hat{w} = (X X^T)^{-1}X^T y$
 
 **Solution:** The solution is (B).
