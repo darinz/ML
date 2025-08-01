@@ -168,8 +168,11 @@ Suppose our data distribution has the property that $y_i = \beta x_i + c + \epsi
 How will regularizing the weights in a linear regression model change the bias and variance (relative to the same model with no regularization)?
 
 (A) Increase bias, increase variance
+
 (B) Increase bias, decrease variance
+
 (C) Decrease bias, increase variance
+
 (D) Decrease bias, decrease variance
 
 **Solution:** The solution is (B).
@@ -199,8 +202,11 @@ True/False: Given both a train and test set, the test loss is always lower in a 
 On which factor does the value of irreducible error depend in linear regression?
 
 (A) n, the number of observations in the training set
+
 (B) m, the dimension of features in the training set
+
 (C) $\sigma^2$, the variance of the noise
+
 (D) None of those
 
 **Solution:** The solution is (C).
@@ -210,8 +216,11 @@ On which factor does the value of irreducible error depend in linear regression?
 How does the irreducible error change if we increase the regularization coefficient $\lambda$ in ridge regression?
 
 (A) Increase
+
 (B) Decrease
+
 (C) Not change
+
 (D) The answer depends on the dataset $X$ and true weights $w^*$.
 
 **Solution:** The solution is (C).
@@ -231,7 +240,9 @@ True/False: k-fold cross-validation with $k = 100$ is computationally more expen
 Assume we have a data matrix $X$. Which of the following is a true statement when comparing leave-one-out cross validation (LOOCV) error with the true error?
 
 (A) LOOCV error is typically a slight underestimation of the true error of a model trained on $X$.
+
 (B) LOOCV error is typically a slight overestimation of the true error of a model trained on $X$.
+
 (C) LOOCV error is an unbiased estimator of the true error of a model trained on $X$.
 
 **Solution:** The solution is (B).
@@ -251,8 +262,11 @@ True/False: LASSO is a convex optimization problem.
 In LASSO regression, if the regularization parameter $\lambda = 0$, then which of the following is true?
 
 (A) This LASSO model can be used for feature selection.
+
 (B) The loss function is as same as the ridge regression loss function.
+
 (C) The loss function is as same as the ordinary least square loss function.
+
 (D) Large coefficients are penalized.
 
 **Solution:** No solution is provided for this question.
@@ -262,8 +276,11 @@ In LASSO regression, if the regularization parameter $\lambda = 0$, then which o
 In a LASSO Regression, if the regularization parameter $\lambda$ is very high, which of the following is true?
 
 (A) The model can shrink the coefficients of uninformative features to exactly 0
+
 (B) The loss function is as same as the ordinary least square loss function.
+
 (C) The loss function is as same as the ridge regression loss function
+
 (D) The bias of the model is no lower than the bias of the model with a smaller $\lambda$.
 
 **Solution:** The intended solution was (A), but (D) also accepted.
@@ -283,8 +300,11 @@ True/False: In LASSO regression, if the regularization parameter $\lambda$ is ve
 For ridge regression, if the regularization parameter is too large, which of the following is true?
 
 (A) Large coefficients will not be penalized
+
 (B) The model will underfit the data
+
 (C) The loss function will be the as same as the ordinary least square loss function
+
 (D) The model will overfit the data
 
 **Solution:** The solution is (B).
@@ -316,8 +336,11 @@ True/False: All local minimizers for a convex function $f$ are global minimizers
 Which function is not a convex function?
 
 (A) Sigmoid/Logistic function: $f(x) = 1/(1+e^{-x})$
+
 (B) Linear function: $f(x) = 3x$
+
 (C) Square function: $f(x) = x^2$
+
 (D) ReLU function: $f(x) = \max\{x, 0\}$
 
 **Solution:** The answer is (A).
