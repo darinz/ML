@@ -221,3 +221,147 @@ You have independent random variables $X, Y$ such that $X \sim N(1,2)$ and $Y \s
 **Correct answers:** (d)
 
 **Explanation:** Because the variables are independent, $\text{Var}(5X+6Y+7)= \text{Var}(5X) + \text{Var}(6Y) + \text{Var}(7)$. The variance of a constant is 0, so we remove that term to get $\text{Var}(5X) + \text{Var}(6Y)$. Moving a coefficient outside of the variance function squares it. So we have $25\text{Var}(X) + 36\text{Var}(Y)$. We plug in the given variances for $X$ and $Y$ to get $25 \cdot 2 + 36 \cdot 4 = 194$
+
+**18. One Answer 1 points**
+
+The objective function is $L(w) = ||Xw-Y||_2^2$. What is the gradient of $L(w)$ with respect to $w$?
+
+*   (a) $2Y^T (Xw - Y)$
+*   (b) $2X^T(X^T Xw - Y)$
+*   (c) $2X^T (Xw - Y)$
+*   (d) $2Y^T (X^T Xw - Y)$
+
+**Correct answers:** (c)
+
+**Explanation:** $\nabla_w ||Xw - Y||_2^2 = \nabla_w ((Xw - Y)^T (Xw - Y))$ $= \nabla_w ((w^T X^T - Y^T)(Xw - Y))$ $= \nabla_w (w^T X^T Xw - Y^T Xw - w^T X^T Y + Y^T Y)$ $= 2X^T Xw - X^T Y - X^T Y + 0$ $= 2X^T (Xw - Y)$
+
+**19. One Answer 1 points**
+
+Which of the following is true, when choosing to use Maximum Likelihood Estimation (MLE)?
+
+*   (a) MLE cannot be used if we do not know the exact distribution of our data.
+*   (b) MLE works well for any data distribution, so we do need knowledge of the true distribution.
+*   (c) MLE will produce unbiased estimates regardless of the data distribution or the likelihood function that we choose
+*   (d) MLE works even if the true distribution of our data isn't known. We can make an educated guess for the distribution of our data for our likelihood function.
+
+**Correct answers:** (d)
+
+**Explanation:** We often use MLE in situations where the true distribution of the data is not known. In MLE, we construct a likelihood function based on this chosen distribution and find the parameter values that maximize the probability of observing our data. While ideal to know the true distribution, MLE enables estimation through an educated guess, though the accuracy of the estimates depends on the appropriateness of our chosen distribution.
+
+**20. One Answer 1 points**
+
+Consider the function $f(a) = 5a^2 - 3a + 2$. You want to use gradient descent to find the unique minimum, which you know is at $a_* = 0.3$. If at time $t$ you arrive at the point $a_t = 3$, what value for the step size would bring you to $a_*$ at time $t+1$?
+
+*   (a) 0.001
+*   (b) 0.01
+*   (c) 0.1
+*   (d) 1
+
+**Correct answers:** (c)
+
+**Explanation:** Following the standard gradient descent update formula, we get $0.3 = 3 - \eta \cdot \nabla f(a)$. $\nabla f(a) = 10a - 3$, so $\nabla f(3) = 27$. Plugging this in, we get $0.3 = 3 - \eta \cdot 27$. Solving this equation, we get $\eta = 0.1$.
+
+**21. One Answer 1 points**
+
+Donovan is training some machine learning model, and is telling you about it. He needed to standardize the data, so he computed the mean and standard deviation of each feature in the entire dataset $X$ and applied the transformation correctly. He then created non-overlapping subsets of $X$ called $X_{train}$, $X_{validation}$, and $X_{test}$. To train, validate, and test their model respectively. In this setup, was there train/test leakage?
+
+*   (a) Yes
+*   (b) No
+
+**Correct answers:** (a)
+
+**Explanation:** They standardized the whole dataset using information from the test set (as it is a subset of $X$), and this is a form of train/test leakage.
+
+**22. 1 points**
+
+The following plots show 3 data points and 3 models. The data is the same for all 3 models. Match the learned model to the equation used for linear regression.
+
+$\hat{w} = (X^T X + \lambda I)^{-1} X^T y$. Plot number: 3 (for $\lambda > 0$)
+
+$\hat{w} = (X^T X)^{-1} X^T y$. Plot number: 1
+
+$\hat{w} = (\tilde{X}^T \tilde{X})^{-1} \tilde{X}^T y$, where $\tilde{X} = [X \quad \vec{1}]$. Plot number: 2
+
+**Explanation:** $\hat{w} = (X^T X + \lambda I)^{-1} X^T y$: plot 3, because it is overregularized.
+
+**23. One Answer 1 points**
+
+True/False: The training error is a better estimate of the true error than the cross-validation error.
+
+*   (a) True
+*   (b) False
+
+**Correct answers:** (b)
+
+**Explanation:** Cross validation is better and closer to true error since it deals with somewhat unseen data.
+
+**24. Select All That Apply 1 points**
+
+Let $f: \mathbb{R} \to \mathbb{R}$ be a continuous, smooth function whose derivative $f'(x)$ is also continuous. Suppose $f$ has a unique global minimum $x^* \in (-\infty, \infty)$, and you are using gradient descent to find $x^*$. You fix some $x^{(0)} \in \mathbb{R}$ and step size $\eta > 0$, and run $x^{(t)} = x^{(t-1)} - \eta f'(x^{(t-1)})$ repeatedly. Which of the following statements are true?
+
+*   (a) Gradient descent is sure to converge, to some value, for any step size $\eta > 0$.
+*   (b) If $f$ has a local minimum $x'$ different from the global one, i.e., $x' \neq x^*$, and $x^{(t)} = x'$ for some $t$, gradient descent will not converge to $x^*$.
+*   (c) Assuming gradient descent converges, it converges to $x^*$ if and only if $f$ is convex.
+*   (d) If, additionally, $f$ is the objective function of logistic regression, and gradient descent converges, then it converges to $x^*$.
+
+**Correct answers:** (b), (d)
+
+**Explanation:** A is false because for a large enough step size, gradient descent may not converge. B is correct because $f'(x') = 0$, so gradient descent will never move from a local minimum. C is false because you could "accidentally" initialize GD at $x^*$ even if $f$ is non-convex. D is correct because the objective of logistic regression is convex.
+
+**25. 1 points**
+
+What is the tradeoff between the size of the validation set and the size of the training set? Around 1-3 sentences.
+
+**Explanation:** Larger validation set means a better estimate of performance on unseen data. But at the cost of lost training data.
+
+**26. 1 points**
+
+Consider $X \in \mathbb{R}^{n \times d}$ and $y \in \mathbb{R}^n$. Suppose $\hat{w} = \arg \min_w \|Xw - y\|_2$ has a unique solution. Fill in the blank for the following vector spaces. Write NA if the there is not enough information to determine the answer.
+
+Col(X) = NA
+
+Row(X) = $\mathbb{R}^d$
+
+Null(X) = $\{0\}$
+
+**Explanation:** Since in this case the linear regression objective has a unique solution, X must be full rank as well as $n \ge d$, so Row(X) = $\mathbb{R}^d$ and Null(X) = $\{0\}$. Since $n \ge d$, we are unable to guarantee anything about Col(X) other than the fact that it is a subspace of $\mathbb{R}^n$.
+
+**27. 1 points**
+
+For a function $f: \mathbb{R}^n \to \mathbb{R}$ where $f(x, y, z) = xy + x^2 \ln(z) + e^{yz}$. Calculate the gradient of $f$.
+
+**Gradient =**
+
+**Explanation:**
+$$\nabla f(x) = \begin{pmatrix} y + 2x \ln(z) \\ x + z e^{yz} \\ \frac{x^2}{z} + y e^{yz} \end{pmatrix}$$
+
+**28. 1 points**
+
+Describe a scenario where one would choose to use Ridge regression over Lasso regression. Around 1-4 sentences.
+
+**Explanation:**
+Ridge regression is better when all features are important and you don't want to remove any of them. For example, if you are predicting something using many related variables (like gene data), Ridge helps by keeping all the features and just shrinking their values, instead of setting some to zero like Lasso does. It's also useful when there are more features than data points or when features are highly correlated.
+
+**29. 2 points**
+
+Answer the following questions about the Softmax function.
+
+**(a) Explain how the Softmax function transforms an input vector (logits) and why it is suitable for multi-class classification.**
+
+**Explanation:** The Softmax function transforms an input vector into a probability distribution over $K$ classes by exponentiating each term and dividing it by the sum of all the exponentiated values in the vector.
+
+$$\text{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}$$
+
+This is helpful for multiclass classification tasks because it shows the model's uncertainty over multiple classes in a normalized way.
+
+**(b) Suppose a model outputs the following values/logits for a 3-class classification problem.**
+
+$z = [2, 1, 5]$
+
+**Compute the softmax probabilities. You can leave the values in terms of exponentiated numbers.**
+
+**Softmax(z) = [ , , ]**
+
+**Explanation:** $\sum_{j=1}^K e^{z_j} = e^2 + e^1 + e^5$
+
+**Softmax(z) = $\left[ \frac{e^2}{e^2+e^1+e^5}, \frac{e^1}{e^2+e^1+e^5}, \frac{e^5}{e^2+e^1+e^5} \right]$**
