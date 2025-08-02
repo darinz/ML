@@ -240,3 +240,199 @@ The output of the network is denoted as $\hat{y}$.
 
 **Explanation:** Answer is $7$
 
+---
+
+## Problem 14
+
+**One Answer** How many parameters does the neural network shown in the previous problem have?
+
+**Answer:** 
+
+**Explanation:** Answer is 9
+
+---
+
+## Problem 15
+
+**One Answer** Which of the following defines the correct ordering of steps needed to perform backpropagation in PyTorch?
+
+(a) (1) compute loss, (2) compute gradients, (3) take step, (4) zero the gradient buffers
+
+(b) (1) compute loss, (2) zero the gradient buffers, (3) compute gradients, (4) take step
+
+(c) (1) compute loss, (2) take step, (3) zero the gradient buffers, (4) compute gradients
+
+(d) (1) zero the gradient buffers, (2) compute gradients, (3) take step, (4) compute loss
+
+**Correct answers:** (b)
+
+---
+
+## Problem 16
+
+**One Answer** Consider a convolutional neural network (CNN) layer with the following parameters:
+
+*   Input image size: 3 x 32 x 32 (channels, height, width)
+*   Number of filters: 16
+*   filter size: 3x3
+*   Stride: 1
+*   Padding: 1
+
+What will be the shape of the output after applying this convolutional layer (in the order of channels, height, width)?
+
+**Answer:** 
+
+**Explanation:** 16 x 32 x 32. $\frac{32-3+2\times1}{1}+1=32$
+
+---
+
+## Problem 17
+
+**One Answer** Which of the following best describes the purpose of pooling layers in a convolutional neural network (CNN)?
+
+(a) To increase the resolution of the feature maps.
+
+(b) To reduce the spatial dimensions of the feature maps, thereby reducing the computational load and the number of parameters.
+
+(c) To convert the feature maps into a fully connected layer.
+
+(d) To normalize the feature maps by scaling them to a fixed range.
+
+**Correct answers:** (b)
+
+---
+
+## Problem 18
+
+**One Answer** Given the following setup in a simple recurrent neural network (RNN):
+
+Input at time t: $x_t$
+
+The RNN has one hidden layer with the following parameters:
+* Input to hidden state weights: $W_{xh}$
+* Hidden state to hidden state weights: $W_{hh}$
+* Hidden state to output weights: $W_{hy}$
+* Bias for the hidden state: $b_h$
+* Bias for the output: $b_y$
+
+The activation function for the hidden state is ReLU.
+
+Given the following parameter values:
+$W_{xh} = \begin{bmatrix} 0.5 & 0.1 \\ 0.3 & 0.2 \end{bmatrix}$, $W_{hh} = \begin{bmatrix} 0.6 & 0.4 \\ 0.2 & 0.5 \end{bmatrix}$, $W_{hy} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$, $b_h = \begin{bmatrix} 0.1 \\ 0.2 \end{bmatrix}$, $b_y = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$
+
+Calculate the hidden state $h_1$ after processing the first input $x_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$. Assume the initial hidden state $h_0$ is a zero vector.
+
+**Answer:** 
+
+**Explanation:** $\text{relu}(W_{xh}x_1 + W_{hh}h_0 + b_h) = \begin{bmatrix} 0.6 \\ 0.5 \end{bmatrix}$
+
+---
+
+## Problem 19
+
+**One Answer** Which of the following statements about the k-means clustering algorithm is true?
+
+(a) It guarantees convergence to the global optimum.
+
+(b) It is robust against the initialization of cluster means.
+
+(c) It may converge to a local optimum depending on the initial placement of cluster means.
+
+**Correct answers:** (c)
+
+---
+
+## Problem 20
+
+**One Answer** Why might a Gaussian Mixture Model (GMM) be preferred over K-means in cases where the data contains mixed or overlapping clusters?
+
+(a) GMM exclusively uses hard assignments which are better for mixed clusters.
+
+(b) GMM utilizes soft assignments, allowing points to belong to multiple clusters with varying probabilities.
+
+(c) GMM always converges faster than k-means.
+
+**Correct answers:** (b)
+
+---
+
+## Problem 21
+
+**One Answer** In k-means clustering, the algorithm is executed several times on the same dataset, each time with a fresh random initialization of cluster centers and the same number of clusters. If these multiple runs yield widely varying cluster outcomes, what might this suggest about the algorithm's sensitivity to initial conditions?
+
+(a) The choice of k is optimal.
+
+(b) The dataset is perfectly clustered.
+
+(c) The initialization of centers might be influencing the results.
+
+(d) The algorithm is not suitable for clustering.
+
+**Correct answers:** (c)
+
+---
+
+## Problem 22
+
+**One Answer** Consider an LSTM (Long Short-Term Memory) network with the following characteristics: a forget gate, an input gate, a memory cell, and an output gate. Which of the following statements correctly describes the function of the forget gate in an LSTM?
+
+<img src="./q22_problem.png" width="450px">
+
+The image displays a diagram of a Long Short-Term Memory (LSTM) network, illustrating its repeating module structure and internal gates.
+
+The diagram shows three identical blocks, labeled 'A', representing the repeating module of the LSTM. The central block 'A' is expanded to show its internal components and data flow.
+
+**Inputs to the central LSTM module:**
+- $h_{t-1}$: Previous hidden state, represented by an arrow pointing down into the module.
+- $X_t$: Current input, represented by an arrow pointing down into the module.
+- $C_{t-1}$: Previous cell state, implicitly flowing into the module from the left.
+
+**Outputs from the central LSTM module:**
+- $h_t$: Current hidden state, represented by an arrow pointing up from the module.
+- $C_t$: Current cell state, implicitly flowing out of the module to the right.
+
+**Internal structure of the LSTM module (from left to right, top to bottom):**
+
+1.  **Forget Gate:**
+    -   Inputs $h_{t-1}$ and $X_t$ are concatenated (double arrow pointing right).
+    -   The concatenated vector goes into a "Neural Network Layer" (yellow rectangle).
+    -   The output of the neural network layer goes into a "Pointwise Operation" (circle), which is a sigmoid function ($\sigma$).
+    -   The output of the sigmoid is multiplied (Pointwise Operation, $\times$) with the previous cell state $C_{t-1}$.
+
+2.  **Input Gate and Candidate Cell State:**
+    -   Inputs $h_{t-1}$ and $X_t$ are concatenated.
+    -   This concatenated vector splits into two paths:
+        -   **Path 1 (Input Gate):** Goes into a "Neural Network Layer", then a "Pointwise Operation" (sigmoid $\sigma$).
+        -   **Path 2 (Candidate Cell State):** Goes into a "Neural Network Layer" with a 'tanh' activation function indicated.
+    -   The outputs of Path 1 (Input Gate) and Path 2 (Candidate Cell State) are multiplied (Pointwise Operation, $\times$).
+
+3.  **Cell State Update:**
+    -   The output of the Forget Gate (multiplication with $C_{t-1}$) and the output of the Input Gate/Candidate Cell State multiplication are added (Pointwise Operation, $+$). This sum forms the new cell state $C_t$.
+
+4.  **Output Gate:**
+    -   Inputs $h_{t-1}$ and $X_t$ are concatenated.
+    -   The concatenated vector goes into a "Neural Network Layer", then a "Pointwise Operation" (sigmoid $\sigma$).
+
+5.  **Hidden State Calculation:**
+    -   The new cell state $C_t$ goes into a "Pointwise Operation" (tanh activation).
+    -   The output of the Output Gate (sigmoid) and the tanh-activated $C_t$ are multiplied (Pointwise Operation, $\times$). This result is the new hidden state $h_t$.
+
+**Legend for symbols used in the diagram:**
+-   Yellow rectangle: Neural Network Layer
+-   Circle: Pointwise Operation (e.g., sigmoid, tanh, addition, multiplication)
+-   Single arrow: Vector Transfer
+-   Double arrow pointing right: Concatenate
+-   Double arrow splitting: Copy
+
+(a) The forget gate decides which information should be discarded from the cell state.
+
+(b) The forget gate calculates the output of the current position at each time step.
+
+(c) The forget gate extracts useful information from the input to update memory.
+
+(d) The forget gate calculates the next hidden state based on the current input.
+
+**Correct answers:** (a)
+
+**Explanation:** The forget gate in an LSTM outputs a value between 0 and 1 for each number in the cell state $C_{t-1}$, where 1 represents "completely keep this" and 0 represents "completely forget this". It is used to remove information that is no longer needed from the cell state.
+
