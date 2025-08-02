@@ -34,6 +34,8 @@ After training and evaluating these models on an appropriately split dataset wit
 
 Saket only knows about bias and variance, so based on the model architectures and train/test MSE losses, choose the best relative bias/variance estimates for each of the models.
 
+<img src="./q2_problem.png" width="450px">
+
 **Correct Answer:** 
 - Model A: High bias, Low variance
 - Model B: Low bias, Low variance  
@@ -52,6 +54,8 @@ Saket only knows about bias and variance, so based on the model architectures an
 ## Problem 4: Training and Validation Loss Analysis
 
 **Question:** You are training a model and get the following plot for your training and validation loss.
+
+<img src="./q4_problem.png" width="350px">
 
 **Plot Description:** A line plot titled "Loss" with "Number of Epochs" on the x-axis (ranging from 2 to 20) and "Loss" on the y-axis (ranging from 0.0 to 1.0). There are two lines:
 - **train (solid blue line):** Starts at a loss of 1.0 at epoch 2, rapidly decreases to near 0.0 by epoch 7, and remains very low (close to 0.0) up to epoch 20.
@@ -163,3 +167,4 @@ d) For convex loss functions, gradient descent with the optimal learning rate is
 **Correct Answer:** (d)
 
 **Explanation:** Due to the noisy updates of SGD, it is not guaranteed to converge at the minimum but for instance, cycle close to it whereas batch gradient descent alleviates this and is guaranteed to reach the minimum given appropriate step size.
+
