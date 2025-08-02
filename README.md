@@ -338,82 +338,45 @@ For comprehensive coverage including theoretical foundations, practical implemen
 
 ## Problem Sets
 
-Comprehensive problem sets with solutions covering all topics from the curriculum. Each problem set includes detailed problem descriptions, starter code, datasets, and complete solutions.
+Comprehensive problem sets with solutions covering all curriculum topics. Each includes detailed problems, starter code, datasets, and complete solutions.
 
 **[View Problem Sets](./problem-sets/)**
 
 ### Practice Problem Series
 
 **Series 1: Foundational Concepts** `[practice-1/](./practice-1/)`
-A comprehensive collection of 9 practice problem sets covering fundamental machine learning concepts from probability and linear algebra to advanced topics like reinforcement learning and ensemble methods.
-
-**Available Practice Sets:**
-- **p1**: Probability, Statistics, Linear Algebra, Bias-Variance Tradeoff
-- **p2**: Machine Learning Fundamentals, Linear Models, Optimization  
-- **p3**: Advanced ML Concepts, Matrix Analysis, Optimization Theory
-- **p4**: Neural Networks and Deep Learning
-- **p5**: Clustering and Dimensionality Reduction
-- **p6**: Reinforcement Learning and Control
-- **p7**: Support Vector Machines and Kernel Methods
-- **p8**: Ensemble Methods and Model Selection
-- **p9**: Advanced Topics and Applications
-
-**Features:**
-- Complete problem statements and detailed solutions
-- Interactive Jupyter notebooks with LaTeX math rendering
-- Supporting visualizations and figures
-- Progressive difficulty from foundational to advanced concepts
+9 practice sets covering probability, linear algebra, ML fundamentals, neural networks, clustering, reinforcement learning, SVMs, ensemble methods, and advanced applications.
 
 **Series 2: Advanced Machine Learning** `[practice-2/](./practice-2/)`
-Nine comprehensive practice problem sets designed to reinforce fundamental concepts in machine learning with both theoretical and practical applications.
+9 practice sets on neural networks, clustering, deep learning, ML theory, applied problems, and comprehensive exam preparation.
 
-**Available Practice Sets:**
-- **p1**: Neural Networks & PCA - Architecture, loss functions, activation functions
-- **p2**: Gaussian Mixtures & K-means - Clustering algorithms, loss analysis
-- **p3**: Deep Neural Networks - CNN architectures, computation graphs
-- **p4**: Advanced ML Concepts - Various algorithms and theoretical concepts
-- **p5**: Machine Learning Theory - Theoretical foundations and practical applications
-- **p6**: Applied Machine Learning - Real-world ML problems and solutions
-- **p7**: Advanced Topics - Complex ML scenarios and problem-solving
-- **p8**: Final Exam Practice (Spring) - Comprehensive exam covering all course material
-- **p9**: Final Exam Practice (Winter) - Comprehensive exam covering all course material
-
-**Features:**
-- Multiple choice questions, true/false statements, mathematical problems
-- Computational problems with algorithm implementations
-- Visual analysis with plots and figures
-- Detailed solutions with step-by-step explanations
-- Interactive Jupyter notebooks for hands-on practice
+**Features:** Complete problems/solutions, interactive Jupyter notebooks, visualizations, progressive difficulty
 
 ### Problem Set Series
 
-**Series 01: Foundational Machine Learning** `[01/](./problem-sets/01/)`
-- **PS1**: Linear Regression & Locally Weighted Regression
-- **PS2**: Classification & Spam Detection  
-- **PS3**: Learning Theory & K-Means Clustering
-- **PS4**: Dimensionality Reduction & Reinforcement Learning
-- **PS5**: Comprehensive Review
+**Series 01: Foundational ML** `[01/](./problem-sets/01/)`
+- PS1: Linear Regression & Locally Weighted Regression
+- PS2: Classification & Spam Detection  
+- PS3: Learning Theory & K-Means Clustering
+- PS4: Dimensionality Reduction & Reinforcement Learning
+- PS5: Comprehensive Review
 
-**Series 02: Advanced Machine Learning & Deep Learning** `[02/](./problem-sets/02/)`
-- **PS1**: Optimization & Regularization
-- **PS2**: Cross-Validation & Lasso Regression
-- **PS3**: Gradient Descent & Stochastic Methods
-- **PS4**: Kernel Methods & Neural Networks
-- **PS5**: Neural Network Theory & Backpropagation
-- **PS6**: Dimensionality Reduction & Matrix Decompositions
+**Series 02: Advanced ML & Deep Learning** `[02/](./problem-sets/02/)`
+- PS1: Optimization & Regularization
+- PS2: Cross-Validation & Lasso Regression
+- PS3: Gradient Descent & Stochastic Methods
+- PS4: Kernel Methods & Neural Networks
+- PS5: Neural Network Theory & Backpropagation
+- PS6: Dimensionality Reduction & Matrix Decompositions
 
-**Series 03: Modern ML & Deep Learning Applications** `[03/](./problem-sets/03/)`
-- **PS1**: Mathematical Foundations (Probability, Statistics, Linear Algebra)
-- **PS2**: Machine Learning Fundamentals & Bias-Variance Tradeoff
-- **PS3**: Optimization, Convexity & Regularization
-- **PS4**: Kernel Methods & Neural Networks with PyTorch
-- **PS5**: Computer Vision Applications & CNN Implementation
+**Series 03: Modern ML Applications** `[03/](./problem-sets/03/)`
+- PS1: Mathematical Foundations
+- PS2: ML Fundamentals & Bias-Variance Tradeoff
+- PS3: Optimization, Convexity & Regularization
+- PS4: Kernel Methods & Neural Networks with PyTorch
+- PS5: Computer Vision Applications & CNN Implementation
 
-### Features
-- **Complete Solutions**: Detailed explanations and code implementations
-- **Multiple Languages**: Python, MATLAB, and PyTorch code
-- **Real Datasets**: Spam classification, image processing, reinforcement learning
-- **Progressive Difficulty**: From foundational concepts to advanced applications
+**Features:** Complete solutions, multiple languages (Python/MATLAB/PyTorch), real datasets, progressive difficulty
 
 ## Reference Materials
 
