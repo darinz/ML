@@ -354,21 +354,30 @@ Cross-validation can be used to select architecture-related hyperparameters like
 c) True.
 More layers improve representational capacity, reducing training loss.
 d) True. Deeper networks can overfit without proper regularization.
-20. Select All That Apply
- Which of the following are advantages of Gaussian Mixture Models (GMMs) over K-means for a clustering application?
+
+## 20. Select All That Apply
+
+Which of the following are advantages of Gaussian Mixture Models (GMMs) over K-means for a clustering application?
+
 a GMMs are better suited if clusters have varying sizes and/or shapes.
+
 b GMMs are better equipped to model overlapping clusters.
- c GMMs are better suited to reason probabilistically about the data and the clusters.
+
+c GMMs are better suited to reason probabilistically about the data and the clusters.
+
 d On a given dataset, a single iteration of the EM algorithm for fitting a GMM requires less computation than a single iteration of Lloyd’s Algorithm for fitting K-means.
+
 Correct answers: (a), (b), (c)
- Explanation:
+
+Explanation:
  a) True. GMMs can model clusters with different sizes and shapes because they use a combination of Gaussian distributions, each with its own mean and covariance matrix.
 b) True. GMMs can handle overlapping clusters by assigning probabilities to each data point for belonging to each cluster.
 c) True. GMMs provide a probabilistic framework, giving the likelihood of each data point belonging to each cluster, which is useful for probabilistic reasoning.
 
 
 d) False. The Expectation-Maximization (EM) algorithm used for fitting GMMs is generally more com putationally intensive per iteration compared to Lloyd’s Algorithm for K-means, due to the additional steps of calculating probabilities and updating the covariance matrices.
-21. One Answer
+
+## 21. One Answer
 
 Kernel methods calculate the inner products of features in a transformed feature space, without explicitly computing the transformed features.
 
