@@ -581,6 +581,8 @@ As an aside, note that $\Sigma^T \Sigma$ is diagonal. It is significantly easier
 
 **Question:** Consider the following matrix $X$ and convolutional neural network (CNN) filter $F$.
 
+<img src="./q31-1.png" width="350">
+
 $$X = \begin{pmatrix}
 8 & 17 & 8 & 16 \\
 13 & 7 & 10 & 5 \\
@@ -595,11 +597,15 @@ F = \begin{pmatrix}
 
 Apply the filter $F$ to matrix $X$ with Padding = 1 (padding with zeros) and stride = 2.
 
-Write the resulting matrix below in the grid of the correct size. Only write answers in one matrix, otherwise the problem will be graded as incorrect.
+Write the resulting matrix below in the grid of the correct size.
 
 <img src="./q31-2.png">
 
-**Explanation:** Zero padding means we add zeros all the way around the matrix, this will make it look like the following:
+**Explanation:** 
+
+<img src="./q31-3.png">
+
+Zero padding means we add zeros all the way around the matrix, this will make it look like the following:
 
 $$\begin{pmatrix}
 0 & 0 & 0 & 0 & 0 & 0 \\
