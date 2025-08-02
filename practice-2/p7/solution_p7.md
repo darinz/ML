@@ -742,3 +742,111 @@ Choose one option and explain how it would help improve the model (2 sentences).
 
 **Explanation:** This model is overfitting, as indicated by the increasing gap between training accuracy and validation accuracy after epoch 9. Increasing regularization is the most likely to decrease the variance by adding in bias, which helps prevent overfitting. Another effective option is decreasing the number of epochs (early stopping) as that is another form of regularization, preventing the model from learning the training data too well and thus improving generalization to unseen data.
 
+---
+
+## Problem 38
+
+**Question:** Select All Which of the following statements about Maximum Likelihood Estimation (MLE) are true?
+
+**Options:**
+
+(a) MLE requires probabilistic assumptions to be made about the data.
+
+(b) Linear regression can be viewed as a MLE problem.
+
+(c) Logistic regression can be viewed as a MLE problem.
+
+(d) MLE guarantees that the estimated parameters are unbiased.
+
+(e) MLE is always equivalent to minimizing the squared reconstruction error.
+
+**Correct answers:** (a), (b), (c)
+
+---
+
+## Problem 39
+
+**Question:** In the context of machine learning, how does k-fold cross-validation enhance the reliability of a model's performance evaluation compared to using a single train-test split, and what is one potential downside of using this method?
+
+**Answer:**
+
+**Explanation:** K-fold cross-validation improves reliability by dividing the dataset into 'k' equal parts, training the model 'k' times with each part serving as the test set once, thereby reducing bias and variance in the performance estimation. However, it can be computationally expensive, especially for large datasets or complex models, as it requires the model to be trained multiple times.
+
+---
+
+## Problem 40
+
+**Question:** Select All Which of the statements about cross-validation are true?
+
+**Options:**
+
+(a) The goal of cross-validation is to estimate the training error.
+
+(b) Leave-one-out cross-validation is equivalent to k-fold cross-validation when k is equal to the total number of training data points n.
+
+(c) Leave-one-out cross-validation is always faster than k-fold cross-validation.
+
+(d) k-fold cross-validation will always produce the same estimate of error, regardless of the choice of k.
+
+**Correct answers:** (b)
+
+---
+
+## Problem 41
+
+**Question:** In which setting(s) might logistic regression be more suitable than k-nearest neighbors (KNN)?
+
+**Options:**
+
+(a) If your targets $y_i$ take on continuous values.
+
+(b) If you want to understand the relationship between your features $x_i$ and your targets $y_i$.
+
+(c) If you care most about minimizing the time required to train your model.
+
+(d) If you care most about minimizing the time required to make predictions with your model.
+
+**Correct answers:** (b), (d)
+
+**Explanation:** a - incorrect as for logistic regression you have class output which isn't continuous. b - Correct as you can see what features are given the most weight with logistic regression while knn is just distances. c - Incorrect as the train time for knn is $O(1)$, it's the prediction time that takes the time. d - Correct as predictions are a single calculation for logistic regression but scale with the amount of data you have for knn.
+
+---
+
+## Problem 42
+
+**Question:** Ridge regression reduces overfitting by:
+
+**Options:**
+
+(a) Penalizing the L1 norm of the model parameters.
+
+(b) Penalizing the L2 norm of the model parameters.
+
+(c) Increasing model complexity to better fit the training data.
+
+(d) Encouraging sparsity in the model parameters.
+
+**Correct answer:** (b)
+
+---
+
+## Problem 43
+
+**Question:** Which of the following statements about ridge regression are **incorrect**?
+
+**Options:**
+
+(a) Ridge regression introduces a penalty term to the linear regression cost function by controlling the magnitudes of the coefficient values.
+
+(b) The regularization term in ridge regression helps in reducing model complexity by setting some coefficients to exactly zero.
+
+(c) The ridge regression parameter estimate will be equivalent to the Ordinary Least Squares parameter estimate when $\lambda = 0$ in the case that $X^T X$ is full rank (where $X$ is the training data matrix).
+
+(d) The choice of the regularization hyperparameter ($\lambda$) in ridge regression can significantly impact the model's bias-variance trade-off.
+
+**Correct answer:** (b)
+
+**Explanation:** In ridge regression, the regularization term adds a penalty to the linear regression cost function, which helps control the magnitudes of the coefficient values. It aims to minimize the sum of squared errors while keeping all coefficients in the model. Ridge regression is often used when you want to reduce the impact of multicollinearity without eliminating any predictors from the model.
+
+In contrast, LASSO also adds a penalty term to the linear regression cost function but uses $L_1$ regularization. LASSO has the property of variable selection, which means it can set some coefficients exactly to zero. This makes LASSO useful for feature selection, as it can effectively eliminate certain predictors from the model. Unlike ridge regression, LASSO encourages sparsity in the coefficient matrix.
+
