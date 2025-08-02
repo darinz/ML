@@ -712,10 +712,7 @@ Thus, it is a convex optimization problem regardless of how complex $\phi$ is.
 
 ## 34.
 
-[This is an extra credit question that takes more time relative to the number of points awarded.
-We suggest you do not attempt it until you have finished the other questions in the exam.]
-
-Recall from lecture that influence functions are used to approximate the effect of leaving out one training point, without actually retraining the model.
+Recall that influence functions are used to approximate the effect of leaving out one training point, without actually retraining the model.
 
 Assume that we have a twice-differentiable, strongly convex loss function $\ell(x, y; w)$, and as usual, we train a model $\hat{w}$ to minimize the average training loss:
 
