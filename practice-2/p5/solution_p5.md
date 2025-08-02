@@ -257,7 +257,8 @@ The overall score distribution is a mixture of two Gaussian distributions:
 A Gaussian Mixture Model (GMM) is the most suitable choice, as it models this bimodal distribution by combining multiple Gaussians.
 k-means clustering could also be used but is less effective, as it assumes.
 spherical clusters and does not explicitly account for Gaussian distributions.
-15. Select All That Apply
+
+## 15. Select All That Apply
 
 Assume we are given a fixed dataset $D=\{x^{(1)},x^{(2)},...,x^{(n)}\}$ drawn i.i.d. (independently and identically distributed) from an underlying distribution $P(x)$.
 We use the bootstrap to draw bootstrap samples $\tilde{D}=\{\tilde{x}^{(1)},\tilde{x}^{(2)},...\}$ from a bootstrap distribution $Q(x)$.
@@ -279,7 +280,8 @@ b) False. Inverse of option (a)
 c) False. Bootstrap samples are not guaranteed to be identical to population distribution.
 d) True.
 By construction of the bootstrap method.
-16.
+
+## 16.
 
 You are given a dataset with four data points 2(1) $,x^{(2)}$, $x^{(3)}$, $x^{(4)}\in\mathbb{R}$ The coordinates of these data points are:
 $x^{(1)}=0$
