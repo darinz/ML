@@ -226,7 +226,8 @@ Answer:
 
 Explanation: One advantage is that mini-batch SGD is faster to compute over full-batch GD, while still offering an unbiased estimate of the gradient full-batch GD would compute.
 Another advantage is the variance of mini-batch SGD can lead to randomness that might help avoid local minima where full-batch GD might get stuck.
-13.
+
+## 13.
 
 Describe one advantage of mini-batch stochastic gradient descent $(1<B<n)$ over stochastic gradient descent with batch size $B=1$ (e.g., updating the parameters at each iteration based only on one randomly sampled training point).
 
@@ -240,7 +241,8 @@ Computational Efficiency: Mini-batches enable efficient use of parallelization o
 Better Generalization: Smoother updates can help the model generalize better.
 Reduced Frequency of Parameter Updates: Fewer updates per epoch, which can improve training dynamics and efficiency.
 parallelizability
-14. One Answer
+
+## 14. One Answer
 
 In a machine learning course, the distribution of final exam scores is approximately normal.
 However, an administrative error provided some students with prior access to practice materials closely resembling the exam, resulting in significant score increases for these students.
