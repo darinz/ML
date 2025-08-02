@@ -433,9 +433,11 @@ The following figure depicts the data and cluster centers for an iteration of th
 
 Dataset samples are denoted by markers and cluster centers are denoted by markers x.
 
-[Image 1]
+<img src="img/q28_problem_1.png" width="350px">
 
 Which of the following depicts the best estimate of the cluster center positions after the next single iteration of Lloyd's algorithm?
+
+
 
 Hint: a single iteration refers to both update steps.
 
