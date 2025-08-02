@@ -60,7 +60,7 @@ b) Increasing the size of the validation data does not help prevent the model fr
 c) This helps reduce bias not variance
 d) Regularization helps prevent the model from overfitting to the training data.
 
-5. One Answer
+## 5. One Answer
 
 For machine learning models and datasets in general, as the number of training data points grows, the prediction error of the model on unseen data (data not found in the training set) approaches 0.
 
