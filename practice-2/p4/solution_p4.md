@@ -437,7 +437,7 @@ Dataset samples are denoted by markers and cluster centers are denoted by marker
 
 Which of the following depicts the best estimate of the cluster center positions after the next single iteration of Lloyd's algorithm?
 
-
+<img src="img/q28_problem_2.png" width="650px">
 
 Hint: a single iteration refers to both update steps.
 
