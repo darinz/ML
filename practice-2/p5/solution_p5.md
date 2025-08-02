@@ -388,8 +388,9 @@ a. True
 b. False
 
 Correct answers: (a)
- Explanation: A function K : Rd × Rd → R is a kernel for a map φ if K(x, x0) = φ(x) · φ(x0) = hφ(x), φ(x0)i for all x, x0.
+Explanation: A function K : Rd × Rd → R is a kernel for a map φ if K(x, x0) = φ(x) · φ(x0) = hφ(x), φ(x0)i for all x, x0.
 φ(x) doesn’t need to be explicitly computed.
+
 ## 22. One Answer
 
 Consider a fully connected neural network (MLP) with an input layer, a hidden layer, and an output layer.
@@ -512,36 +513,57 @@ Correct answers: (a), (c)
 ## 28. Select All That Apply
 
 Which of the following statements about random forests and decision trees are true?
+
 a Random forests are generally easier for humans to interpret than individual decision trees.
+
 b Random forests reduce variance (compared to individual decision trees) by aggre gating predictions over multiple decision trees.
+
 c When constructing the individual trees in the random forest, we want their predic tions to be as correlated with each other as possible.
+
 d Random forests can give a notion of confidence estimates by examining the distri bution of outputs that each individual tree in the random forest produces.
+
 Correct answers: (b), (d)
- Explanation:
- a) False. Procedure is similar except random forest utilizes multiple decision trees
- b) True.
+
+Explanation:
+
+a) False. Procedure is similar except random forest utilizes multiple decision trees
+
+b) True.
 Aggregating predictions from multiple trees reduces sensitivity compared to a single tree.
- c) False.
+
+c) False.
 Having as correlated trees as possible degenerates to a single tree, losing the benefits of a more complex forest.
-d) True. Spread of decisions across different trees gives a confidence estimate.
- 
+
+d) True. Spread of decisions across different trees gives a confidence estimate. 
 
 ## 29. Select All That Apply
- Which of the following is a correct statement about (mini-batch) Stochastic Gradient Descent (SGD)?
+
+Which of the following is a correct statement about (mini-batch) Stochastic Gradient Descent (SGD)?
+
 a The variance of the gradient estimates in SGD decreases as the batch size increases.
+
 b Running SGD with batch size 1 for n iterations is generally slower than running full batch gradient descent with batch size n for 1 iteration, because the gradients for each training point in SGD have to be computed sequentially, whereas the gradients in full-batch gradient descent can be computed in parallel.
+
 c SGD is faster than full-batch gradient descent because it only updates a subset of model parameters with each step.
+
 d SGD provides an unbiased estimate of the true (full-batch) gradient of the training loss.
+
 Correct answers: (a), (b), (d)
- Explanation:
- a) True. In SGD, the gradient is estimated using a subset of the data.
+Explanation:
+
+a) True. In SGD, the gradient is estimated using a subset of the data.
 A sampled batch might not represent the entire dataset well.
 As the batch size increases, it becomes more representative of the entire dataset, reducing the variance in the gradient estimates.
+
 b) True. In batch gradient descent, all gradients for the entire dataset are computed in one forward backward pass, which can leverage parallel processing (e.g., on GPUs).
+
 c) False. SGD does not update a subset of model parameters.
+
 It updates all parameters based on the gradient computed from a subset of the data.
 The faster convergence of SGD compared to full-batch gradient descent is due to the more frequent updates.
- d) True.
+
+d) True.
+
 The gradient computed on a mini-batch is an unbiased estimate of the full gradient because the mini-batch is a random sample of the dataset.
 This randomness ensures that, on average, the mini-batch gradient equals the true gradient over the entire dataset.
  
