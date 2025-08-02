@@ -637,36 +637,51 @@ Explanation: The volume of S is $2^d$, while the volume of T is $1^d$. Since x i
 ## 32. Select All That Apply
 
 Consider the following dataset of four points in R2:
+
  $x^{(1)} = (0, 0)$ $y^{(1)} = −1$
+
  $x^{(2)} = (0, 1)$ $y^{(2)} = +1$
+
  $x^{(3)} = (1, 0)$ $y^{(3)} = +1$
+
  $x^{(4)} = (1, 1)$ $y^{(4)} = −1$.
+
 This is also known as a XOR problem because the labels y are the result of applying the XOR operation to the two components of x.
+
 For a given data point $x \in R^2$, denote its first dimension as $x_1$ and its second dimension as $x_2$.
+
 For example, $x^{(2)}_1 = 0$ and $x^{(2)}_2 = 1$. Which of the following statements are true?
-a There exists a linear model $w \in R^3$, which predicts +1 if
+
+a. There exists a linear model $w \in R^3$, which predicts +1 if
  $w^T \begin{bmatrix} x_1 \\ x_2 \\ 1 \end{bmatrix} \ge 0$
  and −1 otherwise, that achieves 100% accuracy on this dataset.
-b There exists a linear model $w \in R^6$, which predicts +1 if
+
+b. There exists a linear model $w \in R^6$, which predicts +1 if
  $w^T \begin{bmatrix} x_1 \\ x_2 \\ x_1^2 \\ x_2^2 \\ x_1x_2 \\ 1 \end{bmatrix} \ge 0$
  and −1 otherwise, that achieves 100% accuracy on this dataset.
-c Define a polynomial feature expansion $\phi(x)$ as any function $\phi(x) : R^2 \to R^d$ that can be written as
+
+c. Define a polynomial feature expansion $\phi(x)$ as any function $\phi(x) : R^2 \to R^d$ that can be written as
  $\begin{bmatrix} x_1^{a_1} x_2^{b_1} \\ x_1^{a_2} x_2^{b_2} \\ . \\ . \\ . \\ x_1^{a_d} x_2^{b_d} \end{bmatrix}$
  for some integer d > 0 and integer vectors a, b $\in Z^d$.
+
 Then there does not exist any polynomial feature expansion $\phi(x)$ such that a linear model w which predicts +1 if $w^T\phi(x) \ge 0$, and −1 otherwise, achieves 100% accuracy on this dataset.
+
 Correct answers: (b)
 
+Explanation:
+a) There is no way to separate with linear features.
 
-Explanation: a) There is no way to separate with linear features.
 For option b) and example weight vector is
  $\begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \\ -4 \\ -1 \end{bmatrix}$
- For option c) a counter example is feature expansion
+
+For option c) a counter example is feature expansion
  $\begin{bmatrix} x_1^0 x_2^0 \\ x_1^0 x_2^1 \\ x_1^1 x_2^0 \\ x_1^1 x_2^1 \end{bmatrix}$
  with weight vector
  $\begin{bmatrix} -1 \\ 1 \\ 1 \\ -2 \end{bmatrix}$
 
 ## 33. One Answer
- Consider the following transfer learning setting.
+
+Consider the following transfer learning setting.
 We have a large neural network $\phi : R^d \to R^p$ pretrained on ImageNet, and we would like to use this to learn a classifier for our own binary classification task for medical images.
 We decide to freeze the neural network $\phi$ and train a logistic regression classifier on top.
 Formally, we are given n data points from our own medical imaging task $\{(x^{(1)}, y^{(1)}),(x^{(2)}, y^{(2)}), . . .$
