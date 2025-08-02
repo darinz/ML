@@ -168,3 +168,39 @@ d) For convex loss functions, gradient descent with the optimal learning rate is
 
 **Explanation:** Due to the noisy updates of SGD, it is not guaranteed to converge at the minimum but for instance, cycle close to it whereas batch gradient descent alleviates this and is guaranteed to reach the minimum given appropriate step size.
 
+## Problem 11: Neural Network Training
+
+**Question:** You are training a neural network for a classification task. You notice that your training loss is decreasing but your validation loss is increasing. What is happening?
+
+**Options:**
+
+a) The model is underfitting
+
+b) The model is overfitting
+
+c) The learning rate is too high
+
+d) The model has converged
+
+**Correct Answer:** (b)
+
+**Explanation:** When training loss decreases while validation loss increases, this is a classic sign of overfitting. The model is learning the training data too well (memorizing it) but failing to generalize to unseen data.
+
+## Problem 12: Model Selection
+
+**Question:** You have a dataset with 1000 samples and want to perform model selection. You have the following options:
+
+**Options:**
+
+a) Use all data for training and validation
+
+b) Split data 80/20 for training/validation
+
+c) Use 5-fold cross-validation
+
+d) Use 10-fold cross-validation
+
+**Correct Answer:** (c)
+
+**Explanation:** With 1000 samples, 5-fold cross-validation provides a good balance between having enough data in each fold for reliable estimates while maintaining reasonable computational cost. 10-fold would give smaller validation sets, and using all data for both training and validation would lead to overfitting.
+
