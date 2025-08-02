@@ -28,7 +28,7 @@ Which of the following is the best option that can be done to reduce a model's b
 
 Draw the maximum margin separating boundary between the hollow and filled points.
 
-<img src="./q3.png" width="450px">
+<img src="img/q3.png" width="450px">
 
 A Cartesian coordinate system is shown with an x-axis ranging from 0 to 4 and a y-axis ranging from 0 to 4. Grid lines are present at 0.5 unit intervals.
 
