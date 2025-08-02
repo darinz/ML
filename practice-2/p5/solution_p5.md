@@ -708,7 +708,6 @@ Correct answers: (a)
 
 Explanation: Since we freeze $\phi$ and do not update it, this is equivalent to logistic regression with a fixed basis expansion.
 Thus, it is a convex optimization problem regardless of how complex $\phi$ is.
- 
 
 ## 34.
 
