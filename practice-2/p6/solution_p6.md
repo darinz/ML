@@ -436,3 +436,39 @@ The diagram shows three identical blocks, labeled 'A', representing the repeatin
 
 **Explanation:** The forget gate in an LSTM outputs a value between 0 and 1 for each number in the cell state $C_{t-1}$, where 1 represents "completely keep this" and 0 represents "completely forget this". It is used to remove information that is no longer needed from the cell state.
 
+---
+
+## Problem 23
+
+**One Answer** What is the key benefit of the attention mechanism over standard RNN models in the context of neural machine translation?
+
+(a) It significantly reduces computational complexity.
+
+(b) It uses convolutional layers for long-term dependencies.
+
+(c) It relies entirely on recurrent layers for processing sequences.
+
+(d) It solves the bottleneck problem and long-term dependency issues by focusing on specific parts of the input sequence.
+
+**Correct answers:** (d)
+
+**Explanation:** The attention mechanism addresses the bottleneck problem and long-term dependency issues in standard Seq2Seq models by allowing the model to focus on specific parts of the input sequence during decoding.
+
+---
+
+## Problem 24
+
+**One Answer** What is the main purpose of using positional encoding in the Transformer architecture?
+
+(a) It introduces non-linearity in the model.
+
+(b) It helps in maintaining long-term dependencies.
+
+(c) It provides information about the order of the input sequence.
+
+(d) It reduces the computational complexity.
+
+**Correct answers:** (c)
+
+**Explanation:** Positional encoding provides information about the position of each element in the input sequence, which is crucial because the self-attention mechanism in Transformers is order-invariant and does not inherently capture sequence order.
+
