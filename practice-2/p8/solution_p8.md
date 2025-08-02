@@ -369,3 +369,103 @@ d) The accuracy of K-means clustering is not affected by the initial centroid se
 
 **Explanation:** A is false since K-means doesn't work well in all distributions, such as non-spherical clusters. B is true, since K-means will always converge (see lecture notes for proof). C is false, since K-means is unsupervised. D is false, since the accuracy of the classifier is influenced by the initial centroid selections.
 
+## Problem 28: Gaussian Mixture Model Parameters
+
+**Question:** Suppose a Gaussian Mixture Model (GMM) with $k$ components/clusters is used to model a dataset of dimensionality $d$. Which value does the total number of parameters in the GMM primarily scale with respect to?
+
+**Options:**
+
+a) $O(k \cdot d)$
+
+b) $O(k \cdot d^2)$
+
+c) $O(d)$
+
+d) $O(d^2)$
+
+e) $O(k)$
+
+f) $O(n)$
+
+g) $O(\frac{d}{n})$
+
+**Correct Answer:** (b)
+
+**Explanation:** The parameters of a GMM are the mixture weights, the means, and the covariance matrices. There are $k$ mixing weights, each $\in \mathbb{R}$. There are $k$ means, each $\in \mathbb{R}^d$. There are $k$ covariance matrices, each $\in \mathbb{R}^{d \times d}$. Since the covariance matrices have the most parameters, the $k$ covariance matrices are the 'determining factor'. So the answer is $O(k \cdot d^2)$
+
+## Problem 29: Bootstrap Sampling
+
+**Question:** Because bootstrap sampling randomly draws data points with replacement, the size of the original dataset does not affect accuracy of the estimated statistics produced by bootstrapping.
+
+**Options:**
+
+a) True
+
+b) False
+
+**Correct Answer:** (b)
+
+**Explanation:** Smaller datasets will not be as representative of the true dataset, yielding less accurate statistics.
+
+## Problem 30: Addressing Bias in Loan Approval Model
+
+**Question:** Suppose you are working with a dataset that includes demographic information (e.g., age, gender, race) to predict loan approval. You notice that your model not only performs significantly worse on some groups, but it is more likely to reject underrepresented minorities for a loan. Which of the following is the best way to address this bias? Choose the best answer.
+
+**Options:**
+
+a) Remove the demographic information altogether, forcing the model to not rely on demographic information.
+
+b) Over-sample underrepresented groups to balance the dataset and reduce bias.
+
+c) Include fairness constraints such as ensuring that the type II error (probability of rejecting someone for a loan when they deserved it) is balanced across groups.
+
+d) Collect more historical data about loan approvals for underrepresented groups and re-train your model.
+
+**Correct Answer:** (c)
+
+**Explanation:**
+
+a) Demographic info is often highly correlated with other features so removing them wouldn't entirely help.
+
+b) Balancing data can help but doesn't help with the underlying issue of biases.
+
+c) This is the current state-of-the-art approach.
+
+d) this doesn't necessarily work because the historical data is still biased.
+
+## Problem 31: Interpreting Linear Regression Weights
+
+**Question:** I've trained a linear regression model on my dataset and learned weights $w_i$ for each of my $d$ features. I notice that $w_i > w_j$, so I can conclude feature $i$ is more important than feature $j$.
+
+**Options:**
+
+a) True
+
+b) False
+
+**Correct Answer:** (b)
+
+**Explanation:** no, the features could have different scales, such as square feet vs. number of bathrooms.
+
+## Problem 32: Neural Network Derivatives
+
+**Question:** The forward pass for the hidden layer is $z = \sigma(W^{(0)}x + b^0)$, where $\sigma$ refers to the sigmoid activation function. The output layer is $y = W^{(1)}z + b^1$. Derive the partial derivatives with respect to $W^{(1)} \in \mathbb{R}^{1 \times h}$, $b^{(1)} \in \mathbb{R}$, $W^{(0)} \in \mathbb{R}^{h \times d}$, and $b^{(0)} \in \mathbb{R}^h$, where $d = 3$ and $h = 4$.
+
+**Clarification:** Typo: $b^0 = b_0 = b^{(0)}$. They all refer to the same thing.
+
+**Questions:**
+
+a) $\frac{\partial y}{\partial W^{(1)}}:$
+
+b) $\frac{\partial y}{\partial b^{(1)}}:$
+
+c) $\frac{\partial y}{\partial W^{(0)}}:$
+
+d) $\frac{\partial y}{\partial b^{(0)}}:$
+
+**Partial Solutions:**
+
+a) $\frac{\partial y}{\partial W^{(1)}} = z$
+
+b) $\frac{\partial y}{\partial b^{(1)}} = 1$
+
