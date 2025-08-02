@@ -345,14 +345,45 @@ Comprehensive problem sets with solutions covering all topics from the curriculu
 ### Practice Problem Series
 
 **Series 1: Foundational Concepts** `[practice-1/](./practice-1/)`
-- **Practice 1**: Probability, Statistics, Linear Algebra, Bias-Variance Tradeoff (10 problems)
-- **Practice 2**: Machine Learning Fundamentals, Linear Models, Optimization (26 problems)  
-- **Practice 3**: Advanced ML Concepts, Matrix Analysis, Optimization Theory (23 problems)
+A comprehensive collection of 9 practice problem sets covering fundamental machine learning concepts from probability and linear algebra to advanced topics like reinforcement learning and ensemble methods.
+
+**Available Practice Sets:**
+- **p1**: Probability, Statistics, Linear Algebra, Bias-Variance Tradeoff
+- **p2**: Machine Learning Fundamentals, Linear Models, Optimization  
+- **p3**: Advanced ML Concepts, Matrix Analysis, Optimization Theory
+- **p4**: Neural Networks and Deep Learning
+- **p5**: Clustering and Dimensionality Reduction
+- **p6**: Reinforcement Learning and Control
+- **p7**: Support Vector Machines and Kernel Methods
+- **p8**: Ensemble Methods and Model Selection
+- **p9**: Advanced Topics and Applications
+
+**Features:**
+- Complete problem statements and detailed solutions
+- Interactive Jupyter notebooks with LaTeX math rendering
+- Supporting visualizations and figures
+- Progressive difficulty from foundational to advanced concepts
 
 **Series 2: Advanced Machine Learning** `[practice-2/](./practice-2/)`
-- **Practice 1**: Foundations & Linear Models - PCA, Kernel Methods, Logistic Regression, K-means, Decision Trees, Ridge Regression, Neural Networks
-- **Practice 2**: Probability & Classification - Conditional Probability, Eigenvalues, Multi-class Classification, Linear vs. Logistic Regression, Neural Networks, Kernel Ridge Regression
-- **Practice 3**: Neural Networks & Advanced Topics - Dimensionality Reduction, MLPs, Kernel Functions, Convexity, Ridge Regression Effects, Basis Expansions, K-NN, Cross-Validation
+Nine comprehensive practice problem sets designed to reinforce fundamental concepts in machine learning with both theoretical and practical applications.
+
+**Available Practice Sets:**
+- **p1**: Neural Networks & PCA - Architecture, loss functions, activation functions
+- **p2**: Gaussian Mixtures & K-means - Clustering algorithms, loss analysis
+- **p3**: Deep Neural Networks - CNN architectures, computation graphs
+- **p4**: Advanced ML Concepts - Various algorithms and theoretical concepts
+- **p5**: Machine Learning Theory - Theoretical foundations and practical applications
+- **p6**: Applied Machine Learning - Real-world ML problems and solutions
+- **p7**: Advanced Topics - Complex ML scenarios and problem-solving
+- **p8**: Final Exam Practice (Spring) - Comprehensive exam covering all course material
+- **p9**: Final Exam Practice (Winter) - Comprehensive exam covering all course material
+
+**Features:**
+- Multiple choice questions, true/false statements, mathematical problems
+- Computational problems with algorithm implementations
+- Visual analysis with plots and figures
+- Detailed solutions with step-by-step explanations
+- Interactive Jupyter notebooks for hands-on practice
 
 ### Problem Set Series
 
