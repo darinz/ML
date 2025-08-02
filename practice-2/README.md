@@ -1,66 +1,39 @@
 # Practice Problem Series 2 - Machine Learning
 
-This directory contains three comprehensive practice problem sets designed to reinforce fundamental concepts in machine learning. Each practice set covers different aspects of ML theory and applications, with both problem statements and detailed solutions provided.
+This directory contains nine comprehensive practice problem sets designed to reinforce fundamental concepts in machine learning. Each practice set covers different aspects of ML theory and applications, with both problem statements and detailed solutions provided.
 
 ## Practice Set Overview
 
-### Practice Set 1: Foundations & Linear Models
-**Topics Covered:**
-- Principal Component Analysis (PCA)
-- Kernel Methods
-- Logistic Regression
-- K-means Clustering
-- Decision Trees
-- Ridge Regression
-- Neural Network Activation Functions
+### Practice Set 1: Neural Networks & PCA
+**Topics:** Neural network architecture, PCA, loss functions, activation functions
 
-**Key Learning Objectives:**
-- Understand PCA as variance maximization vs. reconstruction error minimization
-- Master kernel properties and applications
-- Analyze logistic regression coefficients and their interpretation
-- Comprehend bias-variance tradeoffs in different algorithms
-- Apply regularization techniques effectively
+### Practice Set 2: Gaussian Mixtures & K-means
+**Topics:** Gaussian distributions, clustering algorithms, loss analysis
 
-### Practice Set 2: Probability & Classification
-**Topics Covered:**
-- Conditional Probability
-- Eigenvalues and Eigenvectors
-- Multi-class Classification
-- Linear vs. Logistic Regression
-- Neural Network Architecture
-- Kernel Ridge Regression
-- Model Evaluation
+### Practice Set 3: Deep Neural Networks
+**Topics:** CNN architectures, computation graphs, neural network shapes
 
-**Key Learning Objectives:**
-- Solve probability problems with conditional reasoning
-- Understand matrix properties and their implications
-- Distinguish between regression and classification problems
-- Analyze neural network layer configurations
-- Master kernel methods in regression contexts
+### Practice Set 4: Advanced ML Concepts
+**Topics:** Various ML algorithms and theoretical concepts
 
-### Practice Set 3: Neural Networks & Advanced Topics
-**Topics Covered:**
-- Dimensionality Reduction with PCA
-- Multilayer Perceptrons (MLP)
-- Kernel Functions and Validity
-- Convexity in Optimization
-- Ridge Regression Effects
-- Basis Expansions
-- K-Nearest Neighbors
-- Cross-Validation
+### Practice Set 5: Machine Learning Theory
+**Topics:** Theoretical foundations and practical applications
 
-**Key Learning Objectives:**
-- Calculate storage requirements for PCA approximations
-- Understand neural network weight matrix dimensions
-- Validate kernel functions mathematically
-- Analyze convexity in optimization problems
-- Comprehend regularization effects on bias and variance
-- Apply cross-validation techniques
+### Practice Set 6: Applied Machine Learning
+**Topics:** Real-world ML problems and solutions
+
+### Practice Set 7: Advanced Topics
+**Topics:** Complex ML scenarios and problem-solving
+
+### Practice Set 8: Final Exam Practice (Spring)
+**Topics:** Comprehensive exam covering all course material
+
+### Practice Set 9: Final Exam Practice (Winter)
+**Topics:** Comprehensive exam covering all course material
 
 ## Problem Types
 
-Each practice set includes a variety of question formats:
-
+Each practice set includes:
 - **Multiple Choice Questions**: Test conceptual understanding
 - **True/False Statements**: Verify theoretical knowledge
 - **Mathematical Problems**: Apply formulas and algorithms
@@ -91,14 +64,13 @@ Each practice set includes:
 After completing these practice sets, you should be able to:
 
 - **Apply PCA** for dimensionality reduction and data visualization
-- **Understand kernel methods** and their applications in non-linear problems
-- **Implement and interpret** logistic regression models
-- **Analyze neural network architectures** and their components
+- **Understand neural network architectures** and their components
+- **Implement clustering algorithms** like K-means and Gaussian mixtures
+- **Analyze deep learning models** including CNNs and DNNs
 - **Evaluate model performance** using appropriate metrics
 - **Apply regularization techniques** to prevent overfitting
 - **Understand the bias-variance tradeoff** in machine learning
-- **Validate kernel functions** and understand their properties
-- **Perform cross-validation** for model selection
+- **Solve complex ML problems** with theoretical and practical approaches
 
 ## Related Topics
 
