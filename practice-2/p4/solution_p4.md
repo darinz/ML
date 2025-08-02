@@ -543,11 +543,11 @@ of $err_{\mathcal{D}}(f_{X}).$
 
 ## Problem 35
 
-**Extra credit:** Consider a nearest neighbor classifier that chooses the label for a test point to be the label of its nearest neighboring training example. What is its leave-one-out cross-validated error for the data in the following figure?
+Consider a nearest neighbor classifier that chooses the label for a test point to be the label of its nearest neighboring training example. What is its leave-one-out cross-validated error for the data in the following figure?
 
-"$t^{\omega}t^{\prime\prime}$ and "-" indicate labels of the points).
+()"+" and "-" indicate labels of the points).
 
-[Image 6]
+<img src="img/q35_problem.png" width="350px">
 
 **Answer:**
 
