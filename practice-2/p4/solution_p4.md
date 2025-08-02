@@ -50,7 +50,7 @@ There are two types of points plotted:
 
 **Explanation:** The solution for part 2 is (red = actual, purple=acceptable):
 
-<img src="./q3_answer.png" width="350px">
+<img src="img/q3_answer.png" width="350px">
 
 A second Cartesian coordinate system is shown, identical in scale and points to the first.
 
@@ -184,7 +184,7 @@ Suppose that you have a convolutional neural network with the following componen
 3. One 2D-convolutional layer with one 1x1 kernel, stride 1, and no zero-padding
 Suppose you propagate the input below (left) through the CNN with the following kernel weights. Assume there are no bias terms.
 
-<img src="./q14.png" width="450px">
+<img src="img/q14.png" width="450px">
 
 **Input:**
 A $4 \times 4$ matrix labeled "Input":
@@ -282,7 +282,7 @@ True/False: Given a dataset $X$ in a $d$-dimensional space, using PCA to project
 
 Shade in the region where decision boundaries that lie inside it have equal training error.
 
-<img src="./q19_problem.png" width="450px">
+<img src="img/q19_problem.png" width="450px">
 
 A Cartesian coordinate system is shown with an x-axis ranging from 0 to 4 and a y-axis ranging from 0 to 4. Grid lines are present at 0.5 unit intervals.
 
@@ -304,7 +304,7 @@ There are two types of points plotted:
 
 **Explanation:** The solution for part 1 is:
 
-<img src="./q19_solution.png" width="450px">
+<img src="img/q19_solution.png" width="450px">
 
 A Cartesian coordinate system is shown with an x-axis ranging from 0 to 4 and a y-axis ranging from 0 to 4. Grid lines are present. The same hollow and filled points as in the problem description are plotted.
 
@@ -321,7 +321,7 @@ Which of the following features could allow a logistic regression model to perfe
 
 A Cartesian coordinate system is shown with an x-axis labeled 'X' ranging from -3 to 3 and a y-axis labeled 'y' ranging from -3 to 3. Major grid lines are present at integer values on both axes, and minor grid lines are present at 0.5 unit intervals.
 
-<img src="./q20_problem.png" width="450px" >
+<img src="img/q20_problem.png" width="450px" >
 
 There are two types of data points:
 - **Crosses (x):** These points are distributed widely across the entire plot area, forming an outer region. They are present in all four quadrants.
