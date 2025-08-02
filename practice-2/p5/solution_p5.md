@@ -612,21 +612,27 @@ Thus, the maximum likelihood estimator for $\theta$ is:
  $\hat{\theta}=\frac{1}{kn}\sum_{i=1}^{n} x^{(i)}$.
 
 The correct answer is (a).
- 
 
 ## 31. One Answer
- Many ML algorithms, like the k-nearest neighbors (k-NN) algorithm, relies on distances between points.
+
+Many ML algorithms, like the k-nearest neighbors (k-NN) algorithm, relies on distances between points.
+
 In high-dimensional spaces, distances can behave counterintuitively. This question illustrates one such example.
+
 Consider two d-dimensional hypercubes S and T centered around the origin.
 S has side length 2, while T is contained within S and has side length 1:
  $S = \{x \in R^d: ||x||_\infty \le 1\}$
  $T = \{x \in R^d: ||x||_\infty \le \frac{1}{2}\}$.
-Alternatively, we can write $S = [-1, 1]^d$, and $T = [-\frac{1}{2},\frac{1}{2}]^d$.
-Let P be the uniform distribution of points in S. What is the probability of drawing a point x ∼ P such that x ∈ T, that is, x is contained within T?
-Give your answer in terms of d.
- Answer:
- Explanation: The volume of S is $2^d$, while the volume of T is $1^d$. Since x is uniformly distributed in S, the probability of x $\in$ T is the relative ratio of their volumes, which is $\frac{1}{2^d}$.
 
+Alternatively, we can write $S = [-1, 1]^d$, and $T = [-\frac{1}{2},\frac{1}{2}]^d$.
+
+Let P be the uniform distribution of points in S. What is the probability of drawing a point x ∼ P such that x ∈ T, that is, x is contained within T?
+
+Give your answer in terms of d.
+
+Answer:
+
+Explanation: The volume of S is $2^d$, while the volume of T is $1^d$. Since x is uniformly distributed in S, the probability of x $\in$ T is the relative ratio of their volumes, which is $\frac{1}{2^d}$.
 
 ## 32. Select All That Apply
 
