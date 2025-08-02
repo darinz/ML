@@ -406,7 +406,6 @@ Correct answers: (b)
  Explanation: Connections between the input and the hidden layer: n · h;
 connections between the hidden and the output layer: h · m.
 
-
 ## 23. Select All That Apply
 
 Consider a matrix A $\in R^{m \times n}$ with singular value decomposition A = USV>, where S is an r × r diagonal matrix and r = rank(A) ≤ min(m, n).
@@ -434,17 +433,23 @@ Similarly, A>A = VS2V>, implying that the columns of V are the eigenvectors of A
 ## 24.
 
 Consider a dataset X $\in R^{n \times p}$ with n observations and p features, and with corresponding covariance matrix Σ.
+
 Let $\lambda_{1} \ge \lambda_{2} \ge ... \ge \lambda_{p}$ be the eigenvalues of Σ in descending order.
+
 Express the total variance explained by the first k principal components (obtained by performing Principal Component Analysis (PCA) on X) as a fraction of the total variance in the original data.
+
 Answer: Fraction of total variance explained = Explanation:Pki=1 $\lambda_{i}P^{p}_{i}=1 \lambda_{i}$.
+
 The fraction of total variance explained by the first k principal components in PCA can be expressed as the ratio of the sum of the first k eigenvalues to the sum of all eigenvalues of the covariance matrix Σ.
 
 
 ## 25.
- Consider a dataset X $\in R^{n \times 2}$ with n observations and 2 features.
+
+Consider a dataset X $\in R^{n \times 2}$ with n observations and 2 features.
 Suppose Σ is the covariance matrix of the dataset:
- Σ = 
- $3\sqrt{3}$
+
+Σ = 
+$3\sqrt{3}$
  $\sqrt{3}5$
  
  This covariance matrix has the following unit-norm eigenvectors u and v:
