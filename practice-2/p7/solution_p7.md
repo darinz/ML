@@ -459,3 +459,118 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Correct answer:** (a)
 
 **Explanation:** Because the output of the sigmoid is always positive (between 0 and 1), its derivative, $\sigma'(x) = \sigma(x)(1 - \sigma(x))$, will also always be positive. In terms of magnitude, the derivatives will always be inside (0,0.25) so it's decreasing.
+
+---
+
+## Problem 27
+
+**Question:** (2 points) Note: This question is significantly more time consuming than the others; you may want to finish other questions first.
+
+A commonly used activation function in neural networks is the ReLU function, defined as
+
+$$\text{ReLU}(x) = \begin{cases} 
+x & \text{if } x \geq 0 \\
+0 & \text{if } x < 0
+\end{cases}$$
+
+Consider the following neural network with input $x \in \mathbb{R}^d$ and output $y \in \mathbb{R}$ defined as:
+
+$$z = \text{ReLU}(W^{(0)}x + b^{(0)})$$
+
+$$y = W^{(1)}z + b^{(1)}$$
+
+for parameters $W^{(0)} \in \mathbb{R}^{h \times d}$, $b^{(0)} \in \mathbb{R}^h$, $W^{(1)} \in \mathbb{R}^{1 \times h}$, $b^{(1)} \in \mathbb{R}$, and where ReLU is applied element-wise to the vector $W^{(0)}x + b^{(0)}$. Let $W_i^{(1)}$ denote the $i$th element of $W^{(1)}$, and $W_i^{(0)\text{T}}$ denote the $i$th row of $W^{(0)}$. For simplicity, assume that each element of $W^{(0)}x + b^{(0)}$ is non-zero.
+
+What is $\frac{dy}{dW_i^{(0)\text{T}}}$? You may write your answer in terms of $W_i^{(0)}$ and $W_i^{(1)}$.
+
+**Answer:**
+
+What is $\frac{dy}{dW_i^{(0)}}$? You may write your answer in terms of $\frac{dy}{dW_i^{(0)}}$.
+
+**Answer:**
+
+**Explanation:** Note that this problem is very similar to Problem 2.1(d) of Section 8. Please see the solutions to that problem for additional discussion.
+
+First note that, by the chain rule, we have
+
+$$\frac{dy}{dW^{(0)}} = \frac{dy}{dz_i} \frac{dz_i}{dW^{(0)}}.$$
+
+It is straightforward to see that $\frac{dy}{dz_i} = W^{(1)}$. Since the ReLU is only active when it's argument is $> 0$, we have $\frac{dz_i}{dW^{(0)}} = 0$ unless $W_i^{(0)T}x + b_i^{(0)} > 0$. Otherwise, we have $z_i = W_i^{(0)T}x + b_i^{(0)}$, and we see that the derivative of this with respect to $W_i^{(0)}$ is $x$. This then gives:
+
+$$\frac{dy}{dW_i^{(0)}} = \begin{cases} 
+W_i^{(1)} \cdot x & \text{if } (W_i^{(0)})^T x + b_i^{(0)} > 0 \\
+0 & \text{if } (W_i^{(0)})^T x + b_i^{(0)} \leq 0 
+\end{cases}$$
+
+Note that $\frac{dy}{dW_i^{(0)}} \in \mathbb{R}^d$, since $y$ is 1-dimensional and $W_i^{(0)}$ is $d$-dimensional. By the same reasoning, we have $\frac{dy}{dW^{(0)}} \in \mathbb{R}^{h \times d}$, and the rows of $\frac{dy}{dW^{(0)}}$ are simply $\frac{dy}{dW_i^{(0)}}$, giving
+
+$$\frac{dy}{dW^{(0)}} = \begin{bmatrix} 
+\frac{dy}{dW_1^{(0)}} \\
+\frac{dy}{dW_2^{(0)}} \\
+\vdots \\
+\frac{dy}{dW_h^{(0)}}
+\end{bmatrix}$$
+
+---
+
+## Problem 28
+
+**Question:** Select All Which of the following statements about PCA are True?
+
+**Options:**
+
+(a) PCA identifies the directions in feature space that minimize the variance of the projected data.
+
+(b) PCA identifies the directions in feature space that minimize the reconstruction error between the original data and its projection onto the principal components.
+
+(c) All principal component directions are orthogonal to one another.
+
+(d) The first principal component direction is the eigenvector of the data covariance matrix that has the smallest eigenvalue.
+
+(e) The principal component directions can be found from a singular value decomposition of the data matrix.
+
+**Correct answers:** (b), (c), (e)
+
+**Explanation:** B, C, and E are correct. Full credit is given if all of {B, C, E} are indicated AND no incorrect choices are indicated. Partial credit is given if any of {B, C, E} are indicated AND no incorrect choices are indicated. No credit is given otherwise.
+
+- A is incorrect because PCA identifies the directions that MAXIMIZE the variance of the projected data.
+
+- D is incorrect because the first principal component direction is the eigenvector of the data covariance matrix that has the LARGEST eigenvalue.
+
+---
+
+## Problem 29
+
+**Question:** Which of the following statements about PCA are True?
+
+**Options:**
+
+(a) For samples in $d$-dimensions, the top $d$ principal components can fully reconstruct the original samples
+
+(b) For samples in $d$-dimension, it's impossible to fully reconstruct the samples using top $q$ principal components when $q < d$.
+
+(c) Standard cross-validation techniques can be used to identify $q$, the optimal dimensionality of the PCA projection.
+
+**Correct answers:** (a)
+
+---
+
+## Problem 30
+
+**Question:** Throughout this course, we have seen that the solution to linear regression problems can be written as $\hat{\theta} = (X^T X)^{-1}X^T Y$, for data matrices $X \in \mathbb{R}^{n \times d}$ and $Y \in \mathbb{R}^n$. Let $X = U\Sigma V^T$ denote the SVD of $X$. What is $\hat{\theta}$ in terms of $U, \Sigma, V$, and $Y$? Note that this suggests that one way to solve a least squares problem is to simply compute the SVD of $X$.
+
+**Options:**
+
+(a) $V(\Sigma^T \Sigma)^{-1}\Sigma^T U^T Y$
+
+(b) $V\Sigma^{-1}U^T Y$
+
+(c) $U\Sigma^T (\Sigma^T \Sigma)^{-1}V^T Y$
+
+(d) $U(\Sigma^T \Sigma)^{-1}\Sigma^T V^T Y$
+
+**Correct answer:** (a)
+
+**Explanation:** Recall that $U$ and $V$ are both orthogonal. Thus, $X^T X = V\Sigma^T \Sigma V^T$, and $(X^T X)^{-1} = V(\Sigma^T \Sigma)^{-1}V^T$. Noticing that $V^T X^T = \Sigma^T U^T$, the result follows.
+
+As an aside, note that $\Sigma^T \Sigma$ is diagonal. It is significantly easier to invert a diagonal matrix than a non-diagonal one (we can simply invert each element in the diagonal individually), so in general it is much easier to invert $(\Sigma^T \Sigma)^{-1}$ than $(X^T X)^{-1}$. Thus, if we know the SVD of $X$, we can compute the least-squares estimate very efficiently! (No free lunch here, though, as it's often expensive to compute the SVD of $X$).
