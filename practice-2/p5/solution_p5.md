@@ -72,7 +72,7 @@ Correct answers: (b)
 
 Explanation: Even with infinite data, there may be noise in the data or inherent unpredictability in the relationship between input and output, which limits how low the prediction error can go.
 
-6. Select All That Apply
+## 6. Select All That Apply
 
 Which of the following statements about (binary) logistic regression is true?
 Recall that the sigmoid function is defined as $\sigma(x)=\frac{1}{1+e^{-x}}$ for $x\in\mathbb{R}.$
