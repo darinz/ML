@@ -682,20 +682,31 @@ For option c) a counter example is feature expansion
 ## 33. One Answer
 
 Consider the following transfer learning setting.
-We have a large neural network $\phi : R^d \to R^p$ pretrained on ImageNet, and we would like to use this to learn a classifier for our own binary classification task for medical images.
+
+We have a large neural network $\phi : \mathbb{R}^d \to \mathbb{R}^p$ pretrained on ImageNet, and we would like to use this to learn a classifier for our own binary classification task for medical images.
+
 We decide to freeze the neural network $\phi$ and train a logistic regression classifier on top.
-Formally, we are given n data points from our own medical imaging task $\{(x^{(1)}, y^{(1)}),(x^{(2)}, y^{(2)}), . . .$
-$, (x^{(n)}, y^{(n)})\}$ , where $x^{(i)} \in R^d$, $y^{(i)} \in \{-1, +1\}$.
-We train a classifier $\hat{w} \in R^p$:
- $\hat{w}= \operatorname{argmin}_{w \in R^p} \sum_{i=1}^{n} \log \left( 1 + \exp \left( -y^{(i)}w^T\phi(x^{(i)}) \right) \right)$.
+
+Formally, we are given $n$ data points from our own medical imaging task $\{(x^{(1)}, y^{(1)}),(x^{(2)}, y^{(2)}), \ldots, (x^{(n)}, y^{(n)})\}$, where $x^{(i)} \in \mathbb{R}^d$, $y^{(i)} \in \{-1, +1\}$.
+
+We train a classifier $\hat{w} \in \mathbb{R}^p$:
+
+$$\hat{w}= \operatorname{argmin}_{w \in \mathbb{R}^p} \sum_{i=1}^{n} \log \left( 1 + \exp \left( -y^{(i)}w^\top\phi(x^{(i)}) \right) \right).$$
+
 Which of the following statements is true?
- a Learning $\hat{w}$ in this way is a convex optimization problem regardless of how complex $\phi$ is.
-b Learning $\hat{w}$ in this way is a convex optimization problem if and only if $\phi$ is a convex function in each dimension.
-(Let $\phi = [\phi_1; \phi_2; . . . ; \phi_p]$; then we say $\phi$ is convex in each dimension if each of $\phi_1, \phi_2, . . . , \phi_p$ is a convex function).
-c Learning $\hat{w}$ in this way is a convex optimization problem if and only if $\phi$ is a linear function.
-d Learning $\hat{w}$ in this way is a convex optimization problem if and only if $\phi$ is the identity function and p = d.
+
+a. Learning $\hat{w}$ in this way is a convex optimization problem regardless of how complex $\phi$ is.
+
+b. Learning $\hat{w}$ in this way is a convex optimization problem if and only if $\phi$ is a convex function in each dimension.
+(Let $\phi = [\phi_1; \phi_2; \ldots ; \phi_p]$; then we say $\phi$ is convex in each dimension if each of $\phi_1, \phi_2, \ldots, \phi_p$ is a convex function).
+
+c. Learning $\hat{w}$ in this way is a convex optimization problem if and only if $\phi$ is a linear function.
+
+d. Learning $\hat{w}$ in this way is a convex optimization problem if and only if $\phi$ is the identity function and $p = d$.
+
 Correct answers: (a)
- Explanation: Since we freeze $\phi$ and do not update it, this is equivalent to logistic regression with a fixed basis expansion.
+
+Explanation: Since we freeze $\phi$ and do not update it, this is equivalent to logistic regression with a fixed basis expansion.
 Thus, it is a convex optimization problem regardless of how complex $\phi$ is.
  
 
@@ -703,25 +714,42 @@ Thus, it is a convex optimization problem regardless of how complex $\phi$ is.
 
 [This is an extra credit question that takes more time relative to the number of points awarded.
 We suggest you do not attempt it until you have finished the other questions in the exam.]
- Recall from lecture that influence functions are used to approximate the effect of leaving out one training point, without actually retraining the model.
+
+Recall from lecture that influence functions are used to approximate the effect of leaving out one training point, without actually retraining the model.
+
 Assume that we have a twice-differentiable, strongly convex loss function $\ell(x, y; w)$, and as usual, we train a model $\hat{w}$ to minimize the average training loss:
- $\hat{w}= \operatorname{argmin}_{w} \frac{1}{n} \sum_{i=1}^{n} \ell_i(w)$,
- where $\{(x^{(1)}, y^{(1)}),(x^{(2)}, y^{(2)}), .$.
-$. ,(x^{(n)}, y^{(n)})\}$ is our training set, and for notational con venience we define $\ell_i(w) = \ell(x^{(i)}, y^{(i)}; w)$.
-Let $\Delta_{-i}$ be the change in the parameters w after we remove training point $(x^{(i)}, y^{(i)})$ and retrain the model.
+
+$$\hat{w}= \operatorname{argmin}_{w} \frac{1}{n} \sum_{i=1}^{n} \ell_i(w),$$
+
+where $\{(x^{(1)}, y^{(1)}),(x^{(2)}, y^{(2)}), \ldots, (x^{(n)}, y^{(n)})\}$ is our training set, and for notational convenience we define $\ell_i(w) = \ell(x^{(i)}, y^{(i)}; w)$.
+
+Let $\Delta_{-i}$ be the change in the parameters $w$ after we remove training point $(x^{(i)}, y^{(i)})$ and retrain the model.
+
 The influence function approximation tells us that
- $\Delta_{-i} = \frac{1}{n} H(\hat{w})^{-1} \nabla_w \ell_i(w) \Big|_{w=\hat{w}}$
- where the Hessian matrix $H(\hat{w})$ is defined as
- $H(\hat{w}) = \frac{1}{n} \sum_{i=1}^{n} \nabla_w^2 \ell_i(w) \Big|_{w=\hat{w}}$
- Consider the following linear regression model $f_w(x) = w^Tx$, where $x, w \in R^d$.
+
+$$\Delta_{-i} = \frac{1}{n} H(\hat{w})^{-1} \nabla_w \ell_i(w) \Big|_{w=\hat{w}}$$
+
+where the Hessian matrix $H(\hat{w})$ is defined as
+
+$$H(\hat{w}) = \frac{1}{n} \sum_{i=1}^{n} \nabla_w^2 \ell_i(w) \Big|_{w=\hat{w}}$$
+
+Consider the following linear regression model $f_w(x) = w^\top x$, where $x, w \in \mathbb{R}^d$.
 We train with unregularized least squares regression to obtain $\hat{w}$.
+
 What is $\Delta_{-i}$ for this model, in terms of $\hat{w}$ and the training data points?
-Note: The symbols $\ell$ and H should not appear in your answer. Replace them by working out the appropriate loss.
+
+Note: The symbols $\ell$ and $H$ should not appear in your answer. Replace them by working out the appropriate loss.
+
 Answer:
- Explanation: For least squares regression, we have that $\ell_i(w) = \frac{1}{2}(y^{(i)} - w^Tx^{(i)})^2$. (The $\frac{1}{2}$ is for convenience;
-we can leave it out without changing the final answer.) Thus, $\nabla_w\ell_i(w) = -(y^{(i)} - w^Tx^{(i)})x^{(i)}$, and $H(w) = \frac{1}{n}\sum_{i=1}^{n} x^{(i)}x^{(i)T}$.
+
+Explanation: For least squares regression, we have that $\ell_i(w) = \frac{1}{2}(y^{(i)} - w^\top x^{(i)})^2$. (The $\frac{1}{2}$ is for convenience;
+we can leave it out without changing the final answer.) Thus, $\nabla_w\ell_i(w) = -(y^{(i)} - w^\top x^{(i)})x^{(i)}$, and $H(w) = \frac{1}{n}\sum_{i=1}^{n} x^{(i)}x^{(i)\top}$.
+
 Putting this together,
- $\Delta_{-i} = -\frac{1}{n}\left(\frac{1}{n}\sum_{i=1}^{n}x^{(i)}x^{(i)T}\right)^{-1}(y^{(i)} - \hat{w}^Tx^{(i)}) x^{(i)}$
- = $-\left(\sum_{i=1}^{n}x^{(i)}x^{(i)T}\right)^{-1}(y^{(i)} - \hat{w}^Tx^{(i)}) x^{(i)}$.
+
+$$\Delta_{-i} = -\frac{1}{n}\left(\frac{1}{n}\sum_{i=1}^{n}x^{(i)}x^{(i)\top}\right)^{-1}(y^{(i)} - \hat{w}^\top x^{(i)}) x^{(i)}$$
+
+$$= -\left(\sum_{i=1}^{n}x^{(i)}x^{(i)\top}\right)^{-1}(y^{(i)} - \hat{w}^\top x^{(i)}) x^{(i)}.$$
+
 We accept both the simplified version (canceling $\frac{1}{n}$) and the unsimplified version.
  
