@@ -299,7 +299,7 @@ The centroid assignments will not change in subsequent assignments, so k-means w
 Note that this clustering is not optimal (in the sense of $L_{2}$ distance from centroids);
 this is an example of how k-means can fail to find the globally optimal clustering.
 
-17. Select All That Apply
+## 17. Select All That Apply
 
 Which of the following statements are true about k-means?
 
