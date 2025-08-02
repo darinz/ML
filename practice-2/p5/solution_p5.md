@@ -26,6 +26,7 @@ a. High variance
 b. Low variance
 
 Correct answers: (b)
+
 3. One Answer
 
 Follow the same car scenario as the above question. In reality, stopping distance is also affected by weather conditions, which your our model does not capture.
@@ -58,6 +59,7 @@ a) The model has access to more information and thus is less likely to overfit t
 b) Increasing the size of the validation data does not help prevent the model from picking up noise in the training set.
 c) This helps reduce bias not variance
 d) Regularization helps prevent the model from overfitting to the training data.
+
 5. One Answer
 
 For machine learning models and datasets in general, as the number of training data points grows, the prediction error of the model on unseen data (data not found in the training set) approaches 0.
