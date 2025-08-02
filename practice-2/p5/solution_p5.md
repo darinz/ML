@@ -388,7 +388,7 @@ b. False
 Correct answers: (a)
  Explanation: A function K : Rd × Rd → R is a kernel for a map φ if K(x, x0) = φ(x) · φ(x0) = hφ(x), φ(x0)i for all x, x0.
 φ(x) doesn’t need to be explicitly computed.
-22. One Answer
+## 22. One Answer
 
 Consider a fully connected neural network (MLP) with an input layer, a hidden layer, and an output layer.
 The input layer has n units, the hidden layer has h units, and the output layer has m units.
@@ -407,27 +407,40 @@ Correct answers: (b)
 connections between the hidden and the output layer: h · m.
 
 
-23. Select All That Apply
- Consider a matrix A $\in R^{m \times n}$ with singular value decomposition A = USV>, where S is an r × r diagonal matrix and r = rank(A) ≤ min(m, n).
+## 23. Select All That Apply
+
+Consider a matrix A $\in R^{m \times n}$ with singular value decomposition A = USV>, where S is an r × r diagonal matrix and r = rank(A) ≤ min(m, n).
+
 Which of the following statements are correct?
- a The columns of U are the eigenvectors of A>A.
+
+a The columns of U are the eigenvectors of A>A.
+
 b The columns of U are the eigenvectors of AA>.
- c The columns of V are the eigenvectors of A>A.
+
+c The columns of V are the eigenvectors of A>A.
+
 d The columns of V are the eigenvectors of AA>.
+
 e The singular values in S are the square roots of the nonzero eigenvalues of AA>.
+
 f The singular values in S are the square roots of the nonzero eigenvalues of A>A.
+
 Correct answers: (b), (c), (e), (f)
- Explanation: AA> = US2U>, implying that the columns of U are the eigenvectors of AA> with correspond ing eigenvalues along the diagonal of S2.
+
+Explanation: AA> = US2U>, implying that the columns of U are the eigenvectors of AA> with correspond ing eigenvalues along the diagonal of S2.
+
 Similarly, A>A = VS2V>, implying that the columns of V are the eigenvectors of A>A with corresponding eigenvalues along the diagonal of S2.
-24.
- Consider a dataset X $\in R^{n \times p}$ with n observations and p features, and with corresponding covariance matrix Σ.
+
+## 24.
+
+Consider a dataset X $\in R^{n \times p}$ with n observations and p features, and with corresponding covariance matrix Σ.
 Let $\lambda_{1} \ge \lambda_{2} \ge ... \ge \lambda_{p}$ be the eigenvalues of Σ in descending order.
 Express the total variance explained by the first k principal components (obtained by performing Principal Component Analysis (PCA) on X) as a fraction of the total variance in the original data.
 Answer: Fraction of total variance explained = Explanation:Pki=1 $\lambda_{i}P^{p}_{i}=1 \lambda_{i}$.
 The fraction of total variance explained by the first k principal components in PCA can be expressed as the ratio of the sum of the first k eigenvalues to the sum of all eigenvalues of the covariance matrix Σ.
 
 
-25.
+## 25.
  Consider a dataset X $\in R^{n \times 2}$ with n observations and 2 features.
 Suppose Σ is the covariance matrix of the dataset:
  Σ = 
@@ -448,8 +461,9 @@ u’s eigenvalue is less than v’s, so it is the second principal component.
 u is already unit-length, so it is the final answer.
  
 
-26. Select All That Apply
- You are applying PCA to a training dataset of n = 1024 grayscale images that are each 16 × 16 pixels (256 pixels per image).
+## 26. Select All That Apply
+
+You are applying PCA to a training dataset of n = 1024 grayscale images that are each 16 × 16 pixels (256 pixels per image).
 Consider reshaping each image into a vector xi $\in R^{256}$ and then composing a data matrix X $\in R^{1024 \times 256}$, where the ith row is x>i.
 Let $\hat{x}_{i,k} \in R^{256}$ be the PCA reconstruction of image xi using the top k principal component directions in the data.
 Let R(k) be the average reconstruction error on the training data using k principal components, R(k) = $\frac{1}{n} \sum_{i=1}^{n} ||x_i - \hat{x}_{i,k}||^2_2$.
@@ -468,7 +482,8 @@ Since X is 1024 × 256, its rank is at most 256. Thus, R(k) is only guaranteed t
 The reconstruction error is non-zero when the number of principal components k is less than the rank of X, as there are remaining variations in X not captured by the top k components.
 c) True. When k is greater than or equal to the rank of X, the PCA reconstruction captures all the variation in X, resulting in zero reconstruction error.
 d) True. Each additional principal component explains the maximum remaining variance, so the decrease in reconstruction error (R(k)) diminishes as k increases, making R(k) monotonically non-increasing.
-27. Select All That Apply
+
+## 27. Select All That Apply
  Which of the following is/are true about the k-Nearest Neighbors (k-NN) algorithm?
 a Testing time (i.e., the amount of time it takes to produce an output for a new test point) increases with the number of training samples.
 b The number of hyperparameters increases with the number of training samples.
@@ -483,8 +498,9 @@ Explanation:
 The algorithm has a fixed number of hyperparameters (arguably, just k).
  c) True. it can learn non-linear decision boundaries.
 d) False. It is not a clustering algorithm.
- 28. Select All That Apply
- Which of the following statements about random forests and decision trees are true?
+ ## 28. Select All That Apply
+
+Which of the following statements about random forests and decision trees are true?
 a Random forests are generally easier for humans to interpret than individual decision trees.
 b Random forests reduce variance (compared to individual decision trees) by aggre gating predictions over multiple decision trees.
 c When constructing the individual trees in the random forest, we want their predic tions to be as correlated with each other as possible.
@@ -499,7 +515,7 @@ Having as correlated trees as possible degenerates to a single tree, losing the 
 d) True. Spread of decisions across different trees gives a confidence estimate.
  
 
-29. Select All That Apply
+## 29. Select All That Apply
  Which of the following is a correct statement about (mini-batch) Stochastic Gradient Descent (SGD)?
 a The variance of the gradient estimates in SGD decreases as the batch size increases.
 b Running SGD with batch size 1 for n iterations is generally slower than running full batch gradient descent with batch size n for 1 iteration, because the gradients for each training point in SGD have to be computed sequentially, whereas the gradients in full-batch gradient descent can be computed in parallel.
@@ -519,8 +535,9 @@ The gradient computed on a mini-batch is an unbiased estimate of the full gradie
 This randomness ensures that, on average, the mini-batch gradient equals the true gradient over the entire dataset.
  
 
-30. One Answer
- The probability density function for a gamma distribution with parameters $\theta > 0$, $k > 0$ is
+## 30. One Answer
+
+The probability density function for a gamma distribution with parameters $\theta > 0$, $k > 0$ is
  $f(x; \theta, k) = \frac{1}{\Gamma(k)\theta^k}x^{k-1}e^{- \frac{x}{\theta}}$,
  where
  $\Gamma(x) = (x − 1)!$
@@ -550,7 +567,7 @@ Thus, the maximum likelihood estimator for $\theta$ is:
 The correct answer is (a).
  
 
-31. One Answer
+## 31. One Answer
  Many ML algorithms, like the k-nearest neighbors (k-NN) algorithm, relies on distances between points.
 In high-dimensional spaces, distances can behave counterintuitively. This question illustrates one such example.
 Consider two d-dimensional hypercubes S and T centered around the origin.
@@ -564,8 +581,9 @@ Give your answer in terms of d.
  Explanation: The volume of S is $2^d$, while the volume of T is $1^d$. Since x is uniformly distributed in S, the probability of x $\in$ T is the relative ratio of their volumes, which is $\frac{1}{2^d}$.
 
 
-32. Select All That Apply
- Consider the following dataset of four points in R2:
+## 32. Select All That Apply
+
+Consider the following dataset of four points in R2:
  $x^{(1)} = (0, 0)$ $y^{(1)} = −1$
  $x^{(2)} = (0, 1)$ $y^{(2)} = +1$
  $x^{(3)} = (1, 0)$ $y^{(3)} = +1$
@@ -593,7 +611,8 @@ For option b) and example weight vector is
  $\begin{bmatrix} x_1^0 x_2^0 \\ x_1^0 x_2^1 \\ x_1^1 x_2^0 \\ x_1^1 x_2^1 \end{bmatrix}$
  with weight vector
  $\begin{bmatrix} -1 \\ 1 \\ 1 \\ -2 \end{bmatrix}$
- 33. One Answer
+
+## 33. One Answer
  Consider the following transfer learning setting.
 We have a large neural network $\phi : R^d \to R^p$ pretrained on ImageNet, and we would like to use this to learn a classifier for our own binary classification task for medical images.
 We decide to freeze the neural network $\phi$ and train a logistic regression classifier on top.
@@ -612,8 +631,9 @@ Correct answers: (a)
 Thus, it is a convex optimization problem regardless of how complex $\phi$ is.
  
 
-34.
- [This is an extra credit question that takes more time relative to the number of points awarded.
+## 34.
+
+[This is an extra credit question that takes more time relative to the number of points awarded.
 We suggest you do not attempt it until you have finished the other questions in the exam.]
  Recall from lecture that influence functions are used to approximate the effect of leaving out one training point, without actually retraining the model.
 Assume that we have a twice-differentiable, strongly convex loss function $\ell(x, y; w)$, and as usual, we train a model $\hat{w}$ to minimize the average training loss:
