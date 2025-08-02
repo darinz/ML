@@ -184,3 +184,59 @@ What is the corresponding kernel function $K$ for $\phi$?
 
 **Correct answers:** (c)
 
+---
+
+## Problem 12
+
+**One Answer** When using a kernel method to solve a regression problem with training set $\{(\mathbf{x}_i, y_i)\}_{i=1}^n$ and $\mathbf{x}_i \in \mathbb{R}^d$, we first prove that there exists an $\boldsymbol{\alpha} \in \mathbb{R}^n$ such that the weight vector $\hat{\mathbf{w}} = \sum_{i=1}^n \alpha_i \phi(\mathbf{x}_i)$, where $\phi : \mathbb{R}^d \to \mathbb{R}^p$ is a feature map transforming $\mathbf{x}_i$ into a very high dimensional space $\mathbb{R}^p$ with $p \gg d$. Then, solving the problem is equivalent to finding $\hat{\boldsymbol{\alpha}} = \text{argmin}_{\boldsymbol{\alpha}} \sum_{i=1}^n(y_i - \sum_{j=1}^n \alpha_j K(\mathbf{x}_i, \mathbf{x}_j))^2 + \lambda \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j K(\mathbf{x}_i, \mathbf{x}_j)$. After we computed the value of $\hat{\boldsymbol{\alpha}}$, given an input $\mathbf{x}' \in \mathbb{R}^d$ in the test set, how can we make the prediction?
+
+(a) Because $\hat{\mathbf{w}} = \sum_{i=1}^n \alpha_i \phi(\mathbf{x}_i)$, we can compute the value of $\hat{\mathbf{w}}$, and then applying $\hat{y} = \hat{\mathbf{w}}^T \mathbf{x}'$.
+
+(b) Because $\hat{y} = \hat{\mathbf{w}}^T \mathbf{x}' = \sum_{i=1}^n \alpha_i \mathbf{x}_i^T \mathbf{x}'$, we can compute the values of $\mathbf{x}_i^T \mathbf{x}'$ and then get the value of $\hat{y}$.
+
+(c) Because $\hat{y} = \hat{\mathbf{w}}^T \phi(\mathbf{x}') = \sum_{i=1}^n \alpha_i \phi(\mathbf{x}_i)^T \phi(\mathbf{x}') = \sum_{i=1}^n \alpha_i K(\mathbf{x}_i, \mathbf{x}')$, we can compute the values of $K(\mathbf{x}_i, \mathbf{x}')$ and then get the value of $\hat{y}$.
+
+(d) Because $\hat{\mathbf{w}} = \sum_{i=1}^n \alpha_i \phi(\mathbf{x}_i)$, we can compute the value of $\hat{\mathbf{w}}$, and then applying $\hat{y} = \hat{\mathbf{w}}^T \phi(\mathbf{x}')$.
+
+**Correct answers:** (c)
+
+---
+
+## Problem 13
+
+**One Answer** Consider the following neural network with weights shown in the image below. Every hidden neuron uses the ReLU activation function, and there is no activation function on the output neuron. Assume there are no bias terms. What is the output of this network with the input $x = (3,2)$?
+
+<img src="./q13_problem.png" width="450px">
+
+The image displays a feedforward neural network with two input neurons, three hidden neurons, and one output neuron.
+
+**Input Layer:**
+*   The first input neuron is labeled $x_1 = 3$.
+*   The second input neuron is labeled $x_2 = 2$.
+
+**Connections from Input Layer to Hidden Layer (with weights):**
+*   From $x_1$:
+    *   To the top hidden neuron: weight $-1$
+    *   To the middle hidden neuron: weight $-2$
+    *   To the bottom hidden neuron: weight $3$
+*   From $x_2$:
+    *   To the top hidden neuron: weight $-2$
+    *   To the middle hidden neuron: weight $2$
+    *   To the bottom hidden neuron: weight $-1$
+
+**Connections from Hidden Layer to Output Layer (with weights):**
+*   From the top hidden neuron to the output neuron: weight $4$
+*   From the middle hidden neuron to the output neuron: weight $-2$
+*   From the bottom hidden neuron to the output neuron: weight $1$
+
+**Activation Functions:**
+*   Every hidden neuron uses the ReLU (Rectified Linear Unit) activation function, defined as $f(z) = \max(0, z)$.
+*   There is no activation function on the output neuron (linear activation).
+*   There are no bias terms in the network.
+
+The output of the network is denoted as $\hat{y}$.
+
+**Answer:** $7$
+
+**Explanation:** Answer is $7$
+
