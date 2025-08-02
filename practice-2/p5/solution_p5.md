@@ -125,7 +125,7 @@ c) True. Larger A simplifies the model, leading to underfitting and higher bias.
 
 d) False. Larger A reduces flexibility, lowering variance.
 
-8. Select All That Apply
+## 8. Select All That Apply
 
 Which of the following statements about ridge regression are true?
 
