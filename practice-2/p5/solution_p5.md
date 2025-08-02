@@ -566,7 +566,6 @@ d) True.
 
 The gradient computed on a mini-batch is an unbiased estimate of the full gradient because the mini-batch is a random sample of the dataset.
 This randomness ensures that, on average, the mini-batch gradient equals the true gradient over the entire dataset.
- 
 
 ## 30. One Answer
 
@@ -574,29 +573,44 @@ The probability density function for a gamma distribution with parameters $\thet
  $f(x; \theta, k) = \frac{1}{\Gamma(k)\theta^k}x^{k-1}e^{- \frac{x}{\theta}}$,
  where
  $\Gamma(x) = (x − 1)!$
+
 Say we have a dataset D of n data points, $\{x^{(1)}, x^{(2)}, . . .$
 $, x^{(n)}\}$, where each $x \in R$.
- Assume that k is given to us and fixed.
+ 
+Assume that k is given to us and fixed.
+
 We would like to use D to find the maximum likelihood estimator for $\theta$.
 What is the maximum likelihood estimator for $\theta$ in terms of k, n, and $x^{(1)}, x^{(2)}, . . .$
 $, x^{(n)}$?
- Hint: The argmax of the logarithm of a function is the same as the argmax of the function.
-a$\frac{1}{kn}\sum_{i=1}^{n} x^{(i)}$
- b$\frac{n(k-1)!}{\sum_{i=1}^{n} x^{(i)}e^{- \frac{x^{(i)}}{k}}}$
- c $\ln(\frac{1}{n}\sum_{i=1}^{n} x^{(i)}) − n(k − 1)!$
-d$\ln(k)−\frac{(k-1)!}{k}$
- Correct answers: (a)
- Explanation: To find the maximum likelihood estimator (MLE) for $\theta$, we start with the likelihood function for a dataset D = $\{x^{(1)}, x^{(2)}, .$.
+
+Hint: The argmax of the logarithm of a function is the same as the argmax of the function.
+
+a. $\frac{1}{kn}\sum_{i=1}^{n} x^{(i)}$
+
+b. $\frac{n(k-1)!}{\sum_{i=1}^{n} x^{(i)}e^{- \frac{x^{(i)}}{k}}}$
+
+c. $\ln(\frac{1}{n}\sum_{i=1}^{n} x^{(i)}) − n(k − 1)!$
+
+d. $\ln(k)−\frac{(k-1)!}{k}$
+
+Correct answers: (a)
+
+Explanation: To find the maximum likelihood estimator (MLE) for $\theta$, we start with the likelihood function for a dataset D = $\{x^{(1)}, x^{(2)}, .$.
 $. , x^{(n)}\}$:
  $L(\theta) = \prod_{i=1}^{n} f(x^{(i)}; \theta, k) = \prod_{i=1}^{n} \frac{1}{\Gamma(k)\theta^k}(x^{(i)})^{k-1}e^{- \frac{x^{(i)}}{\theta}}$.
+
 The log-likelihood function is:
  $\ell(\theta) = \sum_{i=1}^{n} \ln f(x^{(i)}; \theta, k) = -n \ln \Gamma(k) - kn \ln \theta + (k - 1) \sum_{i=1}^{n} \ln x^{(i)} - \frac{1}{\theta} \sum_{i=1}^{n} x^{(i)}$.
+
 To maximize $\ell(\theta)$, we differentiate with respect to $\theta$ and set the derivative to zero:
  $\frac{\partial\ell}{\partial\theta} = -\frac{kn}{\theta} + \frac{1}{\theta^2} \sum_{i=1}^{n} x^{(i)} = 0$.
- Multiply through by $\theta^2$to simplify:
+
+Multiply through by $\theta^2$to simplify:
  $-kn\theta + \sum_{i=1}^{n} x^{(i)} = 0 \Rightarrow \theta = \frac{1}{kn} \sum_{i=1}^{n} x^{(i)}$.
+
 Thus, the maximum likelihood estimator for $\theta$ is:
  $\hat{\theta}=\frac{1}{kn}\sum_{i=1}^{n} x^{(i)}$.
+
 The correct answer is (a).
  
 
