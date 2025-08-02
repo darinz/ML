@@ -100,7 +100,7 @@ True for $c=0$ and is apparent from visual inspection.
 
 d) True. $\sigma(x)=\frac{1}{1+e^{-x}}=\frac{e^{x}}{1+e^{x}}=1-\sigma(-x)$
 
-7. Select All That Apply
+## 7. Select All That Apply
 
 Consider performing Lasso regression by finding parameters $w\in\mathbb{R}^{d}$ that minimize
 $f(w)=\sum_{i=1}^{n}(y^{(i)}-x^{(i)\top}w)^{2}+\lambda||w||_{1}$. Which of the following statements are true?
