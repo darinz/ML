@@ -463,9 +463,68 @@ c) $\frac{\partial y}{\partial W^{(0)}}:$
 
 d) $\frac{\partial y}{\partial b^{(0)}}:$
 
-**Partial Solutions:**
+**Solutions:**
 
 a) $\frac{\partial y}{\partial W^{(1)}} = z$
 
 b) $\frac{\partial y}{\partial b^{(1)}} = 1$
+
+c) $\frac{\partial y}{\partial W^{(0)}} = [W^{(1)}]^T \odot z \odot (1-z) \cdot x^T$
+
+d) $\frac{\partial y}{\partial b^{(0)}} = W^{(1)} \odot z \odot (1-z)$
+
+**Explanation for c):** This problem is very similar to the question from section 8. First, to make the math simpler, we can compute $\frac{\partial y}{\partial W_i^{(0)}}$, where $W_i^{(0)}$ is the i-th of $W^{(0)}$. Computing the derivatives w.r.t. to $W^{(0)}$ necessitates chain rule; we can rewrite it as $\frac{\partial y}{\partial W_i^{(0)}} = \frac{\partial y}{\partial z_i} * \frac{\partial z_i}{\partial W_i^{(0)}}$. From here, the derivative of $z_i$ w.r.t. $W_i^{(0)}$ can be computed using the derivative of the sigmoid function ($\sigma * (1-\sigma)$). Doing so, we get $z_i * (1 -z_i) *x^T$, where the $x^T$ comes from applying chain rule. Putting everything together, we get $\frac{\partial y}{\partial W_i^{(0)}} = W_i^{(1)} * z_i * (1-z_i) * x^T$. Note that this is a column vector, with the derivatives for a single row. To generalize this and get the derivative of $y$ w.r.t. to the entirety of $W^{(1)}$, we repeat the same process for all rows of $W^{(1)}$, which we can denote using the elementwise operator. Thus, we get $[W^{(1)}]^T \odot z \odot (1 - z)] * x^T$. Note we need to transpose $W^{(1)}$ in order multiply it elementwise with $z \odot (1 - z)$.
+
+**Explanation for d):** This derivation is very similar to the one above, except we don't have $x^T$ since only the weights matrix is multiplied with the data vector. So we get: $\frac{\partial y}{\partial b_i^{(0)}} = W_i^{(1)} * \frac{\partial z_i}{\partial b_i^{(0)}} = W_i^{(1)} * z_i * (1-z_i) \rightarrow W^{(1)} \odot z \odot (1-z)$.
+
+## Problem 33: Electric Car Adoption Prediction
+
+**Question:** Transitioning to electric cars can help fight climate change, but electric cars cause such a strain on the electrical grid that if several people on the same block all buy an electric car within a few weeks or months of each other, it can actually cause the grid to go down!
+
+You've been hired by the electric company to build a cool new machine learning model to help predict which houses will start charging electric cars next.
+
+You've been handed several messy files of data. The first contains high-level information about $n$ different houses, including whether they have an electric vehicle or not, each house's location, square footage, value, household income, results of the last election in the house's zipcode, public school ratings in the zip code, etc. But, you can also get detailed electricity data for each house, including daily electricity consumption going back at least 3 years.
+
+**Part (a) (2 points):** Describe the feature engineering or data preprocessing steps you would take to prepare to use this data to train a machine learning model:
+
+**Part (b) (2 points):** Now, you must use the data you prepared to train a machine learning model that can tell you which houses are likely to get an electric car in the next year. Please describe the machine learning model you will use for this problem. You will be graded on how well you can justify why your model is a good choice for this problem, by explaining how the properties of your model suit the problem.
+
+**Grading Criteria:**
+The criteria for grading this are do they find ways to mention real things about machine learning models they learned in class. Like 'I will use a random forest because it's good for categorical data but has lower variance than a tree'.
+
+Valid explanations include: Feature engineering steps. Find some way to reduce the daily electricity data into something more manageable. Could use something like PCA, or manually extract features.
+
+Can mention separating into train, validation, and test.
+
+**Model Considerations:**
+
+**General Advice:** Could mention normalizing the features to be on the same scale.
+
+**Bonus Points:** Give mega bonus points if they mention propagating features about the neighbors' recent adoption of electric cars into the feature space for a house.
+
+**Neural network:** don't need to do much feature engineering, throw the daily electricity data for each house into the features for each house, end up with a huge $d$, run gradient descent, see if it works
+
+**Trees:** Good for categorical data like political affiliations, public school ratings. Use a random forest to reduce variance. Doesn't work with a ton of features (high $d$, so should only be used in conjunction with feature engineering.
+
+**Logistic regression:** They might mention this is a classification problem so they want to use this. Maybe they mention it's more interpretable, so the power grid company can inspect the results.
+
+**kNN:** If they reduce the feature space small enough this could be a good pick. They could say it's best to figure out who will adopt a car based on whether other similar people adopted a car. Maybe in terms of literal distance. But this is not a good answer if they use all the daily electricity data, because then the feature space would be too large.
+
+**CNN:** Not a great answer because no images.
+
+## Problem 34: Convexity of Max Function
+
+**Bonus Question:** 4 points
+
+This is a bonus question. You can get extra points for completing it, but you will not lose points if you do not get the right answer.
+
+**Question:** Let $f,g: \mathbb{R}^d \to \mathbb{R}$ be convex. Use the epigraph definition of convexity to prove that $h(x) = \max\{f(x), g(x)\}$ is convex.
+
+**Hint 1:** You may use that for any convex sets $A, B \subset \mathbb{R}^d$, $A \cap B$ is convex.
+
+**Hint 2:** You may use that for any $a, b, c \in \mathbb{R}$, $c \ge a \land c \ge b$ if and only if $c \ge \max\{a,b\}$.
+
+**Explanation: Proof.**
+Denote $\text{epi}(f) := \{(x,t) \in \mathbb{R}^{d+1} : t \ge f(x)\}$, with $\text{epi}(g)$, $\text{epi}(h)$ defined similarly. By the epigraph definition of convexity, we know that the sets $\text{epi}(f)$ and $\text{epi}(g)$ are convex. Note that for any $(x, t) \in \mathbb{R}^{d+1}$ we have by hint 2 that $t \ge f(x)$ and $t \ge g(x)$ if and only if $t \ge \max\{f(x), g(x)\} = h(x)$. Thus we have that $(x,t) \in \text{epi}(f) \cap \text{epi}(g)$ if and only if $(x,t) \in \text{epi}(h)$. It follows that $\text{epi}(h) = \text{epi}(f) \cap \text{epi}(g)$. Since $\text{epi}(f)$ and $\text{epi}(g)$ are convex, by hint 1, $\text{epi}(h)$ must be convex. So by the epigraph definition of convexity, $h$ is convex.
+$\square$
 
