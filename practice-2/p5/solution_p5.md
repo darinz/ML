@@ -196,6 +196,7 @@ Correct answers: (b)
 
 Explanation: We should do (b) to avoid leaking test set information to the training process.
 Other options may lead to overfitting to the validation or test data when picking hyperparameters.
+
 11. Select All That Apply
 
 Which of the following statements about gradient descent are true?
