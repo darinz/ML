@@ -5,6 +5,7 @@
 **Question:** In the context of logistic regression, which of the following statements is true about the interpretation of the model coefficients?
 
 **Options:**
+
 (a) The coefficients represent the change in the log odds of the dependent variable for a one-unit change in the predictor variable, holding all other variables constant.
 
 (b) The coefficients represent the change in the dependent variable for a one-unit change in the predictor variable, holding all other variables constant.
@@ -22,9 +23,13 @@
 **Question:** You are working on a machine learning project to classify emails as either spam (1) or not spam (0) using logistic regression. The model has been trained based on emails with labels and several features, including the frequency of specific keywords. For a particular new email, the model's output of the log-odds is 0.4. Given the model's output, which of the following options best describes its classification of the email?
 
 **Options:**
+
 (a) The email is classified as not spam because a positive log-odds score indicates a higher likelihood of the email belonging to the negative class (not spam).
+
 (b) The email is classified as spam because the log-odds score is positive, indicating that the odds of the email being spam are greater than the odds of it not being spam.
+
 (c) The email is classified as not spam because the probability of being spam is less than 0.5.
+
 (d) The email is classified as spam because the probability of it being spam is positive.
 
 **Correct answer:** (b)
@@ -38,9 +43,13 @@
 **Question:** In the context of logistic regression used for binary classification, which of the following statements is true?
 
 **Options:**
+
 (a) The model directly outputs class labels (0 or 1)
+
 (b) The model's optimization has a closed-form solution.
+
 (c) The model produces a linear decision boundary with respect to the features.
+
 (d) The model uses the softmax function to output class probabilities.
 
 **Correct answer:** (c)
@@ -52,10 +61,15 @@
 **Question:** Which are key properties of the Radial Basis Function kernel?
 
 **Options:**
+
 (a) It works best when features take on categorical values.
+
 (b) It relies on the distance between points in the original feature space.
+
 (c) It relies on the distance between points in infinite-dimensional space.
+
 (d) It implicitly maps to an infinite-dimensional feature space.
+
 (e) It identifies hyperplanes in an infinite-dimensional space.
 
 **Correct answers:** (b), (d)
@@ -67,9 +81,13 @@
 **Question:** Which of the following is not a valid kernel?
 
 **Options:**
+
 (a) $K(x, x') = \frac{1}{\sqrt{2\pi}} \exp(-\frac{1}{2}\|x - x'\|_2^2)$
+
 (b) $K(x,x') = -\frac{1}{\sqrt{2\pi}} \exp(-\frac{1}{2}\|x - x'\|_2^2)$
+
 (c) $K(x,x') = x^T x'$
+
 (d) $K(x, x') = 1$
 
 **Correct answer:** (b)
@@ -83,9 +101,13 @@
 **Question:** Which of the following statements about the "kernel trick" are true in the context of machine learning algorithms?
 
 **Options:**
+
 (a) It provides an efficient method for computing and representing high-dimensional feature expansions.
+
 (b) It implicitly maps to a high-dimensional feature space.
+
 (c) It eliminates the need for regularization.
+
 (d) It can only be used in regression prediction settings.
 
 **Correct answers:** (b)
@@ -103,9 +125,13 @@ $$\hat{w} = \arg\min_w \frac{1}{n} \sum_{i=1}^n (y_i - \phi(x_i)^\text{T} w)^2 +
 Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel matrix $K$ is with respect to. Let $n$ be the number of samples we have. Which of the following statements is true?
 
 **Options:**
+
 (a) Ridge regression can only be kernelized assuming $\alpha \in \text{span}\{x_1, x_2,..., x_n\}$ where $x_i \in \mathbb{R}^d$ denotes the $i$th training sample
+
 (b) When $n \ll p$, the kernel method will be more computationally efficient than using regular ridge regression.
+
 (c) There is no closed-form solution if $K$ is positive definite.
+
 (d) The optimal $\hat{w}$ can be obtained after solving for the optimal $\hat{\alpha}$ even though $w$ is not explicitly included in the optimization problem
 
 **Correct answers:** (b), (d)
@@ -117,9 +143,13 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** Assume we have $n$ samples from some distribution $P_X$, and wish to estimate the variance of $P_X$, as well as compute a confidence interval on the variance. If $n = 1$ and we draw only a single datapoint $X_1 = 2$ from $P_X$, which of the following are true?
 
 **Options:**
+
 (a) The bootstrap estimate of the variance is 0.
+
 (b) The bootstrap estimate of the variance is 2.
+
 (c) The bootstrap cannot be applied when we only have $n = 1$ samples.
+
 (d) The bootstrap is likely to give a very poor estimate of the variance in this setting.
 
 **Correct answers:** (a), (d)
@@ -133,10 +163,15 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** Which of the following statements about the bootstrap method are true?
 
 **Options:**
+
 (a) It requires a large sample size to be effective and cannot be used effectively with small datasets.
+
 (b) It involves repeatedly sampling with replacement from a dataset to create samples and then calculating the statistic of interest on each sample.
+
 (c) Bootstrap methods can only be applied to estimate the mean of a dataset and do not apply to other statistics like median or variance.
+
 (d) One of the advantages is that it does not make strong parametric assumptions about the distribution of the data.
+
 (e) It can be used to estimate confidence intervals for almost any statistic, regardless of the original data distribution.
 
 **Correct answers:** (b), (d), (e)
@@ -148,9 +183,13 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** Which of the following are advantages of using random forests over decision trees?
 
 **Options:**
+
 (a) The optimal decision tree cannot be efficiently computed, but the optimal random forest can.
+
 (b) Random forests typically have smaller variance than decision trees.
+
 (c) Random forests typically have smaller bias than decision trees.
+
 (d) Random forests are less prone to overfitting compared to decision trees.
 
 **Correct answers:** (b), (d)
@@ -164,9 +203,13 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** Which of the following is true about $k$-nearest neighbors (KNN)?
 
 **Options:**
+
 (a) KNN works best with high dimensional data.
+
 (b) When $k=1$, the training error is always less than or equal to the test error.
+
 (c) The computational cost of making a prediction on a new test point increases with the size of the training dataset.
+
 (d) The effectiveness of KNN is independent of the distance metric used.
 
 **Correct answers:** (b), (c)
@@ -178,9 +221,13 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** For $k$-nearest neighbors (KNN), changing $k$ will affect:
 
 **Options:**
+
 (a) Bias
+
 (b) Variance
+
 (c) Both bias and variance
+
 (d) Neither bias nor variance
 
 **Correct answer:** (c)
@@ -192,7 +239,9 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** In k-nearest neighbors (KNN), having higher dimensional features is always more desirable because it provides more dimensions to calculate the distance between two data points.
 
 **Options:**
+
 (a) True
+
 (b) False
 
 **Correct answer:** (b)
@@ -204,7 +253,9 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** The training algorithm for k-means clustering is guaranteed to converge to a local minimum of the k-means objective function.
 
 **Options:**
+
 (a) True
+
 (b) False
 
 **Correct answer:** (a)
@@ -216,7 +267,9 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** The k-means objective function always improves with each successive iteration of the k-means training algorithm until the objective function converges.
 
 **Options:**
+
 (a) True
+
 (b) False
 
 **Correct answer:** (a)
@@ -228,7 +281,9 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** In k-means clustering, choosing a different set of initial centroids always leads to the same final clusters after convergence.
 
 **Options:**
+
 (a) True
+
 (b) False
 
 **Correct answer:** (b)
@@ -240,7 +295,9 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** In k-means clustering, if two points are assigned to the same cluster, any point that is a convex combination of those two points must also be assigned to that same cluster. [Hint: recall that a point $x_3$ is a convex combination of the points $x_1$ and $x_2$ if $x_3 = \alpha x_1 + (1 - \alpha)x_2$ for some $0 \le \alpha \le 1$]
 
 **Options:**
+
 (a) True
+
 (b) False
 
 **Correct answer:** (a)
@@ -252,7 +309,9 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** Recall that in a Gaussian mixture model (GMM) with $K = 2$ Gaussians, the "responsibilities" $\gamma_{ik}$ indicate the probability that the $i$-th data point was generated by the $k$-th Gaussian. These responsibilities provide soft cluster assignments. In a GMM, if two points $x_1$ and $x_2$ have responsibilities $\gamma_{1k} \ge p$ and $\gamma_{2k} \ge p$, respectively, then any point $x_3$ that is a convex combination of $x_1$ and $x_2$ must also have a responsibility $\gamma_{3k} \ge p$.
 
 **Options:**
+
 (a) True
+
 (b) False
 
 **Correct answer:** (b)
@@ -264,11 +323,139 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 **Question:** What are advantages of using a Gaussian mixture model (GMM) to cluster data over k-means clustering?
 
 **Options:**
+
 (a) GMMs are better at handling non-spherical clusters.
+
 (b) There is a closed-form solution that optimizes the GMM loss function, whereas k-means requires an iterative optimization algorithm.
+
 (c) GMMs are better at modeling uncertainty of cluster assignments.
+
 (d) There are no advantages of using a GMM over k-means clustering.
 
 **Correct answers:** (a), (c)
 
 **Explanation:** GMMs attempt to fit Gaussian's to the data, learning both the mean and covariance. As they can learn a elliptical covariance, they are often effective at fitting non-spherical clusters, while k-means explicitly learns spherical clusters. Furthermore, GMMs are able to assign likelihood values that each point lies in any given cluster, given that they assume the data is from a Gaussian distribution, something k-means is unable to do.
+
+---
+
+## Problem 20
+
+**Question:** What role(s) does the activation function in a neural network play?
+
+**Options:**
+
+(a) It determines the size of the neural network.
+
+(b) It introduces non-linearity into the network.
+
+(c) It directly minimizes the loss function during training.
+
+(d) It calculates the gradient of the network's weights.
+
+**Correct answer:** (b)
+
+---
+
+## Problem 21
+
+**Question:** Consider a neural network being trained to minimize a loss function using backpropagation. If the learning rate is set too high, what is the most likely outcome during the training process?
+
+**Options:**
+
+(a) The network efficiently converges to the global minimum of the loss function, resulting in optimal training performance.
+
+(b) The network's weights oscillate or diverge, potentially causing the loss to increase rather than decrease.
+
+(c) The network immediately overfits to the training data, leading to poor generalization on unseen data.
+
+(d) The network's training process significantly slows down, requiring more epochs to reach convergence.
+
+**Correct answer:** (b)
+
+---
+
+## Problem 22
+
+**Question:** Increasing the number of hidden layers in a neural network will always decrease prediction error on the training data.
+
+**Options:**
+
+(a) True
+
+(b) False
+
+**Correct answer:** (b)
+
+---
+
+## Problem 23
+
+**Question:** When designing a neural network, the depth of the network (i.e., the number of hidden layers) plays a critical role in its performance. Which of the following statements best describes the impact of increasing the network's depth?
+
+**Options:**
+
+(a) Adding more layers to the network always results in better performance on the training data, regardless of the activation function (e.g., linear, ReLU, sigmoid, etc.).
+
+(b) Increasing the depth of the network linearly improves its performance on both training and unseen data, as deeper networks can represent more complex functions.
+
+(c) Adding more layers to the network can improve its ability to learn hierarchical representations of data, which is beneficial for complex pattern recognition tasks, though it may also increase the computational complexity and the risk of overfitting.
+
+(d) Deeper networks are less likely to overfit compared to shallower ones, as they have a greater capacity to generalize from the training data to unseen data.
+
+**Correct answer:** (c)
+
+**Explanation:** For choice (a), while it's true that deeper networks can perform better on training data, the assertion that this always results in better performance is misleading. The performance on unseen data does not necessarily improve with depth due to overfitting. For choice (b), the improvement in performance is not guaranteed to be linear with the addition of more layers. While deeper networks can represent more complex functions, they also require more data and careful regularization to prevent overfitting. For choice (d), the claim that deeper networks are less likely to overfit is incorrect. In fact, the opposite is often true; deeper networks, due to their higher capacity and complexity, can be more prone to overfitting, especially if not regularized properly or if trained on insufficient data.
+
+---
+
+## Problem 24
+
+**Question:** In the backpropagation algorithm, after computing the gradient of the loss function with respect to the weights, which step is crucial for updating the weights of a neural network to minimize the loss function?
+
+**Options:**
+
+(a) The weights are updated by setting them directly equal to the negative of the computed gradients to immediately minimize the loss.
+
+(b) The learning rate is applied to the gradients, and this product is then subtracted from the current weights to gradually decrease the loss over iterations.
+
+(c) Each weight's gradient is squared, and this squared gradient is then subtracted from the current weight value to ensure only positive updates.
+
+(d) Gradients are normalized to unit length before being applied to update the weights, ensuring uniform step sizes across all dimensions.
+
+**Correct answer:** (b)
+
+---
+
+## Problem 25
+
+**Question:** A narrow and deep neural network will always outperform a wide, shallow neural network if the two networks have an approximately equivalent number of parameters.
+
+**Options:**
+
+(a) True
+
+(b) False
+
+**Correct answer:** (b)
+
+**Explanation:** This comparison is made in Homework 3. Model performance is dependent on many factors, one of which is model architecture, and one architecture will never outperform another in all scenarios.
+
+---
+
+## Problem 26
+
+**Question:** During backpropagation, as the gradient flows backward through a sigmoid function $\sigma(x) = \frac{1}{1+e^{-x}}$, the gradient will always:
+
+**Options:**
+
+(a) Decrease in magnitude, preserve sign polarity
+
+(b) Increase in magnitude, preserve sign polarity
+
+(c) Decrease in magnitude, reverse sign polarity
+
+(d) Increase in magnitude, reverse sign polarity
+
+**Correct answer:** (a)
+
+**Explanation:** Because the output of the sigmoid is always positive (between 0 and 1), its derivative, $\sigma'(x) = \sigma(x)(1 - \sigma(x))$, will also always be positive. In terms of magnitude, the derivatives will always be inside (0,0.25) so it's decreasing.
