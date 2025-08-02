@@ -557,21 +557,7 @@ Consider a nearest neighbor classifier that chooses the label for a test point t
 
 Consider the following scatter plots of a data matrix X with four data points in $\mathbb{R}^{2}.$ Choose the plot whose line represents the direction of the first principal component of $X-\mu,$ where $X\in\mathbb{R}^{n\times d}$ the vector $\mu\in\mathbb{R}^{d}$ is the featurewise mean of X.
 
-(1)
-
-[Image 7]
-
-(2)
-
-[Image 8]
-
-(3)
-
-[Image 9]
-
-(4)
-
-[Image 10]
+<img src="img/q36_problem.png" width="550px">
 
 (a) Plot 1
 
