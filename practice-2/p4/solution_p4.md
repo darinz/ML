@@ -607,7 +607,7 @@ In PCA, the following words go together (draw lines to match the words on the le
 
 **Explanation:**
 
-[Image 13]
+<img src="img/q40_solution.png" width="350px">
 
 ## Problem 41
 
@@ -627,7 +627,7 @@ $\hat{\Theta}_{2}=\frac{1}{n}(\sum_{i=1}^{n}(x_{i}-\hat{\Theta}_{1})^{2})$ for $
 
 Which of the following shapes are convex? Select all that apply.
 
-[Image 14]
+<img src="img/q42_problem.png" width="450px">
 
 (a) Shape A.
 
