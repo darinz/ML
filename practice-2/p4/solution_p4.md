@@ -603,7 +603,7 @@ Suppose you have a data matrix $X\in\mathbb{R}^{n\times10,000}$ and you want the
 
 In PCA, the following words go together (draw lines to match the words on the left with the words on the right)
 
-[Image 12]
+<img src="img/q40_problem.png" width="350px">
 
 **Explanation:**
 
