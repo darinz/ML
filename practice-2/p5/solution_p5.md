@@ -332,7 +332,7 @@ Answer:
 
 Explanation: No. It is important to break symmetry so that all neurons do not get the same gradient updates.
 
-19. Select All That Apply
+## 19. Select All That Apply
 
 In a neural network, the number of layers is an important hyperparameter.
 Which of these statements are true about adding layers to a neural network (keeping all other aspects of the model and training process the same)?
