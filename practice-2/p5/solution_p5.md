@@ -148,7 +148,7 @@ This scales with respect to the number of features, not number of data points.
 c) True. Ridge regression biases the model to have smaller weights and with the hope of being less likely to overfit-adding bias to reduce variance.
 d) False. The sum of convex functions is also convex.
 
-9. Select All That Apply
+## 9. Select All That Apply
 
 Consider minimizing a function $f(x):\mathbb{R}\rightarrow\mathbb{R}$.
 Recall the following definitions:
@@ -178,7 +178,7 @@ c) True. See class notes from lecture 7.
 d) False. For example, $f(x)$ could be monotonically decreasing and asymptotically approaching () as increases, so it is bounded below by 0 but has no global minimum.
 e) False. Consider the same constant function $f(x)=0$
 
-10. One Answer
+## 10. One Answer
 
 Let's say we want to standardize our data (i.e., normalizing the data to have zero mean and unit variance in each dimension) for the purposes of training and evaluating a ML model.
 Which of the following would be most appropriate?
@@ -197,7 +197,7 @@ Correct answers: (b)
 Explanation: We should do (b) to avoid leaking test set information to the training process.
 Other options may lead to overfitting to the validation or test data when picking hyperparameters.
 
-11. Select All That Apply
+## 11. Select All That Apply
 
 Which of the following statements about gradient descent are true?
 Recall that the gradient descent algorithm updates the weight parameter wat iteration t as follows: $w_{t+1}=w_{t}-\eta\nabla_{w}l(w)|_{w=w_{t}}$ (with η being the step size).
@@ -218,7 +218,7 @@ Don't confuse this with the gradient descent update which steps in the "negative
 b) False. large step size may cause the model to overshoot the optimum point, thus taking longer to converge.
 c) True. With smaller step size, the model is likely to gradually approach the optimal point with less overshooting even if it takes more iterations.
 
-12.
+## 12.
 
 Describe one advantage of mini-batch stochastic gradient descent over full-batch gradient descent.
 
