@@ -204,3 +204,168 @@ d) Use 10-fold cross-validation
 
 **Explanation:** With 1000 samples, 5-fold cross-validation provides a good balance between having enough data in each fold for reliable estimates while maintaining reasonable computational cost. 10-fold would give smaller validation sets, and using all data for both training and validation would lead to overfitting.
 
+## Problem 21: Model Selection Matching
+
+**Question:** Match each of the modeling problems (which include a description of the data and desired criteria for the model) with the best machine learning method for the job. Use each model type once.
+
+**Modeling Problems:**
+
+**Problem A:** You are training a model for a medical setting where you have a small number of categorical input features, and the ability to be able to interpret your model's decisions is important.
+
+**Problem B:** You have a small dataset (small $n$), continuous $Y$ labels, but many features. You want an interpretable model that you can regularize to give you information about which features are more important.
+
+**Problem C:** You have a large dataset (large $n$) of images.
+
+**Problem D:** You have a lot of data (large $n$) in a small dimensional feature space (small $d$), and you assume that your labels $y$ change smoothly with changes in the feature space.
+
+**Problem E:** Your data has a relatively small number of categorical features and you want to win a Kaggle competition.
+
+**Machine Learning Methods:**
+- k-Nearest Neighbours (kNN)
+- Decision Tree (DT)
+- Random Forest (RF)
+- Convolutional Neural Network (CNN)
+- Linear Regression (LR)
+
+**Correct Answers:**
+- Problem A: Decision Tree (DT)
+- Problem B: Linear Regression (LR)
+- Problem C: Convolutional Neural Network (CNN)
+- Problem D: k-Nearest Neighbours (kNN)
+- Problem E: Random Forest (RF)
+
+**Explanation:**
+- Problem A is decision tree because they're good for categorical features and interpretable.
+- Problem B is linear regression because it works for small datasets and continuous labels.
+- Problem C is convolutional neural networks.
+- Problem D is kNN.
+- Problem E is Random Forests.
+
+## Problem 22: Entropy Calculation
+
+**Question:** You are training a decision tree to perform classification of into labels $Y \in \{0,1\}$. Your tree sorts the labels into the following leaves. What is the entropy $H(X)$ for each of the following sets $X$:
+
+**Sub-questions:**
+
+a) $X = 1, 1, 1, 1:$
+
+b) $X = 1, 1, 0, 0:$
+
+c) $X = 0, 0, 0, 0:$
+
+**Correct Answers:**
+
+a) 0.0, ($H = -1 \cdot \log(1) = 0$)
+
+b) 1.0, ($H = [0.5 \log(0.5) + 0.5 \log(0.5)] = [2 \cdot 0.5 \log(0.5)] = 1$)
+
+c) 0.0, ($H = -1 \cdot \log(1) = 0$)
+
+**Explanation:** The formula for entropy is given as $H(X) = -\sum_i p(i) \cdot \log p(i)$.
+
+## Problem 23: Kernel Method
+
+**Question:** You are applying the kernel method to $n$ data points, where each data point $x_i \in \mathbb{R}^d$. Which of the following statements are true.
+
+**Options:**
+
+a) The kernel method performs computations on a high dimensional feature space $\phi(x_i) \in \mathbb{R}^p$, where $p >> d$.
+
+b) A function $K$ is a kernel for a feature map $\phi$ if $K(x, x') = \phi(x)^T \phi(x')$.
+
+c) The kernel trick relies on the fact if $p >> n$, then the data spans at most a $d$-dimensional subspace of $\mathbb{R}^p$.
+
+d) Kernel methods can be considered non-parametric because they require retaining the training data for making predictions about new points.
+
+**Correct Answers:** (b), (d)
+
+**Explanation:**
+
+a) is not correct because it avoids actually performing computations in the p-dimensional feature space.
+
+b) is correct, as it is the definition of a kernel.
+
+c) is incorrect, it should be an $n$-dimensional subspace.
+
+d) is correct.
+
+## Problem 24: Kernel Matrix
+
+**Question:** Consider data matrix $X \in \mathbb{R}^{n \times d}$ and feature mapping $\phi : \mathbb{R}^d \rightarrow \mathbb{R}^p$, for some $p$. Let $K$ be the corresponding kernel matrix.
+
+**Part (a):** Let $\phi(X)$ denote $X$ with $\phi$ applied to each data point. Write $K$ in terms of $\phi(X)$.
+
+**Answer:** $K = \phi(X)\phi(X)^T$
+
+**Part (b):** The $i^{th}$ entry on the diagonal of $K$ is:
+
+**Options:**
+
+a) $|| \phi(x_i) ||_1$
+
+b) $|| \phi(x_i) ||_2$
+
+c) $|| \phi(x_i) ||_2^2$
+
+d) None of the above
+
+**Correct Answer:** (c)
+
+**Explanation:**
+
+part (a): $K = \phi(X)\phi(X)^T$.
+
+part (b): $K_{ii} = \phi(x_i)^T\phi(x_i) = ||\phi(x_i)||_2^2$
+
+## Problem 25: Curse of Dimensionality
+
+**Question:** Natasha is trying to train a k-Nearest Neighbors model, and she encounters the "curse of dimensionality". This refers to the fact that as the dimensionality of her feature space $d$ increases...
+
+**Options:**
+
+a) Distances between points become less meaningful, since all points are far apart.
+
+b) She has too much data making computation too expensive to perform on a single machine.
+
+c) The amount of data required to cover the space increases exponentially.
+
+d) Thinking in more than three dimensions is hard so we should use PCA to make a 2D plot.
+
+**Correct Answers:** (a), (c)
+
+**Explanation:** a-c are all correct statements of the same idea. d is a joke
+
+## Problem 26: Clustering Algorithms
+
+**Question:** You want to cluster this data into 2 clusters. Which of the these algorithms would work well?
+
+**Options:**
+
+a) Spectral clustering
+
+b) K-means
+
+c) GMM clustering
+
+**Correct Answer:** (c)
+
+**Explanation:** Only GMM takes the Gaussian distributions of the two clusters into account even when they overlap
+
+## Problem 27: K-means Clustering
+
+**Question:** Which of the following statements is true about K-means clustering?
+
+**Options:**
+
+a) K-means clustering works effectively in all data distributions.
+
+b) K-means is guaranteed to converge.
+
+c) K-means clustering is a supervised learning algorithm.
+
+d) The accuracy of K-means clustering is not affected by the initial centroid selections.
+
+**Correct Answer:** (b)
+
+**Explanation:** A is false since K-means doesn't work well in all distributions, such as non-spherical clusters. B is true, since K-means will always converge (see lecture notes for proof). C is false, since K-means is unsupervised. D is false, since the accuracy of the classifier is influenced by the initial centroid selections.
+
