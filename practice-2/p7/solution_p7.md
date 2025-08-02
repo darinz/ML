@@ -628,3 +628,117 @@ We then get 8 as the first position because $1(0) + 0(0) + 0(0) + 8(1) = 8$. The
 
 **Explanation:** Particularly for image data, we might use CNNs over fully connected networks since CNNs often have much fewer parameters, are better at capturing local patterns, and are better at feature extraction.
 
+---
+
+## Problem 33
+
+**Question:** Which of the following functions are convex?
+
+**Options:**
+
+(a) $f(x) = x^T Ax$, where A is a symmetric matrix and $x \in \mathbb{R}^d$.
+
+(b) The logistic function $\sigma(x) = \frac{1}{1+e^{-x}}$, where $x \in \mathbb{R}$.
+
+(c) The L2 regularization term $f(x) = \lambda ||x||_2^2$, where $\lambda > 0$ and $x \in \mathbb{R}^d$.
+
+(d) The L1 regularization term $f(x) = \lambda ||x||_1$, where $\lambda > 0$ and $x \in \mathbb{R}^d$.
+
+(e) The regularization term $f(x) = \lambda \sum_{i=1}^d \sqrt{x_i}$, where $\lambda > 0, x_i > 0$.
+
+**Correct answers:** (c), (d)
+
+**Explanation:** $f(x) = x^T Ax$ is convex $\iff A \ge 0$. Not all symmetric matrices are positive semidefinite (e.g., $A = -I$).
+
+---
+
+## Problem 34
+
+**Question:** Which of the following statements are true for a convex function $f(x)$? You may assume that $f(x)$ is defined and is twice differentiable for all values of $x$.
+
+**Options:**
+
+(a) If you pick any two points on the graph of $f(x)$, the line segment connecting them will not lay underneath the graph.
+
+(b) Every local minimum of $f(x)$ is also a global minimum.
+
+(c) $f(x)$ must have at least one sharp corner or point, like the tip of a triangle.
+
+(d) The second derivative of $f(x)$ is always negative.
+
+(e) There is a unique value of $x$ that minimizes $f(x)$.
+
+**Correct answers:** (a), (b)
+
+**Explanation:** Answer choices (a) and (b) follow from the definition of a convex function. Choice (c) is incorrect, as its not a requirement for a convex function to have a sharp corner or point. Convex functions can be perfectly smooth. Further, the question states the the function is twice differentiable, which means there are no sharp corners or points. Choice (d) is also incorrect, as a function is convex if and only if its second derivative is always non-negative. Choice (e) is not correct since a convex function may have multiple (connected) global minima. Also, consider the special case where $f(x)$ is a hyperplane (which is a convex function). A hyperplane with nonzero slope has no finite $x$ that minimizes $f(x)$. A hyperplane with zero slope is minimized at every $x$, so again there is no unique value of $x$ that minimizes $f(x)$.
+
+---
+
+## Problem 35
+
+**Question:** Suppose you train a linear regression model to approximate the quadratic function $g(x) = 7x^2 + 3$. What is the most likely outcome?
+
+**Options:**
+
+(a) The model will have high bias and high variance
+
+(b) The model will have high bias and low variance
+
+(c) The model will have low bias and high variance
+
+(d) The model will have low bias and low variance
+
+**Correct answer:** (b)
+
+---
+
+## Problem 36
+
+**Question:** Suppose you train a polynomial regression model of degree $d = 4$ to approximate the linear function $g(x) = 3x + 2$. What is the most likely outcome?
+
+**Options:**
+
+(a) The model will have high bias and high variance
+
+(b) The model will have high bias and low variance
+
+(c) The model will have low bias and high variance
+
+(d) The model will have low bias and low variance
+
+**Correct answer:** (c)
+
+---
+
+## Problem 37
+
+**Question:** Consider the following accuracy plot generated while training a neural network.
+
+<img src="./q37_problem.png" width="450px">
+
+Which one of these options would be most likely to improve the validation accuracy of your model?
+
+**Options:**
+
+1. Increase the learning rate
+
+2. Decrease the learning rate
+
+3. Increase regularization
+
+4. Decrease regularization
+
+5. Increase the number of epochs
+
+6. Decrease the number of epochs
+
+7. None of the above
+
+Choose one option and explain how it would help improve the model (2 sentences). If none of these options are likely to change the model's performance, explain why (2 sentences).
+
+**Answer:**
+
+**Correct option:** 3. Increase regularization or 6. Decrease the number of epochs
+
+**Explanation:** This model is overfitting, as indicated by the increasing gap between training accuracy and validation accuracy after epoch 9. Increasing regularization is the most likely to decrease the variance by adding in bias, which helps prevent overfitting. Another effective option is decreasing the number of epochs (early stopping) as that is another form of regularization, preventing the model from learning the training data too well and thus improving generalization to unseen data.
+
