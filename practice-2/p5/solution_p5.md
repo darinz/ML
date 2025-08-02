@@ -88,13 +88,18 @@ d. For binary logistic regression, if the probability of the positive class is $
 Correct answers: (a), (c), (d)
 
 Explanation:
+
 a) True. $\sigma(x)$ has horizontal asymptotes at 0 and 1 and therefore is strictly bounded between those values.
 Because the output probability is the output of o, this implies that the output probability is also strictly contained in (0,1).
 As it cannot output positive or negative labels with probability 1, it is therefore unable to reduce the training loss to exactly 0, though it can get arbitrarily close.
+
 b) False. The gradient is highest around $x=0$ and lowest at its asymptotes.
+
 c) True.
 True for $c=0$ and is apparent from visual inspection.
+
 d) True. $\sigma(x)=\frac{1}{1+e^{-x}}=\frac{e^{x}}{1+e^{x}}=1-\sigma(-x)$
+
 7. Select All That Apply
 
 Consider performing Lasso regression by finding parameters $w\in\mathbb{R}^{d}$ that minimize
@@ -113,9 +118,13 @@ Correct answers: (a), (c)
 
 Explanation:
 a) True. Higher A shrinks coefficients, encouraging sparsity.
+
 b) False. Sparsity doesn't guarantee a smaller norm; non-zero coefficients' magnitudes matter.
+
 c) True. Larger A simplifies the model, leading to underfitting and higher bias.
+
 d) False. Larger A reduces flexibility, lowering variance.
+
 8. Select All That Apply
 
 Which of the following statements about ridge regression are true?
