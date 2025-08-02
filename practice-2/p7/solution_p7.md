@@ -574,3 +574,4 @@ $$\frac{dy}{dW^{(0)}} = \begin{bmatrix}
 **Explanation:** Recall that $U$ and $V$ are both orthogonal. Thus, $X^T X = V\Sigma^T \Sigma V^T$, and $(X^T X)^{-1} = V(\Sigma^T \Sigma)^{-1}V^T$. Noticing that $V^T X^T = \Sigma^T U^T$, the result follows.
 
 As an aside, note that $\Sigma^T \Sigma$ is diagonal. It is significantly easier to invert a diagonal matrix than a non-diagonal one (we can simply invert each element in the diagonal individually), so in general it is much easier to invert $(\Sigma^T \Sigma)^{-1}$ than $(X^T X)^{-1}$. Thus, if we know the SVD of $X$, we can compute the least-squares estimate very efficiently! (No free lunch here, though, as it's often expensive to compute the SVD of $X$).
+
