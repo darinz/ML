@@ -103,16 +103,18 @@ d) True. $\sigma(x)=\frac{1}{1+e^{-x}}=\frac{e^{x}}{1+e^{x}}=1-\sigma(-x)$
 ## 7. Select All That Apply
 
 Consider performing Lasso regression by finding parameters $w\in\mathbb{R}^{d}$ that minimize
-$f(w)=\sum_{i=1}^{n}(y^{(i)}-x^{(i)\top}w)^{2}+\lambda||w||_{1}$. Which of the following statements are true?
+$$f(w)=\sum_{i=1}^{n}(y^{(i)}-x^{(i)\top}w)^{2}+\lambda||w||_{1}.$$ 
 
-a. Increasing will generally reduce the $L_{1}$ norm of the parameters w.
+Which of the following statements are true?
+
+a. Increasing $\lambda$ will generally reduce the $L_{1}$ norm of the parameters $w$.
 
 b. Consider two models $w_{1}$, $w_{2}\in\mathbb{R}^{d}.$ Assume $w_{1}$ is more sparse, i.e., $w_{1}$
 has strictly more zero coefficients than $w_{2}$. Then $||w_{1}||_{1}<||w_{2}||_{1}$
 
-c. Increasing A generally increases model bias.
+c. Increasing $\lambda$ generally increases model bias.
 
-d. Increasing A generally increases model variance.
+d. Increasing $\lambda$ generally increases model variance.
 
 Correct answers: (a), (c)
 
@@ -135,7 +137,7 @@ b. Compared to unregularized linear regression, the additional computational cos
 
 c. Ridge regression reduces variance at the expense of increasing bias.
 
-d. Using ridge and lasso regularization together (e.g., minimizing a training objective of the form $f(w)=\sum_{i=1}^{n}(y^{(i)}-x^{(i)\top}w)^{2}+\lambda_{1}||w||_{1}+\lambda_{2}||w||_{2}^{2})$ makes the training loss no longer convex.
+d. Using ridge and lasso regularization together (e.g., minimizing a training objective of the form $$f(w)=\sum_{i=1}^{n}(y^{(i)}-x^{(i)\top}w)^{2}+\lambda_{1}||w||_{1}+\lambda_{2}||w||_{2}^{2})$$ makes the training loss no longer convex.
 
 Correct answers: (c)
 
@@ -152,31 +154,31 @@ d) False. The sum of convex functions is also convex.
 
 Consider minimizing a function $f(x):\mathbb{R}\rightarrow\mathbb{R}$.
 Recall the following definitions:
-$x\in\mathbb{R}$ is a global minimum for f if $f(x^{\prime})\ge f(x)$ for all $x^{\prime}\in\mathbb{R}$
-$x\in\mathbb{R}$ is a local minimum for f if there exists $\epsilon>0$ such that $f(x^{\prime})\ge f(x)$ for all $x^{\prime}\in\mathbb{R}$ within e distance of , that is, $|x^{\prime}-x|<\epsilon.$
+- $x\in\mathbb{R}$ is a global minimum for $f$ if $f(x^{\prime})\ge f(x)$ for all $x^{\prime}\in\mathbb{R}$
+- $x\in\mathbb{R}$ is a local minimum for $f$ if there exists $\epsilon>0$ such that $f(x^{\prime})\ge f(x)$ for all $x^{\prime}\in\mathbb{R}$ within $\epsilon$ distance of $x$, that is, $|x^{\prime}-x|<\epsilon.$
 Which of the following statements are true?
 
-a. All linear functions $f(x)=ax+b$ for some a, $b\in\mathbb{R}.$ are both convex and concave.
+a. All linear functions $f(x)=ax+b$ for some $a, b\in\mathbb{R}$ are both convex and concave.
 
-b. If f is convex, then it can have at most one global minimum. (That is, if u $,v\in\mathbb{R}$
-are both global minima for f, then that implies $u=v$.)
+b. If $f$ is convex, then it can have at most one global minimum. (That is, if $u, v\in\mathbb{R}$
+are both global minima for $f$, then that implies $u=v$.)
 
-c. If f is convex, then all local minima are global minima.
+c. If $f$ is convex, then all local minima are global minima.
 
-d. If f is convex and bounded below (i.e., there exists $c\in\mathbb{R}$ such that $f(x)\ge c$ for all
-$x\in\mathbb{R}$ then it must have at least one global minimum.
+d. If $f$ is convex and bounded below (i.e., there exists $c\in\mathbb{R}$ such that $f(x)\ge c$ for all
+$x\in\mathbb{R}$) then it must have at least one global minimum.
 
-e. If f is concave, then it must have no global minima.
+e. If $f$ is concave, then it must have no global minima.
 
 Correct answers: (a), (c)
 
 Explanation:
 a) True. Linear functions are convex. Any of the tests we discussed in class apply, e.g., their second derivative (which is 0) is always greater than or equal to 0. If f is linear, then f is also linear and therefore convex, so f is also concave.
-b) False. Consider the constant function $f(x)=0$ Every
+b) False. Consider the constant function $f(x)=0$. Every
 $x\in\mathbb{R}$ is a global minimum.
 c) True. See class notes from lecture 7.
-d) False. For example, $f(x)$ could be monotonically decreasing and asymptotically approaching () as increases, so it is bounded below by 0 but has no global minimum.
-e) False. Consider the same constant function $f(x)=0$
+d) False. For example, $f(x)$ could be monotonically decreasing and asymptotically approaching $0$ as $x$ increases, so it is bounded below by 0 but has no global minimum.
+e) False. Consider the same constant function $f(x)=0$.
 
 ## 10. One Answer
 
@@ -200,15 +202,15 @@ Other options may lead to overfitting to the validation or test data when pickin
 ## 11. Select All That Apply
 
 Which of the following statements about gradient descent are true?
-Recall that the gradient descent algorithm updates the weight parameter wat iteration t as follows: $w_{t+1}=w_{t}-\eta\nabla_{w}l(w)|_{w=w_{t}}$ (with η being the step size).
-For this question, we say that gradient descent has converged by iteration T if there is some iteration $t<T$ such that $||\nabla_{w}l(w_{t})||_{2}^{2}\le\epsilon$ for some fixed $\epsilon>0$.
+Recall that the gradient descent algorithm updates the weight parameter $w$ at iteration $t$ as follows: $$w_{t+1}=w_{t}-\eta\nabla_{w}l(w)|_{w=w_{t}}$$ (with $\eta$ being the step size).
+For this question, we say that gradient descent has converged by iteration $T$ if there is some iteration $t<T$ such that $||\nabla_{w}l(w_{t})||_{2}^{2}\le\epsilon$ for some fixed $\epsilon>0$.
 
 a. The gradient $\nabla_{w}l(w)$ points in the direction that maximizes the training loss.
 
-b. Assume $l(w)$ is convex. Then if gradient descent converges by iteration T for some
-fixed $\epsilon>0$ and some step size n, it will converge in at most T iterations if we increase the step size .
+b. Assume $l(w)$ is convex. Then if gradient descent converges by iteration $T$ for some
+fixed $\epsilon>0$ and some step size $\eta$, it will converge in at most $T$ iterations if we increase the step size $\eta$.
 
-c. Assume $l(w)$ is convex. Then if gradient descent converges by iteration T for some fixed $\epsilon>0$ and some step size n, it will also eventually converge for all smaller step sizes $0<\eta^{\prime}<\eta$ given enough iterations.
+c. Assume $l(w)$ is convex. Then if gradient descent converges by iteration $T$ for some fixed $\epsilon>0$ and some step size $\eta$, it will also eventually converge for all smaller step sizes $0<\eta^{\prime}<\eta$ given enough iterations.
 
 Correct answers: (a), (c)
 
@@ -283,11 +285,11 @@ By construction of the bootstrap method.
 
 ## 16.
 
-You are given a dataset with four data points 2(1) $,x^{(2)}$, $x^{(3)}$, $x^{(4)}\in\mathbb{R}$ The coordinates of these data points are:
-$x^{(1)}=0$
-$x^{(2)}=1$
-$x^{(3)}=5$
-$x^{(4)}=9$.
+You are given a dataset with four data points $x^{(1)}, x^{(2)}, x^{(3)}, x^{(4)}\in\mathbb{R}$. The coordinates of these data points are:
+- $x^{(1)}=0$
+- $x^{(2)}=1$
+- $x^{(3)}=5$
+- $x^{(4)}=9$.
 You run k-means on this dataset with $k=3$ centroids, initialized at the first 3 data points: 0, 1, and 5. After k-means converges, what will be the new coordinates of these centroids?
 Give your answer as a sequence of 3 numbers in ascending order (e.g., "0, 1, 5").
 
@@ -394,116 +396,120 @@ Consider a fully connected neural network (MLP) with an input layer, a hidden la
 The input layer has n units, the hidden layer has h units, and the output layer has m units.
 Assume there are no bias units/terms. Which of the following statements about the number of trainable parameters is true?
 
-a. The total number of trainable parameters is n · h · m.
+a. The total number of trainable parameters is $n \cdot h \cdot m$.
 
-b. The total number of trainable parameters is n · h + h · m.
+b. The total number of trainable parameters is $n \cdot h + h \cdot m$.
 
-c. The total number of trainable parameters is (n + 1) · h + (h + 1) · m.
+c. The total number of trainable parameters is $(n + 1) \cdot h + (h + 1) \cdot m$.
 
-d. The total number of trainable parameters is n + h + m.
+d. The total number of trainable parameters is $n + h + m$.
 
 Correct answers: (b)
- Explanation: Connections between the input and the hidden layer: n · h;
-connections between the hidden and the output layer: h · m.
+ Explanation: Connections between the input and the hidden layer: $n \cdot h$;
+connections between the hidden and the output layer: $h \cdot m$.
 
 ## 23. Select All That Apply
 
-Consider a matrix A $\in R^{m \times n}$ with singular value decomposition A = USV>, where S is an r × r diagonal matrix and r = rank(A) ≤ min(m, n).
+Consider a matrix $A \in \mathbb{R}^{m \times n}$ with singular value decomposition $A = USV^\top$, where $S$ is an $r \times r$ diagonal matrix and $r = \operatorname{rank}(A) \leq \min(m, n)$.
 
 Which of the following statements are correct?
 
-a The columns of U are the eigenvectors of A>A.
+a. The columns of $U$ are the eigenvectors of $A^\top A$.
 
-b The columns of U are the eigenvectors of AA>.
+b. The columns of $U$ are the eigenvectors of $A A^\top$.
 
-c The columns of V are the eigenvectors of A>A.
+c. The columns of $V$ are the eigenvectors of $A^\top A$.
 
-d The columns of V are the eigenvectors of AA>.
+d. The columns of $V$ are the eigenvectors of $A A^\top$.
 
-e The singular values in S are the square roots of the nonzero eigenvalues of AA>.
+e. The singular values in $S$ are the square roots of the nonzero eigenvalues of $A A^\top$.
 
-f The singular values in S are the square roots of the nonzero eigenvalues of A>A.
+f. The singular values in $S$ are the square roots of the nonzero eigenvalues of $A^\top A$.
 
 Correct answers: (b), (c), (e), (f)
 
-Explanation: AA> = US2U>, implying that the columns of U are the eigenvectors of AA> with correspond ing eigenvalues along the diagonal of S2.
+Explanation: $A A^\top = U S^2 U^\top$, implying that the columns of $U$ are the eigenvectors of $A A^\top$ with correspond ing eigenvalues along the diagonal of $S^2$.
 
-Similarly, A>A = VS2V>, implying that the columns of V are the eigenvectors of A>A with corresponding eigenvalues along the diagonal of S2.
+Similarly, $A^\top A = V S^2 V^\top$, implying that the columns of $V$ are the eigenvectors of $A^\top A$ with corresponding eigenvalues along the diagonal of $S^2$.
 
 ## 24.
 
-Consider a dataset X $\in R^{n \times p}$ with n observations and p features, and with corresponding covariance matrix Σ.
+Consider a dataset $X \in \mathbb{R}^{n \times p}$ with $n$ observations and $p$ features, and with corresponding covariance matrix $\Sigma$.
 
-Let $\lambda_{1} \ge \lambda_{2} \ge ... \ge \lambda_{p}$ be the eigenvalues of Σ in descending order.
+Let $\lambda_{1} \geq \lambda_{2} \geq ... \geq \lambda_{p}$ be the eigenvalues of $\Sigma$ in descending order.
 
-Express the total variance explained by the first k principal components (obtained by performing Principal Component Analysis (PCA) on X) as a fraction of the total variance in the original data.
+Express the total variance explained by the first $k$ principal components (obtained by performing Principal Component Analysis (PCA) on $X$) as a fraction of the total variance in the original data.
 
-Answer: Fraction of total variance explained = Explanation:Pki=1 $\lambda_{i}P^{p}_{i}=1 \lambda_{i}$.
+Answer: Fraction of total variance explained $= \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^p \lambda_i}$.
 
-The fraction of total variance explained by the first k principal components in PCA can be expressed as the ratio of the sum of the first k eigenvalues to the sum of all eigenvalues of the covariance matrix Σ.
-
+The fraction of total variance explained by the first $k$ principal components in PCA can be expressed as the ratio of the sum of the first $k$ eigenvalues to the sum of all eigenvalues of the covariance matrix $\Sigma$.
 
 ## 25.
 
-Consider a dataset X $\in R^{n \times 2}$ with n observations and 2 features.
-Suppose Σ is the covariance matrix of the dataset:
+Consider a dataset $X \in \mathbb{R}^{n \times 2}$ with $n$ observations and 2 features.
+Suppose $\Sigma$ is the covariance matrix of the dataset:
 
-Σ = 
-$3\sqrt{3}$
- $\sqrt{3}5$
- 
- This covariance matrix has the following unit-norm eigenvectors u and v:
- u = $-\sqrt{3}212$, v = 
- $12\sqrt{3}2$
- Write the second principle component as a unit-length vector in vector form (i.e. ab ).
+$$
+\Sigma = \begin{pmatrix} 3 & \sqrt{3} \\ \sqrt{3} & 5 \end{pmatrix}
+$$
+
+This covariance matrix has the following unit-norm eigenvectors $u$ and $v$:
+
+$u = \frac{1}{2}\begin{pmatrix} -\sqrt{3} \\ 1 \end{pmatrix}$, $v = \frac{1}{2}\begin{pmatrix} 1 \\ \sqrt{3} \end{pmatrix}$
+
+Write the second principal component as a unit-length vector in vector form (i.e., $[a, b]$).
 Second principal component:
- Explanation: "$-\sqrt{3}212$"#.
- A vector x and value $\lambda$ are defined to be an eigenvector-eigenvalue pair of A if Ax = $\lambda$x.
- Σu = $-\sqrt{3}1$ = 2 "$-\sqrt{3}212$"= 2u, so $\lambda$u = 2.
- Σv = "$3\sqrt{3}62$"= 6 "$12\sqrt{3}2$"= 6v, so $\lambda$v = 6.
- Eigenvector-eigenvalue pairs of a covariance matrix represent pairs of principal components and the variance explained by that principal component.
-u’s eigenvalue is less than v’s, so it is the second principal component.
-u is already unit-length, so it is the final answer.
- 
+
+Explanation: $u = \frac{1}{2}\begin{pmatrix} -\sqrt{3} \\ 1 \end{pmatrix}$
+A vector $x$ and value $\lambda$ are defined to be an eigenvector-eigenvalue pair of $A$ if $A x = \lambda x$.
+$\Sigma u = 2u$, so $\lambda_u = 2$.
+$\Sigma v = 6v$, so $\lambda_v = 6$.
+Eigenvector-eigenvalue pairs of a covariance matrix represent pairs of principal components and the variance explained by that principal component.
+$u$'s eigenvalue is less than $v$'s, so it is the second principal component.
+$u$ is already unit-length, so it is the final answer.
 
 ## 26. Select All That Apply
 
-You are applying PCA to a training dataset of n = 1024 grayscale images that are each 16 × 16 pixels (256 pixels per image).
-Consider reshaping each image into a vector xi $\in R^{256}$ and then composing a data matrix X $\in R^{1024 \times 256}$, where the ith row is x>i.
-Let $\hat{x}_{i,k} \in R^{256}$ be the PCA reconstruction of image xi using the top k principal component directions in the data.
-Let R(k) be the average reconstruction error on the training data using k principal components, R(k) = $\frac{1}{n} \sum_{i=1}^{n} ||x_i - \hat{x}_{i,k}||^2_2$.
+You are applying PCA to a training dataset of $n = 1024$ grayscale images that are each $16 \times 16$ pixels ($256$ pixels per image).
+Consider reshaping each image into a vector $x_i \in \mathbb{R}^{256}$ and then composing a data matrix $X \in \mathbb{R}^{1024 \times 256}$, where the $i$th row is $x_i^\top$.
+Let $\hat{x}_{i,k} \in \mathbb{R}^{256}$ be the PCA reconstruction of image $x_i$ using the top $k$ principal component directions in the data.
+Let $R(k)$ be the average reconstruction error on the training data using $k$ principal components, $R(k) = \frac{1}{n} \sum_{i=1}^{n} ||x_i - \hat{x}_{i,k}||^2_2$.
 Which of the following statements are true?
- a R(k) is monotonically decreasing as k increases, up to k = 1024. That is, if 0 < k1 < k2 ≤ 1024, then R(k1) > R(k2).
-Note the strict equality.
- b If k < rank(X), then R(k) > 0.
- c If k $\ge$ rank(X), then R(k) = 0.
- d For k $\ge$ 1, let $\delta(k)$ = R(k − 1) − R(k) be the decrease in reconstruction error by going from k−1 to k principal components.
-(When k = 0, define the reconstruction of xi to simply be the mean image $\bar{x}$.) Then, $\delta(k)$ is monotonically non-increasing as k increases.
-Correct answers: (b), (c), (d)
- Explanation:
- a) False. The number of principal components cannot exceed the rank of X, which is min(n, 256).
-Since X is 1024 × 256, its rank is at most 256. Thus, R(k) is only guaranteed to monotonically decrease for k $\le$ 256, not k $\le$ 1024.
- b) True.
-The reconstruction error is non-zero when the number of principal components k is less than the rank of X, as there are remaining variations in X not captured by the top k components.
-c) True. When k is greater than or equal to the rank of X, the PCA reconstruction captures all the variation in X, resulting in zero reconstruction error.
-d) True. Each additional principal component explains the maximum remaining variance, so the decrease in reconstruction error (R(k)) diminishes as k increases, making R(k) monotonically non-increasing.
 
-## 27. Select All That Apply
- Which of the following is/are true about the k-Nearest Neighbors (k-NN) algorithm?
-a Testing time (i.e., the amount of time it takes to produce an output for a new test point) increases with the number of training samples.
-b The number of hyperparameters increases with the number of training samples.
- c k-NN can learn non-linear decision boundaries.
-d k-NN clusters unlabeled samples in a k-dimensional space based on their similarity.
- Correct answers: (a), (c)
- 
+a. $R(k)$ is monotonically decreasing as $k$ increases, up to $k = 1024$. That is, if $0 < k_1 < k_2 \leq 1024$, then $R(k_1) > R(k_2)$.
+
+b. If $k < \operatorname{rank}(X)$, then $R(k) > 0$.
+
+c. If $k \geq \operatorname{rank}(X)$, then $R(k) = 0$.
+
+d. For $k \geq 1$, let $\delta(k) = R(k-1) - R(k)$ be the decrease in reconstruction error by going from $k-1$ to $k$ principal components.
+(When $k = 0$, define the reconstruction of $x_i$ to simply be the mean image $\bar{x}$.) Then, $\delta(k)$ is monotonically non-increasing as $k$ increases.
+
+Correct answers: (b), (c), (d)
 
 Explanation:
- a) True. k-NN looks at the entire training dataset to classify points at testing time
- b) False.
-The algorithm has a fixed number of hyperparameters (arguably, just k).
- c) True. it can learn non-linear decision boundaries.
-d) False. It is not a clustering algorithm.
- ## 28. Select All That Apply
+a) False. The number of principal components cannot exceed the rank of $X$, which is $\min(n, 256)$.
+Since $X$ is $1024 \times 256$, its rank is at most $256$. Thus, $R(k)$ is only guaranteed to monotonically decrease for $k \leq 256$, not $k \leq 1024$.
+b) True.
+The reconstruction error is non-zero when the number of principal components $k$ is less than the rank of $X$, as there are remaining variations in $X$ not captured by the top $k$ components.
+c) True. When $k$ is greater than or equal to the rank of $X$, the PCA reconstruction captures all the variation in $X$, resulting in zero reconstruction error.
+d) True. Each additional principal component explains the maximum remaining variance, so the decrease in reconstruction error ($R(k)$) diminishes as $k$ increases, making $R(k)$ monotonically non-increasing.
+
+## 27. Select All That Apply
+
+Which of the following is/are true about the $k$-Nearest Neighbors (k-NN) algorithm?
+
+a. Testing time (i.e., the amount of time it takes to produce an output for a new test point) increases with the number of training samples.
+
+b. The number of hyperparameters increases with the number of training samples.
+
+c. $k$-NN can learn non-linear decision boundaries.
+
+d. $k$-NN clusters unlabeled samples in a $k$-dimensional space based on their similarity.
+
+Correct answers: (a), (c)
+
+## 28. Select All That Apply
 
 Which of the following statements about random forests and decision trees are true?
 a Random forests are generally easier for humans to interpret than individual decision trees.
