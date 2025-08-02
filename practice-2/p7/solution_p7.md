@@ -1,17 +1,24 @@
 # Practice 2 Problem 7 Solution
 
 ## Problem 1
+
 **Question:** In the context of logistic regression, which of the following statements is true about the interpretation of the model coefficients?
 
 **Options:**
 (a) The coefficients represent the change in the log odds of the dependent variable for a one-unit change in the predictor variable, holding all other variables constant.
+
 (b) The coefficients represent the change in the dependent variable for a one-unit change in the predictor variable, holding all other variables constant.
+
 (c) The coefficients are directly proportional to the probability of the dependent variable being 1.
+
 (d) The coefficients represent the probability that the predictor variable will be present when the dependent variable is 1.
 
 **Correct answer:** (a)
 
+---
+
 ## Problem 2
+
 **Question:** You are working on a machine learning project to classify emails as either spam (1) or not spam (0) using logistic regression. The model has been trained based on emails with labels and several features, including the frequency of specific keywords. For a particular new email, the model's output of the log-odds is 0.4. Given the model's output, which of the following options best describes its classification of the email?
 
 **Options:**
@@ -24,7 +31,10 @@
 
 **Explanation:** Note that the log-odds is positive, so $P(Y = +1|X = x) > P(Y = 0|X = x)$.
 
+---
+
 ## Problem 3
+
 **Question:** In the context of logistic regression used for binary classification, which of the following statements is true?
 
 **Options:**
@@ -35,7 +45,10 @@
 
 **Correct answer:** (c)
 
+---
+
 ## Problem 4
+
 **Question:** Which are key properties of the Radial Basis Function kernel?
 
 **Options:**
@@ -47,7 +60,10 @@
 
 **Correct answers:** (b), (d)
 
+---
+
 ## Problem 5
+
 **Question:** Which of the following is not a valid kernel?
 
 **Options:**
@@ -60,7 +76,10 @@
 
 **Explanation:** Recall that kernels must be positive semidefinite: $K(x,x') \ge 0$ for all $x,x'$. This is not true for $K(x,x') = -\frac{1}{\sqrt{2\pi}} \exp(-\frac{1}{2}\|x - x'\|_2^2)$.
 
+---
+
 ## Problem 6
+
 **Question:** Which of the following statements about the "kernel trick" are true in the context of machine learning algorithms?
 
 **Options:**
@@ -73,7 +92,10 @@
 
 **Explanation:** We gave all students full credit for this question because after the exam we realized that choice (b) was too ambiguous. Our initial intention was to grade (b) as correct. Our rationale was: (a) is incorrect because a major motivation for the kernel trick is that it avoids ever needing to compute or represent high-dimensional feature expansions. (b) is how the kernel trick is typically (always?) used in practice and how the kernel trick was always used in lecture and HWs. However, one could technically map to a lower-dimensional feature space. This generally does not make sense to do from the perspective of computational cost. (c) is incorrect—we frequently need regularization with kernel methods, as we saw that kernel regression perfectly fits the training data when no ridge penalty is included. (d) is incorrect—we discussed kernel extensions to PCA in class, and there are many other extensions we did not discuss, e.g., support vector machines for classification.
 
+---
+
 ## Problem 7
+
 **Question:** Consider the kernel ridge regression problem.
 
 $$\hat{w} = \arg\min_w \frac{1}{n} \sum_{i=1}^n (y_i - \phi(x_i)^\text{T} w)^2 + \lambda \Vert w \Vert^2 \quad \text{becomes} \quad \hat{\alpha} = \arg\min_\alpha \Vert Y - K\alpha \Vert_2^2 + \lambda \alpha^\text{T} K \alpha$$
@@ -88,7 +110,10 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 
 **Correct answers:** (b), (d)
 
+---
+
 ## Problem 8
+
 **Question:** Assume we have $n$ samples from some distribution $P_X$, and wish to estimate the variance of $P_X$, as well as compute a confidence interval on the variance. If $n = 1$ and we draw only a single datapoint $X_1 = 2$ from $P_X$, which of the following are true?
 
 **Options:**
@@ -101,7 +126,10 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 
 **Explanation:** Given $n$ samples from a distribution, the bootstrap estimate of the variance is calculated by drawing some number of samples with replacement from this data, computing the variance on these samples, then repeating, and averaging the variance values to get a final estimate. When $n = 1$, however, we will always sample the same point, and so the variance will always be 0, regardless of the distribution's true variance. Thus, in this case, while the bootstrap estimate is well-defined, it is very inaccurate.
 
+---
+
 ## Problem 9
+
 **Question:** Which of the following statements about the bootstrap method are true?
 
 **Options:**
@@ -113,7 +141,10 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 
 **Correct answers:** (b), (d), (e)
 
+---
+
 ## Problem 10
+
 **Question:** Which of the following are advantages of using random forests over decision trees?
 
 **Options:**
@@ -126,7 +157,10 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 
 **Explanation:** Decision trees can overfit to the data and have high variance, as the decision criteria may very often capture noise, and be very sensitive. In contrast, random forests typically have lower variance, as they are trained on smaller subsets of features and bootstrapped data, thereby reducing the sensitivity to any particular feature of data point.
 
+---
+
 ## Problem 11
+
 **Question:** Which of the following is true about $k$-nearest neighbors (KNN)?
 
 **Options:**
@@ -137,7 +171,10 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 
 **Correct answers:** (b), (c)
 
+---
+
 ## Problem 12
+
 **Question:** For $k$-nearest neighbors (KNN), changing $k$ will affect:
 
 **Options:**
@@ -147,3 +184,91 @@ Let $\phi(x): \mathbb{R}^d \to \mathbb{R}^p$ be the feature mapping the kernel m
 (d) Neither bias nor variance
 
 **Correct answer:** (c)
+
+---
+
+## Problem 13
+
+**Question:** In k-nearest neighbors (KNN), having higher dimensional features is always more desirable because it provides more dimensions to calculate the distance between two data points.
+
+**Options:**
+(a) True
+(b) False
+
+**Correct answer:** (b)
+
+---
+
+## Problem 14
+
+**Question:** The training algorithm for k-means clustering is guaranteed to converge to a local minimum of the k-means objective function.
+
+**Options:**
+(a) True
+(b) False
+
+**Correct answer:** (a)
+
+---
+
+## Problem 15
+
+**Question:** The k-means objective function always improves with each successive iteration of the k-means training algorithm until the objective function converges.
+
+**Options:**
+(a) True
+(b) False
+
+**Correct answer:** (a)
+
+---
+
+## Problem 16
+
+**Question:** In k-means clustering, choosing a different set of initial centroids always leads to the same final clusters after convergence.
+
+**Options:**
+(a) True
+(b) False
+
+**Correct answer:** (b)
+
+---
+
+## Problem 17
+
+**Question:** In k-means clustering, if two points are assigned to the same cluster, any point that is a convex combination of those two points must also be assigned to that same cluster. [Hint: recall that a point $x_3$ is a convex combination of the points $x_1$ and $x_2$ if $x_3 = \alpha x_1 + (1 - \alpha)x_2$ for some $0 \le \alpha \le 1$]
+
+**Options:**
+(a) True
+(b) False
+
+**Correct answer:** (a)
+
+---
+
+## Problem 18
+
+**Question:** Recall that in a Gaussian mixture model (GMM) with $K = 2$ Gaussians, the "responsibilities" $\gamma_{ik}$ indicate the probability that the $i$-th data point was generated by the $k$-th Gaussian. These responsibilities provide soft cluster assignments. In a GMM, if two points $x_1$ and $x_2$ have responsibilities $\gamma_{1k} \ge p$ and $\gamma_{2k} \ge p$, respectively, then any point $x_3$ that is a convex combination of $x_1$ and $x_2$ must also have a responsibility $\gamma_{3k} \ge p$.
+
+**Options:**
+(a) True
+(b) False
+
+**Correct answer:** (b)
+
+---
+
+## Problem 19
+
+**Question:** What are advantages of using a Gaussian mixture model (GMM) to cluster data over k-means clustering?
+
+**Options:**
+(a) GMMs are better at handling non-spherical clusters.
+(b) There is a closed-form solution that optimizes the GMM loss function, whereas k-means requires an iterative optimization algorithm.
+(c) GMMs are better at modeling uncertainty of cluster assignments.
+(d) There are no advantages of using a GMM over k-means clustering.
+
+**Correct answers:** (a), (c)
+
+**Explanation:** GMMs attempt to fit Gaussian's to the data, learning both the mean and covariance. As they can learn a elliptical covariance, they are often effective at fitting non-spherical clusters, while k-means explicitly learns spherical clusters. Furthermore, GMMs are able to assign likelihood values that each point lies in any given cluster, given that they assume the data is from a Gaussian distribution, something k-means is unable to do.
