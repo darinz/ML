@@ -575,3 +575,50 @@ $$\frac{dy}{dW^{(0)}} = \begin{bmatrix}
 
 As an aside, note that $\Sigma^T \Sigma$ is diagonal. It is significantly easier to invert a diagonal matrix than a non-diagonal one (we can simply invert each element in the diagonal individually), so in general it is much easier to invert $(\Sigma^T \Sigma)^{-1}$ than $(X^T X)^{-1}$. Thus, if we know the SVD of $X$, we can compute the least-squares estimate very efficiently! (No free lunch here, though, as it's often expensive to compute the SVD of $X$).
 
+---
+
+## Problem 31
+
+**Question:** Consider the following matrix $X$ and convolutional neural network (CNN) filter $F$.
+
+$$X = \begin{pmatrix}
+8 & 17 & 8 & 16 \\
+13 & 7 & 10 & 5 \\
+12 & 0 & 13 & 17 \\
+7 & 11 & 11 & 9
+\end{pmatrix}
+\quad
+F = \begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}$$
+
+Apply the filter $F$ to matrix $X$ with Padding = 1 (padding with zeros) and stride = 2.
+
+Write the resulting matrix below in the grid of the correct size. Only write answers in one matrix, otherwise the problem will be graded as incorrect.
+
+<img src="./q31-2.png">
+
+**Explanation:** Zero padding means we add zeros all the way around the matrix, this will make it look like the following:
+
+$$\begin{pmatrix}
+0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 8 & 17 & 8 & 16 & 0 \\
+0 & 13 & 7 & 10 & 5 & 0 \\
+0 & 12 & 0 & 13 & 17 & 0 \\
+0 & 7 & 11 & 11 & 9 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0
+\end{pmatrix}$$
+
+We then get 8 as the first position because $1(0) + 0(0) + 0(0) + 8(1) = 8$. Then, the filter moves over two spaces because of stride = 2 to compute the next number and so on.
+
+---
+
+## Problem 32
+
+**Question:** Give one main reason we might use a convolutional neural network over a fully connected one. Briefly explain why the CNN architecture makes that advantage possible.
+
+**Answer:**
+
+**Explanation:** Particularly for image data, we might use CNNs over fully connected networks since CNNs often have much fewer parameters, are better at capturing local patterns, and are better at feature extraction.
+
