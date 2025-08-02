@@ -681,11 +681,11 @@ While training a neural network for a classification task, you realize that ther
 
 Let $\eta(X)$ be an unknown function relating random variables X and Y , D be a dataset consisting of sample pairs (xi, yi) drawn iid from the probability distribution PXY , and $\hat{f}_D$ an estimator of $\eta$. Draw lines to match the expressions on the left with the words on the right.
 
-[Image 15]
+<img src="img/q46_problem.png" width="450px">
 
 **Explanation:**
 
-[Image 16]
+<img src="img/q46_solution.png" width="450px">
 
 ## Problem 47
 
