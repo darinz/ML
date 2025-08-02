@@ -585,7 +585,7 @@ Suppose that a model finds that towns with more children tend to have higher rat
 
 Consider the following neural network with weights shown in the image below. Every hidden neuron uses the ReLU activation function, and there is no activation function on the output neuron. Assume there are no bias terms. What is the output of this network with the input $x=(1,2)?$ Give a numerical answer.
 
-[Image 11]
+<img src="img/q38_problem.png" width="450px">
 
 **Answer:**
 
