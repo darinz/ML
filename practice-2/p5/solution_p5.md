@@ -323,7 +323,7 @@ d) False.
 k-means will converge when the cluster arrangement no longer changes.
 This may only be a local optimum, running longer would not help.
 
-18.
+## 18.
 
 Should we initialize all the weights of a neural network to be the same small constant value (e.g., 0.001)?
 Why or why not?
