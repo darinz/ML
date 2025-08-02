@@ -1,6 +1,6 @@
 # Practice Problems 5 Solutions
 
-1. One Answer
+## 1. One Answer
 
 Imagine you are building a machine learning model to predict the stopping distance of cars based on their speed.
 
@@ -17,7 +17,7 @@ b. Low bias
 
 Correct answers: (a)
 
-2. One Answer
+## 2. One Answer
 
 Follow the same car scenario as the above question. Compared to using a model that can model a quadratic relationship between stopping distance and speed, would your model have high or low variance?
 
@@ -27,7 +27,7 @@ b. Low variance
 
 Correct answers: (b)
 
-3. One Answer
+## 3. One Answer
 
 Follow the same car scenario as the above question. In reality, stopping distance is also affected by weather conditions, which your our model does not capture.
 Which of these components of overall model error captures the error from not including weather conditions as a feature?
@@ -40,7 +40,7 @@ c. Irreducible error
 
 Correct answers: (c)
 
-4. Select All That Apply
+## 4. Select All That Apply
 
 Which of the following will generally help to reduce model variance?
 
@@ -217,6 +217,7 @@ a) True. $\nabla_{w}.l(w)$ points in the direction that maximizes the loss.
 Don't confuse this with the gradient descent update which steps in the "negative-gradient" direction.
 b) False. large step size may cause the model to overshoot the optimum point, thus taking longer to converge.
 c) True. With smaller step size, the model is likely to gradually approach the optimal point with less overshooting even if it takes more iterations.
+
 12.
 
 Describe one advantage of mini-batch stochastic gradient descent over full-batch gradient descent.
