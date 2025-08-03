@@ -246,3 +246,79 @@ $$f(w, x) = w^T x + b = \sum_{i=1}^{m} (\alpha_i - \alpha_i^*) x^{(i)T} x + b = 
 
 This shows that predicting function can be written in a kernel form.
 
+## Problem 5: Learning Theory
+
+Suppose you are given a hypothesis $h_0 \in \mathcal{H}$, and your goal is to determine whether $h_0$ has generalization error within $\eta > 0$ of the best hypothesis, $h^* = \arg \min_{h \in \mathcal{H}} \varepsilon(h)$. More specifically, we say that a hypothesis $h$ is $\eta$-optimal if $\varepsilon(h) \le \varepsilon(h^*) + \eta$. Here, we wish to answer the following question:
+
+Given a hypothesis $h_0$, is $h_0$ $\eta$-optimal?
+
+Let $\delta > 0$ be some fixed constant, and consider a finite hypothesis class $\mathcal{H}$ of size $|\mathcal{H}| = k$. For each $h \in \mathcal{H}$, let $\hat{\varepsilon}(h)$ denote the training error of $h$ with respect to some training set of $m$ IID examples, and let $\hat{h} = \arg \min_{h \in \mathcal{H}} \hat{\varepsilon}(h)$ denote the hypothesis that minimizes training error.
+
+Now, consider the following algorithm:
+
+1. Set $\gamma := \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}}$
+2. If $\hat{\varepsilon}(h_0) > \hat{\varepsilon}(\hat{h}) + \eta + 2\gamma$, then return NO.
+3. If $\hat{\varepsilon}(h_0) < \hat{\varepsilon}(\hat{h}) + \eta - 2\gamma$, then return YES.
+4. Otherwise, return UNSURE.
+
+Intuitively, the algorithm works by comparing the training error of $h_0$ to the training error of the hypothesis $\hat{h}$ with the minimum training error, and returns NO or YES only when $\hat{\varepsilon}(h_0)$ is either significantly larger than or significantly smaller than $\hat{\varepsilon}(\hat{h})+\eta$.
+
+### Problem 5(a) [6 points]
+
+**Problem:** First, show that if $\varepsilon(h_0) \le \varepsilon(h^*) + \eta$ (i.e., $h_0$ is $\eta$-optimal), then the probability that the algorithm returns NO is at most $\delta$.
+
+**Answer:** Suppose that $\varepsilon(h_0) \le \varepsilon(h^*) + \eta$. Using the Hoeffding inequality, we have that for
+
+$$ \gamma = \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}} $$
+
+then with probability at least $1 - \delta$,
+
+$$
+\begin{aligned}
+\hat{\varepsilon}(h_0) &\le \varepsilon(h_0) + \gamma \\
+&\le \varepsilon(h^*) + \eta + \gamma \\
+&\le \varepsilon(\hat{h}) + \eta + \gamma \\
+&\le \hat{\varepsilon}(\hat{h}) + \eta + 2\gamma.
+\end{aligned}
+$$
+
+Here, the first and last inequalities follow from the fact that under the stated uniform convergence conditions, all hypotheses in $\mathcal{H}$ have empirical errors within $\gamma$ of their true generalization errors. The second inequality follows from our assumption, and the third inequality follows from the fact that $h^*$ minimizes the true generalization error. Therefore, the reverse condition, $\hat{\varepsilon}(h_0) > \hat{\varepsilon}(\hat{h}) + \eta + 2\gamma$, occurs with probability at most $\delta$.
+
+### Problem 5(b) [6 points]
+
+**Problem:** Second, show that if $\varepsilon(h_0) > \varepsilon(h^*) + \eta$ (i.e., $h_0$ is not $\eta$-optimal), then the probability that the algorithm returns YES is at most $\delta$.
+
+**Answer:** Suppose that $\varepsilon(h_0) > \varepsilon(h^*) + \eta$. Using the Hoeffding inequality, we have that for
+$$ \gamma = \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}} $$
+then with probability at least $1 - \delta$,
+$$
+\begin{aligned}
+\hat{\varepsilon}(h_0) &\ge \varepsilon(h_0) - \gamma \\
+&> \varepsilon(h^*) + \eta - \gamma \\
+&\ge \hat{\varepsilon}(h^*) + \eta - 2\gamma \\
+&\ge \hat{\varepsilon}(\hat{h}) + \eta - 2\gamma.
+\end{aligned}
+$$
+Here, the first and third inequalities follow from the fact that under the stated uniform convergence conditions, all hypotheses in $\mathcal{H}$ have empirical errors within $\gamma$ of their true generalization errors. The second inequality follows from our assumption, and the last inequality follows from the fact that $\hat{h}$ minimizes the empirical error. Therefore, the reverse condition, $\hat{\varepsilon}(h_0) < \hat{\varepsilon}(\hat{h}) + \eta - 2\gamma$ occurs with probability at most $\delta$.
+
+### Problem 5(c) [8 points]
+
+**Problem:** Finally, suppose that $h_0 = h^*$, and let $\eta > 0$ and $\delta > 0$ be fixed. Show that if $m$ is sufficiently large, then the probability that the algorithm returns YES is at least $1 - \delta$.
+
+Hint: observe that for fixed $\eta$ and $\delta$, as $m \to \infty$, we have
+$$ \gamma = \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}} \to 0. $$
+This means that there are values of $m$ for which $2\gamma < \eta - 2\gamma$.
+
+**Answer:** Suppose that $h_0 = h^*$. Using the Hoeffding inequality, we have that for
+$$ \gamma = \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}} $$
+then with probability at least $1 - \delta$,
+$$ \hat{\varepsilon}(h_0) \le \varepsilon(h_0) + \gamma $$
+$$ = \varepsilon(h^*) + \gamma $$
+$$ \le \varepsilon(\hat{h}) + \gamma $$
+$$ \le \hat{\varepsilon}(\hat{h}) + 2\gamma. $$
+Here, the first and last inequalities follow from the fact that under the stated uniform convergence conditions, all hypotheses in $\mathcal{H}$ have empirical errors within $\gamma$ of their true generalization errors. The equality in the second step follows from our assumption, and the inequality in the third step follows from the fact that $h^*$ minimizes the true generalization error. But, observe that for fixed $\eta$ and $\delta$, as $m \to \infty$, we have
+$$ \gamma = \sqrt{\frac{1}{2m} \log \frac{2k}{\delta}} \to 0. $$
+This implies that for $m$ sufficiently large, $4\gamma < \eta$, or equivalently, $2\gamma < \eta - 2\gamma$. It follows that with probability at least $1 - \delta$, if $m$ is sufficiently large, then
+$$ \hat{\varepsilon}(h_0) \le \hat{\varepsilon}(\hat{h}) + \eta - 2\gamma, $$
+so the algorithm returns YES.
+
