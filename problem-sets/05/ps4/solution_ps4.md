@@ -214,3 +214,123 @@ $$x = \frac{2\sigma^2 \log \frac{1-\phi}{\phi} + (\mu_1^2 - \mu_{-1}^2)}{2(\mu_1
 
 Note that setting $p(x|y = -1) = p(x|y = 1)$ does not work, since this does not take into account $p(y)$.
 
+## Problem 4: Generalized Linear Models - Gaussian Distribution
+
+**Problem:** Assume we are given $x_1, x_2, \dots, x_n$ drawn i.i.d. $\sim N(\mu, \sigma^2)$, that is,
+
+$$p(x_i; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{1}{2\sigma^2}(x_i - \mu)^2 \right)$$
+
+Define $s^2 = \sum_{i=1}^n (x_i - \bar{x})^2$ where $\bar{x} = \frac{\sum_{i=1}^n x_i}{n}$.
+
+### (a) [3 points] Unbiased Estimator
+
+**Problem:** Prove $g(x) = \frac{s^2}{n-1}$ is an unbiased estimator of $\sigma^2$, that is
+
+$$E[g(x)] = \sigma^2$$
+
+Hint: $E[x_i] = \mu$, $Var(x_i) = \sigma^2$, $Cov(x_i, x_j) = 0$.
+
+**Answer:**
+
+$$E[g(x)] = \frac{1}{n-1} E\left[ \sum_{i=1}^n x_i^2 - n\bar{x}^2 \right]$$
+
+$$= \frac{1}{n-1} \left( n(\sigma^2 + \mu^2) - \frac{1}{n}(n(\sigma^2 + \mu^2) + \mu^2n(n - 1)) \right)$$
+
+$$= \frac{1}{n-1} \left( (n - 1)(\sigma^2 + \mu^2) - (n - 1)\mu^2 \right)$$
+
+$$= \sigma^2$$
+
+### (b) [5 points] Maximum Likelihood Estimation
+
+**Problem:** Find the maximum-likelihood estimate of $\mu$ and $\sigma^2$. Hint: You should be able to express your final expression for $\sigma^2$ in terms of $s^2$.
+
+**Answer:**
+
+$$L = \prod_{i=1}^{n} p(x_i; \mu, \sigma^2)$$
+
+$$= \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x_i - \mu)^2}{2\sigma^2}\right)$$
+
+$$l = -\frac{1}{2} \sum_{i=1}^{n} \left(\log 2\pi\sigma^2 + \frac{(x_i - \mu)^2}{\sigma^2}\right)$$
+
+$$\nabla_{\sigma^2}l = -\frac{1}{2} \sum_{i=1}^{n} \left(\frac{1}{\sigma^2} - \frac{(x_i - \mu)^2}{\sigma^4}\right)$$
+
+$$\nabla_{\mu}l = \frac{1}{2} \sum_{i=1}^{n} \left(\frac{2(x_i - \mu)}{\sigma^2}\right)$$
+
+Setting $\nabla_{\sigma^2}l = 0$ and $\nabla_{\mu}l = 0$, we have:
+
+$$\mu = \frac{\sum_{i=1}^{n} x_i}{n}$$
+
+$$\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 = \frac{s^2}{n}$$
+
+### (c) [6 points] Exponential Family Form
+
+**Problem:** Show that the general form of the Gaussian distribution is a member of the exponential family by finding $b(x)$, $\eta$, $T(x)$, and $a(\eta)$. Hint: Since both $\mu$ and $\sigma^2$ are parameters, $\eta$ and $T(x)$ will now be two dimensional vectors. Denote $\eta = [\eta_1, \eta_2]^T$ and try to express $a(\eta)$ in terms of $\eta_1$ and $\eta_2$.
+
+**Answer:**
+
+$$b(x) = \frac{1}{\sqrt{2\pi}}$$
+
+$$\eta = \left[\frac{\mu}{\sigma^2}, -\frac{1}{2\sigma^2}\right]^T$$
+
+$$T(x) = [x, x^2]^T$$
+
+$$a(\eta) = \frac{\mu^2}{2\sigma^2} + \log \sigma = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}\log(-2\eta_2)$$
+
+### (d) [4 points] Verification of Exponential Family Properties
+
+**Problem:** Verify that $\nabla_\eta a(\eta) = E[T(x); \eta]$ for the Gaussian distribution. Hint: You can prove this either by using the general form of exponential families, or by computing $\nabla_\eta a(\eta)$ directly from part (c).
+
+**Answer:**
+
+In general for an exponential family,
+
+$$\int h(x) \exp (\eta^T T(x) - a(\eta)) dx = 1$$
+
+Thus we have:
+
+$$a(\eta) = \log \int h(x) \exp (\eta^T T(x)) dx$$
+
+$$\nabla_\eta a(\eta) = \frac{\int h(x) \exp (\eta^T T(x)) T(x)dx}{\int h(x) \exp (\eta^T T(x)) dx}$$
+
+$$= \frac{\int h(x) \exp (\eta^T T(x) - a(\eta)) T(x)dx}{\int h(x) \exp (\eta^T T(x) - a(\eta)) dx}$$
+
+$$= E[T(x); \eta]$$
+
+We consider the two components of $\eta$ separately for the case of the Gaussian distribution:
+
+$$\nabla_{\eta_1} a(\eta) = \nabla_{\eta_1} \left( -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2} \log(-2\eta_2) \right)$$
+
+$$= -\frac{2\eta_1}{4\eta_2}$$
+
+$$= \mu$$
+
+$$= E[x]$$
+
+$$\nabla_{\eta_2} a(\eta) = \nabla_{\eta_2} \left( -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2} \log(-2\eta_2) \right)$$
+
+$$= \frac{\eta_1^2}{4\eta_2^2} - \frac{1}{2\eta_2}$$
+
+$$= \mu^2 + \sigma^2$$
+
+$$= E[x^2]$$
+
+### (e) [4 points] Positive Semidefiniteness of Hessian
+
+**Problem:** Show that $\nabla_\eta^2 a(\eta)$ is positive semidefinite. Hint: You can compute $\nabla_\eta^2 a(\eta)$ using the results from part (c) and (d). Or instead you may use the following fact: In general for exponential families,
+
+$$\nabla_\eta^2 a(\eta) = E [T(x)T(x)^T] - E[T(x)]E[T(x)]^T$$
+
+**Answer:**
+
+Applying the above formula, we have:
+
+$$\nabla_\eta^2 a(\eta) = \begin{bmatrix} \sigma^2 & 2\mu\sigma^2 \\ 2\mu\sigma^2 & 4\mu^2\sigma^2 + 2\sigma^4 \end{bmatrix}$$
+
+We can then confirm the Hessian (covariance of $T(x)$) is positive semidefinite:
+
+$$z^T[\nabla_\eta^2 a(\eta)]z = \sigma^2 z_1^2 + 4\mu\sigma^2 z_1 z_2 + 4\mu^2 \sigma^2 z_2^2 + 2\sigma^4 z_2^2$$
+
+$$= (\sigma z_1 + 2\mu\sigma z_2)^2 + 2\sigma^4 z_2^2$$
+
+$$\ge 0.$$
+
