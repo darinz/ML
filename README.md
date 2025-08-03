@@ -358,7 +358,6 @@ Comprehensive problem sets with solutions covering all curriculum topics. Each i
 ### Core Course Materials
 - [CS229 Machine Learning Course](https://cs229.stanford.edu/) - Stanford University
 - [CS229 Lecture Notes](./reference/CS229_Lecture-Notes.pdf) - Comprehensive course notes
-- [CS229 Decision Trees Notes](./reference/CS229_Decision-Trees-Notes.pdf) - Decision tree algorithms and theory
 - [CSE446: Machine Learning Course](https://courses.cs.washington.edu/courses/cse446/) - University of Washington
 
 ### Mathematical Foundations
