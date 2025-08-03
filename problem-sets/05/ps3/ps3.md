@@ -97,3 +97,76 @@ Suppose we want to weight the regularization penalty on a per element basis. For
 $$J(\theta) = \frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{p} w^{(i)} \left( \left(\theta^T x^{(i)}\right)_j - y_j^{(i)} \right)^2 + \frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{p} \left((\Gamma\theta)_{ij}\right)^2 \quad (2)$$
 
 Here, $\Gamma \in \mathbb{R}^{n \times n}$ where $\Gamma_{ij} > 0$ for all $i, j$. Derive a closed form solution for $J(\theta)$ and $\theta^*$ using this new cost function.
+
+## 3. [17 points] Generalized Linear Models
+
+In class we showed that the Gaussian distribution is in the Exponential Family. However, a simplification we made to make the derivation easier was to set the variance term $\sigma^2 = 1$. This problem will investigate a more general form for the Exponential Family. First, recall that the Gaussian distribution can be written as follows:
+
+$$p(y|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma}}\exp\left\{-\frac{1}{2\sigma^2}(y-\mu)^2\right\} \quad (3)$$
+
+### (a) [6 points] 
+
+Show that the Gaussian distribution (without assuming unit variance) is an exponential family distribution. In particular, please specify $b(y)$, $\eta$, $T(y)$, $a(\eta)$. Recall that the standard form for the exponential family is given by
+
+$$p(y; \eta) = b(y)\exp\{\eta^T T(y) - a(\eta)\} \quad (4)$$
+
+**Hint:** since $\sigma^2$ is now a variable, $\eta$ and $T(y)$ will now be two dimensional vectors; for consistent notation denote $\eta = [\eta_1 \quad \eta_2]^T$. For full credit, please ensure $a(\eta)$ is expressed in terms of $\eta_1$ and $\eta_2$.
+
+### (b) [4 points] 
+
+Assume an Independent and Identically Distributed (IID) training set given by $\{(x^{(i)}, y^{(i)}), i = 1,..., m\}$. Starting with an expression for $p(y; \eta)$, derive the general expression for the Hessian of the log-likelihood. The log-likelihood function is explicitly given as $\ell(\theta) = \sum_{i=1}^{m} \log p(y^{(i)}|x^{(i)}; \theta)$. The final answer for the Hessian should be expressed in terms of $x$, $\eta_1$, and $\eta_2$.
+
+### (c) [5 points] 
+
+Using your result from the part (b), show that the Hessian is negative semi-definite, i.e., $z^T H z \leq 0$.
+
+### (d) [2 points] 
+
+It turns out there is a more general definition for the exponential family given by
+
+$$p(y; \eta, \tau) = b(a, \tau)\exp\left\{\frac{\eta^\top T(y) - a(\eta)}{c(\tau)}\right\}$$
+
+In particular $c(\tau)$ is the dispersion function, where $\tau$ is called the *dispersion parameter*. Show that the Gaussian distribution can be written in this more general form with $c(\tau) = \sigma^2$.
+
+## 4. [17 points] Naive Bayes and Logistic Regression
+
+For this entire problem assume that the input features $x_j, j = 1, ..., n$ are discrete binary-valued variables such that $x_j \in \{0,1\}$ and $x = [x_1 x_2 ... x_n]$. For each training example $x^{(i)}$, assume that the output target variable $y^{(i)} \in \{0,1\}$.
+
+### (a) [2 points] 
+
+Consider the Naive Bayes model, given the above context. This model can be parameterized by $\phi_{j|y=0} = p(x_j = 1|y = 0)$, $\phi_{j|y=1} = p(x_j = 1|y = 1)$ and $\phi_y = p(y = 1)$. Write down the expression for $p(y = 1|x)$ in terms of $\phi_{j|y=0}, \phi_{j|y=1}$, and $\phi_y$.
+
+### (b) [7 points] 
+
+Show that the conditional likelihood expression you obtained in part (a) can be simplified to the same form as the hypothesis for logistic regression:
+
+$$p(y = 1|x) = \frac{1}{1 + e^{-\theta^T x}} \quad (5)$$
+
+**Hint:** Modify the definition of x to include the intercept term $x_0 = 1$.
+
+### (c) [6 points] 
+
+#### i. [2 points] 
+
+Two Naive Bayes classifiers are trained independently on $S_1$ and $S_2$.
+
+**Dataset $S_1$:**
+* Consists of $m$ training examples of the form $\{(x^{(i)}, y^{(i)}), i = 1, \dots, m\}$.
+* Each $x^{(i)} \in \mathbb{R}^{n+1}$.
+* Satisfies the Naive Bayes assumption: $p(x_1, \dots, x_n|y) = \prod_{j=1}^{n} p(x_j|y)$.
+
+**Dataset $S_2$:**
+* Also consists of $m$ training examples of the form $\{(x^{(i)}, y^{(i)}), i = 1, \dots, m\}$.
+* Each $x^{(i)} \in \mathbb{R}^{n+2}$.
+* Contains the same $n$ conditionally-independent features as $S_1$, plus an additional feature $x_{n+1}$ such that $x_{n+1} = x_n$.
+* Each $x^{(i)}$ contains an intercept term $x_0 = 1$.
+
+Test data is generated according to the true distribution: $p(x_1, \dots, x_n, y) = p(x_1, \dots, x_n, x_{n+1}, y) = p(y)p(x_1, \dots, x_n|y)$, where $x_{n+1} = x_n$. Will the test error of the classifier trained on $S_1$ be larger or smaller than that trained on $S_2$? Assume that $m$ (the number of training examples) is very large. Briefly justify your answer.
+
+#### ii. [4 points] 
+
+Now we will look at a similar situation regarding how logistic regression is affected by copies of features. In order to simplify the math, let's assume a more basic case where $S_1$ still has $m$ training examples, but now has one feature $x_1$. $S_2$ has $m$ training examples but has two features $x_1$ and $x_2$ where $x_2 = x_1$. The logistic regression model trained on $S_1$ therefore has associated parameters $\{\theta_0, \theta_1\}$ and the model trained on $S_2$ has parameters $\{\theta_0, \theta_1, \theta_2\}$. Here, $\theta_0$ is associated with the intercept term $x_0 = 1$. Testing data is generated the same way (from the original true distribution). How will the error of the classifier trained on $S_1$ compare to that of the classifier trained on $S_2$? For this question you need to prove your result mathematically. (Hint: compare the forms of the log-likelihood for each classifier)
+
+### (d) [2 points] 
+
+In general, if we assume that the number of training examples $m$ is very large, which classifier will have a lower generalization error? Briefly justify why.
