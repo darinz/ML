@@ -171,3 +171,57 @@ Now we will look at a similar situation regarding how logistic regression is aff
 
 In general, if we assume that the number of training examples $m$ is very large, which classifier will have a lower generalization error? Briefly justify why.
 
+## 5. [15 points] Anomaly Detection
+
+Consider the following optimization problem:
+
+$$\begin{array}{ll}
+\text{minimize}_{r,z,\xi} & r^2 + C\sum_{i=1}^{m}\xi_i \\
+\text{s.t.} & \|x^{(i)} - z\|_2^2 \le r^2 + \xi_i \quad i = 1,...,m. \\
+& \xi_i \ge 0, \quad i = 1,...,m.
+\end{array} \quad (6)$$
+
+where $\xi_i$ are the slack variables.
+
+### (a) [2 points] 
+
+Write down the Lagrangian for the optimization problem above. We suggest using two sets of Lagrange multipliers $\alpha_i$ and $\eta_i$ corresponding to the two inequality constraints so that the Lagrangian would be written as $\mathcal{L}(r, z, \xi, \alpha, \eta)$.
+
+### (b) [7 points] 
+
+Assuming a non-trivial solution ($r > 0$), derive the dual optimization problem using the Lagrangian from part (a).
+
+### (c) [3 points] 
+
+Show that the dual problem from (b) can be kernelized.
+
+### (d) [3 points] 
+
+Now consider the following dual optimization problem
+
+$$\max_{\alpha} - \frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j \langle x^{(i)}, x^{(j)} \rangle$$
+$$\text{s.t} \sum_{i=1}^{m} \alpha_i = 1, i = 1,...,m. \quad (7)$$
+
+Assume that we choose K such that it is a Gaussian Kernel. How does this dual compare with the dual you derived in part (c)?
+
+## 6. [15 points] Learning Theory
+
+Consider a finite hypothesis class $\mathcal{H}$ with size $k = |\mathcal{H}|$ and $h^* = \underset{h \in \mathcal{H}}{\operatorname{argmin}} \epsilon(h)$.
+
+### (a) [7 points] 
+
+Assume that the best hypothesis $h^*$ has generalization error $\epsilon(h^*) = B$ such that $B$ is a constant with $0 \le B \le 1$. Prove that the joint probability of the expected risk minimizer $\hat{h}$ having large generalization error and the best hypothesis $h^*$ having small training error can be bounded as:
+
+$$P(\epsilon(\hat{h}) > B + 2\gamma, \hat{\epsilon}(h^*) \le B + \gamma) \le \sum_{h \in \mathcal{H}} P(\epsilon(h) > B + 2\gamma, \hat{\epsilon}(h) \le B + \gamma) \quad (8)$$
+
+For any hypothesis $h' \in \mathcal{H}$ with high generalization error (i.e. $\epsilon(h') > B' + \tau$), the probability that it has low training error (i.e. $\hat{\epsilon}(h') \leq B'$) is bounded by:
+
+$$P(\hat{\epsilon}(h') \leq B' | \epsilon(h') > B' + \tau) \leq \exp\left\{ \frac{-m\tau^2}{2(B' + 4\tau/3)} \right\} \quad (9)$$
+
+for any $B' \in (0, 1)$ and $\tau > 0$.
+
+### (b) [8 points] 
+
+Using (9) and the result from part (a), show that:
+
+$$P(\epsilon(\hat{h}) > B + 2\gamma, \hat{\epsilon}(h^*) \leq B + \gamma) \leq k \exp\left\{ \frac{-m\gamma^2}{2(B + 7\gamma/3)} \right\} \quad (10)$$
