@@ -1,7 +1,5 @@
 # Machine Learning
 
-> **Note**: Some files have both `.md` and `.ipynb` formats due to LaTeX rendering issues on GitHub. Use `.ipynb` files for proper math rendering, or view `.md` files in an editor with LaTeX support.
-
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/NumPy-1.21+-green.svg)](https://numpy.org/)
 [![Status](https://img.shields.io/badge/Status-In%20Development-orange.svg)]()
@@ -13,6 +11,9 @@
 [![NLP](https://img.shields.io/badge/NLP-Natural%20Language%20Processing-lightblue.svg)](https://en.wikipedia.org/wiki/Natural_language_processing)
 [![Stanford CS229](https://img.shields.io/badge/Stanford-CS229%20Based-navy.svg)](https://cs229.stanford.edu/)
 [![UW CSE446](https://img.shields.io/badge/UW-CSE446%20Inspired-purple.svg)](https://courses.cs.washington.edu/courses/cse446/)
+
+> **Note**: Some files have both `.md` and `.ipynb` formats due to LaTeX rendering issues on GitHub. Use `.ipynb` files for proper math rendering, or view `.md` files in an editor with LaTeX support.
+
 
 A comprehensive learning resource providing a broad introduction to machine learning and statistical pattern recognition. This collection covers fundamental concepts, modern algorithms, and practical applications in the field of machine learning.
 
