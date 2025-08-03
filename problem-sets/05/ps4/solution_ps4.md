@@ -31,6 +31,8 @@ To confirm this is a minimum, we compute the Hessian $\nabla_{\theta}^2 U = \fra
 
 We provide an example sketch for $\alpha = 1$. Note that $\alpha = \theta^{(t)} - \theta^{(t+1)}$ since $\nabla J(\theta) = 1$.
 
+<img src="./q1-a-ii_solution.png" width="250px">
+
 ### (b) [4 points] Loss Functions in Binary Classification
 
 **Problem:** In the binary classification setting where $y \in \{-1, +1\}$, the margin is defined as $z = y\theta^T x$, where $\theta$ and $x$ lie in $\mathbb{R}^n$.
@@ -105,4 +107,110 @@ i. Bias should increase and variance should decrease since we're reducing the hy
 ii. Bias should increase and variance should decrease since smoothing encourages more similar outputs for different examples. For example, consider the extreme case where we smooth by outputting the mean over all $m$ examples; we then have very high bias and 0 variance since we make the same prediction for every input.
 
 iii. Bias should increase and variance should decrease since for the same reason as in (i); the hypothesis space is now a strict subset of the previous space.
+
+## Problem 2: Linear Regression - First Order Convergence for Least Squares
+
+**Problem:** Consider the least squares problem, where we pick $\theta$ to minimize the objective $J(\theta) = \frac{1}{2}(X^T\theta-y)^T(X^T\theta-y)$. The solution to this problem is given by the normal equation, where $\theta = (XX^T)^{-1}Xy$. In Problem Set 1, we showed that a single Newton step will converge to the correct solution. Now we will examine how gradient descent performs on the same problem.
+
+### (a) [4 points] Gradient Descent Update
+
+**Problem:** Find the gradient of $J$ with respect to $\theta$, and write the gradient descent update step for $\theta^{(t+1)}$, given $\theta^{(t)}$ and step size $\alpha$.
+
+**Answer:**
+
+$\nabla_\theta J = XX^T\theta - Xy$; $\theta^{(t+1)} = \theta^{(t)} - \alpha(XX^T\theta^{(t)} - Xy)$
+
+### (b) [8 points] Convergence to Optimal Solution
+
+**Problem:** Show that as $t \to \infty$, $\theta^{(t+1)} \to (XX^T)^{-1}Xy$, for gradient descent with step size $\alpha$ and initial condition $\theta^{(0)} = 0$. You may use the fact that $(\alpha A)^{-1} = \sum_{i=0}^{\infty} (I - \alpha A)^i$ for small $\alpha > 0$, and assume that the choice of $\alpha$ is small enough.
+
+**Answer:**
+
+From (a), we have the gradient descent update:
+
+$$\theta^{(t+1)} = \theta^{(t)} - \alpha XX^T \theta^{(t)} + \alpha Xy$$
+
+$$= (I - \alpha XX^T) \theta^{(t)} + \alpha Xy$$
+
+$$\theta^{(t+1)} = (I - \alpha XX^T)^{t+1} \theta^{(0)} + \sum_{i=1}^{t+1} (I - \alpha XX^T)^{t+1-i} \alpha Xy$$
+
+Given $\theta^{(0)} = 0$ and adjusting the summation index:
+
+$$\theta^{(t+1)} = 0 + \alpha \sum_{i=0}^{t} (I - \alpha XX^T)^i Xy$$
+
+As $t \to \infty$, $\sum_{i=0}^{t} (I - \alpha XX^T)^i = (\alpha XX^T)^{-1}$. Using this, we now have:
+
+$$\theta^{(t+1)} = \alpha \alpha^{-1} (XX^T)^{-1} Xy$$
+
+$$= (XX^T)^{-1} Xy$$
+
+## Problem 3: Generative Models - Gaussian Discriminant Analysis [12 points]
+
+**Problem:** Consider the 1-dimensional Gaussian discriminant analysis model where $x \in \mathbb{R}$ and we assume
+
+$$p(y) = \phi^{1\{y=1\}} (1-\phi)^{1\{y=-1\}}$$
+
+$$p(x|y = -1) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{1}{2\sigma^2}(x-\mu_{-1})^2\right)$$
+
+$$p(x|y = 1) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{1}{2\sigma^2}(x-\mu_1)^2\right)$$
+
+In this problem we will assume that $\sigma$ is a fixed quantity that we have been given and is therefore not a parameter of the model.
+
+Recall from Problem Set 1 that we can express $p(y|x; \phi, \mu_{-1}, \mu_1)$ in the form
+
+$$p(y|x; \theta) = \frac{1}{1 + \exp(-y(\theta_1 x + \theta_0))}$$
+
+where for the model described above we have,
+
+$$\theta_0 = \frac{1}{2\sigma^2}(\mu_{-1}^2 - \mu_1^2) - \log \frac{1-\phi}{\phi}$$
+
+$$\theta_1 = \frac{1}{\sigma^2}(\mu_1 - \mu_{-1})$$
+
+### (a) [2 points] Joint Log-Likelihood
+
+**Problem:** Write the joint log-likelihood $\ell(\phi, \mu_{-1}, \mu_1) = \log p(x, y; \phi, \mu_{-1}, \mu_1)$ for a single example $(x, y)$.
+
+**Answer:**
+
+$$p(x, y; \phi, \mu_{-1}, \mu_1) = p(y; \phi)p(x|y; \mu_{-1}, \mu_1)$$
+
+$$\log p(x, y; \phi, \mu_{-1}, \mu_1) = \log p(y|\phi) + \log p(x|y; \mu_{-1}, \mu_1)$$
+
+$$= \log(1 - \phi)^{1\{y=-1\}} \log(\phi)^{1\{y=1\}} + \log \frac{1}{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2}(x - \mu_y)^2$$
+
+### (b) [7 points] Concavity of Log-Likelihood
+
+**Problem:** Show that the log-likelihood of all training examples $\{(x^{(i)},y^{(i)})\}_{i=1}^m$ is concave (and hence any maximum we find must be the global maximum) by first computing $\frac{\partial^2 \ell}{\partial \phi^2}$, $\frac{\partial^2 \ell}{\partial \mu_{-1}^2}$, and $\frac{\partial^2 \ell}{\partial \mu_1^2}$ for a single example $(x, y)$. Then make an argument that the total log-likelihood is concave. Hint: Recall a function is concave if its Hessian is negative semidefinite. A one-dimensional function $f$ is concave if $f''(x) \le 0$ for all $x$.
+
+**Answer:**
+
+First we show that the log-likelihood is concave for a single $(x, y)$.
+
+$$\frac{\partial \ell}{\partial \phi} = -1\{y = -1\}\frac{1}{1 - \phi} + 1\{y = 1\}\frac{1}{\phi}$$
+
+$$\frac{\partial^2 \ell}{\partial \phi^2} = \begin{cases} -\phi^{-2} & y = 1 \\ -(1 - \phi)^{-2} & y = -1 \end{cases}$$
+
+which is negative for both cases.
+
+$$\frac{\partial \ell}{\partial \mu_y} = \frac{1}{\sigma^2}(x - \mu_y)$$
+
+$$\frac{\partial^2 \ell}{\partial \mu_y^2} = -\frac{1}{\sigma^2}$$
+
+and negative as well.
+
+Since $\phi$ and $\mu_y$ are in separate terms, the Hessian $H$ must be diagonal and negative along the diagonal. Hence $H$ is negative semidefinite, and $\ell$ is concave in both $\phi$ and $\mu_y$. Due to linearity of differentiation, the sum of concave functions is concave, and thus log-likelihood over all training $m$ examples must be concave as well.
+
+### (c) [3 points] Decision Boundary
+
+**Problem:** Derive an expression for the decision boundary for classifying $x$ as either $y = -1$ or $1$.
+
+**Answer:**
+
+We want $p(y = -1|x;\theta) = p(y = 1|x;\theta) = 0.5$ and hence set $\theta_1x + \theta_0 = 0$ where $\theta_1$ and $\theta_0$ are given in the problem statement.
+
+Solving, we find:
+
+$$x = \frac{2\sigma^2 \log \frac{1-\phi}{\phi} + (\mu_1^2 - \mu_{-1}^2)}{2(\mu_1 - \mu_{-1})}$$
+
+Note that setting $p(x|y = -1) = p(x|y = 1)$ does not work, since this does not take into account $p(y)$.
 
