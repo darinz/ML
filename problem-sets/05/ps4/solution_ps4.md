@@ -334,3 +334,116 @@ $$= (\sigma z_1 + 2\mu\sigma z_2)^2 + 2\sigma^4 z_2^2$$
 
 $$\ge 0.$$
 
+## Problem 5: Shift Invariant Kernels
+
+**Problem:** A kernel $K$ on $\mathbb{R}^n$ is said to be shift invariant if:
+$\forall \delta \in \mathbb{R}^n, \forall x, z \in \mathbb{R}^n, K(x, z) = K(x + \delta, z + \delta)$
+
+### (a) [4 points] Examples of Shift Invariant and Non-Shift Invariant Kernels
+
+**Problem:** Give an example of a shift invariant and a non-shift invariant kernels seen in lectures (no need to prove they are kernels). For the rest of this problem, we will simplify a bit and consider the case where $n = 1$.
+
+**Answer:**
+
+$K(x, z) = \alpha \exp -\frac{\|x-z\|^2}{2\tau^2}$ with $\alpha \geq 0$; $K(x, z) = \beta(x^Tz + 1)^d$ with $\beta \geq 0$.
+
+### (b) [6 points] Kernel Property Proof
+
+**Problem:** Let $p(\omega)$ be a probability density over $\mathbb{R}$. Let $\phi : \mathbb{R}^n \times \mathbb{R} \to \mathbb{R}^d$. Define $F : \mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}$ as:
+
+$$F(x, z) = \int_{-\infty}^{\infty} \phi(x, \omega)^T \phi(z, \omega) p(\omega) d\omega$$
+
+Show that $F$ is a kernel for all $x, z \in \mathbb{R}^n$.
+
+**Answer:**
+
+We show that $F$ is a kernel by showing that the Gram matrix $K_{ij} = F(x^{(i)}, x^{(j)})$ is positive semidefinite.
+
+$$\sum_{1 \le i,j \le m} z_i z_j F(x^{(i)}, x^{(j)}) = \sum_{1 \le i,j \le m} z_i z_j \int_{-\infty}^{\infty} \phi(x^{(i)}, \omega)^T \phi(x^{(j)}, \omega) p(\omega) d\omega$$
+
+$$= \int_{-\infty}^{\infty} p(\omega) d\omega \sum_{1 \le i,j \le m} z_i z_j \phi(x^{(i)}, \omega)^T \phi(x^{(j)}, \omega)$$
+
+$$= \int_{-\infty}^{\infty} p(\omega) d\omega \left( \sum_{i=1}^{m} z_i \phi(x^{(i)}, \omega) \right)^2 \ge 0$$
+
+### (c) [4 points] Trigonometric Kernel Construction
+
+**Problem:** Let's suppose $n = 1$. Let $h: \mathbb{R} \to \mathbb{R}$ be a function such that
+$$ \forall z \in \mathbb{R}, h(z) = \int_{-\infty}^{\infty} \cos(\omega z) p(\omega) d\omega $$
+Show that there exists $\phi$ such that $h(x - z) = \int_{-\infty}^{\infty} \phi(x, \omega)^T \phi(z, \omega) p(\omega) d\omega$. Provide an explicit definition of $\phi$. Hint: Use the trigonometric identity $\cos(a-b) = \cos(a) \cos(b) + \sin(a) \sin(b)$, valid for all $a, b \in \mathbb{R}$.
+
+**Answer:**
+
+We have $\cos(\omega(x - z)) = \cos(\omega x) \cos(\omega z) + \sin(\omega x) \sin(\omega z)$ thus we choose $\phi(x, \omega) = (\cos(\omega x), \sin(\omega x))$.
+
+### (d) [2 points] Kernel Verification
+
+**Problem:** Show that $K(x, z) = h(x - z)$ is indeed a kernel.
+
+**Answer:**
+
+Derives directly from applying the general result we proved in (b) to the specific case of of $\phi(x, \omega)$ for $h(x - z)$ that we gave in (c).
+
+## Problem 6: Learning Theory - Relaxed Generalization Bounds [10 points]
+
+**Problem:** Let $Z_1, Z_2, \dots, Z_m$ be independent and identically distributed random variables drawn from a Bernoulli($\phi$) distribution where $P(Z_i = 1) = \phi$ and $P(Z_i = 0) = 1 - \phi$. Let $\hat{\phi} = (1/m) \sum_{i=1}^m Z_i$, and let any $\gamma > 0$ be fixed. Hoeffding's inequality, as we saw in class, states
+$$P(|\phi - \hat{\phi}| > \gamma) \le 2 \exp(-2\gamma^2 m)$$
+However, this relies on the assumption that the random variables $Z_1, \dots, Z_m$ are all *jointly independent*. In this problem we will relax this assumption by only assuming *pairwise independence* among the $Z_i$. In this case we cannot apply Hoeffding's inequality, but the following inequality (Chebyshev's inequality) holds:
+$$P(|\phi - \hat{\phi}| > \gamma) \le \frac{\text{Var}(Z_i)}{m\gamma^2}$$
+where $\text{Var}(Z_i)$ denotes the variance of the random variable $Z_i$ and for $Z_i \sim \text{Bernoulli}(\phi)$ we have $\text{Var}(Z_i) = \phi(1 - \phi)$.
+
+Given our hypothesis set $\mathcal{H} = \{h_1, \dots, h_k\}$ and $m$ pairwise but not necessarily jointly independent data samples $(x, y) \sim \mathcal{D}$, we now derive guarantees on the generalization error of our best hypothesis
+$$\hat{h} = \arg\min_{h \in \mathcal{H}} \hat{\epsilon}(h)$$
+where as usual we define $\hat{\epsilon}(h) = \frac{1}{m} \sum_{i=1}^m \mathbf{1}\{h(x^{(i)}) \ne y^{(i)}\}$, where $(x^{(i)}, y^{(i)})$ are examples from the training set.
+
+### (a) [2 points] Maximum Variance
+
+**Problem:** What is the maximum possible value of $\text{Var}(Z_i) = \phi(1 - \phi)$? From now on we will instead use this maximal value such that the bounds we derive hold for all possible $\phi$.
+
+**Answer:**
+
+We find the maximum value by using the first and second order conditions. Differentiating and setting to 0 gives $\phi = 1/2$. By finding the second derivative $(-2)$, we confirm that this point is a maximum. Hence we substitute $\text{Var}(Z_i)$ with $1/4$ for the remainder of the question.
+
+### (b) [4 points] Sample Size Requirements
+
+**Problem:**
+
+**i. [2 points]** Give a non-trivial upper bound on $P(|\epsilon(h) - \hat{\epsilon}(h)| > \gamma)$ for a hypothesis $h$.
+
+**ii. [1 point]** Given a fixed $\delta \in (0,1)$, how large must the sample size $m$ be to guarantee that $P(|\epsilon(\hat{h}) - \hat{\epsilon}(\hat{h})| > \gamma) \le \delta$? (In other words, to ensure that the training error and generalization error are within $\gamma$ of one another with probability at least $1 - \delta$.)
+
+**iii. [1 point]** Compare this sample size to what is achievable using Hoeffding's inequality.
+
+**Answer:**
+
+We first use the Union bound to find:
+
+$$\mathbb{P}(\exists h \in \mathcal{H}, |\epsilon(h) - \hat{\epsilon}(h)| > \gamma) \le \sum_{i=1}^{k} \mathbb{P}(|\epsilon(h_i) - \hat{\epsilon}(h_i)| > \gamma)$$
+
+$$\le \sum_{i=1}^{k} \frac{1}{4m\gamma^2}$$
+
+$$= \frac{k}{4m\gamma^2}$$
+
+(Note that applying Chebyshev's inequality to $\hat{h}$ does *not* work.)
+
+Setting this equal to $\delta$ and solving for $m$, we find the solution:
+
+$$m = \frac{k}{4\delta\gamma^2}$$
+
+Hence the number of training examples required to make this guarantee is linear in $k$ instead of logarithmic as when we used Hoeffding's inequality.
+
+### (c) [4 points] Generalization Error Bound
+
+**Problem:** Show that with probability at least $1 - \delta$, the difference between the generalization error of $\hat{h}$ and the generalization error of the best hypothesis in $\mathcal{H}$ (i.e. the hypothesis $h^* = \arg\min_{h \in \mathcal{H}} \mathcal{E}(h)$) is bounded by $\sqrt{k/(m\delta)}$.
+
+**Answer:**
+
+First we solve for $\gamma$ in the bound we found in (b):
+
+$$\gamma = \sqrt{\frac{k}{4m\delta}}$$
+
+Let $h^* = \arg\min_{h \in \mathcal{H}} \mathcal{E}(h)$. By uniform convergence and the definition of $\hat{h}$ (see Lecture Notes 4, page 7),
+
+$$\mathcal{E}(\hat{h}) \le \mathcal{E}(h^*) + 2\gamma$$
+
+Hence $|\mathcal{E}(\hat{h}) - \mathcal{E}(h^*)| \le 2\gamma = \sqrt{k/(m\delta)}$ as desired.
+
