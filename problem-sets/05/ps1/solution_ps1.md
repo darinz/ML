@@ -156,3 +156,85 @@ Thus, it is sufficient to have
 $$N = O\left(\frac{1}{\gamma^2}\left(\log \frac{1}{\delta} + \log\left(\frac{1}{1 - e^{-2\gamma^2}}\right)\right)\right)$$
 $$N = O\left(\frac{1}{\gamma^2}\left(\log \frac{1}{\delta} + \log \frac{1}{\gamma}\right)\right)$$
 $$N = O\left(\frac{1}{\gamma^2} \log \frac{1}{\delta\gamma}\right)$$
+
+## Problem 6: Short Answers
+
+The following questions require a true/false accompanied by one sentence of explanation, or a reasonably short answer (usually at most 1-2 sentences or a figure).
+To discourage random guessing, one point will be deducted for a wrong answer on multiple choice questions! Also, no credit will be given for answers without a correct explanation.
+
+### (a) [5 points] Decision Boundary with Separate Covariance Matrices
+
+**Problem:** Let there be a binary classification problem with continuous-valued features. In Problem Set #1, you showed if we apply Gaussian discriminant analysis using the same covariance matrix $\Sigma$ for both classes, then the resulting decision boundary will be linear. What will the decision boundary look like if we modeled the two classes using separate covariance matrices $\Sigma_0$ and $\Sigma_1$? (I.e., $x^{(i)}|y^{(i)} = b \sim \mathcal{N}(\mu_b, \Sigma_b)$, for $b = 0$ or $1$.)
+
+**Answer:** The decision boundary is given by the following equation (then using Bayes rule and replacing terms independent of $x$ by constants $C_1, C_2$ on the next line)
+$$\log p(y = 0|x) = \log p(y = 1|x)$$
+$$\log p(x|y = 0) + \log p(y = 0) - \log p(x) = \log p(x|y = 1) + \log p(y = 1) - \log p(x)$$
+$$C_1 - \frac{1}{2}(x - \mu_0)^\top \Sigma_0^{-1}(x - \mu_0) = C_2 - \frac{1}{2}(x - \mu_1)^\top \Sigma_1^{-1}(x - \mu_1)$$
+
+This is a quadratic decision boundary in $x$. (In particular, if we consolidate all terms on the left side, the quadratic term in $x$ does not cancel.)
+
+### (b) [5 points] Kernel Perceptron Mistakes
+
+**Problem:** Consider a sequence of examples $(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \dots, (x^{(m)}, y^{(m)})$. Assume that for all $i$ we have $||x^{(i)}|| \le D$ and that the data are linearly separated with a margin $\gamma$. Suppose that the perceptron algorithm makes exactly $(D/\gamma)^2$ mistakes on this sequence of examples. Now, suppose we use a feature mapping $\phi(\cdot)$ to a higher dimensional space and use the corresponding kernel perceptron algorithm on the same sequence of data (now in the higher-dimensional feature space). Then the kernel perceptron (implicitly operating in this higher dimensional feature space) will make a number of mistakes that is
+
+i. strictly less than $(D/\gamma)^2$.
+ii. equal to $(D/\gamma)^2$.
+iii. strictly more than $(D/\gamma)^2$.
+iv. impossible to say from the given information.
+
+**Answer:** Impossible to say from the given information, since the number of mistakes depends on the configuration of the points in the higher dimensional feature space, about which no information is given.
+
+### (c) [5 points] Mercer Kernel Construction
+
+**Problem:** Let any $x^{(1)}, x^{(2)}, x^{(3)} \in \mathbb{R}^p$ be given ($x^{(1)} \ne x^{(2)}, x^{(1)} \ne x^{(3)}, x^{(2)} \ne x^{(3)}$). Also let any $z^{(1)}, z^{(2)}, z^{(3)} \in \mathbb{R}^q$ be fixed. Then there exists a valid Mercer kernel $K: \mathbb{R}^p \times \mathbb{R}^p \to \mathbb{R}$ such that for all $i, j \in \{1,2,3\}$ we have $K(x^{(i)}, x^{(j)}) = (z^{(i)})^T z^{(j)}$. True or False?
+
+**Answer:** True. Consider any feature mapping that satisfies $\phi(x^{(i)}) = z^{(i)}$ for $i \in \{1,2,3\}$. [E.g. extend $\phi(\cdot)$ to be identically $\vec{0}$ for any argument different from $x^{(1)}, x^{(2)}, x^{(3)}$.] The kernel $K(\cdot,\cdot)$ that satisfies for all $u, v$ $K(u,v) = \phi(u)^T \phi(v)$ is a Mercer kernel and satisfies the desired properties.
+
+### (d) [5 points] Newton's Method Convergence
+
+**Problem:** Let $f: \mathbb{R}^n \to \mathbb{R}$ be defined according to $f(x) = \frac{1}{2}x^T Ax + b^T x + c$, where $A$ is symmetric positive definite. Suppose we use Newton's method to minimize $f$. Show that Newton's method will find the optimum in exactly one iteration. You may assume that Newton's method is initialized with $\vec{0}$.
+
+**Answer:** Using the formulas from the lecture notes, we have that
+$$\nabla_x f(x) = Ax + b \quad (8)$$
+$$\nabla_x^2 f(x) = A \quad (9)$$
+
+Setting the gradient to zero, we find that the optimum of the function is given by
+$$x = -A^{-1}b$$
+
+Newton's method will perform the update
+$$x = x - (\nabla_x^2 f(x))^{-1} \nabla_x f(x) \quad (10)$$
+$$= \vec{0} - A^{-1}(A\vec{0} + b) \quad (11)$$
+$$= -A^{-1}b \quad (12)$$
+
+So it will move to the optimum on the first iteration.
+
+### (e) [5 points] Boolean Functions VC Dimension
+
+**Problem:** Consider binary classification, and let the input domain be $\mathcal{X} = \{0, 1\}^n$, i.e., the space of all $n$-dimensional bit vectors. Thus, each sample $x$ has $n$ binary-valued features. Let $\mathcal{H}_n$ be the class of all boolean functions over the input space. What is $|\mathcal{H}_n|$ and $VC(\mathcal{H}_n)$?
+
+**Answer:** $|\mathcal{H}_n| = 2^{2^n}$. There are exactly $2^n$ distinct points in $\mathcal{X}$, and $\mathcal{H}$ can realize all $2^{2^n}$ labellings on those $2^n$ points; thus $VC(\mathcal{H}_n) \ge 2^n$. Since there can be no more than $2^n$ distinct points in the input space, $VC(\mathcal{H}_n) \le 2^n$, and thus $VC(\mathcal{H}_n) = 2^n$.
+
+### (f) [5 points] L1-Regularized SVM on Linearly Separable Data
+
+**Problem:** Suppose an $l_1$-regularized SVM (with regularization parameter $C > 0$) is trained on a dataset that is linearly separable. Because the data is linearly separable, to minimize the primal objective, the SVM algorithm will set all the slack variables to zero. Thus, the weight vector $w$ obtained will be the same no matter what regularization parameter $C$ is used (so long as it is strictly bigger than zero). True or false?
+
+**Answer:** No - outliers can still affect the choice of separating line. We may choose to misclassify a point if it makes the margin larger. The value of $C$ will affect how we choose to make this tradeoff.
+
+### (g) [5 points] Locally Weighted Linear Regression Bandwidth
+
+**Problem:** Consider using hold-out cross validation (using 70% of the data for training, 30% for hold-out CV) to select the bandwidth parameter $\tau$ for locally weighted linear regression. As the number of training examples $m$ increases, would you expect the value of $\tau$ selected by the algorithm to generally become larger, smaller, or neither of the above? For this problem, assume that (the expected value of) $y$ is a non-linear function of $x$.
+
+**Answer:** Smaller. For any fixed $\tau$, as the amount of training data increases, the prediction of locally weighted regression for a given $x$ will converge to the prediction of the line that best fits (the expected value of) $y$ in the $\tau$-sized region around $x$. Since (the expected value of) $y$ is a non-linear function of $x$, the smaller $\tau$, the better the performance for sufficiently large training data set.
+
+### (h) [5 points] Feature Selection Algorithms
+
+**Problem:** Consider a feature selection problem in which the mutual information $MI(x_i, y) = 0$ for all features $x_i$. Also for every subset of features $S_i = \{x_{i_1}, \dots, x_{i_k}\}$ of size $< n/2$ we have $MI(S_i, y) = 0.^3$ However there is a subset $S^*$ of size exactly $n/2$ such that $MI(S^*, y) = 1$. I.e. this subset of features allows us to predict $y$ correctly. Of the three feature selection algorithms listed below, which one do you expect to work best on this dataset?
+
+i. Forward Search.
+ii. Backward Search.
+iii. Filtering using mutual information $MI(x_i, y)$.
+iv. All three are expected to perform reasonably well.
+
+**Answer:** Backward Search, since it will be able to maintain a subset of features that predicts $y$ correctly down to only $n/2$ features. Forward Search has no way to distinguish between any subset of $< n/2$ features and will thus end up with arbitrary subsets of $< n/2$ features, which will be good subsets with very low probability; resulting in also having inferior subsets of features of size $\ge n/2$. Filtering using mutual information cannot distinguish between any of the features, and will thus pick random subsets of the features.
+
+$^3 MI(S_i, y) = \sum_{S_i} \sum_y P(S_i, y) \log(P(S_i, y)/P(S_i) P(y))$, where the first summation is over all possible values of the features in $S_i$.
