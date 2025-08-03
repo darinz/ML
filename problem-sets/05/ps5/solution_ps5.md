@@ -289,3 +289,205 @@ If we want to maximize the test accuracy, what is the optimal value of $\Gamma$ 
 So far, we used a regression model containing polynomial representations of the input. Our polynomial model contains $\theta^{(1)T} x$ as a term which is the same as our "standard" linear model of $y = \theta^T x$. However, our polynomial model can express higher-order relationships while our standard model cannot. In 2-4 sentences, explain when and why we should \textit{not} use the polynomial model.
 
 **Answer:** Consider a linearly separable dataset (i.e. the original, non-polynomial $x^{(i)}$'s are good enough to predict $y^{(i)}$). Including polynomial terms is unnecessary, since we know the dataset can be modeled without them. If $p$ is large, this will increase the VC dimension which can lead to overfitting. In this case, we should not use the polynomial model.
+
+## Problem 4: Online Gradient Descent
+
+### 4. [14 points] Online (not stochastic) gradient descent
+
+In this question, we explore a variant of stochastic gradient descent known as online gradient descent. A cost function $c: \mathbb{R}^n \to \mathbb{R}$ is convex if
+
+$$c(\lambda\theta + (1 - \lambda)\bar{\theta}) \le \lambda c(\theta) + (1 - \lambda)c(\bar{\theta})$$
+
+for all $\theta, \bar{\theta} \in \mathbb{R}^n$. A differentiable convex function $c$ satisfies
+
+$$c(\bar{\theta}) \ge c(\theta) + \nabla c(\theta)^T (\bar{\theta} - \theta) \quad \text{for all } \bar{\theta} \in \mathbb{R}^n.$$
+
+*[Graph titled "Figure 3: A convex function and its linear approximation at the point $\theta$" showing a black solid curve representing a convex function labeled $c(w)$ at a point on the curve, a dashed black line tangent to the curve at the point labeled $c(w)$, another point on the curve labeled $c(v)$ to the left of $c(w)$, a vertical dotted line extending downwards from $c(v)$ to the dashed tangent line, and the point on the dashed tangent line directly below $c(v)$ labeled $c(w) + \nabla c(w)(v - w)$.]*
+
+**Figure 3:** A convex function and its linear approximation at the point $\theta$.
+
+In online convex optimization, the learner receives (sequentially) a sequence of convex functions $c_1, c_2, c_3, \dots$, and at iteration $t$ makes the online gradient update
+
+$$\theta^{(t+1)} = \theta^{(t)} - \alpha g^{(t)} \quad \text{where } g^{(t)} = \nabla c_t(\theta^{(t)}).$$
+
+Here $\alpha > 0$ is a scalar stepsize, and we assume that all cost functions $c_t$ are differentiable. The goal is to not suffer too much cumulative loss $\sum_{t=1}^T c_t(\theta^{(t)})$.
+
+#### (a) [4 points]
+
+Prove that with the update (2), for any $\theta \in \mathbb{R}^n$,
+
+$$\frac{1}{2} \|\theta^{(t+1)} - \theta\|_2^2 \leq \frac{1}{2} \|\theta^{(t)} - \theta\|_2^2 - \alpha(c_t(\theta^{(t)}) - c_t(\theta)) + \frac{\alpha^2}{2} \|g^{(t)}\|_2^2.$$
+
+**Answer:** We expand $\theta^{(t+1)}$ in terms of $\theta^{(t)}$, getting
+
+$$\frac{1}{2} \|\theta^{(t+1)} - \theta\|_2^2 = \frac{1}{2} \|\theta^{(t)} - \alpha g^{(t)} - \theta\|_2^2$$
+
+$$= \frac{1}{2} \|\theta^{(t)} - \theta\|_2^2 - \alpha g^{(t)T} (\theta^{(t)} - \theta) + \frac{\alpha^2}{2} \|g^{(t)}\|_2^2.$$
+
+Then use convexity to see that
+
+$$-g^{(t)T} (\theta^{(t)} - \theta) = -\nabla c_t(\theta^{(t)})^T (\theta^{(t)} - \theta) = \nabla c_t(\theta^{(t)})^T (\theta - \theta^{(t)}) \leq c_t(\theta) - c_t(\theta^{(t)}).$$
+
+We substitute to obtain
+
+$$\frac{1}{2} \|\theta^{(t+1)} - \theta\|_2^2 \leq \frac{1}{2} \|\theta^{(t)} - \theta\|_2^2 + \alpha(c_t(\theta) - c_t(\theta^{(t)})) + \frac{\alpha^2}{2} \|g^{(t)}\|_2^2.$$
+
+#### (b) [4 points]
+
+After $T$ iterations of online gradient descent (2), the regret of the learner with respect to a fixed $\theta \in \mathbb{R}^n$ is
+
+$$\text{Reg}_T(\theta) := \sum_{t=1}^T [c_t(\theta^{(t)}) - c_t(\theta)].$$
+
+Using the result of part (a), show that
+
+$$\text{Reg}_T(\theta) = \sum_{t=1}^T [c_t(\theta^{(t)}) - c_t(\theta)] \leq \frac{1}{2\alpha} \|\theta^{(1)} - \theta\|_2^2 + \frac{\alpha}{2} \sum_{t=1}^T \|g^{(t)}\|_2^2.$$
+
+**Answer:** Rearrange the result of part (a) to find that
+
+$$c_t(\theta^{(t)}) - c_t(\theta) \leq \frac{1}{2\alpha} \left[\|\theta^{(t)} - \theta\|_2^2 - \|\theta^{(t+1)} - \theta\|_2^2 + \alpha^2 \|g^{(t)}\|_2^2\right].$$
+
+Sum this expression from $t=1$ to $t=T$, which gives
+
+$$\sum_{t=1}^T [c_t(\theta^{(t)}) - c_t(\theta)] \leq \frac{1}{2\alpha} \left[\|\theta^{(1)} - \theta\|_2^2 - \|\theta^{(T+1)} - \theta\|_2^2\right] + \frac{\alpha}{2} \sum_{t=1}^T \|g^{(t)}\|_2^2$$
+
+$$\leq \frac{1}{2\alpha} \|\theta^{(1)} - \theta\|_2^2 + \frac{\alpha}{2} \sum_{t=1}^T \|g^{(t)}\|_2^2.$$
+
+#### (c) [4 points]
+
+Suppose we guarantee that the functions $c_t$ have bounded gradients, that is, $\|g^{(t)}\|_2 \leq G$ for all $t$. Give a stepsize $\alpha$, which may depend on $\|\theta\|_2$ and $G$, such that if $\theta^{(1)} = 0$, we can guarantee
+
+$$\text{Reg}_T(\theta) \leq G \|\theta\|_2 \sqrt{T}.$$
+
+That is, the average regret $\frac{1}{T}\text{Reg}_T(\theta) = O(1/\sqrt{T})$ for any vector $\theta$.
+
+**Answer:** Set $\alpha = \frac{\|w\|_2}{G\sqrt{T}}$ and get
+
+$$\text{Reg}_T(w) \le \frac{\|w\|_2^2}{2\alpha} + \frac{\alpha TG^2}{2} = \frac{\|w\|_2 G}{2\sqrt{T}} + \frac{G\|w\|_2}{2\sqrt{T}} = G\|w\|_2\sqrt{T}.$$
+
+#### (d) [2 points]
+
+Show that if $y \in \{-1,1\}$ and $x$ satisfies $\|x\|_2 \le G$, then the gradient of the logistic loss (the logistic loss is $L(\theta^T x, y) = \log(1 + \exp(-y\theta^T x)))$ has $\ell_2$-norm bounded by $G$.
+
+**Answer:** Taking derivatives of logistic regression, we have
+
+$$\nabla_\theta \log(1 + \exp(-y\theta^T x)) = - \frac{1}{1 + e^{y\theta^T x}} (yx).$$
+
+Taking the $\ell_2$-norm of this, we have
+
+$$\|\nabla_\theta \log(1 + \exp(-y\theta^T x))\|_2 = \underbrace{\frac{1}{1 + e^{y\theta^T x}}}_{\le 1} \|x\|_2 \le \|x\|_2 \le G.$$
+
+## Problem 5: Kernels via Randomization
+
+### 5. [17 points] Kernels via randomization
+
+You have seen how using kernels can allow efficient predictions by using the representer theorem, and the kernel trick allows us to automatically incorporate nonlinearities in supervised learning problems via the kernel function $K$. A difficulty with kernels is their time complexity: if we form the kernel (Gram) matrix $G$,$^1$ defined by
+
+$$G_{ji} = G_{ij} = K(x^{(i)}, x^{(j)}), \quad G \in \mathbb{R}^{m \times m},$$
+
+then storing $G$ requires space $O(m^2)$, inverting it requires time $O(m^3)$, and making new predictions on an unseen point $x$ requires time $m \cdot T$, where $T$ is the amount of time to compute $K(x, x^{(i)})$. One way around this is via randomization.
+
+Suppose that the raw input attributes $x \in \mathcal{X}$, and let $W$ be some other space (you may assume that $W = \mathbb{R}$). Let $\phi: \mathcal{X} \times W \to \mathbb{R}$ be an arbitrary function, and let $P$ be a probability distribution on the space $W$. Define the function
+
+$$K_P(x, z) := \mathbb{E}[\phi(x, W)\phi(z, W)] \quad \text{for } x, z \in \mathcal{X}, \quad (3)$$
+
+where the subscript $P$ denotes that $W$ is sampled according to $P$ (i.e. the expectation is taken over $W \sim P$).
+
+#### (a) [4 points]
+
+Is the function $K_P$ a valid (Mercer) kernel? If so, prove this. If not, give a counterexample.
+
+**Answer:** The function $K_P$ is indeed a Mercer kernel. Indeed, define the Gram matrix $G$ by $G_{ij} = K_P(x^{(i)}, x^{(j)})$. Then it is clear that $G_{ij} = G_{ji}$, and for any vector $v \in \mathbb{R}^m$, we have
+
+\begin{align*}
+v^T G v &= \sum_{i,j} v_i v_j G_{ij} \\
+&= \sum_{i,j} v_i \mathbb{E}[\phi(x^{(i)}, W)\phi(x^{(j)}, W)]v_j \\
+&= \mathbb{E}\left[\sum_{i,j} v_i \phi(x^{(i)}, W)\phi(x^{(j)}, W)v_j\right] \\
+&= \mathbb{E}\left[\left(\sum_{i=1}^m \phi(x^{(i)}, W)v_i\right)^2\right] \ge 0.
+\end{align*}
+
+In particular, the matrix $G$ is positive semidefinite, so that $K_P$ is a valid kernel.
+
+---
+$^1$We use $G$ in this problem so as not to confuse it with $K$, the kernel function
+
+#### (b) [4 points]
+
+A natural idea is to approximate $K_P$ by random sampling. We take $N$ i.i.d. samples $W_l \sim P$, calling them $W_1, W_2, \dots, W_N$, and we define
+
+$$\hat{K}(x, z) := \frac{1}{N} \sum_{l=1}^{N} \phi(x, W_l)\phi(z, W_l).$$
+
+Suppose we know that $\phi(x, w) \in [-1,1]$ for all $x \in \mathcal{X}$ and all $w \in \mathcal{W}$. For a fixed pair $x, z \in \mathcal{X}$, give an upper bound on the probability that $\hat{K}$ is far from $K_P$, that is, give a bound decreasing to 0 exponentially in $N$ on
+
+$$P(|\hat{K}(x, z) - K_P(x, z)| \ge \epsilon)$$
+
+that is valid for all $\epsilon \ge 0$.
+
+**Answer:** We use Hoeffding's inequality. In particular, if we define the random variable
+
+$$Z_l = \phi(x, W_l)\phi(z, W_l)$$
+
+then $Z_l \in [-1, 1]$, and $E[Z_l] = E[\phi(x, W)\phi(z, W)] = K_P(x, z)$. Hoeffding's inequality then implies that
+
+$$P(\hat{K}(x, z) - K_P(x, z) \ge \epsilon) = P\left(\frac{1}{N} \sum_{l=1}^{N} (Z_l - E[Z_l]) \ge \epsilon\right)$$
+
+$$\le \exp\left(-\frac{2N\epsilon^2}{(1+1)^2}\right) = \exp\left(-\frac{N\epsilon^2}{2}\right)$$
+
+and similarly for the event that $\hat{K}(x, z) - K_P(x, z) \le -\epsilon$. Thus
+
+$$P(|\hat{K}(x, z) - K_P(x, z)| \ge \epsilon) \le 2 \exp\left(-\frac{N\epsilon^2}{2}\right).$$
+
+#### (c) [4 points]
+
+Continue to assume that $\phi(x, w) \in [-1,1]$ for all $x, w$. Suppose we have a training set $\{x^{(i)}\}_{i=1}^m$ of size $m$. Give a sample size $N^*$ such that if we take $N \ge N^*$ samples of $W$ we are guaranteed that with probability at least $1 - \delta$, we have
+
+$$|\hat{K}(x^{(i)}, x^{(j)}) - K_P(x^{(i)}, x^{(j)})| \le \epsilon$$
+
+for all pairs $i, j \in \{1,...,m\}$. Written differently, if $\hat{G}_{ij} = \hat{K}(x^{(i)}, x^{(j)})$ and $G_{ij} = K_P(x^{(i)}, x^{(j)})$, guarantee that $\max_{i,j} |\hat{G}_{ij} - G_{ij}| \le \epsilon$.
+
+**Answer:**
+
+As the kernel functions $\hat{K}$ and $K_P$ are symmetric, we need concern ourselves only with indices $i \le j$, of which there are $\frac{m(m+1)}{2}$. By the union bound, we have
+
+$$P \left( \max_{i,j} |\hat{G}_{ij} - G_{ij}| \ge \epsilon \right) \le \sum_{i \le j}^m P \left( |\hat{K}(x^{(i)}, x^{(j)}) - K_P(x^{(i)}, x^{(j)})| \ge \epsilon \right)$$
+
+$$\le m(m + 1) \exp \left( -\frac{N\epsilon^2}{2} \right)$$
+
+by part (b). Setting this value equal to $\delta$, we solve to obtain
+
+$$\delta = m(m + 1) \exp \left( -\frac{N\epsilon^2}{2} \right) \quad \text{iff} \quad \frac{N\epsilon^2}{2} = \log \frac{m(m + 1)}{\delta},$$
+
+so that it is sufficient that we have
+
+$$N \ge \frac{2 \log \frac{m^2+m}{\delta}}{\epsilon^2}$$
+
+samples of $W$ to guarantee good approximation for all pairs $x^{(i)}, x^{(j)}$.
+
+#### (d) [5 points]
+
+Assume that you have $N$ i.i.d. samples $W_1, \dots, W_N \stackrel{\text{iid}}{\sim} P$ and a training set $\{(x^{(i)}, y^{(i)})\}_{i=1}^m$ for a binary classification problem, with $y^{(i)} \in \{-1, 1\}$, and loss $L: \mathbb{R} \times \{-1, 1\} \to \mathbb{R}$. In the usual kernelized supervised learning setting, we would make predictions on a new datapoint $x$ using $\sum_{i=1}^m K_P(x, x^{(i)})\alpha_i$, and if
+$G = [G^{(1)} \dots G^{(m)}] \in \mathbb{R}^{m \times m}$, $G^{(i)} \in \mathbb{R}^m$
+is the Gram matrix, we would choose $\alpha$ by minimizing
+$$J_\lambda(\alpha) = \frac{1}{m} \sum_{i=1}^m L(G^{(i)T}\alpha, y^{(i)}) + \frac{\lambda}{2}\alpha^T G \alpha. \quad (4)$$
+Using your $N$ samples $W_1, \dots, W_N$, how can we reverse the kernel trick? That is, (i) write down a supervised learning problem with optimization variable $\theta \in \mathbb{R}^N$ that approximates problem (4), (ii) describe how, when given a new datapoint $x$, you can make a prediction on that datapoint, and (iii) give a bound on the runtime of making a prediction on a new datapoint $x$.
+
+**Answer:**
+
+(i) We define the vector
+
+$$\hat{\phi}(x) := \begin{bmatrix} \phi(x, W_1) \\ \vdots \\ \phi(x, W_N) \end{bmatrix}.$$
+
+Then we let $\theta \in \mathbb{R}^N$, and write the regularized risk
+
+$$J_\lambda(\theta) = \frac{1}{m} \sum_{i=1}^m L(\hat{\phi}(x^{(i)})^T\theta, y^{(i)}) + \frac{\lambda}{2}\|\theta\|_2^2.$$
+
+The representer theorem tells us that this is equivalent to minimizing
+
+$$\hat{J}_\lambda(\alpha) = \frac{1}{m} \sum_{i=1}^m L((\hat{G}^{(i)})^T\alpha, y^{(i)}) + \frac{\lambda}{2}\alpha^T \hat{G} \alpha,$$
+
+which approximates $J_\lambda(\alpha)$ because we have $\hat{G} \approx G$ by sampling.
+
+(ii) We make predictions on a new point $x$ via
+
+$$h_\theta(x) = \hat{\phi}(x)^T \theta = \sum_{l=1}^N \phi(x, W_l)\theta_l.$$
+
+(iii) The runtime of the predictions is $O(NT_\phi)$, where $T_\phi$ is the time to compute $\phi(x, W)$.
