@@ -85,6 +85,8 @@ Recall that GDA models $p(x|y)$ using a multivariate normal distribution, where 
 
 For this question, we will instead use two covariance matrices $\Sigma_0, \Sigma_1$ for the two labels. So, $(x|y = 0) \sim \mathcal{N}(\mu_0, \Sigma_0)$ and $(x|y = 1) \sim \mathcal{N}(\mu_1, \Sigma_1)$.
 
+<img src="./q2b_problem.png" width="350">
+
 The model distributions can now be written as:
 $p(y) = \phi^y (1 - \phi)^{1-y}$
 $p(x|y = 0) = \frac{1}{(2\pi)^{n/2} |\Sigma_0|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu_0)^T \Sigma_0^{-1} (x - \mu_0)\right)$
@@ -93,4 +95,4 @@ $p(x|y = 1) = \frac{1}{(2\pi)^{n/2} |\Sigma_1|^{1/2}} \exp\left(-\frac{1}{2}(x -
 Let's follow a binary decision rule, where we predict $y = 1$ if $p(y = 1|x) \ge p(y = 0|x)$, and $y = 0$ otherwise. Show that if $\Sigma_0 \ne \Sigma_1$, then the separating boundary is quadratic in $x$.
 That is, simplify the decision rule "$p(y = 1|x) \ge p(y = 0|x)$" to the form "$x^T Ax + B^T x + C \ge 0$" (supposing that $x \in \mathbb{R}^{n+1}$), for some $A \in \mathbb{R}^{(n+1)\times(n+1)}$, $B \in \mathbb{R}^{n+1}$, $C \in \mathbb{R}$ and $A \ne 0$. Please clearly state your values for $A, B$ and $C$.
 
-**Answer:** [Solution for this part would need to be completed based on the mathematical derivation]
+
