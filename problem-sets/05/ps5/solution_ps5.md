@@ -491,3 +491,4 @@ which approximates $J_\lambda(\alpha)$ because we have $\hat{G} \approx G$ by sa
 $$h_\theta(x) = \hat{\phi}(x)^T \theta = \sum_{l=1}^N \phi(x, W_l)\theta_l.$$
 
 (iii) The runtime of the predictions is $O(NT_\phi)$, where $T_\phi$ is the time to compute $\phi(x, W)$.
+
