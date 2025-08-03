@@ -58,6 +58,32 @@ By studying these materials, you will understand:
 - Sample complexity: n ≥ (1/(2γ²)) * log(2k/δ)
 - VC dimension for linear classifiers in 2D: 3
 
+## Reference Materials
+
+### **CS229 Course Materials**
+This section includes official CS229 course materials that provide additional theoretical foundations and practical insights:
+
+#### **CS229 Notes 4: Bias-Variance Tradeoff** (`cs229-notes4_bias-variance.pdf`)
+- **Comprehensive theoretical coverage**: Detailed mathematical treatment of bias-variance decomposition
+- **Formal derivations**: Rigorous proofs and theoretical foundations
+- **Advanced concepts**: Connections to learning theory and statistical learning
+- **Practical applications**: Real-world implications for model selection
+
+#### **CS229 Evaluation Metrics Slides** (`cs229-evaluation_metrics_slides.pdf`)
+- **Evaluation framework**: Comprehensive coverage of model evaluation metrics
+- **Bias-variance analysis**: How evaluation metrics relate to generalization
+- **Cross-validation**: Practical techniques for assessing model performance
+- **Model selection**: Strategies for choosing the best model complexity
+- **Performance interpretation**: Understanding what different metrics tell us about generalization
+
+### **Visual Learning Resources**
+The `img/` directory contains comprehensive visualizations that complement the theoretical materials:
+- **Bias-variance tradeoff plots**: Visual demonstrations of the fundamental tradeoff
+- **Double descent curves**: Model-wise and sample-wise double descent phenomena
+- **VC dimension examples**: Shattering demonstrations for linear classifiers
+- **Learning curves**: Training vs. test error relationships
+- **Model complexity comparisons**: Different polynomial fits and their generalization behavior
+
 ## Enhanced Code Examples
 
 ### **bias_variance_decomposition_examples.py**
@@ -174,11 +200,19 @@ We welcome contributions to improve these educational materials:
 ## Further Reading
 
 The materials reference and build upon:
-- CS229 Lecture Notes on Learning Theory
+- **CS229 Lecture Notes on Learning Theory**: Official course materials providing rigorous theoretical foundations
+- **CS229 Evaluation Metrics**: Comprehensive coverage of model evaluation and bias-variance analysis
 - Modern developments in double descent and overparameterization
 - Classical learning theory and VC dimension
 - Practical applications in deep learning
 
+### **Recommended Study Path**
+1. **Start with theory**: Read the markdown files for conceptual understanding
+2. **Review CS229 materials**: Study the PDF files for rigorous mathematical foundations
+3. **Run code examples**: Implement and experiment with the Python demonstrations
+4. **Examine visualizations**: Study the plots in the `img/` directory
+5. **Apply to real problems**: Use these concepts in your own ML projects
+
 ---
 
-**Note**: These materials combine mathematical rigor with practical implementation, making them suitable for both theoretical understanding and practical application in machine learning projects. 
+**Note**: These materials combine mathematical rigor with practical implementation, making them suitable for both theoretical understanding and practical application in machine learning projects. The addition of CS229 course materials provides authoritative reference for the theoretical foundations covered in this section. 
