@@ -2,8 +2,6 @@
 
 > **📝 Note**: Some files have both `.md` and `.ipynb` formats due to LaTeX rendering issues on GitHub. Use `.ipynb` files for proper math rendering, or view `.md` files in an editor with LaTeX support.
 
-> **⚠️ This repository is under construction. Content, structure, and materials are actively being updated and expanded. Check back frequently for new additions and improvements! ⚠️**
-
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/NumPy-1.21+-green.svg)](https://numpy.org/)
 [![Status](https://img.shields.io/badge/Status-In%20Development-orange.svg)]()
@@ -18,7 +16,7 @@
 
 A comprehensive learning resource providing a broad introduction to machine learning and statistical pattern recognition. This collection covers fundamental concepts, modern algorithms, and practical applications in the field of machine learning.
 
-> **Note**: This is a math-heavy version focused on theoretical foundations and mathematical derivations. While we plan to add applied machine learning materials in the future (which will be less math-intensive), understanding the mathematical principles behind algorithms is invaluable for research and comprehending academic papers. This foundation enables deeper insights into model behavior and more effective algorithm selection and tuning.
+> This is a math-heavy version focused on theoretical foundations and mathematical derivations. While there are less math-intensive machine learning material, understanding the mathematical principles behind algorithms is invaluable for research and comprehending academic papers. This foundation enables deeper insights into model behavior and more effective algorithm selection and tuning.
 
 ## Complementary Learning Resources
 
