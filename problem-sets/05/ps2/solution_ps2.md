@@ -322,3 +322,71 @@ This implies that for $m$ sufficiently large, $4\gamma < \eta$, or equivalently,
 $$ \hat{\varepsilon}(h_0) \le \hat{\varepsilon}(\hat{h}) + \eta - 2\gamma, $$
 so the algorithm returns YES.
 
+## Problem 6: Short answers
+
+The following questions require a reasonably short answer (usually at most 2-3 sentences or a figure, though some questions may require longer or shorter explanations). To discourage random guessing, one point will be deducted for a wrong answer on true/false or multiple choice questions! Also, no credit will be given for answers without a correct explanation.
+
+### Problem 6(a) [3 points]
+
+**Problem:** You have an implementation of Newton's method and gradient descent. Suppose that one iteration of Newton's method takes twice as long as one iteration of gradient descent. Then, this implies that gradient descent will converge to the optimal objective faster. True/False?
+
+**Answer:** False. Newton's method may take fewer steps.
+
+**Note:** Note: we received solutions that pointed out the objective function could be non-convex. Technically, it is difficult to reason about the performance of algorithms under this setting and so we intended the problem to deal with convex objective functions. However, we still awarded credit for this observation since we did not state the convexity of the objective function in the problem.
+
+### Problem 6(b) [3 points]
+
+**Problem:** A stochastic gradient descent algorithm for training logistic regression with a fixed learning rate will always converge to exactly the optimal setting of the parameters $\theta^* = \arg \max_{\theta} \prod_{i=1}^{m} p(y^{(i)}|x^{(i)}; \theta)$, assuming a reasonable choice of the learning rate. True/False?
+
+**Answer:** False. A fixed learning rate means that we are always taking a finite step towards improving the log-probability of any single training example in the update equation. Unless the examples are somehow aligned, we will continue jumping from side to side of the optimal solution, and will not be able to get arbitrarily close to it. The learning rate has to approach to zero in the course of the updates for the weights to converge robustly.
+
+### Problem 6(c) [3 points]
+
+**Problem:** Given a valid kernel $K(x, y)$ over $\mathbb{R}^m$, is $K_{norm}(x, y) = \frac{K(x,y)}{\sqrt{K(x,x)K(y,y)}}$ a valid kernel?
+
+**Answer:** We assume that $K(x,x) > 0, \forall x$. Yes. If we write $K(x, y) = \Phi(x)^T\Phi(y)$, then we have:
+$$K_{norm}(x, y) = \frac{\Phi(x)^T\Phi(y)}{\sqrt{(\Phi(x)^T\Phi(x))(\Phi(y)^T\Phi(y))}} = \Psi(x)^T\Psi(y)$$
+with
+$$\Psi(x) = \frac{\Phi(x)}{\sqrt{\Phi(x)^T\Phi(x)}}$$
+So $K_{norm}$ (as normalized) is a valid kernel.
+
+### Problem 6(d) [3 points]
+
+**Problem:** Consider a 2 class classification problem with a dataset of inputs $\{x^{(1)} = (-1,-1), x^{(2)} = (-1, +1), x^{(3)} = (+1,-1), x^{(4)} = (+1,+1)\}$. Can a linear SVM (with no kernel trick) shatter this set of 4 points?
+
+**Answer:** No we cannot, since the decision boundary is linear. Let the labels be represented by $y$. See that we cannot classify in the case $y^{(1)} = +1, y^{(2)} = y^{(3)} = -1, y^{(4)} = +1$.
+
+### Problem 6(e) [3 points]
+
+**Problem:** The vector of learned weights $w$ for linear hypotheses of the form $h(x) = w^T x + b$ is always perpendicular to the separating hyperplane. True/False? Justify your answer.
+
+**Answer:** True. For a linear separating boundary, the hyperplane is defined by the set $\{x|w^T x = -b\}$. The inner product $w^T x$ geometrically represents the projection of $x$ onto $w$. The set of all points whose projection onto $w$ is constant $(-b)$ forms a line that must be perpendicular to $w$. So $h$ is perpendicular to $w$. This fact is necessary in the formulation of geometric margins for the linear SVM.
+
+### Problem 6(f) [3 points]
+
+**Problem:** Let $\mathcal{H}$ be a set of classifiers with a VC dimension of 5. Consider a set of 5 training examples $\{(x^{(1)}, y^{(1)}), \dots, (x^{(5)}, y^{(5)}) \}$. Now we select a classifier $h^*$ from $\mathcal{H}$ by minimizing the classification error on the training set. Which one of the following is true?
+
+i. $x^{(5)}$ will certainly be classified correctly (i.e. $h^*(x^{(5)}) = y^{(5)}$)
+ii. $x^{(5)}$ will certainly be classified incorrectly (i.e. $h^*(x^{(5)}) \ne y^{(5)}$)
+iii. We cannot tell
+
+Briefly justify your answer.
+
+**Answer:** We cannot tell. Since the VC-dimension of $\mathcal{H}$ is 5, $\mathcal{H}$ can shatter some set of points of size five. These points could be $\{x^{(1)}, \dots, x^{(5)}\}$ but do not necessarily have to be. As a result, there is no guarantee that the given set will be shattered and so we can make no claims about the classification of $x^{(5)}$.
+
+### Problem 6(g) [6 points]
+
+**Problem:** Suppose you would like to use a linear regression model in order to predict the price of houses. In your model, you use the features $x_0 = 1$, $x_1 = \text{size in square meters}$, $x_2 = \text{height of roof in meters}$. Now, suppose a friend repeats the same analysis using exactly the same training set, only he represents the data instead using features $x'_0 = 1$, $x'_1 = x_1$, and $x'_2 = \text{height in cm (so } x'_2 = 100x_2)$.
+
+#### Problem 6(g) i. [3 points]
+
+**Problem:** Suppose both of you run linear regression, solving for the parameters via the Normal equations. (Assume there are no degeneracies, so this gives a unique solution to the parameters.) You get parameters $\theta_0, \theta_1, \theta_2$; your friend gets $\theta'_0, \theta'_1, \theta'_2$. Then $\theta'_0 = \theta_0, \theta'_1 = \theta_1, \theta'_2 = \frac{1}{100}\theta_2$. True/False?
+
+**Answer:** True. Observe that running a single step of Newton's method, for a linear regression problem, is equivalent to solving the Normal equations. The result then follows from the invariance of Newton's method to linear reparameterizations.
+
+#### Problem 6(g) ii. [3 points]
+
+**Problem:** Suppose both of you run linear regression, initializing the parameters to 0, and compare your results after running just *one* iteration of batch gradient descent. You get parameters $\theta_0, \theta_1, \theta_2$; your friend gets $\theta'_0, \theta'_1, \theta'_2$. Then $\theta'_0 = \theta_0, \theta'_1 = \theta_1, \theta'_2 = \frac{1}{100}\theta_2$. True/False?
+
+**Answer:** False. Recall that gradient descent is not invariant to linear reparameterizations.
+
