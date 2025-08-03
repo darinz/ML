@@ -492,3 +492,172 @@ $$h_\theta(x) = \hat{\phi}(x)^T \theta = \sum_{l=1}^N \phi(x, W_l)\theta_l.$$
 
 (iii) The runtime of the predictions is $O(NT_\phi)$, where $T_\phi$ is the time to compute $\phi(x, W)$.
 
+## Problem 6: Linear Regression and Boosting
+
+### 6. [30 points] Linear Regression and Boosting
+
+In this problem, we consider boosting for regression, where we combine weak predictors $\phi: \mathcal{X} \to \{-1,1\}$ to predict real-valued targets $y^{(i)} \in \mathbb{R}$. To handle regression, we use the least-squares cost function,
+
+$$J(\theta) = \sum_{i=1}^m (\Phi(x^{(i)})^T \theta - y^{(i)})^2$$
+
+where $\theta$ is our parameter vector and $\Phi(x)$ is our feature vector. We assume the training examples $x^{(i)} \in \mathbb{R}$, and that all of the values $x^{(i)}$ are unique.
+
+You will derive a new boosting update, derive an analogue of the edge used in binary classification, and show how to construct decision stumps.
+
+Here is some notation for the iterative boosting procedure, where $t \in \{1,2,3,...\}$ indicates the iteration of boosting:
+
+$\theta^{(t)} = [\theta_1 \theta_2 \dots \theta_t]^T \in \mathbb{R}^t$ [parameter vector at time $t$]
+$\phi_i^{(t)} = \phi^{(t)}(x^{(i)})$ [$t^{th}$ weak learner applied to example $i$]
+$\Phi_i^{(t)} = [\phi_i^{(1)} \dots \phi_i^{(t)}]^T \in \mathbb{R}^t$ [vector of weak learners for example $i$]
+$\phi^{(t)} = [\phi_1^{(t)} \dots \phi_m^{(t)}]^T \in \mathbb{R}^m$ [weak learner $t$ applied to each example]
+$h_i^{(t)} = (\Phi_i^{(t)})^T \theta^{(t)}$ [current prediction for example $i$]
+
+We can compactly write the value of the cost function at time step $t$ as
+
+$$J^{(t)} = J(\theta^{(t)}) = \sum_{i=1}^m (h_i^{(t)} - y^{(i)})^2 = \|h^{(t)} - y\|_2^2,$$
+
+where $h^{(t)} \in \mathbb{R}^m$ is the vector of predictions at iteration $t$ of the boosting procedure for all training examples and $y = [y^{(1)} \dots y^{(m)}]^T \in \mathbb{R}^m$.
+
+#### (a) [3 points]
+
+Express $J^{(t)}$ in terms of $h^{(t-1)}$, $\phi^{(t)}$, and $\theta_t$ instead of $h^{(t)}$. [Hint: express $h_i^{(t)}$ in terms of $h_i^{(t-1)}$. Then express $h^{(t)}$ in terms of $h^{(t-1)}$ using $\phi^{(t)}$.]
+
+**Answer:**
+$h_i^{(t)} = h_i^{(t-1)} + \phi_i^{(t)} \theta_t$, so $h^{(t)} = h^{(t-1)} + \phi^{(t)} \theta_t$
+where $\phi^{(t)} \in \mathbb{R}^m$. Then
+$J^{(t)} = \|h^{(t)} - y\|_2^2 = \|h^{(t-1)} + \phi^{(t)}\theta_t - y\|_2^2$.
+
+#### (b) [3 points]
+
+Let $h, y$, and $\phi$ be vectors in $\mathbb{R}^m$. What value of $\alpha$ minimizes $||h - y + \phi\alpha||^2$, where $\alpha \in \mathbb{R}$ is a 1-dimensional scalar?
+
+**Answer:** We expand the square in $||h - y + \phi\alpha||^2$, which gives
+$||h - y + \phi\alpha||^2 = (h - y + \phi\alpha)^T (h - y + \phi\alpha)$
+$= h^T h - h^T y + h^T \phi\alpha - y^T h + y^T y - y^T \phi\alpha + \alpha\phi^T h - \alpha\phi^T y + \alpha^2\phi^T \phi$
+$= h^T h - 2h^T y + 2h^T \phi\alpha + y^T y - 2y^T \phi\alpha + \alpha^2\phi^T \phi$.
+
+Taking derivatives we obtain
+
+$$\frac{\partial}{\partial \alpha} \|h - y + \phi \alpha\|^2 = 2h^T \phi - 2y^T \phi + 2\alpha\phi^T \phi$$
+
+$$= \phi^T (2h - 2y) + 2\alpha \|\phi\|^2.$$
+
+By setting to zero and isolating $\alpha$, we find that
+
+$$\alpha = \phi^T (y - h) / \|\phi\|^2$$
+
+#### (c) [3 points]
+
+We have performed boosting for $t-1$ iterations, and wish to add the $t$th weak predictor, with predictions $\phi^{(t)} = [\phi^{(t)}(x^{(1)}) \cdots \phi^{(t)}(x^{(m)})]^T \in \mathbb{R}^m$. What is the optimal value for $\theta_t$ in terms of $h^{(t-1)}$, $y$, and $\phi^{(t)}$? [Hint: see part (6b).]
+
+**Answer:** Using the result of part (b), we have
+
+$$\theta_t = (\phi^{(t)})^T(y - h^{(t-1)}) / \|\phi^{(t)}\|^2.$$
+
+#### (d) [4 points]
+
+Write an expression for the minimal value $\min_{\alpha} \|h - y + \phi\alpha\|^2$ in terms of $h, y, \phi$. [Hint: if $I \in \mathbb{R}^{m \times m}$ is the identity matrix and $u \in \mathbb{R}^m$ satisfies $\|u\|_2 = 1$, then what does $(I - uu^T)^2 = (I - uu^T)(I - uu^T)$ equal?]
+
+**Answer:** First, we show that $(I-uu^T)$ is a symmetric idempotent matrix, meaning that applying it twice is the same as applying it once. We have
+
+$$(I - uu^T)^T (I - uu^T) = (I - uu^T)(I - uu^T)$$
+
+$$= I - 2uu^T + uu^T uu^T = I - 2uu^T + u \|u\|_2^2 u^T$$
+
+$$= I - 2uu^T + uu^T = I - uu^T.$$
+
+Now, writing the value for the optimal $\alpha$ from the previous part, we have
+
+$$h - y + \phi\alpha = h - y + \frac{1}{\|\phi\|_2^2}\phi\phi^T (y - h) = \left(I_{m \times m} - \frac{\phi}{\|\phi\|_2} \frac{\phi^T}{\|\phi\|_2}\right) (h - y).$$
+
+Let $u = \phi / \|\phi\|_2$. Then
+
+$$\min_{\alpha} \|h - y + \phi\alpha\|^2 = \|(I - uu^T)(h - y)\|^2$$
+
+$$= (h - y)^T (I - uu^T)^T (I - uu^T)(h - y)$$
+
+$$= (h - y)^T (I - uu^T)(h - y)$$
+
+$$= \|h - y\|^2 - (h - y)^T uu^T (h - y)$$
+
+$$= \|h - y\|^2 - \left(\frac{1}{\|\phi\|_2^2}\phi^T (h - y)\right)^2.$$
+
+#### (e) [5 points]
+
+Let $J^{(t)}$ be the minimal value of the cost after adding the $t$th feature function $\phi^{(t)}$ and parameter $\theta_t$, that is,
+
+$$J^{(t)} = \min_{\theta_t} \sum_{i=1}^m \left(\Phi_i^{(t-1)^T} \theta^{(t-1)} + \theta_t \phi^{(t)}(x^{(i)}) - y^{(i)}\right)^2.$$
+
+Find $\delta^{(t)}$ such that $J^{(t)} = J^{(t-1)} - \delta^{(t)}$, where $\delta^{(t)}$ is a function of $h^{(t-1)}, y$, and $\phi^{(t)}$. [Hint: see part (6d).]
+
+**Answer:**
+
+$$J^{(t)} = \min_{\alpha} \|h^{(t-1)} - y + \phi^{(t)}\alpha\|^2$$
+
+$$= \|h^{(t-1)} - y\|^2 - \frac{1}{\|\phi^{(t)}\|_2^2} \left((\phi^{(t)})^T (h^{(t-1)} - y)\right)^2$$
+
+$$= J^{(t-1)} - \frac{1}{\|\phi^{(t)}\|_2^2} \left((\phi^{(t)})^T (h^{(t-1)} - y)\right)^2.$$
+
+We can simplify this slightly because we are using sign functions, which satisfy $\|\phi\|_2^2 = m$:
+
+$$J^{(t)} = J^{(t-1)} - \underbrace{\frac{1}{m} \left(((\phi^{(t)})^T (h^{(t-1)} - y))\right)^2}_{=\delta^{(t)}}.$$
+
+We have a decrease in the cost function: $J^{(t)} \le J^{(t-1)}$.
+
+#### (f) [6 points]
+
+Let $h \in \mathbb{R}^m$ be an arbitrary vector and let $y \in \mathbb{R}^m$. Suppose that we use thresholded decision stumps on $x \in \mathbb{R}$, so that $\phi(x) = \text{sign}(x - s)$ for some $s \in \mathbb{R}$. (Here we let $\text{sign}(\beta) = 1$ for $\beta \ge 0$ and $\text{sign}(\beta) = -1$ for $\beta < 0$.) Consider the following expression:
+
+$$F(s) := \sum_{i=1}^m \text{sign}(x_i - s)(h_i - y^{(i)}),$$
+
+where you may assume that $x_1 > x_2 > \dots > x_m$. Define
+
+$$f(m_0) = \sum_{i=1}^{m_0} (h_i - y^{(i)}) - \sum_{i=m_0+1}^m (h_i - y^{(i)}).$$
+
+Show that for each $s$, there is some $m_0(s)$ such that $F(s) = f(m_0(s))$. Additionally, show there is some $s$ such that
+
+$$|F(s)| \ge \max_i |y^{(i)} - h_i| = \|y - h\|_\infty.$$
+
+[Hint: The boosting techniques of PS2 may be useful.]
+
+**Answer:** We take $m_0(s)$ to be the smallest index $i$ such that $x_i \ge s$. Then $\text{sign}(x_i - s) = 1$ for $i \le m_0$ and $\text{sign}(x_i - s) = -1$ for $i > m_0$, which shows that $F(s) = f(m_0(s))$. For the second part, we note that for any $m_0$, we have
+
+$$f(m_0) - f(m_0 - 1) = 2(h_{m_0} - y_{m_0}),$$
+
+and thus there must be some index $m^*$ such that $|f(m^*)| \ge \max_i |y^{(i)}-h_i|$. Choosing $s$ so that $x_i < s$ for $i \ge m^*$ and $x_i \ge s$ for $i < m^*$ gives the result.
+
+#### (g) [6 points]
+
+A sufficiently good weak-learning procedure, at iteration $t$, choose a threshold $s$, which gives a thresholded stump $\phi^{(t)}(x) = \text{sign}(x-s)$, such that
+
+$$\left| \sum_{i=1}^m \phi^{(t)}(x^{(i)})(h_i^{(t-1)} - y^{(i)}) \right| = \left| \sum_{i=1}^m \text{sign}(x^{(i)} - s)(h_i^{(t-1)} - y^{(i)}) \right| \ge \|h^{(t-1)} - y\|_{\infty} = \max_i |h_i^{(t-1)} - y^{(i)}|. \quad (5)$$
+
+**i. [1 points]** Use part (6f) to argue that there is a weak-learning procedure for which the guarantee (5) holds. (Assume the $x^{(i)} \in \mathbb{R}$ are all unique.)
+
+**ii. [5 points]** Assuming we have the guarantee (5), give a value $\gamma > 0$, which may depend on $m$, such that
+
+$$J^{(t)} \le (1-\gamma)J^{(t-1)}.$$
+
+By part (6e), this is equivalent to showing that $\delta^{(t)} \ge \gamma J^{(t-1)}$. State explicitly what your $\gamma$ is. [Hint: for a vector $v \in \mathbb{R}^m$, we have $\sqrt{m} \|v\|_{\infty} \ge \|v\|_2$, where $\|v\|_{\infty} = \max_i |v_i|$. Also $\|\phi^{(t)}\|_2^2 = m$ because $\phi^{(t)} \in \{-1,1\}^m$.]
+
+**Answer:** The guarantee (5) is immediate by part (6f), because we simply choose the best $s$ for any given attribute index $j$.
+
+Now we use the definition of $\delta^{(t)}$ in part (6e). We have
+
+$$\delta^{(t)} = \frac{1}{m} ((\phi^{(t)})^T (h^{(t-1)} - y))^2 = \frac{1}{m} \left( \sum_{i=1}^m \phi^{(t)}(x^{(i)})(h_i^{(t-1)} - y^{(i)}) \right)^2.$$
+
+Recalling that
+
+$$\left| \sum_{i=1}^m \phi^{(t)}(x^{(i)})(h_i^{(t-1)} - y^{(i)}) \right| \ge \|y - h^{(t-1)}\|_{\infty},$$
+
+we obtain
+
+$$\delta^{(t)} = \left( \frac{1}{\sqrt{m}} \sum_{i=1}^m \phi_i^{(t)}(h_i^{(t-1)} - y_i) \right)^2$$
+
+$$\ge \left( \frac{1}{\sqrt{m}} \|y - h^{(t-1)}\|_{\infty} \right)^2$$
+
+$$= \frac{1}{m} \|y - h^{(t-1)}\|_{\infty}^2$$
+
+$$\ge \frac{1}{m^2} \|y - h^{(t-1)}\|_2^2.$$
+
+So $\gamma = \frac{1}{m^2}$, where the third equality follows by our setting of $\phi^{(t)}$.
