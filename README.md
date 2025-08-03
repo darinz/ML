@@ -72,24 +72,20 @@ Upon completing this curriculum, learners will be able to:
 
 ## Real-World Applications
 
-Machine learning is transforming industries and solving complex problems across the globe. To see how the algorithms and techniques covered in this curriculum are applied in practice, explore our comprehensive guide to **[Machine Learning Applications](./ML_APPLICATIONS.md)**.
+Machine learning transforms industries globally. Explore **[Machine Learning Applications](./ML_APPLICATIONS.md)** for practical examples across 12 domains:
 
-This guide showcases real-world applications across 12 major domains:
-
-- **Healthcare & Medicine**: Medical imaging, drug discovery, personalized medicine
-- **Finance & Banking**: Fraud detection, algorithmic trading, risk assessment
-- **Technology & Software**: NLP, computer vision, software development
-- **Transportation & Logistics**: Autonomous vehicles, supply chain optimization
-- **Retail & E-commerce**: Recommendation systems, marketing optimization
-- **Manufacturing & Industry**: Predictive maintenance, process optimization
-- **Entertainment & Media**: Content creation, recommendation algorithms
-- **Environmental Science**: Climate modeling, conservation, renewable energy
-- **Education & Learning**: Personalized learning, educational technology
-- **Security & Cybersecurity**: Threat detection, digital forensics
-- **Agriculture & Food**: Precision agriculture, food safety
-- **Energy & Utilities**: Smart grids, resource optimization
-
-Understanding these applications will help you see the practical impact of machine learning and guide your learning journey toward domains that interest you most.
+- **Healthcare**: Medical imaging, drug discovery, personalized medicine
+- **Finance**: Fraud detection, algorithmic trading, risk assessment  
+- **Technology**: NLP, computer vision, software development
+- **Transportation**: Autonomous vehicles, supply chain optimization
+- **Retail**: Recommendation systems, marketing optimization
+- **Manufacturing**: Predictive maintenance, process optimization
+- **Entertainment**: Content creation, recommendation algorithms
+- **Environment**: Climate modeling, conservation, renewable energy
+- **Education**: Personalized learning, educational technology
+- **Security**: Threat detection, digital forensics
+- **Agriculture**: Precision agriculture, food safety
+- **Energy**: Smart grids, resource optimization
 
 ## Capstone Project
 
