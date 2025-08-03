@@ -1,6 +1,6 @@
 # Machine Learning
 
-> **📝 Note**: Some files have both `.md` and `.ipynb` formats due to LaTeX rendering issues on GitHub. Use `.ipynb` files for proper math rendering, or view `.md` files in an editor with LaTeX support.
+> **Note**: Some files have both `.md` and `.ipynb` formats due to LaTeX rendering issues on GitHub. Use `.ipynb` files for proper math rendering, or view `.md` files in an editor with LaTeX support.
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/NumPy-1.21+-green.svg)](https://numpy.org/)
@@ -25,8 +25,6 @@ For additional practical machine learning topics not covered in this curriculum,
 - **Regression and Classification Trees**: Decision tree algorithms, random forests, and ensemble methods
 - **Recommender Systems**: Collaborative filtering, content-based methods, and hybrid approaches
 - **Statistical Learning Methods**: Additional statistical approaches and techniques
-
-PSL provides a more applied, hands-on approach that complements the theoretical foundations covered in this repository.
 
 **[Applied Machine Learning (AML)](https://github.com/darinz/AML)**. This curriculum focuses on practical implementation and application of machine learning algorithms. AML is ideal for learners seeking hands-on experience and applied skills in building ML systems.
 
