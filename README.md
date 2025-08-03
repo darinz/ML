@@ -51,41 +51,24 @@ For additional practical machine learning topics not covered in this curriculum,
 
 ## Overview
 
-This learning resource serves as a comprehensive guide for machine learning, covering topics from basic supervised learning to advanced deep learning and reinforcement learning techniques. The material is designed to provide both theoretical understanding and practical implementation skills for students, researchers, and practitioners in the field.
+A comprehensive machine learning curriculum covering supervised learning, deep learning, reinforcement learning, and modern applications. This math-heavy approach emphasizes theoretical foundations with practical implementation.
 
 ### Learning Outcomes
 
 Upon completing this curriculum, learners will be able to:
-- Develop sufficient skills and knowledge to pursue research or professional roles such as Machine Learning Engineer (MLE), Data Scientist, Research Scientist, or similar ML-focused positions
-- Understand fundamental machine learning concepts and algorithms
-- Implement and optimize various ML models from scratch
-- Apply deep learning techniques to complex problems
-- Evaluate and improve model performance effectively
-- Stay current with recent advances in the field
-- Apply machine learning to real-world applications across domains
+- Pursue ML roles (MLE, Data Scientist, Research Scientist)
+- Implement ML models from scratch
+- Apply deep learning to complex problems
+- Evaluate and improve model performance
+- Stay current with recent advances
 
 ### Learning Approach
 
-The curriculum follows a progressive learning path that builds from fundamental concepts to advanced applications. Each topic includes theoretical foundations, mathematical derivations, and practical implementation examples. The material emphasizes both understanding the underlying principles and developing hands-on coding skills.
+(1) **Active Learning**: Rederive calculations, implement from scratch, build incrementally, test understanding
 
-#### Active Learning Strategies
-- **Rederive all calculations**: Don't just read the math—work through every derivation step-by-step on paper or in a notebook
-- **Implement from scratch**: Retype code examples into your own Jupyter notebook or Python environment, then modify and experiment
-- **Build incrementally**: Start with simple implementations and gradually add complexity
-- **Test your understanding**: After each concept, try to explain it to yourself or others without referring to notes
+(2) **Retention**: Use spaced repetition, create examples, document learning, teach others, build portfolio
 
-#### Retention Techniques
-- **Spaced repetition**: Review previous concepts regularly, especially before moving to related topics
-- **Create your own examples**: Apply algorithms to datasets you're interested in or create synthetic data
-- **Document your learning**: Keep a learning journal with key insights, common pitfalls, and personal examples
-- **Teach others**: Explain concepts to peers or write blog posts about what you've learned
-- **Build a portfolio**: Implement projects that combine multiple concepts from different sections
-
-#### Practical Implementation
-- **Use version control**: Track your code changes and experiments with Git
-- **Experiment systematically**: Vary one parameter at a time and document the results
-- **Visualize everything**: Create plots and graphs to understand data distributions, model behavior, and results
-- **Compare implementations**: Try different approaches to the same problem and analyze trade-offs
+(3) **Implementation**: Use version control, experiment systematically, visualize everything, compare approaches
 
 ## Real-World Applications
 
