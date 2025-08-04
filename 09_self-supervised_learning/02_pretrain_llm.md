@@ -22,7 +22,7 @@ The chain rule decomposition is a fundamental concept in probability theory that
 
 **The Problem with Direct Modeling:**
 - The vocabulary size $`V`$ is typically 50,000-100,000 words
-- Document length $`T`` can be hundreds or thousands of words
+- Document length $`T`$ can be hundreds or thousands of words
 - Direct modeling would require estimating $`V^T`$ parameters
 - For a vocabulary of 50,000 and document length of 100, this is $`50,000^{100}`$ parameters!
 
