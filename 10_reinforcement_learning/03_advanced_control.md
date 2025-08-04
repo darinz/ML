@@ -236,11 +236,11 @@ Given the system parameters, we solve for the optimal policy using dynamic progr
 
 #### Step 1: Terminal Condition
 At time $T$:
-```math
+$$
 V^\ast_T(s_T) = \max_{a_T \in A} R_T(s_T, a_T)
 = \max_{a_T \in A} -s_T^\top U_T s_T - a_T^\top W_T a_T
 = -s_T^\top U_T s_T \qquad \text{(maximized for $a_T = 0$)}
-```
+$$
 
 #### Step 2: Backward Recursion
 
