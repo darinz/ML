@@ -127,7 +127,7 @@ V^*(s) = R(s) + \max_{a \in A} \gamma \sum_{s' \in S} P_{sa}(s') V^*(s')
 
 ### Value Iteration
 
-A dynamic programming algorithm to compute $V^*$ and $\pi^*$ for finite MDPs.
+A dynamic programming algorithm to compute $V^\ast$ and $\pi^\ast$ for finite MDPs.
 
 **Algorithm:**
 1. Initialize $V(s) := 0$ for all $s$.
