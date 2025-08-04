@@ -106,7 +106,7 @@ Suppose we have an unlabeled pretraining dataset $`\{x^{(1)}, x^{(2)}, \ldots, x
 We train the model by minimizing a **pretraining loss** over all examples:
 
 ```math
-L_{\text{pre}}(\theta) = \frac{1}{n} \sum_{i=1}^n \ell_{\text{pre}}(\theta, x^{(i)}).
+L_{\text{pre}}(\theta) = \frac{1}{n} \sum_{i=1}^n \ell_{\text{pre}}(\theta, \phi_\theta(x^{(i)})).
 ```
 
 **Key Components:**
