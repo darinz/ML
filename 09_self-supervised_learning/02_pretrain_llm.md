@@ -523,6 +523,7 @@ These methods make large language models extremely flexible and powerful for a w
 - **Ensemble Methods**: Combine predictions from multiple adaptation methods
 
 [^5]: In the practical implementations, typically all the data are concatenated into a single sequence in some order, and each example typically corresponds a sub-sequence of consecutive words which may correspond to a subset of a document or may span across multiple documents.
+
 [^6]: Technically, words may be decomposed into tokens which could be words or sub-words (combinations of letters), but this note omits this technicality. In fact most common words are a single token themselves.
 
 
