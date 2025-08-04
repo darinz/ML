@@ -134,9 +134,9 @@ A dynamic programming algorithm to compute $V^*$ and $\pi^*$ for finite MDPs.
 2. Repeat until convergence:
     - For each state $s$:
 
-    ```math
-    V(s) := R(s) + \max_{a \in A} \gamma \sum_{s'} P_{sa}(s') V(s')
-    ```
+```math
+V(s) := R(s) + \max_{a \in A} \gamma \sum_{s'} P_{sa}(s') V(s')
+```
 
 3. After convergence, extract the optimal policy:
 
