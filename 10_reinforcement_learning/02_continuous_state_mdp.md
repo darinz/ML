@@ -30,7 +30,7 @@ In many real-world problems, the state of a system is described by continuous va
 
 - Each grid cell $\bar{s}$ is a discrete state.
 - Approximate the continuous MDP by a discrete one $(\bar{S}, A, \{P_{sa}\}, \gamma, R)$.
-- Use value or policy iteration to solve for $V^*(\bar{s})$ and $\pi^*(\bar{s})$.
+- Use value or policy iteration to solve for $V^\ast(\bar{s})$ and $\pi^\ast(\bar{s})$.
 - When the real system is in a continuous state $s$, map it to the nearest grid cell $\bar{s}$ and use $\pi^*(\bar{s})$.
 
 **Intuitive analogy:**
