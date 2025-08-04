@@ -428,7 +428,7 @@ $$
 #### Examples of In-context Learning
 
 **Text Classification:**
-$$
+```
 Input: "I love this movie!"
 Output: positive
 
@@ -437,21 +437,21 @@ Output: negative
 
 Input: "The food was okay."
 Output: [model generates: negative]
-$$
+```
 
 **Translation:**
-$$
+```
 Input: "Hello" → "Hola"
 Input: "Goodbye" → "Adiós"
 Input: "Thank you" → [model generates: "Gracias"]
-$$
+```
 
 **Mathematical Reasoning:**
-$$
+```
 Input: "2 + 3 = 5"
 Input: "7 + 4 = 11"
 Input: "15 + 8 = [model generates: 23]"
-$$
+```
 
 #### Advantages and Limitations
 
