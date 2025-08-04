@@ -1,6 +1,6 @@
 # 14.3 Pretrained large language models
 
-Natural language processing is another area where pretraining models are particularly successful. In language problems, an example typically corresponds to a document or generally a sequence (or trunk) of words,[^5] denoted by $`x = (x_1, \cdots, x_T)`$ where $`T`$ is the length of the document/sequence, $`x_i \in \{1, \cdots, V\}`$ are words in the document, and $`V`$ is the vocabulary size.[^6]
+Natural language processing is another area where pretraining models are particularly successful. In language problems, an example typically corresponds to a document or generally a sequence (or trunk) of words,[^5] denoted by $x = (x_1, \cdots, x_T)$ where $T$ is the length of the document/sequence, $x_i \in \{1, \cdots, V\}$ are words in the document, and $V$ is the vocabulary size.[^6]
 
 ## Introduction to Language Modeling
 
@@ -8,41 +8,41 @@ Language modeling is one of the most fundamental tasks in natural language proce
 
 ### The Language Modeling Problem
 
-A language model is a probabilistic model representing the probability of a document, denoted by $`p(x_1, \cdots, x_T)`$. This probability distribution is very complex because its support size is $`V^T`$—exponential in the length of the document. Instead of modeling the distribution of a document itself, we can apply the chain rule of conditional probability to decompose it as follows:
+A language model is a probabilistic model representing the probability of a document, denoted by $p(x_1, \cdots, x_T)$. This probability distribution is very complex because its support size is $V^T$—exponential in the length of the document. Instead of modeling the distribution of a document itself, we can apply the chain rule of conditional probability to decompose it as follows:
 
-```math
+$$
 p(x_1, \cdots, x_T) = p(x_1) p(x_2|x_1) \cdots p(x_T|x_1, \cdots, x_{T-1}).
-```
+$$
 
-Now the support size of each of the conditional probability $`p(x_t|x_1, \cdots, x_{t-1})`$ is $`V`$.
+Now the support size of each of the conditional probability $p(x_t|x_1, \cdots, x_{t-1})$ is $V$.
 
 #### Understanding the Chain Rule Decomposition
 
 The chain rule decomposition is a fundamental concept in probability theory that allows us to break down complex joint distributions into simpler conditional distributions. Here's why this is crucial for language modeling:
 
 **The Problem with Direct Modeling:**
-- The vocabulary size $`V`$ is typically 50,000-100,000 words
-- Document length $`T`$ can be hundreds or thousands of words
-- Direct modeling would require estimating $`V^T`$ parameters
-- For a vocabulary of 50,000 and document length of 100, this is $`50,000^{100}`$ parameters!
+- The vocabulary size $V$ is typically 50,000-100,000 words
+- Document length $T$ can be hundreds or thousands of words
+- Direct modeling would require estimating $V^T$ parameters
+- For a vocabulary of 50,000 and document length of 100, this is $50,000^{100}$ parameters!
 
 **The Solution with Chain Rule:**
-- Each conditional probability $`p(x_t|x_1, \cdots, x_{t-1})`$ only needs $`V`$ parameters
-- Total parameters needed: $`T \times V`$ (much more manageable)
+- Each conditional probability $p(x_t|x_1, \cdots, x_{t-1})$ only needs $V$ parameters
+- Total parameters needed: $T \times V$ (much more manageable)
 - Each prediction depends only on the previous words in the sequence
 
 **Example:**
 Consider the sentence "The cat sat on the mat":
-- $`p(\text{The})`$: Probability of starting with "The"
-- $`p(\text{cat}|\text{The})`$: Probability of "cat" given "The"
-- $`p(\text{sat}|\text{The cat})`$: Probability of "sat" given "The cat"
+- $p(\text{The})$: Probability of starting with "The"
+- $p(\text{cat}|\text{The})$: Probability of "cat" given "The"
+- $p(\text{sat}|\text{The cat})$: Probability of "sat" given "The cat"
 - And so on...
 
 ### Parameterizing the Language Model
 
-We will model the conditional probability $`p(x_t|x_1, \cdots, x_{t-1})`$ as a function of $`x_1, \ldots, x_{t-1}`$ parameterized by some parameter $`\theta`$.
+We will model the conditional probability $p(x_t|x_1, \cdots, x_{t-1})$ as a function of $x_1, \ldots, x_{t-1}$ parameterized by some parameter $\theta$.
 
-A parameterized model takes in numerical inputs and therefore we first introduce embeddings or representations for the words. Let $`e_i \in \mathbb{R}^d`$ be the embedding of the word $`i \in \{1, 2, \cdots, V\}`$. We call $`[e_1, \cdots, e_V] \in \mathbb{R}^{d \times V}`$ the embedding matrix.
+A parameterized model takes in numerical inputs and therefore we first introduce embeddings or representations for the words. Let $e_i \in \mathbb{R}^d$ be the embedding of the word $i \in \{1, 2, \cdots, V\}$. We call $[e_1, \cdots, e_V] \in \mathbb{R}^{d \times V}$ the embedding matrix.
 
 #### Word Embeddings: From Discrete to Continuous
 
@@ -62,7 +62,7 @@ A parameterized model takes in numerical inputs and therefore we first introduce
 - **Learnable**: Embeddings are updated during training to capture word relationships
 
 **Example:**
-```
+$`
 Vocabulary: ["the", "cat", "sat", "on", "mat"]
 Word IDs: [1, 2, 3, 4, 5]
 Embeddings: 
@@ -70,7 +70,7 @@ Embeddings:
   e_2 (cat) = [0.4, 0.1, 0.8, ...]
   e_3 (sat) = [0.2, 0.9, 0.1, ...]
   ...
-```
+$`
 
 ## The Transformer Architecture
 
@@ -91,13 +91,13 @@ The Transformer is a neural network architecture that revolutionized natural lan
 
 ### Input-Output Interface
 
-As shown in Figure 14.1, given a document $`(x_1, \cdots, x_T)`$, we first translate the sequence of discrete variables into a sequence of corresponding word embeddings ($`e_{x_1}, \cdots, e_{x_T}`$).
+As shown in Figure 14.1, given a document $(x_1, \cdots, x_T)$, we first translate the sequence of discrete variables into a sequence of corresponding word embeddings ($e_{x_1}, \cdots, e_{x_T}$).
 
-We also introduce a fixed special token $`x_0 = \perp`$ in the vocabulary with corresponding embedding $`e_{x_0}`$ to mark the beginning of a document. Then, the word embeddings are passed into a Transformer model, which takes in a sequence of vectors ($`e_{x_0}, e_{x_1}, \cdots, e_{x_T}`$) and outputs a sequence of vectors ($`u_1, u_2, \cdots, u_{T+1}`$), where $`u_t \in \mathbb{R}^V`$ will be interpreted as the logits for the probability distribution of the next word.
+We also introduce a fixed special token $x_0 = \perp$ in the vocabulary with corresponding embedding $e_{x_0}$ to mark the beginning of a document. Then, the word embeddings are passed into a Transformer model, which takes in a sequence of vectors ($e_{x_0}, e_{x_1}, \cdots, e_{x_T}$) and outputs a sequence of vectors ($u_1, u_2, \cdots, u_{T+1}$), where $u_t \in \mathbb{R}^V$ will be interpreted as the logits for the probability distribution of the next word.
 
 #### Understanding the Special Token
 
-The special token $`\perp`$ (often called `<BOS>` for "beginning of sequence") serves several important purposes:
+The special token $\perp$ (often called `<BOS>` for "beginning of sequence") serves several important purposes:
 
 1. **Sequence Start Marker**: Indicates the beginning of a new sequence
 2. **Context for First Word**: Provides context for predicting the first actual word
@@ -105,7 +105,7 @@ The special token $`\perp`$ (often called `<BOS>` for "beginning of sequence") s
 
 #### The Autoregressive Property
 
-Here we use the autoregressive version of the Transformer, which by design ensures $`u_t`$ only depends on $`x_1, \cdots, x_{t-1}`$ (note that this property does not hold in masked language models [Devlin et al., 2019] where the losses are also different).
+Here we use the autoregressive version of the Transformer, which by design ensures $u_t$ only depends on $x_1, \cdots, x_{t-1}$ (note that this property does not hold in masked language models [Devlin et al., 2019] where the losses are also different).
 
 **What is Autoregressive?**
 - Each output depends only on previous inputs
@@ -114,22 +114,22 @@ Here we use the autoregressive version of the Transformer, which by design ensur
 
 **Example:**
 For the sequence "The cat sat":
-- $`u_1`$ depends on $`x_0`$ (special token) only
-- $`u_2`$ depends on $`x_0, x_1`$ ("The")
-- $`u_3`$ depends on $`x_0, x_1, x_2`$ ("The cat")
-- $`u_4`$ depends on $`x_0, x_1, x_2, x_3`$ ("The cat sat")
+- $u_1$ depends on $x_0$ (special token) only
+- $u_2$ depends on $x_0, x_1$ ("The")
+- $u_3$ depends on $x_0, x_1, x_2$ ("The cat")
+- $u_4$ depends on $x_0, x_1, x_2, x_3$ ("The cat sat")
 
-We view the whole mapping from $`x`$'s to $`u`$'s as a blackbox in this subsection and call it a Transformer, denoted it by $`f_\theta`$, where $`\theta`$ include both the parameters in the Transformer and the input embeddings. We write $`u_t = f_\theta(x_0, x_1, \ldots, x_{t-1})`$ where $`f_\theta`$ denotes the mapping from the input to the outputs.
+We view the whole mapping from $x$'s to $u$'s as a blackbox in this subsection and call it a Transformer, denoted it by $f_\theta$, where $\theta$ include both the parameters in the Transformer and the input embeddings. We write $u_t = f_\theta(x_0, x_1, \ldots, x_{t-1})$ where $f_\theta$ denotes the mapping from the input to the outputs.
 
 <img src="./img/transformer_output.png" width="400px"/>
 
-**Figure 14.1 (description):** The inputs to the Transformer are the embeddings $`e_{x_0}, e_{x_1}, \ldots, e_{x_T}`$ corresponding to the tokens $`x_0, x_1, \ldots, x_T`$. The Transformer $`f_\theta(x)`$ outputs a sequence of vectors $`u_1, u_2, \ldots, u_{T+1}`$, each of which is used to predict the next token in the sequence.
+**Figure 14.1 (description):** The inputs to the Transformer are the embeddings $e_{x_0}, e_{x_1}, \ldots, e_{x_T}$ corresponding to the tokens $x_0, x_1, \ldots, x_T$. The Transformer $f_\theta(x)$ outputs a sequence of vectors $u_1, u_2, \ldots, u_{T+1}$, each of which is used to predict the next token in the sequence.
 
 ### From Logits to Probabilities
 
-The conditional probability $`p(x_t|x_1, \cdots, x_{t-1})`$ is the softmax of the logits:
+The conditional probability $p(x_t|x_1, \cdots, x_{t-1})$ is the softmax of the logits:
 
-```math
+$$
 \begin{bmatrix}
 p(x_t = 1|x_1 \cdots, x_{t-1}) \\
 p(x_t = 2|x_1 \cdots, x_{t-1}) \\
@@ -137,21 +137,21 @@ p(x_t = 2|x_1 \cdots, x_{t-1}) \\
 p(x_t = V|x_1 \cdots, x_{t-1})
 \end{bmatrix}
 = \mathrm{softmax}(u_t) \in \mathbb{R}^V \tag{14.6}
-```
+$$
 
 or equivalently,
 
-```math
+$$
 = \mathrm{softmax}(f_\theta(x_0, \ldots, x_{t-1})) \tag{14.7}
-```
+$$
 
 #### Understanding Softmax
 
 The softmax function converts a vector of logits into a probability distribution:
 
-```math
+$$
 \text{softmax}(z)_i = \frac{\exp(z_i)}{\sum_{j=1}^V \exp(z_j)}
-```
+$$
 
 **Properties:**
 - All outputs are positive (probabilities)
@@ -160,130 +160,130 @@ The softmax function converts a vector of logits into a probability distribution
 - Amplifies differences between large and small values
 
 **Example:**
-If $`u_t = [2.0, 1.0, 0.5]`$ for a 3-word vocabulary:
-- $`\exp(u_t) = [7.39, 2.72, 1.65]`$
-- $`\sum \exp(u_t) = 11.76`$
-- $`\text{softmax}(u_t) = [0.63, 0.23, 0.14]`$
+If $u_t = [2.0, 1.0, 0.5]$ for a 3-word vocabulary:
+- $\exp(u_t) = [7.39, 2.72, 1.65]$
+- $\sum \exp(u_t) = 11.76$
+- $\text{softmax}(u_t) = [0.63, 0.23, 0.14]$
 
 ## Training the Language Model
 
-We train the Transformer parameter $`\theta`$ by minimizing the negative log-likelihood of seeing the data under the probabilistic model defined by $`\theta`$.
+We train the Transformer parameter $\theta$ by minimizing the negative log-likelihood of seeing the data under the probabilistic model defined by $\theta$.
 
 which is the cross-entropy loss on the logits.
 
-```math
+$$
 \text{loss}(\theta) = \frac{1}{T} \sum_{t=1}^T -\log(p_\theta(x_t|x_1, \ldots, x_{t-1})) \tag{14.8}
-```
+$$
 
-```math
+$$
 = \frac{1}{T} \sum_{t=1}^T \ell_{ce}(f_\theta(x_0, x_1, \cdots, x_{t-1}), x_t)
-```
+$$
 
-```math
+$$
 = \frac{1}{T} \sum_{t=1}^T -\log(\mathrm{softmax}(f_\theta(x_0, x_1, \cdots, x_{t-1}))_{x_t})
-```
+$$
 
 #### Understanding the Loss Function
 
 **Cross-Entropy Loss:**
 The cross-entropy loss measures how well our predicted probability distribution matches the true distribution (which is a one-hot vector for the correct word).
 
-```math
+$$
 \ell_{ce}(u, x_t) = -\log(\text{softmax}(u)_{x_t})
-```
+$$
 
 **Why This Works:**
-- If the model assigns high probability to the correct word, $`-\log(p)`$ is small
-- If the model assigns low probability to the correct word, $`-\log(p)`$ is large
+- If the model assigns high probability to the correct word, $-\log(p)$ is small
+- If the model assigns low probability to the correct word, $-\log(p)$ is large
 - The loss encourages the model to assign high probability to correct words
 
 **Example:**
-For the sequence "The cat sat" and $`u_2`$ (predicting the word after "The"):
-- If the model predicts $`p(\text{cat}) = 0.8`$, loss = $`-\log(0.8) = 0.22`$
-- If the model predicts $`p(\text{cat}) = 0.1`$, loss = $`-\log(0.1) = 2.30`$
+For the sequence "The cat sat" and $u_2$ (predicting the word after "The"):
+- If the model predicts $p(\text{cat}) = 0.8$, loss = $-\log(0.8) = 0.22$
+- If the model predicts $p(\text{cat}) = 0.1$, loss = $-\log(0.1) = 2.30$
 
 #### Training Process
 
-1. **Forward Pass**: For each position $`t`$, compute $`u_t = f_\theta(x_0, \ldots, x_{t-1})`$
+1. **Forward Pass**: For each position $t$, compute $u_t = f_\theta(x_0, \ldots, x_{t-1})$
 2. **Loss Computation**: Compute cross-entropy loss for each position
-3. **Backward Pass**: Compute gradients with respect to $`\theta`$
-4. **Parameter Update**: Update $`\theta`$ using gradient descent
+3. **Backward Pass**: Compute gradients with respect to $\theta$
+4. **Parameter Update**: Update $\theta$ using gradient descent
 
 ## Text Generation with Language Models
 
-**Autoregressive text decoding / generation.** Given an autoregressive Transformer, we can simply sample text from it sequentially. Given a prefix $`x_1, \ldots, x_t`$, we generate text completion $`x_{t+1}, \ldots, x_T`$ sequentially using the conditional distribution.
+**Autoregressive text decoding / generation.** Given an autoregressive Transformer, we can simply sample text from it sequentially. Given a prefix $x_1, \ldots, x_t$, we generate text completion $x_{t+1}, \ldots, x_T$ sequentially using the conditional distribution.
 
-```math
+$$
 x_{t+1} \sim \mathrm{softmax}(f_\theta(x_0, x_1, \cdots, x_t)) \tag{14.9}
-```
-```math
+$$
+$$
 x_{t+2} \sim \mathrm{softmax}(f_\theta(x_0, x_1, \cdots, x_{t+1})) \tag{14.10}
-```
-```math
+$$
+$$
 \vdots \tag{14.11}
-```
-```math
+$$
+$$
 x_T \sim \mathrm{softmax}(f_\theta(x_0, x_1, \cdots, x_{T-1})) \tag{14.12}
-```
+$$
 
-Note that each generated token is used as the input to the model when generating the following tokens. In practice, people often introduce a parameter $`\tau > 0`$ named *temperature* to further adjust the entropy/sharpness of the generated distribution,
+Note that each generated token is used as the input to the model when generating the following tokens. In practice, people often introduce a parameter $\tau > 0$ named *temperature* to further adjust the entropy/sharpness of the generated distribution,
 
-```math
+$$
 x_{t+1} \sim \mathrm{softmax}(f_\theta(x_0, x_1, \cdots, x_t)/\tau) \tag{14.13}
-```
-```math
+$$
+$$
 x_{t+2} \sim \mathrm{softmax}(f_\theta(x_0, x_1, \cdots, x_{t+1})/\tau) \tag{14.14}
-```
-```math
+$$
+$$
 \vdots \tag{14.15}
-```
-```math
+$$
+$$
 x_T \sim \mathrm{softmax}(f_\theta(x_0, x_1, \cdots, x_{T-1})/\tau) \tag{14.16}
-```
+$$
 
 ### Understanding Temperature
 
-The temperature parameter $`\tau`$ controls the randomness of text generation:
+The temperature parameter $\tau$ controls the randomness of text generation:
 
-**Low Temperature ($`\tau < 1``):**
+**Low Temperature ($\tau < 1$):**
 - Makes the distribution more "peaked" (concentrated)
 - Model becomes more confident in its predictions
 - Generated text is more deterministic and focused
 - Risk of repetitive or boring text
 
-**High Temperature ($`\tau > 1`):**
+**High Temperature ($\tau > 1$):**
 - Makes the distribution more "flat" (spread out)
 - Model becomes less confident in its predictions
 - Generated text is more diverse and creative
 - Risk of incoherent or nonsensical text
 
 **Example:**
-Consider logits $`u = [2.0, 1.0, 0.5]`$:
-- $`\tau = 0.5`$: $`\text{softmax}(u/0.5) = [0.88, 0.11, 0.01]`$ (very confident)
-- $`\tau = 1.0`$: $`\text{softmax}(u/1.0) = [0.63, 0.23, 0.14]`$ (balanced)
-- $`\tau = 2.0`$: $`\text{softmax}(u/2.0) = [0.42, 0.31, 0.27]`$ (uncertain)
+Consider logits $u = [2.0, 1.0, 0.5]$:
+- $\tau = 0.5$: $\text{softmax}(u/0.5) = [0.88, 0.11, 0.01]$ (very confident)
+- $\tau = 1.0$: $\text{softmax}(u/1.0) = [0.63, 0.23, 0.14]$ (balanced)
+- $\tau = 2.0$: $\text{softmax}(u/2.0) = [0.42, 0.31, 0.27]$ (uncertain)
 
-When $`\tau = 1``, the text is sampled from the original conditional probability defined by the model. With a decreasing $`\tau``, the generated text gradually becomes more "deterministic". $`\tau \to 0`$ reduces to greedy decoding, where we generate the most probable next token from the conditional probability.
+When $\tau = 1$, the text is sampled from the original conditional probability defined by the model. With a decreasing $\tau$, the generated text gradually becomes more "deterministic". $\tau \to 0$ reduces to greedy decoding, where we generate the most probable next token from the conditional probability.
 
 ### Generation Strategies
 
-**Greedy Decoding ($`\tau \to 0`):**
+**Greedy Decoding ($\tau \to 0$):**
 - Always choose the most probable next word
 - Fast and deterministic
 - Often produces repetitive or boring text
 
-**Random Sampling ($`\tau = 1`):**
+**Random Sampling ($\tau = 1$):**
 - Sample according to the model's probability distribution
 - More diverse output
 - Can be less coherent
 
 **Top-k Sampling:**
-- Only consider the top $`k`$ most probable words
+- Only consider the top $k$ most probable words
 - Sample from this restricted set
 - Balances diversity and coherence
 
 **Nucleus Sampling (Top-p):**
-- Consider words until cumulative probability reaches $`p`$
+- Consider words until cumulative probability reaches $p$
 - Sample from this dynamic set
 - Often produces better results than fixed top-k
 
@@ -301,7 +301,7 @@ Finetuning means taking a model that has already learned a lot from a huge datas
 
 #### Mathematical Formulation
 
-The finetuning method is the same as introduced generally in Section 14.1—the only question is how we define the prediction task with an additional linear head. One option is to treat $`c_{T+1} = \phi_\theta(x_1, \cdots, x_T)`$ as the representation and use $`w^\top c_{T+1} = w^\top \phi_\theta(x_1, \cdots, x_T)`$ to predict the task label. As described in Section 14.1, we initialize $`\theta`$ to the pretrained model $`\hat{\theta}`$ and then optimize both $`w`$ and $`\theta`$.
+The finetuning method is the same as introduced generally in Section 14.1—the only question is how we define the prediction task with an additional linear head. One option is to treat $c_{T+1} = \phi_\theta(x_1, \cdots, x_T)$ as the representation and use $w^\top c_{T+1} = w^\top \phi_\theta(x_1, \cdots, x_T)$ to predict the task label. As described in Section 14.1, we initialize $\theta$ to the pretrained model $\hat{\theta}$ and then optimize both $w$ and $\theta$.
 
 #### When to Use Finetuning
 
@@ -342,9 +342,9 @@ The key insight is that we can format many tasks as natural language questions o
 
 For example, we can format an example as a question:
 
-$`x_{\text{task}} = (x_{\text{task},1}, \cdots, x_{\text{task},R}) = \text{"Is the speed of light a universal constant?"}`$
+$x_{\text{task}} = (x_{\text{task},1}, \cdots, x_{\text{task},R}) = \text{"Is the speed of light a universal constant?"}$
 
-Then, we compute the most likely next word predicted by the language model given this question, that is, computing $`\text{argmax}_{x_{T+1}} p(x_{T+1} \mid x_{\text{task},1}, \cdots, x_{\text{task},R})`$. In this case, if the most likely next word $`x_{T+1}`$ is "No", then we solve the task. (The speed of light is only a constant in vacuum.)
+Then, we compute the most likely next word predicted by the language model given this question, that is, computing $\text{argmax}_{x_{T+1}} p(x_{T+1} \mid x_{\text{task},1}, \cdots, x_{\text{task},R})$. In this case, if the most likely next word $x_{T+1}$ is "No", then we solve the task. (The speed of light is only a constant in vacuum.)
 
 #### Examples of Zero-shot Tasks
 
@@ -384,18 +384,18 @@ Then, we compute the most likely next word predicted by the language model given
 
 ### In-context Learning
 
-**In-context learning** is mostly used for few-shot settings where we have a few labeled examples $`(x^{(1)}_{\text{task}}, y^{(1)}_{\text{task}}), \cdots, (x^{(n_{\text{task}})}_{\text{task}}, y^{(n_{\text{task}})}_{\text{task}})`$. 
+**In-context learning** is mostly used for few-shot settings where we have a few labeled examples $(x^{(1)}_{\text{task}}, y^{(1)}_{\text{task}}), \cdots, (x^{(n_{\text{task}})}_{\text{task}}, y^{(n_{\text{task}})}_{\text{task}})$. 
 
 #### The In-context Learning Paradigm
 
 - **Analogy:** Imagine you show a person a few examples of a new kind of puzzle, and then ask them to solve a similar one. They use the examples as hints to figure out the pattern.
-- **How does it work?** Given a test example $`x_{\text{test}}`$, we construct a document $`(x_1, \cdots, x_T)``, which is more commonly called a "prompt" in this context, by concatenating the labeled examples and the test example in some format. The model is not retrained; instead, it "reads" the prompt and tries to continue it in a way that matches the pattern.
+- **How does it work?** Given a test example $x_{\text{test}}$, we construct a document $(x_1, \cdots, x_T)$, which is more commonly called a "prompt" in this context, by concatenating the labeled examples and the test example in some format. The model is not retrained; instead, it "reads" the prompt and tries to continue it in a way that matches the pattern.
 
 #### Prompt Construction
 
 For example, we may construct the prompt as follows:
 
-```math
+$$
 \begin{align*}
 x_1, \cdots, x_T \quad = \quad & \text{"Q: 2 ~ 3 = ?"} \quad x^{(1)}_{\text{task}} \\
 & \text{"A: 5"} \quad y^{(1)}_{\text{task}} \\
@@ -404,13 +404,13 @@ x_1, \cdots, x_T \quad = \quad & \text{"Q: 2 ~ 3 = ?"} \quad x^{(1)}_{\text{task
 & \cdots \\
 & \text{"Q: 15 ~ 2 = ?"} \quad x_{\text{test}}
 \end{align*}
-```
+$$
 
-Then, we let the pretrained model generate the most likely $`x_{T+1}, x_{T+2}, \cdots`$. In this case, if the model can "learn" that the symbol $`\sim`$ means addition from the few examples, we will obtain the following which suggests the answer is 17.
+Then, we let the pretrained model generate the most likely $x_{T+1}, x_{T+2}, \cdots$. In this case, if the model can "learn" that the symbol $\sim$ means addition from the few examples, we will obtain the following which suggests the answer is 17.
 
-```math
+$$
 x_{T+1}, x_{T+2}, \cdots = \text{"A: 17"}.
-```
+$$
 
 #### Understanding In-context Learning
 
@@ -428,7 +428,7 @@ x_{T+1}, x_{T+2}, \cdots = \text{"A: 17"}.
 #### Examples of In-context Learning
 
 **Text Classification:**
-```
+$$
 Input: "I love this movie!"
 Output: positive
 
@@ -437,21 +437,21 @@ Output: negative
 
 Input: "The food was okay."
 Output: [model generates: negative]
-```
+$$
 
 **Translation:**
-```
+$$
 Input: "Hello" → "Hola"
 Input: "Goodbye" → "Adiós"
 Input: "Thank you" → [model generates: "Gracias"]
-```
+$$
 
 **Mathematical Reasoning:**
-```
+$$
 Input: "2 + 3 = 5"
 Input: "7 + 4 = 11"
 Input: "15 + 8 = [model generates: 23]"
-```
+$$
 
 #### Advantages and Limitations
 
