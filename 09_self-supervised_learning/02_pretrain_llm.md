@@ -62,7 +62,7 @@ A parameterized model takes in numerical inputs and therefore we first introduce
 - **Learnable**: Embeddings are updated during training to capture word relationships
 
 **Example:**
-$`
+```
 Vocabulary: ["the", "cat", "sat", "on", "mat"]
 Word IDs: [1, 2, 3, 4, 5]
 Embeddings: 
@@ -70,7 +70,7 @@ Embeddings:
   e_2 (cat) = [0.4, 0.1, 0.8, ...]
   e_3 (sat) = [0.2, 0.9, 0.1, ...]
   ...
-$`
+```
 
 ## The Transformer Architecture
 
