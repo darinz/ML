@@ -140,9 +140,9 @@ V(s) := R(s) + \max_{a \in A} \gamma \sum_{s'} P_{sa}(s') V(s')
 
 3. After convergence, extract the optimal policy:
 
-    ```math
-    \pi^*(s) = \arg\max_{a \in A} \sum_{s'} P_{sa}(s') V(s')
-    ```
+```math
+\pi^*(s) = \arg\max_{a \in A} \sum_{s'} P_{sa}(s') V(s')
+```
 
 **Intuition:**
 - At each step, update your estimate of the value of each state by considering the best action you could take.
