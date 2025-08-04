@@ -101,7 +101,7 @@ Assume you have a **model** or **simulator** for the MDP:
 2. Initialize $\theta := 0$ (parameters of $V$).
 3. Repeat:
     - For each $i = 1, \ldots, n$:
-        - Compute $y^{(i)} := R(s^{(i)}) + \gamma \max_a \mathbb{E}_{s' \sim P_{s^{(i)} a}} [V(s')]$.
+        - Compute $`y^{(i)} := R(s^{(i)}) + \gamma \max _a \mathbb{E} _{s' \sim P_{s^{(i)} a}} [V(s')]`$.
     - Fit $\theta$ by minimizing the squared error:
 
       $\min_{\theta} \sum_{i=1}^n (\theta^T \phi(s^{(i)}) - y^{(i)})^2$
