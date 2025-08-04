@@ -158,9 +158,9 @@ Another dynamic programming algorithm for finite MDPs.
     - **Policy evaluation:** Compute $V^{\pi}$ for the current policy (by solving the Bellman equations).
     - **Policy improvement:** For each state $s$, update $\pi(s)$ to the action that maximizes expected value:
 
-    ```math
-    \pi(s) := \arg\max_{a \in A} \sum_{s'} P_{sa}(s') V(s')
-    ```
+```math
+\pi(s) := \arg\max_{a \in A} \sum_{s'} P_{sa}(s') V(s')
+```
 
 **Comparison:**
 - Value iteration updates value estimates directly, always assuming the best action.
