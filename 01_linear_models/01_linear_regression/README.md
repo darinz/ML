@@ -25,12 +25,6 @@ Linear regression fundamentals including least squares, gradient descent, normal
 - **[probabilistic_linear_regression_examples.py](probabilistic_linear_regression_examples.py)** - Statistical interpretation, likelihood functions
 - **[locally_weighted_linear_regression_examples.py](locally_weighted_linear_regression_examples.py)** - Non-parametric regression, kernel methods
 
-### Visualizations
-- **img/housing_prices.png** - House prices vs living area
-- **img/learning_algorithm.png** - Supervised learning process
-- **img/gradient_descent.png** - Optimization trajectory
-- **img/results_from_gradient_descent.png** - Fitted line with data
-
 ## Key Concepts
 
 ### Mathematical Foundation
