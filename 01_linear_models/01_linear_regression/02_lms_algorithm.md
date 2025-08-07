@@ -427,3 +427,9 @@ The LMS algorithm was first introduced in the context of adaptive filters and si
 3. **Learning rate is crucial**: too small = slow, too large = unstable
 4. **Mini-batch is often the best choice** for most practical problems
 5. **The same principles extend** to more complex models like neural networks
+
+---
+
+**Previous: [Linear Regression](01_linear_regression.md)** - Introduction to linear regression and the cost function.
+
+**Next: [Normal Equations](03_normal_equations.md)** - Learn about the closed-form solution to linear regression using normal equations.
