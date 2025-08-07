@@ -2,6 +2,14 @@
 
 When faced with a regression problem, why might linear regression, and specifically why might the least-squares cost function $J$, be a reasonable choice? In this section, we will give a set of probabilistic assumptions, under which least-squares regression is derived as a very natural algorithm.
 
+## From Optimization Methods to Probabilistic Justification
+
+So far, we've learned how to solve linear regression problems using gradient descent and normal equations. These methods give us practical ways to find the optimal parameters $\theta$ that minimize our cost function. But we haven't addressed a fundamental question: **Why should we use the least squares cost function in the first place?**
+
+The answer requires us to think probabilistically about how our data is generated. By making specific assumptions about the underlying data-generating process, we can show that the least squares approach isn't just a convenient heuristic—it's the **optimal solution** under those assumptions.
+
+This probabilistic interpretation connects our optimization methods to fundamental principles in statistics and provides a theoretical foundation that justifies our choice of cost function. It also opens the door to more sophisticated approaches like Bayesian regression and generalized linear models.
+
 ## Why Probabilistic Interpretation?
 
 Before diving into the mathematics, let's understand why a probabilistic interpretation is valuable:
@@ -306,10 +314,18 @@ This independence property is important because:
 - We can still get good parameter estimates
 - We can estimate the variance from the residuals if needed
 
+## From Global to Local Models
+
+We've now built a complete theoretical foundation for linear regression, understanding both how to solve the optimization problem (gradient descent and normal equations) and why the least squares approach makes sense (probabilistic interpretation). Our models assume a **global linear relationship** between features and target, which works well when the data truly follows a linear pattern.
+
+However, real-world data is often more complex. The relationship between features and target might be **locally linear** but **globally non-linear**. For example, house prices might follow different patterns in different neighborhoods, or the effect of temperature on energy consumption might vary by season.
+
+This motivates our final topic: **locally weighted linear regression (LWR)**, which adapts the linear model to capture local structure in the data. Instead of fitting one global model, LWR fits a separate linear model for each prediction point, giving more weight to nearby training examples.
+
+This approach bridges the gap between simple parametric models and complex non-linear methods, showing how we can extend linear regression to handle more sophisticated data patterns while maintaining interpretability.
+
 ---
 
 **Previous: [Normal Equations](03_normal_equations.md)** - Learn about the closed-form solution to linear regression using normal equations.
 
 **Next: [Locally Weighted Linear Regression](05_locally_weighted_linear_regression.md)** - Explore non-parametric approaches to linear regression that adapt to local data structure.
-
-
