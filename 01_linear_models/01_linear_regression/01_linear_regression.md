@@ -295,7 +295,16 @@ This is an optimization problem, and there are several ways to solve it:
 
 Minimizing the cost function $J(\theta)$ (or equivalently, the MSE) leads to the best fit line or hyperplane for the data, according to the least-squares criterion.
 
+## From Problem Formulation to Optimization
+
+Having established the foundation of linear regression with our hypothesis function and cost function, we now face the critical question: **How do we actually find the optimal parameters $\theta$ that minimize our cost function?** 
+
+The cost function $J(\theta) = \frac{1}{2} \sum_{i=1}^n (h_\theta(x^{(i)}) - y^{(i)})^2$ gives us a mathematical way to measure how well our model fits the data, but we need an algorithm to find the values of $\theta$ that make this cost as small as possible. 
+
+In the next section, we'll explore **gradient descent** and the **LMS (Least Mean Squares) algorithm**, which provide iterative methods to find these optimal parameters. These algorithms are fundamental not just for linear regression, but for much of machine learning, as they form the basis for training more complex models like neural networks.
+
+The beauty of gradient descent is that it works by following the "downhill" direction of our cost function, taking small steps toward the minimum. We'll see how this simple idea leads to powerful optimization algorithms that can handle datasets of any size.
+
 ---
 
 **Next: [LMS Algorithm](02_lms_algorithm.md)** - Learn about gradient descent and the LMS algorithm for optimizing the cost function.
-
