@@ -1,5 +1,15 @@
 # 1.2 The normal equations
 
+## From Iterative to Analytical Optimization
+
+In the previous section, we explored gradient descent and the LMS algorithm, which provide iterative methods to find the optimal parameters $\theta$ that minimize our cost function. These methods work by taking small steps in the direction of steepest descent, gradually approaching the minimum.
+
+However, for linear regression, there's a more direct approach available. Since our cost function $J(\theta) = \frac{1}{2} \sum_{i=1}^n (h_\theta(x^{(i)}) - y^{(i)})^2$ is a quadratic function of $\theta$, we can find its minimum analytically by setting the derivatives to zero and solving the resulting equations.
+
+This analytical approach, known as the **normal equations**, gives us the exact solution in one step, without the need for iteration or learning rate tuning. Understanding both the iterative (gradient descent) and analytical (normal equations) approaches gives us a complete toolkit for solving linear regression problems.
+
+## The Normal Equations
+
 Gradient descent gives one way of minimizing $J$. However, gradient descent requires iterative updates and careful tuning of the learning rate. In contrast, the normal equations approach allows us to directly solve for the optimal parameters in one step, provided the problem is well-posed and the necessary matrix inverses exist. This is especially useful for linear regression problems where the cost function is quadratic and differentiable. In this method, we will minimize $J$ by explicitly taking its derivatives with respect to the $\theta_j$'s, and setting them to zero. To enable us to do this without having to write reams of algebra and pages full of matrices of derivatives, let's introduce some notation for doing calculus with matrices.
 
 ## Why Normal Equations?
@@ -316,9 +326,18 @@ The normal equations provide a beautiful closed-form solution to linear regressi
 
 However, they also have limitations that make gradient descent preferable in many practical scenarios, especially with large datasets or when numerical stability is a concern.
 
+## From Optimization to Probabilistic Foundations
+
+We've now explored two powerful approaches to solving linear regression: the iterative gradient descent method and the analytical normal equations. Both methods give us ways to find the parameters $\theta$ that minimize our cost function, but they approach the problem from different perspectives.
+
+However, there's a deeper question we haven't addressed yet: **Why does the least squares cost function make sense in the first place?** What justifies using the sum of squared errors as our measure of model quality?
+
+The answer lies in **probabilistic thinking**. By making certain assumptions about how our data is generated, we can show that the least squares approach is not just a heuristic, but the **optimal solution** under those assumptions. This probabilistic interpretation connects our optimization methods to fundamental principles in statistics and provides a foundation for understanding more sophisticated regression techniques.
+
+In the next section, we'll explore the probabilistic assumptions that justify least squares regression and see how maximum likelihood estimation naturally leads to our familiar cost function.
+
 ---
 
 **Previous: [LMS Algorithm](02_lms_algorithm.md)** - Learn about gradient descent and the LMS algorithm for optimizing the cost function.
 
 **Next: [Probabilistic Interpretation](04_probabilistic_interpretation.md)** - Understand the probabilistic foundations of linear regression and maximum likelihood estimation.
-
