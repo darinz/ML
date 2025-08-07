@@ -407,10 +407,10 @@ The LMS algorithm was first introduced in the context of adaptive filters and si
 
 ### Modern Extensions
 
-**Adaptive methods**: AdaGrad, RMSprop, Adam automatically adjust learning rates
-**Momentum**: Adds velocity to gradient updates for faster convergence
-**Second-order methods**: Use curvature information (Hessian) for better updates
-**Distributed optimization**: Scale to very large datasets across multiple machines
+- **Adaptive methods**: AdaGrad, RMSprop, Adam automatically adjust learning rates
+- **Momentum**: Adds velocity to gradient updates for faster convergence
+- **Second-order methods**: Use curvature information (Hessian) for better updates
+- **Distributed optimization**: Scale to very large datasets across multiple machines
 
 ## Summary Table
 
