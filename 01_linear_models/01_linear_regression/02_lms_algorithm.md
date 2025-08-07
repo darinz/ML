@@ -1,5 +1,13 @@
 # LMS Algorithm
 
+## From Cost Function to Optimization Algorithm
+
+In the previous section, we defined our linear regression problem with a hypothesis function $h_\theta(x) = \theta^T x$ and a cost function $J(\theta) = \frac{1}{2} \sum_{i=1}^n (h_\theta(x^{(i)}) - y^{(i)})^2$ that measures how well our predictions match the actual values. Now we need to solve the optimization problem: **find the parameters $\theta$ that minimize this cost function**.
+
+While we could try to find the minimum by trial and error, we need a systematic approach that works reliably for any dataset. This is where **gradient descent** comes in - it provides an elegant iterative method that automatically finds the direction of steepest descent and takes steps toward the minimum.
+
+The LMS algorithm is a specific implementation of gradient descent for linear regression, and understanding it will give us insights that apply to much more complex models in machine learning.
+
 ## Introduction and Context
 
 The Least Mean Squares (LMS) algorithm is a foundational method in machine learning and signal processing, particularly for linear regression and adaptive filtering. Its goal is to find the parameter vector $\theta$ that minimizes a cost function $J(\theta)$, typically the mean squared error between predictions and observed values. LMS is closely related to the method of gradient descent, which is a general-purpose optimization technique used throughout machine learning.
@@ -427,6 +435,16 @@ The LMS algorithm was first introduced in the context of adaptive filters and si
 3. **Learning rate is crucial**: too small = slow, too large = unstable
 4. **Mini-batch is often the best choice** for most practical problems
 5. **The same principles extend** to more complex models like neural networks
+
+## From Iterative to Analytical Solutions
+
+We've now explored how gradient descent provides an iterative approach to finding the optimal parameters $\theta$ that minimize our cost function. The LMS algorithm and its variants (batch, stochastic, and mini-batch) give us powerful tools that can handle datasets of any size and adapt to changing data.
+
+However, there's another approach that's worth understanding: **the normal equations**. While gradient descent iteratively approaches the solution, the normal equations provide a **closed-form analytical solution** that gives us the exact optimal parameters in one step.
+
+This analytical approach has several advantages: no learning rate to tune, guaranteed convergence to the global minimum, and often faster computation for small to medium datasets. Understanding both methods gives us a complete picture of how to solve linear regression problems, and helps us choose the right approach for different scenarios.
+
+In the next section, we'll derive the normal equations and see how they connect to the geometric interpretation of linear regression as finding the best projection of our target vector onto the space spanned by our features.
 
 ---
 
