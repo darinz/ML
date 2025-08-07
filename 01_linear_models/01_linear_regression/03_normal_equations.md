@@ -39,8 +39,11 @@ $$
 The gradient of a scalar-valued function with respect to a matrix is itself a matrix, where each entry is the partial derivative of the function with respect to the corresponding entry in the input matrix. This allows us to perform calculus operations in a compact, vectorized form, which is essential for efficient computation in machine learning.
 
 **Key properties:**
+
 1. **Linearity**: $\nabla_A (f(A) + g(A)) = \nabla_A f(A) + \nabla_A g(A)$
+
 2. **Chain rule**: $\nabla_A f(g(A)) = \nabla_{g(A)} f(g(A)) \cdot \nabla_A g(A)$
+
 3. **Transpose rule**: $\nabla_A f(A^T) = (\nabla_{A^T} f(A^T))^T$
 
 ### Example: Matrix Derivative Computation
