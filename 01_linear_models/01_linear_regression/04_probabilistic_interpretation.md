@@ -48,8 +48,6 @@ where $y^{(i)}$ is the observed output for the $i$-th data point, $x^{(i)}$ is t
 - $\theta^T x^{(i)}$ might be: $50 + 0.1 \times \text{area} + 20 \times \text{bedrooms}$
 - $\epsilon^{(i)}$ captures: location effects, market timing, unique features, measurement error
 
-> **Matrix invertibility note:** In the above step, we are implicitly assuming that $X^T X$ is an invertible matrix, where $X$ is the design matrix whose rows are the $x^{(i)}$'s. This can be checked before calculating the inverse. If either the number of linearly independent examples is fewer than the number of features, or if the features are not linearly independent, then $X^T X$ will not be invertible. Even in such cases, it is possible to "fix" the situation with additional techniques, such as regularization (ridge regression), which we skip here for the sake of simplicity.
-
 ## Gaussian Noise Model
 
 The error term $\epsilon^{(i)}$ captures either unmodeled effects (such as if there are some features very pertinent to predicting housing price, but that we'd left out of the regression), or random noise. To proceed probabilistically, we further assume that the $\epsilon^{(i)}$ are distributed IID (independently and identically distributed) according to a Gaussian (Normal) distribution with mean zero and some variance $\sigma^2$:
