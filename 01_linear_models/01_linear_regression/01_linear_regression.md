@@ -148,7 +148,7 @@ The distinction is important because it determines:
 3. **Evaluation metrics**: Accuracy vs. mean squared error, for example
 4. **Output interpretation**: Class probabilities vs. continuous predictions
 
-In this document, we focus on regression, but many of the ideas carry over to classification with appropriate modifications.
+In this section, we focus on regression, but many of the ideas carry over to classification with appropriate modifications.
 
 ## Linear Regression with Multiple Features
 
