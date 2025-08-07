@@ -306,4 +306,10 @@ This independence property is important because:
 - We can still get good parameter estimates
 - We can estimate the variance from the residuals if needed
 
+---
+
+**Previous: [Normal Equations](03_normal_equations.md)** - Learn about the closed-form solution to linear regression using normal equations.
+
+**Next: [Locally Weighted Linear Regression](05_locally_weighted_linear_regression.md)** - Explore non-parametric approaches to linear regression that adapt to local data structure.
+
 
