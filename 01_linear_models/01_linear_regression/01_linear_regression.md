@@ -295,3 +295,7 @@ This is an optimization problem, and there are several ways to solve it:
 
 Minimizing the cost function $J(\theta)$ (or equivalently, the MSE) leads to the best fit line or hyperplane for the data, according to the least-squares criterion.
 
+---
+
+**Next: [LMS Algorithm](02_lms_algorithm.md)** - Learn about gradient descent and the LMS algorithm for optimizing the cost function.
+
