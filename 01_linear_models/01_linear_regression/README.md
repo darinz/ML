@@ -12,18 +12,25 @@ Linear regression fundamentals including least squares, gradient descent, normal
 ## Materials
 
 ### Core Notes
-- **[01_linear_regression.md](01_linear_regression.md)** - Supervised learning framework, hypothesis functions, cost functions, multiple features
-- **[02_lms_algorithm.md](02_lms_algorithm.md)** - Gradient descent variants (batch, stochastic, mini-batch), learning rates, convergence
-- **[03_normal_equations.md](03_normal_equations.md)** - Analytical solution, matrix calculus, closed-form computation
+- **[01_linear_regression.md](01_linear_regression.md)** - Supervised learning framework, hypothesis functions, cost functions
+- **[02_lms_algorithm.md](02_lms_algorithm.md)** - Gradient descent variants, learning rates, convergence
+- **[03_normal_equations.md](03_normal_equations.md)** - Analytical solution, matrix calculus
 - **[04_probabilistic_interpretation.md](04_probabilistic_interpretation.md)** - Statistical foundations, Gaussian noise, maximum likelihood
-- **[05_locally_weighted_linear_regression.md](05_locally_weighted_linear_regression.md)** - Non-parametric approaches, kernel weighting, bandwidth selection
+- **[05_locally_weighted_linear_regression.md](05_locally_weighted_linear_regression.md)** - Non-parametric approaches, kernel weighting
+- **[06_hands-on_coding.md](06_hands-on_coding.md)** - Practical implementation guide
 
 ### Code Examples
-- **[linear_regression_examples.py](linear_regression_examples.py)** - Basic implementation, cost functions, data visualization
-- **[lms_algorithm_examples.py](lms_algorithm_examples.py)** - Gradient descent variants, convergence analysis
-- **[normal_equations_examples.py](normal_equations_examples.py)** - Analytical solutions, matrix operations
-- **[probabilistic_linear_regression_examples.py](probabilistic_linear_regression_examples.py)** - Statistical interpretation, likelihood functions
-- **[locally_weighted_linear_regression_examples.py](locally_weighted_linear_regression_examples.py)** - Non-parametric regression, kernel methods
+- **[linear_regression_examples.py](linear_regression_examples.py)** - Basic implementation and visualization
+- **[lms_algorithm_examples.py](lms_algorithm_examples.py)** - Gradient descent variants
+- **[normal_equations_examples.py](normal_equations_examples.py)** - Analytical solutions
+- **[probabilistic_linear_regression_examples.py](probabilistic_linear_regression_examples.py)** - Statistical interpretation
+- **[locally_weighted_linear_regression_examples.py](locally_weighted_linear_regression_examples.py)** - Non-parametric regression
+
+### Interactive Notebook
+- **[03_normal_equations.ipynb](03_normal_equations.ipynb)** - Jupyter notebook with interactive examples
+
+### Images
+- **img/** - Visualizations including gradient descent, housing prices, and locally weighted regression plots
 
 ## Key Concepts
 
@@ -35,11 +42,9 @@ Linear regression fundamentals including least squares, gradient descent, normal
 ### Optimization Methods
 - **Batch GD**: $\theta := \theta + \alpha \sum_{i=1}^n (y^{(i)} - h_\theta(x^{(i)})) x^{(i)}$
 - **Stochastic GD**: $\theta := \theta + \alpha (y^{(i)} - h_\theta(x^{(i)})) x^{(i)}$
-- **Mini-batch GD**: $\theta := \theta + \alpha \frac{1}{m} \sum_{k=1}^m (y^{(k)} - h_\theta(x^{(k)})) x^{(k)}$
 
 ### Non-parametric Methods
 - **Locally Weighted Regression**: $w^{(i)} = \exp(-\frac{(x^{(i)} - x)^2}{2\tau^2})$
-- **Weighted Least Squares**: $\theta = (X^T W X)^{-1} X^T W y$
 
 ## Getting Started
 
@@ -47,11 +52,16 @@ Linear regression fundamentals including least squares, gradient descent, normal
 2. Study `02_lms_algorithm.md` for optimization
 3. Explore `03_normal_equations.md` for analytical solutions
 4. Run Python examples to see concepts in action
-5. Experiment with real data and visualizations
+5. Use `06_hands-on_coding.md` for practical implementation
 
-## Learning Path
+## Setup
 
-- **Beginner**: Linear regression basics, cost functions
-- **Intermediate**: Gradient descent, analytical solutions
-- **Advanced**: Probabilistic foundations, non-parametric methods
-- **Expert**: Computational complexity, advanced topics 
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Or use conda:
+```bash
+conda env create -f environment.yaml
+``` 
