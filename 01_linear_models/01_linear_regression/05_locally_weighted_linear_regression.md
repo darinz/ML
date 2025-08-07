@@ -270,3 +270,7 @@ The key trade-offs are:
 
 LWR serves as a bridge between simple parametric methods and more complex non-linear approaches, offering a principled way to adapt linear models to non-linear data.
 
+---
+
+**Previous: [Probabilistic Interpretation](04_probabilistic_interpretation.md)** - Understand the probabilistic foundations of linear regression and maximum likelihood estimation.
+
