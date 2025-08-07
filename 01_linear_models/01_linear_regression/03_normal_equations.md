@@ -313,3 +313,9 @@ The normal equations provide a beautiful closed-form solution to linear regressi
 
 However, they also have limitations that make gradient descent preferable in many practical scenarios, especially with large datasets or when numerical stability is a concern.
 
+---
+
+**Previous: [LMS Algorithm](02_lms_algorithm.md)** - Learn about gradient descent and the LMS algorithm for optimizing the cost function.
+
+**Next: [Probabilistic Interpretation](04_probabilistic_interpretation.md)** - Understand the probabilistic foundations of linear regression and maximum likelihood estimation.
+
