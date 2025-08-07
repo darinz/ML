@@ -48,6 +48,7 @@ where $y^{(i)}$ is the observed output for the $i$-th data point, $x^{(i)}$ is t
 - $\theta^T x^{(i)}$ might be: $50 + 0.1 \times \text{area} + 20 \times \text{bedrooms}$
 - $\epsilon^{(i)}$ captures: location effects, market timing, unique features, measurement error
 
+
 ## Gaussian Noise Model
 
 The error term $\epsilon^{(i)}$ captures either unmodeled effects (such as if there are some features very pertinent to predicting housing price, but that we'd left out of the regression), or random noise. To proceed probabilistically, we further assume that the $\epsilon^{(i)}$ are distributed IID (independently and identically distributed) according to a Gaussian (Normal) distribution with mean zero and some variance $\sigma^2$:
