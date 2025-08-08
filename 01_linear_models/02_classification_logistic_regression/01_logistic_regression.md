@@ -100,9 +100,9 @@ $$
 \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots + \theta_d x_d = 0
 $$
 
-This defines a hyperplane in the feature space that separates the two classes.
-
 <img src="./img/sigmoid.png" width="300px" />
+
+This defines a hyperplane in the feature space that separates the two classes.
 
 ### Theoretical Justification: Generalized Linear Models
 
