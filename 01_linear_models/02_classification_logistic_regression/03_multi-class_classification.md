@@ -418,3 +418,9 @@ For more advanced topics, see:
 ---
 
 > **Note:** There are some ambiguities in naming conventions. Some people call the cross-entropy loss the function that maps the probability vector (the $\phi$ in our language) and label $y$ to the final real number, and call our version of cross-entropy loss softmax-cross-entropy loss. We choose our current naming convention because it's consistent with the naming of most modern deep learning libraries such as PyTorch and Jax.
+
+---
+
+**Previous: [Perceptron Algorithm](02_perceptron.md)** - Learn about the perceptron learning algorithm and its relationship to linear classification.
+
+**Next: [Newton's Method](04_newtons_method.md)** - Explore second-order optimization methods for faster convergence in logistic regression.
