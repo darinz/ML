@@ -16,23 +16,6 @@ Consider the problem of predicting $y$ from $x \in \mathbb{R}$. The leftmost fig
 
 <img src="./img/lwlr.png" width="700px" />
 
-## The Problem with Global Linear Models
-
-In many real-world problems, the relationship between $x$ and $y$ is not strictly linear. For example, in predicting house prices, the effect of square footage on price may depend on the neighborhood or other local factors. A single global linear model may miss these local patterns, leading to poor predictions.
-
-**Why global linear models fail:**
-1. **Non-linear relationships**: The true relationship might be curved, not straight
-2. **Local variations**: Different regions of the data might have different patterns
-3. **Heterogeneous data**: The relationship might change across the feature space
-
-**Examples where global linear models struggle:**
-- **House prices**: Price per square foot varies by neighborhood
-- **Temperature prediction**: Seasonal patterns create non-linear relationships
-- **Economic data**: Relationships change over time or across regions
-- **Biological data**: Dose-response curves are often non-linear
-
-Locally weighted linear regression (LWR) addresses this by fitting a model that is tailored to the region around each query point. LWR is especially useful when the data shows local trends or nonlinearities, and when you have enough data to reliably fit local models. For instance, predicting house prices in different neighborhoods or modeling temperature as a function of time in different seasons are scenarios where LWR can excel.
-
 ## The Bias-Variance Trade-off in Model Complexity
 
 Instead, if we had added an extra feature $x^2$, and fit $y = \theta_0 + \theta_1 x + \theta_2 x^2$, then we obtain a slightly better fit to the data (see middle figure). Naively, it might seem that the more features we add, the better. However, there is also a danger in adding too many features: The rightmost figure is the result of fitting a 5-th order polynomial $y = \sum_{j=0}^5 \theta_j x^j$. We see that even though the fitted curve passes through the data perfectly, we would not expect this to be a very good predictor of, say, housing prices ($y$) for different living areas ($x$).
@@ -54,6 +37,23 @@ Instead, if we had added an extra feature $x^2$, and fit $y = \theta_0 + \theta_
 - **Characteristics**: Moderate bias, moderate variance
 
 Without formally defining what these terms mean, we'll say the figure on the left shows an instance of **underfitting**—in which the data clearly shows structure not captured by the model—and the figure on the right is an example of **overfitting**. (Later in this class, when we talk about learning theory we'll formalize some of these notions, and also define more carefully just what it means for a hypothesis to be good or bad.)
+
+## The Problem with Global Linear Models
+
+In many real-world problems, the relationship between $x$ and $y$ is not strictly linear. For example, in predicting house prices, the effect of square footage on price may depend on the neighborhood or other local factors. A single global linear model may miss these local patterns, leading to poor predictions.
+
+**Why global linear models fail:**
+1. **Non-linear relationships**: The true relationship might be curved, not straight
+2. **Local variations**: Different regions of the data might have different patterns
+3. **Heterogeneous data**: The relationship might change across the feature space
+
+**Examples where global linear models struggle:**
+- **House prices**: Price per square foot varies by neighborhood
+- **Temperature prediction**: Seasonal patterns create non-linear relationships
+- **Economic data**: Relationships change over time or across regions
+- **Biological data**: Dose-response curves are often non-linear
+
+Locally weighted linear regression (LWR) addresses this by fitting a model that is tailored to the region around each query point. LWR is especially useful when the data shows local trends or nonlinearities, and when you have enough data to reliably fit local models. For instance, predicting house prices in different neighborhoods or modeling temperature as a function of time in different seasons are scenarios where LWR can excel.
 
 ### The LWR Solution
 
