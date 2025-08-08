@@ -360,7 +360,16 @@ For more advanced topics, see:
 - **Bayesian logistic regression:** Incorporating prior knowledge
 - **Online learning:** Updating models with streaming data
 
+## From Probabilistic Classification to Deterministic Learning
+
+We've now established a solid foundation for binary classification using logistic regression. Our approach has been **probabilistic** - we model the probability of belonging to each class and use the sigmoid function to ensure our outputs are valid probabilities. This gives us interpretable predictions and a principled way to handle uncertainty.
+
+However, there's another approach to classification that's historically significant and conceptually simpler: the **perceptron algorithm**. Instead of modeling probabilities, the perceptron makes **deterministic** predictions using a hard threshold function. While this approach has limitations, it introduces important concepts that form the foundation of neural networks and provides insights into the geometric nature of classification problems.
+
+The perceptron represents a different philosophical approach to classification - rather than asking "what's the probability this belongs to class 1?", it asks "which side of the decision boundary does this point fall on?" This geometric perspective will help us understand the fundamental challenges and opportunities in classification.
+
+In the next section, we'll explore the perceptron algorithm and see how it relates to, and differs from, our probabilistic logistic regression approach.
+
 ---
 
 **Next: [Perceptron Algorithm](02_perceptron.md)** - Learn about the perceptron learning algorithm and its relationship to linear classification.
-
