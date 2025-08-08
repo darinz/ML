@@ -36,7 +36,7 @@ Instead, if we had added an extra feature $x^2$, and fit $y = \theta_0 + \theta_
 - **Balance**: Captures true structure without fitting noise
 - **Characteristics**: Moderate bias, moderate variance
 
-Without formally defining what these terms mean, we'll say the figure on the left shows an instance of **underfitting**—in which the data clearly shows structure not captured by the model—and the figure on the right is an example of **overfitting**. (Later in this class, when we talk about learning theory we'll formalize some of these notions, and also define more carefully just what it means for a hypothesis to be good or bad.)
+Without formally defining what these terms mean, we'll say the figure on the left shows an instance of **underfitting**—in which the data clearly shows structure not captured by the model—and the figure on the right is an example of **overfitting**. (Later in these notes, when we talk about learning theory we'll formalize some of these notions, and also define more carefully just what it means for a hypothesis to be good or bad.)
 
 ## The Problem with Global Linear Models
 
