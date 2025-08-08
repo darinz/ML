@@ -318,3 +318,5 @@ The principles we've learned here - optimization, probabilistic thinking, and mo
 ---
 
 **Previous: [Probabilistic Interpretation](04_probabilistic_interpretation.md)** - Understand the probabilistic foundations of linear regression and maximum likelihood estimation.
+
+**Next: [Hands-on Coding](06_hands-on_coding.md)** - Apply the concepts learned through practical coding exercises and implementations.
