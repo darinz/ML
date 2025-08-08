@@ -400,3 +400,5 @@ The principles learned from Newton's method continue to influence modern optimiz
 ---
 
 **Previous: [Multi-class Classification](03_multi-class_classification.md)** - Extend binary classification to multiple classes using softmax and cross-entropy.
+
+**Next: [Hands-on Coding](05_hands-on_coding.md)** - Apply the classification concepts learned through practical coding exercises and implementations.
