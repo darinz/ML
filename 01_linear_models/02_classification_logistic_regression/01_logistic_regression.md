@@ -360,3 +360,7 @@ For more advanced topics, see:
 - **Bayesian logistic regression:** Incorporating prior knowledge
 - **Online learning:** Updating models with streaming data
 
+---
+
+**Next: [Perceptron Algorithm](02_perceptron.md)** - Learn about the perceptron learning algorithm and its relationship to linear classification.
+
