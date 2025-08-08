@@ -8,3 +8,4 @@ jupyter>=1.0.0
 notebook>=6.4.0
 ipykernel>=6.0.0
 nb_conda_kernels>=2.3.0
+
