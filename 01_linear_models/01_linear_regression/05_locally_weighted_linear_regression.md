@@ -308,6 +308,7 @@ We've now completed a comprehensive journey through linear regression, building 
 ### Looking Forward
 
 This linear regression framework provides the foundation for understanding more advanced topics in machine learning:
+
 - **Generalized linear models** extend the probabilistic interpretation
 - **Neural networks** use gradient descent on more complex architectures
 - **Kernel methods** generalize the local weighting concept
