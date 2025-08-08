@@ -397,4 +397,6 @@ Newton's method forms the foundation for many advanced optimization techniques:
 
 The principles learned from Newton's method continue to influence modern optimization algorithms in machine learning and beyond.
 
+---
 
+**Previous: [Multi-class Classification](03_multi-class_classification.md)** - Extend binary classification to multiple classes using softmax and cross-entropy.
