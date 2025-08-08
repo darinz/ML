@@ -4,6 +4,14 @@
 
 The perceptron learning algorithm is a historically significant method in machine learning, providing a foundation for later developments in neural networks and classification. Introduced by Frank Rosenblatt in 1958, the perceptron was one of the earliest computational models of a biological neuron and represented a major milestone in artificial intelligence research.
 
+## From Probabilistic to Deterministic Classification
+
+In the previous section, we explored logistic regression, which takes a **probabilistic approach** to classification. We modeled the probability of belonging to each class and used the smooth sigmoid function to output values between 0 and 1. This approach gives us interpretable probabilities and handles uncertainty naturally.
+
+Now we turn to the **perceptron algorithm**, which represents a fundamentally different approach. Instead of modeling probabilities, the perceptron makes **deterministic binary decisions** using a hard threshold function. This simpler approach has both advantages and limitations, but it introduces key concepts that form the foundation of neural networks and provides important insights into the geometric nature of classification problems.
+
+The perceptron's historical significance and conceptual clarity make it an essential bridge between simple linear models and more sophisticated neural network architectures. Understanding the perceptron helps us appreciate both the power and limitations of linear classification methods.
+
 #### The Biological Inspiration
 
 The perceptron was designed to mimic how individual neurons in the brain work:
@@ -248,5 +256,15 @@ The perceptron's historical significance and conceptual clarity make it an essen
 **Previous: [Logistic Regression](01_logistic_regression.md)** - Understand the probabilistic foundations of binary classification.
 
 **Next: [Multi-class Classification](03_multi-class_classification.md)** - Extend binary classification to multiple classes using softmax and cross-entropy.
+
+## From Binary to Multi-Class Classification
+
+We've now explored two fundamental approaches to binary classification: the probabilistic logistic regression and the deterministic perceptron algorithm. Both methods provide ways to separate two classes, but they differ in their philosophical approach and practical capabilities.
+
+However, many real-world problems require us to distinguish among **more than two classes**. Email classification might involve spam, personal, work, and marketing categories. Image recognition might need to identify dozens of different objects. Medical diagnosis might involve multiple possible conditions.
+
+This motivates our next topic: **multi-class classification**. We'll extend the probabilistic framework we developed in logistic regression to handle multiple classes using the **softmax function**, which generalizes the sigmoid function to multiple outputs. This approach maintains the interpretability and theoretical foundations of logistic regression while scaling to arbitrary numbers of classes.
+
+The transition from binary to multi-class classification represents a natural evolution in our understanding of classification problems, moving from simple two-way decisions to the complex decision boundaries needed in real-world applications.
 
 
