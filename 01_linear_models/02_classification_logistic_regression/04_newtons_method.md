@@ -4,6 +4,16 @@
 
 Returning to logistic regression with $g(z)$ being the sigmoid function, let's now explore a different algorithm for maximizing the log-likelihood $\ell(\theta)$. While gradient ascent is simple and effective, Newton's method offers superior convergence properties in many cases.
 
+## From First-Order to Second-Order Optimization
+
+Throughout our exploration of classification methods - from binary logistic regression to multi-class softmax regression - we've relied on **gradient ascent** to find the optimal parameters. This first-order optimization method uses only gradient information to make parameter updates, which is simple and effective but has limitations.
+
+Gradient methods can be slow to converge, requiring many iterations to reach high precision. They're also sensitive to the learning rate choice - too small and convergence is slow, too large and the algorithm may oscillate or diverge. Most importantly, gradient methods don't take advantage of the **curvature information** available in our models.
+
+This motivates our exploration of **Newton's method**, a second-order optimization technique that uses both gradient and curvature (Hessian) information to make more informed parameter updates. Newton's method can achieve **quadratic convergence** - meaning the number of correct digits doubles with each iteration - which is dramatically faster than the linear convergence of gradient methods.
+
+The transition from first-order to second-order optimization represents a natural progression in our understanding of machine learning optimization, moving from simple gradient methods to more sophisticated techniques that leverage the mathematical structure of our problems.
+
 #### Why Newton's Method?
 
 Gradient ascent has some limitations:
@@ -402,3 +412,13 @@ The principles learned from Newton's method continue to influence modern optimiz
 **Previous: [Multi-class Classification](03_multi-class_classification.md)** - Extend binary classification to multiple classes using softmax and cross-entropy.
 
 **Next: [Hands-on Coding](05_hands-on_coding.md)** - Apply the classification concepts learned through practical coding exercises and implementations.
+
+## From Theory to Practice: Hands-On Implementation
+
+We've now completed a comprehensive theoretical journey through classification methods, from the probabilistic foundations of logistic regression to the geometric insights of the perceptron, from multi-class classification with softmax to advanced optimization with Newton's method. These theoretical concepts provide the foundation for understanding classification algorithms, but true mastery comes from **hands-on implementation**.
+
+The transition from theory to practice is crucial in machine learning. While understanding the mathematical foundations is essential, implementing these algorithms helps develop intuition, reveals practical challenges, and builds the skills needed for real-world applications. Coding these algorithms from scratch forces us to confront the details that theory often abstracts away.
+
+In the next section, we'll put our theoretical knowledge into practice through hands-on coding exercises. We'll implement each algorithm we've studied, experiment with real datasets, and develop the practical skills needed to apply these methods to real-world classification problems.
+
+This hands-on approach will solidify our understanding and prepare us for the complex challenges that arise when applying machine learning in practice.
