@@ -243,4 +243,10 @@ While its practical applications are limited, the perceptron serves as an excell
 
 The perceptron's historical significance and conceptual clarity make it an essential topic in machine learning education, providing the foundation for understanding more advanced algorithms like support vector machines, neural networks, and deep learning systems.
 
+---
+
+**Previous: [Logistic Regression](01_logistic_regression.md)** - Understand the probabilistic foundations of binary classification.
+
+**Next: [Multi-class Classification](03_multi-class_classification.md)** - Extend binary classification to multiple classes using softmax and cross-entropy.
+
 
