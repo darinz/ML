@@ -106,6 +106,7 @@ $$
 #### Temperature Scaling
 
 We can control the "sharpness" of the distribution by introducing a temperature parameter $\tau$:
+
 $$
 \mathrm{softmax}_\tau(t_1, \ldots, t_k) = \left[ \frac{\exp(t_1/\tau)}{\sum_{j=1}^k \exp(t_j/\tau)}, \ldots, \frac{\exp(t_k/\tau)}{\sum_{j=1}^k \exp(t_j/\tau)} \right]
 $$
