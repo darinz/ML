@@ -2,6 +2,18 @@
 
 Naive Bayes is one of the simplest and most effective algorithms for classification, especially when dealing with high-dimensional data such as text. It is widely used in applications like spam filtering, sentiment analysis, document categorization, and even medical diagnosis. The core idea is to use probability theory to make predictions, leveraging the assumption that features are conditionally independent given the class label.
 
+## From Continuous to Discrete: Extending Generative Learning
+
+In the previous section, we explored **Gaussian Discriminant Analysis (GDA)**, which provides an elegant generative approach for classification with continuous features. GDA models the class-conditional distributions as multivariate normal distributions, leading to linear decision boundaries and a deep connection to logistic regression.
+
+However, many real-world problems involve **discrete or categorical features** rather than continuous ones. In text classification, for example, we deal with words that are either present or absent in a document. In medical diagnosis, symptoms are often binary (present/absent) or categorical (mild/moderate/severe). In marketing, customer behaviors are typically discrete events (clicked/not clicked, purchased/not purchased).
+
+This motivates our exploration of **Naive Bayes**, which extends the generative learning framework to handle discrete features. While GDA assumes Gaussian distributions for continuous features, Naive Bayes makes a different but equally powerful assumption: **conditional independence** of features given the class label.
+
+The transition from GDA to Naive Bayes represents a natural evolution in our understanding of generative learning - from modeling continuous features with multivariate normal distributions to modeling discrete features with conditional independence assumptions. Both approaches leverage Bayes' rule to convert generative models into discriminative predictions, but they handle fundamentally different types of data.
+
+In this section, we'll explore how Naive Bayes tackles the challenges of high-dimensional discrete data and see how it becomes particularly powerful for text classification and other problems with categorical features.
+
 ### Motivation and Context
 
 In many real-world problems, the data we encounter is naturally discrete or can be discretized. For example, in text classification, each document (such as an email) can be represented by the words it contains. These words are drawn from a finite vocabulary, and the presence or absence of each word can be encoded as a binary feature. This approach is not limited to text: in medical diagnosis, symptoms can be encoded as binary features (present/absent), and in marketing, customer behaviors (clicked/not clicked) can be similarly represented.
@@ -342,3 +354,23 @@ The multinomial event model parameters can be estimated with Laplace smoothing t
 - **Bernoulli:** When word presence/absence is more important than frequency
 - **Multinomial:** When word frequency provides important signal
 - **Multinomial:** Generally preferred for text classification tasks
+
+## From Theoretical Framework to Practical Implementation
+
+We've now explored two fundamental generative learning algorithms: **Gaussian Discriminant Analysis (GDA)** for continuous features and **Naive Bayes** for discrete features. Both approaches model the data generation process $p(x|y)$ and use Bayes' rule to make predictions, but they handle fundamentally different types of data.
+
+GDA assumes multivariate normal distributions for continuous features, leading to linear decision boundaries and a deep connection to logistic regression. Naive Bayes assumes conditional independence for discrete features, making it particularly powerful for high-dimensional data like text classification.
+
+However, true understanding comes from **hands-on implementation**. While the theoretical framework provides the foundation, implementing these generative models from scratch, experimenting with different parameter estimation methods, and applying them to real-world problems is where the concepts truly come to life.
+
+The transition from theoretical understanding to practical implementation is crucial in generative learning. While the mathematical framework provides the foundation, implementing these models helps develop intuition, reveals practical challenges, and builds the skills needed for real-world applications. Coding these algorithms from scratch forces us to confront the details that theory often abstracts away.
+
+In the next section, we'll put our theoretical knowledge into practice through hands-on coding exercises. We'll implement both GDA and Naive Bayes from scratch, experiment with different datasets, and develop the practical skills needed to apply these powerful generative models to real-world problems.
+
+This hands-on approach will solidify our understanding and prepare us for the complex challenges that arise when applying generative learning in practice.
+
+---
+
+**Previous: [Gaussian Discriminant Analysis](01_gda.md)** - Learn about GDA for continuous features and multivariate normal distributions.
+
+**Next: [Hands-on Coding](03_hands-on_coding.md)** - Implement generative learning algorithms from scratch and apply them to real-world problems.
