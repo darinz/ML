@@ -11,6 +11,18 @@ We've explored the elegant mathematical framework of Generalized Linear Models (
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different distributions and link functions, and develop the intuition needed to apply GLMs to real-world problems.
 
+## From Theoretical Framework to Hands-On Mastery
+
+We've now built a comprehensive theoretical understanding of **Generalized Linear Models** - from the mathematical elegance of exponential families to the systematic construction framework that allows us to build models for any type of response variable. This theoretical foundation provides the elegant unification that makes GLMs so powerful.
+
+However, true mastery in statistical modeling comes from **hands-on implementation**. While understanding the mathematical framework is essential, implementing GLMs from scratch, experimenting with different distributions and link functions, and applying them to real-world problems is where the concepts truly come to life.
+
+The transition from theory to practice is crucial in statistical modeling. While the mathematical framework provides the foundation, implementing GLMs helps develop intuition, reveals practical challenges, and builds the skills needed for real-world applications. Coding these models from scratch forces us to confront the details that theory often abstracts away.
+
+In this practical guide, we'll put our theoretical knowledge into practice through hands-on coding exercises. We'll implement the exponential family framework, build GLMs from scratch, experiment with different distributions, and develop the practical skills needed to apply these powerful models to real-world problems.
+
+This hands-on approach will solidify our understanding and prepare us for the complex challenges that arise when applying GLMs in practice.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -621,6 +633,10 @@ The principles we've learned here - exponential families, systematic model const
 Remember: The power of GLMs lies in their ability to unify different modeling approaches while maintaining interpretability and mathematical rigor. Keep exploring, building, and applying these concepts to new problems!
 
 ---
+
+**Previous: [Constructing GLMs](02_constructing_glm.md)** - Learn the systematic approach to building Generalized Linear Models for any prediction problem.
+
+**Next: [Advanced Topics in Linear Models](../04_advanced_topics/README.md)** - Explore regularization, feature engineering, and advanced linear modeling techniques.
 
 ## Environment Files
 
