@@ -108,7 +108,7 @@ Starting from $\theta = 0$:
 
 **Problem:** The function is concave ($\ell''(\theta) < 0$), so we're moving away from the maximum!
 
-**Solution:** For maximization, we need $\ell''(\theta) > 0$ (convexity). For minimization, we need $\ell''(\theta) > 0$ (convexity).
+**Solution:** For maximization, we need $\ell''(\theta) < 0$ (concavity). For minimization, we need $\ell''(\theta) > 0$ (convexity).
 
 > **Something to think about:** How would this change if we wanted to use Newton's method to minimize rather than maximize a function?
 
