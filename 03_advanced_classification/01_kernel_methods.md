@@ -735,6 +735,22 @@ K(x, z) = \alpha_1 \langle x, z \rangle + \alpha_2 (\langle x, z \rangle + 1)^2 
 
 The kernel trick demonstrates the power of mathematical abstraction in machine learning - by working with inner products rather than explicit features, we can achieve remarkable computational efficiency while maintaining theoretical rigor.
 
+## From Kernel Methods to Mathematical Foundations
+
+We've now explored the **kernel trick** - one of the most powerful ideas in machine learning that allows us to work in high-dimensional feature spaces without explicitly computing the features. We've seen how kernels can capture complex non-linear patterns efficiently, from polynomial features to radial basis functions, and how they enable algorithms to operate in infinite-dimensional spaces with finite computation.
+
+However, having this computational tool raises a fundamental question: **What makes a function a valid kernel?** Not every function $K(x, z)$ corresponds to an inner product in some feature space. We need mathematical criteria to distinguish valid kernels from invalid ones.
+
+This motivates our exploration of **kernel properties** - the mathematical foundations that tell us which functions can serve as kernels. We'll learn about positive semi-definiteness, Mercer's theorem, and the conditions that guarantee a function corresponds to a valid feature map.
+
+The transition from kernel methods to kernel properties represents the bridge from computational techniques to mathematical rigor - understanding not just how to use kernels, but why they work and how to design new ones.
+
+In the next section, we'll explore the mathematical properties that make kernels valid and learn how to test whether a given function can serve as a kernel.
+
+---
+
+**Next: [Kernel Properties](02_kernel_properties.md)** - Understand the mathematical foundations that make kernels valid and learn how to design new kernels.
+
 [1]: Here, for simplicity, we include all the monomials with repetitions (so that, e.g., $x_1 x_2 x_3$ and $x_2 x_3 x_1$ both appear in $\phi(x)$). Therefore, there are totally $1 + d + d^2 + d^3$ entries in $\phi(x)$.
 
 [2]: Recall that $\mathcal{X}$ is the space of the input $x$. In our running example, $\mathcal{X} = \mathbb{R}^d$
