@@ -14,6 +14,18 @@ If we can answer this question by giving a precise characterization of valid ker
 
 We will answer this question at the end of this subsection after we go through several concrete examples of kernels.
 
+## From Computational Techniques to Mathematical Rigor
+
+In the previous section, we explored the **kernel trick** - a powerful computational technique that allows us to work in high-dimensional feature spaces without explicitly computing the features. We saw how kernels can capture complex non-linear patterns efficiently and enable algorithms to operate in infinite-dimensional spaces with finite computation.
+
+However, having this computational tool raises a fundamental question: **What makes a function a valid kernel?** Not every function $K(x, z)$ corresponds to an inner product in some feature space. We need mathematical criteria to distinguish valid kernels from invalid ones.
+
+This motivates our exploration of **kernel properties** - the mathematical foundations that tell us which functions can serve as kernels. We'll learn about positive semi-definiteness, Mercer's theorem, and the conditions that guarantee a function corresponds to a valid feature map.
+
+The transition from kernel methods to kernel properties represents the bridge from computational techniques to mathematical rigor - understanding not just how to use kernels, but why they work and how to design new ones.
+
+In this section, we'll explore the mathematical properties that make kernels valid and learn how to test whether a given function can serve as a kernel.
+
 ## Concrete Examples of Kernels
 
 ### Example 1: The Quadratic Kernel
@@ -218,6 +230,22 @@ In fact, the idea of kernels has significantly broader applicability than linear
 3. **Work in feature space**: Your algorithm now operates in the feature space implicitly
 4. **Enjoy non-linearity**: Capture complex patterns without explicit feature engineering
 
+## From Kernel Foundations to Support Vector Machines
+
+We've now established the mathematical foundations of kernel methods - understanding what makes a function a valid kernel through positive semi-definiteness and Mercer's theorem. This theoretical framework provides the rigor needed to design and validate kernel functions.
+
+However, kernels are most powerful when applied to specific algorithms that can leverage their computational efficiency. **Support Vector Machines (SVMs)** represent the perfect marriage of kernel methods with a powerful classification algorithm that naturally benefits from the kernel trick.
+
+The key insight that connects kernels to SVMs is the concept of **margins** - the distance between the decision boundary and the closest data points. SVMs seek to maximize this margin, leading to robust classifiers that generalize well. The kernel trick allows SVMs to find large-margin decision boundaries in high-dimensional feature spaces without explicitly computing the features.
+
+The transition from kernel properties to SVM margins represents the bridge from mathematical foundations to practical algorithms - taking the theoretical understanding of kernels and applying it to build powerful, robust classifiers.
+
+In the next section, we'll explore how margins provide both geometric intuition and theoretical guarantees for classification, setting the stage for the optimal margin classifier that will naturally lead to the dual formulation and kernelization.
+
 ---
+
+**Previous: [Kernel Methods](01_kernel_methods.md)** - Learn about the kernel trick and computational techniques for non-linear classification.
+
+**Next: [SVM Margins](03_svm_margins.md)** - Understand the geometric intuition and mathematical formulation of margins in support vector machines.
 
 *Implementation details are provided in the accompanying Python examples file.*
