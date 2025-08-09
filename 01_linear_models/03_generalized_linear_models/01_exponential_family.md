@@ -18,9 +18,9 @@ So far, we've seen a regression example, and a classification example. In the re
 
 To work our way up to GLMs, we will begin by defining exponential family distributions. We say that a class of distributions is in the **exponential family** if it can be written in the form:
 
-```math
+$$
 p(y; \eta) = b(y) \exp(\eta^T T(y) - a(\eta)) \tag{3.1}
-```
+$$
 
 ### Understanding Each Component
 
