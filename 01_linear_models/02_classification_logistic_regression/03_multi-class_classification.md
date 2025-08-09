@@ -92,11 +92,13 @@ Softmax can be viewed as projecting a $k$-dimensional real vector (the logits) o
 #### Invariance to Translation
 
 Softmax is invariant to adding a constant to all logits:
+
 $$
 \mathrm{softmax}(t_1 + c, \ldots, t_k + c) = \mathrm{softmax}(t_1, \ldots, t_k)
 $$
 
 This means we can subtract the maximum logit for numerical stability:
+
 $$
 \mathrm{softmax}(t_1, \ldots, t_k) = \mathrm{softmax}(t_1 - \max_j t_j, \ldots, t_k - \max_j t_j)
 $$
