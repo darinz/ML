@@ -125,6 +125,7 @@ A modification that keeps track of the best solution seen so far:
 #### Averaged Perceptron
 
 Instead of returning the final weights, return the average of all weight vectors seen during training:
+
 $$
 \theta_{\text{avg}} = \frac{1}{T} \sum_{t=1}^T \theta^{(t)}
 $$
