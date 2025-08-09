@@ -32,7 +32,7 @@ Here's a different approach. First, looking at elephants, we can build a model o
 
 Algorithms that try to learn $p(y|x)$ directly (such as logistic regression), or algorithms that try to learn mappings directly from the space of inputs $\mathcal{X}$ to the labels $\{0, 1\}$ (such as the perceptron algorithm) are called **discriminative** learning algorithms. 
 
-Here, we'll talk about algorithms that instead try to model $p(x|y)$ (and $p(y)$). These algorithms are called **generative** learning algorithms. For instance, if $y$ indicates whether an example is a dog (0) or an elephant (1), then:
+Here, we'll talk about algorithms that instead try to model $p(x|y)$ (and $p(y)$ ). These algorithms are called **generative** learning algorithms. For instance, if $y$ indicates whether an example is a dog (0) or an elephant (1), then:
 - $p(x|y=0)$ models the distribution of dogs' features
 - $p(x|y=1)$ models the distribution of elephants' features
 - $p(y)$ models the prior probability of encountering each type of animal
