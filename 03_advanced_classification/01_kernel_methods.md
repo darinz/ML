@@ -40,15 +40,15 @@ We start by considering fitting cubic functions $y = \theta_3 x^3 + \theta_2 x^2
 
 Concretely, let the function $\phi : \mathbb{R} \to \mathbb{R}^4$ be defined as
 
-```math
+$$
 \phi(x) = \begin{bmatrix} 1 \\ x \\ x^2 \\ x^3 \end{bmatrix} \in \mathbb{R}^4.
-```
+$$
 
 Let $\theta \in \mathbb{R}^4$ be the vector containing $\theta_0, \theta_1, \theta_2, \theta_3$ as entries. Then we can rewrite the cubic function in $x$ as:
 
-```math
+$$
 \theta_3 x^3 + \theta_2 x^2 + \theta_1 x + \theta_0 = \theta^T \phi(x)
-```
+$$
 
 **Key Insight**: A cubic function of the variable $x$ can be viewed as a linear function over the variables $\phi(x)$. This is the fundamental idea behind feature maps.
 
@@ -77,14 +77,14 @@ To distinguish between these two sets of variables, in the context of kernel met
 #### Polynomial Feature Maps
 
 **General Form**: For degree $k$ polynomials in $d$ dimensions:
-```math
+$$
 \phi(x) = [1, x_1, x_2, \ldots, x_d, x_1^2, x_1x_2, \ldots, x_d^k]^T
-```
+$$
 
 **Example**: For $d=2$ and $k=2$:
-```math
+$$
 \phi(x_1, x_2) = [1, x_1, x_2, x_1^2, x_1x_2, x_2^2]^T
-```
+$$
 
 **Why Polynomials?**
 - They can approximate any smooth function (Taylor series)
@@ -94,9 +94,9 @@ To distinguish between these two sets of variables, in the context of kernel met
 #### Radial Basis Function (RBF) Feature Maps
 
 **Definition**:
-```math
+$$
 \phi(x) = [\exp(-\gamma\|x - c_1\|^2), \exp(-\gamma\|x - c_2\|^2), \ldots]^T
-```
+$$
 where $c_i$ are centers and $\gamma$ is a parameter.
 
 **Intuition**: Each feature measures the similarity to a reference point $c_i$. Points close to $c_i$ have high values, points far away have low values.
@@ -109,9 +109,9 @@ where $c_i$ are centers and $\gamma$ is a parameter.
 #### Trigonometric Feature Maps
 
 **Definition**:
-```math
+$$
 \phi(x) = [1, \sin(x), \cos(x), \sin(2x), \cos(2x), \ldots]^T
-```
+$$
 
 **Use Case**: Periodic patterns, signal processing, time series analysis.
 
@@ -151,21 +151,21 @@ This is where the kernel trick comes in - it allows us to work implicitly in the
 
 We will derive the gradient descent algorithm for fitting the model $\theta^T \phi(x)$. First recall that for ordinary least square problem where we were to fit $\theta^T x$, the batch gradient descent update is:
 
-```math
+$$
 \theta := \theta + \alpha \sum_{i=1}^n \left( y^{(i)} - h_\theta(x^{(i)}) \right) x^{(i)}
-```
+$$
 
-```math
+$$
 := \theta + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T x^{(i)} \right) x^{(i)}. \tag{5.2}
-```
+$$
 
 **Derivation of the Gradient**
 
 The gradient of the loss function $J(\theta) = \frac{1}{2n}\sum_{i=1}^n (y^{(i)} - \theta^T x^{(i)})^2$ with respect to $\theta$ is:
 
-```math
+$$
 \nabla_\theta J(\theta) = -\frac{1}{n}\sum_{i=1}^n (y^{(i)} - \theta^T x^{(i)}) x^{(i)}
-```
+$$
 
 **Step-by-step derivation**:
 1. $J(\theta) = \frac{1}{2n}\sum_{i=1}^n (y^{(i)} - \theta^T x^{(i)})^2$
@@ -180,17 +180,17 @@ Let $\phi : \mathbb{R}^d \to \mathbb{R}^p$ be a feature map that maps attribute 
 
 **Key Insight**: We can replace all the occurrences of $x^{(i)}$ in the algorithm above by $\phi(x^{(i)})$ to obtain the new update:
 
-```math
+$$
 \theta := \theta + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}). \tag{5.3}
-```
+$$
 
 **Stochastic Version**
 
 Similarly, the corresponding stochastic gradient descent update rule is:
 
-```math
+$$
 \theta := \theta + \alpha \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}). \tag{5.4}
-```
+$$
 
 **Intuition**: Each update step now works in the feature space, allowing us to learn non-linear patterns while using a linear learning algorithm.
 
@@ -221,7 +221,7 @@ This is clearly impractical for high-dimensional data.
 
 The gradient descent update becomes computationally expensive when the features $\phi(x)$ are high-dimensional. Consider the direct extension of the feature map to high-dimensional input $x$: suppose $x \in \mathbb{R}^d$, and let $\phi(x)$ be the vector that contains all the monomials of $x$ with degree $\leq 3$:
 
-```math
+$$
 \phi(x) = \begin{bmatrix}
 1 \\
 x_1 \\
@@ -238,7 +238,7 @@ x_1^2 x_2 \\
 \vdots
 \end{bmatrix}.
 \tag{5.5}
-```
+$$
 
 **The Scale of the Problem**
 
@@ -260,21 +260,21 @@ At any time, $\theta$ can be represented as a linear combination of the vectors 
 
 2. **Inductive Step**: Assume at some point, $\theta$ can be represented as:
 
-```math
+$$
 \theta = \sum_{i=1}^n \beta_i \phi(x^{(i)}) \tag{5.6}
-```
+$$
 
    for some $\beta_1, \ldots, \beta_n \in \mathbb{R}$.
 
 3. **Update Step**: After one gradient update:
 
-```math
+$$
 \begin{align*}
 \theta &:= \theta + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}) \\
 &= \sum_{i=1}^n \beta_i \phi(x^{(i)}) + \alpha \sum_{i=1}^n \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \phi(x^{(i)}) \\
 &= \sum_{i=1}^n \left( \beta_i + \alpha \left( y^{(i)} - \theta^T \phi(x^{(i)}) \right) \right) \phi(x^{(i)}) \tag{5.7}
 \end{align*}
-```
+$$
 
 **The Result**: This shows that $\theta$ remains a linear combination of the training feature vectors.
 
@@ -286,9 +286,9 @@ At any time, $\theta$ can be represented as a linear combination of the vectors 
 ### 5.3.3 The Kernel Function
 
 **Definition**: The **Kernel** corresponding to the feature map $\phi$ is a function $K : \mathcal{X} \times \mathcal{X} \to \mathbb{R}$ satisfying:
-```math
+$$
 K(x, z) \triangleq \langle \phi(x), \phi(z) \rangle
-```
+$$
 
 **Key Insight**: We can compute $K(x, z)$ efficiently without explicitly computing $\phi(x)$ and $\phi(z)$.
 
@@ -303,14 +303,14 @@ K(x, z) \triangleq \langle \phi(x), \phi(z) \rangle
 
 For the polynomial feature map $\phi$ defined in (5.5), we can compute the kernel efficiently:
 
-```math
+$$
 \begin{align*}
 \langle \phi(x), \phi(z) \rangle &= 1 + \sum_{i=1}^d x_i z_i + \sum_{i,j \in \{1,\ldots,d\}} x_i x_j z_i z_j + \sum_{i,j,k \in \{1,\ldots,d\}} x_i x_j x_k z_i z_j z_k \\
 &= 1 + \sum_{i=1}^d x_i z_i + \left( \sum_{i=1}^d x_i z_i \right)^2 + \left( \sum_{i=1}^d x_i z_i \right)^3 \\
 &= 1 + \langle x, z \rangle + \langle x, z \rangle^2 + \langle x, z \rangle^3
 \end{align*}
 \tag{5.9}
-```
+$$
 
 **The Magic**: Instead of computing $O(d^3)$ features, we only need to compute the inner product $\langle x, z \rangle$ once and then raise it to powers.
 
@@ -329,19 +329,19 @@ For the polynomial feature map $\phi$ defined in (5.5), we can compute the kerne
 **Step 2**: Initialize $\beta = 0$
 
 **Step 3**: Iterative updates:
-```math
+$$
 \beta_i := \beta_i + \alpha \left( y^{(i)} - \sum_{j=1}^n \beta_j K(x^{(i)}, x^{(j)}) \right) \tag{5.11}
-```
+$$
 
 **Vector notation**:
-```math
+$$
 \beta := \beta + \alpha (\vec{y} - K \beta)
-```
+$$
 
 **Prediction for new point $x$**:
-```math
+$$
 \theta^T \phi(x) = \sum_{i=1}^n \beta_i \phi(x^{(i)})^T \phi(x) = \sum_{i=1}^n \beta_i K(x^{(i)}, x) \tag{5.12}
-```
+$$
 
 **Key Insights**:
 - We work entirely with the kernel matrix $K$
@@ -357,9 +357,9 @@ For the polynomial feature map $\phi$ defined in (5.5), we can compute the kerne
 ### 5.4.1 Linear Kernel
 
 **Definition**:
-```math
+$$
 K(x, z) = \langle x, z \rangle
-```
+$$
 
 **Feature map**: $\phi(x) = x$ (identity mapping)
 
@@ -378,9 +378,9 @@ K(x, z) = \langle x, z \rangle
 ### 5.4.2 Polynomial Kernel
 
 **Definition**:
-```math
+$$
 K(x, z) = (\gamma \langle x, z \rangle + r)^d
-```
+$$
 
 **Feature map**: All monomials up to degree $d$
 
@@ -397,16 +397,16 @@ K(x, z) = (\gamma \langle x, z \rangle + r)^d
 **Use case**: Polynomial regression, when you expect polynomial relationships in the data
 
 **Example**: For $d=2, \gamma=1, r=1$:
-```math
+$$
 K(x, z) = (1 + \langle x, z \rangle)^2 = 1 + 2\langle x, z \rangle + \langle x, z \rangle^2
-```
+$$
 
 ### 5.4.3 Radial Basis Function (RBF) Kernel
 
 **Definition**:
-```math
+$$
 K(x, z) = \exp(-\gamma \|x - z\|^2)
-```
+$$
 
 **Feature map**: Infinite-dimensional (Mercer's theorem)
 
@@ -431,9 +431,9 @@ K(x, z) = \exp(-\gamma \|x - z\|^2)
 ### 5.4.4 Sigmoid Kernel
 
 **Definition**:
-```math
+$$
 K(x, z) = \tanh(\gamma \langle x, z \rangle + r)
-```
+$$
 
 **Feature map**: Neural network-like
 
@@ -481,9 +481,9 @@ K(x, z) = \tanh(\gamma \langle x, z \rangle + r)
 ### 5.5.1 Positive Definite Kernels
 
 **Definition**: A kernel function $K$ is **positive definite** if for any finite set of points $x_1, \ldots, x_n$ and any real numbers $c_1, \ldots, c_n$:
-```math
+$$
 \sum_{i=1}^n \sum_{j=1}^n c_i c_j K(x_i, x_j) \geq 0
-```
+$$
 
 **Intuition**: This means that the kernel matrix $K_{ij} = K(x_i, x_j)$ is positive semi-definite for any set of points.
 
@@ -500,9 +500,9 @@ K(x, z) = \tanh(\gamma \langle x, z \rangle + r)
 ### 5.5.2 Mercer's Theorem
 
 **Mercer's Theorem**: If $K$ is a positive definite kernel, then there exists a feature map $\phi$ such that:
-```math
+$$
 K(x, z) = \langle \phi(x), \phi(z) \rangle
-```
+$$
 
 **Implications**:
 - Every positive definite kernel corresponds to an inner product in some feature space
@@ -586,7 +586,7 @@ If $K_1$ and $K_2$ are kernels, then the following are also kernels:
 **Grid search**: Common approach for parameter optimization
 
 **Example for RBF kernel**:
-```python
+$$python
 # Grid of gamma values to try
 gamma_values = [0.001, 0.01, 0.1, 1, 10, 100]
 
@@ -594,7 +594,7 @@ gamma_values = [0.001, 0.01, 0.1, 1, 10, 100]
 for gamma in gamma_values:
     score = cross_validate(K_rbf(gamma), X, y)
     print(f"Gamma: {gamma}, Score: {score}")
-```
+$$
 
 **Advanced techniques**:
 - **Bayesian optimization**: More efficient than grid search
@@ -610,15 +610,15 @@ for gamma in gamma_values:
 **Motivation**: Different kernels capture different aspects of the data. Why not combine them?
 
 **Formulation**:
-```math
+$$
 K(x, z) = \sum_{i=1}^m \alpha_i K_i(x, z)
-```
+$$
 where $\alpha_i \geq 0$ and $\sum_{i=1}^m \alpha_i = 1$
 
 **Example**: Combine linear, polynomial, and RBF kernels:
-```math
+$$
 K(x, z) = \alpha_1 \langle x, z \rangle + \alpha_2 (\langle x, z \rangle + 1)^2 + \alpha_3 \exp(-\gamma \|x - z\|^2)
-```
+$$
 
 **Optimization**: Learn both the kernel weights $\alpha_i$ and the model parameters simultaneously.
 
@@ -645,9 +645,9 @@ K(x, z) = \alpha_1 \langle x, z \rangle + \alpha_2 (\langle x, z \rangle + 1)^2 
 ### 5.7.3 Kernel Ridge Regression
 
 **Formulation**: Ridge regression with kernels:
-```math
+$$
 \beta = (K + \lambda I)^{-1} y
-```
+$$
 
 **Properties**:
 - **Regularization**: $\lambda$ controls complexity
