@@ -13,9 +13,9 @@ Comprehensive materials for linear models in machine learning, covering theory, 
 - LMS algorithm, gradient descent, and normal equations
 - Probabilistic interpretation with Gaussian noise models
 - Locally weighted linear regression for non-linear patterns
-- House price prediction examples with Portland housing data
+- Interactive Jupyter notebook and hands-on coding guide
 
-**Key Files**: `01_linear_regression.md`, `02_lms_algorithm.md`, `03_normal_equations.md`
+**Key Files**: `01_linear_regression.md`, `02_lms_algorithm.md`, `03_normal_equations.ipynb`, `06_hands-on_coding.md`
 
 ### **02_classification_logistic_regression/** - Classification
 - Binary classification with logistic regression and sigmoid function
@@ -31,9 +31,9 @@ Comprehensive materials for linear models in machine learning, covering theory, 
 - GLM construction with three fundamental assumptions
 - Link functions connecting linear predictors to response distributions
 - Applications: linear regression, logistic regression, Poisson regression
-- Parameter estimation and model diagnostics
+- Academic reference materials from MIT, Princeton, Berkeley
 
-**Key Files**: `01_exponential_family.md`, `02_constructing_glm.md`, `constructing_glm_examples.py`
+**Key Files**: `01_exponential_family.md`, `02_constructing_glm.md`, `exponential_family_examples.py`
 
 ## Learning Path
 
@@ -51,8 +51,4 @@ Comprehensive materials for linear models in machine learning, covering theory, 
 
 - **Regression**: House prices, stock forecasting, demand estimation
 - **Classification**: Spam detection, medical diagnosis, image classification
-- **GLMs**: Healthcare outcomes, financial risk, ecological modeling
-
----
-
-*Foundation for understanding linear models in machine learning, from basic regression to advanced GLM frameworks.* 
+- **GLMs**: Healthcare outcomes, financial risk, ecological modeling 
