@@ -62,15 +62,15 @@ The exponential family form provides several key advantages:
 
 The quantity $e^{-a(\eta)}$ plays a crucial role as the **normalization constant**. It ensures that:
 
-```math
+$$
 \int p(y; \eta) dy = 1 \quad \text{(for continuous distributions)}
-```
+$$
 
 or
 
-```math
+$$
 \sum_y p(y; \eta) = 1 \quad \text{(for discrete distributions)}
-```
+$$
 
 This is why $a(\eta)$ is called the log partition function - it's the logarithm of the integral/sum that normalizes the distribution.
 
@@ -89,42 +89,42 @@ The Bernoulli distribution with mean $\phi$ specifies:
 #### Step 2: Algebraic Manipulation
 We can write this more compactly as:
 
-```math
+$$
 p(y; \phi) = \phi^y (1 - \phi)^{1-y}
-```
+$$
 
 #### Step 3: Taking Logarithms
 To get into exponential family form, we take the natural logarithm:
 
-```math
+$$
 \log p(y; \phi) = y \log \phi + (1-y) \log(1-\phi)
-```
+$$
 
 #### Step 4: Rearranging Terms
 We can rewrite this as:
 
-```math
+$$
 \log p(y; \phi) = y \log \phi + \log(1-\phi) - y \log(1-\phi)
-```
+$$
 
-```math
+$$
 \log p(y; \phi) = y \left(\log \phi - \log(1-\phi)\right) + \log(1-\phi)
-```
+$$
 
-```math
+$$
 \log p(y; \phi) = y \log\left(\frac{\phi}{1-\phi}\right) + \log(1-\phi)
-```
+$$
 
 #### Step 5: Exponential Family Form
 Now we can write the probability mass function as:
 
-```math
+$$
 p(y; \phi) = \exp\left(y \log\left(\frac{\phi}{1-\phi}\right) + \log(1-\phi)\right)
-```
+$$
 
-```math
+$$
 p(y; \phi) = \exp\left(y \log\left(\frac{\phi}{1-\phi}\right) - \log\left(\frac{1}{1-\phi}\right)\right)
-```
+$$
 
 #### Step 6: Identifying Components
 Comparing with the exponential family form $p(y; \eta) = b(y) \exp(\eta^T T(y) - a(\eta))$, we identify:
@@ -138,33 +138,33 @@ Comparing with the exponential family form $p(y; \eta) = b(y) \exp(\eta^T T(y) -
 
 **Key Insight**: If we solve for $\phi$ in terms of $\eta$:
 
-```math
+$$
 \eta = \log\left(\frac{\phi}{1-\phi}\right)
-```
+$$
 
-```math
+$$
 e^{\eta} = \frac{\phi}{1-\phi}
-```
+$$
 
-```math
+$$
 e^{\eta} = \frac{\phi}{1-\phi}
-```
+$$
 
-```math
+$$
 e^{\eta}(1-\phi) = \phi
-```
+$$
 
-```math
+$$
 e^{\eta} - e^{\eta}\phi = \phi
-```
+$$
 
-```math
+$$
 e^{\eta} = \phi(1 + e^{\eta})
-```
+$$
 
-```math
+$$
 \phi = \frac{e^{\eta}}{1 + e^{\eta}} = \frac{1}{1 + e^{-\eta}}
-```
+$$
 
 This is the **sigmoid function**! This connection explains why logistic regression uses the sigmoid function - it's the natural response function for the Bernoulli distribution.
 
@@ -175,37 +175,37 @@ The Gaussian (normal) distribution is fundamental for regression problems. Let's
 #### Step 1: Standard Form
 The Gaussian distribution with mean $\mu$ and variance $\sigma^2$ is:
 
-```math
+$$
 p(y; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{1}{2\sigma^2}(y-\mu)^2\right)
-```
+$$
 
 #### Step 2: Simplification
 For GLMs, we typically fix $\sigma^2 = 1$ (this doesn't affect the learning algorithm). This gives:
 
-```math
+$$
 p(y; \mu) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}(y-\mu)^2\right)
-```
+$$
 
 #### Step 3: Expanding the Square
 We expand $(y-\mu)^2 = y^2 - 2\mu y + \mu^2$:
 
-```math
+$$
 p(y; \mu) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}(y^2 - 2\mu y + \mu^2)\right)
-```
+$$
 
 #### Step 4: Separating Terms
 We can separate the terms involving $\mu$ from those involving $y$:
 
-```math
+$$
 p(y; \mu) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}y^2\right) \exp\left(\mu y - \frac{1}{2}\mu^2\right)
-```
+$$
 
 #### Step 5: Exponential Family Form
 This can be written as:
 
-```math
+$$
 p(y; \mu) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}y^2\right) \exp\left(\mu y - \frac{1}{2}\mu^2\right)
-```
+$$
 
 #### Step 6: Identifying Components
 Comparing with the exponential family form, we identify:
@@ -233,13 +233,13 @@ Exponential family distributions have several important properties:
 #### 1. **Mean and Variance from Log Partition Function**
 The derivatives of $a(\eta)$ give us important moments:
 
-```math
+$$
 \frac{d}{d\eta} a(\eta) = \mathbb{E}[T(y)]
-```
+$$
 
-```math
+$$
 \frac{d^2}{d\eta^2} a(\eta) = \text{Var}[T(y)]
-```
+$$
 
 #### 2. **Convexity**
 The log partition function $a(\eta)$ is convex, which ensures that maximum likelihood estimation is well-behaved.
