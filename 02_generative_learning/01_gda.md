@@ -310,10 +310,26 @@ When would we prefer one model over another? GDA and logistic regression will, i
 
 We just argued that if $p(x|y)$ is multivariate gaussian (with shared $\Sigma$), then $p(y|x)$ necessarily follows a logistic function. The converse, however, is not true; i.e., $p(y|x)$ being a logistic function does not imply $p(x|y)$ is multivariate gaussian. This shows that GDA makes **stronger** modeling assumptions about the data than does logistic regression. It turns out that when these modeling assumptions are correct, then GDA will find better fits to the data, and is a better model. Specifically, when $p(x|y)$ is indeed gaussian (with shared $\Sigma$), then GDA is **asymptotically efficient**. Informally, this means that in the limit of very large training sets (large $n$), there is no algorithm that is strictly better than GDA (in terms of, say, how accurately they estimate $p(y|x)$). In particular, it can be shown that in this setting, GDA will be a better algorithm than logistic regression; and more generally, even for small training set sizes, we would generally expect GDA to better.
 
-In contrast, by making significantly weaker assumptions, logistic regression is also more **robust** and less sensitive to incorrect modeling assumptions. There are many different sets of assumptions that would lead to $p(y|x)$ taking the form of a logistic function. For example, if $x|y=0 \sim \mathrm{Poisson}(\lambda_0)$, and $x|y=1 \sim \mathrm{Poisson}(\lambda_1)$, then $p(y|x)$ will be logistic. Logistic regression will also work well on Poisson data like this. But if we were to use GDA on such data—and fit Gaussian distributions to such non-Gaussian data—then the results will be less predictable, and GDA may (or may not) do well.
+In contrast, by making significantly weaker assumptions, logistic regression is also more **robust** and less sensitive to deviations from modeling assumptions. There are many different sets of assumptions that would lead to $p(y|x)$ taking the form of a logistic function. For example, if $x|y=0 \sim \mathrm{Poisson}(\lambda_0)$, and $x|y=1 \sim \mathrm{Poisson}(\lambda_1)$, then $p(y|x)$ will be logistic. Logistic regression will also work well on Poisson data like this. But if we were to use GDA on such data—and fit Gaussian distributions to such non-Gaussian data—then the results will be less predictable, and GDA may (or may not) do well.
 
 To summarize: GDA makes stronger modeling assumptions, and is more data efficient (i.e., requires less training data to learn "well") when the modeling assumptions are correct or at least approximately correct. Logistic regression makes weaker assumptions, and is significantly more robust to deviations from modeling assumptions. Specifically, when the data is indeed non-Gaussian, then in the limit of large datasets, logistic regression will almost always do better than GDA. For this reason, in practice logistic regression is used more often than GDA. (Some related considerations about discriminative vs. generative models also apply for the Naive Bayes algorithm that we discuss next, but the Naive Bayes algorithm is still considered a very good, and is certainly also a very popular, classification algorithm.)
 
 **Logistic Regression Form (for comparison)**
 
 The logistic regression model uses the sigmoid function to model the posterior probability directly. The key insight is that under GDA's Gaussian assumptions, the posterior naturally takes the form of a logistic function, showing the deep connection between these two approaches.
+
+## From Continuous to Discrete Features: The Naive Bayes Approach
+
+We've now explored **Gaussian Discriminant Analysis (GDA)**, which provides an elegant generative approach for classification with continuous features. GDA models the class-conditional distributions as multivariate normal distributions, leading to linear decision boundaries and a deep connection to logistic regression.
+
+However, many real-world problems involve **discrete or categorical features** rather than continuous ones. In text classification, for example, we deal with words that are either present or absent in a document. In medical diagnosis, symptoms are often binary (present/absent) or categorical (mild/moderate/severe). In marketing, customer behaviors are typically discrete events (clicked/not clicked, purchased/not purchased).
+
+This motivates our exploration of **Naive Bayes**, which extends the generative learning framework to handle discrete features. While GDA assumes Gaussian distributions for continuous features, Naive Bayes makes a different but equally powerful assumption: **conditional independence** of features given the class label.
+
+The transition from GDA to Naive Bayes represents a natural evolution in our understanding of generative learning - from modeling continuous features with multivariate normal distributions to modeling discrete features with conditional independence assumptions. Both approaches leverage Bayes' rule to convert generative models into discriminative predictions, but they handle fundamentally different types of data.
+
+In the next section, we'll explore how Naive Bayes tackles the challenges of high-dimensional discrete data and see how it becomes particularly powerful for text classification and other problems with categorical features.
+
+---
+
+**Next: [Naive Bayes](02_naive_bayes.md)** - Learn about Naive Bayes classification for discrete features and text classification.
