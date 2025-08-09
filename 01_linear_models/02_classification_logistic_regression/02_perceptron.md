@@ -223,6 +223,7 @@ This is equivalent to finding a separating hyperplane in the feature space.
 #### Connection to Optimization
 
 The perceptron update rule can be derived from gradient descent on a piecewise linear loss function:
+
 $$
 L(\theta) = \sum_{i: y^{(i)} \neq \hat{y}^{(i)}} -y^{(i)} \theta^T x^{(i)}
 $$
