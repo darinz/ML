@@ -12,7 +12,7 @@ the conditional distribution of $y$ given $x$. For instance, logistic regression
 
 **Discriminative models** (like logistic regression, SVMs, neural networks) learn the boundary between classes by modeling $p(y|x)$ directly or learning a function $f(x)$ that maps inputs to labels. They focus on distinguishing between classes, often leading to better performance when model assumptions are not strictly met.
 
-**Generative models** (like Naive Bayes, GDA) model how the data is generated for each class by learning $p(x|y)$ and $p(y)$ . This allows them to simulate or generate new data points, and they can be used for unsupervised tasks (e.g., clustering, anomaly detection) because they model the full data distribution, not just the boundary.
+**Generative models** (like Naive Bayes, GDA) model how the data is generated for each class by learning $p(x|y)$ and $p(y)$. This allows them to simulate or generate new data points, and they can be used for unsupervised tasks (e.g., clustering, anomaly detection) because they model the full data distribution, not just the boundary.
 
 **Key Intuition:** 
 - Generative models answer "How likely is this data under each class?" 
