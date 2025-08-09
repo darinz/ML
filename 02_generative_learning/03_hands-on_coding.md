@@ -12,6 +12,20 @@ We've explored the elegant framework of **generative learning algorithms**, whic
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different generative models, and develop the intuition needed to apply these algorithms to real-world problems.
 
+## From Theoretical Framework to Hands-On Mastery
+
+We've now built a comprehensive theoretical understanding of **generative learning algorithms** - from Gaussian Discriminant Analysis (GDA) for continuous features to Naive Bayes for discrete features. Both approaches model the data generation process $p(x|y)$ and use Bayes' rule to make predictions, but they handle fundamentally different types of data.
+
+GDA assumes multivariate normal distributions for continuous features, leading to linear decision boundaries and a deep connection to logistic regression. Naive Bayes assumes conditional independence for discrete features, making it particularly powerful for high-dimensional data like text classification.
+
+However, true mastery in generative learning comes from **hands-on implementation**. While understanding the mathematical framework is essential, implementing these generative models from scratch, experimenting with different parameter estimation methods, and applying them to real-world problems is where the concepts truly come to life.
+
+The transition from theory to practice is crucial in generative learning. While the mathematical framework provides the foundation, implementing these models helps develop intuition, reveals practical challenges, and builds the skills needed for real-world applications. Coding these algorithms from scratch forces us to confront the details that theory often abstracts away.
+
+In this practical guide, we'll put our theoretical knowledge into practice through hands-on coding exercises. We'll implement both GDA and Naive Bayes from scratch, experiment with different datasets, and develop the practical skills needed to apply these powerful generative models to real-world problems.
+
+This hands-on approach will solidify our understanding and prepare us for the complex challenges that arise when applying generative learning in practice.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -672,6 +686,8 @@ The principles we've learned here - probabilistic modeling, Bayes' rule, and gen
 Remember: Generative models offer a powerful perspective on machine learning, focusing on understanding how data is generated rather than just finding decision boundaries. Keep exploring, building, and applying these concepts to new problems!
 
 ---
+
+**Previous: [Naive Bayes](02_naive_bayes.md)** - Learn about Naive Bayes classification for discrete features and text classification.
 
 ## Environment Files
 
