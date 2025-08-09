@@ -8,6 +8,16 @@ Suppose you would like to build a model to estimate the number $y$ of customers 
 
 **The Solution**: Fortunately, the Poisson is an exponential family distribution, so we can apply a **Generalized Linear Model (GLM)**. This section provides a systematic recipe for constructing GLMs for any prediction problem.
 
+## From Mathematical Foundation to Systematic Application
+
+In the previous section, we explored the **exponential family** as the mathematical foundation that unifies diverse probability distributions. We learned about natural parameters, sufficient statistics, log partition functions, and the elegant properties that make these distributions mathematically tractable. This foundation shows us that seemingly different models - like linear regression and logistic regression - share deep mathematical connections.
+
+However, understanding the exponential family is only the first step. The real power comes from **systematically applying this foundation** to build models for real-world problems. How do we take the elegant mathematics of exponential families and turn it into a practical recipe for constructing models?
+
+This motivates our exploration of **GLM construction** - the systematic process of building models for any type of response variable. We'll learn the three fundamental assumptions that define GLMs and the four-step recipe that allows us to construct models for count data, binary outcomes, continuous responses, and many other data types.
+
+The transition from understanding exponential families to constructing GLMs represents the bridge from mathematical theory to practical modeling - where we take the elegant foundation and build powerful, interpretable models for real-world problems.
+
 ## 3.2 The GLM Construction Framework
 
 ### Core Intuition
@@ -381,6 +391,18 @@ This framework unifies linear regression, logistic regression, and many other mo
 - The framework extends naturally to regularization and mixed models
 - Model diagnostics ensure appropriate model fit and interpretation
 
+## From Systematic Theory to Practical Implementation
+
+We've now developed a comprehensive understanding of **Generalized Linear Models** - from the mathematical foundation of exponential families to the systematic construction framework that allows us to build models for any type of response variable. This theoretical framework provides the elegant unification of many different regression approaches under a single mathematical umbrella.
+
+However, true mastery comes from **hands-on implementation**. Understanding the theory is essential, but implementing GLMs from scratch, experimenting with different distributions and link functions, and applying them to real-world problems is where the concepts truly come to life.
+
+The transition from theoretical understanding to practical implementation is crucial in statistical modeling. While the mathematical framework provides the foundation, implementing GLMs helps develop intuition, reveals practical challenges, and builds the skills needed for real-world applications. Coding these models from scratch forces us to confront the details that theory often abstracts away.
+
+In the next section, we'll put our theoretical knowledge into practice through hands-on coding exercises. We'll implement the exponential family framework, build GLMs from scratch, experiment with different distributions, and develop the practical skills needed to apply these powerful models to real-world problems.
+
+This hands-on approach will solidify our understanding and prepare us for the complex challenges that arise when applying GLMs in practice.
+
 ## Further Reading and Advanced Resources
 
 For deeper theoretical understanding and advanced perspectives on GLM construction and exponential families, the `exponential_family/` directory contains comprehensive reference materials from leading institutions:
@@ -399,3 +421,9 @@ For deeper theoretical understanding and advanced perspectives on GLM constructi
 4. **Specialized Topics**: Use institution-specific materials for particular GLM extensions and advanced topics
 
 These resources provide multiple perspectives on GLM construction, from different teaching approaches to advanced theoretical treatments, complementing the practical implementation focus of this course.
+
+---
+
+**Previous: [Exponential Family](01_exponential_family.md)** - Understand the mathematical foundation that unifies probability distributions.
+
+**Next: [Hands-on Coding](03_hands-on_coding.md)** - Implement GLMs from scratch and apply them to real-world problems.
