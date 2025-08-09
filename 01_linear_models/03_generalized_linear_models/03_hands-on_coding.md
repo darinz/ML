@@ -636,8 +636,6 @@ Remember: The power of GLMs lies in their ability to unify different modeling ap
 
 **Previous: [Constructing GLMs](02_constructing_glm.md)** - Learn the systematic approach to building Generalized Linear Models for any prediction problem.
 
-**Next: [Advanced Topics in Linear Models](../04_advanced_topics/README.md)** - Explore regularization, feature engineering, and advanced linear modeling techniques.
-
 ## Environment Files
 
 ### requirements.txt
