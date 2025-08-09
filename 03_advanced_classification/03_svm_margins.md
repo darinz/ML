@@ -10,6 +10,18 @@ This set of notes presents the Support Vector Machine (SVM) learning algorithm. 
 - **Kernel Flexibility**: Can handle non-linear problems efficiently
 - **Interpretability**: Support vectors provide insights into the model
 
+## From Kernel Foundations to Margin Optimization
+
+We've now established the mathematical foundations of kernel methods - understanding what makes a function a valid kernel through positive semi-definiteness and Mercer's theorem. This theoretical framework provides the rigor needed to design and validate kernel functions.
+
+However, kernels are most powerful when applied to specific algorithms that can leverage their computational efficiency. **Support Vector Machines (SVMs)** represent the perfect marriage of kernel methods with a powerful classification algorithm that naturally benefits from the kernel trick.
+
+The key insight that connects kernels to SVMs is the concept of **margins** - the distance between the decision boundary and the closest data points. SVMs seek to maximize this margin, leading to robust classifiers that generalize well. The kernel trick allows SVMs to find large-margin decision boundaries in high-dimensional feature spaces without explicitly computing the features.
+
+The transition from kernel properties to SVM margins represents the bridge from mathematical foundations to practical algorithms - taking the theoretical understanding of kernels and applying it to build powerful, robust classifiers.
+
+In this section, we'll explore how margins provide both geometric intuition and theoretical guarantees for classification, setting the stage for the optimal margin classifier that will naturally lead to the dual formulation and kernelization.
+
 ## 6.1 Margins: Intuition
 
 ### The Concept of Margin
@@ -424,3 +436,21 @@ g_i(w^*) \leq 0, \quad i = 1, \ldots, k \tag{6.6}
 We draw attention to Equation (6.5), which is called the **KKT dual complementarity** condition. Specifically, it implies that if $\alpha_i^* > 0$, then $g_i(w^*) = 0$. (I.e., the "$g_i(w) \leq 0$" constraint is active, meaning it holds with equality rather than with inequality.) Later on, this will be key for showing that the SVM has only a small number of "support vectors"; the KKT dual complementarity condition will also give us our convergence test when we talk about the SMO algorithm.
 
 **The Support Vector Connection**: This condition tells us that only the training points that lie exactly on the margin (where $g_i(w^*) = 0$) will have non-zero $\alpha_i^*$ values. These are the support vectors!
+
+## From Margin Intuition to Optimal Classification
+
+We've now explored the geometric and mathematical foundations of **margins** in support vector machines - understanding how margins provide both intuitive confidence measures and theoretical guarantees for robust classification. The concept of maximizing the margin between classes leads naturally to the question of how to find the **optimal margin classifier**.
+
+The key insight from our margin analysis is that large margins lead to better generalization and more robust classifiers. However, we need a systematic approach to find the hyperplane that maximizes the margin while correctly classifying all training points.
+
+This motivates our exploration of the **optimal margin classifier** - the mathematical formulation that finds the hyperplane with the largest possible margin. This optimization problem will lead us to the dual formulation, which naturally incorporates kernels and reveals the fundamental role of support vectors.
+
+The transition from margin concepts to optimal margin classification represents the bridge from geometric intuition to mathematical optimization - taking our understanding of why margins matter and turning it into a concrete algorithm for finding the best possible classifier.
+
+In the next section, we'll derive the optimal margin classifier and see how it naturally leads to the dual formulation that enables kernelization and reveals the elegant structure of support vectors.
+
+---
+
+**Previous: [Kernel Properties](02_kernel_properties.md)** - Understand the mathematical foundations that make kernels valid and learn how to design new kernels.
+
+**Next: [Optimal Margin Classifiers](04_svm_optimal_margin.md)** - Derive the optimal margin classifier and understand the dual formulation that enables kernelization.
