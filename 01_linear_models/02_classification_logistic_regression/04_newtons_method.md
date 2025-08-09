@@ -193,6 +193,7 @@ In higher dimensions, Newton's method:
 4. **Repeats** until convergence
 
 The quadratic approximation is:
+
 $$
 \ell(\theta + \Delta\theta) \approx \ell(\theta) + \nabla_\theta \ell(\theta)^T \Delta\theta + \frac{1}{2} \Delta\theta^T H \Delta\theta
 $$
