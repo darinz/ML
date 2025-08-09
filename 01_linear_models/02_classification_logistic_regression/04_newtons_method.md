@@ -233,11 +233,13 @@ This is called **Levenberg-Marquardt regularization** or **damped Newton's metho
 When Newton's method is applied to maximize the logistic regression log likelihood function $\ell(\theta)$, the resulting method is also called **Fisher scoring**. In Fisher scoring, the Hessian is replaced by its expected value (the Fisher information matrix), which can improve stability.
 
 **Fisher information matrix:**
+
 $$
 I(\theta) = \mathbb{E}[H(\theta)] = X^T \text{diag}(h_\theta(x^{(i)})(1 - h_\theta(x^{(i)}))) X
 $$
 
 **Fisher scoring update:**
+
 $$
 \theta := \theta + I(\theta)^{-1} \nabla_\theta \ell(\theta)
 $$
