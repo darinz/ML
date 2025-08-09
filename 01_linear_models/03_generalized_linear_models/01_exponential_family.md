@@ -299,6 +299,18 @@ The exponential family provides a powerful mathematical framework that:
 
 Understanding the exponential family is crucial for mastering GLMs and appreciating the deep connections between different statistical models.
 
+## From Mathematical Foundation to Systematic Construction
+
+We've now established the **exponential family** as the mathematical foundation that unifies diverse probability distributions under a single elegant framework. This foundation provides the theoretical backbone for understanding how seemingly different models - like linear regression and logistic regression - are actually special cases of a broader family.
+
+The exponential family gives us the mathematical tools we need: natural parameters, sufficient statistics, log partition functions, and the beautiful properties that make estimation and inference tractable. We've seen how the Bernoulli distribution naturally leads to the sigmoid function and how the Gaussian distribution leads to linear predictions.
+
+However, having this mathematical foundation is only the first step. The real power comes from **systematically constructing models** that leverage this foundation. How do we take the exponential family framework and turn it into a practical recipe for building models for any type of response variable?
+
+This motivates our next topic: **constructing Generalized Linear Models**. We'll learn the three fundamental assumptions and the systematic four-step process that allows us to build GLMs for any prediction problem, from count data to binary outcomes to continuous responses.
+
+The transition from understanding the exponential family to applying it in GLM construction represents the bridge from mathematical theory to practical modeling - where elegant mathematics meets real-world problem-solving.
+
 ## Further Reading and Advanced Resources
 
 For deeper theoretical understanding and advanced perspectives on exponential families, the `exponential_family/` directory contains comprehensive reference materials from leading institutions:
@@ -317,3 +329,7 @@ For deeper theoretical understanding and advanced perspectives on exponential fa
 4. **Specialized**: Use institution-specific materials for particular topics of interest
 
 These resources provide multiple perspectives on exponential families, from different teaching approaches to advanced theoretical treatments, complementing the practical implementation focus of this course.
+
+---
+
+**Next: [Constructing GLMs](02_constructing_glm.md)** - Learn the systematic approach to building Generalized Linear Models for any prediction problem.
