@@ -2,6 +2,18 @@
 
 This guide provides a comprehensive overview of reward modeling for reinforcement learning from human feedback (RLHF) systems. We'll explore the mathematical foundations, training objectives, validation methods, and practical implementation considerations for learning reward functions from human preferences.
 
+## From Data Collection to Reward Modeling
+
+We've now explored **human feedback collection** - the systematic process of gathering, structuring, and validating human preferences and judgments about model outputs. We've seen how different types of feedback (binary preferences, rankings, ratings, natural language explanations) capture different aspects of human judgment, how to design effective annotation guidelines and quality control measures, and how to mitigate biases and ensure diverse perspectives in the feedback collection process.
+
+However, while collecting high-quality human feedback is essential, **raw feedback data** is not directly usable for training language models. Consider having thousands of preference judgments - we need a way to convert these relative preferences into a reward function that can guide policy optimization and provide consistent feedback during training.
+
+This motivates our exploration of **reward modeling** - the process of learning a function that maps prompt-response pairs to scalar reward values, capturing human preferences and judgments. We'll see how to design neural network architectures that can learn from preference data, how to formulate training objectives that capture the relative nature of human preferences, how to validate and calibrate reward models, and how to address challenges like reward hacking and distributional shift.
+
+The transition from human feedback collection to reward modeling represents the bridge from raw preference data to learnable reward signals - taking our understanding of how to collect human feedback and applying it to the challenge of building reward functions that can guide effective policy optimization.
+
+In this section, we'll explore reward modeling, understanding how to convert human preferences into reward functions that enable successful RLHF training.
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -995,4 +1007,22 @@ Effective reward modeling enables the training of language models that better al
 
 ---
 
-**Note**: This guide provides the theoretical and practical foundations for reward modeling. For specific implementation details and advanced techniques, refer to the implementation examples and external resources referenced in the main README. 
+**Note**: This guide provides the theoretical and practical foundations for reward modeling. For specific implementation details and advanced techniques, refer to the implementation examples and external resources referenced in the main README.
+
+## From Reward Functions to Policy Optimization
+
+We've now explored **reward modeling** - the process of learning a function that maps prompt-response pairs to scalar reward values, capturing human preferences and judgments. We've seen how to design neural network architectures that can learn from preference data, how to formulate training objectives that capture the relative nature of human preferences, how to validate and calibrate reward models, and how to address challenges like reward hacking and distributional shift.
+
+However, while having a well-trained reward model is crucial, **the reward function alone** cannot improve language model behavior. Consider having a perfect reward model that can evaluate any response - we still need an optimization algorithm that can update the language model policy to maximize expected reward while maintaining language quality and preventing catastrophic forgetting.
+
+This motivates our exploration of **policy optimization** - the core component of RLHF that updates the language model policy to maximize expected reward from human feedback. We'll see how policy gradient methods like REINFORCE and actor-critic approaches work for language models, how trust region methods like PPO and TRPO ensure stable policy updates, how to handle the unique challenges of language generation (sequential decisions, sparse rewards, high dimensionality), and how to balance reward maximization with maintaining language quality.
+
+The transition from reward modeling to policy optimization represents the bridge from evaluation to improvement - taking our understanding of how to evaluate responses with reward functions and applying it to the challenge of optimizing language model policies to produce better responses.
+
+In the next section, we'll explore policy optimization, understanding how to update language model policies to maximize expected reward while maintaining language quality.
+
+---
+
+**Previous: [Human Feedback Collection](02_human_feedback_collection.md)** - Learn how to collect and structure human preferences for RLHF training.
+
+**Next: [Policy Optimization](04_policy_optimization.md)** - Learn how to optimize language model policies using reward functions. 
