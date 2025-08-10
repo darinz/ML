@@ -118,31 +118,10 @@ for size in model_sizes:
 Understanding hardware requirements and training efficiency.
 
 **Compute Requirements:**
+See [`scaling_laws.py`](scaling_laws.py) for the complete implementation of compute requirement estimation.
+
 ```python
-def estimate_compute_requirements(model_size_billions, sequence_length=2048, batch_size=1):
-    """
-    Estimate compute requirements for training.
-    
-    Args:
-        model_size_billions: Model size in billions of parameters
-        sequence_length: Training sequence length
-        batch_size: Training batch size
-    
-    Returns:
-        flops_per_token: FLOPs per token
-        memory_gb: Memory requirements in GB
-    """
-    params = model_size_billions * 1e9
-    
-    # FLOPs per token (2 forward + 1 backward = 3x forward)
-    flops_per_token = 3 * 2 * params * sequence_length
-    
-    # Memory estimation (parameters + activations)
-    param_memory = params * 4  # 4 bytes per parameter (FP32)
-    activation_memory = batch_size * sequence_length * params * 4  # activations
-    total_memory_gb = (param_memory + activation_memory) / 1e9
-    
-    return flops_per_token, total_memory_gb
+from scaling_laws import estimate_compute_requirements
 
 # Example for different model sizes
 for size in [1, 7, 70, 175]:
