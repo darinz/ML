@@ -527,7 +527,7 @@ demonstrate_finite_horizon_mdp()
 **Activity 4.2: Linear Quadratic Regulation**
 ```python
 # Implement LQR for linear systems
-from advanced_control_examples import (
+from code.advanced_control_examples import (
     discrete_lqr, simulate_lqr_system, demonstrate_lqr
 )
 
