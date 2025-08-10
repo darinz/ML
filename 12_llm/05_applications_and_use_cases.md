@@ -32,7 +32,7 @@ In this section, we'll explore applications and use cases, understanding how tra
 
 Sequence-to-sequence translation using encoder-decoder transformers.
 
-**Implementation:** See `translation.py` for complete machine translation implementations including:
+**Implementation:** See `code/translation.py` for complete machine translation implementations including:
 - `TranslationTransformer` - Custom transformer for translation
 - `HuggingFaceTranslator` - Pre-trained model integration
 - `MultiLanguageTranslator` - Multi-language support
@@ -42,7 +42,7 @@ Sequence-to-sequence translation using encoder-decoder transformers.
 
 BERT-style models for sentiment analysis, topic classification, and intent detection.
 
-**Implementation:** See `text_classification.py` for comprehensive text classification:
+**Implementation:** See `code/text_classification.py` for comprehensive text classification:
 - `BERTClassifier` - BERT-based classification model
 - `DistilBERTClassifier` - Lightweight BERT variant
 - `SentimentAnalyzer` - Specialized sentiment analysis
@@ -53,7 +53,7 @@ BERT-style models for sentiment analysis, topic classification, and intent detec
 
 Identifying and classifying named entities in text.
 
-**Implementation:** See `attention_applications.py` for NER implementations:
+**Implementation:** See `code/attention_applications.py` for NER implementations:
 - `AttentionClassifier` - Attention-based NER model
 - Custom attention mechanisms for entity recognition
 
@@ -61,7 +61,7 @@ Identifying and classifying named entities in text.
 
 Extractive and generative question answering systems.
 
-**Implementation:** See `llm_architectures.py` for QA implementations:
+**Implementation:** See `code/llm_architectures.py` for QA implementations:
 - BERT-style question answering models
 - Extractive and generative QA approaches
 
@@ -69,7 +69,7 @@ Extractive and generative question answering systems.
 
 Abstractive and extractive text summarization.
 
-**Implementation:** See `summarization.py` for comprehensive summarization:
+**Implementation:** See `code/summarization.py` for comprehensive summarization:
 - `SummarizationTransformer` - Custom transformer for summarization
 - `ExtractiveSummarizer` - TF-IDF and keyword-based summarization
 - `HuggingFaceSummarizer` - Pre-trained model integration
@@ -81,7 +81,7 @@ Abstractive and extractive text summarization.
 
 Story generation, poetry, and creative content creation.
 
-**Implementation:** See `deployment_inference.py` for text generation:
+**Implementation:** See `code/deployment_inference.py` for text generation:
 - `generate_text()` - Advanced text generation with temperature, top-k, and top-p sampling
 - `OptimizedInference` - Optimized generation for production use
 
@@ -89,7 +89,7 @@ Story generation, poetry, and creative content creation.
 
 Programming assistance and code completion.
 
-**Implementation:** See `code_generation.py` for code generation:
+**Implementation:** See `code/code_generation.py` for code generation:
 - `CodeGenerator` - Code generation with syntax validation
 - `CodeTestGenerator` - Automated test case generation
 - Code quality assessment and optimization
@@ -98,7 +98,7 @@ Programming assistance and code completion.
 
 Conversational AI and chatbot implementations.
 
-**Implementation:** See `chatbot_rlhf.py` for dialogue systems:
+**Implementation:** See `code/chatbot_rlhf.py` for dialogue systems:
 - `ChatbotRLHF` - Reinforcement learning from human feedback
 - Conversation management and response generation
 
@@ -106,7 +106,7 @@ Conversational AI and chatbot implementations.
 
 Article writing and marketing copy generation.
 
-**Implementation:** See `deployment_inference.py` for content generation:
+**Implementation:** See `code/deployment_inference.py` for content generation:
 - `ModelServer` - Production-ready content generation
 - `batch_generate()` - Efficient batch processing for content creation
 
@@ -116,7 +116,7 @@ Article writing and marketing copy generation.
 
 Models that understand both images and text.
 
-**Implementation:** See `zero_shot_classification.py` for vision-language models:
+**Implementation:** See `code/zero_shot_classification.py` for vision-language models:
 - `ZeroShotClassifier` - CLIP-style vision-language classification
 - `FewShotClassifier` - Few-shot learning for vision-language tasks
 - `OpenSetClassifier` - Open-set recognition capabilities
@@ -125,7 +125,7 @@ Models that understand both images and text.
 
 Speech recognition and synthesis.
 
-**Implementation:** See `deployment_inference.py` for audio processing:
+**Implementation:** See `code/deployment_inference.py` for audio processing:
 - Speech-to-text and text-to-speech capabilities
 - Audio model optimization and deployment
 
@@ -133,7 +133,7 @@ Speech recognition and synthesis.
 
 Program analysis and generation.
 
-**Implementation:** See `code_generation.py` for code understanding:
+**Implementation:** See `code/code_generation.py` for code understanding:
 - Code analysis and comprehension
 - Program synthesis and optimization
 
@@ -143,7 +143,7 @@ Program analysis and generation.
 
 Research paper analysis and drug discovery.
 
-**Implementation:** See `ethical_considerations.py` for scientific applications:
+**Implementation:** See `code/ethical_considerations.py` for scientific applications:
 - Research paper classification and analysis
 - Scientific text processing and understanding
 
@@ -151,7 +151,7 @@ Research paper analysis and drug discovery.
 
 Market analysis and risk assessment.
 
-**Implementation:** See `ethical_considerations.py` for financial applications:
+**Implementation:** See `code/ethical_considerations.py` for financial applications:
 - Financial text sentiment analysis
 - Risk assessment and market analysis
 
@@ -159,7 +159,7 @@ Market analysis and risk assessment.
 
 ### Complete Application Pipeline
 
-**Implementation:** See `deployment_inference.py` for complete pipelines:
+**Implementation:** See `code/deployment_inference.py` for complete pipelines:
 - `create_inference_pipeline()` - End-to-end inference pipeline
 - `ModelServer` - Production-ready model serving
 - `OptimizedInference` - Optimized inference for various tasks
@@ -168,14 +168,14 @@ Market analysis and risk assessment.
 
 ### Model Serving
 
-**Implementation:** See `deployment_inference.py` for model serving:
+**Implementation:** See `code/deployment_inference.py` for model serving:
 - `ModelServer` - FastAPI-style model serving
 - `create_inference_pipeline()` - Complete deployment pipeline
 - Model optimization and quantization
 
 ### Model Optimization
 
-**Implementation:** See `deployment_inference.py` for optimization:
+**Implementation:** See `code/deployment_inference.py` for optimization:
 - `quantize_model()` - Model quantization for faster inference
 - `optimize_for_inference()` - Inference optimization techniques
 - `measure_inference_performance()` - Performance benchmarking
@@ -184,14 +184,14 @@ Market analysis and risk assessment.
 
 ### Batch Processing
 
-**Implementation:** See `deployment_inference.py` for batch processing:
+**Implementation:** See `code/deployment_inference.py` for batch processing:
 - `batch_generate()` - Efficient batch text generation
 - `batch_predict()` - Batch prediction capabilities
 - Memory optimization for large-scale processing
 
 ### Caching and Optimization
 
-**Implementation:** See `deployment_inference.py` for caching:
+**Implementation:** See `code/deployment_inference.py` for caching:
 - Model checkpointing and caching
 - `create_model_checkpoint()` - Checkpoint management
 - `load_model_checkpoint()` - Efficient model loading
