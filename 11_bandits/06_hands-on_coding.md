@@ -456,7 +456,7 @@ print(f"Contextual bandit with {n_arms} arms and {context_dim}-dimensional conte
 **Activity 3.2: Contextual UCB and Thompson Sampling**
 ```python
 # Implement contextual algorithms
-from contextual_bandits import (
+from code.contextual_bandits import (
     ContextualThompsonSampling, run_contextual_experiment,
     compare_contextual_algorithms
 )
