@@ -4,6 +4,18 @@
 
 Contextual bandits represent a natural evolution of multi-armed bandits by incorporating dynamic context information that influences reward distributions. Unlike classical bandits where arms have fixed reward distributions, contextual bandits adapt to changing environments where the optimal action depends on the current context.
 
+## From Static Features to Dynamic Contexts
+
+We've now explored **linear bandits** - extending the bandit framework to handle structured action spaces where rewards are linear functions of arm features. We've seen how LinUCB and linear Thompson sampling can exploit arm similarities, how feature-based learning reduces sample complexity, and how these methods enable efficient learning in high-dimensional action spaces.
+
+However, while linear bandits leverage the structure of arm features, **real-world environments** are often dynamic and context-dependent. Consider an online advertising system where the effectiveness of an ad depends not just on the ad itself, but also on the user's current context - their demographics, browsing history, time of day, and other contextual factors.
+
+This motivates our exploration of **contextual bandits** - extending the bandit framework to handle dynamic contexts where the optimal action depends on the current state. We'll see how contextual UCB and contextual Thompson sampling adapt to changing environments, how personalization enables tailored decisions, and how these methods handle the complexity of real-world applications.
+
+The transition from linear to contextual bandits represents the bridge from static structure to dynamic adaptation - taking our understanding of feature-based learning and extending it to handle the temporal and contextual dynamics inherent in many real-world problems.
+
+In this section, we'll explore contextual bandits, understanding how they adapt to changing contexts and enable personalized decision-making.
+
 ### Motivation
 
 The classical multi-armed bandit framework assumes stationary reward distributions, which is often unrealistic in practice. Contextual bandits address this limitation by:
@@ -823,3 +835,21 @@ Contextual bandits bridge the gap between classical bandits and full reinforceme
 ---
 
 **Note**: This guide covers the fundamentals of contextual bandits. For more advanced topics, see the sections on Neural Bandits, Federated Bandits, and Constrained Contextual Bandits.
+
+## From Cumulative Reward to Pure Exploration
+
+We've now explored **contextual bandits** - extending the bandit framework to handle dynamic contexts where the optimal action depends on the current state. We've seen how contextual UCB and contextual Thompson sampling adapt to changing environments, how personalization enables tailored decisions, and how these methods handle the complexity of real-world applications.
+
+However, while traditional bandit algorithms focus on maximizing cumulative reward through exploration-exploitation balance, **many real-world scenarios** prioritize accurate identification over immediate performance. Consider a clinical trial where the goal is to identify the most effective treatment, or an A/B test where the objective is to determine the best website design - in these cases, we care more about making the right final decision than about maximizing rewards during the learning process.
+
+This motivates our exploration of **best arm identification (BAI)** - a fundamental shift in the bandit paradigm from cumulative reward maximization to pure exploration. We'll see how BAI algorithms focus exclusively on identifying the best arm with high confidence, how they use different stopping criteria and sampling strategies, and how these methods enable efficient identification in scenarios where accuracy is more important than immediate performance.
+
+The transition from contextual bandits to best arm identification represents the bridge from adaptive learning to pure exploration - taking our understanding of bandit algorithms and applying it to scenarios where the goal is identification rather than cumulative reward maximization.
+
+In the next section, we'll explore best arm identification, understanding how to design algorithms for pure exploration problems.
+
+---
+
+**Previous: [Linear Bandits](02_linear_bandits.md)** - Learn how to exploit structured action spaces for more efficient learning.
+
+**Next: [Best Arm Identification](04_best_arm_identification.md)** - Learn algorithms for pure exploration and identification problems.
