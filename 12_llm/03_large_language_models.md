@@ -84,7 +84,7 @@ Where:
 - $`C`$ is the compute budget in FLOPs
 
 **Implementation:**
-The complete implementation of scaling laws and optimal model/data size calculations is available in [`scaling_laws.py`](scaling_laws.py), which includes:
+The complete implementation of scaling laws and optimal model/data size calculations is available in [`code/scaling_laws.py`](code/scaling_laws.py), which includes:
 
 - `compute_optimal_scaling`: Calculate optimal parameters and tokens given compute budget
 - `estimate_data_requirements`: Estimate data requirements for different model sizes
@@ -97,7 +97,7 @@ The complete implementation of scaling laws and optimal model/data size calculat
 Understanding how much data is needed for different model sizes.
 
 **Data Requirements:**
-The complete implementation of data requirement estimation is available in [`scaling_laws.py`](scaling_laws.py), which provides:
+The complete implementation of data requirement estimation is available in [`code/scaling_laws.py`](code/scaling_laws.py), which provides:
 
 - Optimal data ratios based on Chinchilla scaling laws
 - Epoch calculations for different model sizes
@@ -109,7 +109,7 @@ The complete implementation of data requirement estimation is available in [`sca
 Understanding hardware requirements and training efficiency.
 
 **Compute Requirements:**
-The complete implementation of compute requirement estimation is available in [`scaling_laws.py`](scaling_laws.py), which provides:
+The complete implementation of compute requirement estimation is available in [`code/scaling_laws.py`](code/scaling_laws.py), which provides:
 
 - FLOPs per token calculations
 - Memory requirement estimates
@@ -123,7 +123,7 @@ The complete implementation of compute requirement estimation is available in [`
 Using lower precision (FP16/BF16) to reduce memory usage and speed up training.
 
 **Implementation:**
-The complete implementation of mixed precision training and other training techniques is available in [`training_techniques.py`](training_techniques.py), which includes:
+The complete implementation of mixed precision training and other training techniques is available in [`code/training_techniques.py`](code/training_techniques.py), which includes:
 
 - `MixedPrecisionTrainer`: Mixed precision training with automatic mixed precision
 - `MemoryEfficientLLM`: Memory efficient training with gradient checkpointing
@@ -136,7 +136,7 @@ The complete implementation of mixed precision training and other training techn
 Trading compute for memory by recomputing intermediate activations.
 
 **Implementation:**
-The complete implementation of memory efficient training with gradient checkpointing is available in [`training_techniques.py`](training_techniques.py) with the `MemoryEfficientLLM` class, which provides:
+The complete implementation of memory efficient training with gradient checkpointing is available in [`code/training_techniques.py`](code/training_techniques.py) with the `MemoryEfficientLLM` class, which provides:
 
 - Automatic gradient checkpointing
 - Memory optimization strategies
@@ -148,7 +148,7 @@ The complete implementation of memory efficient training with gradient checkpoin
 Distributing model layers across multiple devices.
 
 **Implementation:**
-Model parallelism is implemented in [`training_techniques.py`](training_techniques.py) with the `ModelParallelLLM` class, which includes:
+Model parallelism is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `ModelParallelLLM` class, which includes:
 
 - Multi-GPU model distribution
 - Efficient layer placement
