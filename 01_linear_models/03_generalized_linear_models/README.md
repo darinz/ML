@@ -16,8 +16,8 @@ GLMs unify linear regression and logistic regression into a single framework usi
 - **[02_constructing_glm.md](02_constructing_glm.md)** - Systematic GLM construction and three fundamental assumptions
 
 ### Implementation
-- **[exponential_family_examples.py](exponential_family_examples.py)** - Interactive examples and visualizations
-- **[constructing_glm_examples.py](constructing_glm_examples.py)** - Complete GLM framework with real data examples
+- **[code/exponential_family_examples.py](code/exponential_family_examples.py)** - Interactive examples and visualizations
+- **[code/constructing_glm_examples.py](code/constructing_glm_examples.py)** - Complete GLM framework with real data examples
 
 ### Reference Materials
 - **exponential_family/** - Academic PDFs from MIT, Princeton, Berkeley, Columbia, Purdue
