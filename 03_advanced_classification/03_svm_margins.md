@@ -62,9 +62,9 @@ Notice that the point A is very far from the decision boundary. If we are asked 
 
 To make our discussion of SVMs easier, we'll first need to introduce a new notation for talking about classification. We will be considering a linear classifier for a binary classification problem with labels $y$ and features $x$. From now, we'll use $y \in \{-1, 1\}$ (instead of $\{0, 1\}$) to denote the class labels. Also, rather than parameterizing our linear classifier with the vector $\theta$, we will use parameters $w, b$, and write our classifier as
 
-```math
+$$
 h_{w,b}(x) = g(w^T x + b).
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -90,9 +90,9 @@ Note also that, from our definition of $g$ above, our classifier will directly p
 
 Let's formalize the notions of the functional and geometric margins. Given a training example $(x^{(i)}, y^{(i)})$, we define the **functional margin** of $(w, b)$ with respect to the training example as
 
-```math
+$$
 \hat{\gamma}^{(i)} = y^{(i)} (w^T x^{(i)} + b).
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -115,9 +115,9 @@ Let's formalize the notions of the functional and geometric margins. Given a tra
 
 Given a training set $S = \{(x^{(i)}, y^{(i)}); i = 1, \ldots, n\}$, we also define the function margin of $(w, b)$ with respect to $S$ as the smallest of the functional margins of the individual training examples. Denoted by $\hat{\gamma}$, this can therefore be written:
 
-```math
+$$
 \hat{\gamma} = \min_{i=1,\ldots,n} \hat{\gamma}^{(i)}.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -148,16 +148,16 @@ This means $w$ is orthogonal to any vector in the hyperplane, so $w$ is the norm
 **The Calculation**:
 How can we find the value of $\gamma^{(i)}$? Well, $w/\|w\|$ is a unit-length vector pointing in the same direction as $w$. Since A represents $x^{(i)}$, we therefore find that the point $B$ is given by $x^{(i)} - \gamma^{(i)} \cdot w/\|w\|$. But this point lies on the decision boundary, and all points $x$ on the decision boundary satisfy the equation $w^T x + b = 0$. Hence,
 
-```math
+$$
 w^T \left( x^{(i)} - \gamma^{(i)} \frac{w}{\|w\|} \right) + b = 0.
-```
+$$
 
 **Solving for the Margin**:
 Solving for $\gamma^{(i)}$ yields
 
-```math
+$$
 \gamma^{(i)} = \frac{w^T x^{(i)} + b}{\|w\|} = \left( \frac{w}{\|w\|} \right)^T x^{(i)} + \frac{b}{\|w\|}.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -170,9 +170,9 @@ Solving for $\gamma^{(i)}$ yields
 
 This was worked out for the case of a positive training example at A in the figure, where being on the "positive" side of the decision boundary is good. More generally, we define the geometric margin of $(w, b)$ with respect to a training example $(x^{(i)}, y^{(i)})$ to be
 
-```math
+$$
 \gamma^{(i)} = y^{(i)} \left( \left( \frac{w}{\|w\|} \right)^T x^{(i)} + \frac{b}{\|w\|} \right).
-```
+$$
 
 **The Key Insight**: The geometric margin is the actual distance from the point to the decision boundary, taking into account the correct side.
 
@@ -187,9 +187,9 @@ This was worked out for the case of a positive training example at A in the figu
 
 Finally, given a training set $S = \{(x^{(i)}, y^{(i)}); i = 1, \ldots, n\}$, we also define the geometric margin of $(w, b)$ with respect to $S$ to be the smallest of the geometric margins on the individual training examples:
 
-```math
+$$
 \gamma = \min_{i=1,\ldots,n} \gamma^{(i)}.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -205,11 +205,11 @@ Given a training set, it seems from our previous discussion that a natural desid
 
 For now, we will assume that we are given a training set that is linearly separable; i.e., that it is possible to separate the positive and negative examples using some separating hyperplane. How will we find the one that achieves the maximum geometric margin? We can pose the following optimization problem:
 
-```math
+$$
 \max_{\gamma, w, b} \quad \gamma \\
 \text{s.t.} \quad y^{(i)} (w^T x^{(i)} + b) \geq \gamma, \quad i = 1, \ldots, n \\
 \|w\| = 1.
-```
+$$
 
 **Understanding the Problem**:
 - **Objective**: Maximize the geometric margin $\gamma$
@@ -231,10 +231,10 @@ If we could solve the optimization problem above, we'd be done. But the "$|w\| =
 
 Consider:
 
-```math
+$$
 \max_{\gamma, w, b} \quad \frac{\hat{\gamma}}{\|w\|} \\
 \text{s.t.} \quad y^{(i)} (w^T x^{(i)} + b) \geq \hat{\gamma}, \quad i = 1, \ldots, n
-```
+$$
 
 **The Improvement**:
 Here, we're going to maximize $\hat{\gamma}/\|w\|$, subject to the functional margins all being at least $\hat{\gamma}$. Since the geometric and functional margins are related by $\gamma = \hat{\gamma}/\|w\|$, this will give us the answer we want. Moreover, we've gotten rid of the constraint $\|w\| = 1$ that we didn't like.
@@ -245,18 +245,18 @@ Here, we're going to maximize $\hat{\gamma}/\|w\|$, subject to the functional ma
 
 Let's keep going. Recall our earlier discussion that we can add an arbitrary scaling constraint on $w$ and $b$ without changing anything. This is the key idea we'll use now. We will introduce the scaling constraint that the functional margin of $w, b$ with respect to the training set must be 1:
 
-```math
+$$
 \hat{\gamma} = 1.
-```
+$$
 
 **The Scaling Insight**: Since multiplying $w$ and $b$ by some constant results in the functional margin being multiplied by that same constant, this is indeed a scaling constraint, and can be satisfied by rescaling $w, b$. 
 
 **The Final Problem**: Plugging this into our problem above, and noting that maximizing $\hat{\gamma}/\|w\| = 1/\|w\|$ is the same thing as minimizing $\|w\|^2$, we now have the following optimization problem:
 
-```math
+$$
 \min_{w, b} \quad \frac{1}{2} \|w\|^2 \\
 \text{s.t.} \quad y^{(i)} (w^T x^{(i)} + b) \geq 1, \quad i = 1, \ldots, n
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -286,24 +286,24 @@ Let's temporarily put aside SVMs and maximum margin classifiers, and talk about 
 
 Consider a problem of the following form:
 
-```math
+$$
 \min_w \quad f(w) \\
 \text{s.t.} \quad h_i(w) = 0, \quad i = 1, \ldots, l.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
 **The Lagrangian Method**: Some of you may recall how the method of Lagrange multipliers can be used to solve it. (Don't worry if you haven't seen it before.) In this method, we define the **Lagrangian** to be
 
-```math
+$$
 \mathcal{L}(w, \beta) = f(w) + \sum_{i=1}^l \beta_i h_i(w)
-```
+$$
 
 Here, the $\beta_i$'s are called the **Lagrange multipliers**. We would then find and set $\mathcal{L}$'s partial derivatives to zero:
 
-```math
+$$
 \frac{\partial \mathcal{L}}{\partial w_j} = 0; \quad \frac{\partial \mathcal{L}}{\partial \beta_j} = 0,
-```
+$$
 
 and solve for $w$ and $\beta$.
 
@@ -313,11 +313,11 @@ In this section, we will generalize this to constrained optimization problems in
 
 Consider the following, which we'll call the **primal optimization problem**:
 
-```math
+$$
 \min_w \quad f(w) \\
 \text{s.t.} \quad g_i(w) \leq 0, \quad i = 1, \ldots, k \\
 \quad \;\;\;\; h_i(w) = 0, \quad i = 1, \ldots, l.
-```
+$$
 
 **The Problem Types**:
 - **Equality constraints**: $h_i(w) = 0$ (must be satisfied exactly)
@@ -325,9 +325,9 @@ Consider the following, which we'll call the **primal optimization problem**:
 
 To solve it, we start by defining the **generalized Lagrangian**
 
-```math
+$$
 \mathcal{L}(w, \alpha, \beta) = f(w) + \sum_{i=1}^k \alpha_i g_i(w) + \sum_{i=1}^l \beta_i h_i(w).
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -342,15 +342,15 @@ Here, the $\alpha_i$'s and $\beta_i$'s are the Lagrange multipliers.
 
 Consider the quantity
 
-```math
+$$
 \theta_P(w) = \max_{\alpha \succeq 0, \beta} \mathcal{L}(w, \alpha, \beta).
-```
+$$
 
 Here, the "P" subscript stands for "primal." Let some $w$ be given. If $w$ violates any of the primal constraints (i.e., if either $g_i(w) > 0$ or $h_i(w) \neq 0$ for some $i$), then you should be able to verify that
 
-```math
+$$
 \theta_P(w) = \max_{\alpha \succeq 0, \beta} f(w) + \sum_{i=1}^k \alpha_i g_i(w) + \sum_{i=1}^l \beta_i h_i(w) = \infty.
-```
+$$
 
 **Why This Happens**:
 - If $g_i(w) > 0$, we can set $\alpha_i \to \infty$ to make the Lagrangian $\to \infty$
@@ -358,15 +358,15 @@ Here, the "P" subscript stands for "primal." Let some $w$ be given. If $w$ viola
 
 Conversely, if the constraints are indeed satisfied for a particular value of $w$, then $\theta_P(w) = f(w)$. Hence,
 
-```math
+$$
 \theta_P(w) = \begin{cases} f(w) & \text{if $w$ satisfies primal constraints} \\ \infty & \text{otherwise.} \end{cases}
-```
+$$
 
 **The Primal Problem**: Thus, $\theta_P$ takes the same value as the objective in our problem for all values of $w$ that satisfies the primal constraints, and is positive infinity if the constraints are violated. Hence, if we consider the minimization problem
 
-```math
+$$
 \min_w \theta_P(w) = \min_w \max_{\alpha \succeq 0, \beta} \mathcal{L}(w, \alpha, \beta),
-```
+$$
 
 we see that it is the same problem (i.e., and has the same solutions as) our original primal problem. For later use, we also define the optimal value of the objective to be $p^* = \min_w \theta_P(w)$; we call this the **value of the primal problem**.
 
@@ -374,17 +374,17 @@ we see that it is the same problem (i.e., and has the same solutions as) our ori
 
 Now, let's look at a slightly different problem. We define
 
-```math
+$$
 \theta_D(\alpha, \beta) = \min_w \mathcal{L}(w, \alpha, \beta).
-```
+$$
 
 Here, the "D" subscript stands for "dual." Note also that whereas in the definition of $\theta_P$ we were optimizing (maximizing) with respect to $\alpha, \beta$, here we are minimizing with respect to $w$.
 
 We can now pose the **dual optimization problem**:
 
-```math
+$$
 \max_{\alpha \succeq 0, \beta} \theta_D(\alpha, \beta) = \max_{\alpha \succeq 0, \beta} \min_w \mathcal{L}(w, \alpha, \beta).
-```
+$$
 
 This is exactly the same as our primal problem shown above, except that the order of the "max" and the "min" are now exchanged. We also define the optimal value of the dual problem's objective to be $d^* = \max_{\alpha \succeq 0, \beta} \theta_D(\alpha, \beta)$.
 
@@ -392,15 +392,15 @@ This is exactly the same as our primal problem shown above, except that the orde
 
 How do the primal and the dual problems relate? (It can easily be shown that
 
-```math
+$$
 d^* = \max_{\alpha \succeq 0, \beta} \min_w \mathcal{L}(w, \alpha, \beta) \leq \min_w \max_{\alpha \succeq 0, \beta} \mathcal{L}(w, \alpha, \beta) = p^*.
-```
+$$
 
 (You should convince yourself of this; this follows from the "max min" of a function always being less than or equal to the "min max." However, under certain conditions, we will have
 
-```math
+$$
 d^* = p^*,
-```
+$$
 
 so that we can solve the dual problem in lieu of the primal problem. Let's see what these conditions are.
 
@@ -410,21 +410,21 @@ Suppose $f$ and the $g_i$'s are convex, and the $h_i$'s are affine. Suppose furt
 
 Under our above assumptions, there must exist $w^*, \alpha^*, \beta^*$ so that $w^*$ is the solution to the primal problem, $\alpha^*, \beta^*$ are the solution to the dual problem, and moreover $p^* = d^* = \mathcal{L}(w^*, \alpha^*, \beta^*)$. Moreover, $w^*, \alpha^*$ and $\beta^*$ satisfy the **Karush-Kuhn-Tucker (KKT) conditions**, which are as follows:
 
-```math
+$$
 \frac{\partial}{\partial w_j} \mathcal{L}(w^*, \alpha^*, \beta^*) = 0, \quad i = 1, \ldots, d \tag{6.3}
-```
-```math
+$$
+$$
 \frac{\partial}{\partial \beta_j} \mathcal{L}(w^*, \alpha^*, \beta^*) = 0, \quad i = 1, \ldots, l \tag{6.4}
-```
-```math
+$$
+$$
 \alpha_i^* g_i(w^*) = 0, \quad i = 1, \ldots, k \tag{6.5}
-```
-```math
+$$
+$$
 g_i(w^*) \leq 0, \quad i = 1, \ldots, k \tag{6.6}
-```
-```math
+$$
+$$
 \alpha^* \succeq 0, \quad i = 1, \ldots, k \tag{6.7}
-```
+$$
 
 **Understanding the KKT Conditions**:
 
