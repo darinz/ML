@@ -6,6 +6,18 @@ Imagine you have a dataset of animal heights, but you don't know which animal is
 
 - **Latent variables:** These are hidden variables (like "cat" or "dog") that we don't observe directly, but which explain the structure in the data.
 
+## From Hard Clustering to Probabilistic Models
+
+We've now explored **k-means clustering** - a simple but effective algorithm for partitioning data into groups based on similarity. We've seen how k-means works by alternating between assigning points to the nearest centroid and updating centroids to the mean of their assigned points, minimizing the total squared distance within clusters.
+
+However, while k-means provides a straightforward approach to clustering, it has limitations: it makes **hard assignments** (each point belongs to exactly one cluster), assumes **spherical clusters** of equal size, and doesn't provide uncertainty estimates about cluster assignments. Many real-world clustering problems require more flexibility and probabilistic reasoning.
+
+This motivates our exploration of **Gaussian Mixture Models (GMM)** and the **Expectation-Maximization (EM) algorithm** - a probabilistic approach to clustering that provides soft assignments, can model clusters of different shapes and sizes, and gives us uncertainty estimates about cluster membership.
+
+The transition from k-means to GMM represents the bridge from deterministic to probabilistic clustering - taking our understanding of how to group similar data points and extending it to handle uncertainty and more complex cluster structures.
+
+In this section, we'll explore how EM works with mixture models, how to compute soft assignments, and how this probabilistic framework provides more flexibility than hard clustering methods.
+
 ## The Mixture of Gaussians Model (Step-by-Step)
 
 We model the data as follows:
@@ -144,4 +156,22 @@ EM works by maximizing a lower bound on the likelihood, using **Jensen's inequal
 - The EM algorithm alternates between estimating cluster probabilities (E-step) and updating parameters (M-step).
 - EM is more flexible than k-means and can model overlapping, non-spherical clusters.
 - Understanding the math and intuition behind EM helps you use it effectively in practice.
+
+## From Specific Models to General Framework
+
+We've now explored **Gaussian Mixture Models** and the **Expectation-Maximization algorithm** - a powerful approach to probabilistic clustering that provides soft assignments and can model clusters of different shapes and sizes. We've seen how EM alternates between estimating cluster probabilities (E-step) and updating parameters (M-step), using the ELBO to maximize a lower bound on the likelihood.
+
+However, while GMM provides a specific application of EM, the **Expectation-Maximization algorithm** is actually a general framework that can be applied to any model with latent variables. The principles we've learned - alternating between expectation and maximization steps, using the ELBO, and handling hidden variables - extend far beyond mixture models.
+
+This motivates our exploration of the **general EM framework** - a flexible approach for learning in any latent variable model. We'll see how the ELBO provides a unified framework for variational inference, how to apply EM to different types of models, and how this general approach enables us to tackle a wide range of unsupervised learning problems.
+
+The transition from GMM to general EM represents the bridge from specific application to universal framework - taking our understanding of how EM works with mixture models and extending it to any model with hidden variables.
+
+In the next section, we'll explore the mathematical foundations of the general EM framework, understand the ELBO in its most general form, and see how this framework applies to various latent variable models.
+
+---
+
+**Previous: [K-Means Clustering](01_clustering.md)** - Understand the fundamental clustering algorithm for partitioning data.
+
+**Next: [General EM Framework](03_general_em.md)** - Learn the universal framework for latent variable models and variational inference.
 
