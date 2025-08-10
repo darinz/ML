@@ -20,10 +20,10 @@ Classification fundamentals including binary classification, multi-class classif
 - **[04_newtons_method.md](04_newtons_method.md)** - Newton's method, Hessian matrix, quadratic convergence, optimization
 
 ### Code Examples
-- **[logistic_regression_examples.py](logistic_regression_examples.py)** - Binary classification, sigmoid function, gradient ascent
-- **[perceptron_examples.py](perceptron_examples.py)** - Perceptron algorithm, threshold function, convergence analysis
-- **[multiclass_softmax_example.py](multiclass_softmax_example.py)** - Multi-class classification, softmax function, temperature scaling
-- **[newtons_method_examples.py](newtons_method_examples.py)** - Newton's method, Hessian computation, convergence analysis
+- **[code/logistic_regression_examples.py](code/logistic_regression_examples.py)** - Binary classification, sigmoid function, gradient ascent
+- **[code/perceptron_examples.py](code/perceptron_examples.py)** - Perceptron algorithm, threshold function, convergence analysis
+- **[code/multiclass_softmax_example.py](code/multiclass_softmax_example.py)** - Multi-class classification, softmax function, temperature scaling
+- **[code/newtons_method_examples.py](code/newtons_method_examples.py)** - Newton's method, Hessian computation, convergence analysis
 
 ### Visualizations
 - **img/sigmoid.png** - Sigmoid function visualization
