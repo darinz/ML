@@ -400,6 +400,22 @@ SimCLR (Simple Framework for Contrastive Learning of Visual Representations) is 
 | **Transfer Ability** | Task-specific | General |
 | **Implementation** | Straightforward | Complex |
 
+## From General Foundation Models to Language-Specific Applications
+
+We've now explored **self-supervised learning and foundation models** - a paradigm shift that enables learning from vast amounts of unlabeled data. We've seen how contrastive learning works by creating surrogate tasks from the data itself, how foundation models can be adapted to various downstream tasks, and how this approach addresses the fundamental data labeling bottleneck in machine learning.
+
+However, while the general principles of self-supervised learning apply across different data modalities, **natural language processing** presents unique challenges and opportunities that require specialized approaches. Language has its own structure, patterns, and characteristics that make it particularly well-suited for certain types of self-supervised learning.
+
+This motivates our exploration of **large language models (LLMs)** - specialized foundation models for text that leverage the sequential and contextual nature of language. We'll see how language modeling works through the chain rule of probability, how Transformer architectures process text, and how these models can generate coherent text and adapt to new tasks through prompting.
+
+The transition from general foundation models to language-specific applications represents the bridge from universal principles to domain expertise - taking our understanding of self-supervised learning and applying it to the rich, structured world of natural language.
+
+In the next section, we'll explore how language models work, how they're trained on massive text corpora, and how they can be adapted to various language tasks through finetuning, zero-shot learning, and in-context learning.
+
+---
+
+**Next: [Large Language Models](02_pretrain_llm.md)** - Learn how to build and deploy large language models for text generation and understanding.
+
 ---
 
 [^2]: Negative pairs are not guaranteed to be always semantically unrelated, but in practice, with large datasets and random sampling, this is a reasonable assumption.
