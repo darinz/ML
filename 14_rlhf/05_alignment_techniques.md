@@ -2,6 +2,18 @@
 
 This guide provides a comprehensive overview of alignment techniques for reinforcement learning from human feedback (RLHF) systems. We'll explore Direct Preference Optimization (DPO), Constitutional AI, Red Teaming, and other methods designed to make language models more useful, safe, and honest.
 
+## From Policy Optimization to Advanced Alignment
+
+We've now explored **policy optimization** - the core component of RLHF that updates the language model policy to maximize expected reward from human feedback. We've seen how policy gradient methods like REINFORCE and actor-critic approaches work for language models, how trust region methods like PPO and TRPO ensure stable policy updates, how to handle the unique challenges of language generation (sequential decisions, sparse rewards, high dimensionality), and how to balance reward maximization with maintaining language quality.
+
+However, while policy optimization enables basic RLHF training, **the standard RLHF pipeline** has limitations in ensuring comprehensive alignment. Consider a model trained with RLHF - it may be helpful and harmless in most cases, but it might still have blind spots, be vulnerable to adversarial attacks, or lack explicit mechanisms for self-correction and safety.
+
+This motivates our exploration of **advanced alignment techniques** - methods that go beyond standard RLHF to ensure more robust, safe, and beneficial AI behavior. We'll see how Direct Preference Optimization (DPO) eliminates the need for separate reward models, how Constitutional AI enables self-critique and revision, how Red Teaming systematically identifies and addresses safety vulnerabilities, and how multi-objective alignment balances competing objectives like helpfulness, harmlessness, and honesty.
+
+The transition from policy optimization to advanced alignment represents the bridge from basic RLHF to comprehensive AI safety - taking our understanding of how to optimize language model policies and applying it to the challenge of building AI systems that are not just capable but also safe, honest, and beneficial to society.
+
+In this section, we'll explore advanced alignment techniques, understanding how to build more robust and safe AI systems that go beyond standard RLHF.
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -1137,4 +1149,22 @@ Effective alignment enables the development of language models that are not only
 
 ---
 
-**Note**: This guide provides the theoretical and practical foundations for alignment techniques in RLHF. For specific implementation details and advanced techniques, refer to the implementation examples and external resources referenced in the main README. 
+**Note**: This guide provides the theoretical and practical foundations for alignment techniques in RLHF. For specific implementation details and advanced techniques, refer to the implementation examples and external resources referenced in the main README.
+
+## From Theoretical Understanding to Practical Implementation
+
+We've now explored **advanced alignment techniques** - methods that go beyond standard RLHF to ensure more robust, safe, and beneficial AI behavior. We've seen how Direct Preference Optimization (DPO) eliminates the need for separate reward models, how Constitutional AI enables self-critique and revision, how Red Teaming systematically identifies and addresses safety vulnerabilities, and how multi-objective alignment balances competing objectives like helpfulness, harmlessness, and honesty.
+
+However, while understanding alignment techniques is valuable, **true mastery** comes from hands-on implementation. Consider building a chatbot that can safely handle sensitive topics, or implementing a content generation system that maintains honesty while being helpful - these require not just theoretical knowledge but practical skills in implementing RLHF pipelines, reward modeling, and alignment techniques.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the RLHF concepts we've learned. We'll put our theoretical knowledge into practice by implementing complete RLHF pipelines, building reward models from preference data, applying policy optimization algorithms, and developing practical applications for chatbot alignment, content generation, and safety evaluation.
+
+The transition from alignment techniques to hands-on coding represents the bridge from understanding to implementation - taking our knowledge of how RLHF and alignment work and turning it into practical tools for building aligned AI systems.
+
+In the next section, we'll implement complete RLHF systems, experiment with different alignment techniques, and develop the practical skills needed for real-world applications in AI alignment and safety.
+
+---
+
+**Previous: [Policy Optimization](04_policy_optimization.md)** - Learn how to optimize language model policies using reward functions.
+
+**Next: [Hands-on Coding](06_hands-on_coding.md)** - Implement complete RLHF pipelines and alignment techniques with practical examples. 
