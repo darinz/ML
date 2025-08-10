@@ -72,7 +72,7 @@ conda --version
 cd 03_advanced_classification
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate advanced-classification-lesson
@@ -98,7 +98,7 @@ advanced-classification-env\Scripts\activate
 source advanced-classification-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -139,7 +139,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Kernel Methods Foundation (3-4 hours)
-**File**: `kernel_methods_examples.py`
+**File**: `code/kernel_methods_examples.py`
 
 #### Learning Goals
 - Understand the motivation for kernel methods through feature maps
@@ -153,7 +153,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Understanding Feature Maps**
 ```python
 # Explore polynomial feature maps and the curse of dimensionality
-from kernel_methods_examples import polynomial_feature_map, demonstrate_curse_of_dimensionality
+from code.kernel_methods_examples import polynomial_feature_map, demonstrate_curse_of_dimensionality
 
 # Test polynomial feature map
 x = 2.0
@@ -171,7 +171,7 @@ demonstrate_curse_of_dimensionality()
 **Activity 1.2: Implementing Common Kernels**
 ```python
 # Implement and test different kernel functions
-from kernel_methods_examples import linear_kernel, polynomial_kernel, rbf_kernel
+from code.kernel_methods_examples import linear_kernel, polynomial_kernel, rbf_kernel
 
 # Test kernels with sample data
 x1 = np.array([1, 2])
@@ -195,7 +195,7 @@ print(f"RBF kernel (γ=1.0): {k_rbf:.3f}")
 **Activity 1.3: Kernelized Learning**
 ```python
 # Implement kernelized LMS algorithm
-from kernel_methods_examples import kernelized_lms, predict_kernelized
+from code.kernel_methods_examples import kernelized_lms, predict_kernelized
 
 # Generate non-linear data
 np.random.seed(42)
@@ -216,7 +216,7 @@ print(f"Predictions: {y_pred}")
 **Activity 1.4: Explicit vs Kernel Comparison**
 ```python
 # Compare explicit feature computation with kernel trick
-from kernel_methods_examples import compare_explicit_vs_kernel
+from code.kernel_methods_examples import compare_explicit_vs_kernel
 
 # This will show:
 # 1. Computational complexity comparison
@@ -245,7 +245,7 @@ compare_explicit_vs_kernel()
 ---
 
 ### Lesson 2: SVM Optimal Margin Classifiers (4-5 hours)
-**File**: `svm_optimal_margin_examples.py`
+**File**: `code/svm_optimal_margin_examples.py`
 
 #### Learning Goals
 - Understand the primal and dual SVM formulations
@@ -259,7 +259,7 @@ compare_explicit_vs_kernel()
 **Activity 2.1: Primal SVM Implementation**
 ```python
 # Implement and solve the primal SVM problem
-from svm_optimal_margin_examples import solve_primal_svm
+from code.svm_optimal_margin_examples import solve_primal_svm
 
 # Generate linearly separable data
 np.random.seed(42)
@@ -279,7 +279,7 @@ print(f"Primal solution - b: {b_primal:.3f}")
 **Activity 2.2: Dual SVM Implementation**
 ```python
 # Implement and solve the dual SVM problem
-from svm_optimal_margin_examples import solve_dual_svm, get_support_vectors
+from code.svm_optimal_margin_examples import solve_dual_svm, get_support_vectors
 
 # Solve dual SVM
 alpha, b_dual = solve_dual_svm(X, y)
@@ -295,7 +295,7 @@ print(f"Support vector alphas: {support_vector_alphas}")
 **Activity 2.3: Support Vector Analysis**
 ```python
 # Analyze support vectors and their properties
-from svm_optimal_margin_examples import svm_decision_function, svm_predict
+from code.svm_optimal_margin_examples import svm_decision_function, svm_predict
 
 # Make predictions using dual form
 X_test = np.random.randn(10, 2)
@@ -307,7 +307,7 @@ for x_test in X_test:
 print(f"Test predictions: {predictions}")
 
 # Visualize decision boundary and support vectors
-from svm_optimal_margin_examples import plot_svm_decision_boundary
+from code.svm_optimal_margin_examples import plot_svm_decision_boundary
 plot_svm_decision_boundary(X, y, w_primal, b_primal, support_vectors, "SVM with Support Vectors")
 
 # Key insight: Support vectors define the margin and decision boundary
@@ -316,7 +316,7 @@ plot_svm_decision_boundary(X, y, w_primal, b_primal, support_vectors, "SVM with 
 **Activity 2.4: Kernel SVM Implementation**
 ```python
 # Implement kernel SVM for non-linear classification
-from svm_optimal_margin_examples import complete_svm_implementation
+from code.svm_optimal_margin_examples import complete_svm_implementation
 
 # Generate non-linear data (circles)
 X_circles, y_circles = make_circles(n_samples=100, noise=0.1, factor=0.5, random_state=42)
@@ -352,7 +352,7 @@ print(f"Kernel SVM predictions: {predictions_circles}")
 ---
 
 ### Lesson 3: SVM Regularization and SMO (3-4 hours)
-**File**: `svm_regularization_examples.py`
+**File**: `code/svm_regularization_examples.py`
 
 #### Learning Goals
 - Understand soft-margin SVM with slack variables
@@ -366,7 +366,7 @@ print(f"Kernel SVM predictions: {predictions_circles}")
 **Activity 3.1: Soft-Margin SVM Implementation**
 ```python
 # Implement SVM with regularization for non-separable data
-from svm_regularization_examples import SVMRegularization
+from code.svm_regularization_examples import SVMRegularization
 
 # Generate non-separable data
 np.random.seed(42)
@@ -393,7 +393,7 @@ print(f"Training accuracy: {accuracy_score(y_noisy, svm_soft.predict(X_noisy)):.
 **Activity 3.2: Regularization Parameter Analysis**
 ```python
 # Analyze the effect of regularization parameter C
-from svm_regularization_examples import regularization_tradeoff_analysis
+from code.svm_regularization_examples import regularization_tradeoff_analysis
 
 # This will show:
 # 1. How C affects the number of support vectors
@@ -410,7 +410,7 @@ regularization_tradeoff_analysis()
 **Activity 3.3: SMO Algorithm Implementation**
 ```python
 # Understand the SMO algorithm through coordinate ascent
-from svm_regularization_examples import coordinate_ascent_example
+from code.svm_regularization_examples import coordinate_ascent_example
 
 # Demonstrate coordinate ascent optimization
 print("=== Coordinate Ascent Example ===")
@@ -422,7 +422,7 @@ coordinate_ascent_example()
 **Activity 3.4: KKT Conditions and Convergence**
 ```python
 # Analyze KKT conditions and convergence criteria
-from svm_regularization_examples import kkt_conditions_demonstration
+from code.svm_regularization_examples import kkt_conditions_demonstration
 
 # Demonstrate KKT conditions
 print("=== KKT Conditions Demonstration ===")
