@@ -4,6 +4,18 @@
 
 Multi-armed bandits have found widespread applications across diverse domains, from online advertising to healthcare. This guide explores the major application areas where bandit algorithms provide significant value, along with practical implementations and real-world considerations.
 
+## From Pure Exploration to Real-World Applications
+
+We've now explored **Best Arm Identification (BAI)** - a fundamental shift in the multi-armed bandit paradigm from cumulative reward maximization to pure exploration. We've seen how algorithms like Successive Elimination, Racing, LUCB, and Sequential Halving focus exclusively on identifying the best arm with high confidence, regardless of the cumulative reward achieved during the learning process.
+
+However, while understanding BAI algorithms is valuable, **the true impact** of multi-armed bandits lies in their real-world applications. Consider the algorithms we've learned - from classical bandits to linear and contextual bandits, and now best arm identification - these theoretical frameworks become powerful when applied to solve actual problems in advertising, healthcare, e-commerce, and beyond.
+
+This motivates our exploration of **applications and use cases** - the practical implementation of bandit algorithms across diverse domains. We'll see how bandits optimize ad selection and bidding in online advertising, how they enable personalized recommendations in e-commerce and content platforms, how they improve clinical trials and drug discovery in healthcare, how they optimize pricing strategies in dynamic markets, and how they enhance A/B testing and algorithm selection processes.
+
+The transition from best arm identification to applications represents the bridge from pure exploration to practical impact - taking our understanding of how to identify optimal actions and applying it to real-world scenarios where intelligent decision-making under uncertainty provides significant value.
+
+In this section, we'll explore applications and use cases, understanding how bandit algorithms solve real-world problems and create value across diverse domains.
+
 ## Online Advertising
 
 ### Ad Selection
@@ -653,4 +665,22 @@ Each application domain has unique characteristics that influence algorithm choi
 
 ---
 
-**Note**: This guide covers the major application areas for multi-armed bandits. For more specialized applications, see the domain-specific literature and case studies. 
+**Note**: This guide covers the major application areas for multi-armed bandits. For more specialized applications, see the domain-specific literature and case studies.
+
+## From Theoretical Understanding to Hands-On Implementation
+
+We've now explored **applications and use cases** - the practical implementation of bandit algorithms across diverse domains. We've seen how bandits optimize ad selection and bidding in online advertising, how they enable personalized recommendations in e-commerce and content platforms, how they improve clinical trials and drug discovery in healthcare, how they optimize pricing strategies in dynamic markets, and how they enhance A/B testing and algorithm selection processes.
+
+However, while understanding applications is valuable, **true mastery** comes from hands-on implementation. Consider building a recommendation system that adapts to user preferences, or implementing an A/B testing framework that efficiently identifies the best variant - these require not just theoretical knowledge but practical skills in implementing bandit algorithms, handling real data, and optimizing performance.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the bandit concepts we've learned. We'll put our theoretical knowledge into practice by implementing classical bandit algorithms like epsilon-greedy, UCB, and Thompson sampling, building linear and contextual bandits, applying best arm identification techniques, and developing practical applications for recommendation systems, A/B testing, and other real-world scenarios.
+
+The transition from applications to hands-on coding represents the bridge from understanding to implementation - taking our knowledge of how bandits solve real-world problems and turning it into practical tools for building intelligent decision-making systems.
+
+In the next section, we'll implement complete bandit systems, experiment with different algorithms and applications, and develop the practical skills needed for real-world deployment of multi-armed bandits.
+
+---
+
+**Previous: [Best Arm Identification](04_best_arm_identification.md)** - Learn pure exploration algorithms for identifying optimal actions.
+
+**Next: [Hands-on Coding](06_hands-on_coding.md)** - Implement complete bandit algorithms and applications with practical examples. 
