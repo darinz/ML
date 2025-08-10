@@ -52,7 +52,7 @@ conda --version
 cd 01_linear_models/01_linear_regression
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate linear-regression-lesson
@@ -78,7 +78,7 @@ linear-regression-env\Scripts\activate
 source linear-regression-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy; print('All packages installed successfully!')"
@@ -116,7 +116,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Foundation Building (2-3 hours)
-**File**: `linear_regression_examples.py`
+**File**: `code/linear_regression_examples.py`
 
 #### Learning Goals
 - Understand the relationship between data and models
@@ -129,7 +129,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Data Exploration**
 ```python
 # Run the housing data visualization
-python linear_regression_examples.py
+python code/linear_regression_examples.py
 
 # Expected output: Scatter plot showing house prices vs. living area
 # Key observation: Positive correlation between size and price
@@ -138,7 +138,7 @@ python linear_regression_examples.py
 **Activity 1.2: Hypothesis Function Implementation**
 ```python
 # Open Python interpreter or Jupyter notebook
-from linear_regression_examples import hypothesis_function_example
+from code.linear_regression_examples import hypothesis_function_example
 
 # Experiment with different parameter values
 theta_experiment = np.array([100, 0.15])  # [intercept, slope]
@@ -152,7 +152,7 @@ print(f"Predicted price: ${prediction:.0f}k")
 **Activity 1.3: Cost Function Analysis**
 ```python
 # Compare vectorized vs non-vectorized implementations
-from linear_regression_examples import cost_function_examples
+from code.linear_regression_examples import cost_function_examples
 
 # Experiment with different theta values
 theta_good = np.array([100, 0.1])
@@ -165,7 +165,7 @@ theta_random = np.array([50, 0.05])
 **Activity 1.4: Multi-dimensional Thinking**
 ```python
 # Work with multiple features
-from linear_regression_examples import multiple_features_example
+from code.linear_regression_examples import multiple_features_example
 
 # Add your own features to the dataset
 # Experiment with feature scaling
@@ -187,7 +187,7 @@ from linear_regression_examples import multiple_features_example
 ---
 
 ### Lesson 2: Optimization Mastery (2-3 hours)
-**File**: `lms_algorithm_examples.py`
+**File**: `code/lms_algorithm_examples.py`
 
 #### Learning Goals
 - Master gradient descent optimization
@@ -200,7 +200,7 @@ from linear_regression_examples import multiple_features_example
 **Activity 2.1: Single Example Updates**
 ```python
 # Understand how individual training examples update parameters
-from lms_algorithm_examples import demonstrate_single_example_update
+from code.lms_algorithm_examples import demonstrate_single_example_update
 
 # Experiment with different learning rates
 alpha_small = 0.001
@@ -213,7 +213,7 @@ alpha_large = 0.1
 **Activity 2.2: Compare Optimization Methods**
 ```python
 # Compare batch, stochastic, and mini-batch gradient descent
-from lms_algorithm_examples import compare_gradient_descent_methods
+from code.lms_algorithm_examples import compare_gradient_descent_methods
 
 # Key observations:
 # - Batch GD: Stable but slow
@@ -224,7 +224,7 @@ from lms_algorithm_examples import compare_gradient_descent_methods
 **Activity 2.3: Learning Rate Analysis**
 ```python
 # Analyze the impact of learning rate on convergence
-from lms_algorithm_examples import learning_rate_analysis
+from code.lms_algorithm_examples import learning_rate_analysis
 
 # Try different learning rates:
 # - Too small: Slow convergence
@@ -235,7 +235,7 @@ from lms_algorithm_examples import learning_rate_analysis
 **Activity 2.4: Feature Scaling Impact**
 ```python
 # Understand why feature scaling matters
-from lms_algorithm_examples import feature_scaling_impact
+from code.lms_algorithm_examples import feature_scaling_impact
 
 # Compare convergence with and without scaling
 # Observe the difference in convergence speed
@@ -256,7 +256,7 @@ from lms_algorithm_examples import feature_scaling_impact
 ---
 
 ### Lesson 3: Analytical Solutions (2-3 hours)
-**File**: `normal_equations_examples.py`
+**File**: `code/normal_equations_examples.py`
 
 #### Learning Goals
 - Understand matrix calculus and derivatives
@@ -269,7 +269,7 @@ from lms_algorithm_examples import feature_scaling_impact
 **Activity 3.1: Matrix Calculus**
 ```python
 # Understand matrix derivatives
-from normal_equations_examples import matrix_derivative_example
+from code.normal_equations_examples import matrix_derivative_example
 
 # Key concept: Derivatives with respect to matrices
 # This foundation is crucial for understanding the normal equations
@@ -278,7 +278,7 @@ from normal_equations_examples import matrix_derivative_example
 **Activity 3.2: Design Matrix Understanding**
 ```python
 # Learn proper data representation
-from normal_equations_examples import design_matrix_example
+from code.normal_equations_examples import design_matrix_example
 
 # Key concept: How to structure data for matrix operations
 # The design matrix X includes the intercept term
@@ -287,7 +287,7 @@ from normal_equations_examples import design_matrix_example
 **Activity 3.3: Normal Equations Implementation**
 ```python
 # Implement the analytical solution
-from normal_equations_examples import normal_equations_solution
+from code.normal_equations_examples import normal_equations_solution
 
 # Compare with gradient descent results
 # Observe: Exact solution vs iterative approximation
@@ -296,7 +296,7 @@ from normal_equations_examples import normal_equations_solution
 **Activity 3.4: Analytical vs Iterative Comparison**
 ```python
 # Compare computational efficiency and accuracy
-from normal_equations_examples import compare_analytical_vs_iterative
+from code.normal_equations_examples import compare_analytical_vs_iterative
 
 # Key insights:
 # - Analytical: Exact, fast for small datasets
@@ -318,7 +318,7 @@ from normal_equations_examples import compare_analytical_vs_iterative
 ---
 
 ### Lesson 4: Statistical Foundations (3-4 hours)
-**File**: `probabilistic_linear_regression_examples.py`
+**File**: `code/probabilistic_linear_regression_examples.py`
 
 #### Learning Goals
 - Connect linear regression to statistical inference
@@ -331,7 +331,7 @@ from normal_equations_examples import compare_analytical_vs_iterative
 **Activity 4.1: Data Generation**
 ```python
 # Generate synthetic data with known parameters
-from probabilistic_linear_regression_examples import generate_linear_data
+from code.probabilistic_linear_regression_examples import generate_linear_data
 
 # Key concept: Data comes from a true underlying model
 # We try to recover the true parameters from noisy observations
@@ -344,7 +344,7 @@ print(f"Data shape: {X.shape}")
 **Activity 4.2: Likelihood Computation**
 ```python
 # Understand how data likelihood depends on parameters
-from probabilistic_linear_regression_examples import demonstrate_likelihood_calculation
+from code.probabilistic_linear_regression_examples import demonstrate_likelihood_calculation
 
 # Key concept: Likelihood measures how well parameters explain the data
 # Higher likelihood = better parameter values
@@ -353,7 +353,7 @@ from probabilistic_linear_regression_examples import demonstrate_likelihood_calc
 **Activity 4.3: Maximum Likelihood Estimation**
 ```python
 # Implement MLE and compare with least squares
-from probabilistic_linear_regression_examples import compare_mle_with_least_squares
+from code.probabilistic_linear_regression_examples import compare_mle_with_least_squares
 
 # Key insight: MLE = Least Squares when noise is Gaussian
 # This connects statistical inference to optimization
@@ -362,7 +362,7 @@ from probabilistic_linear_regression_examples import compare_mle_with_least_squa
 **Activity 4.4: Likelihood Surface Visualization**
 ```python
 # Visualize the likelihood surface
-from probabilistic_linear_regression_examples import visualize_likelihood_surface
+from code.probabilistic_linear_regression_examples import visualize_likelihood_surface
 
 # Observe: The likelihood surface peaks at the true parameters
 # This validates our estimation method
@@ -383,7 +383,7 @@ from probabilistic_linear_regression_examples import visualize_likelihood_surfac
 ---
 
 ### Lesson 5: Non-parametric Methods (3-4 hours)
-**File**: `locally_weighted_linear_regression_examples.py`
+**File**: `code/locally_weighted_linear_regression_examples.py`
 
 #### Learning Goals
 - Understand non-parametric vs parametric approaches
@@ -396,7 +396,7 @@ from probabilistic_linear_regression_examples import visualize_likelihood_surfac
 **Activity 5.1: Weight Function Understanding**
 ```python
 # Understand how local weighting works
-from locally_weighted_linear_regression_examples import demonstrate_weight_function
+from code.locally_weighted_linear_regression_examples import demonstrate_weight_function
 
 # Key concept: Each query point gets its own local model
 # Weights decay with distance from the query point
@@ -405,7 +405,7 @@ from locally_weighted_linear_regression_examples import demonstrate_weight_funct
 **Activity 5.2: Local vs Global Comparison**
 ```python
 # Compare locally weighted regression with global linear regression
-from locally_weighted_linear_regression_examples import compare_lwr_with_global_linear
+from code.locally_weighted_linear_regression_examples import compare_lwr_with_global_linear
 
 # Key insights:
 # - Global: One model for all data
@@ -416,7 +416,7 @@ from locally_weighted_linear_regression_examples import compare_lwr_with_global_
 **Activity 5.3: Bandwidth Selection**
 ```python
 # Learn to choose appropriate bandwidth parameters
-from locally_weighted_linear_regression_examples import bandwidth_selection_cross_validation
+from code.locally_weighted_linear_regression_examples import bandwidth_selection_cross_validation
 
 # Key concept: Bandwidth controls the "locality" of the model
 # - Small bandwidth: More local, potentially overfitting
@@ -426,7 +426,7 @@ from locally_weighted_linear_regression_examples import bandwidth_selection_cros
 **Activity 5.4: Computational Complexity Analysis**
 ```python
 # Understand scalability challenges
-from locally_weighted_linear_regression_examples import computational_complexity_analysis
+from code.locally_weighted_linear_regression_examples import computational_complexity_analysis
 
 # Key insight: LWR scales poorly with dataset size
 # This motivates the need for efficient implementations
@@ -455,12 +455,12 @@ from locally_weighted_linear_regression_examples import computational_complexity
 # Problem: pip install fails
 # Solution: Update pip and try again
 python -m pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Problem: conda environment creation fails
 # Solution: Clean conda cache
 conda clean --all
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 ```
 
 #### Issue 2: Import Errors
@@ -473,7 +473,7 @@ print(sys.executable)  # Should point to your environment
 # Problem: Version conflicts
 # Solution: Create fresh environment
 conda env remove -n linear-regression-lesson
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 ```
 
 #### Issue 3: Plotting Issues
