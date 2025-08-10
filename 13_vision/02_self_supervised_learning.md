@@ -163,62 +163,11 @@ BYOL uses two networks (online and target) where the target network is an expone
 
 ### Training Pipeline
 
-**Complete Training Loop:**
-```python
-def train_self_supervised(model, train_loader, num_epochs=100, lr=1e-3):
-    """Train self-supervised model."""
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model.to(device)
-    
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=0.05)
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=num_epochs)
-    
-    for epoch in range(num_epochs):
-        model.train()
-        total_loss = 0
-        
-        for batch_idx, (data, _) in enumerate(train_loader):
-            data = data.to(device)
-            
-            # Create augmented views
-            if isinstance(model, (SimCLR, MoCo)):
-                aug1, aug2 = data[0], data[1]
-                optimizer.zero_grad()
-                
-                if isinstance(model, SimCLR):
-                    z1, z2 = model(aug1, aug2)
-                    loss = model.contrastive_loss(z1, z2)
-                else:  # MoCo
-                    logits, labels = model(aug1, aug2)
-                    loss = F.cross_entropy(logits, labels)
-                
-                loss.backward()
-                optimizer.step()
-                
-                # Update momentum encoder
-                if isinstance(model, MoCo):
-                    model.momentum_update()
-            
-            elif isinstance(model, BYOL):
-                aug1, aug2 = data[0], data[1]
-                optimizer.zero_grad()
-                
-                p1, p2, z1_target, z2_target = model(aug1, aug2)
-                loss = model.loss(p1, p2, z1_target, z2_target)
-                
-                loss.backward()
-                optimizer.step()
-                
-                # Update momentum encoder
-                model.momentum_update()
-            
-            total_loss += loss.item()
-        
-        avg_loss = total_loss / len(train_loader)
-        scheduler.step()
-        
-        print(f'Epoch {epoch+1}/{num_epochs}: Loss = {avg_loss:.4f}')
-```
+**Implementation:** See individual method files for complete training pipelines:
+- `simclr.py` - SimCLR training pipeline
+- `moco.py` - MoCo training pipeline
+- `byol.py` - BYOL training pipeline
+- `dino.py` - DINO training pipeline
 
 ### Evaluation and Transfer
 
