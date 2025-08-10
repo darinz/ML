@@ -651,7 +651,7 @@ print(f"Click-through rate: {ad_results['ctr']:.3f}")
 **Activity 4.4: Clinical Trials**
 ```python
 # Implement bandit-based clinical trials
-from clinical_trials import (
+from code.clinical_trials import (
     ClinicalTrialBandit, run_clinical_trial_experiment
 )
 
