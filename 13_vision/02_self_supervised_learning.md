@@ -171,113 +171,27 @@ BYOL uses two networks (online and target) where the target network is an expone
 
 ### Evaluation and Transfer
 
-**Linear Evaluation:**
-```python
-def linear_evaluation(encoder, train_loader, val_loader, num_classes=10):
-    """Evaluate learned representations with linear classifier."""
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    encoder.to(device)
-    encoder.eval()
-    
-    # Freeze encoder
-    for param in encoder.parameters():
-        param.requires_grad = False
-    
-    # Linear classifier
-    classifier = nn.Linear(encoder.output_dim, num_classes).to(device)
-    optimizer = torch.optim.Adam(classifier.parameters(), lr=1e-3)
-    criterion = nn.CrossEntropyLoss()
-    
-    # Training
-    for epoch in range(50):
-        classifier.train()
-        for data, target in train_loader:
-            data, target = data.to(device), target.to(device)
-            
-            with torch.no_grad():
-                features = encoder(data)
-            
-            optimizer.zero_grad()
-            output = classifier(features)
-            loss = criterion(output, target)
-            loss.backward()
-            optimizer.step()
-    
-    # Evaluation
-    classifier.eval()
-    correct = 0
-    total = 0
-    
-    with torch.no_grad():
-        for data, target in val_loader:
-            data, target = data.to(device), target.to(device)
-            features = encoder(data)
-            output = classifier(features)
-            pred = output.argmax(dim=1)
-            correct += pred.eq(target).sum().item()
-            total += target.size(0)
-    
-    accuracy = 100. * correct / total
-    return accuracy
-```
+**Linear Evaluation:** See individual method files for evaluation utilities:
+- `simclr.py` - Linear evaluation for SimCLR
+- `moco.py` - Linear evaluation for MoCo
+- `byol.py` - Linear evaluation for BYOL
+- `dino.py` - Linear evaluation for DINO
 
 ## Applications
 
 ### Feature Extraction
 
-**Extracting Features:**
-```python
-def extract_features(encoder, dataloader):
-    """Extract features from pre-trained encoder."""
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    encoder.to(device)
-    encoder.eval()
-    
-    features = []
-    labels = []
-    
-    with torch.no_grad():
-        for data, target in dataloader:
-            data = data.to(device)
-            feature = encoder(data)
-            features.append(feature.cpu())
-            labels.append(target)
-    
-    features = torch.cat(features, dim=0)
-    labels = torch.cat(labels, dim=0)
-    
-    return features, labels
-```
+**Implementation:** See individual method files for feature extraction:
+- `extract_features()` - Extract learned representations
+- `visualize_features()` - Feature visualization utilities
+- `analyze_features()` - Feature analysis tools
 
 ### Downstream Tasks
 
-**Fine-tuning for Classification:**
-```python
-def fine_tune_classifier(encoder, num_classes, train_loader, val_loader):
-    """Fine-tune encoder for classification."""
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    
-    # Add classification head
-    classifier = nn.Linear(encoder.output_dim, num_classes)
-    model = nn.Sequential(encoder, classifier).to(device)
-    
-    # Training
-    optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4)
-    criterion = nn.CrossEntropyLoss()
-    
-    for epoch in range(10):
-        model.train()
-        for data, target in train_loader:
-            data, target = data.to(device), target.to(device)
-            
-            optimizer.zero_grad()
-            output = model(data)
-            loss = criterion(output, target)
-            loss.backward()
-            optimizer.step()
-    
-    return model
-```
+**Fine-tuning for Classification:** See individual method files for fine-tuning:
+- `fine_tune_classifier()` - Fine-tuning utilities
+- `transfer_learning()` - Transfer learning pipelines
+- `downstream_evaluation()` - Downstream task evaluation
 
 ## Conclusion
 
