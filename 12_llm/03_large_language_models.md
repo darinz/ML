@@ -319,7 +319,7 @@ The complete implementation of perplexity calculation and other evaluation metri
 
 ### Attention Visualization
 
-Attention visualization is implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py) with the `visualize_attention` function, which provides:
+Attention visualization is implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py) with the `visualize_attention` function, which provides:
 
 - Layer and head-specific attention visualization
 - Heatmap generation
@@ -330,7 +330,7 @@ Attention visualization is implemented in [`evaluation_monitoring.py`](evaluatio
 
 ### Model Quantization
 
-The complete implementation of model quantization and other deployment techniques is available in [`deployment_inference.py`](deployment_inference.py), which includes:
+The complete implementation of model quantization and other deployment techniques is available in [`code/deployment_inference.py`](code/deployment_inference.py), which includes:
 
 - `quantize_model`: Model quantization for faster inference
 - `generate_text`: Text generation with sampling strategies
