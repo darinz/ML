@@ -201,7 +201,7 @@ for eps, result in zip(epsilon_values, results['cumulative_rewards']):
 **Activity 1.3: Upper Confidence Bound (UCB)**
 ```python
 # Implement UCB algorithm
-from ucb import UCB, run_ucb_experiment, compare_ucb_variants
+from code.ucb import UCB, run_ucb_experiment, compare_ucb_variants
 
 # Create UCB bandit
 ucb_bandit = UCB(n_arms=n_arms, alpha=2.0)
@@ -230,7 +230,7 @@ for variant, result in ucb_results['cumulative_rewards'].items():
 **Activity 1.4: Thompson Sampling**
 ```python
 # Implement Thompson sampling
-from thompson_sampling import ThompsonSampling, run_thompson_experiment
+from code.thompson_sampling import ThompsonSampling, run_thompson_experiment
 
 # Create Thompson sampling bandit
 thompson_bandit = ThompsonSampling(n_arms=n_arms)
@@ -258,7 +258,7 @@ print(f"  Thompson Sampling: {np.mean(cumulative_rewards[-1]):.2f}")
 **Activity 1.5: Regret Analysis**
 ```python
 # Analyze regret performance
-from regret_analysis import analyze_regret, plot_regret_comparison
+from code.regret_analysis import analyze_regret, plot_regret_comparison
 
 # Compare regret across algorithms
 algorithms = {
