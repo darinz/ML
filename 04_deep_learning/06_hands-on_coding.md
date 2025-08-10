@@ -73,7 +73,7 @@ conda --version
 cd 04_deep_learning
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate deep-learning-lesson
@@ -99,7 +99,7 @@ deep-learning-env\Scripts\activate
 source deep-learning-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -138,7 +138,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Neural Network Fundamentals (3-4 hours)
-**File**: `neural_networks_code_examples.py`
+**File**: `code/neural_networks_code_examples.py`
 
 #### Learning Goals
 - Understand single neuron models and their mathematical foundations
@@ -152,7 +152,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Single Neuron with ReLU**
 ```python
 # Implement single neuron regression with ReLU activation
-from neural_networks_code_examples import NeuralNetworkExamples
+from code.neural_networks_code_examples import NeuralNetworkExamples
 
 # Create neural network examples instance
 nn = NeuralNetworkExamples()
@@ -221,7 +221,7 @@ print(f"  Hidden 2 -> Output: {W3.shape}")
 ---
 
 ### Lesson 2: Backpropagation and Gradient Flow (4-5 hours)
-**File**: `backpropagation_examples.py`
+**File**: `code/backpropagation_examples.py`
 
 #### Learning Goals
 - Understand function composition and the chain rule
@@ -235,7 +235,7 @@ print(f"  Hidden 2 -> Output: {W3.shape}")
 **Activity 2.1: Function Composition**
 ```python
 # Understand how complex functions are built from simple ones
-from backpropagation_examples import BackpropagationExamples
+from code.backpropagation_examples import BackpropagationExamples
 
 # Create backpropagation examples instance
 bp = BackpropagationExamples()
@@ -300,7 +300,7 @@ print(f"Number of gradient tensors: {len(gradients)}")
 ---
 
 ### Lesson 3: Neural Network Modules (3-4 hours)
-**File**: `modules_examples.py`
+**File**: `code/modules_examples.py`
 
 #### Learning Goals
 - Understand modular design principles in neural networks
@@ -314,7 +314,7 @@ print(f"Number of gradient tensors: {len(gradients)}")
 **Activity 3.1: Matrix Multiplication Module**
 ```python
 # Implement the fundamental matrix multiplication module
-from modules_examples import NeuralNetworkModules
+from code.modules_examples import NeuralNetworkModules
 
 # Create modules instance
 modules = NeuralNetworkModules()
@@ -397,7 +397,7 @@ print(f"Residual output: {residual_output}")
 ---
 
 ### Lesson 4: Vectorization and Efficiency (3-4 hours)
-**File**: `vectorization_examples.py`
+**File**: `code/vectorization_examples.py`
 
 #### Learning Goals
 - Understand the importance of vectorization in deep learning
@@ -411,7 +411,7 @@ print(f"Residual output: {residual_output}")
 **Activity 4.1: Vectorization Comparison**
 ```python
 # Compare vectorized vs loop-based neural network implementations
-from neural_networks_code_examples import NeuralNetworkExamples
+from code.neural_networks_code_examples import NeuralNetworkExamples
 
 # Test vectorization performance
 speedup = nn.vectorization_comparison()
@@ -423,7 +423,7 @@ print(f"Vectorized implementation is {speedup:.1f}x faster")
 **Activity 4.2: Batch Processing**
 ```python
 # Implement batch processing for efficient training
-from vectorization_examples import VectorizationExamples
+from code.vectorization_examples import VectorizationExamples
 
 vec = VectorizationExamples()
 
