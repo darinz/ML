@@ -46,9 +46,9 @@ We consider a **finite-horizon** Markov Decision Process (MDP) with:
 
 We work with **stochastic policies** parameterized by $\theta \in \mathbb{R}^d$:
 
-```math
+$$
 \pi_\theta(a|s) = P(a_t = a | s_t = s, \theta)
-```
+$$
 
 **Key Properties:**
 - $\pi_\theta(a|s) \geq 0$ for all $a, s$
@@ -58,24 +58,24 @@ We work with **stochastic policies** parameterized by $\theta \in \mathbb{R}^d$:
 **Examples of Policy Parameterizations:**
 
 1. **Softmax Policy** (discrete actions):
-   ```math
+   $$
    \pi_\theta(a|s) = \frac{e^{f_\theta(s, a)}}{\sum_{a'} e^{f_\theta(s, a')}}
-   ```
+   $$
    Where $f_\theta(s, a)$ is a neural network or linear function.
 
 2. **Gaussian Policy** (continuous actions):
-   ```math
+   $$
    \pi_\theta(a|s) = \mathcal{N}(a; \mu_\theta(s), \sigma_\theta^2(s))
-   ```
+   $$
    Where $\mu_\theta(s)$ and $\sigma_\theta(s)$ are parameterized functions.
 
 ### Objective Function
 
 Our goal is to maximize the **expected return**:
 
-```math
+$$
 \eta(\theta) \triangleq \mathbb{E} \left[ \sum_{t=0}^{T-1} \gamma^t R(s_t, a_t) \right] \tag{17.1}
-```
+$$
 
 Where:
 - $\gamma \in [0, 1]$ is the discount factor
@@ -85,9 +85,9 @@ Where:
 - $a_t \sim \pi_\theta(\cdot|s_t)$ (policy)
 
 **Connection to Value Functions:**
-```math
+$$
 \eta(\theta) = \mathbb{E}_{s_0 \sim \mu} \left[ V^{\pi_\theta}(s_0) \right]
-```
+$$
 
 ### Why Policy Gradient Methods?
 
@@ -104,9 +104,9 @@ Where:
 ### The Core Challenge
 
 We want to compute:
-```math
+$$
 \nabla_\theta \eta(\theta) = \nabla_\theta \mathbb{E}_{\tau \sim P_\theta} \left[ \sum_{t=0}^{T-1} \gamma^t R(s_t, a_t) \right]
-```
+$$
 
 The challenge is that the expectation is over a distribution $P_\theta$ that depends on $\theta$, making direct differentiation difficult.
 
@@ -114,19 +114,19 @@ The challenge is that the expectation is over a distribution $P_\theta$ that dep
 
 The key insight is the **log-derivative trick** (also called the REINFORCE trick):
 
-```math
+$$
 \nabla_\theta \mathbb{E}_{\tau \sim P_\theta} [f(\tau)] = \mathbb{E}_{\tau \sim P_\theta} \left[ (\nabla_\theta \log P_\theta(\tau)) f(\tau) \right] \tag{17.3}
-```
+$$
 
 **Derivation:**
-```math
+$$
 \nabla_\theta \mathbb{E}_{\tau \sim P_\theta} [f(\tau)] = \nabla_\theta \int P_\theta(\tau) f(\tau) d\tau
 = \int \nabla_\theta (P_\theta(\tau) f(\tau)) d\tau \quad \text{(swap integration with gradient)}
 = \int (\nabla_\theta P_\theta(\tau)) f(\tau) d\tau \quad \text{(because $f$ does not depend on $\theta$)}
 = \int P_\theta(\tau) \frac{\nabla_\theta P_\theta(\tau)}{P_\theta(\tau)} f(\tau) d\tau
 = \int P_\theta(\tau) (\nabla_\theta \log P_\theta(\tau)) f(\tau) d\tau
 = \mathbb{E}_{\tau \sim P_\theta} \left[ (\nabla_\theta \log P_\theta(\tau)) f(\tau) \right]
-```
+$$
 
 **Intuition:** We can estimate the gradient using only samples from the current policy, without needing to know the environment dynamics.
 
@@ -134,21 +134,21 @@ The key insight is the **log-derivative trick** (also called the REINFORCE trick
 
 For a trajectory $\tau = (s_0, a_0, \ldots, s_{T-1}, a_{T-1}, s_T)$:
 
-```math
+$$
 P_\theta(\tau) = \mu(s_0) \pi_\theta(a_0|s_0) P_{s_0 a_0}(s_1) \pi_\theta(a_1|s_1) P_{s_1 a_1}(s_2) \cdots P_{s_{T-1} a_{T-1}}(s_T) \tag{17.6}
-```
+$$
 
 Taking the logarithm:
-```math
+$$
 \log P_\theta(\tau) = \log \mu(s_0) + \log \pi_\theta(a_0|s_0) + \log P_{s_0 a_0}(s_1) + \log \pi_\theta(a_1|s_1)
 + \log P_{s_1 a_1}(s_2) + \cdots + \log P_{s_{T-1} a_{T-1}}(s_T) \tag{17.7}
-```
+$$
 
 **Key Insight:** When we take the gradient with respect to $\theta$, only the policy terms survive:
 
-```math
+$$
 \nabla_\theta \log P_\theta(\tau) = \nabla_\theta \log \pi_\theta(a_0|s_0) + \nabla_\theta \log \pi_\theta(a_1|s_1) + \cdots + \nabla_\theta \log \pi_\theta(a_{T-1}|s_{T-1})
-```
+$$
 
 The environment terms ($\log P_{s_t a_t}(s_{t+1})$) don't depend on $\theta$ and thus have zero gradient.
 
@@ -156,9 +156,9 @@ The environment terms ($\log P_{s_t a_t}(s_{t+1})$) don't depend on $\theta$ and
 
 Combining the log-derivative trick with the trajectory decomposition:
 
-```math
+$$
 \nabla_\theta \eta(\theta) = \mathbb{E}_{\tau \sim P_\theta} \left[ \left( \sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t|s_t) \right) \cdot \left( \sum_{t=0}^{T-1} \gamma^t R(s_t, a_t) \right) \right] \tag{17.8}
-```
+$$
 
 **Interpretation:**
 - $\sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t|s_t)$: Direction that increases the probability of the taken actions
@@ -181,18 +181,18 @@ The basic policy gradient estimator can have very high variance, making learning
 
 We can subtract a **baseline** $B(s_t)$ from the reward without changing the expected gradient:
 
-```math
+$$
 \nabla_\theta \eta(\theta) = \mathbb{E}_{\tau \sim P_\theta} \left[ \nabla_\theta \log \pi_\theta(a_t|s_t) \cdot (R_{\geq t} - B(s_t)) \right]
-```
+$$
 
 Where $R_{\geq t} = \sum_{j=t}^{T-1} \gamma^{j-t} R(s_j, a_j)$ is the return from time $t$ onward.
 
 **Why this works:**
-```math
+$$
 \mathbb{E}_{\tau \sim P_\theta} [\nabla_\theta \log \pi_\theta(a_t|s_t) \cdot B(s_t)]
 = \mathbb{E} [\mathbb{E} [\nabla_\theta \log \pi_\theta(a_t|s_t) | s_0, a_0, \ldots, s_{t-1}, a_{t-1}, s_t] B(s_t)]
 = 0
-```
+$$
 
 Because $\mathbb{E}_{a_t \sim \pi_\theta(\cdot|s_t)} [\nabla_\theta \log \pi_\theta(a_t|s_t)] = 0$ for any fixed state $s_t$.
 
@@ -200,9 +200,9 @@ Because $\mathbb{E}_{a_t \sim \pi_\theta(\cdot|s_t)} [\nabla_\theta \log \pi_\th
 
 The optimal baseline that minimizes variance is the **value function**:
 
-```math
+$$
 B^*(s_t) = V^{\pi_\theta}(s_t) = \mathbb{E} \left[ \sum_{j=t}^{T-1} \gamma^{j-t} R(s_j, a_j) | s_t \right]
-```
+$$
 
 **Intuition:** We only reinforce actions that perform better than expected from that state.
 
@@ -227,14 +227,14 @@ For iteration $i = 1, 2, \ldots$:
 2. **Compute returns**: For each trajectory, compute $R_{\geq t}^{(i)} = \sum_{j=t}^{T-1} \gamma^{j-t} R(s_j^{(i)}, a_j^{(i)})$
 
 3. **Estimate gradient**:
-   ```math
+   $$
    \hat{g}_i = \frac{1}{N} \sum_{i=1}^N \sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t^{(i)}|s_t^{(i)}) \cdot R_{\geq t}^{(i)}
-   ```
+   $$
 
 4. **Update parameters**:
-   ```math
+   $$
    \theta_{i+1} = \theta_i + \alpha_i \hat{g}_i
-   ```
+   $$
 
 ### REINFORCE with Baseline
 
@@ -247,14 +247,14 @@ For iteration $i = 1, 2, \ldots$:
 2. **Compute returns**: $R_{\geq t}^{(i)} = \sum_{j=t}^{T-1} \gamma^{j-t} R(s_j^{(i)}, a_j^{(i)})$
 
 3. **Fit baseline**: Find $B$ that minimizes:
-   ```math
+   $$
    \sum_{i=1}^N \sum_{t=0}^{T-1} (R_{\geq t}^{(i)} - B(s_t^{(i)}))^2 \tag{17.12}
-   ```
+   $$
 
 4. **Estimate gradient**:
-   ```math
+   $$
    \hat{g}_i = \frac{1}{N} \sum_{i=1}^N \sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t^{(i)}|s_t^{(i)}) \cdot (R_{\geq t}^{(i)} - B(s_t^{(i)}))
-   ```
+   $$
 
 5. **Update parameters**: $\theta_{i+1} = \theta_i + \alpha_i \hat{g}_i$
 
@@ -317,9 +317,9 @@ def log_prob_continuous(policy, state, action):
 
 Actor-critic methods combine policy gradients with value function estimation:
 
-```math
+$$
 \nabla_\theta \eta(\theta) = \mathbb{E}_{\tau \sim P_\theta} \left[ \nabla_\theta \log \pi_\theta(a_t|s_t) \cdot A^{\pi_\theta}(s_t, a_t) \right]
-```
+$$
 
 Where $A^{\pi_\theta}(s_t, a_t) = Q^{\pi_\theta}(s_t, a_t) - V^{\pi_\theta}(s_t)$ is the advantage function.
 
@@ -332,9 +332,9 @@ Where $A^{\pi_\theta}(s_t, a_t) = Q^{\pi_\theta}(s_t, a_t) - V^{\pi_\theta}(s_t)
 
 The natural policy gradient uses the Fisher information matrix to compute the steepest ascent direction:
 
-```math
+$$
 \theta_{i+1} = \theta_i + \alpha_i F^{-1}(\theta_i) \nabla_\theta \eta(\theta_i)
-```
+$$
 
 Where $F(\theta) = \mathbb{E}[\nabla_\theta \log \pi_\theta(a|s) \nabla_\theta \log \pi_\theta(a|s)^T]$ is the Fisher information matrix.
 
@@ -342,22 +342,22 @@ Where $F(\theta) = \mathbb{E}[\nabla_\theta \log \pi_\theta(a|s) \nabla_\theta \
 
 TRPO constrains policy updates to prevent too large changes:
 
-```math
+$$
 \max_\theta \mathbb{E} \left[ \frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)} A^{\pi_{\theta_{old}}}(s, a) \right]
-```
+$$
 
 Subject to:
-```math
+$$
 \mathbb{E} \left[ KL(\pi_{\theta_{old}}(\cdot|s) \| \pi_\theta(\cdot|s)) \right] \leq \delta
-```
+$$
 
 ### Proximal Policy Optimization (PPO)
 
 PPO uses a clipped objective to prevent large policy updates:
 
-```math
+$$
 L(\theta) = \mathbb{E} \left[ \min \left( r_t(\theta) A_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t \right) \right]
-```
+$$
 
 Where $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}$ is the probability ratio.
 
@@ -428,9 +428,9 @@ The sample complexity of policy gradient methods depends on:
 ### Variance Analysis
 
 The variance of the policy gradient estimator is:
-```math
+$$
 \text{Var}[\hat{g}] = \mathbb{E} \left[ \|\nabla_\theta \log \pi_\theta(a|s)\|^2 \cdot (R_{\geq t} - B(s_t))^2 \right]
-```
+$$
 
 This motivates the use of baselines and advantage functions for variance reduction.
 
