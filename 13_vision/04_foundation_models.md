@@ -47,7 +47,7 @@ CLIP learns aligned representations between images and text using contrastive le
 
 ### Implementation
 
-**Implementation:** See `clip_implementation.py` for complete CLIP implementation:
+**Implementation:** See `code/clip_implementation.py` for complete CLIP implementation:
 - `CLIPModel` - Complete CLIP model with image and text encoders
 - `CLIPImageEncoder` - Vision encoder for images
 - `CLIPTextEncoder` - Text encoder for language
@@ -59,7 +59,7 @@ CLIP learns aligned representations between images and text using contrastive le
 
 ### Training and Fine-tuning
 
-**Implementation:** See `clip_implementation.py` for training utilities:
+**Implementation:** See `code/clip_implementation.py` for training utilities:
 - Complete training pipeline with contrastive learning
 - Learning rate scheduling and optimization
 - Validation and evaluation protocols
@@ -79,7 +79,7 @@ SAM is a foundation model for image segmentation that can segment any object in 
 
 ### Implementation
 
-**Implementation:** See `sam_segmentation.py` for complete SAM implementation:
+**Implementation:** See `code/sam_segmentation.py` for complete SAM implementation:
 - `SAMModel` - Complete SAM model with all components
 - `SAMImageEncoder` - Vision transformer for image encoding
 - `SAMPromptEncoder` - Encoder for point, box, and mask prompts
@@ -104,7 +104,7 @@ DALL-E generates high-quality images from text descriptions using a discrete VAE
 
 ### Implementation
 
-**Implementation:** See `dalle_generation.py` for complete DALL-E implementation:
+**Implementation:** See `code/dalle_generation.py` for complete DALL-E implementation:
 - `DALLEModel` - Complete DALL-E text-to-image model
 - `DALLETextEncoder` - Text encoder for processing descriptions
 - `DALLEImageEncoder` - Discrete VAE encoder for images
@@ -120,14 +120,14 @@ DALL-E generates high-quality images from text descriptions using a discrete VAE
 ### Foundation Model Training
 
 **Implementation:** See individual method files for complete training pipelines:
-- `clip_implementation.py` - CLIP training pipeline
-- `sam_segmentation.py` - SAM training pipeline
-- `dalle_generation.py` - DALL-E training pipeline
-- `zero_shot_classification.py` - Zero-shot classification utilities
+- `code/clip_implementation.py` - CLIP training pipeline
+- `code/sam_segmentation.py` - SAM training pipeline
+- `code/dalle_generation.py` - DALL-E training pipeline
+- `code/zero_shot_classification.py` - Zero-shot classification utilities
 
 ### Zero-shot Applications
 
-**Implementation:** See `zero_shot_classification.py` for zero-shot applications:
+**Implementation:** See `code/zero_shot_classification.py` for zero-shot applications:
 - `ZeroShotClassifier` - Zero-shot classification using foundation models
 - `FewShotClassifier` - Few-shot classification capabilities
 - `OpenSetClassifier` - Open-set classification
@@ -139,7 +139,7 @@ DALL-E generates high-quality images from text descriptions using a discrete VAE
 ### Multi-modal Applications
 
 **Image-Text Retrieval:**
-**Implementation:** See `clip_implementation.py` for retrieval applications:
+**Implementation:** See `code/clip_implementation.py` for retrieval applications:
 - `image_text_retrieval()` - Image-text retrieval capabilities
 - `text_to_image_retrieval()` - Text-to-image retrieval
 - `image_to_text_retrieval()` - Image-to-text retrieval
@@ -148,7 +148,7 @@ DALL-E generates high-quality images from text descriptions using a discrete VAE
 ### Creative Applications
 
 **Text-to-Image Generation:**
-**Implementation:** See `dalle_generation.py` for creative applications:
+**Implementation:** See `code/dalle_generation.py` for creative applications:
 - `generate_image_from_text()` - Text-to-image generation
 - `generate_image_variations()` - Image variation generation
 - `interpolate_images()` - Image interpolation
@@ -157,7 +157,7 @@ DALL-E generates high-quality images from text descriptions using a discrete VAE
 ### Medical and Scientific Applications
 
 **Medical Image Analysis:**
-**Implementation:** See `sam_segmentation.py` for medical applications:
+**Implementation:** See `code/sam_segmentation.py` for medical applications:
 - `segment_with_points()` - Point-based medical segmentation
 - `segment_with_boxes()` - Box-based anatomical segmentation
 - `segment_with_masks()` - Mask-based structure segmentation
