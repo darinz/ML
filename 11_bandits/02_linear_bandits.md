@@ -343,84 +343,32 @@ class AdSelector:
 ### Clinical Trials
 
 **Adaptive Treatment Assignment:**
+See [`application_examples.py`](application_examples.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class AdaptiveTrial:
-    def __init__(self, n_treatments, patient_feature_dim):
-        self.bandit = LinUCB(patient_feature_dim)
-        self.treatment_features = self._extract_treatment_features(n_treatments)
-    
-    def assign_treatment(self, patient_features):
-        """Assign treatment based on patient features"""
-        # Combine patient and treatment features
-        combined_features = self._combine_patient_treatment_features(
-            patient_features, self.treatment_features
-        )
-        
-        # Select treatment using bandit algorithm
-        treatment_idx = self.bandit.select_arm(combined_features)
-        return treatment_idx
-    
-    def update(self, treatment_idx, patient_features, outcome):
-        """Update model with treatment outcome"""
-        combined_features = self._combine_patient_treatment_features(
-            patient_features, self.treatment_features
-        )
-        self.bandit.update(treatment_idx, outcome, combined_features)
+    # Use LinUCB for adaptive treatment assignment
+    # Combine patient and treatment features
+    # Update model with treatment outcomes
 ```
 
 ## Implementation Examples
 
 ### Complete Linear Bandit Environment
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+See [`linear_bandit_environment.py`](linear_bandit_environment.py) for the complete implementation.
 
+```python
+# Key components:
 class LinearBanditEnvironment:
-    def __init__(self, theta_star, arms, noise_std=0.1):
-        self.theta_star = theta_star
-        self.arms = arms
-        self.noise_std = noise_std
-        self.d = len(theta_star)
-        
-    def pull_arm(self, arm_idx):
-        """Pull arm and return reward"""
-        x = self.arms[arm_idx]
-        expected_reward = np.dot(self.theta_star, x)
-        noise = np.random.normal(0, self.noise_std)
-        return expected_reward + noise
-    
-    def get_optimal_reward(self):
-        """Get optimal expected reward"""
-        rewards = [np.dot(self.theta_star, x) for x in self.arms]
-        return max(rewards)
-    
-    def get_regret(self, chosen_arms, rewards):
-        """Calculate cumulative regret"""
-        optimal_reward = self.get_optimal_reward()
-        cumulative_optimal = np.cumsum([optimal_reward] * len(rewards))
-        cumulative_rewards = np.cumsum(rewards)
-        return cumulative_optimal - cumulative_rewards
+    # Linear bandit environment with noise
+    # Pull arms and observe rewards
+    # Calculate cumulative regret
 
 def run_linear_bandit_experiment(env, algorithm, T=1000):
-    """Run linear bandit experiment"""
-    chosen_arms = []
-    rewards = []
-    
-    for t in range(T):
-        # Select arm
-        arm_idx = algorithm.select_arm(env.arms)
-        
-        # Pull arm and observe reward
-        reward = env.pull_arm(arm_idx)
-        
-        # Update algorithm
-        algorithm.update(arm_idx, reward, env.arms)
-        
-        chosen_arms.append(arm_idx)
-        rewards.append(reward)
-    
-    return chosen_arms, rewards
+    # Run linear bandit experiment
+    # Select arms, observe rewards, update algorithm
 ```
 
 ### Algorithm Comparison
