@@ -17,7 +17,7 @@ This guide provides an introduction to reinforcement learning (RL) in the contex
 ### Traditional vs. RL Approaches
 
 **Traditional Supervised Learning:**
-- **Input**: Training examples $(x, y^*)$ where $y^*$ is the "correct" response
+- **Input**: Training examples $(x, y^\ast)$ where $y^\ast$ is the "correct" response
 - **Objective**: Minimize loss between predicted and target responses
 - **Limitation**: Requires large amounts of high-quality labeled data
 
