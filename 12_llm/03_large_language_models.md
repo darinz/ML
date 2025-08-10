@@ -136,32 +136,10 @@ for size in [1, 7, 70, 175]:
 Using lower precision (FP16/BF16) to reduce memory usage and speed up training.
 
 **Implementation:**
-```python
-import torch
-from torch.cuda.amp import autocast, GradScaler
+See [`training_techniques.py`](training_techniques.py) for the complete implementation of mixed precision training and other training techniques.
 
-class MixedPrecisionTrainer:
-    def __init__(self, model, optimizer, device='cuda'):
-        self.model = model
-        self.optimizer = optimizer
-        self.device = device
-        self.scaler = GradScaler()
-        
-    def train_step(self, batch, targets):
-        self.optimizer.zero_grad()
-        
-        # Forward pass with mixed precision
-        with autocast():
-            outputs = self.model(batch)
-            loss = torch.nn.functional.cross_entropy(outputs.view(-1, outputs.size(-1)), 
-                                                   targets.view(-1))
-        
-        # Backward pass with gradient scaling
-        self.scaler.scale(loss).backward()
-        self.scaler.step(self.optimizer)
-        self.scaler.update()
-        
-        return loss.item()
+```python
+from training_techniques import MixedPrecisionTrainer
 
 # Usage
 model = LargeLanguageModel(vocab_size=50000, d_model=2048, num_layers=24)
@@ -177,36 +155,10 @@ for batch, targets in dataloader:
 Trading compute for memory by recomputing intermediate activations.
 
 **Implementation:**
-```python
-from torch.utils.checkpoint import checkpoint
+See [`training_techniques.py`](training_techniques.py) for the complete implementation of memory efficient training with gradient checkpointing.
 
-class MemoryEfficientLLM(nn.Module):
-    def __init__(self, vocab_size, d_model, num_layers, use_checkpoint=True):
-        super().__init__()
-        self.use_checkpoint = use_checkpoint
-        self.embedding = nn.Embedding(vocab_size, d_model)
-        self.pos_encoding = PositionalEncoding(d_model)
-        
-        self.layers = nn.ModuleList([
-            TransformerLayer(d_model, num_heads=16, d_ff=d_model*4)
-            for _ in range(num_layers)
-        ])
-        
-        self.norm = nn.LayerNorm(d_model)
-        self.output_projection = nn.Linear(d_model, vocab_size)
-    
-    def forward(self, x):
-        x = self.embedding(x)
-        x = self.pos_encoding(x)
-        
-        for layer in self.layers:
-            if self.use_checkpoint and self.training:
-                x = checkpoint(layer, x)
-            else:
-                x = layer(x)
-        
-        x = self.norm(x)
-        return self.output_projection(x)
+```python
+from training_techniques import MemoryEfficientLLM
 
 # Usage
 model = MemoryEfficientLLM(vocab_size=50000, d_model=2048, num_layers=24)
@@ -314,42 +266,10 @@ optimizer = ZeroRedundancyOptimizer(
 BERT-style pre-training where random tokens are masked and predicted.
 
 **Implementation:**
+See [`pretraining_objectives.py`](pretraining_objectives.py) for the complete implementation of MLM training and other pre-training objectives.
+
 ```python
-class MLMTrainer:
-    def __init__(self, model, vocab_size, mask_token_id, mask_prob=0.15):
-        self.model = model
-        self.vocab_size = vocab_size
-        self.mask_token_id = mask_token_id
-        self.mask_prob = mask_prob
-        
-    def create_mlm_targets(self, input_ids):
-        """Create MLM targets by masking random tokens."""
-        batch_size, seq_len = input_ids.shape
-        targets = input_ids.clone()
-        
-        # Create mask for random tokens
-        mask = torch.rand(batch_size, seq_len) < self.mask_prob
-        
-        # Replace masked tokens with [MASK]
-        input_ids[mask] = self.mask_token_id
-        
-        # Create target labels (only for masked positions)
-        labels = torch.full((batch_size, seq_len), -100, dtype=torch.long)
-        labels[mask] = targets[mask]
-        
-        return input_ids, labels
-    
-    def compute_mlm_loss(self, logits, labels):
-        """Compute MLM loss only for masked positions."""
-        loss_fct = nn.CrossEntropyLoss()
-        
-        # Only compute loss for masked positions
-        active_loss = labels.view(-1) != -100
-        active_logits = logits.view(-1, self.vocab_size)
-        active_labels = labels.view(-1)[active_loss]
-        
-        loss = loss_fct(active_logits, active_labels)
-        return loss
+from pretraining_objectives import MLMTrainer
 
 # Usage
 model = BERTModel(vocab_size=50000, d_model=768, num_layers=12)
@@ -506,37 +426,13 @@ class PrefixLanguageModel(nn.Module):
 Autoregressive models for text generation.
 
 **Implementation:**
+See [`llm_architectures.py`](llm_architectures.py) for the complete implementation of GPT-style models and other LLM architectures.
+
 ```python
-class GPTModel(nn.Module):
-    def __init__(self, vocab_size, d_model=2048, num_layers=24, num_heads=16, max_len=2048):
-        super().__init__()
-        self.embedding = nn.Embedding(vocab_size, d_model)
-        self.pos_encoding = PositionalEncoding(d_model, max_len)
-        
-        self.layers = nn.ModuleList([
-            DecoderLayer(d_model, num_heads, d_model*4, dropout=0.1)
-            for _ in range(num_layers)
-        ])
-        
-        self.norm = nn.LayerNorm(d_model)
-        self.output_projection = nn.Linear(d_model, vocab_size)
-        
-    def forward(self, input_ids, attention_mask=None):
-        x = self.embedding(input_ids)
-        x = self.pos_encoding(x)
-        
-        # Create causal mask
-        seq_len = x.size(1)
-        causal_mask = torch.tril(torch.ones(seq_len, seq_len)).unsqueeze(0)
-        
-        if attention_mask is not None:
-            causal_mask = causal_mask * attention_mask.unsqueeze(1)
-        
-        for layer in self.layers:
-            x = layer(x, mask=causal_mask)
-        
-        x = self.norm(x)
-        return self.output_projection(x)
+from llm_architectures import GPTModel
+
+# Usage
+model = GPTModel(vocab_size=50000, d_model=2048, num_layers=24)
 ```
 
 ### BERT-style Models
@@ -880,36 +776,14 @@ def train_with_gradient_accumulation(model, dataloader, optimizer, accumulation_
 
 ### Perplexity Calculation
 
+See [`evaluation_monitoring.py`](evaluation_monitoring.py) for the complete implementation of perplexity calculation and other evaluation metrics.
+
 ```python
-def calculate_perplexity(model, dataloader, device):
-    """Calculate perplexity on validation set."""
-    model.eval()
-    total_loss = 0
-    total_tokens = 0
-    
-    with torch.no_grad():
-        for input_ids, targets in dataloader:
-            input_ids = input_ids.to(device)
-            targets = targets.to(device)
-            
-            logits = model(input_ids)
-            loss = nn.functional.cross_entropy(
-                logits.view(-1, logits.size(-1)), 
-                targets.view(-1),
-                ignore_index=-100,
-                reduction='sum'
-            )
-            
-            # Count non-ignored tokens
-            num_tokens = (targets != -100).sum().item()
-            
-            total_loss += loss.item()
-            total_tokens += num_tokens
-    
-    avg_loss = total_loss / total_tokens
-    perplexity = math.exp(avg_loss)
-    
-    return perplexity
+from evaluation_monitoring import calculate_perplexity
+
+# Usage
+perplexity = calculate_perplexity(model, val_dataloader, device)
+print(f"Validation Perplexity: {perplexity:.2f}")
 ```
 
 ### Attention Visualization
