@@ -401,7 +401,7 @@ demonstrate_reinforce()
 **Activity 3.2: Baseline Methods**
 ```python
 # Implement baseline methods for variance reduction
-from policy_gradient_examples import reinforce_with_baseline, demonstrate_baseline_comparison
+from code.policy_gradient_examples import reinforce_with_baseline, demonstrate_baseline_comparison
 
 # Train with different baseline methods
 result_mean = reinforce_with_baseline(env, policy, baseline_type='mean')
