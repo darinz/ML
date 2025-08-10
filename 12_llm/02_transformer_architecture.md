@@ -342,7 +342,7 @@ Model parallelism is implemented in [`code/model_parallel.py`](code/model_parall
 
 ### 1. BERT Architecture
 
-BERT architecture is implemented in [`transformer.py`](transformer.py) with the `BERTModel` class, which includes:
+BERT architecture is implemented in [`code/transformer.py`](code/transformer.py) with the `BERTModel` class, which includes:
 
 - Bidirectional encoder architecture
 - Token type embeddings for sentence pairs
