@@ -73,7 +73,7 @@ conda --version
 cd 14_rlhf
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate rlhf-lesson
@@ -99,7 +99,7 @@ rlhf-env\Scripts\activate
 source rlhf-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import torch, transformers, trl; print('All packages installed successfully!')"
@@ -147,7 +147,7 @@ plt.style.use('seaborn-v0_8')
 ## Lesson Structure
 
 ### Lesson 1: Reward Modeling and Human Feedback (4-5 hours)
-**Files**: `reward_model.py`, `preference_data.py`
+**Files**: `code/reward_model.py`, `code/preference_data.py`
 
 #### Learning Goals
 - Understand the fundamentals of reward modeling for RLHF
@@ -279,7 +279,7 @@ for obj, reward in zip(objectives, objective_rewards.values()):
 ---
 
 ### Lesson 2: Policy Optimization Methods (4-5 hours)
-**Files**: `policy_optimization.py`, `dpo.py`
+**Files**: `code/policy_optimization.py`, `code/dpo.py`
 
 #### Learning Goals
 - Understand policy optimization methods for language models
@@ -413,7 +413,7 @@ for epoch in range(5):
 ---
 
 ### Lesson 3: Alignment Techniques and Safety (3-4 hours)
-**Files**: `safety_alignment.py`, `constitutional_ai.py`, `red_teaming.py`
+**Files**: `code/safety_alignment.py`, `code/constitutional_ai.py`, `code/red_teaming.py`
 
 #### Learning Goals
 - Understand AI alignment and safety techniques
@@ -524,7 +524,7 @@ for metric in before_metrics:
 ---
 
 ### Lesson 4: Practical Applications (3-4 hours)
-**Files**: `chatbot_rlhf.py`, `summarization_rl.py`, `code_generation.py`
+**Files**: `code/chatbot_rlhf.py`, `code/summarization_rl.py`, `code/code_generation.py`
 
 #### Learning Goals
 - Apply RLHF to real-world applications
@@ -997,7 +997,7 @@ Remember: RLHF is not just a technical technique - it's a fundamental approach t
 
 ## Environment Files
 
-### requirements.txt
+### code/requirements.txt
 ```
 torch>=2.0.0
 transformers>=4.20.0
@@ -1015,7 +1015,7 @@ ipykernel>=6.0.0
 nb_conda_kernels>=2.3.0
 ```
 
-### environment.yaml
+### code/environment.yaml
 ```yaml
 name: rlhf-lesson
 channels:
