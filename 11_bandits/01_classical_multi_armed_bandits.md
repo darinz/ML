@@ -343,7 +343,7 @@ See [`example_usage.py`](example_usage.py) for a complete example that demonstra
 
 ```python
 # Run a complete experiment comparing epsilon-greedy, UCB, and Thompson sampling
-# python example_usage.py
+# python code/example_usage.py
 ```
 
 ### Basic Bandit Environment
