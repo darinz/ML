@@ -622,4 +622,20 @@ Vision Transformers represent a fundamental shift in computer vision, demonstrat
 - "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale" - Dosovitskiy et al.
 - "Training data-efficient image transformers & distillation through attention" - Touvron et al.
 - "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows" - Liu et al.
-- "A ConvNet for the 2020s" - Liu et al. 
+- "A ConvNet for the 2020s" - Liu et al.
+
+## From Architecture to Learning Without Labels
+
+We've now explored **Vision Transformers (ViT)** - the paradigm shift in computer vision that adapts transformer architectures from natural language processing to visual data. We've seen how patch-based processing enables global attention across images, how the transformer encoder captures long-range dependencies, and how these architectures achieve state-of-the-art performance on image classification and other vision tasks.
+
+However, while Vision Transformers provide powerful architectures for visual understanding, **the challenge of obtaining labeled data** remains a significant bottleneck in computer vision. Consider training a model to recognize thousands of object categories - collecting and annotating millions of images is expensive, time-consuming, and often impractical for many real-world applications.
+
+This motivates our exploration of **self-supervised learning in vision** - techniques that enable models to learn meaningful representations from unlabeled data by solving carefully designed pretext tasks. We'll see how tasks like image inpainting, jigsaw puzzle solving, and rotation prediction can teach models to understand visual structure without manual annotations, how these learned representations transfer to downstream tasks, and how self-supervised learning has become a cornerstone of modern computer vision.
+
+The transition from Vision Transformers to self-supervised learning represents the bridge from architectural innovation to learning efficiency - taking our understanding of powerful vision architectures and applying it to the challenge of learning from unlabeled data.
+
+In the next section, we'll explore self-supervised learning, understanding how to design pretext tasks that enable effective representation learning without manual supervision.
+
+---
+
+**Next: [Self-Supervised Learning](02_self_supervised_learning.md)** - Learn how to train vision models without labeled data. 
