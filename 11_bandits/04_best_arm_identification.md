@@ -78,53 +78,14 @@ Successive Elimination is a simple and intuitive algorithm that eliminates arms 
 3. **Iteration**: Continue until one arm remains
 
 **Implementation:**
-```python
-import numpy as np
-from scipy.stats import norm
+See [`successive_elimination.py`](successive_elimination.py) for the complete implementation.
 
+```python
+# Key implementation details:
 class SuccessiveElimination:
-    def __init__(self, n_arms, delta=0.1, n0=None):
-        self.n_arms = n_arms
-        self.delta = delta
-        self.n0 = n0 if n0 else max(1, int(np.log(n_arms / delta)))
-        
-        # Initialize statistics
-        self.empirical_means = np.zeros(n_arms)
-        self.pulls = np.zeros(n_arms, dtype=int)
-        self.active_arms = set(range(n_arms))
-        
-    def select_arm(self):
-        """Select arm to pull"""
-        if len(self.active_arms) == 1:
-            return list(self.active_arms)[0]
-        
-        # Pull arms that haven't been pulled n0 times
-        for arm in self.active_arms:
-            if self.pulls[arm] < self.n0:
-                return arm
-        
-        # All arms have been pulled n0 times, eliminate worst arm
-        worst_arm = min(self.active_arms, key=lambda i: self.empirical_means[i])
-        self.active_arms.remove(worst_arm)
-        
-        # Continue pulling remaining arms
-        return list(self.active_arms)[0]
-    
-    def update(self, arm, reward):
-        """Update algorithm with observed reward"""
-        self.pulls[arm] += 1
-        self.empirical_means[arm] = ((self.empirical_means[arm] * (self.pulls[arm] - 1) + reward) / self.pulls[arm])
-    
-    def get_best_arm(self):
-        """Return the identified best arm"""
-        if len(self.active_arms) == 1:
-            return list(self.active_arms)[0]
-        else:
-            return np.argmax(self.empirical_means)
-    
-    def is_complete(self):
-        """Check if algorithm has completed"""
-        return len(self.active_arms) == 1
+    # Initialize statistics and active arms set
+    # Pull arms until n0 times, then eliminate worst arm
+    # Continue until only one arm remains
 ```
 
 **Theoretical Guarantees:**
@@ -142,85 +103,14 @@ Racing algorithms maintain confidence intervals for all arms and stop when one a
 4. **Adaptive Allocation**: Pull arms with highest uncertainty
 
 **Implementation:**
+See [`racing_algorithm.py`](racing_algorithm.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 class RacingAlgorithm:
-    def __init__(self, n_arms, delta=0.1, n0=None):
-        self.n_arms = n_arms
-        self.delta = delta
-        self.n0 = n0 if n0 else max(1, int(np.log(n_arms / delta)))
-        
-        # Initialize statistics
-        self.empirical_means = np.zeros(n_arms)
-        self.pulls = np.zeros(n_arms, dtype=int)
-        self.total_pulls = 0
-        
-    def get_confidence_radius(self, arm):
-        """Calculate confidence radius for arm"""
-        if self.pulls[arm] == 0:
-            return float('inf')
-        
-        # Hoeffding-based confidence interval
-        beta = np.sqrt(np.log(2 * self.n_arms / self.delta) / (2 * self.pulls[arm]))
-        return beta
-    
-    def get_confidence_intervals(self):
-        """Get confidence intervals for all arms"""
-        intervals = []
-        for arm in range(self.n_arms):
-            radius = self.get_confidence_radius(arm)
-            lower = self.empirical_means[arm] - radius
-            upper = self.empirical_means[arm] + radius
-            intervals.append((lower, upper))
-        return intervals
-    
-    def select_arm(self):
-        """Select arm to pull"""
-        # Initial phase: pull each arm n0 times
-        for arm in range(self.n_arms):
-            if self.pulls[arm] < self.n0:
-                return arm
-        
-        # Racing phase: pull arm with highest uncertainty
-        intervals = self.get_confidence_intervals()
-        
-        # Find arm with highest upper bound
-        best_arm = max(range(self.n_arms), key=lambda i: intervals[i][1])
-        
-        # Find arm with highest lower bound (different from best)
-        other_arms = [i for i in range(self.n_arms) if i != best_arm]
-        if other_arms:
-            challenger = max(other_arms, key=lambda i: intervals[i][0])
-            
-            # Pull the arm with highest uncertainty
-            if intervals[best_arm][1] - intervals[best_arm][0] > intervals[challenger][1] - intervals[challenger][0]:
-                return best_arm
-            else:
-                return challenger
-        
-        return best_arm
-    
-    def update(self, arm, reward):
-        """Update algorithm with observed reward"""
-        self.pulls[arm] += 1
-        self.total_pulls += 1
-        self.empirical_means[arm] = ((self.empirical_means[arm] * (self.pulls[arm] - 1) + reward) / self.pulls[arm])
-    
-    def get_best_arm(self):
-        """Return the identified best arm"""
-        return np.argmax(self.empirical_means)
-    
-    def is_complete(self):
-        """Check if algorithm has completed"""
-        intervals = self.get_confidence_intervals()
-        
-        # Check if one arm's lower bound exceeds all others' upper bounds
-        for i in range(self.n_arms):
-            lower_i = intervals[i][0]
-            all_others_upper = [intervals[j][1] for j in range(self.n_arms) if j != i]
-            if all(lower_i > upper_j for upper_j in all_others_upper):
-                return True
-        
-        return False
+    # Maintain confidence intervals for all arms
+    # Pull arms with highest uncertainty
+    # Stop when one arm's lower bound exceeds all others' upper bounds
 ```
 
 ### 3. LUCB (Lower-Upper Confidence Bound)
@@ -233,83 +123,14 @@ LUCB is a sophisticated algorithm that pulls the arm with highest upper bound an
 3. **Stopping Criterion**: Stop when intervals separate
 
 **Implementation:**
+See [`lucb.py`](lucb.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 class LUCB:
-    def __init__(self, n_arms, delta=0.1, n0=None):
-        self.n_arms = n_arms
-        self.delta = delta
-        self.n0 = n0 if n0 else max(1, int(np.log(n_arms / delta)))
-        
-        # Initialize statistics
-        self.empirical_means = np.zeros(n_arms)
-        self.pulls = np.zeros(n_arms, dtype=int)
-        self.total_pulls = 0
-        
-    def get_confidence_radius(self, arm):
-        """Calculate confidence radius for arm"""
-        if self.pulls[arm] == 0:
-            return float('inf')
-        
-        # LUCB-specific confidence interval
-        beta = np.sqrt(np.log(4 * self.n_arms * self.total_pulls**2 / self.delta) / (2 * self.pulls[arm]))
-        return beta
-    
-    def get_confidence_intervals(self):
-        """Get confidence intervals for all arms"""
-        intervals = []
-        for arm in range(self.n_arms):
-            radius = self.get_confidence_radius(arm)
-            lower = self.empirical_means[arm] - radius
-            upper = self.empirical_means[arm] + radius
-            intervals.append((lower, upper))
-        return intervals
-    
-    def select_arm(self):
-        """Select arm to pull using LUCB"""
-        # Initial phase: pull each arm n0 times
-        for arm in range(self.n_arms):
-            if self.pulls[arm] < self.n0:
-                return arm
-        
-        # LUCB phase: pull arms with highest upper and lower bounds
-        intervals = self.get_confidence_intervals()
-        
-        # Find arm with highest upper bound
-        h = max(range(self.n_arms), key=lambda i: intervals[i][1])
-        
-        # Find arm with highest lower bound among others
-        others = [i for i in range(self.n_arms) if i != h]
-        l = max(others, key=lambda i: intervals[i][0])
-        
-        # Pull the arm with higher uncertainty
-        if intervals[h][1] - intervals[h][0] > intervals[l][1] - intervals[l][0]:
-            return h
-        else:
-            return l
-    
-    def update(self, arm, reward):
-        """Update algorithm with observed reward"""
-        self.pulls[arm] += 1
-        self.total_pulls += 1
-        self.empirical_means[arm] = ((self.empirical_means[arm] * (self.pulls[arm] - 1) + reward) / self.pulls[arm])
-    
-    def get_best_arm(self):
-        """Return the identified best arm"""
-        return np.argmax(self.empirical_means)
-    
-    def is_complete(self):
-        """Check if algorithm has completed"""
-        intervals = self.get_confidence_intervals()
-        
-        # Find arm with highest upper bound
-        h = max(range(self.n_arms), key=lambda i: intervals[i][1])
-        
-        # Find arm with highest lower bound among others
-        others = [i for i in range(self.n_arms) if i != h]
-        l = max(others, key=lambda i: intervals[i][0])
-        
-        # Check if intervals separate
-        return intervals[h][0] > intervals[l][1]
+    # Pull arm with highest upper bound and arm with highest lower bound
+    # Use LUCB-specific confidence intervals
+    # Stop when intervals separate
 ```
 
 ### 4. Sequential Halving
@@ -323,67 +144,14 @@ Sequential Halving is an efficient algorithm that eliminates half of the remaini
 4. **Termination**: Continue until one arm remains
 
 **Implementation:**
+See [`sequential_halving.py`](sequential_halving.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 class SequentialHalving:
-    def __init__(self, n_arms, budget):
-        self.n_arms = n_arms
-        self.budget = budget
-        
-        # Calculate number of rounds
-        self.n_rounds = int(np.log2(n_arms))
-        
-        # Initialize statistics
-        self.empirical_means = np.zeros(n_arms)
-        self.pulls = np.zeros(n_arms, dtype=int)
-        self.active_arms = list(range(n_arms))
-        self.current_round = 0
-        self.pulls_per_arm = 0
-        
-    def select_arm(self):
-        """Select arm to pull"""
-        if len(self.active_arms) == 1:
-            return self.active_arms[0]
-        
-        # Calculate pulls per arm for current round
-        if self.current_round == 0:
-            self.pulls_per_arm = self.budget // (len(self.active_arms) * self.n_rounds)
-        else:
-            self.pulls_per_arm = self.budget // (len(self.active_arms) * (self.n_rounds - self.current_round))
-        
-        # Find arm that needs more pulls
-        for arm in self.active_arms:
-            if self.pulls[arm] < self.pulls_per_arm:
-                return arm
-        
-        # All arms have been pulled enough, eliminate bottom half
-        self._eliminate_bottom_half()
-        return self.active_arms[0]  # Return first remaining arm
-    
-    def _eliminate_bottom_half(self):
-        """Eliminate bottom half of active arms"""
-        # Sort arms by empirical means
-        sorted_arms = sorted(self.active_arms, key=lambda i: self.empirical_means[i], reverse=True)
-        
-        # Keep top half
-        keep_count = len(self.active_arms) // 2
-        self.active_arms = sorted_arms[:keep_count]
-        self.current_round += 1
-    
-    def update(self, arm, reward):
-        """Update algorithm with observed reward"""
-        self.pulls[arm] += 1
-        self.empirical_means[arm] = ((self.empirical_means[arm] * (self.pulls[arm] - 1) + reward) / self.pulls[arm])
-    
-    def get_best_arm(self):
-        """Return the identified best arm"""
-        if len(self.active_arms) == 1:
-            return self.active_arms[0]
-        else:
-            return max(self.active_arms, key=lambda i: self.empirical_means[i])
-    
-    def is_complete(self):
-        """Check if algorithm has completed"""
-        return len(self.active_arms) == 1
+    # Eliminate half of remaining arms in each round
+    # Pull arms equally within each round
+    # Continue until one arm remains
 ```
 
 ## Theoretical Analysis
@@ -487,26 +255,15 @@ P(\exists i, t : |\hat{\mu}_i(t) - \mu_i| \geq \beta_i(t)) \leq \delta
 ### Numerical Stability
 
 **Confidence Interval Calculation:**
-```python
-def stable_confidence_radius(pulls, delta, method='hoeffding'):
-    """Calculate stable confidence radius"""
-    if pulls == 0:
-        return float('inf')
-    
-    if method == 'hoeffding':
-        return np.sqrt(np.log(2 / delta) / (2 * pulls))
-    elif method == 'chernoff':
-        # For Bernoulli rewards
-        return np.sqrt(np.log(1 / delta) / pulls)
-    else:
-        raise ValueError(f"Unknown method: {method}")
-```
+See [`bai_utils.py`](bai_utils.py) for the complete implementation.
 
-**Empirical Mean Update:**
 ```python
+# Key functionality:
+def stable_confidence_radius(pulls, delta, method='hoeffding'):
+    # Calculate stable confidence radius using Hoeffding or Chernoff bounds
+
 def stable_mean_update(old_mean, old_count, new_value):
-    """Stable incremental mean update"""
-    return (old_mean * old_count + new_value) / (old_count + 1)
+    # Stable incremental mean update
 ```
 
 ## Advanced Topics
@@ -557,39 +314,14 @@ Identify the best arm when there are multiple objectives to optimize.
 ### A/B Testing
 
 **Website Design Testing:**
+See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class ABTestBAI:
-    def __init__(self, n_variants, delta=0.05):
-        self.bai = LUCB(n_variants, delta)
-        self.metrics = ['conversion_rate', 'revenue_per_user', 'session_duration']
-    
-    def run_test(self, user_traffic):
-        """Run A/B test using BAI"""
-        for user in user_traffic:
-            # Select variant to show
-            variant = self.bai.select_arm()
-            
-            # Show variant and collect metrics
-            metrics = self._show_variant_and_collect_metrics(user, variant)
-            
-            # Convert metrics to reward
-            reward = self._convert_metrics_to_reward(metrics)
-            
-            # Update BAI algorithm
-            self.bai.update(variant, reward)
-            
-            # Check if test is complete
-            if self.bai.is_complete():
-                break
-        
-        return self.bai.get_best_arm()
-    
-    def _convert_metrics_to_reward(self, metrics):
-        """Convert multiple metrics to single reward"""
-        # Weighted combination of metrics
-        weights = [0.5, 0.3, 0.2]  # conversion, revenue, duration
-        reward = sum(w * m for w, m in zip(weights, metrics))
-        return reward
+    # Use LUCB for A/B testing
+    # Convert multiple metrics to single reward
+    # Stop when best variant is identified
 ```
 
 ### Clinical Trials
