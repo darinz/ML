@@ -71,7 +71,7 @@ conda --version
 cd 09_self-supervised_learning
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate self-supervised-learning-lesson
@@ -97,7 +97,7 @@ self-supervised-learning-env\Scripts\activate
 source self-supervised-learning-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import torch, transformers, sklearn; print('All packages installed successfully!')"
@@ -146,7 +146,7 @@ plt.style.use('seaborn-v0_8')
 ## Lesson Structure
 
 ### Lesson 1: Self-Supervised Learning and Foundation Models (5-6 hours)
-**File**: `pretraining_examples.py`
+**File**: `code/pretraining_examples.py`
 
 #### Learning Goals
 - Understand the data labeling problem and motivation for self-supervised learning
@@ -161,7 +161,7 @@ plt.style.use('seaborn-v0_8')
 **Activity 1.1: Understanding the Data Labeling Problem**
 ```python
 # Explore why data labeling is expensive and why self-supervised learning is needed
-from pretraining_examples import demonstrate_labeling_cost
+from code.pretraining_examples import demonstrate_labeling_cost
 
 # Demonstrate the high cost of data labeling
 demonstrate_labeling_cost()
@@ -172,7 +172,7 @@ demonstrate_labeling_cost()
 **Activity 1.2: Supervised Pretraining**
 ```python
 # Implement supervised pretraining (ImageNet-style classification)
-from pretraining_examples import supervised_pretraining_example
+from code.pretraining_examples import supervised_pretraining_example
 
 # Demonstrate supervised pretraining
 model, train_losses, val_accuracies = supervised_pretraining_example()
@@ -185,7 +185,7 @@ print(f"Final validation accuracy: {val_accuracies[-1]:.4f}")
 **Activity 1.3: Contrastive Learning Implementation**
 ```python
 # Implement contrastive learning with data augmentation
-from pretraining_examples import contrastive_learning_example
+from code.pretraining_examples import contrastive_learning_example
 
 # Demonstrate contrastive learning
 contrastive_model, contrastive_losses = contrastive_learning_example()
@@ -198,7 +198,7 @@ print(f"Final contrastive loss: {contrastive_losses[-1]:.4f}")
 **Activity 1.4: Data Augmentation for Contrastive Learning**
 ```python
 # Explore data augmentation techniques for contrastive learning
-from pretraining_examples import data_augmentation_example
+from code.pretraining_examples import data_augmentation_example
 
 # Demonstrate data augmentation
 data_augmentation_example()
@@ -209,7 +209,7 @@ data_augmentation_example()
 **Activity 1.5: Linear Probe Adaptation**
 ```python
 # Implement linear probe adaptation (feature extraction)
-from pretraining_examples import linear_probe_example
+from code.pretraining_examples import linear_probe_example
 
 # Use the pretrained model from Activity 1.2
 # Extract features and apply linear probe
