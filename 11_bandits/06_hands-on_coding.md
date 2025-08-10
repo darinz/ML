@@ -439,7 +439,7 @@ feature_comparison = compare_feature_representations(
 **Activity 3.1: Contextual Bandit Framework**
 ```python
 # Explore contextual bandit framework
-from contextual_bandits import ContextualBandit, ContextualUCB
+from code.contextual_bandits import ContextualBandit, ContextualUCB
 
 # Create contextual bandit environment
 n_arms = 3
