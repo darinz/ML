@@ -17,6 +17,18 @@ The bias-variance tradeoff we discussed in Section 8.1 represents classical wisd
 - Very complex models can generalize well despite fitting training data perfectly
 - The relationship between complexity and generalization is more nuanced
 
+## From Classical Wisdom to Modern Phenomena
+
+We've now explored the **bias-variance tradeoff** - the fundamental framework that explains how model complexity affects generalization through the decomposition of error into bias and variance components. This classical understanding provides the foundation for model selection and regularization strategies.
+
+However, while the bias-variance tradeoff represents classical wisdom about generalization, recent research has revealed more complex and fascinating phenomena that challenge our traditional understanding. Modern machine learning models, especially deep neural networks, often achieve excellent generalization despite being highly overparameterized - a fact that the classical bias-variance framework cannot fully explain.
+
+This motivates our exploration of the **double descent phenomenon** - a modern discovery that reveals a more nuanced relationship between model complexity and generalization. We'll see how the classical U-shaped curve is often followed by a second descent, where very complex models can generalize well despite fitting training data perfectly.
+
+The transition from bias-variance tradeoff to double descent represents the bridge from classical theory to modern understanding - taking our foundational knowledge of generalization and extending it to explain the behavior of contemporary machine learning systems.
+
+In this section, we'll explore how double descent challenges classical wisdom and provides insights into why modern models can achieve excellent generalization despite being highly overparameterized.
+
 ## 8.2.1 Model-Wise Double Descent: The First Discovery
 
 ### What is Model-Wise Double Descent?
@@ -310,4 +322,22 @@ The double descent phenomenon has fundamentally changed our understanding of gen
 - Consider the specific algorithm and optimization method
 
 The double descent phenomenon represents a paradigm shift in our understanding of machine learning. While the classical bias-variance tradeoff remains important, it's now part of a richer theoretical landscape that continues to evolve with modern machine learning practice.
+
+## From Empirical Observations to Theoretical Foundations
+
+We've now explored the **double descent phenomenon** - a modern discovery that challenges classical wisdom about model complexity and generalization. We've seen how the relationship between complexity and generalization is more nuanced than the traditional U-shaped curve, with very complex models often achieving excellent generalization despite being highly overparameterized.
+
+However, while empirical observations and intuitive explanations help us understand these phenomena, we need **theoretical foundations** that provide rigorous mathematical guarantees about generalization. Understanding why these phenomena occur and when we can expect them requires deeper mathematical analysis.
+
+This motivates our exploration of **sample complexity bounds** - the theoretical tools that provide rigorous mathematical guarantees about generalization. We'll see how theoretical results help us understand the fundamental limits of learning, the relationship between training error and generalization error, and how model complexity affects the required sample size.
+
+The transition from empirical phenomena to theoretical foundations represents the bridge from observation to understanding - taking our knowledge of how generalization works in practice and providing the mathematical framework to explain why.
+
+In the next section, we'll explore the mathematical tools and theoretical results that form the foundation of statistical learning theory.
+
+---
+
+**Previous: [Bias-Variance Tradeoff](01_bias-variance_tradeoﬀ.md)** - Understand the fundamental decomposition of error into bias and variance components.
+
+**Next: [Complexity Bounds](03_complexity_bounds.md)** - Learn the theoretical foundations that provide rigorous guarantees about generalization.
 
