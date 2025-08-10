@@ -507,4 +507,20 @@ The classical bandit framework serves as the foundation for more advanced varian
 
 ---
 
-**Note**: This guide covers the fundamentals of classical multi-armed bandits. For more advanced topics, see the sections on Linear Bandits, Contextual Bandits, and Best Arm Identification. 
+**Note**: This guide covers the fundamentals of classical multi-armed bandits. For more advanced topics, see the sections on Linear Bandits, Contextual Bandits, and Best Arm Identification.
+
+## From Independent Arms to Structured Learning
+
+We've now explored **classical multi-armed bandits** - the foundational framework for sequential decision-making under uncertainty. We've seen how the exploration-exploitation trade-off manifests in various algorithms like epsilon-greedy, UCB, and Thompson sampling, and how these methods provide theoretical guarantees for regret minimization.
+
+However, while classical bandits treat each arm independently, **real-world problems** often exhibit structure that can be exploited for more efficient learning. Consider a recommendation system where products have features - similar products likely have similar reward distributions, and learning about one product can inform our understanding of similar products.
+
+This motivates our exploration of **linear bandits** - extending the bandit framework to handle structured action spaces where rewards are linear functions of arm features. We'll see how LinUCB and linear Thompson sampling can exploit arm similarities, how feature-based learning reduces sample complexity, and how these methods enable efficient learning in high-dimensional action spaces.
+
+The transition from classical to linear bandits represents the bridge from independent learning to structured learning - taking our understanding of the exploration-exploitation trade-off and extending it to leverage the structure inherent in many real-world problems.
+
+In the next section, we'll explore linear bandits, understanding how they exploit arm similarities and enable more efficient learning through feature-based representations.
+
+---
+
+**Next: [Linear Bandits](02_linear_bandits.md)** - Learn how to exploit structured action spaces for more efficient learning. 
