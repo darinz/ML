@@ -216,3 +216,19 @@ P_{sa}(s') = \frac{\#\text{times took action } a \text{ in state } s \text{ and 
 
 **Analogy:**
 - Think of RL as learning to play a new game: you try different strategies, learn from the outcomes, and gradually improve your play as you understand the rules and consequences better.
+
+## From Discrete to Continuous State Spaces
+
+We've now explored **Markov Decision Processes (MDPs)** - the foundational mathematical framework for reinforcement learning. We've seen how MDPs model sequential decision-making under uncertainty, how value and policy iteration algorithms can solve finite MDPs optimally, and how these methods provide the theoretical foundation for learning optimal behavior through interaction with environments.
+
+However, while finite MDPs provide excellent intuition and work well for problems with small, discrete state spaces, **real-world problems** often involve continuous state variables that cannot be easily discretized. Consider a robot navigating through space - its position, velocity, and orientation are all continuous variables that can take infinitely many values.
+
+This motivates our exploration of **continuous state MDPs** - extending the MDP framework to handle infinite or continuous state spaces. We'll see how discretization can approximate continuous problems, how value function approximation enables learning in high-dimensional spaces, and how these techniques bridge the gap between theoretical MDPs and practical applications in robotics, control, and real-world decision-making.
+
+The transition from discrete to continuous state spaces represents the bridge from theoretical foundations to practical applications - taking our understanding of MDPs and extending it to handle the complexity and richness of real-world problems.
+
+In the next section, we'll explore discretization techniques, value function approximation methods, and practical algorithms for solving continuous state MDPs.
+
+---
+
+**Next: [Continuous State MDPs](02_continuous_state_mdp.md)** - Learn how to handle infinite and continuous state spaces in reinforcement learning.
