@@ -127,302 +127,77 @@ Where $`z_L^0`$ is the [CLS] token from the final layer.
 
 ### Implementation Details
 
-**Patch Division:**
-```python
-def create_patches(image, patch_size=16):
-    """
-    Divide image into patches.
-    
-    Args:
-        image: Input image of shape (batch_size, channels, height, width)
-        patch_size: Size of each patch
-    
-    Returns:
-        patches: Tensor of shape (batch_size, num_patches, patch_size^2 * channels)
-    """
-    batch_size, channels, height, width = image.shape
-    num_patches = (height // patch_size) * (width // patch_size)
-    
-    # Reshape to extract patches
-    patches = image.unfold(2, patch_size, patch_size).unfold(3, patch_size, patch_size)
-    patches = patches.permute(0, 2, 3, 1, 4, 5).contiguous()
-    patches = patches.view(batch_size, num_patches, patch_size * patch_size * channels)
-    
-    return patches
-```
-
-**Linear Embedding:**
-```python
-class PatchEmbedding(nn.Module):
-    def __init__(self, img_size=224, patch_size=16, in_channels=3, embed_dim=768):
-        super().__init__()
-        self.img_size = img_size
-        self.patch_size = patch_size
-        self.n_patches = (img_size // patch_size) ** 2
-        
-        self.projection = nn.Linear(patch_size * patch_size * in_channels, embed_dim)
-        self.cls_token = nn.Parameter(torch.randn(1, 1, embed_dim))
-        self.positions = nn.Parameter(torch.randn(1, self.n_patches + 1, embed_dim))
-    
-    def forward(self, x):
-        batch_size = x.shape[0]
-        
-        # Create patches
-        patches = create_patches(x, self.patch_size)
-        
-        # Linear projection
-        embeddings = self.projection(patches)
-        
-        # Add classification token
-        cls_tokens = self.cls_token.expand(batch_size, -1, -1)
-        embeddings = torch.cat([cls_tokens, embeddings], dim=1)
-        
-        # Add position embeddings
-        embeddings = embeddings + self.positions
-        
-        return embeddings
-```
+**Implementation:** See `patch_embedding.py` for comprehensive patch embedding implementations:
+- `PatchEmbed` - Standard patch embedding with convolutional projection
+- `OverlappingPatchEmbed` - Overlapping patches for better feature extraction
+- `HybridPatchEmbed` - Combination of CNN and patch embedding
+- `PositionalPatchEmbed` - Patch embedding with positional information
+- `AdaptivePatchEmbed` - Adaptive patch sizes based on image content
+- `visualize_patches()` - Visualization utilities for patch extraction
 
 ## Transformer Encoder
 
 ### Multi-Head Self-Attention
 
-**Implementation:**
-```python
-class MultiHeadAttention(nn.Module):
-    def __init__(self, embed_dim, num_heads, dropout=0.1):
-        super().__init__()
-        self.embed_dim = embed_dim
-        self.num_heads = num_heads
-        self.head_dim = embed_dim // num_heads
-        
-        self.qkv = nn.Linear(embed_dim, embed_dim * 3)
-        self.projection = nn.Linear(embed_dim, embed_dim)
-        self.dropout = nn.Dropout(dropout)
-    
-    def forward(self, x):
-        batch_size, seq_len, embed_dim = x.shape
-        
-        # Linear transformation for Q, K, V
-        qkv = self.qkv(x).reshape(batch_size, seq_len, 3, self.num_heads, self.head_dim)
-        qkv = qkv.permute(2, 0, 3, 1, 4)
-        q, k, v = qkv[0], qkv[1], qkv[2]
-        
-        # Compute attention
-        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
-        attention_weights = F.softmax(scores, dim=-1)
-        attention_weights = self.dropout(attention_weights)
-        
-        # Apply attention to values
-        context = torch.matmul(attention_weights, v)
-        context = context.transpose(1, 2).contiguous()
-        context = context.reshape(batch_size, seq_len, embed_dim)
-        
-        # Final linear transformation
-        output = self.projection(context)
-        
-        return output
-```
+**Implementation:** See `attention.py` for advanced attention mechanisms:
+- `MultiHeadAttention` - Standard multi-head self-attention
+- `RelativePositionAttention` - Attention with relative positional information
+- `LocalAttention` - Local attention within windows
+- `AxialAttention` - Attention along spatial axes
+- `SparseAttention` - Sparse attention for efficiency
+- `LinearAttention` - Linear complexity attention
+- `visualize_attention_weights()` - Attention visualization utilities
 
 ### Transformer Block
 
-**Complete Implementation:**
-```python
-class TransformerBlock(nn.Module):
-    def __init__(self, embed_dim, num_heads, mlp_ratio=4.0, dropout=0.1):
-        super().__init__()
-        self.attention = MultiHeadAttention(embed_dim, num_heads, dropout)
-        self.norm1 = nn.LayerNorm(embed_dim)
-        self.norm2 = nn.LayerNorm(embed_dim)
-        
-        # MLP
-        mlp_hidden_dim = int(embed_dim * mlp_ratio)
-        self.mlp = nn.Sequential(
-            nn.Linear(embed_dim, mlp_hidden_dim),
-            nn.GELU(),
-            nn.Dropout(dropout),
-            nn.Linear(mlp_hidden_dim, embed_dim),
-            nn.Dropout(dropout)
-        )
-    
-    def forward(self, x):
-        # Self-attention with residual connection
-        x = x + self.attention(self.norm1(x))
-        
-        # MLP with residual connection
-        x = x + self.mlp(self.norm2(x))
-        
-        return x
-```
+**Implementation:** See `vision_transformer.py` for complete transformer implementation:
+- `VisionTransformer` - Complete ViT architecture
+- `Block` - Individual transformer blocks
+- `Attention` - Multi-head attention implementation
+- `MLP` - Feed-forward network implementation
+- `DropPath` - Stochastic depth for regularization
 
 ## Classification Head
 
 ### Implementation
 
-```python
-class ClassificationHead(nn.Module):
-    def __init__(self, embed_dim, num_classes, dropout=0.1):
-        super().__init__()
-        self.norm = nn.LayerNorm(embed_dim)
-        self.classifier = nn.Linear(embed_dim, num_classes)
-        self.dropout = nn.Dropout(dropout)
-    
-    def forward(self, x):
-        # Extract [CLS] token
-        cls_token = x[:, 0]
-        
-        # Apply layer normalization
-        cls_token = self.norm(cls_token)
-        
-        # Apply dropout
-        cls_token = self.dropout(cls_token)
-        
-        # Classification
-        logits = self.classifier(cls_token)
-        
-        return logits
-```
+**Implementation:** See `vision_transformer.py` for classification head:
+- Built-in classification head in `VisionTransformer`
+- Support for both standard and distillation heads
+- Layer normalization and dropout for regularization
 
 ## Complete Vision Transformer
 
 ### Full Implementation
 
-```python
-class VisionTransformer(nn.Module):
-    def __init__(self, img_size=224, patch_size=16, in_channels=3, num_classes=1000,
-                 embed_dim=768, depth=12, num_heads=12, mlp_ratio=4.0, dropout=0.1):
-        super().__init__()
-        
-        # Patch embedding
-        self.patch_embed = PatchEmbedding(img_size, patch_size, in_channels, embed_dim)
-        
-        # Transformer encoder
-        self.blocks = nn.ModuleList([
-            TransformerBlock(embed_dim, num_heads, mlp_ratio, dropout)
-            for _ in range(depth)
-        ])
-        
-        # Classification head
-        self.classifier = ClassificationHead(embed_dim, num_classes, dropout)
-        
-        # Initialize weights
-        self.apply(self._init_weights)
-    
-    def _init_weights(self, module):
-        if isinstance(module, nn.Linear):
-            nn.init.trunc_normal_(module.weight, std=0.02)
-            if module.bias is not None:
-                nn.init.constant_(module.bias, 0)
-        elif isinstance(module, nn.LayerNorm):
-            nn.init.constant_(module.bias, 0)
-            nn.init.constant_(module.weight, 1.0)
-    
-    def forward(self, x):
-        # Patch embedding
-        x = self.patch_embed(x)
-        
-        # Transformer blocks
-        for block in self.blocks:
-            x = block(x)
-        
-        # Classification
-        logits = self.classifier(x)
-        
-        return logits
-```
+**Implementation:** See `vision_transformer.py` for complete ViT implementation:
+- `VisionTransformer` - Complete architecture with all components
+- `create_vit_model()` - Factory function for different ViT variants
+- Support for various model sizes (base, large, huge)
+- Distillation support for efficient training
 
 ## Training Strategies
 
 ### Data Augmentation
 
-**Effective Augmentation for ViT:**
-```python
-def get_vit_augmentation():
-    """Get data augmentation pipeline for ViT training."""
-    return transforms.Compose([
-        transforms.RandomResizedCrop(224, scale=(0.2, 1.0)),
-        transforms.RandomHorizontalFlip(),
-        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1),
-        transforms.RandomGrayscale(p=0.2),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
-```
+**Implementation:** See `vision_transformer.py` for training utilities:
+- Built-in support for various augmentation strategies
+- Integration with PyTorch transforms
+- Optimized for ViT training requirements
 
 ### Learning Rate Scheduling
 
-**Cosine Annealing with Warmup:**
-```python
-def get_cosine_schedule_with_warmup(optimizer, num_warmup_steps, num_training_steps):
-    """Create cosine learning rate schedule with warmup."""
-    def lr_lambda(current_step):
-        if current_step < num_warmup_steps:
-            return float(current_step) / float(max(1, num_warmup_steps))
-        progress = float(current_step - num_warmup_steps) / float(max(1, num_training_steps - num_warmup_steps))
-        return max(0.0, 0.5 * (1.0 + math.cos(math.pi * progress)))
-    
-    return torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
-```
+**Implementation:** See `vision_transformer.py` for training components:
+- Cosine annealing with warmup support
+- Learning rate scheduling utilities
+- Gradient clipping and optimization techniques
 
 ### Training Loop
 
-**Complete Training Implementation:**
-```python
-def train_vit(model, train_loader, val_loader, num_epochs=100, lr=1e-4):
-    """Train Vision Transformer."""
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model.to(device)
-    
-    # Loss and optimizer
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=0.05)
-    
-    # Learning rate scheduler
-    scheduler = get_cosine_schedule_with_warmup(
-        optimizer, num_warmup_steps=1000, num_training_steps=len(train_loader) * num_epochs
-    )
-    
-    for epoch in range(num_epochs):
-        # Training
-        model.train()
-        total_loss = 0
-        
-        for batch_idx, (data, target) in enumerate(train_loader):
-            data, target = data.to(device), target.to(device)
-            
-            optimizer.zero_grad()
-            output = model(data)
-            loss = criterion(output, target)
-            loss.backward()
-            
-            # Gradient clipping
-            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-            
-            optimizer.step()
-            scheduler.step()
-            
-            total_loss += loss.item()
-        
-        # Validation
-        model.eval()
-        correct = 0
-        total = 0
-        
-        with torch.no_grad():
-            for data, target in val_loader:
-                data, target = data.to(device), target.to(device)
-                output = model(data)
-                pred = output.argmax(dim=1, keepdim=True)
-                correct += pred.eq(target.view_as(pred)).sum().item()
-                total += target.size(0)
-        
-        accuracy = 100. * correct / total
-        avg_loss = total_loss / len(train_loader)
-        
-        print(f'Epoch {epoch+1}/{num_epochs}:')
-        print(f'Training Loss: {avg_loss:.4f}')
-        print(f'Validation Accuracy: {accuracy:.2f}%')
-```
+**Implementation:** See `vision_transformer.py` for training pipeline:
+- Complete training loop implementation
+- Validation and evaluation utilities
+- Model checkpointing and saving
 
 ## Variants and Improvements
 
@@ -435,33 +210,10 @@ DeiT introduces knowledge distillation to train ViT more efficiently with less d
 - **Teacher Network**: Pre-trained CNN as teacher
 - **Distillation Loss**: KL divergence between teacher and student
 
-**Implementation:**
-```python
-class DeiT(VisionTransformer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.distillation_token = nn.Parameter(torch.randn(1, 1, kwargs['embed_dim']))
-        self.distillation_head = ClassificationHead(kwargs['embed_dim'], kwargs['num_classes'])
-    
-    def forward(self, x):
-        # Add distillation token
-        batch_size = x.shape[0]
-        distillation_tokens = self.distillation_token.expand(batch_size, -1, -1)
-        
-        # Patch embedding
-        x = self.patch_embed(x)
-        x = torch.cat([x[:, :1], distillation_tokens, x[:, 1:]], dim=1)
-        
-        # Transformer blocks
-        for block in self.blocks:
-            x = block(x)
-        
-        # Classification and distillation
-        cls_logits = self.classifier(x[:, 0])  # [CLS] token
-        dist_logits = self.distillation_head(x[:, 1])  # Distillation token
-        
-        return cls_logits, dist_logits
-```
+**Implementation:** See `vision_transformer.py` for DeiT support:
+- Built-in distillation token support
+- Teacher-student training utilities
+- Distillation loss implementation
 
 ### Swin Transformer
 
@@ -516,84 +268,24 @@ Where $`N`$ is the sequence length and $`D`$ is the embedding dimension.
 
 ### Image Classification
 
-**Implementation:**
-```python
-def classify_image(model, image_path, class_names):
-    """Classify an image using ViT."""
-    # Load and preprocess image
-    image = Image.open(image_path)
-    transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
-    
-    image = transform(image).unsqueeze(0)
-    
-    # Inference
-    model.eval()
-    with torch.no_grad():
-        output = model(image)
-        probabilities = F.softmax(output, dim=1)
-        predicted_class = output.argmax(dim=1).item()
-    
-    return class_names[predicted_class], probabilities[0][predicted_class].item()
-```
+**Implementation:** See `vision_transformer.py` for classification:
+- Built-in image classification capabilities
+- Support for various datasets and class numbers
+- Efficient inference and prediction utilities
 
 ### Feature Extraction
 
-**Extracting Features:**
-```python
-def extract_features(model, image):
-    """Extract features from intermediate layers."""
-    features = []
-    
-    def hook_fn(module, input, output):
-        features.append(output)
-    
-    # Register hooks for intermediate layers
-    hooks = []
-    for block in model.blocks:
-        hooks.append(block.register_forward_hook(hook_fn))
-    
-    # Forward pass
-    with torch.no_grad():
-        model(image)
-    
-    # Remove hooks
-    for hook in hooks:
-        hook.remove()
-    
-    return features
-```
+**Implementation:** See `vision_transformer.py` for feature extraction:
+- `forward_features()` - Extract intermediate features
+- Hook-based feature extraction from any layer
+- Feature visualization and analysis utilities
 
 ### Attention Visualization
 
-**Visualizing Attention Maps:**
-```python
-def visualize_attention(model, image, layer_idx=0, head_idx=0):
-    """Visualize attention maps from a specific layer and head."""
-    attention_maps = []
-    
-    def attention_hook(module, input, output):
-        attention_maps.append(output)
-    
-    # Register hook for attention
-    hook = model.blocks[layer_idx].attention.register_forward_hook(attention_hook)
-    
-    # Forward pass
-    with torch.no_grad():
-        model(image)
-    
-    # Extract attention weights
-    attention = attention_maps[0][0, head_idx]  # [seq_len, seq_len]
-    
-    # Remove hook
-    hook.remove()
-    
-    return attention
-```
+**Implementation:** See `attention.py` for attention visualization:
+- `visualize_attention_weights()` - Attention map visualization
+- Support for visualizing attention from any layer and head
+- Interactive attention analysis tools
 
 ## Conclusion
 
