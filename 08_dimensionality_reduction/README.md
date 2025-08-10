@@ -1,161 +1,126 @@
 # Dimensionality Reduction
 
-Dimensionality reduction is a fundamental concept in machine learning and data analysis. It refers to techniques that reduce the number of variables (features) in a dataset while preserving as much relevant information as possible. This makes data easier to visualize, interpret, and use for downstream tasks such as classification, clustering, or regression. Dimensionality reduction can also help remove noise and redundancy, speed up algorithms, and reveal hidden structure in the data.
+[![PCA](https://img.shields.io/badge/PCA-Principal%20Component%20Analysis-blue.svg)](https://en.wikipedia.org/wiki/Principal_component_analysis)
+[![ICA](https://img.shields.io/badge/ICA-Independent%20Component%20Analysis-green.svg)](https://en.wikipedia.org/wiki/Independent_component_analysis)
+[![Python](https://img.shields.io/badge/Python-3.7+-yellow.svg)](https://python.org)
 
-This folder covers two of the most important linear dimensionality reduction techniques with comprehensive theoretical foundations and practical implementations:
+Techniques to reduce the number of variables in datasets while preserving relevant information, covering PCA and ICA with comprehensive implementations.
 
-- **Principal Components Analysis (PCA):** Finds new axes (principal components) that maximize variance and decorrelate the data. Useful for visualization, compression, noise reduction, and feature extraction.
-- **Independent Components Analysis (ICA):** Goes beyond PCA by finding statistically independent components in the data. Especially useful for separating mixed signals (e.g., the cocktail party problem) and blind source separation.
+## Overview
 
-## Table of Contents
+Dimensionality reduction helps visualize, interpret, and process high-dimensional data by removing noise, redundancy, and revealing hidden structure.
 
-- [Principal Components Analysis (PCA)](01_pca.md)
-  - Comprehensive mathematical foundations and derivations
-  - Geometric intuition and visualization techniques
-  - Step-by-step implementation guide
-  - Practical applications and best practices
-  - [pca_examples.py](pca_examples.py): Comprehensive Python implementation with 10 detailed sections
+## Materials
 
-- [Independent Components Analysis (ICA)](02_ica.md)
-  - Statistical independence concepts and mathematical foundations
-  - The cocktail party problem and source separation
-  - ICA algorithms and implementation details
-  - Ambiguities, limitations, and practical considerations
-  - [ica_examples.py](ica_examples.py): Comprehensive Python implementation with 10 detailed sections
+### Theory
+- **[01_pca.md](01_pca.md)** - Principal Component Analysis: mathematical foundations, geometric intuition, applications
+- **[02_ica.md](02_ica.md)** - Independent Component Analysis: statistical independence, source separation, algorithms
+- **[03_hands-on_coding.md](03_hands-on_coding.md)** - Practical implementation guide
 
-- [img/](img/): Figures and diagrams used in the notes
+### Implementation
+- **[pca_examples.py](pca_examples.py)** - Complete PCA implementation with 10 comprehensive sections
+- **[ica_examples.py](ica_examples.py)** - Complete ICA implementation with 10 detailed sections
 
-## Key Concepts Covered
+### Supporting Files
+- **requirements.txt** - Python dependencies
+- **environment.yaml** - Conda environment setup
+- **img/** - Figures and diagrams
+
+## Key Concepts
 
 ### Principal Components Analysis (PCA)
-- **Curse of Dimensionality**: Understanding why dimensionality reduction is necessary
-- **Data Preprocessing**: Normalization and standardization importance
-- **Mathematical Foundation**: Eigenvalue decomposition and optimization
-- **Geometric Intuition**: Principal components as directions of maximum variance
-- **Explained Variance**: Choosing optimal number of components
-- **Reconstruction**: Information loss and compression trade-offs
-- **Practical Applications**: Face recognition (eigenfaces), data compression
-- **Limitations**: Linear assumptions and when to use alternatives
+**Objective**: Find directions of maximum variance in data
+
+**Mathematical Foundation**: 
+- Eigenvalue decomposition of covariance matrix
+- Principal components are eigenvectors
+- Explained variance from eigenvalues
+
+**Algorithm**:
+1. Center and scale data
+2. Compute covariance matrix
+3. Find eigenvectors and eigenvalues
+4. Project data onto principal components
 
 ### Independent Components Analysis (ICA)
-- **Statistical Independence**: Beyond correlation to true independence
-- **The Cocktail Party Problem**: Classic source separation scenario
-- **Linear Mixing Model**: Mathematical formulation of the problem
-- **ICA Ambiguities**: Permutation, scaling, and sign ambiguities
-- **Data Preprocessing**: Whitening and its importance
-- **ICA Algorithms**: Gradient ascent and FastICA implementations
-- **Practical Applications**: Audio separation, image component analysis
-- **Limitations**: Gaussian source constraints and non-linear mixing
+**Objective**: Find statistically independent components
 
-## How to Run the Example Code
+**Linear Mixing Model**: $x = As$ where $s$ are independent sources
 
-### Prerequisites
-- Python 3.7+
-- numpy
-- matplotlib
-- scikit-learn
-- seaborn
-- scipy
+**ICA Ambiguities**:
+- Permutation: Order of components unknown
+- Scaling: Magnitude of components unknown
+- Sign: Direction of components unknown
 
-### Installation
+**Algorithm**:
+1. Center and whiten data
+2. Initialize unmixing matrix
+3. Update using gradient ascent or FastICA
+4. Extract independent components
+
+## Applications
+
+- **Data Visualization**: Reducing to 2D/3D for plotting
+- **Noise Reduction**: Removing irrelevant dimensions
+- **Feature Extraction**: Creating new representations
+- **Compression**: Reducing storage requirements
+- **Source Separation**: Separating mixed signals (ICA)
+
+## Getting Started
+
+1. Read `01_pca.md` for PCA fundamentals
+2. Study `02_ica.md` for ICA concepts
+3. Use `03_hands-on_coding.md` for practical guidance
+4. Run Python examples to see algorithms in action
+
+## Prerequisites
+
+- Linear algebra fundamentals
+- Basic probability and statistics
+- Python programming and NumPy
+- Understanding of optimization concepts
+
+## Installation
+
 ```bash
-pip install numpy matplotlib scikit-learn seaborn scipy
+pip install -r requirements.txt
 ```
 
-### Running the Examples
+Or use conda:
+```bash
+conda env create -f environment.yaml
+```
 
-#### PCA Examples (`pca_examples.py`)
-The PCA script contains 10 comprehensive sections:
+## Running Examples
 
-1. **Understanding the Curse of Dimensionality**: Demonstrates why high-dimensional data is problematic
-2. **Data Preprocessing - Normalization**: Shows importance of feature scaling
-3. **Step-by-Step PCA Implementation**: Manual implementation with detailed explanations
-4. **Geometric Intuition and Visualization**: Visual demonstrations of principal components
-5. **Explained Variance and Dimensionality Reduction**: Analysis of variance preservation
-6. **Reconstruction and Information Loss**: Trade-offs between compression and quality
-7. **Practical Applications**: Face recognition example with eigenfaces
-8. **Comparison with Scikit-learn**: Validation of manual implementation
-9. **Advanced Topics**: Limitations of linear PCA and Kernel PCA preview
-10. **Summary and Best Practices**: Guidelines for effective PCA usage
-
-Run with:
 ```bash
 python pca_examples.py
-```
-
-#### ICA Examples (`ica_examples.py`)
-The ICA script contains 10 comprehensive sections:
-
-1. **Understanding Statistical Independence**: Independence vs. correlation demonstration
-2. **The Cocktail Party Problem**: Realistic simulation of source separation
-3. **ICA Ambiguities and Constraints**: Fundamental limitations of ICA
-4. **Data Preprocessing - Whitening**: Importance of decorrelation
-5. **Manual ICA Implementation**: Gradient ascent algorithm
-6. **FastICA Implementation**: Efficient fixed-point algorithm
-7. **Comparison of Methods**: Different ICA approaches
-8. **Practical Applications**: Audio and image separation examples
-9. **Limitations and Challenges**: Gaussian source constraints
-10. **Summary and Best Practices**: Guidelines for effective ICA usage
-
-Run with:
-```bash
 python ica_examples.py
 ```
 
-## Educational Features
+## Quick Start Code
 
-### Comprehensive Documentation
-- **Mathematical Foundations**: Complete derivations and proofs
-- **Step-by-Step Explanations**: Clear progression from concepts to implementation
-- **Visual Learning**: Multiple plots and diagrams for intuition
-- **Practical Examples**: Real-world applications and use cases
+```python
+# PCA
+from pca_examples import pca_manual
+X_reduced, components, explained_variance = pca_manual(X, n_components=2)
 
-### Interactive Learning
-- **Modular Design**: Each section can be run independently
-- **Detailed Annotations**: Every function and code block explained
-- **Comparison Studies**: Multiple implementations and approaches
-- **Best Practices**: Guidelines for proper usage and common pitfalls
+# ICA
+from ica_examples import ica_gradient_ascent
+unmixing_matrix, independent_components = ica_gradient_ascent(X, n_components=3)
 
-### Advanced Topics
-- **Limitations Discussion**: When methods fail and alternatives
-- **Performance Analysis**: Computational complexity considerations
-- **Validation Techniques**: How to verify results
-- **Real-world Applications**: Practical use cases and examples
+# Using scikit-learn
+from sklearn.decomposition import PCA, FastICA
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
 
-## Mathematical Rigor
+ica = FastICA(n_components=3)
+X_ica = ica.fit_transform(X)
+```
 
-Both markdown files provide:
-- **Complete Mathematical Derivations**: From first principles to final algorithms
-- **Optimization Formulations**: Lagrange multipliers and constraint handling
-- **Statistical Foundations**: Probability theory and information theory
-- **Geometric Interpretations**: Intuitive understanding of abstract concepts
+## Method Comparison
 
-## Practical Implementation
-
-Both Python files provide:
-- **Manual Implementations**: Step-by-step algorithm construction
-- **Library Comparisons**: Validation against established implementations
-- **Performance Analysis**: Computational considerations
-- **Error Handling**: Robust implementations with convergence checks
-
-## Further Reading
-
-### Academic Resources
-- [scikit-learn: PCA documentation](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html)
-- [scikit-learn: FastICA documentation](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.FastICA.html)
-- [Wikipedia: Principal component analysis](https://en.wikipedia.org/wiki/Principal_component_analysis)
-- [Wikipedia: Independent component analysis](https://en.wikipedia.org/wiki/Independent_component_analysis)
-
-### Advanced Topics
-- Kernel PCA for non-linear dimensionality reduction
-- Non-negative Matrix Factorization (NMF)
-- t-SNE and UMAP for visualization
-- Autoencoders for deep learning approaches
-
-## Contributing
-
-This material is designed for educational purposes. The implementations are meant to be clear and educational rather than optimized for production use. For production applications, consider using established libraries like scikit-learn with appropriate parameter tuning and validation.
-
-## License
-
-This educational material is provided for learning purposes. Please refer to the main project license for usage terms. 
+| Method | Goal | Assumptions | Applications |
+|--------|------|-------------|--------------|
+| PCA | Maximize variance | Linear relationships | Visualization, compression |
+| ICA | Find independence | Non-Gaussian sources | Source separation, feature extraction | 
