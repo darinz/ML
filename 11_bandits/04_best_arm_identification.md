@@ -327,78 +327,27 @@ class ABTestBAI:
 ### Clinical Trials
 
 **Treatment Comparison:**
+See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class ClinicalTrialBAI:
-    def __init__(self, n_treatments, delta=0.01):
-        self.bai = SuccessiveElimination(n_treatments, delta)
-        self.patient_outcomes = []
-    
-    def run_trial(self, patients):
-        """Run clinical trial using BAI"""
-        for patient in patients:
-            # Assign treatment
-            treatment = self.bai.select_arm()
-            
-            # Administer treatment and observe outcome
-            outcome = self._administer_treatment_and_observe(patient, treatment)
-            
-            # Update BAI algorithm
-            self.bai.update(treatment, outcome)
-            self.patient_outcomes.append((treatment, outcome))
-            
-            # Check if trial is complete
-            if self.bai.is_complete():
-                break
-        
-        best_treatment = self.bai.get_best_arm()
-        return best_treatment, self.patient_outcomes
-    
-    def _administer_treatment_and_observe(self, patient, treatment):
-        """Administer treatment and observe outcome"""
-        # Simulate treatment administration
-        # In practice, this would involve actual treatment and follow-up
-        baseline = patient.get_baseline_health()
-        treatment_effect = self._get_treatment_effect(treatment, patient)
-        outcome = baseline + treatment_effect + np.random.normal(0, 0.1)
-        return outcome
+    # Use Successive Elimination for clinical trials
+    # Track patient outcomes
+    # Stop when best treatment is identified
 ```
 
 ### Product Development
 
 **Feature Selection:**
+See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class FeatureSelectionBAI:
-    def __init__(self, n_features, delta=0.1):
-        self.bai = RacingAlgorithm(n_features, delta)
-        self.feature_performances = {}
-    
-    def evaluate_features(self, test_cases):
-        """Evaluate features using BAI"""
-        for test_case in test_cases:
-            # Select feature to evaluate
-            feature = self.bai.select_arm()
-            
-            # Evaluate feature performance
-            performance = self._evaluate_feature_performance(feature, test_case)
-            
-            # Update BAI algorithm
-            self.bai.update(feature, performance)
-            
-            # Check if evaluation is complete
-            if self.bai.is_complete():
-                break
-        
-        best_feature = self.bai.get_best_arm()
-        return best_feature, self.feature_performances
-    
-    def _evaluate_feature_performance(self, feature, test_case):
-        """Evaluate performance of a feature on a test case"""
-        # Simulate feature evaluation
-        # In practice, this would involve actual testing
-        base_performance = test_case.get_base_performance()
-        feature_boost = self._get_feature_boost(feature, test_case)
-        performance = base_performance + feature_boost + np.random.normal(0, 0.05)
-        return performance
+    # Use Racing Algorithm for feature selection
+    # Evaluate feature performance
+    # Stop when best feature is identified
 ```
 
 ### Algorithm Selection
