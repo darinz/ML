@@ -288,7 +288,7 @@ plot_regret_comparison(regret_analysis, n_steps=1000)
 ---
 
 ### Lesson 2: Linear Bandits (3-4 hours)
-**Files**: `linucb.py`, `linear_thompson.py`, `feature_engineering.py`
+**Files**: `code/linucb.py`, `code/linear_thompson.py`, `code/feature_engineering.py`
 
 #### Learning Goals
 - Understand linear bandit framework
@@ -302,7 +302,7 @@ plot_regret_comparison(regret_analysis, n_steps=1000)
 **Activity 2.1: Linear Bandit Framework**
 ```python
 # Explore linear bandit framework
-from linucb import LinUCB
+from code.linucb import LinUCB
 
 # Create linear bandit environment
 n_arms = 5
@@ -321,7 +321,7 @@ print(f"True parameter vector: {theta_star}")
 **Activity 2.2: LinUCB Implementation**
 ```python
 # Implement and test LinUCB
-from linucb import run_linucb_experiment
+from code.linucb import run_linucb_experiment
 
 # Generate random arm features
 arm_features = np.random.randn(n_arms, context_dim)
@@ -344,7 +344,7 @@ print(f"LinUCB average final regret: {np.mean(results['regrets'][-1]):.2f}")
 **Activity 2.3: Linear Thompson Sampling**
 ```python
 # Implement linear Thompson sampling
-from linear_thompson import LinearThompsonSampling, run_linear_thompson_experiment
+from code.linear_thompson import LinearThompsonSampling, run_linear_thompson_experiment
 
 # Create linear Thompson sampling bandit
 linear_thompson = LinearThompsonSampling(
