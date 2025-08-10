@@ -2,6 +2,18 @@
 
 This guide provides a comprehensive overview of policy optimization methods for reinforcement learning from human feedback (RLHF) systems. We'll explore policy gradient methods, proximal policy optimization (PPO), trust region policy optimization (TRPO), and their applications to language model training.
 
+## From Reward Functions to Policy Optimization
+
+We've now explored **reward modeling** - the process of learning a function that maps prompt-response pairs to scalar reward values, capturing human preferences and judgments. We've seen how to design neural network architectures that can learn from preference data, how to formulate training objectives that capture the relative nature of human preferences, how to validate and calibrate reward models, and how to address challenges like reward hacking and distributional shift.
+
+However, while having a well-trained reward model is crucial, **the reward function alone** cannot improve language model behavior. Consider having a perfect reward model that can evaluate any response - we still need an optimization algorithm that can update the language model policy to maximize expected reward while maintaining language quality and preventing catastrophic forgetting.
+
+This motivates our exploration of **policy optimization** - the core component of RLHF that updates the language model policy to maximize expected reward from human feedback. We'll see how policy gradient methods like REINFORCE and actor-critic approaches work for language models, how trust region methods like PPO and TRPO ensure stable policy updates, how to handle the unique challenges of language generation (sequential decisions, sparse rewards, high dimensionality), and how to balance reward maximization with maintaining language quality.
+
+The transition from reward modeling to policy optimization represents the bridge from evaluation to improvement - taking our understanding of how to evaluate responses with reward functions and applying it to the challenge of optimizing language model policies to produce better responses.
+
+In this section, we'll explore policy optimization, understanding how to update language model policies to maximize expected reward while maintaining language quality.
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -1034,4 +1046,22 @@ Effective policy optimization enables the training of language models that bette
 
 ---
 
-**Note**: This guide provides the theoretical and practical foundations for policy optimization in RLHF. For specific implementation details and advanced techniques, refer to the implementation examples and external resources referenced in the main README. 
+**Note**: This guide provides the theoretical and practical foundations for policy optimization in RLHF. For specific implementation details and advanced techniques, refer to the implementation examples and external resources referenced in the main README.
+
+## From Policy Optimization to Advanced Alignment
+
+We've now explored **policy optimization** - the core component of RLHF that updates the language model policy to maximize expected reward from human feedback. We've seen how policy gradient methods like REINFORCE and actor-critic approaches work for language models, how trust region methods like PPO and TRPO ensure stable policy updates, how to handle the unique challenges of language generation (sequential decisions, sparse rewards, high dimensionality), and how to balance reward maximization with maintaining language quality.
+
+However, while policy optimization enables basic RLHF training, **the standard RLHF pipeline** has limitations in ensuring comprehensive alignment. Consider a model trained with RLHF - it may be helpful and harmless in most cases, but it might still have blind spots, be vulnerable to adversarial attacks, or lack explicit mechanisms for self-correction and safety.
+
+This motivates our exploration of **advanced alignment techniques** - methods that go beyond standard RLHF to ensure more robust, safe, and beneficial AI behavior. We'll see how Direct Preference Optimization (DPO) eliminates the need for separate reward models, how Constitutional AI enables self-critique and revision, how Red Teaming systematically identifies and addresses safety vulnerabilities, and how multi-objective alignment balances competing objectives like helpfulness, harmlessness, and honesty.
+
+The transition from policy optimization to advanced alignment represents the bridge from basic RLHF to comprehensive AI safety - taking our understanding of how to optimize language model policies and applying it to the challenge of building AI systems that are not just capable but also safe, honest, and beneficial to society.
+
+In the next section, we'll explore advanced alignment techniques, understanding how to build more robust and safe AI systems that go beyond standard RLHF.
+
+---
+
+**Previous: [Reward Modeling](03_reward_modeling.md)** - Learn how to convert human preferences into reward functions.
+
+**Next: [Alignment Techniques](05_alignment_techniques.md)** - Learn advanced techniques for ensuring AI safety and alignment. 
