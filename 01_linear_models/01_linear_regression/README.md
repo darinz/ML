@@ -20,11 +20,11 @@ Linear regression fundamentals including least squares, gradient descent, normal
 - **[06_hands-on_coding.md](06_hands-on_coding.md)** - Practical implementation guide
 
 ### Code Examples
-- **[linear_regression_examples.py](linear_regression_examples.py)** - Basic implementation and visualization
-- **[lms_algorithm_examples.py](lms_algorithm_examples.py)** - Gradient descent variants
-- **[normal_equations_examples.py](normal_equations_examples.py)** - Analytical solutions
-- **[probabilistic_linear_regression_examples.py](probabilistic_linear_regression_examples.py)** - Statistical interpretation
-- **[locally_weighted_linear_regression_examples.py](locally_weighted_linear_regression_examples.py)** - Non-parametric regression
+- **[code/linear_regression_examples.py](code/linear_regression_examples.py)** - Basic implementation and visualization
+- **[code/lms_algorithm_examples.py](code/lms_algorithm_examples.py)** - Gradient descent variants
+- **[code/normal_equations_examples.py](code/normal_equations_examples.py)** - Analytical solutions
+- **[code/probabilistic_linear_regression_examples.py](code/probabilistic_linear_regression_examples.py)** - Statistical interpretation
+- **[code/locally_weighted_linear_regression_examples.py](code/locally_weighted_linear_regression_examples.py)** - Non-parametric regression
 
 ### Interactive Notebook
 - **[03_normal_equations.ipynb](03_normal_equations.ipynb)** - Jupyter notebook with interactive examples
@@ -58,10 +58,10 @@ Linear regression fundamentals including least squares, gradient descent, normal
 
 Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 
 Or use conda:
 ```bash
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 ``` 
