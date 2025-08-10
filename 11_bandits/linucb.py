@@ -14,49 +14,36 @@ from scipy.stats import multivariate_normal
 
 class LinUCB:
     """
-    Linear UCB algorithm for linear bandits.
+    Linear Upper Confidence Bound (LinUCB) algorithm for linear bandits.
     
-    The algorithm assumes rewards are linear functions of arm features:
-    r_t = <theta*, x_{a_t}> + eta_t
-    
-    Attributes:
-        d (int): Feature dimension
-        alpha (float): Exploration parameter
-        lambda_reg (float): Regularization parameter
-        A (np.ndarray): Design matrix
-        b (np.ndarray): Cumulative rewards
-        theta_hat (np.ndarray): Parameter estimate
+    This algorithm extends the UCB principle to linear bandits by maintaining
+    confidence ellipsoids around the parameter estimate.
     """
     
-    def __init__(self, d: int, alpha: float = 1.0, lambda_reg: float = 1.0):
+    def __init__(self, d, alpha=1.0, lambda_reg=1.0):
         """
         Initialize LinUCB algorithm.
         
         Args:
-            d (int): Feature dimension
-            alpha (float): Exploration parameter
-            lambda_reg (float): Regularization parameter
+            d: Dimension of feature vectors
+            alpha: Exploration parameter (typically sqrt(d * log T))
+            lambda_reg: Regularization parameter for ridge regression
         """
         self.d = d
         self.alpha = alpha
         self.lambda_reg = lambda_reg
         
         # Initialize design matrix and parameter estimate
-        self.A = lambda_reg * np.eye(d)
-        self.b = np.zeros(d)
-        self.theta_hat = np.zeros(d)
+        self.A = lambda_reg * np.eye(d)  # Regularized design matrix
+        self.b = np.zeros(d)  # Cumulative rewards
+        self.theta_hat = np.zeros(d)  # Parameter estimate
         
-        # History for analysis
-        self.rewards_history = []
-        self.actions_history = []
-        self.ucb_values_history = []
-        
-    def select_arm(self, arms: List[np.ndarray]) -> int:
+    def select_arm(self, arms):
         """
         Select arm using LinUCB algorithm.
         
         Args:
-            arms (List[np.ndarray]): List of feature vectors for each arm
+            arms: List of feature vectors for available arms
             
         Returns:
             int: Index of selected arm
@@ -73,32 +60,24 @@ class LinUCB:
             # Exploration term
             exploration = self.alpha * np.sqrt(np.dot(x, solve(self.A, x)))
             
-            ucb_value = exploitation + exploration
-            ucb_values.append(ucb_value)
-        
-        # Store UCB values for analysis
-        self.ucb_values_history.append(ucb_values)
+            ucb_values.append(exploitation + exploration)
         
         return np.argmax(ucb_values)
     
-    def update(self, arm_idx: int, reward: float, arms: List[np.ndarray]):
+    def update(self, arm_idx, reward, arm_features):
         """
         Update algorithm with observed reward.
         
         Args:
-            arm_idx (int): Index of pulled arm
-            reward (float): Observed reward
-            arms (List[np.ndarray]): List of feature vectors for each arm
+            arm_idx: Index of the arm that was pulled
+            reward: Observed reward
+            arm_features: List of feature vectors for all arms
         """
-        x = arms[arm_idx]
+        x = arm_features[arm_idx]
         
         # Update design matrix and cumulative rewards
         self.A += np.outer(x, x)
         self.b += reward * x
-        
-        # Store history
-        self.rewards_history.append(reward)
-        self.actions_history.append(arm_idx)
     
     def get_parameter_estimate(self) -> np.ndarray:
         """Get current parameter estimate."""
