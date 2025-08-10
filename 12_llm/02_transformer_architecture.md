@@ -322,7 +322,7 @@ Memory-efficient training is implemented in [`code/training.py`](code/training.p
 
 ### Mixed Precision Training
 
-Mixed precision training is implemented in [`training.py`](training.py) with:
+Mixed precision training is implemented in [`code/training.py`](code/training.py) with:
 
 - Automatic mixed precision (AMP) support
 - Gradient scaling for numerical stability
@@ -331,7 +331,7 @@ Mixed precision training is implemented in [`training.py`](training.py) with:
 
 ### Model Parallelism
 
-Model parallelism is implemented in [`model_parallel.py`](model_parallel.py), which includes:
+Model parallelism is implemented in [`code/model_parallel.py`](code/model_parallel.py), which includes:
 
 - `ModelParallelTransformer`: Parallel transformer implementation
 - `TransformerLayer`: Parallel layer implementation
