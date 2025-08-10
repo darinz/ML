@@ -375,7 +375,7 @@ demonstrate_value_approximation()
 **Activity 3.1: REINFORCE Algorithm**
 ```python
 # Implement the REINFORCE algorithm
-from policy_gradient_examples import (
+from code.policy_gradient_examples import (
     CategoricalPolicy, SimpleMDP, reinforce, demonstrate_reinforce
 )
 
