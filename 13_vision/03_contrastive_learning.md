@@ -87,7 +87,7 @@ SimCLR (Simple Framework for Contrastive Learning of Visual Representations) is 
 
 ### Implementation
 
-**Implementation:** See `simclr.py` for complete SimCLR implementation:
+**Implementation:** See `code/simclr.py` for complete SimCLR implementation:
 - `SimCLRModel` - Complete SimCLR model with encoder and projection head
 - `SimCLRTransform` - Strong data augmentation pipeline
 - `SimCLRLoss` - InfoNCE contrastive loss
@@ -106,7 +106,7 @@ SimCLR (Simple Framework for Contrastive Learning of Visual Representations) is 
 4. **Random Grayscale**: 20% probability
 5. **Gaussian Blur**: Random blur with varying sigma
 
-**Implementation:** See `simclr.py` for data augmentation:
+**Implementation:** See `code/simclr.py` for data augmentation:
 - `SimCLRTransform` - Complete SimCLR augmentation pipeline
 - Random resized crop, horizontal flip, color jittering
 - Random grayscale and Gaussian blur
@@ -125,7 +125,7 @@ MoCo addresses the challenge of maintaining a large dictionary of negative sampl
 
 ### Implementation
 
-**Implementation:** See `moco.py` for complete MoCo implementation:
+**Implementation:** See `code/moco.py` for complete MoCo implementation:
 - `MoCoModel` - Complete MoCo model with momentum encoder and queue
 - `MoCoTransform` - Data augmentation pipeline for MoCo
 - `MoCoLoss` - Contrastive loss with queue-based negatives
@@ -138,14 +138,14 @@ MoCo addresses the challenge of maintaining a large dictionary of negative sampl
 ### MoCo Variants
 
 **MoCo v2 Improvements:**
-**Implementation:** See `moco.py` for MoCo variants:
+**Implementation:** See `code/moco.py` for MoCo variants:
 - MLP projection head instead of linear
 - Stronger data augmentation
 - Cosine learning rate scheduling
 - Improved training stability
 
 **MoCo v3 Simplifications:**
-**Implementation:** See `moco.py` for MoCo v3:
+**Implementation:** See `code/moco.py` for MoCo v3:
 - Simplified projection head
 - Better initialization
 - Improved training stability
@@ -158,7 +158,7 @@ MoCo addresses the challenge of maintaining a large dictionary of negative sampl
 **Architecture Overview:**
 CLIP learns aligned representations between images and text using contrastive learning.
 
-**Implementation:** See `clip_implementation.py` for complete CLIP implementation:
+**Implementation:** See `code/clip_implementation.py` for complete CLIP implementation:
 - `CLIPModel` - Complete CLIP model with image and text encoders
 - `CLIPImageEncoder` - Vision encoder for images
 - `CLIPTextEncoder` - Text encoder for language
@@ -173,7 +173,7 @@ CLIP learns aligned representations between images and text using contrastive le
 **Overview:**
 DALL-E generates images from text descriptions using a discrete VAE and transformer architecture.
 
-**Implementation:** See `dalle_generation.py` for DALL-E implementation:
+**Implementation:** See `code/dalle_generation.py` for DALL-E implementation:
 - `DiscreteVAE` - Discrete variational autoencoder for image tokenization
 - `DALLETransformer` - Transformer for image generation
 - `ImageTokenizer` - Image tokenization utilities
@@ -186,19 +186,19 @@ DALL-E generates images from text descriptions using a discrete VAE and transfor
 ### Training Pipeline
 
 **Implementation:** See individual method files for complete training pipelines:
-- `simclr.py` - SimCLR training pipeline
-- `moco.py` - MoCo training pipeline
-- `clip_implementation.py` - CLIP training pipeline
-- `dalle_generation.py` - DALL-E training pipeline
+- `code/simclr.py` - SimCLR training pipeline
+- `code/moco.py` - MoCo training pipeline
+- `code/clip_implementation.py` - CLIP training pipeline
+- `code/dalle_generation.py` - DALL-E training pipeline
 
 ### Evaluation Protocols
 
 **Linear Evaluation:**
 **Implementation:** See individual method files for evaluation utilities:
-- `simclr.py` - Linear evaluation for SimCLR
-- `moco.py` - Linear evaluation for MoCo
-- `clip_implementation.py` - Linear evaluation for CLIP
-- `dalle_generation.py` - Evaluation for DALL-E
+- `code/simclr.py` - Linear evaluation for SimCLR
+- `code/moco.py` - Linear evaluation for MoCo
+- `code/clip_implementation.py` - Linear evaluation for CLIP
+- `code/dalle_generation.py` - Evaluation for DALL-E
 
 ## Evaluation and Applications
 
@@ -213,7 +213,7 @@ DALL-E generates images from text descriptions using a discrete VAE and transfor
 ### Zero-Shot Learning
 
 **CLIP Zero-Shot Classification:**
-**Implementation:** See `clip_implementation.py` for zero-shot learning:
+**Implementation:** See `code/clip_implementation.py` for zero-shot learning:
 - `zero_shot_classification()` - Zero-shot classification utilities
 - `image_text_retrieval()` - Image-text retrieval capabilities
 - `text_to_image_retrieval()` - Text-to-image retrieval
@@ -222,7 +222,7 @@ DALL-E generates images from text descriptions using a discrete VAE and transfor
 ### Image Retrieval
 
 **Text-to-Image Retrieval:**
-**Implementation:** See `clip_implementation.py` for retrieval:
+**Implementation:** See `code/clip_implementation.py` for retrieval:
 - `image_text_retrieval()` - Image-text retrieval
 - `compute_similarity()` - Similarity computation utilities
 - `rank_results()` - Result ranking and filtering
