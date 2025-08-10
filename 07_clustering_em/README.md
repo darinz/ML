@@ -20,14 +20,14 @@ Materials cover unsupervised learning techniques for discovering patterns and st
 - **[05_hands-on_coding.md](05_hands-on_coding.md)** - Practical implementation guide
 
 ### Implementation
-- **[kmeans_examples.py](kmeans_examples.py)** - Complete k-means implementation with examples
-- **[em_mog_examples.py](em_mog_examples.py)** - EM for Gaussian Mixture Models
-- **[general_em_examples.py](general_em_examples.py)** - General EM framework with multiple models
-- **[variational_auto_encoder_examples.py](variational_auto_encoder_examples.py)** - Complete VAE implementation
+- **[code/kmeans_examples.py](code/kmeans_examples.py)** - Complete k-means implementation with examples
+- **[code/em_mog_examples.py](code/em_mog_examples.py)** - EM for Gaussian Mixture Models
+- **[code/general_em_examples.py](code/general_em_examples.py)** - General EM framework with multiple models
+- **[code/variational_auto_encoder_examples.py](code/variational_auto_encoder_examples.py)** - Complete VAE implementation
 
 ### Supporting Files
-- **requirements.txt** - Python dependencies
-- **environment.yaml** - Conda environment setup
+- **code/requirements.txt** - Python dependencies
+- **code/environment.yaml** - Conda environment setup
 - **img/** - Images and visualizations
 
 ## Key Concepts
@@ -90,41 +90,41 @@ Materials cover unsupervised learning techniques for discovering patterns and st
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 
 Or use conda:
 ```bash
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 ```
 
 ## Running Examples
 
 ```bash
-python kmeans_examples.py
-python em_mog_examples.py
-python general_em_examples.py
-python variational_auto_encoder_examples.py
+python code/kmeans_examples.py
+python code/em_mog_examples.py
+python code/general_em_examples.py
+python code/variational_auto_encoder_examples.py
 ```
 
 ## Quick Start Code
 
 ```python
 # K-Means
-from kmeans_examples import kmeans
+from code.kmeans_examples import kmeans
 centroids, labels, distortion_history, n_iters = kmeans(X, k=3)
 
 # GMM with EM
-from em_mog_examples import em_mog
+from code.em_mog_examples import em_mog
 phi, mu, Sigma, w, logliks, elbos = em_mog(X, k=3)
 
 # General EM
-from general_em_examples import general_em, gmm_initialize, gmm_e_step, gmm_m_step
+from code.general_em_examples import general_em, gmm_initialize, gmm_e_step, gmm_m_step
 init_params = gmm_initialize(X, k=3)
 params, Q, elbos, n_iters = general_em(X, init_params, gmm_e_step, gmm_m_step)
 
 # VAE
-from variational_auto_encoder_examples import VAE
+from code.variational_auto_encoder_examples import VAE
 vae = VAE(input_dim=784, hidden_dim=400, latent_dim=20)
 vae.fit(X_train)
 samples = vae.sample(n_samples=10)
