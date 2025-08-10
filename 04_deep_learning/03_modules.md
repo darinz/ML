@@ -21,9 +21,9 @@ A neural network module is a mathematical function that:
 
 A module can be viewed as a parameterized function:
 
-```math
+$$
 f_\theta: \mathcal{X} \rightarrow \mathcal{Y}
-```
+$$
 
 Where:
 - $\mathcal{X}$ is the input space
@@ -52,9 +52,9 @@ The most fundamental module in neural networks is the matrix multiplication modu
 
 #### Mathematical Definition
 
-```math
+$$
 \mathrm{MM}_{W, b}(z) = Wz + b
-```
+$$
 
 Where:
 - $W \in \mathbb{R}^{n \times m}$ is the weight matrix
@@ -81,9 +81,9 @@ Activation modules introduce non-linearity into neural networks, enabling them t
 
 #### Mathematical Definition
 
-```math
+$$
 \sigma(z) = [\sigma(z_1), \sigma(z_2), \ldots, \sigma(z_n)]^T
-```
+$$
 
 Where $\sigma: \mathbb{R} \rightarrow \mathbb{R}$ is a non-linear function applied element-wise.
 
@@ -104,9 +104,9 @@ Where $\sigma: \mathbb{R} \rightarrow \mathbb{R}$ is a non-linear function appli
 
 Modules can be composed to create more complex functions:
 
-```math
+$$
 f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
-```
+$$
 
 Where each $f_i$ is a module.
 
@@ -114,23 +114,23 @@ Where each $f_i$ is a module.
 
 An MLP is a composition of matrix multiplication and activation modules:
 
-```math
+$$
 \mathrm{MLP}(x) = \mathrm{MM}_{W^{[L]}, b^{[L]}}(\sigma(\mathrm{MM}_{W^{[L-1]}, b^{[L-1]}}(\cdots \mathrm{MM}_{W^{[1]}, b^{[1]}}(x))\cdots))
-```
+$$
 
 Or more compactly:
 
-```math
+$$
 \mathrm{MLP}(x) = \mathrm{MM}(\sigma(\mathrm{MM}(\cdots \mathrm{MM}(x))))
-```
+$$
 
 #### Computational Graph
 
 The computational graph shows the flow of data through the modules:
 
-```
+$$
 Input → MM₁ → σ₁ → MM₂ → σ₂ → ... → MMₗ → Output
-```
+$$
 
 ---
 
@@ -142,9 +142,9 @@ Residual connections, introduced in ResNet, help with training very deep network
 
 #### Mathematical Definition
 
-```math
+$$
 \mathrm{Res}(z) = z + \sigma(\mathrm{MM}_1(\sigma(\mathrm{MM}_2(z))))
-```
+$$
 
 #### Intuition
 
@@ -157,9 +157,9 @@ The residual connection allows the network to:
 
 **Gradient Flow**: The derivative of the residual connection is:
 
-```math
+$$
 \frac{\partial \mathrm{Res}(z)}{\partial z} = I + \frac{\partial}{\partial z}[\sigma(\mathrm{MM}_1(\sigma(\mathrm{MM}_2(z))))]
-```
+$$
 
 The identity term ensures that gradients can flow directly, preventing vanishing gradients.
 
@@ -167,9 +167,9 @@ The identity term ensures that gradients can flow directly, preventing vanishing
 
 A simplified ResNet is a composition of residual blocks:
 
-```math
+$$
 \mathrm{ResNet}\text{-}\mathcal{S}(x) = \mathrm{MM}(\mathrm{Res}(\mathrm{Res}(\cdots \mathrm{Res}(x))))
-```
+$$
 
 ### Layer Normalization
 
@@ -178,23 +178,23 @@ Layer normalization stabilizes training by normalizing activations within each l
 #### Mathematical Definition
 
 **Sub-module (LN-S)**:
-```math
+$$
 \mathrm{LN\text{-}S}(z) = \begin{bmatrix}
 \frac{z_1 - \hat{\mu}}{\hat{\sigma}} \\
 \frac{z_2 - \hat{\mu}}{\hat{\sigma}} \\
 \vdots \\
 \frac{z_m - \hat{\mu}}{\hat{\sigma}}
 \end{bmatrix}
-```
+$$
 
 Where:
 - $\hat{\mu} = \frac{1}{m}\sum_{i=1}^m z_i$ is the empirical mean
 - $\hat{\sigma} = \sqrt{\frac{1}{m}\sum_{i=1}^m (z_i - \hat{\mu})^2}$ is the empirical standard deviation
 
 **Full Layer Normalization**:
-```math
+$$
 \mathrm{LN}(z) = \beta + \gamma \cdot \mathrm{LN\text{-}S}(z)
-```
+$$
 
 Where $\beta$ and $\gamma$ are learnable parameters.
 
@@ -208,31 +208,31 @@ Where $\beta$ and $\gamma$ are learnable parameters.
 
 Layer normalization has an important scale-invariant property:
 
-```math
+$$
 \mathrm{LN}(\mathrm{MM}_{aW, ab}(z)) = \mathrm{LN}(\mathrm{MM}_{W, b}(z)), \forall a \neq 0
-```
+$$
 
 **Proof**:
 
 1. **LN-S is scale-invariant**:
-```math
+$$
 \mathrm{LN\text{-}S}(\alpha z) = \begin{bmatrix}
 \frac{\alpha z_1 - \alpha \hat{\mu}}{\alpha \hat{\sigma}} \\
 \frac{\alpha z_2 - \alpha \hat{\mu}}{\alpha \hat{\sigma}} \\
 \vdots \\
 \frac{\alpha z_m - \alpha \hat{\mu}}{\alpha \hat{\sigma}}
 \end{bmatrix} = \mathrm{LN\text{-}S}(z)
-```
+$$
 
 2. **Full LN inherits scale-invariance**:
-```math
+$$
 \begin{align*}
 \mathrm{LN}(\mathrm{MM}_{aW, ab}(z)) &= \beta + \gamma \mathrm{LN\text{-}S}(\mathrm{MM}_{aW, ab}(z)) \\
 &= \beta + \gamma \mathrm{LN\text{-}S}(a\mathrm{MM}_{W, b}(z)) \\
 &= \beta + \gamma \mathrm{LN\text{-}S}(\mathrm{MM}_{W, b}(z)) \\
 &= \mathrm{LN}(\mathrm{MM}_{W, b}(z))
 \end{align*}
-```
+$$
 
 #### Practical Implications
 
@@ -248,9 +248,9 @@ This scale-invariant property means that:
 
 Batch normalization normalizes across the batch dimension:
 
-```math
+$$
 \mathrm{BN}(x) = \gamma \frac{x - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}} + \beta
-```
+$$
 
 Where $\mu_B$ and $\sigma_B^2$ are computed across the batch dimension.
 
@@ -258,9 +258,9 @@ Where $\mu_B$ and $\sigma_B^2$ are computed across the batch dimension.
 
 Group normalization normalizes within groups of channels:
 
-```math
+$$
 \mathrm{GN}(x) = \gamma \frac{x - \mu_G}{\sqrt{\sigma_G^2 + \epsilon}} + \beta
-```
+$$
 
 Where $\mu_G$ and $\sigma_G^2$ are computed within groups of channels.
 
@@ -283,9 +283,9 @@ Where $\mu_G$ and $\sigma_G^2$ are computed within groups of channels.
 #### Mathematical Definition
 
 **Simplified 1D Convolution (Conv1D-S)**:
-```math
+$$
 \mathrm{Conv1D\text{-}S}(z)_i = \sum_{j=1}^{2\ell+1} w_j z_{i-\ell+(j-1)}
-```
+$$
 
 Where:
 - $w \in \mathbb{R}^k$ is the filter (kernel) with $k = 2\ell + 1$
@@ -296,19 +296,19 @@ Where:
 
 Conv1D-S can be represented as a matrix multiplication with a special structure:
 
-```math
+$$
 Q = \begin{bmatrix}
 w_1 & \cdots & w_{2\ell+1} & 0 & \cdots & 0 & 0 \\
 0 & w_1 & \cdots & w_{2\ell+1} & 0 & \cdots & 0 \\
 \vdots & & & & & & \vdots \\
 0 & \cdots & 0 & w_1 & \cdots & w_{2\ell+1}
 \end{bmatrix}
-```
+$$
 
 Then:
-```math
+$$
 \mathrm{Conv1D\text{-}S}(z) = Qz
-```
+$$
 
 #### Properties
 
@@ -330,9 +330,9 @@ Real-world applications often require multiple input and output channels.
 
 #### Mathematical Definition
 
-```math
+$$
 \forall i \in [C'], \ \mathrm{Conv1D}(z)_i = \sum_{j=1}^C \mathrm{Conv1D\text{-}S}_{i,j}(z_j)
-```
+$$
 
 Where:
 - $z_1, \ldots, z_C$ are input channels
@@ -355,9 +355,9 @@ The reduction in parameters comes from:
 #### Mathematical Definition
 
 **Simplified 2D Convolution (Conv2D-S)**:
-```math
+$$
 \mathrm{Conv2D\text{-}S}(z)_{i,j} = \sum_{p=1}^k \sum_{q=1}^k w_{p,q} z_{i+p-\ell, j+q-\ell}
-```
+$$
 
 Where:
 - $z \in \mathbb{R}^{m \times m}$ is the 2D input
@@ -366,9 +366,9 @@ Where:
 
 #### Multi-Channel 2D Convolution
 
-```math
+$$
 \forall i \in [C'], \ \mathrm{Conv2D}(z)_i = \sum_{j=1}^C \mathrm{Conv2D\text{-}S}_{i,j}(z_j)
-```
+$$
 
 Where:
 - $z_1, \ldots, z_C$ are 2D input channels
@@ -386,9 +386,9 @@ Where:
 
 CNNs are neural networks built primarily from convolutional layers:
 
-```math
+$$
 \mathrm{CNN}(x) = \mathrm{MM}(\mathrm{Conv2D}(\sigma(\mathrm{Conv2D}(\cdots \mathrm{Conv2D}(x)))))
-```
+$$
 
 #### Key Advantages
 
@@ -407,9 +407,9 @@ Transformers use attention mechanisms and layer normalization extensively.
 
 #### Self-Attention Module
 
-```math
+$$
 \mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-```
+$$
 
 Where:
 - $Q, K, V$ are query, key, and value matrices
@@ -418,22 +418,22 @@ Where:
 
 #### Multi-Head Attention
 
-```math
+$$
 \mathrm{MHA}(Q, K, V) = \mathrm{Concat}(\mathrm{head}_1, \ldots, \mathrm{head}_h)W^O
-```
+$$
 
 Where each head is:
-```math
+$$
 \mathrm{head}_i = \mathrm{Attention}(QW_i^Q, KW_i^K, VW_i^V)
-```
+$$
 
 #### Transformer Block
 
 A typical transformer block consists of:
 
-```math
+$$
 \mathrm{TransformerBlock}(x) = \mathrm{LN}_2(x + \mathrm{FFN}(\mathrm{LN}_1(x + \mathrm{MHA}(x))))
-```
+$$
 
 Where:
 - $\mathrm{FFN}$ is a feed-forward network
@@ -444,17 +444,17 @@ Where:
 
 #### ResNet with Batch Normalization
 
-```math
+$$
 \mathrm{ResBlock}(x) = \mathrm{BN}(\sigma(\mathrm{Conv}(\mathrm{BN}(\sigma(\mathrm{Conv}(x)))))) + x
-```
+$$
 
 #### DenseNet
 
 DenseNet connects each layer to every other layer:
 
-```math
+$$
 x_l = \sigma(\mathrm{Conv}([x_0, x_1, \ldots, x_{l-1}]))
-```
+$$
 
 Where $[x_0, x_1, \ldots, x_{l-1}]$ denotes concatenation.
 
@@ -466,33 +466,33 @@ Where $[x_0, x_1, \ldots, x_{l-1}]$ denotes concatenation.
 
 Modules can be composed sequentially:
 
-```math
+$$
 f(x) = f_n \circ f_{n-1} \circ \cdots \circ f_1(x)
-```
+$$
 
 ### Parallel Composition
 
 Modules can be applied in parallel and their outputs combined:
 
-```math
+$$
 f(x) = \mathrm{Combine}(f_1(x), f_2(x), \ldots, f_n(x))
-```
+$$
 
 ### Residual Composition
 
 Modules can be combined with residual connections:
 
-```math
+$$
 f(x) = x + g(x)
-```
+$$
 
 ### Skip Connections
 
 Long-range connections can bypass multiple layers:
 
-```math
+$$
 f(x) = f_n(f_{n-1}(\cdots f_1(x))) + x
-```
+$$
 
 ---
 
