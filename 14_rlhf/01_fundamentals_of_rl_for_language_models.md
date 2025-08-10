@@ -159,7 +159,7 @@ Expected return from taking action $`a`$ in state $`s`$:
 Q^\pi(s, a) = \mathbb{E}_{\pi} \left[ \sum_{t=0}^{\infty} \gamma^t R_t | s_0 = s, a_0 = a \right]
 ```
 
-### Advantage Function
+#### Advantage Function
 Relative value of actions:
 
 ```math
@@ -187,27 +187,11 @@ Where:
 2. Compute returns $`R_t = \sum_{k=t}^T \gamma^{k-t} r_k`$
 3. Update policy: $`\theta \leftarrow \theta + \alpha \sum_t R_t \nabla_\theta \log \pi_\theta(a_t|s_t)`$
 
-**Implementation for Language Models**:
-```python
-def reinforce_loss(log_probs, rewards):
-    """
-    Compute REINFORCE loss for language generation
-    
-    Args:
-        log_probs: Log probabilities of generated tokens [batch_size, seq_len]
-        rewards: Rewards for each sequence [batch_size]
-    
-    Returns:
-        loss: Policy gradient loss
-    """
-    # Compute log probability of each sequence
-    seq_log_probs = log_probs.sum(dim=1)  # [batch_size]
-    
-    # Compute loss (negative because we want to maximize reward)
-    loss = -(seq_log_probs * rewards).mean()
-    
-    return loss
-```
+**Implementation:** See `policy_optimization.py` for REINFORCE implementation:
+- `REINFORCETrainer` - Complete REINFORCE trainer for language models
+- `reinforce_loss()` - REINFORCE loss computation
+- `train_step()` - Training step implementation
+- `generate_responses()` - Response generation utilities
 
 ### Actor-Critic Methods
 
@@ -241,6 +225,13 @@ Where:
 ```math
 L(\theta) = \mathbb{E}_t [r_t(\theta) A_t - \beta \text{KL}(\pi_{\theta_{old}} \| \pi_\theta)]
 ```
+
+**Implementation:** See `policy_optimization.py` for PPO implementation:
+- `PPOTrainer` - Complete PPO trainer for language models
+- `ppo_loss()` - PPO loss computation with KL penalty
+- `compute_advantages()` - Generalized Advantage Estimation (GAE)
+- `compute_kl_divergence()` - KL divergence computation
+- `train_step()` - PPO training step
 
 ## Practical Considerations
 
@@ -294,131 +285,42 @@ L(\theta) = \mathbb{E}_t [r_t(\theta) A_t] - \beta \text{KL}(\pi_{\text{ref}} \|
 
 ### Basic RLHF Pipeline
 
-```python
-import torch
-import torch.nn as nn
-from transformers import AutoTokenizer, AutoModelForCausalLM
-
-class RLHFTrainer:
-    def __init__(self, model_name, reward_model):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(model_name)
-        self.reward_model = reward_model
-        self.ref_model = AutoModelForCausalLM.from_pretrained(model_name)
-        
-    def compute_rewards(self, prompts, responses):
-        """Compute rewards using reward model"""
-        inputs = self.tokenizer(prompts + responses, return_tensors='pt', padding=True)
-        with torch.no_grad():
-            rewards = self.reward_model(**inputs)
-        return rewards
-    
-    def ppo_step(self, prompts, responses, rewards):
-        """Perform PPO update"""
-        # Tokenize inputs
-        inputs = self.tokenizer(prompts, return_tensors='pt', padding=True)
-        response_tokens = self.tokenizer(responses, return_tensors='pt', padding=True)
-        
-        # Get log probabilities
-        outputs = self.model(**inputs, labels=response_tokens['input_ids'])
-        log_probs = outputs.logits.log_softmax(dim=-1)
-        
-        # Compute PPO loss
-        ratio = torch.exp(log_probs - self.ref_log_probs)
-        clip_adv = torch.clamp(ratio, 1-0.2, 1+0.2) * rewards
-        loss = -torch.min(ratio * rewards, clip_adv).mean()
-        
-        return loss
-```
+**Implementation:** See `policy_optimization.py` for complete RLHF pipeline:
+- `PolicyOptimizationPipeline` - Complete RLHF training pipeline
+- Support for PPO, TRPO, and REINFORCE methods
+- `train_epoch()` - Complete training loop
+- `evaluate()` - Model evaluation utilities
+- `save_model()` and `load_model()` - Model persistence
 
 ### Reward Model Implementation
 
-```python
-class RewardModel(nn.Module):
-    def __init__(self, base_model):
-        super().__init__()
-        self.base_model = base_model
-        self.reward_head = nn.Linear(base_model.config.hidden_size, 1)
-        
-    def forward(self, input_ids, attention_mask=None):
-        outputs = self.base_model(input_ids, attention_mask=attention_mask)
-        hidden_states = outputs.last_hidden_state
-        
-        # Pool over sequence length
-        pooled = hidden_states.mean(dim=1)  # [batch_size, hidden_size]
-        
-        # Predict reward
-        reward = self.reward_head(pooled).squeeze(-1)  # [batch_size]
-        
-        return reward
-    
-    def preference_loss(self, chosen_ids, rejected_ids, attention_mask=None):
-        """Compute preference learning loss"""
-        chosen_rewards = self.forward(chosen_ids, attention_mask)
-        rejected_rewards = self.forward(rejected_ids, attention_mask)
-        
-        # Preference loss
-        loss = -torch.log(torch.sigmoid(chosen_rewards - rejected_rewards)).mean()
-        
-        return loss
-```
+**Implementation:** See `reward_model.py` for complete reward model implementation:
+- `RewardModel` - Basic reward model for prompt-response pairs
+- `SeparateEncoderRewardModel` - Separate encoders for prompt and response
+- `MultiObjectiveRewardModel` - Multi-objective reward modeling
+- `RewardModelTrainer` - Complete training pipeline
+- `RewardModelInference` - Inference utilities
+- `preference_loss()` - Preference learning loss
+- `ranking_loss()` - Ranking-based loss functions
 
 ### PPO Implementation
 
-```python
-class PPOTrainer:
-    def __init__(self, model, ref_model, reward_model, tokenizer):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.tokenizer = tokenizer
-        
-    def generate_responses(self, prompts, max_length=100):
-        """Generate responses using current policy"""
-        inputs = self.tokenizer(prompts, return_tensors='pt', padding=True)
-        
-        with torch.no_grad():
-            outputs = self.model.generate(
-                **inputs,
-                max_length=max_length,
-                do_sample=True,
-                temperature=0.7,
-                pad_token_id=self.tokenizer.eos_token_id
-            )
-        
-        responses = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
-        return responses
-    
-    def compute_kl_penalty(self, prompts, responses):
-        """Compute KL divergence between current and reference policy"""
-        inputs = self.tokenizer(prompts + responses, return_tensors='pt', padding=True)
-        
-        with torch.no_grad():
-            ref_logits = self.ref_model(**inputs).logits
-            current_logits = self.model(**inputs).logits
-        
-        kl_div = torch.nn.functional.kl_div(
-            current_logits.log_softmax(dim=-1),
-            ref_logits.log_softmax(dim=-1),
-            reduction='batchmean'
-        )
-        
-        return kl_div
-    
-    def ppo_update(self, prompts, responses, rewards, kl_coef=0.1):
-        """Perform PPO update with KL penalty"""
-        # Compute rewards
-        batch_rewards = self.reward_model.compute_rewards(prompts, responses)
-        
-        # Compute KL penalty
-        kl_penalty = self.compute_kl_penalty(prompts, responses)
-        
-        # PPO loss with KL penalty
-        loss = self.compute_ppo_loss(prompts, responses, batch_rewards)
-        total_loss = loss + kl_coef * kl_penalty
-        
-        return total_loss
-```
+**Implementation:** See `policy_optimization.py` for PPO implementation:
+- `PPOTrainer` - Complete PPO trainer with KL penalty
+- `compute_advantages()` - GAE advantage estimation
+- `compute_kl_divergence()` - KL divergence computation
+- `ppo_loss()` - PPO loss with clipping
+- `generate_responses()` - Response generation
+- `train_step()` - Complete PPO training step
+
+### TRPO Implementation
+
+**Implementation:** See `policy_optimization.py` for TRPO implementation:
+- `TRPOTrainer` - Complete TRPO trainer
+- `conjugate_gradient()` - Conjugate gradient optimization
+- `fisher_vector_product()` - Fisher information matrix operations
+- `compute_kl()` - KL divergence computation
+- `trpo_step()` - TRPO training step
 
 ## Advanced Topics
 
@@ -432,6 +334,11 @@ R_{\text{total}}(s, a) = \sum_{i=1}^k w_i R_i(s, a)
 ```
 
 Where $`w_i`$ are weights for different objectives.
+
+**Implementation:** See `reward_model.py` for multi-objective implementation:
+- `MultiObjectiveRewardModel` - Multi-objective reward modeling
+- Support for multiple reward heads
+- Weighted combination of objectives
 
 ### Hierarchical RL for Language Models
 
@@ -454,6 +361,10 @@ Where $`w_i`$ are weights for different objectives.
 - Non-stationary environment
 - Coordination and competition
 - Emergent behaviors
+
+**Implementation:** See `chatbot_rlhf.py` for conversational RLHF:
+- `ConversationalRLHF` - Multi-agent conversational training
+- `ConversationalRewardModel` - Reward modeling for conversations
 
 ## Summary
 
