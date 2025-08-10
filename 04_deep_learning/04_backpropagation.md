@@ -24,6 +24,18 @@ Without backpropagation, training deep neural networks would be computationally 
 - Automatically compute gradients for complex architectures
 - Scale deep learning to real-world applications
 
+## From Modular Design to Training Algorithms
+
+We've now explored how to design and implement neural network modules - the building blocks that enable us to construct sophisticated architectures systematically. We've seen how common patterns can be implemented as reusable modules and how these modules can be composed to create complex neural networks.
+
+However, having well-designed modules is only part of the story. To make these modules learn from data, we need **training algorithms** that can efficiently compute gradients and update parameters. The modular design we've established provides the foundation, but we need algorithms that can work with these complex architectures.
+
+This motivates our exploration of **backpropagation** - the fundamental algorithm that enables neural networks to learn by efficiently computing gradients through the computational graph. We'll see how the modular structure we've designed enables efficient gradient computation and how this algorithm scales to deep architectures.
+
+The transition from modular design to training algorithms represents the bridge from architecture to learning - taking our systematic approach to building neural networks and turning it into a practical system that can learn from data.
+
+In this section, we'll explore how backpropagation works, how it leverages the modular structure of neural networks, and how it enables efficient training of deep architectures.
+
 ---
 
 ## 7.4 Mathematical Foundations
@@ -660,3 +672,21 @@ gradients = tape.gradient(loss, [x, W, b])
 ---
 
 *This concludes our comprehensive exploration of backpropagation. This algorithm is the cornerstone of deep learning, enabling the training of complex neural networks that have revolutionized artificial intelligence.*
+
+## From Training Algorithms to Computational Efficiency
+
+We've now explored **backpropagation** - the fundamental algorithm that enables neural networks to learn by efficiently computing gradients through the computational graph. We've seen how this algorithm leverages the modular structure of neural networks and enables training of deep architectures.
+
+However, while backpropagation provides the mathematical framework for training, implementing it efficiently requires careful attention to **computational optimization**. Modern deep learning systems process massive amounts of data and require training of models with millions of parameters, making computational efficiency crucial.
+
+This motivates our exploration of **vectorization** - the techniques that enable efficient computation by leveraging parallel processing and optimized matrix operations. We'll see how vectorization can dramatically speed up both forward and backward passes, making deep learning practical for real-world applications.
+
+The transition from training algorithms to computational efficiency represents the bridge from mathematical correctness to practical performance - taking our understanding of how neural networks learn and turning it into systems that can train efficiently on large-scale problems.
+
+In the next section, we'll explore how vectorization works, how it can be applied to neural network operations, and how it enables the computational efficiency needed for modern deep learning.
+
+---
+
+**Previous: [Neural Network Modules](03_modules.md)** - Learn how to design and implement modular neural network components.
+
+**Next: [Vectorization](05_vectorization.md)** - Understand how to optimize neural network computation through vectorization techniques.
