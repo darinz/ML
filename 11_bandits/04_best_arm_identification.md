@@ -353,178 +353,65 @@ class FeatureSelectionBAI:
 ### Algorithm Selection
 
 **Machine Learning Algorithm Selection:**
+See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class AlgorithmSelectionBAI:
-    def __init__(self, algorithms, delta=0.05):
-        self.n_algorithms = len(algorithms)
-        self.bai = SequentialHalving(self.n_algorithms, budget=1000)
-        self.algorithms = algorithms
-        self.performance_history = {}
-    
-    def select_best_algorithm(self, dataset):
-        """Select best algorithm using BAI"""
-        # Split dataset for evaluation
-        train_data, test_data = self._split_dataset(dataset)
-        
-        while not self.bai.is_complete():
-            # Select algorithm to evaluate
-            alg_idx = self.bai.select_arm()
-            algorithm = self.algorithms[alg_idx]
-            
-            # Train and evaluate algorithm
-            performance = self._train_and_evaluate(algorithm, train_data, test_data)
-            
-            # Update BAI algorithm
-            self.bai.update(alg_idx, performance)
-        
-        best_alg_idx = self.bai.get_best_arm()
-        return self.algorithms[best_alg_idx]
-    
-    def _train_and_evaluate(self, algorithm, train_data, test_data):
-        """Train and evaluate an algorithm"""
-        # Train algorithm
-        algorithm.train(train_data)
-        
-        # Evaluate on test data
-        predictions = algorithm.predict(test_data.X)
-        performance = self._calculate_performance(predictions, test_data.y)
-        
-        return performance
-    
-    def _calculate_performance(self, predictions, true_values):
-        """Calculate performance metric"""
-        # Example: accuracy for classification
-        correct = sum(1 for p, t in zip(predictions, true_values) if p == t)
-        return correct / len(predictions)
+    # Use Sequential Halving for algorithm selection
+    # Train and evaluate algorithms
+    # Stop when best algorithm is identified
 ```
 
 ## Implementation Examples
 
 ### Complete BAI Environment
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+See [`bai_environment.py`](bai_environment.py) for the complete implementation.
 
+```python
+# Key components:
 class BAIEnvironment:
-    def __init__(self, arm_means, noise_std=0.1):
-        self.arm_means = arm_means
-        self.noise_std = noise_std
-        self.n_arms = len(arm_means)
-        self.optimal_arm = np.argmax(arm_means)
-        self.optimal_mean = arm_means[self.optimal_arm]
-        
-    def pull_arm(self, arm_idx):
-        """Pull arm and return reward"""
-        expected_reward = self.arm_means[arm_idx]
-        noise = np.random.normal(0, self.noise_std)
-        return expected_reward + noise
-    
-    def get_gaps(self):
-        """Calculate gaps between optimal arm and others"""
-        gaps = []
-        for i in range(self.n_arms):
-            if i != self.optimal_arm:
-                gap = self.optimal_mean - self.arm_means[i]
-                gaps.append(gap)
-        return gaps
+    # BAI environment with arm means and noise
+    # Pull arms and observe rewards
+    # Calculate gaps between optimal and suboptimal arms
 
 def run_bai_experiment(env, algorithm, max_pulls=1000):
-    """Run BAI experiment"""
-    pulls_used = 0
-    success = False
-    
-    while pulls_used < max_pulls and not algorithm.is_complete():
-        # Select arm
-        arm_idx = algorithm.select_arm()
-        
-        # Pull arm and observe reward
-        reward = env.pull_arm(arm_idx)
-        
-        # Update algorithm
-        algorithm.update(arm_idx, reward)
-        pulls_used += 1
-        
-        # Check if correct arm is identified
-        if algorithm.is_complete():
-            identified_arm = algorithm.get_best_arm()
-            success = (identified_arm == env.optimal_arm)
-            break
-    
-    return success, pulls_used, algorithm.get_best_arm()
+    # Run BAI experiment
+    # Select arms, observe rewards, check completion
 ```
 
 ### Algorithm Comparison
 
+See [`bai_environment.py`](bai_environment.py) for the complete implementation.
+
 ```python
+# Key functionality:
 def compare_bai_algorithms(env, algorithms, n_runs=100, max_pulls=1000):
-    """Compare different BAI algorithms"""
-    results = {}
-    
-    for name, algorithm_class in algorithms.items():
-        success_rates = []
-        sample_complexities = []
-        
-        for run in range(n_runs):
-            # Create fresh algorithm instance
-            algorithm = algorithm_class(env.n_arms)
-            
-            # Run experiment
-            success, pulls, identified_arm = run_bai_experiment(env, algorithm, max_pulls)
-            
-            success_rates.append(success)
-            sample_complexities.append(pulls)
-        
-        results[name] = {
-            'success_rate': np.mean(success_rates),
-            'avg_sample_complexity': np.mean(sample_complexities),
-            'std_sample_complexity': np.std(sample_complexities)
-        }
-    
-    return results
+    # Compare different BAI algorithms
+    # Run multiple independent trials
+    # Return success rates and sample complexities
 
-# Example usage
-arm_means = [0.1, 0.2, 0.3, 0.4, 0.5]
-env = BAIEnvironment(arm_means)
-
-algorithms = {
-    'Successive Elimination': lambda n: SuccessiveElimination(n, delta=0.1),
-    'Racing': lambda n: RacingAlgorithm(n, delta=0.1),
-    'LUCB': lambda n: LUCB(n, delta=0.1),
-    'Sequential Halving': lambda n: SequentialHalving(n, budget=1000)
-}
-
-results = compare_bai_algorithms(env, algorithms)
+# Example usage:
+# arm_means = [0.1, 0.2, 0.3, 0.4, 0.5]
+# env = BAIEnvironment(arm_means)
+# algorithms = {'Successive Elimination': ..., 'Racing': ..., 'LUCB': ..., 'Sequential Halving': ...}
+# results = compare_bai_algorithms(env, algorithms)
 ```
 
 ### Visualization
 
-```python
-def plot_bai_results(results):
-    """Plot BAI algorithm comparison"""
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    
-    # Success rate comparison
-    names = list(results.keys())
-    success_rates = [results[name]['success_rate'] for name in names]
-    
-    ax1.bar(names, success_rates)
-    ax1.set_ylabel('Success Rate')
-    ax1.set_title('BAI Algorithm Success Rate Comparison')
-    ax1.set_ylim(0, 1)
-    
-    # Sample complexity comparison
-    sample_complexities = [results[name]['avg_sample_complexity'] for name in names]
-    std_complexities = [results[name]['std_sample_complexity'] for name in names]
-    
-    ax2.bar(names, sample_complexities, yerr=std_complexities, capsize=5)
-    ax2.set_ylabel('Average Sample Complexity')
-    ax2.set_title('BAI Algorithm Sample Complexity Comparison')
-    
-    plt.tight_layout()
-    plt.show()
+See [`bai_environment.py`](bai_environment.py) for the complete implementation.
 
-plot_bai_results(results)
+```python
+# Key functionality:
+def plot_bai_results(results):
+    # Plot success rate comparison
+    # Plot sample complexity comparison
+    # Include error bars and proper labeling
+
+# Usage:
+# plot_bai_results(results)
 ```
 
 ## Summary
@@ -561,6 +448,17 @@ This motivates our exploration of **applications and use cases** - the practical
 The transition from best arm identification to applications represents the bridge from pure exploration to practical impact - taking our understanding of how to identify optimal actions and applying it to real-world scenarios where intelligent decision-making under uncertainty provides significant value.
 
 In the next section, we'll explore applications and use cases, understanding how bandit algorithms solve real-world problems and create value across diverse domains.
+
+## Complete Example Usage
+
+See [`bai_example.py`](bai_example.py) for a complete example demonstrating how to use all BAI algorithms together, including:
+
+- Environment setup and algorithm comparison
+- Performance analysis and ranking
+- Single algorithm demonstrations
+- Confidence interval visualization
+
+The example includes comprehensive analysis of success rates, sample complexities, and efficiency metrics across all BAI algorithms.
 
 ---
 
