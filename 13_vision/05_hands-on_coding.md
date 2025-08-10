@@ -11,6 +11,18 @@ We've explored the revolutionary framework of **Computer Vision**, which address
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different vision architectures, and develop the intuition needed to build intelligent systems that can see, understand, and generate visual content.
 
+## From Theoretical Understanding to Hands-On Mastery
+
+We've now explored **foundation models for vision** - large-scale models that leverage massive datasets and computational resources to learn general-purpose visual representations. We've seen how CLIP enables zero-shot classification and retrieval through vision-language alignment, how SAM provides universal segmentation capabilities, how DALL-E demonstrates text-to-image generation, and how these models represent a paradigm shift in computer vision.
+
+However, while understanding foundation models is valuable, **true mastery** comes from hands-on implementation. Consider building a system that can classify images without training on specific categories, or implementing a segmentation model that can segment any object in any image - these require not just theoretical knowledge but practical skills in implementing vision transformers, contrastive learning, and foundation models.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the computer vision concepts we've learned. We'll put our theoretical knowledge into practice by implementing Vision Transformers from scratch, building self-supervised learning systems, applying contrastive learning frameworks, and developing practical applications using foundation models for classification, segmentation, and generation.
+
+The transition from foundation models to hands-on coding represents the bridge from understanding to implementation - taking our knowledge of how modern computer vision works and turning it into practical tools for building intelligent vision systems.
+
+In this practical guide, we'll implement complete computer vision systems, experiment with different architectures and learning paradigms, and develop the practical skills needed for real-world applications in computer vision and AI.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -1122,6 +1134,18 @@ The principles we've learned here - attention mechanisms, self-supervised learni
 5. **Continue learning** about computer vision
 
 Remember: Computer Vision is not just algorithms - it's a fundamental approach to enabling machines to see and understand the world. Keep exploring, building, and applying these concepts to create more intelligent and capable vision systems!
+
+---
+
+**Previous: [Foundation Models](04_foundation_models.md)** - Learn how large-scale models enable zero-shot vision capabilities.
+
+**Next: [Reinforcement Learning from Human Feedback](../14_rlhf/README.md)** - Explore techniques for aligning AI systems with human preferences.
+
+---
+
+**Previous: [Foundation Models](04_foundation_models.md)** - Learn how large-scale models enable zero-shot vision capabilities.
+
+**Next: [Reinforcement Learning from Human Feedback](../14_rlhf/README.md)** - Explore techniques for aligning AI systems with human preferences.
 
 ---
 
