@@ -187,7 +187,7 @@ Where:
 2. Compute returns $`R_t = \sum_{k=t}^T \gamma^{k-t} r_k`$
 3. Update policy: $`\theta \leftarrow \theta + \alpha \sum_t R_t \nabla_\theta \log \pi_\theta(a_t|s_t)`$
 
-**Implementation:** See `policy_optimization.py` for REINFORCE implementation:
+**Implementation:** See `code/policy_optimization.py` for REINFORCE implementation:
 - `REINFORCETrainer` - Complete REINFORCE trainer for language models
 - `reinforce_loss()` - REINFORCE loss computation
 - `train_step()` - Training step implementation
@@ -226,7 +226,7 @@ Where:
 L(\theta) = \mathbb{E}_t [r_t(\theta) A_t - \beta \text{KL}(\pi_{\theta_{old}} \| \pi_\theta)]
 ```
 
-**Implementation:** See `policy_optimization.py` for PPO implementation:
+**Implementation:** See `code/policy_optimization.py` for PPO implementation:
 - `PPOTrainer` - Complete PPO trainer for language models
 - `ppo_loss()` - PPO loss computation with KL penalty
 - `compute_advantages()` - Generalized Advantage Estimation (GAE)
@@ -285,7 +285,7 @@ L(\theta) = \mathbb{E}_t [r_t(\theta) A_t] - \beta \text{KL}(\pi_{\text{ref}} \|
 
 ### Basic RLHF Pipeline
 
-**Implementation:** See `policy_optimization.py` for complete RLHF pipeline:
+**Implementation:** See `code/policy_optimization.py` for complete RLHF pipeline:
 - `PolicyOptimizationPipeline` - Complete RLHF training pipeline
 - Support for PPO, TRPO, and REINFORCE methods
 - `train_epoch()` - Complete training loop
@@ -294,7 +294,7 @@ L(\theta) = \mathbb{E}_t [r_t(\theta) A_t] - \beta \text{KL}(\pi_{\text{ref}} \|
 
 ### Reward Model Implementation
 
-**Implementation:** See `reward_model.py` for complete reward model implementation:
+**Implementation:** See `code/reward_model.py` for complete reward model implementation:
 - `RewardModel` - Basic reward model for prompt-response pairs
 - `SeparateEncoderRewardModel` - Separate encoders for prompt and response
 - `MultiObjectiveRewardModel` - Multi-objective reward modeling
@@ -305,7 +305,7 @@ L(\theta) = \mathbb{E}_t [r_t(\theta) A_t] - \beta \text{KL}(\pi_{\text{ref}} \|
 
 ### PPO Implementation
 
-**Implementation:** See `policy_optimization.py` for PPO implementation:
+**Implementation:** See `code/policy_optimization.py` for PPO implementation:
 - `PPOTrainer` - Complete PPO trainer with KL penalty
 - `compute_advantages()` - GAE advantage estimation
 - `compute_kl_divergence()` - KL divergence computation
@@ -315,7 +315,7 @@ L(\theta) = \mathbb{E}_t [r_t(\theta) A_t] - \beta \text{KL}(\pi_{\text{ref}} \|
 
 ### TRPO Implementation
 
-**Implementation:** See `policy_optimization.py` for TRPO implementation:
+**Implementation:** See `code/policy_optimization.py` for TRPO implementation:
 - `TRPOTrainer` - Complete TRPO trainer
 - `conjugate_gradient()` - Conjugate gradient optimization
 - `fisher_vector_product()` - Fisher information matrix operations
@@ -335,7 +335,7 @@ R_{\text{total}}(s, a) = \sum_{i=1}^k w_i R_i(s, a)
 
 Where $`w_i`$ are weights for different objectives.
 
-**Implementation:** See `reward_model.py` for multi-objective implementation:
+**Implementation:** See `code/reward_model.py` for multi-objective implementation:
 - `MultiObjectiveRewardModel` - Multi-objective reward modeling
 - Support for multiple reward heads
 - Weighted combination of objectives
@@ -362,7 +362,7 @@ Where $`w_i`$ are weights for different objectives.
 - Coordination and competition
 - Emergent behaviors
 
-**Implementation:** See `chatbot_rlhf.py` for conversational RLHF:
+**Implementation:** See `code/chatbot_rlhf.py` for conversational RLHF:
 - `ConversationalRLHF` - Multi-agent conversational training
 - `ConversationalRewardModel` - Reward modeling for conversations
 
