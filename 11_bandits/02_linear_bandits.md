@@ -355,6 +355,15 @@ class AdaptiveTrial:
 
 ## Implementation Examples
 
+### Complete Example Usage
+
+See [`linear_bandit_example.py`](linear_bandit_example.py) for a complete example that demonstrates how to use all the linear bandit algorithms together.
+
+```python
+# Run a complete experiment comparing LinUCB, Linear Thompson Sampling, and OFUL
+# python linear_bandit_example.py
+```
+
 ### Complete Linear Bandit Environment
 
 See [`linear_bandit_environment.py`](linear_bandit_environment.py) for the complete implementation.
@@ -373,83 +382,35 @@ def run_linear_bandit_experiment(env, algorithm, T=1000):
 
 ### Algorithm Comparison
 
+See [`linear_bandit_environment.py`](linear_bandit_environment.py) for the complete implementation.
+
 ```python
+# Key functionality:
 def compare_linear_algorithms(env, algorithms, T=1000, n_runs=50):
-    """Compare different linear bandit algorithms"""
-    results = {}
-    
-    for name, algorithm_class in algorithms.items():
-        regrets = []
-        for run in range(n_runs):
-            # Create fresh algorithm instance
-            algorithm = algorithm_class(env.d)
-            
-            # Run experiment
-            chosen_arms, rewards = run_linear_bandit_experiment(env, algorithm, T)
-            
-            # Calculate regret
-            regret = env.get_regret(chosen_arms, rewards)
-            regrets.append(regret)
-        
-        results[name] = np.mean(regrets, axis=0)
-    
-    return results
+    # Compare different linear bandit algorithms
+    # Run multiple independent trials
+    # Return average regrets for each algorithm
 
-# Example usage
-d = 5
-K = 10
-theta_star = np.random.randn(d)
-theta_star = theta_star / np.linalg.norm(theta_star)  # Normalize
-
-# Generate random arms
-arms = np.random.randn(K, d)
-arms = arms / np.linalg.norm(arms, axis=1, keepdims=True)  # Normalize
-
-env = LinearBanditEnvironment(theta_star, arms)
-
-algorithms = {
-    'LinUCB': lambda d: LinUCB(d, alpha=1.0),
-    'Linear TS': lambda d: LinearThompsonSampling(d, sigma=1.0),
-    'OFUL': lambda d: OFUL(d, delta=0.1)
-}
-
-results = compare_linear_algorithms(env, algorithms)
+# Example usage:
+# d = 5, K = 10, theta_star = normalized random vector
+# arms = normalized random feature vectors
+# algorithms = {'LinUCB': ..., 'Linear TS': ..., 'OFUL': ...}
+# results = compare_linear_algorithms(env, algorithms)
 ```
 
 ### Visualization
 
-```python
-def plot_linear_bandit_results(results, T):
-    """Plot regret comparison for linear bandit algorithms"""
-    plt.figure(figsize=(12, 8))
-    
-    # Plot cumulative regret
-    plt.subplot(2, 1, 1)
-    for name, regret in results.items():
-        plt.plot(range(1, T+1), regret, label=name, linewidth=2)
-    
-    plt.xlabel('Time Step')
-    plt.ylabel('Cumulative Regret')
-    plt.title('Linear Bandit Algorithm Comparison')
-    plt.legend()
-    plt.grid(True)
-    
-    # Plot regret rate (regret / sqrt(t))
-    plt.subplot(2, 1, 2)
-    for name, regret in results.items():
-        regret_rate = regret / np.sqrt(range(1, T+1))
-        plt.plot(range(1, T+1), regret_rate, label=name, linewidth=2)
-    
-    plt.xlabel('Time Step')
-    plt.ylabel('Regret Rate (R(t) / √t)')
-    plt.title('Regret Rate Comparison')
-    plt.legend()
-    plt.grid(True)
-    
-    plt.tight_layout()
-    plt.show()
+See [`linear_bandit_environment.py`](linear_bandit_environment.py) for the complete implementation.
 
-plot_linear_bandit_results(results, 1000)
+```python
+# Key functionality:
+def plot_linear_bandit_results(results, T):
+    # Plot cumulative regret comparison
+    # Plot regret rate (regret / sqrt(t))
+    # Include legend and proper labeling
+
+# Usage:
+# plot_linear_bandit_results(results, 1000)
 ```
 
 ## Summary
