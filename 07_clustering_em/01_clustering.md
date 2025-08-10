@@ -122,3 +122,19 @@ Suppose you have points $`x_1, x_2, ..., x_m`$ and want to pick a single point $
 - Multiple runs and careful initialization can improve results.
 - Understanding the math and intuition behind each step helps you use k-means effectively.
 
+## From Hard Clustering to Probabilistic Models
+
+We've now explored **k-means clustering** - a simple but effective algorithm for partitioning data into groups based on similarity. We've seen how k-means works by alternating between assigning points to the nearest centroid and updating centroids to the mean of their assigned points, minimizing the total squared distance within clusters.
+
+However, while k-means provides a straightforward approach to clustering, it has limitations: it makes **hard assignments** (each point belongs to exactly one cluster), assumes **spherical clusters** of equal size, and doesn't provide uncertainty estimates about cluster assignments. Many real-world clustering problems require more flexibility and probabilistic reasoning.
+
+This motivates our exploration of **Gaussian Mixture Models (GMM)** and the **Expectation-Maximization (EM) algorithm** - a probabilistic approach to clustering that provides soft assignments, can model clusters of different shapes and sizes, and gives us uncertainty estimates about cluster membership.
+
+The transition from k-means to GMM represents the bridge from deterministic to probabilistic clustering - taking our understanding of how to group similar data points and extending it to handle uncertainty and more complex cluster structures.
+
+In the next section, we'll explore how EM works with mixture models, how to compute soft assignments, and how this probabilistic framework provides more flexibility than hard clustering methods.
+
+---
+
+**Next: [EM and Mixture of Gaussians](02_em_mixture_of_gaussians.md)** - Learn probabilistic clustering using the Expectation-Maximization algorithm.
+
