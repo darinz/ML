@@ -301,7 +301,7 @@ BERT-style classification models are implemented in [`code/transformer.py`](code
 
 ### Example 3: Sequence-to-Sequence Translation
 
-Sequence-to-sequence translation models are implemented in [`transformer.py`](transformer.py) with the `Transformer` class, which includes:
+Sequence-to-sequence translation models are implemented in [`code/transformer.py`](code/transformer.py) with the `Transformer` class, which includes:
 
 - Complete encoder-decoder architecture
 - Cross-attention between encoder and decoder
@@ -313,7 +313,7 @@ Sequence-to-sequence translation models are implemented in [`transformer.py`](tr
 ### Memory Efficiency
 
 **Gradient Checkpointing:**
-Memory-efficient training is implemented in [`training.py`](training.py) with the `TransformerTrainer` class, which includes:
+Memory-efficient training is implemented in [`code/training.py`](code/training.py) with the `TransformerTrainer` class, which includes:
 
 - Mixed precision training with automatic mixed precision
 - Gradient checkpointing for memory efficiency
