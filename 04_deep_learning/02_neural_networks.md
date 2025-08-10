@@ -29,6 +29,18 @@ f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
 
 Where each $f_i$ represents a layer transformation, and $\circ$ denotes function composition.
 
+## From Mathematical Foundations to Neural Network Architectures
+
+We've now established the **mathematical foundations** of deep learning - understanding why non-linear models are necessary, how loss functions capture different types of learning objectives, and how optimization algorithms enable us to find the best parameters for our models. This theoretical framework provides the foundation for understanding how neural networks work.
+
+However, while we've discussed non-linear models in abstract terms, we need to move from mathematical concepts to concrete **neural network architectures**. The transition from understanding why non-linear models are powerful to actually building them requires us to explore how simple computational units (neurons) can be combined to create complex learning systems.
+
+This motivates our exploration of **neural networks** - the specific architectural framework that implements non-linear models through interconnected layers of neurons. We'll see how the mathematical principles we've established (non-linear transformations, function composition, optimization) translate into concrete neural network designs.
+
+The transition from non-linear models to neural networks represents the bridge from mathematical theory to practical architecture - taking our understanding of why non-linear models work and turning it into a systematic approach for building them.
+
+In this section, we'll explore how individual neurons work, how they can be combined into layers, and how these layers can be stacked to create deep architectures that can learn increasingly complex patterns.
+
 ---
 
 ## 7.2 From Linear to Non-Linear: The Single Neuron
@@ -633,3 +645,21 @@ Recent research has shown that in the limit of infinite width, neural networks b
 ---
 
 *This concludes our exploration of neural network fundamentals. In the next sections, we will dive deeper into specific architectures, training algorithms, and practical implementation details.*
+
+## From Neural Network Fundamentals to Modular Design
+
+We've now explored the fundamental building blocks of neural networks - from individual neurons with their activation functions to multi-layer architectures that can learn complex patterns. We've seen how the mathematical principles of non-linear transformations and function composition translate into concrete neural network designs.
+
+However, as neural networks become more complex and are applied to increasingly sophisticated problems, we need to move beyond basic architectures to **modular design principles**. Modern deep learning systems are built using reusable components that can be composed to create complex architectures efficiently.
+
+This motivates our exploration of **neural network modules** - the building blocks that enable us to construct sophisticated architectures systematically. We'll see how common patterns (like fully connected layers, convolutional layers, and attention mechanisms) can be implemented as reusable modules that can be combined in various ways.
+
+The transition from neural network fundamentals to modular design represents the bridge from understanding basic architectures to building practical, scalable systems - taking our knowledge of how neural networks work and turning it into a systematic approach for constructing complex models.
+
+In the next section, we'll explore how to design and implement neural network modules, how to compose them into larger architectures, and how this modular approach enables both flexibility and efficiency in deep learning systems.
+
+---
+
+**Previous: [Non-Linear Models](01_non-linear_models.md)** - Understand the mathematical foundations of deep learning and non-linear models.
+
+**Next: [Neural Network Modules](03_modules.md)** - Learn how to design and implement modular neural network components.
