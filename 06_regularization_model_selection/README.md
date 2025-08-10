@@ -22,8 +22,8 @@ Comprehensive guide covering regularization, model selection, cross-validation, 
 - **[02_model_selection.md](02_model_selection.md)** - Cross-validation methods, Bayesian statistics (MLE, MAP), model comparison
 
 ### Implementation
-- **[regularization_examples.py](regularization_examples.py)** - L2/L1 regularization, elastic net, coefficient paths, performance curves
-- **[model_selection_and_bayes_examples.py](model_selection_and_bayes_examples.py)** - Cross-validation, MLE/MAP estimation, Bayesian inference
+- **[code/regularization_examples.py](code/regularization_examples.py)** - L2/L1 regularization, elastic net, coefficient paths, performance curves
+- **[code/model_selection_and_bayes_examples.py](code/model_selection_and_bayes_examples.py)** - Cross-validation, MLE/MAP estimation, Bayesian inference
 
 ### Visualizations
 - **img/** - Regularization coefficient paths, bias-variance tradeoff, uncertainty analysis
@@ -85,8 +85,8 @@ pip install numpy scikit-learn matplotlib seaborn
 ## Running Examples
 
 ```bash
-python regularization_examples.py
-python model_selection_and_bayes_examples.py
+python code/regularization_examples.py
+python code/model_selection_and_bayes_examples.py
 ```
 
 ## Quick Start Code
