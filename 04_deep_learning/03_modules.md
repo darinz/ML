@@ -30,6 +30,18 @@ Where:
 - $\mathcal{Y}$ is the output space
 - $\theta$ are the learnable parameters
 
+## From Neural Network Fundamentals to Modular Design
+
+We've now explored the fundamental building blocks of neural networks - from individual neurons with their activation functions to multi-layer architectures that can learn complex patterns. We've seen how the mathematical principles of non-linear transformations and function composition translate into concrete neural network designs.
+
+However, as neural networks become more complex and are applied to increasingly sophisticated problems, we need to move beyond basic architectures to **modular design principles**. Modern deep learning systems are built using reusable components that can be composed to create complex architectures efficiently.
+
+This motivates our exploration of **neural network modules** - the building blocks that enable us to construct sophisticated architectures systematically. We'll see how common patterns (like fully connected layers, convolutional layers, and attention mechanisms) can be implemented as reusable modules that can be combined in various ways.
+
+The transition from neural network fundamentals to modular design represents the bridge from understanding basic architectures to building practical, scalable systems - taking our knowledge of how neural networks work and turning it into a systematic approach for constructing complex models.
+
+In this section, we'll explore how to design and implement neural network modules, how to compose them into larger architectures, and how this modular approach enables both flexibility and efficiency in deep learning systems.
+
 ---
 
 ## 7.3 Basic Building Blocks
@@ -518,3 +530,21 @@ f(x) = f_n(f_{n-1}(\cdots f_1(x))) + x
 ---
 
 *This concludes our exploration of neural network modules. These building blocks form the foundation of modern deep learning architectures, enabling the creation of powerful and flexible models for a wide range of applications.*
+
+## From Modular Design to Training Algorithms
+
+We've now explored how to design and implement neural network modules - the building blocks that enable us to construct sophisticated architectures systematically. We've seen how common patterns can be implemented as reusable modules and how these modules can be composed to create complex neural networks.
+
+However, having well-designed modules is only part of the story. To make these modules learn from data, we need **training algorithms** that can efficiently compute gradients and update parameters. The modular design we've established provides the foundation, but we need algorithms that can work with these complex architectures.
+
+This motivates our exploration of **backpropagation** - the fundamental algorithm that enables neural networks to learn by efficiently computing gradients through the computational graph. We'll see how the modular structure we've designed enables efficient gradient computation and how this algorithm scales to deep architectures.
+
+The transition from modular design to training algorithms represents the bridge from architecture to learning - taking our systematic approach to building neural networks and turning it into a practical system that can learn from data.
+
+In the next section, we'll explore how backpropagation works, how it leverages the modular structure of neural networks, and how it enables efficient training of deep architectures.
+
+---
+
+**Previous: [Neural Networks](02_neural_networks.md)** - Learn how to build neural networks from individual neurons to deep architectures.
+
+**Next: [Backpropagation](04_backpropagation.md)** - Understand how neural networks learn through efficient gradient computation.
