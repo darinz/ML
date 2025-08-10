@@ -19,11 +19,11 @@ Deep learning enables machines to learn complex patterns directly from raw data 
 - **[03_modules.md](03_modules.md)** - Matrix multiplication, layer normalization, convolutions, residual connections, module composition
 
 ### Implementation
-- **[non_linear_models_equations.py](non_linear_models_equations.py)** - Complete `NonLinearModels` class with loss functions, activations, optimization
-- **[neural_networks_code_examples.py](neural_networks_code_examples.py)** - Progressive complexity from single neurons to deep networks
-- **[modules_examples.py](modules_examples.py)** - All module implementations with scale invariance demonstrations
-- **[backpropagation_examples.py](backpropagation_examples.py)** - Step-by-step chain rule, MLP forward/backward passes
-- **[vectorization_examples.py](vectorization_examples.py)** - Performance benchmarks, broadcasting, vectorized neural networks
+- **[code/non_linear_models_equations.py](code/non_linear_models_equations.py)** - Complete `NonLinearModels` class with loss functions, activations, optimization
+- **[code/neural_networks_code_examples.py](code/neural_networks_code_examples.py)** - Progressive complexity from single neurons to deep networks
+- **[code/modules_examples.py](code/modules_examples.py)** - All module implementations with scale invariance demonstrations
+- **[code/backpropagation_examples.py](code/backpropagation_examples.py)** - Step-by-step chain rule, MLP forward/backward passes
+- **[code/vectorization_examples.py](code/vectorization_examples.py)** - Performance benchmarks, broadcasting, vectorized neural networks
 
 ### Visualizations
 - **img/** - Activation functions, backpropagation diagrams, neural network architectures
@@ -86,9 +86,9 @@ pip install numpy matplotlib scikit-learn scipy
 ## Running Examples
 
 ```bash
-python non_linear_models_equations.py
-python neural_networks_code_examples.py
-python modules_examples.py
-python backpropagation_examples.py
-python vectorization_examples.py
+python code/non_linear_models_equations.py
+python code/neural_networks_code_examples.py
+python code/modules_examples.py
+python code/backpropagation_examples.py
+python code/vectorization_examples.py
 ``` 
