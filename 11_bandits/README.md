@@ -4,18 +4,28 @@ This directory contains implementations of classical multi-armed bandit algorith
 
 ## File Structure
 
-### Core Algorithms
+### Core Algorithms (Classical Bandits)
 - [`epsilon_greedy.py`](epsilon_greedy.py) - Epsilon-greedy algorithm implementation
 - [`ucb.py`](ucb.py) - Upper Confidence Bound (UCB) algorithm implementation  
 - [`thompson_sampling.py`](thompson_sampling.py) - Thompson sampling algorithm implementation
 
+### Core Algorithms (Linear Bandits)
+- [`linucb.py`](linucb.py) - Linear Upper Confidence Bound (LinUCB) algorithm
+- [`linear_thompson_sampling.py`](linear_thompson_sampling.py) - Linear Thompson Sampling algorithm
+- [`oful.py`](oful.py) - Optimism in the Face of Uncertainty for Linear Bandits (OFUL)
+
 ### Environment and Utilities
-- [`bandit_environment.py`](bandit_environment.py) - Bandit environment, comparison functions, and visualization
+- [`bandit_environment.py`](bandit_environment.py) - Classical bandit environment, comparison functions, and visualization
+- [`linear_bandit_environment.py`](linear_bandit_environment.py) - Linear bandit environment and utilities
+- [`feature_utils.py`](feature_utils.py) - Feature engineering utilities
 - [`ad_bandit.py`](ad_bandit.py) - Specialized bandit for online advertising applications
+- [`application_examples.py`](application_examples.py) - Real-world application examples
 
 ### Examples and Documentation
-- [`example_usage.py`](example_usage.py) - Complete example demonstrating all algorithms
-- [`01_classical_multi_armed_bandits.md`](01_classical_multi_armed_bandits.md) - Comprehensive theoretical and practical guide
+- [`example_usage.py`](example_usage.py) - Complete example demonstrating classical bandit algorithms
+- [`linear_bandit_example.py`](linear_bandit_example.py) - Complete example demonstrating linear bandit algorithms
+- [`01_classical_multi_armed_bandits.md`](01_classical_multi_armed_bandits.md) - Comprehensive guide to classical bandits
+- [`02_linear_bandits.md`](02_linear_bandits.md) - Comprehensive guide to linear bandits
 
 ## Quick Start
 
@@ -24,7 +34,7 @@ This directory contains implementations of classical multi-armed bandit algorith
    python example_usage.py
    ```
 
-2. **Use individual algorithms:**
+2. **Use classical bandit algorithms:**
    ```python
    from epsilon_greedy import epsilon_greedy
    from ucb import ucb
@@ -36,6 +46,23 @@ This directory contains implementations of classical multi-armed bandit algorith
    
    # Run algorithms
    empirical_means = epsilon_greedy(env.arms, epsilon=0.1, T=1000)
+   ```
+
+3. **Use linear bandit algorithms:**
+   ```python
+   from linucb import LinUCB
+   from linear_thompson_sampling import LinearThompsonSampling
+   from linear_bandit_environment import LinearBanditEnvironment
+   
+   # Create environment
+   d = 5  # Feature dimension
+   theta_star = np.random.randn(d)  # True parameter
+   arms = np.random.randn(10, d)    # Feature vectors
+   env = LinearBanditEnvironment(theta_star, arms)
+   
+   # Run algorithms
+   algorithm = LinUCB(d, alpha=1.0)
+   chosen_arms, rewards = run_linear_bandit_experiment(env, algorithm, T=1000)
    ```
 
 ## Algorithm Overview
@@ -55,10 +82,28 @@ This directory contains implementations of classical multi-armed bandit algorith
 - **Cons**: Requires prior specification
 - **Regret**: O(√(KT log T)) (similar to UCB)
 
+### Linear Bandit Algorithms
+
+### LinUCB
+- **Pros**: Optimal regret bounds, principled exploration
+- **Cons**: Requires tuning of exploration parameter
+- **Regret**: O(d√(T log T))
+
+### Linear Thompson Sampling
+- **Pros**: Bayesian optimal, often performs better in practice
+- **Cons**: Requires prior specification
+- **Regret**: O(d√(T log T)) (similar to LinUCB)
+
+### OFUL
+- **Pros**: Sophisticated confidence ellipsoid construction
+- **Cons**: More complex implementation
+- **Regret**: O(d√(T log T))
+
 ## Dependencies
 
 - numpy
 - matplotlib
+- scipy
 - random (built-in)
 
 ## Usage Examples
