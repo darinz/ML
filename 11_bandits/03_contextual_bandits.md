@@ -109,46 +109,14 @@ Where:
 - **Context adaptation**: Confidence intervals adapt to the current context
 
 **Implementation:**
-```python
-import numpy as np
-from scipy.linalg import solve
+See [`contextual_ucb.py`](contextual_ucb.py) for the complete implementation.
 
+```python
+# Key implementation details:
 class ContextualUCB:
-    def __init__(self, d, alpha=1.0, lambda_reg=1.0):
-        self.d = d
-        self.alpha = alpha
-        self.lambda_reg = lambda_reg
-        
-        # Initialize design matrix and parameter estimate
-        self.A = lambda_reg * np.eye(d)
-        self.b = np.zeros(d)
-        self.theta_hat = np.zeros(d)
-        
-    def select_arm(self, context_features):
-        """Select arm using Contextual UCB algorithm"""
-        # Update parameter estimate
-        self.theta_hat = solve(self.A, self.b)
-        
-        # Calculate UCB values for all arms in current context
-        ucb_values = []
-        for x in context_features:
-            # Exploitation term
-            exploitation = np.dot(self.theta_hat, x)
-            
-            # Exploration term
-            exploration = self.alpha * np.sqrt(np.dot(x, solve(self.A, x)))
-            
-            ucb_values.append(exploitation + exploration)
-        
-        return np.argmax(ucb_values)
-    
-    def update(self, arm_idx, reward, context_features):
-        """Update algorithm with observed reward"""
-        x = context_features[arm_idx]
-        
-        # Update design matrix and cumulative rewards
-        self.A += np.outer(x, x)
-        self.b += reward * x
+    # Initialize design matrix A and cumulative rewards b
+    # Select arm: argmax(θ̂ᵀx + α√(xᵀA⁻¹x)) for current context
+    # Update: A += xxᵀ, b += reward * x
 ```
 
 ### 2. Contextual Thompson Sampling (CTS)
@@ -161,44 +129,14 @@ Contextual Thompson Sampling maintains a Gaussian posterior over the parameter v
 3. Choose action: $`a_t = \arg\max_i \langle \theta_t, x_{i, t} \rangle`$
 
 **Implementation:**
-```python
-import numpy as np
-from scipy.stats import multivariate_normal
+See [`contextual_thompson_sampling.py`](contextual_thompson_sampling.py) for the complete implementation.
 
+```python
+# Key implementation details:
 class ContextualThompsonSampling:
-    def __init__(self, d, sigma=1.0, lambda_reg=1.0):
-        self.d = d
-        self.sigma = sigma
-        self.lambda_reg = lambda_reg
-        
-        # Initialize posterior parameters
-        self.A = lambda_reg * np.eye(d)
-        self.b = np.zeros(d)
-        self.theta_hat = np.zeros(d)
-        
-    def select_arm(self, context_features):
-        """Select arm using Contextual Thompson Sampling"""
-        # Update parameter estimate
-        self.theta_hat = np.linalg.solve(self.A, self.b)
-        
-        # Sample from posterior
-        posterior_cov = self.sigma**2 * np.linalg.inv(self.A)
-        theta_sample = multivariate_normal.rvs(
-            mean=self.theta_hat, 
-            cov=posterior_cov
-        )
-        
-        # Choose arm with highest sampled reward in current context
-        predicted_rewards = [np.dot(theta_sample, x) for x in context_features]
-        return np.argmax(predicted_rewards)
-    
-    def update(self, arm_idx, reward, context_features):
-        """Update algorithm with observed reward"""
-        x = context_features[arm_idx]
-        
-        # Update posterior parameters
-        self.A += np.outer(x, x) / (self.sigma**2)
-        self.b += reward * x / (self.sigma**2)
+    # Maintain Gaussian posterior over parameter vector
+    # Sample from posterior to select arms in current context
+    # Update posterior based on observed rewards
 ```
 
 ### 3. Neural Contextual Bandits
@@ -211,64 +149,14 @@ Neural contextual bandits use deep neural networks to model complex, non-linear 
 3. Select actions based on predicted rewards and uncertainty
 
 **Implementation:**
-```python
-import torch
-import torch.nn as nn
-import torch.optim as optim
+See [`neural_contextual_bandit.py`](neural_contextual_bandit.py) for the complete implementation.
 
+```python
+# Key implementation details:
 class NeuralContextualBandit:
-    def __init__(self, input_dim, hidden_dim=64, num_arms=10, dropout_rate=0.1):
-        self.input_dim = input_dim
-        self.hidden_dim = hidden_dim
-        self.num_arms = num_arms
-        self.dropout_rate = dropout_rate
-        
-        # Neural network model
-        self.model = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(dropout_rate),
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(dropout_rate),
-            nn.Linear(hidden_dim, num_arms)
-        )
-        
-        self.optimizer = optim.Adam(self.model.parameters())
-        self.criterion = nn.MSELoss()
-        
-    def select_arm(self, context_features):
-        """Select arm using neural contextual bandit"""
-        # Convert context features to tensor
-        context_tensor = torch.FloatTensor(context_features).unsqueeze(0)
-        
-        # Get predictions from neural network
-        with torch.no_grad():
-            predictions = self.model(context_tensor)
-            
-        # Add exploration noise (Thompson sampling approximation)
-        noise = torch.randn_like(predictions) * 0.1
-        predictions += noise
-        
-        return torch.argmax(predictions).item()
-    
-    def update(self, arm_idx, reward, context_features):
-        """Update neural network with observed reward"""
-        context_tensor = torch.FloatTensor(context_features).unsqueeze(0)
-        
-        # Create target vector
-        target = torch.zeros(self.num_arms)
-        target[arm_idx] = reward
-        target = target.unsqueeze(0)
-        
-        # Forward pass
-        predictions = self.model(context_tensor)
-        
-        # Compute loss and update
-        loss = self.criterion(predictions, target)
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
+    # Use deep neural networks to model complex reward functions
+    # Maintain uncertainty quantification through dropout
+    # Select actions based on predicted rewards and uncertainty
 ```
 
 ### 4. LinUCB with Disjoint Models
@@ -283,39 +171,14 @@ a_t = \arg\max_{i} \left(\langle \hat{\theta}_{i, t}, x_t \rangle + \alpha \sqrt
 ```
 
 **Implementation:**
+See [`disjoint_linucb.py`](disjoint_linucb.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 class DisjointLinUCB:
-    def __init__(self, d, num_arms, alpha=1.0, lambda_reg=1.0):
-        self.d = d
-        self.num_arms = num_arms
-        self.alpha = alpha
-        self.lambda_reg = lambda_reg
-        
-        # Separate models for each arm
-        self.A = [lambda_reg * np.eye(d) for _ in range(num_arms)]
-        self.b = [np.zeros(d) for _ in range(num_arms)]
-        self.theta_hat = [np.zeros(d) for _ in range(num_arms)]
-        
-    def select_arm(self, context):
-        """Select arm using disjoint LinUCB"""
-        ucb_values = []
-        
-        for i in range(self.num_arms):
-            # Update parameter estimate for arm i
-            self.theta_hat[i] = np.linalg.solve(self.A[i], self.b[i])
-            
-            # Calculate UCB value for arm i
-            exploitation = np.dot(self.theta_hat[i], context)
-            exploration = self.alpha * np.sqrt(np.dot(context, np.linalg.solve(self.A[i], context)))
-            ucb_values.append(exploitation + exploration)
-        
-        return np.argmax(ucb_values)
-    
-    def update(self, arm_idx, reward, context):
-        """Update model for specific arm"""
-        # Update design matrix and cumulative rewards for the chosen arm
-        self.A[arm_idx] += np.outer(context, context)
-        self.b[arm_idx] += reward * context
+    # Maintain separate linear models for each arm
+    # Allow flexible context-arm interactions
+    # Update only the model for the chosen arm
 ```
 
 ## Theoretical Analysis
@@ -372,78 +235,27 @@ Where $`\Delta_{\min}`$ is the minimum contextual gap across all contexts.
 ### Context Engineering
 
 **Feature Extraction:**
-```python
-def extract_user_features(user_data):
-    """Extract user features for contextual bandit"""
-    features = []
-    
-    # Demographics
-    features.extend([
-        user_data.get('age', 0) / 100.0,  # Normalize age
-        user_data.get('gender', 0),  # Binary or categorical
-        user_data.get('location', 0)  # Location encoding
-    ])
-    
-    # Behavioral features
-    features.extend([
-        user_data.get('session_duration', 0) / 3600.0,  # Hours
-        user_data.get('page_views', 0) / 100.0,  # Normalize
-        user_data.get('purchase_history', 0)  # Purchase count
-    ])
-    
-    # Contextual features
-    features.extend([
-        user_data.get('time_of_day', 0) / 24.0,  # Hour of day
-        user_data.get('day_of_week', 0) / 7.0,  # Day of week
-        user_data.get('device_type', 0)  # Device encoding
-    ])
-    
-    return np.array(features)
+See [`context_utils.py`](context_utils.py) for the complete implementation.
 
+```python
+# Key functionality:
+def extract_user_features(user_data):
+    # Extract demographics, behavioral, and contextual features
+    
 def extract_item_features(item_data):
-    """Extract item features for contextual bandit"""
-    features = []
-    
-    # Item characteristics
-    features.extend([
-        item_data.get('category', 0),  # Category encoding
-        item_data.get('price', 0) / 1000.0,  # Normalize price
-        item_data.get('rating', 0) / 5.0,  # Normalize rating
-        item_data.get('popularity', 0) / 1000.0  # Normalize popularity
-    ])
-    
-    # Content features
-    features.extend([
-        item_data.get('content_length', 0) / 1000.0,
-        item_data.get('has_image', 0),  # Binary
-        item_data.get('has_video', 0)  # Binary
-    ])
-    
-    return np.array(features)
+    # Extract item characteristics and content features
 ```
 
 **Context-Arm Feature Combination:**
-```python
-def combine_context_arm_features(context, arm_features):
-    """Combine context and arm features"""
-    # Simple concatenation
-    combined = np.concatenate([context, arm_features])
-    
-    # Or use interaction features
-    interactions = np.outer(context, arm_features).flatten()
-    combined = np.concatenate([context, arm_features, interactions])
-    
-    return combined
+See [`context_utils.py`](context_utils.py) for the complete implementation.
 
+```python
+# Key functionality:
+def combine_context_arm_features(context, arm_features):
+    # Combine context and arm features (concatenation or interactions)
+    
 def create_contextual_features(context, all_arms):
-    """Create contextual features for all arms"""
-    contextual_features = []
-    
-    for arm_features in all_arms:
-        combined = combine_context_arm_features(context, arm_features)
-        contextual_features.append(combined)
-    
-    return contextual_features
+    # Create contextual features for all arms
 ```
 
 ### Parameter Tuning
@@ -462,30 +274,11 @@ def create_contextual_features(context, all_arms):
 
 **Context Clustering:**
 ```python
+# Key functionality:
 class ContextualBanditWithClustering:
-    def __init__(self, d, num_clusters=10):
-        self.d = d
-        self.num_clusters = num_clusters
-        self.cluster_models = [LinUCB(d) for _ in range(num_clusters)]
-        self.cluster_centers = None
-        
-    def assign_cluster(self, context):
-        """Assign context to nearest cluster"""
-        if self.cluster_centers is None:
-            return np.random.randint(self.num_clusters)
-        
-        distances = [np.linalg.norm(context - center) for center in self.cluster_centers]
-        return np.argmin(distances)
-    
-    def select_arm(self, context_features):
-        """Select arm using clustered contextual bandit"""
-        cluster_idx = self.assign_cluster(context_features[0])  # Use first arm's context
-        return self.cluster_models[cluster_idx].select_arm(context_features)
-    
-    def update(self, arm_idx, reward, context_features):
-        """Update model for assigned cluster"""
-        cluster_idx = self.assign_cluster(context_features[0])
-        self.cluster_models[cluster_idx].update(arm_idx, reward, context_features)
+    # Assign contexts to clusters for efficient learning
+    # Maintain separate models for each cluster
+    # Update only the relevant cluster model
 ```
 
 ## Advanced Topics
@@ -529,288 +322,104 @@ Contexts and reward functions change over time, requiring adaptation.
 ### Online Advertising
 
 **Ad Selection with User Context:**
+See [`contextual_applications.py`](contextual_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class ContextualAdSelector:
-    def __init__(self, n_ads, user_feature_dim):
-        self.bandit = ContextualUCB(user_feature_dim)
-        self.ad_features = self._extract_ad_features(n_ads)
-    
-    def select_ad(self, user_context):
-        """Select ad based on user context"""
-        # Combine user context with ad features
-        contextual_features = self._combine_user_ad_features(user_context, self.ad_features)
-        
-        # Select ad using contextual bandit
-        ad_idx = self.bandit.select_arm(contextual_features)
-        return ad_idx
-    
-    def update(self, ad_idx, user_context, click):
-        """Update model with click feedback"""
-        contextual_features = self._combine_user_ad_features(user_context, self.ad_features)
-        self.bandit.update(ad_idx, click, contextual_features)
-    
-    def _combine_user_ad_features(self, user_context, ad_features):
-        """Combine user and ad features for contextual learning"""
-        combined_features = []
-        for ad_feat in ad_features:
-            # Simple concatenation
-            combined = np.concatenate([user_context, ad_feat])
-            combined_features.append(combined)
-        return combined_features
+    # Use Contextual UCB for ad selection
+    # Combine user context with ad features
+    # Update model with click feedback
 ```
 
 ### Recommendation Systems
 
 **Personalized Content Recommendation:**
+See [`contextual_applications.py`](contextual_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class PersonalizedRecommender:
-    def __init__(self, n_items, user_feature_dim):
-        self.bandit = ContextualThompsonSampling(user_feature_dim)
-        self.item_features = self._extract_item_features(n_items)
-    
-    def recommend(self, user_context):
-        """Recommend content based on user context"""
-        # Combine user context with item features
-        contextual_features = self._combine_user_item_features(user_context, self.item_features)
-        
-        # Select item using contextual bandit
-        item_idx = self.bandit.select_arm(contextual_features)
-        return item_idx
-    
-    def update(self, item_idx, user_context, engagement):
-        """Update model with user engagement"""
-        contextual_features = self._combine_user_item_features(user_context, self.item_features)
-        self.bandit.update(item_idx, engagement, contextual_features)
+    # Use Contextual Thompson Sampling for recommendations
+    # Combine user context with item features
+    # Update model with user engagement
 ```
 
 ### Clinical Trials
 
 **Adaptive Treatment Assignment:**
+See [`contextual_applications.py`](contextual_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class AdaptiveClinicalTrial:
-    def __init__(self, n_treatments, patient_feature_dim):
-        self.bandit = NeuralContextualBandit(patient_feature_dim, num_arms=n_treatments)
-    
-    def assign_treatment(self, patient_features):
-        """Assign treatment based on patient features"""
-        # Convert patient features to contextual features
-        contextual_features = self._create_contextual_features(patient_features)
-        
-        # Select treatment using neural contextual bandit
-        treatment_idx = self.bandit.select_arm(contextual_features)
-        return treatment_idx
-    
-    def update(self, treatment_idx, patient_features, outcome):
-        """Update model with treatment outcome"""
-        contextual_features = self._create_contextual_features(patient_features)
-        self.bandit.update(treatment_idx, outcome, contextual_features)
-    
-    def _create_contextual_features(self, patient_features):
-        """Create contextual features for all treatments"""
-        # For neural bandits, we need features for each treatment
-        contextual_features = []
-        for treatment in range(self.bandit.num_arms):
-            # Combine patient features with treatment encoding
-            treatment_features = np.zeros(self.bandit.num_arms)
-            treatment_features[treatment] = 1.0
-            combined = np.concatenate([patient_features, treatment_features])
-            contextual_features.append(combined)
-        return contextual_features
+    # Use Neural Contextual Bandit for treatment assignment
+    # Convert patient features to contextual features
+    # Update model with treatment outcomes
 ```
 
 ### Dynamic Pricing
 
 **Price Optimization with Customer Features:**
+See [`contextual_applications.py`](contextual_applications.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class DynamicPricer:
-    def __init__(self, n_price_levels, customer_feature_dim):
-        self.bandit = ContextualUCB(customer_feature_dim)
-        self.price_levels = np.linspace(10, 100, n_price_levels)
-    
-    def set_price(self, customer_features):
-        """Set price based on customer features"""
-        # Create contextual features for each price level
-        contextual_features = self._create_price_features(customer_features)
-        
-        # Select price using contextual bandit
-        price_idx = self.bandit.select_arm(contextual_features)
-        return self.price_levels[price_idx]
-    
-    def update(self, price_idx, customer_features, purchase):
-        """Update model with purchase decision"""
-        contextual_features = self._create_price_features(customer_features)
-        self.bandit.update(price_idx, purchase, contextual_features)
-    
-    def _create_price_features(self, customer_features):
-        """Create contextual features for each price level"""
-        contextual_features = []
-        for price in self.price_levels:
-            # Combine customer features with price
-            price_feature = price / 100.0  # Normalize price
-            combined = np.concatenate([customer_features, [price_feature]])
-            contextual_features.append(combined)
-        return contextual_features
+    # Use Contextual UCB for dynamic pricing
+    # Create contextual features for each price level
+    # Update model with purchase decisions
 ```
 
 ## Implementation Examples
 
 ### Complete Contextual Bandit Environment
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+See [`contextual_bandit_environment.py`](contextual_bandit_environment.py) for the complete implementation.
 
+```python
+# Key components:
 class ContextualBanditEnvironment:
-    def __init__(self, theta_star, context_generator, noise_std=0.1):
-        self.theta_star = theta_star
-        self.context_generator = context_generator
-        self.noise_std = noise_std
-        self.d = len(theta_star)
-        
-    def generate_context(self):
-        """Generate context for current time step"""
-        return self.context_generator()
-    
-    def generate_arm_features(self, context, n_arms):
-        """Generate arm features based on context"""
-        arm_features = []
-        for i in range(n_arms):
-            # Combine context with arm-specific features
-            arm_specific = np.random.randn(self.d - len(context))
-            combined = np.concatenate([context, arm_specific])
-            arm_features.append(combined)
-        return arm_features
-    
-    def pull_arm(self, arm_idx, context_features):
-        """Pull arm and return reward"""
-        x = context_features[arm_idx]
-        expected_reward = np.dot(self.theta_star, x)
-        noise = np.random.normal(0, self.noise_std)
-        return expected_reward + noise
-    
-    def get_optimal_reward(self, context_features):
-        """Get optimal expected reward for current context"""
-        rewards = [np.dot(self.theta_star, x) for x in context_features]
-        return max(rewards)
-    
-    def get_regret(self, chosen_arms, rewards, optimal_rewards):
-        """Calculate cumulative regret"""
-        cumulative_optimal = np.cumsum(optimal_rewards)
-        cumulative_rewards = np.cumsum(rewards)
-        return cumulative_optimal - cumulative_rewards
+    # Contextual bandit environment with dynamic contexts
+    # Generate contexts and arm features
+    # Calculate context-dependent regret
 
 def run_contextual_bandit_experiment(env, algorithm, T=1000, n_arms=10):
-    """Run contextual bandit experiment"""
-    chosen_arms = []
-    rewards = []
-    optimal_rewards = []
-    
-    for t in range(T):
-        # Generate context
-        context = env.generate_context()
-        
-        # Generate arm features for current context
-        context_features = env.generate_arm_features(context, n_arms)
-        
-        # Select arm
-        arm_idx = algorithm.select_arm(context_features)
-        
-        # Pull arm and observe reward
-        reward = env.pull_arm(arm_idx, context_features)
-        
-        # Get optimal reward for comparison
-        optimal_reward = env.get_optimal_reward(context_features)
-        
-        # Update algorithm
-        algorithm.update(arm_idx, reward, context_features)
-        
-        chosen_arms.append(arm_idx)
-        rewards.append(reward)
-        optimal_rewards.append(optimal_reward)
-    
-    return chosen_arms, rewards, optimal_rewards
+    # Run contextual bandit experiment
+    # Generate contexts, select arms, observe rewards
 ```
 
 ### Algorithm Comparison
 
+See [`contextual_bandit_environment.py`](contextual_bandit_environment.py) for the complete implementation.
+
 ```python
+# Key functionality:
 def compare_contextual_algorithms(env, algorithms, T=1000, n_arms=10, n_runs=50):
-    """Compare different contextual bandit algorithms"""
-    results = {}
-    
-    for name, algorithm_class in algorithms.items():
-        regrets = []
-        for run in range(n_runs):
-            # Create fresh algorithm instance
-            algorithm = algorithm_class(env.d)
-            
-            # Run experiment
-            chosen_arms, rewards, optimal_rewards = run_contextual_bandit_experiment(
-                env, algorithm, T, n_arms
-            )
-            
-            # Calculate regret
-            regret = env.get_regret(chosen_arms, rewards, optimal_rewards)
-            regrets.append(regret)
-        
-        results[name] = np.mean(regrets, axis=0)
-    
-    return results
+    # Compare different contextual bandit algorithms
+    # Run multiple independent trials
+    # Return average regrets for each algorithm
 
-# Example usage
-d = 10
-theta_star = np.random.randn(d)
-theta_star = theta_star / np.linalg.norm(theta_star)  # Normalize
-
-# Context generator (stochastic contexts)
-def context_generator():
-    return np.random.randn(5)  # 5-dimensional context
-
-env = ContextualBanditEnvironment(theta_star, context_generator)
-
-algorithms = {
-    'Contextual UCB': lambda d: ContextualUCB(d, alpha=1.0),
-    'Contextual TS': lambda d: ContextualThompsonSampling(d, sigma=1.0),
-    'Neural Bandit': lambda d: NeuralContextualBandit(d, num_arms=10)
-}
-
-results = compare_contextual_algorithms(env, algorithms)
+# Example usage:
+# d = 10, theta_star = normalized random vector
+# context_generator = function that generates contexts
+# algorithms = {'Contextual UCB': ..., 'Contextual TS': ..., 'Neural Bandit': ...}
+# results = compare_contextual_algorithms(env, algorithms)
 ```
 
 ### Visualization
 
-```python
-def plot_contextual_bandit_results(results, T):
-    """Plot regret comparison for contextual bandit algorithms"""
-    plt.figure(figsize=(12, 8))
-    
-    # Plot cumulative regret
-    plt.subplot(2, 1, 1)
-    for name, regret in results.items():
-        plt.plot(range(1, T+1), regret, label=name, linewidth=2)
-    
-    plt.xlabel('Time Step')
-    plt.ylabel('Cumulative Regret')
-    plt.title('Contextual Bandit Algorithm Comparison')
-    plt.legend()
-    plt.grid(True)
-    
-    # Plot regret rate (regret / sqrt(t))
-    plt.subplot(2, 1, 2)
-    for name, regret in results.items():
-        regret_rate = regret / np.sqrt(range(1, T+1))
-        plt.plot(range(1, T+1), regret_rate, label=name, linewidth=2)
-    
-    plt.xlabel('Time Step')
-    plt.ylabel('Regret Rate (R(t) / √t)')
-    plt.title('Regret Rate Comparison')
-    plt.legend()
-    plt.grid(True)
-    
-    plt.tight_layout()
-    plt.show()
+See [`contextual_bandit_environment.py`](contextual_bandit_environment.py) for the complete implementation.
 
-plot_contextual_bandit_results(results, 1000)
+```python
+# Key functionality:
+def plot_contextual_bandit_results(results, T):
+    # Plot cumulative regret comparison
+    # Plot regret rate (regret / sqrt(t))
+    # Include legend and proper labeling
+
+# Usage:
+# plot_contextual_bandit_results(results, 1000)
 ```
 
 ## Summary
