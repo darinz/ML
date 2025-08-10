@@ -492,7 +492,7 @@ demonstrate_continuous_policy()
 **Activity 4.1: Finite-Horizon MDPs**
 ```python
 # Implement finite-horizon dynamic programming
-from advanced_control_examples import (
+from code.advanced_control_examples import (
     finite_horizon_value_iteration, demonstrate_finite_horizon_mdp
 )
 
