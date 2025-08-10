@@ -72,7 +72,7 @@ Where:
 - $`\epsilon`$ is a small constant for numerical stability
 
 **Implementation:**
-The complete implementation of optimizers and training strategies is available in [`training.py`](training.py), which includes:
+The complete implementation of optimizers and training strategies is available in [`code/training.py`](code/training.py), which includes:
 
 - `TransformerTrainer`: Comprehensive trainer with various optimizers
 - `LanguageModelTrainer`: Specialized trainer for language models
@@ -85,7 +85,7 @@ The complete implementation of optimizers and training strategies is available i
 Gradient clipping prevents gradient explosion by limiting the norm of gradients.
 
 **Implementation:**
-Gradient clipping is implemented in [`training.py`](training.py) with the `TransformerTrainer` class, which provides:
+Gradient clipping is implemented in [`code/training.py`](code/training.py) with the `TransformerTrainer` class, which provides:
 
 - Automatic gradient clipping with configurable max norm
 - Proper gradient scaling for mixed precision training
@@ -96,7 +96,7 @@ Gradient clipping is implemented in [`training.py`](training.py) with the `Trans
 Proper weight initialization is crucial for training stability.
 
 **Implementation:**
-Weight initialization is implemented in [`training_techniques.py`](training_techniques.py) with the `init_weights` function, which provides:
+Weight initialization is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `init_weights` function, which provides:
 
 - Xavier uniform initialization for linear layers
 - Normal initialization for embeddings
@@ -120,7 +120,7 @@ Where:
 - $`\epsilon`$ is a small constant for numerical stability
 
 **Implementation:**
-Layer normalization is implemented throughout the transformer architecture in [`transformer.py`](transformer.py) and [`encoder_decoder_layers.py`](encoder_decoder_layers.py), which provide:
+Layer normalization is implemented throughout the transformer architecture in [`code/transformer.py`](code/transformer.py) and [`code/encoder_decoder_layers.py`](code/encoder_decoder_layers.py), which provide:
 
 - Pre-layer normalization for transformer blocks
 - Post-layer normalization for transformer blocks
@@ -131,7 +131,7 @@ Layer normalization is implemented throughout the transformer architecture in [`
 Dropout prevents overfitting by randomly zeroing activations during training.
 
 **Implementation:**
-Dropout is implemented throughout the transformer architecture in [`transformer.py`](transformer.py) and [`encoder_decoder_layers.py`](encoder_decoder_layers.py), which provide:
+Dropout is implemented throughout the transformer architecture in [`code/transformer.py`](code/transformer.py) and [`code/encoder_decoder_layers.py`](code/encoder_decoder_layers.py), which provide:
 
 - Attention dropout for attention weights
 - Feed-forward dropout for feed-forward networks
@@ -143,7 +143,7 @@ Dropout is implemented throughout the transformer architecture in [`transformer.
 Label smoothing improves generalization by softening target distributions.
 
 **Implementation:**
-Label smoothing is implemented in [`pretraining_objectives.py`](pretraining_objectives.py) with the `LabelSmoothingLoss` class, which provides:
+Label smoothing is implemented in [`code/pretraining_objectives.py`](code/pretraining_objectives.py) with the `LabelSmoothingLoss` class, which provides:
 
 - Configurable smoothing parameter
 - Proper handling of ignored indices
@@ -155,7 +155,7 @@ Label smoothing is implemented in [`pretraining_objectives.py`](pretraining_obje
 Adding noise to gradients can help escape local minima and improve optimization.
 
 **Implementation:**
-Gradient noise and other advanced optimization techniques are implemented in [`training_techniques.py`](training_techniques.py), which provides:
+Gradient noise and other advanced optimization techniques are implemented in [`code/training_techniques.py`](code/training_techniques.py), which provides:
 
 - Gradient noise optimization
 - Advanced training techniques
@@ -169,7 +169,7 @@ Gradient noise and other advanced optimization techniques are implemented in [`t
 Proper learning rate scheduling is crucial for transformer training.
 
 **Linear Warmup with Cosine Decay:**
-Learning rate scheduling is implemented in [`training_techniques.py`](training_techniques.py) with the `CosineAnnealingWarmupScheduler` class, which provides:
+Learning rate scheduling is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `CosineAnnealingWarmupScheduler` class, which provides:
 
 - Linear warmup phase
 - Cosine decay phase
@@ -177,7 +177,7 @@ Learning rate scheduling is implemented in [`training_techniques.py`](training_t
 - Minimum learning rate support
 
 **Inverse Square Root Decay:**
-Inverse square root scheduling is implemented in [`training.py`](training.py) with the `TransformerTrainer` class, which provides:
+Inverse square root scheduling is implemented in [`code/training.py`](code/training.py) with the `TransformerTrainer` class, which provides:
 
 - Transformer-specific learning rate scheduling
 - Warmup and decay strategies
@@ -189,7 +189,7 @@ Inverse square root scheduling is implemented in [`training.py`](training.py) wi
 One cycle scheduling can lead to faster convergence.
 
 **Implementation:**
-One cycle scheduling and other advanced scheduling strategies are implemented in [`training_techniques.py`](training_techniques.py), which provides:
+One cycle scheduling and other advanced scheduling strategies are implemented in [`code/training_techniques.py`](code/training_techniques.py), which provides:
 
 - One cycle learning rate scheduling
 - Advanced scheduling techniques
@@ -203,7 +203,7 @@ One cycle scheduling and other advanced scheduling strategies are implemented in
 Using lower precision (FP16/BF16) to reduce memory usage and speed up training.
 
 **Implementation:**
-Mixed precision training is implemented in [`training_techniques.py`](training_techniques.py) with the `MixedPrecisionTrainer` class, which provides:
+Mixed precision training is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `MixedPrecisionTrainer` class, which provides:
 
 - Automatic mixed precision (AMP) support
 - Gradient scaling for numerical stability
@@ -215,7 +215,7 @@ Mixed precision training is implemented in [`training_techniques.py`](training_t
 Trading compute for memory by recomputing intermediate activations.
 
 **Implementation:**
-Gradient checkpointing is implemented in [`training_techniques.py`](training_techniques.py) with the `MemoryEfficientLLM` class, which provides:
+Gradient checkpointing is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `MemoryEfficientLLM` class, which provides:
 
 - Automatic gradient checkpointing
 - Memory optimization strategies
@@ -227,7 +227,7 @@ Gradient checkpointing is implemented in [`training_techniques.py`](training_tec
 Accumulating gradients over multiple steps to simulate larger batch sizes.
 
 **Implementation:**
-Gradient accumulation is implemented in [`training_techniques.py`](training_techniques.py) with the `train_with_gradient_accumulation` function, which provides:
+Gradient accumulation is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `train_with_gradient_accumulation` function, which provides:
 
 - Configurable accumulation steps
 - Proper loss scaling
@@ -241,7 +241,7 @@ Gradient accumulation is implemented in [`training_techniques.py`](training_tech
 Distributing data across multiple GPUs.
 
 **Implementation:**
-Data parallel training is implemented in [`model_parallel.py`](model_parallel.py) with the `DistributedTrainer` class, which provides:
+Data parallel training is implemented in [`code/model_parallel.py`](code/model_parallel.py) with the `DistributedTrainer` class, which provides:
 
 - Distributed data parallel training
 - Multi-GPU training support
@@ -253,7 +253,7 @@ Data parallel training is implemented in [`model_parallel.py`](model_parallel.py
 Distributing model layers across multiple devices.
 
 **Implementation:**
-Model parallel training is implemented in [`model_parallel.py`](model_parallel.py) with the `ModelParallelTransformer` class, which provides:
+Model parallel training is implemented in [`code/model_parallel.py`](code/model_parallel.py) with the `ModelParallelTransformer` class, which provides:
 
 - Multi-GPU model distribution
 - Efficient layer placement
@@ -265,7 +265,7 @@ Model parallel training is implemented in [`model_parallel.py`](model_parallel.p
 Zero Redundancy Optimizer for memory efficiency.
 
 **Implementation:**
-ZeRO optimization is implemented in [`training_techniques.py`](training_techniques.py) with the `ZeROLLM` class and `setup_zero_optimizer` function, which provides:
+ZeRO optimization is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `ZeROLLM` class and `setup_zero_optimizer` function, which provides:
 
 - Zero Redundancy Optimizer setup
 - Memory-efficient training
@@ -277,7 +277,7 @@ ZeRO optimization is implemented in [`training_techniques.py`](training_techniqu
 ### Training Monitoring
 
 **Loss Tracking:**
-Training monitoring is implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py) with the `monitor_training_metrics` function, which provides:
+Training monitoring is implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py) with the `monitor_training_metrics` function, which provides:
 
 - Training and validation loss tracking
 - Learning rate monitoring
@@ -287,7 +287,7 @@ Training monitoring is implemented in [`evaluation_monitoring.py`](evaluation_mo
 ### Perplexity Calculation
 
 **Language Model Evaluation:**
-Perplexity calculation is implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py) with the `calculate_perplexity` function, which provides:
+Perplexity calculation is implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py) with the `calculate_perplexity` function, which provides:
 
 - Perplexity calculation for language models
 - Proper token counting
@@ -297,7 +297,7 @@ Perplexity calculation is implemented in [`evaluation_monitoring.py`](evaluation
 ### Attention Visualization
 
 **Understanding Model Behavior:**
-Attention visualization is implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py) with the `visualize_attention` function, which provides:
+Attention visualization is implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py) with the `visualize_attention` function, which provides:
 
 - Layer and head-specific attention visualization
 - Heatmap generation
@@ -311,7 +311,7 @@ Attention visualization is implemented in [`evaluation_monitoring.py`](evaluatio
 Training on progressively harder examples.
 
 **Implementation:**
-Curriculum learning and other advanced training techniques are implemented in [`training_techniques.py`](training_techniques.py), which provides:
+Curriculum learning and other advanced training techniques are implemented in [`code/training_techniques.py`](code/training_techniques.py), which provides:
 
 - Curriculum sampling strategies
 - Progressive difficulty training
@@ -323,7 +323,7 @@ Curriculum learning and other advanced training techniques are implemented in [`
 Improving robustness with adversarial examples.
 
 **Implementation:**
-Adversarial training and robustness techniques are implemented in [`training_techniques.py`](training_techniques.py), which provides:
+Adversarial training and robustness techniques are implemented in [`code/training_techniques.py`](code/training_techniques.py), which provides:
 
 - Adversarial example generation
 - Robustness training strategies
@@ -334,7 +334,7 @@ Adversarial training and robustness techniques are implemented in [`training_tec
 
 ### Complete Training Loop
 
-The complete training loop is implemented in [`training.py`](training.py) with the `TransformerTrainer` class, which provides:
+The complete training loop is implemented in [`code/training.py`](code/training.py) with the `TransformerTrainer` class, which provides:
 
 - Comprehensive training pipeline with mixed precision
 - Learning rate scheduling with warmup
@@ -347,7 +347,7 @@ The complete training loop is implemented in [`training.py`](training.py) with t
 ### Common Training Issues
 
 **Gradient Explosion:**
-Gradient monitoring and debugging tools are implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py), which provides:
+Gradient monitoring and debugging tools are implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py), which provides:
 
 - Gradient explosion detection
 - Training stability monitoring
@@ -355,7 +355,7 @@ Gradient monitoring and debugging tools are implemented in [`evaluation_monitori
 - Performance analysis tools
 
 **Training Instability:**
-Training stability monitoring is implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py), which provides:
+Training stability monitoring is implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py), which provides:
 
 - Loss variance monitoring
 - Training stability analysis
@@ -363,7 +363,7 @@ Training stability monitoring is implemented in [`evaluation_monitoring.py`](eva
 - Stability improvement utilities
 
 **Memory Issues:**
-Memory monitoring and optimization are implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py) with the `calculate_model_efficiency` function, which provides:
+Memory monitoring and optimization are implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py) with the `calculate_model_efficiency` function, which provides:
 
 - Memory usage monitoring
 - Performance efficiency analysis
@@ -373,7 +373,7 @@ Memory monitoring and optimization are implemented in [`evaluation_monitoring.py
 ### Debugging Tools
 
 **Gradient Flow Analysis:**
-Gradient analysis tools are implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py), which provides:
+Gradient analysis tools are implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py), which provides:
 
 - Gradient flow analysis
 - Training debugging utilities
@@ -381,7 +381,7 @@ Gradient analysis tools are implemented in [`evaluation_monitoring.py`](evaluati
 - Analysis tools
 
 **Activation Analysis:**
-Activation analysis tools are implemented in [`evaluation_monitoring.py`](evaluation_monitoring.py), which provides:
+Activation analysis tools are implemented in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py), which provides:
 
 - Activation statistics analysis
 - Model behavior monitoring
@@ -400,10 +400,10 @@ Training and optimization are critical aspects of transformer-based models. Unde
 5. **Advanced techniques** like curriculum learning and adversarial training can improve performance
 
 **Next Steps:**
-- Experiment with different optimization strategies using [`training.py`](training.py)
-- Implement advanced training techniques using [`training_techniques.py`](training_techniques.py)
-- Monitor and analyze training dynamics using [`evaluation_monitoring.py`](evaluation_monitoring.py)
-- Optimize for specific use cases and constraints using [`model_parallel.py`](model_parallel.py)
+- Experiment with different optimization strategies using [`code/training.py`](code/training.py)
+- Implement advanced training techniques using [`code/training_techniques.py`](code/training_techniques.py)
+- Monitor and analyze training dynamics using [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py)
+- Optimize for specific use cases and constraints using [`code/model_parallel.py`](code/model_parallel.py)
 
 ---
 
