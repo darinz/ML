@@ -4,6 +4,18 @@
 
 Self-supervised learning has revolutionized computer vision by enabling models to learn meaningful representations from unlabeled data. By solving carefully designed pretext tasks, models can capture visual structure and semantics without manual annotations, leading to powerful representations that transfer well to downstream tasks.
 
+## From Architecture to Learning Without Labels
+
+We've now explored **Vision Transformers (ViT)** - the paradigm shift in computer vision that adapts transformer architectures from natural language processing to visual data. We've seen how patch-based processing enables global attention across images, how the transformer encoder captures long-range dependencies, and how these architectures achieve state-of-the-art performance on image classification and other vision tasks.
+
+However, while Vision Transformers provide powerful architectures for visual understanding, **the challenge of obtaining labeled data** remains a significant bottleneck in computer vision. Consider training a model to recognize thousands of object categories - collecting and annotating millions of images is expensive, time-consuming, and often impractical for many real-world applications.
+
+This motivates our exploration of **self-supervised learning in vision** - techniques that enable models to learn meaningful representations from unlabeled data by solving carefully designed pretext tasks. We'll see how tasks like image inpainting, jigsaw puzzle solving, and rotation prediction can teach models to understand visual structure without manual annotations, how these learned representations transfer to downstream tasks, and how self-supervised learning has become a cornerstone of modern computer vision.
+
+The transition from Vision Transformers to self-supervised learning represents the bridge from architectural innovation to learning efficiency - taking our understanding of powerful vision architectures and applying it to the challenge of learning from unlabeled data.
+
+In this section, we'll explore self-supervised learning, understanding how to design pretext tasks that enable effective representation learning without manual supervision.
+
 ### Key Principles
 
 **Core Concepts:**
@@ -787,4 +799,22 @@ Self-supervised learning has emerged as a powerful paradigm for learning visual 
 - "A Simple Framework for Contrastive Learning of Visual Representations" - Chen et al.
 - "Momentum Contrast for Unsupervised Visual Representation Learning" - He et al.
 - "Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning" - Grill et al.
-- "Emerging Properties in Self-Supervised Vision Transformers" - Caron et al. 
+- "Emerging Properties in Self-Supervised Vision Transformers" - Caron et al.
+
+## From Pretext Tasks to Contrastive Learning
+
+We've now explored **self-supervised learning in vision** - techniques that enable models to learn meaningful representations from unlabeled data by solving carefully designed pretext tasks. We've seen how tasks like image inpainting, jigsaw puzzle solving, and rotation prediction can teach models to understand visual structure without manual annotations, how these learned representations transfer to downstream tasks, and how self-supervised learning has become a cornerstone of modern computer vision.
+
+However, while pretext tasks provide effective ways to learn from unlabeled data, **contrastive learning** has emerged as an even more powerful paradigm for visual representation learning. Consider the challenge of learning what makes two images similar or different - contrastive learning addresses this directly by training models to distinguish between similar and dissimilar data points, leading to representations that capture semantic similarity more effectively than traditional pretext tasks.
+
+This motivates our exploration of **contrastive learning** - a paradigm that learns visual representations by training models to distinguish between positive pairs (different views of the same data) and negative pairs (views from different data). We'll see how frameworks like SimCLR, MoCo, and BYOL enable effective contrastive learning, how data augmentation creates diverse views for robust learning, and how contrastive learning has become the dominant approach for self-supervised visual representation learning.
+
+The transition from self-supervised learning to contrastive learning represents the bridge from task-specific learning to similarity-based learning - taking our understanding of learning without labels and applying it to the challenge of learning representations that capture semantic similarity.
+
+In the next section, we'll explore contrastive learning, understanding how to design effective contrastive frameworks for visual representation learning.
+
+---
+
+**Previous: [Vision Transformers](01_vision_transformers.md)** - Understand the revolutionary architecture for computer vision.
+
+**Next: [Contrastive Learning](03_contrastive_learning.md)** - Learn how to train models by comparing similar and dissimilar data. 
