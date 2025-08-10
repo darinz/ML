@@ -21,25 +21,25 @@ Transformers and language models have become the foundation of modern AI systems
 - **[06_hands-on_coding.md](06_hands-on_coding.md)** - Practical implementation guide
 
 ### Core Components
-- **[attention.py](attention.py)** - Multi-head attention implementation
-- **[transformer.py](transformer.py)** - Complete transformer architecture
-- **[positional_encoding.py](positional_encoding.py)** - Positional encoding methods
-- **[training.py](training.py)** - Training loop and optimization
+- **[code/attention.py](code/attention.py)** - Multi-head attention implementation
+- **[code/transformer.py](code/transformer.py)** - Complete transformer architecture
+- **[code/positional_encoding.py](code/positional_encoding.py)** - Positional encoding methods
+- **[code/training.py](code/training.py)** - Training loop and optimization
 
 ### Advanced Features
-- **[flash_attention.py](flash_attention.py)** - Memory-efficient attention
-- **[rope_encoding.py](rope_encoding.py)** - Rotary positional encoding
-- **[model_parallel.py](model_parallel.py)** - Distributed training examples
-- **[quantization.py](quantization.py)** - Model compression techniques
+- **[code/flash_attention.py](code/flash_attention.py)** - Memory-efficient attention
+- **[code/rope_encoding.py](code/rope_encoding.py)** - Rotary positional encoding
+- **[code/model_parallel.py](code/model_parallel.py)** - Distributed training examples
+- **[code/quantization.py](code/quantization.py)** - Model compression techniques
 
 ### Applications
-- **[text_classification.py](text_classification.py)** - BERT-style classification
-- **[text_generation.py](text_generation.py)** - GPT-style generation
-- **[translation.py](translation.py)** - Sequence-to-sequence translation
-- **[summarization.py](summarization.py)** - Text summarization models
+- **[code/text_classification.py](code/text_classification.py)** - BERT-style classification
+- **[code/text_generation.py](code/text_generation.py)** - GPT-style generation
+- **[code/translation.py](code/translation.py)** - Sequence-to-sequence translation
+- **[code/summarization.py](code/summarization.py)** - Text summarization models
 
 ### Supporting Files
-- **requirements.txt** - Python dependencies
+- **code/requirements.txt** - Python dependencies
 
 ## Key Concepts
 
@@ -90,26 +90,26 @@ Transformers and language models have become the foundation of modern AI systems
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 
 ## Quick Start
 
 ```python
 # Basic Attention
-from attention import MultiHeadAttention
+from code.attention import MultiHeadAttention
 attention = MultiHeadAttention(d_model=512, num_heads=8)
 
 # Transformer
-from transformer import Transformer
+from code.transformer import Transformer
 model = Transformer(src_vocab_size=30000, tgt_vocab_size=30000, d_model=512)
 
 # Flash Attention
-from flash_attention import FlashAttention
+from code.flash_attention import FlashAttention
 flash_attn = FlashAttention(softmax_scale=1.0)
 
 # RoPE Encoding
-from rope_encoding import RoPE
+from code.rope_encoding import RoPE
 rope = RoPE(dim=512, max_position_embeddings=2048)
 ```
 
