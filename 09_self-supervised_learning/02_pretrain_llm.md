@@ -2,6 +2,18 @@
 
 Natural language processing is another area where pretraining models are particularly successful. In language problems, an example typically corresponds to a document or generally a sequence (or trunk) of words,[^5] denoted by $x = (x_1, \cdots, x_T)$ where $T$ is the length of the document/sequence, $x_i \in \{1, \cdots, V\}$ are words in the document, and $V$ is the vocabulary size.[^6]
 
+## From General Foundation Models to Language-Specific Applications
+
+We've now explored **self-supervised learning and foundation models** - a paradigm shift that enables learning from vast amounts of unlabeled data. We've seen how contrastive learning works by creating surrogate tasks from the data itself, how foundation models can be adapted to various downstream tasks, and how this approach addresses the fundamental data labeling bottleneck in machine learning.
+
+However, while the general principles of self-supervised learning apply across different data modalities, **natural language processing** presents unique challenges and opportunities that require specialized approaches. Language has its own structure, patterns, and characteristics that make it particularly well-suited for certain types of self-supervised learning.
+
+This motivates our exploration of **large language models (LLMs)** - specialized foundation models for text that leverage the sequential and contextual nature of language. We'll see how language modeling works through the chain rule of probability, how Transformer architectures process text, and how these models can generate coherent text and adapt to new tasks through prompting.
+
+The transition from general foundation models to language-specific applications represents the bridge from universal principles to domain expertise - taking our understanding of self-supervised learning and applying it to the rich, structured world of natural language.
+
+In this section, we'll explore how language models work, how they're trained on massive text corpora, and how they can be adapted to various language tasks through finetuning, zero-shot learning, and in-context learning.
+
 ## Introduction to Language Modeling
 
 Language modeling is one of the most fundamental tasks in natural language processing. At its core, it involves predicting the probability of sequences of words, which requires understanding the complex patterns and relationships in human language.
@@ -522,6 +534,24 @@ These methods make large language models extremely flexible and powerful for a w
 - **Prompt Engineering + Zero-shot**: Carefully design prompts for better zero-shot performance
 - **In-context + Finetuning**: Use in-context learning to bootstrap, then finetune
 - **Ensemble Methods**: Combine predictions from multiple adaptation methods
+
+## From Theoretical Understanding to Practical Implementation
+
+We've now explored **large language models** - specialized foundation models for text that leverage the sequential and contextual nature of language. We've seen how language modeling works through the chain rule of probability, how Transformer architectures process text, and how these models can generate coherent text and adapt to new tasks through finetuning, zero-shot learning, and in-context learning.
+
+However, while understanding the theoretical foundations of self-supervised learning and large language models is essential, true mastery comes from **practical implementation**. The concepts we've learned - contrastive learning, language modeling, text generation, and adaptation methods - need to be applied to real problems to develop intuition and practical skills.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the self-supervised learning and language model concepts we've learned. We'll put our theoretical knowledge into practice by implementing contrastive learning for computer vision, building language models for text generation, and developing the practical skills needed to create foundation models that can adapt to various downstream tasks.
+
+The transition from theoretical understanding to practical implementation represents the bridge from knowledge to application - taking our understanding of how self-supervised learning and language models work and turning it into practical tools for building powerful AI systems.
+
+In the next section, we'll implement complete systems for self-supervised learning and language models, experiment with different techniques, and develop the practical skills needed for real-world applications in computer vision and natural language processing.
+
+---
+
+**Previous: [Self-Supervised Learning](01_pretraining.md)** - Understand the fundamental techniques for learning from unlabeled data.
+
+**Next: [Hands-on Coding](03_hands-on_coding.md)** - Implement self-supervised learning and language model techniques with practical examples.
 
 [^5]: In the practical implementations, typically all the data are concatenated into a single sequence in some order, and each example typically corresponds a sub-sequence of consecutive words which may correspond to a subset of a document or may span across multiple documents.
 
