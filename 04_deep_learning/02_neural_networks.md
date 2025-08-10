@@ -23,9 +23,9 @@ Neural networks are mathematical models that can approximate any continuous func
 
 A neural network can be viewed as a composition of functions:
 
-```math
+$$
 f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
-```
+$$
 
 Where each $f_i$ represents a layer transformation, and $\circ$ denotes function composition.
 
@@ -57,10 +57,10 @@ The artificial neuron is the fundamental computational unit of neural networks. 
 
 For a single neuron with input $x \in \mathbb{R}^d$:
 
-```math
+$$
 z = w^T x + b
 a = \sigma(z)
-```
+$$
 
 Where:
 - $w \in \mathbb{R}^d$ is the weight vector
@@ -73,9 +73,9 @@ Where:
 
 **The Problem with Linear Activations**: If we used $\sigma(z) = z$ (linear activation), then:
 
-```math
+$$
 f(x) = w_2^T (W_1 x + b_1) + b_2 = (w_2^T W_1) x + (w_2^T b_1 + b_2) = W' x + b'
-```
+$$
 
 This reduces to a linear function, losing the power of non-linearity.
 
@@ -84,9 +84,9 @@ This reduces to a linear function, losing the power of non-linearity.
 ### Common Activation Functions
 
 #### 1. Rectified Linear Unit (ReLU)
-```math
+$$
 \sigma(z) = \max(0, z)
-```
+$$
 
 **Properties**:
 - **Range**: $[0, \infty)$
@@ -95,9 +95,9 @@ This reduces to a linear function, losing the power of non-linearity.
 - **Disadvantages**: Can cause "dying ReLU" problem (neurons stuck at zero)
 
 #### 2. Sigmoid Function
-```math
+$$
 \sigma(z) = \frac{1}{1 + e^{-z}}
-```
+$$
 
 **Properties**:
 - **Range**: $(0, 1)$
@@ -106,9 +106,9 @@ This reduces to a linear function, losing the power of non-linearity.
 - **Disadvantages**: Suffers from vanishing gradient problem
 
 #### 3. Hyperbolic Tangent (tanh)
-```math
+$$
 \sigma(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
-```
+$$
 
 **Properties**:
 - **Range**: $(-1, 1)$
@@ -120,9 +120,9 @@ This reduces to a linear function, losing the power of non-linearity.
 
 Consider predicting house prices based on house size. A single neuron with ReLU activation can model the relationship:
 
-```math
+$$
 \hat{h}_\theta(x) = \max(w \cdot x + b, 0)
-```
+$$
 
 Where:
 - $x$ is the house size (square feet)
@@ -143,9 +143,9 @@ Where:
 **Parameter Learning**:
 The parameters $w$ and $b$ are learned through gradient descent by minimizing a loss function (e.g., mean squared error):
 
-```math
+$$
 J(w, b) = \frac{1}{n} \sum_{i=1}^n (y^{(i)} - \hat{h}_\theta(x^{(i)}))^2
-```
+$$
 
 ---
 
@@ -173,15 +173,15 @@ A two-layer network consists of:
 For a two-layer network with $h$ hidden neurons:
 
 **Hidden Layer**:
-```math
+$$
 z_j = w_j^T x + b_j, \quad j = 1, 2, \ldots, h
 a_j = \sigma(z_j), \quad j = 1, 2, \ldots, h
-```
+$$
 
 **Output Layer**:
-```math
+$$
 \hat{y} = w_{out}^T a + b_{out}
-```
+$$
 
 Where:
 - $w_j \in \mathbb{R}^d$ are the weights for the $j$-th hidden neuron
@@ -194,10 +194,10 @@ Where:
 We can write this more compactly using matrix notation:
 
 **Hidden Layer**:
-```math
+$$
 Z = W x + b
 A = \sigma(Z)
-```
+$$
 
 Where:
 - $W \in \mathbb{R}^{h \times d}$ is the weight matrix
@@ -205,9 +205,9 @@ Where:
 - $Z, A \in \mathbb{R}^h$ are the pre-activations and activations
 
 **Output Layer**:
-```math
+$$
 \hat{y} = w_{out}^T A + b_{out}
-```
+$$
 
 ### Feature Learning Interpretation
 
@@ -295,27 +295,27 @@ A two-layer fully-connected network is the simplest form of a "deep" neural netw
 #### Layer-by-Layer Computation
 
 **Layer 1 (Hidden Layer)**:
-```math
+$$
 z_j^{[1]} = (w_j^{[1]})^T x + b_j^{[1]}, \quad j = 1, 2, \ldots, m
 a_j^{[1]} = \sigma(z_j^{[1]}), \quad j = 1, 2, \ldots, m
-```
+$$
 
 **Layer 2 (Output Layer)**:
-```math
+$$
 z^{[2]} = (w^{[2]})^T a^{[1]} + b^{[2]}
 \hat{y} = z^{[2]} \quad \text{(for regression)}
 \hat{y} = \sigma(z^{[2]}) \quad \text{(for classification)}
-```
+$$
 
 #### Matrix Notation
 
 **Forward Pass**:
-```math
+$$
 Z^{[1]} = W^{[1]} x + b^{[1]}
 A^{[1]} = \sigma(Z^{[1]})
 Z^{[2]} = W^{[2]} A^{[1]} + b^{[2]}
 \hat{y} = Z^{[2]}
-```
+$$
 
 Where:
 - $W^{[1]} \in \mathbb{R}^{m \times d}$: Weight matrix for layer 1
@@ -345,26 +345,26 @@ Where:
 #### Loss Function
 
 For regression:
-```math
+$$
 J(\theta) = \frac{1}{n} \sum_{i=1}^n (y^{(i)} - \hat{y}^{(i)})^2
-```
+$$
 
 For classification:
-```math
+$$
 J(\theta) = -\frac{1}{n} \sum_{i=1}^n [y^{(i)} \log(\hat{y}^{(i)}) + (1-y^{(i)}) \log(1-\hat{y}^{(i)})]
-```
+$$
 
 #### Gradient Computation
 
 The gradients are computed using backpropagation:
 
-```math
+$$
 \frac{\partial J}{\partial W^{[2]}} = \frac{1}{n} \sum_{i=1}^n (a^{[1](i)})^T (y^{(i)} - \hat{y}^{(i)})
-```
+$$
 
-```math
+$$
 \frac{\partial J}{\partial W^{[1]}} = \frac{1}{n} \sum_{i=1}^n x^{(i)} (\sigma'(z^{[1](i)}) \odot (W^{[2]})^T (y^{(i)} - \hat{y}^{(i)}))^T
-```
+$$
 
 Where $\odot$ denotes element-wise multiplication.
 
@@ -381,9 +381,9 @@ Where $\odot$ denotes element-wise multiplication.
 #### Regularization
 
 **L2 Regularization**:
-```math
+$$
 J_{reg}(\theta) = J(\theta) + \frac{\lambda}{2} (\|W^{[1]}\|_F^2 + \|W^{[2]}\|_F^2)
-```
+$$
 
 **Dropout**: Randomly set some activations to zero during training
 
@@ -411,9 +411,9 @@ J_{reg}(\theta) = J(\theta) + \frac{\lambda}{2} (\|W^{[1]}\|_F^2 + \|W^{[2]}\|_F
 
 A deep network with $L$ layers can be written as:
 
-```math
+$$
 f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
-```
+$$
 
 Each layer $f_i$ transforms the input into a new representation that becomes the input for the next layer.
 
@@ -424,10 +424,10 @@ Each layer $f_i$ transforms the input into a new representation that becomes the
 For a network with $L$ layers:
 
 **Layer $l$**:
-```math
+$$
 Z^{[l]} = W^{[l]} A^{[l-1]} + b^{[l]}
 A^{[l]} = \sigma^{[l]}(Z^{[l]})
-```
+$$
 
 Where:
 - $A^{[0]} = x$ (input)
@@ -475,26 +475,26 @@ Where:
 
 Add skip connections to help with gradient flow:
 
-```math
+$$
 A^{[l+1]} = \sigma(Z^{[l+1]} + A^{[l]})
-```
+$$
 
 #### Batch Normalization
 
 Normalize activations to stabilize training:
 
-```math
+$$
 A_{norm}^{[l]} = \frac{A^{[l]} - \mu}{\sqrt{\sigma^2 + \epsilon}}
 A^{[l]} = \gamma A_{norm}^{[l]} + \beta
-```
+$$
 
 #### Attention Mechanisms
 
 Allow the network to focus on relevant parts of the input:
 
-```math
+$$
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-```
+$$
 
 ---
 
@@ -604,9 +604,9 @@ Neural networks and kernel methods are both approaches to non-linear learning, b
 
 Kernel methods rely on the "kernel trick" to implicitly map data to high-dimensional spaces:
 
-```math
+$$
 f(x) = \sum_{i=1}^n \alpha_i K(x, x_i)
-```
+$$
 
 Where $K$ is a kernel function measuring similarity between points.
 
@@ -614,9 +614,9 @@ Where $K$ is a kernel function measuring similarity between points.
 
 Neural networks learn explicit feature mappings:
 
-```math
+$$
 f(x) = W^{[L]} \sigma(W^{[L-1]} \sigma(\cdots \sigma(W^{[1]} x + b^{[1]}) \cdots) + b^{[L-1]}) + b^{[L]}
-```
+$$
 
 ### Key Differences
 
