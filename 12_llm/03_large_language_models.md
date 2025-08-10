@@ -295,7 +295,7 @@ Weight initialization is implemented in [`code/training_techniques.py`](code/tra
 ### Gradient Accumulation
 
 **For large batch sizes:**
-Gradient accumulation is implemented in [`training_techniques.py`](training_techniques.py) with the `train_with_gradient_accumulation` function, which provides:
+Gradient accumulation is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `train_with_gradient_accumulation` function, which provides:
 
 - Configurable accumulation steps
 - Proper loss scaling
@@ -306,7 +306,7 @@ Gradient accumulation is implemented in [`training_techniques.py`](training_tech
 
 ### Perplexity Calculation
 
-The complete implementation of perplexity calculation and other evaluation metrics is available in [`evaluation_monitoring.py`](evaluation_monitoring.py), which includes:
+The complete implementation of perplexity calculation and other evaluation metrics is available in [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py), which includes:
 
 - `calculate_perplexity`: Perplexity calculation for language models
 - `visualize_attention`: Attention weight visualization
