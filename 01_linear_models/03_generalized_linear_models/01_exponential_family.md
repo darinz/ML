@@ -323,7 +323,7 @@ For deeper theoretical understanding and advanced perspectives on exponential fa
 - **Purdue Materials** (`expfamily_purdue.pdf`): Comprehensive treatment with detailed examples
 
 ### **Recommended Study Path**
-1. **Foundation**: Master the concepts in this document and practice with `exponential_family_examples.py`
+1. **Foundation**: Master the concepts in this document and practice with `code/exponential_family_examples.py`
 2. **Intermediate**: Study `the-exponential-family_lecture12_columbia.pdf` for clear explanations
 3. **Advanced**: Dive into `the-exponential-family_MIT18_655S16_LecNote7.pdf` for comprehensive coverage
 4. **Specialized**: Use institution-specific materials for particular topics of interest
