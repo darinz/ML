@@ -478,7 +478,7 @@ demonstrate_continuous_policy()
 ---
 
 ### Lesson 4: Advanced Control Methods (3-4 hours)
-**Files**: `advanced_control_examples.py`
+**Files**: `code/advanced_control_examples.py`
 
 #### Learning Goals
 - Understand finite-horizon MDPs and dynamic programming
