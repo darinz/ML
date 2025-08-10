@@ -361,7 +361,7 @@ See [`linear_bandit_example.py`](linear_bandit_example.py) for a complete exampl
 
 ```python
 # Run a complete experiment comparing LinUCB, Linear Thompson Sampling, and OFUL
-# python linear_bandit_example.py
+# python code/linear_bandit_example.py
 ```
 
 ### Complete Linear Bandit Environment
