@@ -490,3 +490,19 @@ A typical deep learning project involves several key steps:
 ---
 
 *This concludes our introduction to non-linear models and the mathematical foundations of deep learning. In the next sections, we will explore specific neural network architectures, training algorithms, and practical implementation details.*
+
+## From Mathematical Foundations to Neural Network Architectures
+
+We've now established the **mathematical foundations** of deep learning - understanding why non-linear models are necessary, how loss functions capture different types of learning objectives, and how optimization algorithms enable us to find the best parameters for our models. This theoretical framework provides the foundation for understanding how neural networks work.
+
+However, while we've discussed non-linear models in abstract terms, we need to move from mathematical concepts to concrete **neural network architectures**. The transition from understanding why non-linear models are powerful to actually building them requires us to explore how simple computational units (neurons) can be combined to create complex learning systems.
+
+This motivates our exploration of **neural networks** - the specific architectural framework that implements non-linear models through interconnected layers of neurons. We'll see how the mathematical principles we've established (non-linear transformations, function composition, optimization) translate into concrete neural network designs.
+
+The transition from non-linear models to neural networks represents the bridge from mathematical theory to practical architecture - taking our understanding of why non-linear models work and turning it into a systematic approach for building them.
+
+In the next section, we'll explore how individual neurons work, how they can be combined into layers, and how these layers can be stacked to create deep architectures that can learn increasingly complex patterns.
+
+---
+
+**Next: [Neural Networks](02_neural_networks.md)** - Learn how to build neural networks from individual neurons to deep architectures.
