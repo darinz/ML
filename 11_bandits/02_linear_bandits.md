@@ -257,24 +257,15 @@ def standardize_features(features):
 ### Numerical Stability
 
 **Matrix Inversion:**
-```python
-def stable_solve(A, b):
-    """Stable matrix solve with regularization"""
-    try:
-        return np.linalg.solve(A, b)
-    except np.linalg.LinAlgError:
-        # Add small regularization if matrix is singular
-        A_reg = A + 1e-6 * np.eye(A.shape[0])
-        return np.linalg.solve(A_reg, b)
-```
+See [`feature_utils.py`](feature_utils.py) for the complete implementation.
 
-**Conditioning:**
 ```python
+# Key functionality:
+def stable_solve(A, b):
+    # Stable matrix solve with regularization
+    
 def check_conditioning(A):
-    """Check condition number of design matrix"""
-    eigenvals = np.linalg.eigvals(A)
-    condition_number = np.max(eigenvals) / np.min(eigenvals)
-    return condition_number
+    # Check condition number of design matrix
 ```
 
 ## Advanced Topics
@@ -326,49 +317,27 @@ Use kernel functions to capture non-linear reward functions:
 ### Recommendation Systems
 
 **Content Recommendation:**
+See [`application_examples.py`](application_examples.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class ContentRecommender:
-    def __init__(self, n_items, feature_dim):
-        self.bandit = LinUCB(feature_dim)
-        self.item_features = self._extract_features(n_items)
-    
-    def recommend(self, user_context):
-        """Recommend content based on user context"""
-        # Combine user context with item features
-        contextual_features = self._combine_features(user_context, self.item_features)
-        
-        # Select item using bandit algorithm
-        item_idx = self.bandit.select_arm(contextual_features)
-        return item_idx
-    
-    def update(self, item_idx, user_context, reward):
-        """Update model with user feedback"""
-        contextual_features = self._combine_features(user_context, self.item_features)
-        self.bandit.update(item_idx, reward, contextual_features)
+    # Use LinUCB for content recommendation
+    # Combine user context with item features
+    # Update model with user feedback
 ```
 
 ### Online Advertising
 
 **Ad Selection with User Features:**
+See [`application_examples.py`](application_examples.py) for the complete implementation.
+
 ```python
+# Key functionality:
 class AdSelector:
-    def __init__(self, n_ads, user_feature_dim):
-        self.bandit = LinearThompsonSampling(user_feature_dim)
-        self.ad_features = self._extract_ad_features(n_ads)
-    
-    def select_ad(self, user_features):
-        """Select ad based on user features"""
-        # Combine user and ad features
-        combined_features = self._combine_user_ad_features(user_features, self.ad_features)
-        
-        # Select ad using bandit algorithm
-        ad_idx = self.bandit.select_arm(combined_features)
-        return ad_idx
-    
-    def update(self, ad_idx, user_features, click):
-        """Update model with click feedback"""
-        combined_features = self._combine_user_ad_features(user_features, self.ad_features)
-        self.bandit.update(ad_idx, click, combined_features)
+    # Use Linear Thompson Sampling for ad selection
+    # Combine user and ad features
+    # Update model with click feedback
 ```
 
 ### Clinical Trials
