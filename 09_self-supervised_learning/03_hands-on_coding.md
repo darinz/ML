@@ -224,7 +224,7 @@ print(f"Linear probe accuracy: {linear_probe_accuracy:.4f}")
 **Activity 1.6: Finetuning Adaptation**
 ```python
 # Implement finetuning adaptation (full model training)
-from pretraining_examples import finetuning_example
+from code.pretraining_examples import finetuning_example
 
 # Apply finetuning to the pretrained model
 finetuned_model, finetune_losses = finetuning_example(model)
@@ -237,7 +237,7 @@ print(f"Final finetuning loss: {finetune_losses[-1]:.4f}")
 **Activity 1.7: Comparing Adaptation Methods**
 ```python
 # Compare linear probe vs finetuning performance
-from pretraining_examples import compare_adaptation_methods
+from code.pretraining_examples import compare_adaptation_methods
 
 # Compare different adaptation strategies
 comparison_results = compare_adaptation_methods()
