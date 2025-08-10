@@ -343,7 +343,7 @@ The complete implementation of model quantization and other deployment technique
 
 ### Text Generation
 
-Text generation is implemented in [`deployment_inference.py`](deployment_inference.py) with the `generate_text` function, which provides:
+Text generation is implemented in [`code/deployment_inference.py`](code/deployment_inference.py) with the `generate_text` function, which provides:
 
 - Temperature-controlled sampling
 - Top-k and top-p sampling
@@ -354,7 +354,7 @@ Text generation is implemented in [`deployment_inference.py`](deployment_inferen
 
 ### Bias Detection and Mitigation
 
-The complete implementation of bias detection and other ethical tools is available in [`ethical_considerations.py`](ethical_considerations.py), which includes:
+The complete implementation of bias detection and other ethical tools is available in [`code/ethical_considerations.py`](code/ethical_considerations.py), which includes:
 
 - `detect_bias`: Bias detection in model outputs
 - `safety_filter`: Content safety filtering
@@ -366,7 +366,7 @@ The complete implementation of bias detection and other ethical tools is availab
 
 ### Safety Measures
 
-Safety measures are implemented in [`ethical_considerations.py`](ethical_considerations.py) with various safety utilities, which provide:
+Safety measures are implemented in [`code/ethical_considerations.py`](code/ethical_considerations.py) with various safety utilities, which provide:
 
 - Content filtering and safety checks
 - Bias detection and mitigation
@@ -387,21 +387,21 @@ Large Language Models represent a significant advancement in artificial intellig
 
 **Next Steps:**
 - Explore advanced training techniques like RLHF in [`14_rlhf/`](../14_rlhf/)
-- Study model compression and efficiency improvements in [`deployment_inference.py`](deployment_inference.py)
-- Practice with real-world datasets and applications in [`llm_example.py`](llm_example.py)
-- Consider ethical implications and safety measures in [`ethical_considerations.py`](ethical_considerations.py)
+- Study model compression and efficiency improvements in [`code/deployment_inference.py`](code/deployment_inference.py)
+- Practice with real-world datasets and applications in [`code/llm_example.py`](code/llm_example.py)
+- Consider ethical implications and safety measures in [`code/ethical_considerations.py`](code/ethical_considerations.py)
 
 ## Complete Example
 
-For a complete demonstration of all LLM components working together, see [`llm_example.py`](llm_example.py). This script shows:
+For a complete demonstration of all LLM components working together, see [`code/llm_example.py`](code/llm_example.py). This script shows:
 
-- **Scaling Laws Analysis**: Optimal model and data size calculations using [`scaling_laws.py`](scaling_laws.py)
-- **Model Architecture Creation**: GPT, BERT, and T5 style models using [`llm_architectures.py`](llm_architectures.py)
-- **Training Techniques**: Mixed precision, gradient checkpointing, model parallelism using [`training_techniques.py`](training_techniques.py)
-- **Pre-training Objectives**: MLM, CLM, and span corruption using [`pretraining_objectives.py`](pretraining_objectives.py)
-- **Evaluation and Monitoring**: Perplexity, attention visualization, efficiency metrics using [`evaluation_monitoring.py`](evaluation_monitoring.py)
-- **Deployment and Inference**: Quantization, text generation, performance measurement using [`deployment_inference.py`](deployment_inference.py)
-- **Ethical Considerations**: Bias detection, content filtering, fairness metrics using [`ethical_considerations.py`](ethical_considerations.py)
+- **Scaling Laws Analysis**: Optimal model and data size calculations using [`code/scaling_laws.py`](code/scaling_laws.py)
+- **Model Architecture Creation**: GPT, BERT, and T5 style models using [`code/llm_architectures.py`](code/llm_architectures.py)
+- **Training Techniques**: Mixed precision, gradient checkpointing, model parallelism using [`code/training_techniques.py`](code/training_techniques.py)
+- **Pre-training Objectives**: MLM, CLM, and span corruption using [`code/pretraining_objectives.py`](code/pretraining_objectives.py)
+- **Evaluation and Monitoring**: Perplexity, attention visualization, efficiency metrics using [`code/evaluation_monitoring.py`](code/evaluation_monitoring.py)
+- **Deployment and Inference**: Quantization, text generation, performance measurement using [`code/deployment_inference.py`](code/deployment_inference.py)
+- **Ethical Considerations**: Bias detection, content filtering, fairness metrics using [`code/ethical_considerations.py`](code/ethical_considerations.py)
 
 Run the complete example:
 ```bash
