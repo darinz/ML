@@ -7,6 +7,18 @@ Many real-world problems involve hidden or unobserved factors. For example, imag
 - **Latent variable:** A variable that is not directly observed but influences the data.
 - **Goal:** Learn both the parameters of the model and the likely values of the latent variables.
 
+## From Specific Models to General Framework
+
+We've now explored **Gaussian Mixture Models** and the **Expectation-Maximization algorithm** - a powerful approach to probabilistic clustering that provides soft assignments and can model clusters of different shapes and sizes. We've seen how EM alternates between estimating cluster probabilities (E-step) and updating parameters (M-step), using the ELBO to maximize a lower bound on the likelihood.
+
+However, while GMM provides a specific application of EM, the **Expectation-Maximization algorithm** is actually a general framework that can be applied to any model with latent variables. The principles we've learned - alternating between expectation and maximization steps, using the ELBO, and handling hidden variables - extend far beyond mixture models.
+
+This motivates our exploration of the **general EM framework** - a flexible approach for learning in any latent variable model. We'll see how the ELBO provides a unified framework for variational inference, how to apply EM to different types of models, and how this general approach enables us to tackle a wide range of unsupervised learning problems.
+
+The transition from GMM to general EM represents the bridge from specific application to universal framework - taking our understanding of how EM works with mixture models and extending it to any model with hidden variables.
+
+In this section, we'll explore the mathematical foundations of the general EM framework, understand the ELBO in its most general form, and see how this framework applies to various latent variable models.
+
 ## The General Latent Variable Model
 
 Suppose we have data $`x^{(1)}, ..., x^{(n)}`$ and a model $`p(x, z; \theta)`$ (joint probability of data and latent variable, parameterized by $`\theta`$). The probability of the observed data is:
@@ -133,4 +145,22 @@ w_j^{(i)} = Q_i(z^{(i)} = j) = P(z^{(i)} = j | x^{(i)}; \phi, \mu, \Sigma)
 - It alternates between estimating the distribution over hidden variables (E-step) and updating parameters (M-step).
 - The ELBO provides a tractable lower bound on the log-likelihood, and maximizing it leads to better models.
 - Understanding the math and intuition behind EM and the ELBO helps you apply these ideas to a wide range of problems.
+
+## From Theoretical Framework to Deep Generative Models
+
+We've now explored the **general EM framework** - a powerful and flexible approach for learning in any latent variable model. We've seen how the ELBO provides a unified framework for variational inference, how to apply EM to different types of models, and how this general approach enables us to tackle a wide range of unsupervised learning problems.
+
+However, while the general EM framework provides the theoretical foundation, modern machine learning often requires dealing with complex, high-dimensional data where the posterior distributions become intractable. Traditional EM methods struggle with these scenarios because they require exact computation of the posterior, which becomes impossible with complex models like neural networks.
+
+This motivates our exploration of **Variational Auto-Encoders (VAEs)** - deep generative models that extend the EM framework to handle complex, high-dimensional data through approximate inference. We'll see how VAEs use neural networks to approximate the posterior distribution, how the reparameterization trick enables efficient training, and how this approach enables us to build powerful generative models for images, text, and other complex data types.
+
+The transition from general EM to VAEs represents the bridge from theoretical framework to practical deep learning - taking our understanding of latent variable models and variational inference and applying it to modern neural network architectures.
+
+In the next section, we'll explore how VAEs work, how to implement them with neural networks, and how this approach enables powerful generative modeling and representation learning.
+
+---
+
+**Previous: [EM and Mixture of Gaussians](02_em_mixture_of_gaussians.md)** - Learn probabilistic clustering using the Expectation-Maximization algorithm.
+
+**Next: [Variational Auto-Encoders](04_variational_auto-encoder.md)** - Explore deep generative models using variational inference.
 
