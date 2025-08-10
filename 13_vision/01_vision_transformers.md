@@ -127,7 +127,7 @@ Where $`z_L^0`$ is the [CLS] token from the final layer.
 
 ### Implementation Details
 
-**Implementation:** See `patch_embedding.py` for comprehensive patch embedding implementations:
+**Implementation:** See `code/patch_embedding.py` for comprehensive patch embedding implementations:
 - `PatchEmbed` - Standard patch embedding with convolutional projection
 - `OverlappingPatchEmbed` - Overlapping patches for better feature extraction
 - `HybridPatchEmbed` - Combination of CNN and patch embedding
@@ -139,7 +139,7 @@ Where $`z_L^0`$ is the [CLS] token from the final layer.
 
 ### Multi-Head Self-Attention
 
-**Implementation:** See `attention.py` for advanced attention mechanisms:
+**Implementation:** See `code/attention.py` for advanced attention mechanisms:
 - `MultiHeadAttention` - Standard multi-head self-attention
 - `RelativePositionAttention` - Attention with relative positional information
 - `LocalAttention` - Local attention within windows
@@ -150,7 +150,7 @@ Where $`z_L^0`$ is the [CLS] token from the final layer.
 
 ### Transformer Block
 
-**Implementation:** See `vision_transformer.py` for complete transformer implementation:
+**Implementation:** See `code/vision_transformer.py` for complete transformer implementation:
 - `VisionTransformer` - Complete ViT architecture
 - `Block` - Individual transformer blocks
 - `Attention` - Multi-head attention implementation
@@ -161,7 +161,7 @@ Where $`z_L^0`$ is the [CLS] token from the final layer.
 
 ### Implementation
 
-**Implementation:** See `vision_transformer.py` for classification head:
+**Implementation:** See `code/vision_transformer.py` for classification head:
 - Built-in classification head in `VisionTransformer`
 - Support for both standard and distillation heads
 - Layer normalization and dropout for regularization
@@ -170,7 +170,7 @@ Where $`z_L^0`$ is the [CLS] token from the final layer.
 
 ### Full Implementation
 
-**Implementation:** See `vision_transformer.py` for complete ViT implementation:
+**Implementation:** See `code/vision_transformer.py` for complete ViT implementation:
 - `VisionTransformer` - Complete architecture with all components
 - `create_vit_model()` - Factory function for different ViT variants
 - Support for various model sizes (base, large, huge)
@@ -180,21 +180,21 @@ Where $`z_L^0`$ is the [CLS] token from the final layer.
 
 ### Data Augmentation
 
-**Implementation:** See `vision_transformer.py` for training utilities:
+**Implementation:** See `code/vision_transformer.py` for training utilities:
 - Built-in support for various augmentation strategies
 - Integration with PyTorch transforms
 - Optimized for ViT training requirements
 
 ### Learning Rate Scheduling
 
-**Implementation:** See `vision_transformer.py` for training components:
+**Implementation:** See `code/vision_transformer.py` for training components:
 - Cosine annealing with warmup support
 - Learning rate scheduling utilities
 - Gradient clipping and optimization techniques
 
 ### Training Loop
 
-**Implementation:** See `vision_transformer.py` for training pipeline:
+**Implementation:** See `code/vision_transformer.py` for training pipeline:
 - Complete training loop implementation
 - Validation and evaluation utilities
 - Model checkpointing and saving
@@ -210,7 +210,7 @@ DeiT introduces knowledge distillation to train ViT more efficiently with less d
 - **Teacher Network**: Pre-trained CNN as teacher
 - **Distillation Loss**: KL divergence between teacher and student
 
-**Implementation:** See `vision_transformer.py` for DeiT support:
+**Implementation:** See `code/vision_transformer.py` for DeiT support:
 - Built-in distillation token support
 - Teacher-student training utilities
 - Distillation loss implementation
@@ -268,21 +268,21 @@ Where $`N`$ is the sequence length and $`D`$ is the embedding dimension.
 
 ### Image Classification
 
-**Implementation:** See `vision_transformer.py` for classification:
+**Implementation:** See `code/vision_transformer.py` for classification:
 - Built-in image classification capabilities
 - Support for various datasets and class numbers
 - Efficient inference and prediction utilities
 
 ### Feature Extraction
 
-**Implementation:** See `vision_transformer.py` for feature extraction:
+**Implementation:** See `code/vision_transformer.py` for feature extraction:
 - `forward_features()` - Extract intermediate features
 - Hook-based feature extraction from any layer
 - Feature visualization and analysis utilities
 
 ### Attention Visualization
 
-**Implementation:** See `attention.py` for attention visualization:
+**Implementation:** See `code/attention.py` for attention visualization:
 - `visualize_attention_weights()` - Attention map visualization
 - Support for visualizing attention from any layer and head
 - Interactive attention analysis tools
