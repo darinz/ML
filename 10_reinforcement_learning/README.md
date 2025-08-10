@@ -20,14 +20,14 @@ Comprehensive coverage of MDPs, continuous state spaces, advanced control method
 - **[05_hands-on_coding.md](05_hands-on_coding.md)** - Practical implementation guide
 
 ### Implementation
-- **[markov_decision_processes_examples.py](markov_decision_processes_examples.py)** - Value iteration, policy iteration, MDP demonstrations
-- **[continuous_state_mdp_examples.py](continuous_state_mdp_examples.py)** - Discretization, value function regression, fitted value iteration
-- **[advanced_control_examples.py](advanced_control_examples.py)** - LQR, DDP, LQG, Kalman filter algorithms
-- **[policy_gradient_examples.py](policy_gradient_examples.py)** - REINFORCE, policy gradient with baseline
+- **[code/markov_decision_processes_examples.py](code/markov_decision_processes_examples.py)** - Value iteration, policy iteration, MDP demonstrations
+- **[code/continuous_state_mdp_examples.py](code/continuous_state_mdp_examples.py)** - Discretization, value function regression, fitted value iteration
+- **[code/advanced_control_examples.py](code/advanced_control_examples.py)** - LQR, DDP, LQG, Kalman filter algorithms
+- **[code/policy_gradient_examples.py](code/policy_gradient_examples.py)** - REINFORCE, policy gradient with baseline
 
 ### Supporting Files
-- **requirements.txt** - Python dependencies
-- **environment.yaml** - Conda environment setup
+- **code/requirements.txt** - Python dependencies
+- **code/environment.yaml** - Conda environment setup
 - **img/** - Figures and diagrams
 
 ## Key Concepts
@@ -92,36 +92,36 @@ Comprehensive coverage of MDPs, continuous state spaces, advanced control method
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 
 Or use conda:
 ```bash
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 ```
 
 ## Running Examples
 
 ```bash
-python markov_decision_processes_examples.py
-python continuous_state_mdp_examples.py
-python advanced_control_examples.py
-python policy_gradient_examples.py
+python code/markov_decision_processes_examples.py
+python code/continuous_state_mdp_examples.py
+python code/advanced_control_examples.py
+python code/policy_gradient_examples.py
 ```
 
 ## Quick Start Code
 
 ```python
 # Value Iteration
-from markov_decision_processes_examples import value_iteration
+from code.markov_decision_processes_examples import value_iteration
 V, policy = value_iteration(P, R, gamma=0.9, max_iter=1000)
 
 # Policy Gradient
-from policy_gradient_examples import reinforce
+from code.policy_gradient_examples import reinforce
 theta = reinforce(env, n_episodes=1000, learning_rate=0.01)
 
 # LQR Control
-from advanced_control_examples import lqr_control
+from code.advanced_control_examples import lqr_control
 K, P = lqr_control(A, B, Q, R)
 ```
 
