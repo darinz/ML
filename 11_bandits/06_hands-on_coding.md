@@ -425,7 +425,7 @@ feature_comparison = compare_feature_representations(
 ---
 
 ### Lesson 3: Contextual Bandits (3-4 hours)
-**Files**: `contextual_bandits.py`, `neural_bandits.py`, `multi_objective.py`
+**Files**: `code/contextual_bandits.py`, `code/neural_bandits.py`, `code/multi_objective.py`
 
 #### Learning Goals
 - Understand contextual bandit framework
