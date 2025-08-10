@@ -491,7 +491,7 @@ print(f"Contextual UCB cumulative reward: {results['cumulative_reward']:.2f}")
 **Activity 3.3: Neural Contextual Bandits**
 ```python
 # Implement neural contextual bandits
-from neural_bandits import NeuralContextualBandit, run_neural_bandit_experiment
+from code.neural_bandits import NeuralContextualBandit, run_neural_bandit_experiment
 
 # Create neural contextual bandit
 neural_bandit = NeuralContextualBandit(
@@ -523,7 +523,7 @@ for algorithm, result in comparison.items():
 **Activity 3.4: Multi-Objective Bandits**
 ```python
 # Implement multi-objective bandits
-from multi_objective import (
+from code.multi_objective import (
     MultiObjectiveBandit, run_multi_objective_experiment
 )
 
@@ -561,7 +561,7 @@ print(f"Multi-objective bandit performance: {multi_results['final_reward']:.2f}"
 ---
 
 ### Lesson 4: Best Arm Identification and Applications (2-3 hours)
-**Files**: `bai_algorithms.py`, `recommendation_system.py`, `ad_selection.py`
+**Files**: `code/bai_algorithms.py`, `code/recommendation_system.py`, `code/ad_selection.py`
 
 #### Learning Goals
 - Understand best arm identification problems
