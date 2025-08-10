@@ -75,28 +75,14 @@ The simplest exploration strategy that balances exploration and exploitation thr
 - With probability $`1-\epsilon`$: choose arm with highest empirical mean (exploitation)
 
 **Implementation:**
+See [`epsilon_greedy.py`](epsilon_greedy.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 def epsilon_greedy(arms, epsilon, T):
-    n_arms = len(arms)
-    empirical_means = [0] * n_arms
-    pulls = [0] * n_arms
-    
-    for t in range(T):
-        if random.random() < epsilon:
-            # Exploration: choose random arm
-            action = random.randint(0, n_arms - 1)
-        else:
-            # Exploitation: choose best empirical arm
-            action = np.argmax(empirical_means)
-        
-        # Pull arm and observe reward
-        reward = arms[action].pull()
-        
-        # Update empirical mean
-        pulls[action] += 1
-        empirical_means[action] = ((empirical_means[action] * (pulls[action] - 1) + reward) / pulls[action])
-    
-    return empirical_means
+    # With probability epsilon: choose random arm (exploration)
+    # With probability 1-epsilon: choose best empirical arm (exploitation)
+    # Update empirical means incrementally
 ```
 
 **Analysis:**
@@ -124,40 +110,15 @@ Where:
 - The exploration term decreases as we pull an arm more
 
 **Implementation:**
+See [`ucb.py`](ucb.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 def ucb(arms, T):
-    n_arms = len(arms)
-    empirical_means = [0] * n_arms
-    pulls = [0] * n_arms
-    
     # Pull each arm once initially
-    for i in range(n_arms):
-        reward = arms[i].pull()
-        empirical_means[i] = reward
-        pulls[i] = 1
-    
-    # Main UCB loop
-    for t in range(n_arms, T):
-        # Calculate UCB values
-        ucb_values = []
-        for i in range(n_arms):
-            if pulls[i] == 0:
-                ucb_values.append(float('inf'))
-            else:
-                exploration_bonus = np.sqrt(2 * np.log(t) / pulls[i])
-                ucb_values.append(empirical_means[i] + exploration_bonus)
-        
-        # Choose arm with highest UCB
-        action = np.argmax(ucb_values)
-        
-        # Pull arm and observe reward
-        reward = arms[action].pull()
-        
-        # Update empirical mean
-        pulls[action] += 1
-        empirical_means[action] = ((empirical_means[action] * (pulls[action] - 1) + reward) / pulls[action])
-    
-    return empirical_means
+    # Calculate UCB values: empirical_mean + sqrt(2*log(t)/pulls)
+    # Choose arm with highest UCB value
+    # Update empirical means incrementally
 ```
 
 **Theoretical Guarantees:**
@@ -180,38 +141,15 @@ Thompson sampling is a Bayesian approach that maintains posterior distributions 
 - Where $`S_i`$ = successes, $`F_i`$ = failures for arm $`i`$
 
 **Implementation:**
+See [`thompson_sampling.py`](thompson_sampling.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 def thompson_sampling(arms, T):
-    n_arms = len(arms)
-    # Beta parameters: (alpha, beta) for each arm
-    alpha = [1] * n_arms  # successes + 1
-    beta = [1] * n_arms   # failures + 1
-    
-    for t in range(T):
-        # Sample from posterior distributions
-        samples = []
-        for i in range(n_arms):
-            sample = np.random.beta(alpha[i], beta[i])
-            samples.append(sample)
-        
-        # Choose arm with highest sampled value
-        action = np.argmax(samples)
-        
-        # Pull arm and observe reward
-        reward = arms[action].pull()
-        
-        # Update posterior
-        if reward == 1:
-            alpha[action] += 1
-        else:
-            beta[action] += 1
-    
-    # Return empirical means
-    empirical_means = []
-    for i in range(n_arms):
-        empirical_means.append(alpha[i] / (alpha[i] + beta[i]))
-    
-    return empirical_means
+    # Maintain Beta(alpha, beta) posteriors for each arm
+    # Sample from posteriors to select arms
+    # Update posteriors based on observed rewards (0 or 1)
+    # Return empirical means from final posteriors
 ```
 
 **Theoretical Guarantees:**
@@ -373,29 +311,14 @@ Multiple objectives to optimize simultaneously (e.g., revenue and user satisfact
 - Balance exploration of new ads with exploitation of known good ads
 
 **Implementation:**
+See [`ad_bandit.py`](ad_bandit.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 class AdBandit:
-    def __init__(self, n_ads):
-        self.n_ads = n_ads
-        self.empirical_ctr = [0] * n_ads
-        self.pulls = [0] * n_ads
-        
-    def select_ad(self, user_context):
-        # UCB selection
-        ucb_values = []
-        for i in range(self.n_ads):
-            if self.pulls[i] == 0:
-                ucb_values.append(float('inf'))
-            else:
-                exploration = np.sqrt(2 * np.log(self.total_pulls) / self.pulls[i])
-                ucb_values.append(self.empirical_ctr[i] + exploration)
-        
-        return np.argmax(ucb_values)
-    
-    def update(self, ad_id, click):
-        self.pulls[ad_id] += 1
-        self.total_pulls += 1
-        self.empirical_ctr[ad_id] = ((self.empirical_ctr[ad_id] * (self.pulls[ad_id] - 1) + click) / self.pulls[ad_id])
+    # UCB-based ad selection
+    # Track empirical click-through rates
+    # Update statistics incrementally
 ```
 
 ### Recommendation Systems
@@ -414,76 +337,49 @@ class AdBandit:
 
 ### Basic Bandit Environment
 
+See [`bandit_environment.py`](bandit_environment.py) for the complete implementation.
+
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
-
+# Key components:
 class BernoulliArm:
-    def __init__(self, p):
-        self.p = p
+    # Bernoulli arm with success probability p
     
-    def pull(self):
-        return np.random.binomial(1, self.p)
-
 class BanditEnvironment:
-    def __init__(self, arm_means):
-        self.arms = [BernoulliArm(p) for p in arm_means]
-        self.optimal_arm = np.argmax(arm_means)
-        self.optimal_mean = arm_means[self.optimal_arm]
-    
-    def get_regret(self, chosen_arms, rewards):
-        cumulative_optimal = np.cumsum([self.optimal_mean] * len(rewards))
-        cumulative_rewards = np.cumsum(rewards)
-        return cumulative_optimal - cumulative_rewards
+    # Multi-armed bandit environment
+    # Calculate cumulative regret
 ```
 
 ### Algorithm Comparison
 
+See [`bandit_environment.py`](bandit_environment.py) for the complete implementation.
+
 ```python
+# Key functionality:
 def compare_algorithms(env, algorithms, T=1000, n_runs=100):
-    results = {}
-    
-    for name, algorithm in algorithms.items():
-        regrets = []
-        for run in range(n_runs):
-            chosen_arms, rewards = algorithm(env, T)
-            regret = env.get_regret(chosen_arms, rewards)
-            regrets.append(regret)
-        
-        results[name] = np.mean(regrets, axis=0)
-    
-    return results
+    # Compare different bandit algorithms
+    # Run multiple independent trials
+    # Return average regrets for each algorithm
 
-# Example usage
-arm_means = [0.1, 0.2, 0.3, 0.4, 0.5]
-env = BanditEnvironment(arm_means)
-
-algorithms = {
-    'Epsilon-Greedy': lambda env, T: epsilon_greedy(env, 0.1, T),
-    'UCB': lambda env, T: ucb(env, T),
-    'Thompson Sampling': lambda env, T: thompson_sampling(env, T)
-}
-
-results = compare_algorithms(env, algorithms)
+# Example usage:
+# arm_means = [0.1, 0.2, 0.3, 0.4, 0.5]
+# env = BanditEnvironment(arm_means)
+# algorithms = {'Epsilon-Greedy': ..., 'UCB': ..., 'Thompson Sampling': ...}
+# results = compare_algorithms(env, algorithms)
 ```
 
 ### Visualization
 
-```python
-def plot_regret_comparison(results, T):
-    plt.figure(figsize=(10, 6))
-    
-    for name, regret in results.items():
-        plt.plot(range(1, T+1), regret, label=name)
-    
-    plt.xlabel('Time Step')
-    plt.ylabel('Cumulative Regret')
-    plt.title('Regret Comparison of Bandit Algorithms')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+See [`bandit_environment.py`](bandit_environment.py) for the complete implementation.
 
-plot_regret_comparison(results, 1000)
+```python
+# Key functionality:
+def plot_regret_comparison(results, T):
+    # Plot regret comparison of different algorithms
+    # Show cumulative regret over time
+    # Include legend and proper labeling
+
+# Usage:
+# plot_regret_comparison(results, 1000)
 ```
 
 ## Summary
