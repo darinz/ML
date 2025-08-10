@@ -283,7 +283,7 @@ demonstrate_discretization()
 **Activity 2.2: Value Function Approximation**
 ```python
 # Implement linear value function approximation
-from continuous_state_mdp_examples import LinearValueFunction, polynomial_features
+from code.continuous_state_mdp_examples import LinearValueFunction, polynomial_features
 
 # Create polynomial features
 feature_fn = polynomial_features(degree=2)
