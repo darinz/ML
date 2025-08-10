@@ -161,7 +161,7 @@ Explanation: "Response A uses a concrete analogy that a child can understand, wh
 **1. Uncertainty Sampling**: Select examples where the model is most uncertain about preferences
 **2. Diversity Sampling**: Ensure coverage of different topics, styles, and difficulty levels
 
-**Implementation:** See `preference_data.py` for active learning implementations:
+**Implementation:** See `code/preference_data.py` for active learning implementations:
 - `PreferenceDataCollector` - Complete data collection pipeline
 - `collect_binary_preferences()` - Binary preference collection
 - `collect_ranking_data()` - Ranking-based data collection
@@ -172,7 +172,7 @@ Explanation: "Response A uses a concrete analogy that a child can understand, wh
 
 **Goal**: Ensure coverage of different topics, styles, and difficulty levels
 
-**Implementation:** See `preference_data.py` for diversity sampling:
+**Implementation:** See `code/preference_data.py` for diversity sampling:
 - `PreferenceDataProcessor` - Data processing and augmentation
 - `augment_data()` - Data augmentation utilities
 - `validate_data()` - Data validation and quality checks
@@ -182,7 +182,7 @@ Explanation: "Response A uses a concrete analogy that a child can understand, wh
 
 **Multi-Annotator Agreement**: Use multiple annotators per example and compute agreement metrics
 
-**Implementation:** See `preference_data.py` for quality control:
+**Implementation:** See `code/preference_data.py` for quality control:
 - `PreferenceDataAnalyzer` - Data analysis and quality metrics
 - `compute_agreement_metrics()` - Inter-annotator agreement computation
 - `analyze_dataset()` - Comprehensive dataset analysis
@@ -249,7 +249,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 **Inter-Annotator Agreement Monitoring**: Track agreement scores and identify problematic examples
 
-**Implementation:** See `preference_data.py` for consistency monitoring:
+**Implementation:** See `code/preference_data.py` for consistency monitoring:
 - `PreferenceDataAnalyzer` - Agreement analysis and monitoring
 - `compute_agreement_metrics()` - Various agreement metrics
 - Quality monitoring and reporting utilities
@@ -258,7 +258,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Multi-Annotator Setup
 
-**Implementation:** See `preference_data.py` for multi-annotator systems:
+**Implementation:** See `code/preference_data.py` for multi-annotator systems:
 - `PreferenceDataCollector` - Multi-annotator data collection
 - `quality_control()` - Quality control and validation
 - `bias_detection()` - Bias detection and analysis
@@ -266,7 +266,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Automated Quality Checks
 
-**Implementation:** See `preference_data.py` for automated quality checks:
+**Implementation:** See `code/preference_data.py` for automated quality checks:
 - `PreferenceDataProcessor` - Automated data validation
 - `validate_data()` - Comprehensive data validation
 - `_is_repetitive()` - Repetition detection
@@ -276,14 +276,14 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Diverse Annotator Pools
 
-**Implementation:** See `preference_data.py` for bias mitigation:
+**Implementation:** See `code/preference_data.py` for bias mitigation:
 - `PreferenceDataCollector` - Diverse annotator support
 - `bias_detection()` - Systematic bias detection
 - Demographic tracking and analysis utilities
 
 ### Bias Detection and Correction
 
-**Implementation:** See `preference_data.py` for bias detection:
+**Implementation:** See `code/preference_data.py` for bias detection:
 - `PreferenceDataAnalyzer` - Comprehensive bias analysis
 - `bias_detection()` - Multiple bias detection methods
 - Bias reporting and correction utilities
@@ -292,7 +292,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Complete Feedback Collection Pipeline
 
-**Implementation:** See `preference_data.py` for complete pipeline:
+**Implementation:** See `code/preference_data.py` for complete pipeline:
 - `PreferenceDataCollector` - Complete feedback collection pipeline
 - `PreferenceDataProcessor` - Data processing and validation
 - `PreferenceDataAnalyzer` - Analysis and quality control
@@ -300,7 +300,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Active Learning for Feedback Collection
 
-**Implementation:** See `preference_data.py` for active learning:
+**Implementation:** See `code/preference_data.py` for active learning:
 - `PreferenceDataCollector` - Active learning strategies
 - Uncertainty-based example selection
 - Diversity-based sampling
@@ -308,7 +308,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Multi-Modal Feedback Collection
 
-**Implementation:** See `preference_data.py` for multi-modal collection:
+**Implementation:** See `code/preference_data.py` for multi-modal collection:
 - `PreferenceDataset` - Binary preference dataset
 - `RankingDataset` - Ranking-based dataset
 - Support for multiple feedback types
@@ -318,7 +318,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Active Learning for Feedback Collection
 
-**Implementation:** See `preference_data.py` for advanced active learning:
+**Implementation:** See `code/preference_data.py` for advanced active learning:
 - Uncertainty sampling strategies
 - Diversity-based selection
 - Quality-aware collection
@@ -326,7 +326,7 @@ Reasoning: Both responses are equally accurate and helpful.
 
 ### Multi-Modal Feedback Collection
 
-**Implementation:** See `preference_data.py` for multi-modal feedback:
+**Implementation:** See `code/preference_data.py` for multi-modal feedback:
 - Multiple feedback type support
 - Data format conversion
 - Quality control across modalities
