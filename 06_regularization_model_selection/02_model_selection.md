@@ -33,6 +33,18 @@ Suppose you're fitting a curve to data points. If you use a straight line (degre
 **Key Question:**  
 How do we choose the best model or the best complexity for our data, *without* peeking at the test set (which would give us an overly optimistic estimate of performance)?
 
+## From Regularization Techniques to Model Selection Strategies
+
+We've now explored **regularization** - the fundamental techniques that help prevent overfitting by adding constraints or penalties to the learning process. We've seen how L1, L2, and Elastic Net regularization work, how implicit regularization affects optimization, and how these techniques help us find the sweet spot between underfitting and overfitting.
+
+However, while regularization provides the tools to control model complexity, we still need systematic methods to **choose the right model** and **estimate its performance** reliably. Regularization tells us how to constrain a model, but it doesn't tell us which model to use or how to compare different options.
+
+This motivates our exploration of **model selection** - the systematic process of choosing among different models, model complexities, and hyperparameters. We'll see how cross-validation provides reliable performance estimates, how Bayesian methods incorporate uncertainty and prior knowledge, and how to avoid common pitfalls in model selection.
+
+The transition from regularization to model selection represents the bridge from technique to strategy - taking our knowledge of how to control model complexity and turning it into a systematic approach for building optimal models.
+
+In this section, we'll explore cross-validation techniques, Bayesian approaches, and practical guidelines for selecting the best model for any given problem.
+
 ---
 
 ## The Model Selection Problem
@@ -545,7 +557,23 @@ $`BF = \frac{p(S|M_1)}{p(S|M_2)}`$
 - Learn about advanced Bayesian computational methods
 - Consider the uncertainty in your predictions
 
+## From Theoretical Understanding to Practical Implementation
+
+We've now explored **model selection** - the systematic process of choosing among different models, model complexities, and hyperparameters. We've learned how cross-validation provides reliable performance estimates, how Bayesian methods incorporate uncertainty and prior knowledge, and how to avoid common pitfalls in model selection.
+
+However, while understanding the theoretical foundations of regularization and model selection is essential, true mastery comes from **practical implementation**. The concepts we've learned - regularization techniques, cross-validation strategies, and Bayesian approaches - need to be applied to real problems to develop intuition and practical skills.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the regularization and model selection concepts we've learned. We'll put our theoretical knowledge into practice by implementing regularization techniques, building cross-validation systems, and developing the practical skills needed to build robust, generalizable models.
+
+The transition from theoretical understanding to practical implementation represents the bridge from knowledge to application - taking our understanding of how regularization and model selection work and turning it into practical tools for building better machine learning models.
+
+In the next section, we'll implement complete systems for regularization and model selection, experiment with different techniques, and develop the practical skills needed for real-world machine learning applications.
+
 ---
+
+**Previous: [Regularization](01_regularization.md)** - Understand the fundamental techniques for preventing overfitting and controlling model complexity.
+
+**Next: [Hands-on Coding](03_hands-on_coding.md)** - Implement regularization and model selection techniques with practical examples.
 
 ## Footnotes
 
