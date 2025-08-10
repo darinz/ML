@@ -111,7 +111,7 @@ Where:
 \nabla_\theta J(\theta) = \mathbb{E}_{s \sim \rho_\pi, a \sim \pi_\theta} [R(s,a) \nabla_\theta \log \pi_\theta(a|s)]
 ```
 
-**Implementation:** See `policy_optimization.py` for REINFORCE implementation:
+**Implementation:** See `code/policy_optimization.py` for REINFORCE implementation:
 - `REINFORCETrainer` - Complete REINFORCE trainer for language models
 - `reinforce_loss()` - REINFORCE loss computation
 - `train_step()` - Training step implementation
@@ -126,7 +126,7 @@ Where:
 
 Where $`b(s)`$ is a baseline function.
 
-**Implementation:** See `policy_optimization.py` for baseline methods:
+**Implementation:** See `code/policy_optimization.py` for baseline methods:
 - Baseline estimation utilities
 - Advantage computation with baselines
 - Variance reduction techniques
@@ -142,7 +142,7 @@ Where $`b(s)`$ is a baseline function.
 A_t = R_t + \gamma V_\phi(s_{t+1}) - V_\phi(s_t)
 ```
 
-**Implementation:** See `policy_optimization.py` for actor-critic methods:
+**Implementation:** See `code/policy_optimization.py` for actor-critic methods:
 - Actor-critic training utilities
 - Advantage estimation with value functions
 - Value function learning
@@ -168,7 +168,7 @@ Where:
 
 ### PPO Implementation
 
-**Implementation:** See `policy_optimization.py` for complete PPO implementation:
+**Implementation:** See `code/policy_optimization.py` for complete PPO implementation:
 - `PPOTrainer` - Complete PPO trainer for language models
 - `compute_advantages()` - Generalized Advantage Estimation (GAE)
 - `compute_kl_divergence()` - KL divergence computation
@@ -183,7 +183,7 @@ Where:
 
 **Sequence-level PPO**: Apply PPO at the sequence level for natural reward structure
 
-**Implementation:** See `policy_optimization.py` for language model adaptations:
+**Implementation:** See `code/policy_optimization.py` for language model adaptations:
 - Token-level and sequence-level optimization
 - Language model specific training utilities
 - Response generation and evaluation
@@ -204,7 +204,7 @@ Where:
 
 ### TRPO Implementation
 
-**Implementation:** See `policy_optimization.py` for complete TRPO implementation:
+**Implementation:** See `code/policy_optimization.py` for complete TRPO implementation:
 - `TRPOTrainer` - Complete TRPO trainer
 - `conjugate_gradient()` - Conjugate gradient optimization
 - `fisher_vector_product()` - Fisher information matrix operations
@@ -230,7 +230,7 @@ Where:
 
 **Purpose**: Prevent policy from deviating too far from reference model
 
-**Implementation:** See `policy_optimization.py` for KL control:
+**Implementation:** See `code/policy_optimization.py` for KL control:
 - KL divergence computation and monitoring
 - Adaptive KL penalty coefficients
 - KL constraint enforcement
@@ -239,7 +239,7 @@ Where:
 
 **Purpose**: Encourage exploration and prevent premature convergence
 
-**Implementation:** See `policy_optimization.py` for entropy regularization:
+**Implementation:** See `code/policy_optimization.py` for entropy regularization:
 - Entropy computation and regularization
 - Exploration encouragement
 - Convergence prevention
@@ -248,7 +248,7 @@ Where:
 
 ### Complete PPO Training Loop
 
-**Implementation:** See `policy_optimization.py` for complete training pipeline:
+**Implementation:** See `code/policy_optimization.py` for complete training pipeline:
 - `PolicyOptimizationPipeline` - Complete RLHF training pipeline
 - Support for PPO, TRPO, and REINFORCE methods
 - `train_epoch()` - Complete training loop
@@ -257,7 +257,7 @@ Where:
 
 ### Advanced PPO with GAE
 
-**Implementation:** See `policy_optimization.py` for advanced PPO:
+**Implementation:** See `code/policy_optimization.py` for advanced PPO:
 - `PPOTrainer` - Advanced PPO with GAE
 - `compute_advantages()` - Generalized Advantage Estimation
 - Value function learning and integration
@@ -267,14 +267,14 @@ Where:
 
 ### Multi-Objective PPO
 
-**Implementation:** See `policy_optimization.py` for multi-objective optimization:
+**Implementation:** See `code/policy_optimization.py` for multi-objective optimization:
 - Multi-objective loss computation
 - Weighted combination of objectives
 - Objective-specific training
 
 ### Conservative Policy Iteration
 
-**Implementation:** See `policy_optimization.py` for conservative methods:
+**Implementation:** See `code/policy_optimization.py` for conservative methods:
 - Natural policy gradient computation
 - Fisher information matrix operations
 - Conservative update strategies
