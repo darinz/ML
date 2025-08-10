@@ -73,7 +73,7 @@ conda --version
 cd 12_llm
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate llm-lesson
@@ -99,7 +99,7 @@ llm-env\Scripts\activate
 source llm-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import torch, transformers, numpy; print('All packages installed successfully!')"
@@ -148,7 +148,7 @@ print(f"Using device: {device}")
 ## Lesson Structure
 
 ### Lesson 1: Attention Mechanisms (4-5 hours)
-**Files**: `attention.py`, `positional_encoding.py`, `flash_attention.py`
+**Files**: `code/attention.py`, `code/positional_encoding.py`, `code/flash_attention.py`
 
 #### Learning Goals
 - Understand the mathematical foundations of attention
@@ -314,7 +314,7 @@ plt.show()
 ---
 
 ### Lesson 2: Transformer Architecture (4-5 hours)
-**Files**: `transformer.py`, `rope_encoding.py`, `training.py`
+**Files**: `code/transformer.py`, `code/rope_encoding.py`, `code/training.py`
 
 #### Learning Goals
 - Understand transformer encoder-decoder architecture
@@ -471,7 +471,7 @@ for step in range(10):
 ---
 
 ### Lesson 3: Text Generation and Applications (4-5 hours)
-**Files**: `text_generation.py`, `text_classification.py`, `translation.py`
+**Files**: `code/text_generation.py`, `code/text_classification.py`, `code/translation.py`
 
 #### Learning Goals
 - Understand autoregressive text generation
@@ -646,7 +646,7 @@ print("Creative generation techniques enable controlled text generation")
 ---
 
 ### Lesson 4: Optimization and Advanced Techniques (3-4 hours)
-**Files**: `quantization.py`, `model_parallel.py`, `summarization.py`
+**Files**: `code/quantization.py`, `code/model_parallel.py`, `code/summarization.py`
 
 #### Learning Goals
 - Understand model quantization techniques
@@ -1142,7 +1142,7 @@ Remember: Large Language Models are not just algorithms - they're a fundamental 
 
 ## Environment Files
 
-### requirements.txt
+### code/requirements.txt
 ```
 torch>=2.0.0
 transformers>=4.20.0
@@ -1160,7 +1160,7 @@ accelerate>=0.20.0
 datasets>=2.10.0
 ```
 
-### environment.yaml
+### code/environment.yaml
 ```yaml
 name: llm-lesson
 channels:
