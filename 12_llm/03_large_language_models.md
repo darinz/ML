@@ -199,7 +199,7 @@ Causal language modeling is implemented in [`code/pretraining_objectives.py`](co
 Masking spans of text instead of individual tokens.
 
 **Implementation:**
-Span corruption training is implemented in [`pretraining_objectives.py`](pretraining_objectives.py) with the `SpanCorruptionTrainer` class, which provides:
+Span corruption training is implemented in [`code/pretraining_objectives.py`](code/pretraining_objectives.py) with the `SpanCorruptionTrainer` class, which provides:
 
 - Span-based masking strategies
 - Configurable span lengths
@@ -211,7 +211,7 @@ Span corruption training is implemented in [`pretraining_objectives.py`](pretrai
 Hybrid approach combining bidirectional and autoregressive modeling.
 
 **Implementation:**
-Prefix language modeling is implemented in [`pretraining_objectives.py`](pretraining_objectives.py) with the `PrefixLanguageModel` class, which provides:
+Prefix language modeling is implemented in [`code/pretraining_objectives.py`](code/pretraining_objectives.py) with the `PrefixLanguageModel` class, which provides:
 
 - Hybrid attention patterns
 - Configurable prefix lengths
