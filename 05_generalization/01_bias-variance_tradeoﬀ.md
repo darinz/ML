@@ -306,3 +306,19 @@ While the bias-variance tradeoff is fundamental, modern machine learning has rev
 
 The bias-variance decomposition remains a cornerstone of understanding generalization, but it's part of a richer theoretical landscape that continues to evolve with modern machine learning practice.
 
+## From Classical Wisdom to Modern Phenomena
+
+We've now explored the **bias-variance tradeoff** - the fundamental framework that explains how model complexity affects generalization through the decomposition of error into bias and variance components. This classical understanding provides the foundation for model selection and regularization strategies.
+
+However, while the bias-variance tradeoff represents classical wisdom about generalization, recent research has revealed more complex and fascinating phenomena that challenge our traditional understanding. Modern machine learning models, especially deep neural networks, often achieve excellent generalization despite being highly overparameterized - a fact that the classical bias-variance framework cannot fully explain.
+
+This motivates our exploration of the **double descent phenomenon** - a modern discovery that reveals a more nuanced relationship between model complexity and generalization. We'll see how the classical U-shaped curve is often followed by a second descent, where very complex models can generalize well despite fitting training data perfectly.
+
+The transition from bias-variance tradeoff to double descent represents the bridge from classical theory to modern understanding - taking our foundational knowledge of generalization and extending it to explain the behavior of contemporary machine learning systems.
+
+In the next section, we'll explore how double descent challenges classical wisdom and provides insights into why modern models can achieve excellent generalization despite being highly overparameterized.
+
+---
+
+**Next: [Double Descent](02_double_descent.md)** - Understand how modern machine learning challenges classical bias-variance wisdom.
+
