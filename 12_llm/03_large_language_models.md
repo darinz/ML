@@ -239,7 +239,7 @@ The complete implementation of GPT-style models and other LLM architectures is a
 Bidirectional models for understanding tasks.
 
 **Implementation:**
-BERT-style models are implemented in [`llm_architectures.py`](llm_architectures.py) with the `BERTModel` class, which includes:
+BERT-style models are implemented in [`code/llm_architectures.py`](code/llm_architectures.py) with the `BERTModel` class, which includes:
 
 - Bidirectional encoder architecture
 - Token type embeddings for sentence pairs
@@ -251,7 +251,7 @@ BERT-style models are implemented in [`llm_architectures.py`](llm_architectures.
 Text-to-text transfer models.
 
 **Implementation:**
-T5-style models are implemented in [`llm_architectures.py`](llm_architectures.py) with the `T5Model` class, which includes:
+T5-style models are implemented in [`code/llm_architectures.py`](code/llm_architectures.py) with the `T5Model` class, which includes:
 
 - Shared encoder-decoder architecture
 - Cross-attention between encoder and decoder
