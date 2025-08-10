@@ -28,12 +28,12 @@ In this section, we'll derive the optimal margin classifier and see how it natur
 
 Previously, we posed the following (primal) optimization problem for finding the optimal margin classifier:
 
-```math
+$$
 \begin{align}
 \min_{w, b} \quad & \frac{1}{2} \|w\|^2 \\
 \text{s.t.} \quad & y^{(i)} (w^T x^{(i)} + b) \geq 1, \quad i = 1, \ldots, n
 \end{align}
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -51,9 +51,9 @@ The objective $\frac{1}{2} \|w\|^2$ is equivalent to maximizing the margin, sinc
 
 We can write the constraints as
 
-```math
+$$
 g_i(w) = -y^{(i)} (w^T x^{(i)} + b) + 1 \leq 0.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -94,9 +94,9 @@ Let's move on. Looking ahead, as we develop the dual form of the problem, one ke
 
 When we construct the Lagrangian for our optimization problem we have:
 
-```math
+$$
 \mathcal{L}(w, b, \alpha) = \frac{1}{2} \|w\|^2 - \sum_{i=1}^n \alpha_i \left[ y^{(i)} (w^T x^{(i)} + b) - 1 \right].
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -117,15 +117,15 @@ The Lagrangian formulation allows us to incorporate the constraints directly int
 
 Let's find the dual form of the problem. To do so, we need to first minimize $\mathcal{L}(w, b, \alpha)$ with respect to $w$ and $b$ (for fixed $\alpha$), to get $\theta_D$, which we'll do by setting the derivatives of $\mathcal{L}$ with respect to $w$ and $b$ to zero. We have:
 
-```math
+$$
 \nabla_w \mathcal{L}(w, b, \alpha) = w - \sum_{i=1}^n \alpha_i y^{(i)} x^{(i)} = 0
-```
+$$
 
 This implies that
 
-```math
+$$
 w = \sum_{i=1}^n \alpha_i y^{(i)} x^{(i)}.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -140,9 +140,9 @@ _(6.10)_
 
 As for the derivative with respect to $b$, we obtain
 
-```math
+$$
 \frac{\partial}{\partial b} \mathcal{L}(w, b, \alpha) = \sum_{i=1}^n \alpha_i y^{(i)} = 0.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -154,15 +154,15 @@ _(6.11)_
 
 If we take the definition of $w$ in Equation (6.10) and plug that back into the Lagrangian (Equation 6.9), and simplify, we get
 
-```math
+$$
 \mathcal{L}(w, b, \alpha) = \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n y^{(i)} y^{(j)} \alpha_i \alpha_j (x^{(i)T} x^{(j)}) - b \sum_{i=1}^n \alpha_i y^{(i)}.
-```
+$$
 
 But from Equation (6.11), the last term must be zero, so we obtain
 
-```math
+$$
 \mathcal{L}(w, b, \alpha) = \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n y^{(i)} y^{(j)} \alpha_i \alpha_j (x^{(i)T} x^{(j)}).
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -175,13 +175,13 @@ But from Equation (6.11), the last term must be zero, so we obtain
 
 Recall that we got to the equation above by minimizing $\mathcal{L}$ with respect to $w$ and $b$. Putting this together with the constraints $\alpha_i \geq 0$ (that we always had) and the constraint (6.11), we obtain the following dual optimization problem:
 
-```math
+$$
 \begin{align}
 \max_{\alpha} \quad & W(\alpha) = \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n y^{(i)} y^{(j)} \alpha_i \alpha_j \langle x^{(i)}, x^{(j)} \rangle \\
 \text{s.t.} \quad & \alpha_i \geq 0, \quad i = 1, \ldots, n \\
 & \sum_{i=1}^n \alpha_i y^{(i)} = 0,
 \end{align}
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -213,9 +213,9 @@ You should also be able to verify that the conditions required for $p^\ast = d^\
 
 Having found $w^\ast$, by considering the primal problem, it is also straightforward to find the optimal value for the intercept term $b$ as
 
-```math
+$$
 b^* = \frac{-\max_{i: y^{(i)} = -1} w^{*T} x^{(i)} + \min_{i: y^{(i)} = 1} w^{*T} x^{(i)}}{2}
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -234,17 +234,17 @@ In real SVM implementations, the value of $b$ is often computed using only the s
 
 Before moving on, let's also take a more careful look at Equation (6.10), which gives the optimal value of $w$ in terms of (the optimal value of) $\alpha$. Suppose we've fit our model's parameters to a training set, and now wish to make a prediction at a new point input $x$. We would then calculate $w^T x + b$, and predict $y = 1$ if and only if this quantity is bigger than zero. But using (6.10), this quantity can also be written:
 
-```math
+$$
 w^T x + b = \left( \sum_{i=1}^n \alpha_i y^{(i)} x^{(i)} \right)^T x + b
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
 _(6.14)_
 
-```math
+$$
 = \sum_{i=1}^n \alpha_i y^{(i)} \langle x^{(i)}, x \rangle + b.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
