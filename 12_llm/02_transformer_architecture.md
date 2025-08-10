@@ -149,7 +149,7 @@ Where:
 Residual connections help with gradient flow and training stability.
 
 **Implementation:**
-Residual connections are implemented in [`feed_forward.py`](feed_forward.py) with the `ResidualConnection` class, which provides:
+Residual connections are implemented in [`code/feed_forward.py`](code/feed_forward.py) with the `ResidualConnection` class, which provides:
 
 - Layer normalization before sublayer application
 - Dropout for regularization
@@ -172,7 +172,7 @@ Encoder-only models are designed for understanding tasks where the model needs t
 - **DeBERTa**: Decoding-enhanced BERT with disentangled attention
 
 **Implementation:**
-Encoder-only transformer models are implemented in [`transformer_models.py`](transformer_models.py) with the `EncoderOnlyTransformer` class, which includes:
+Encoder-only transformer models are implemented in [`code/transformer_models.py`](code/transformer_models.py) with the `EncoderOnlyTransformer` class, which includes:
 
 - Complete encoder stack with multiple layers
 - Positional encoding integration
@@ -195,7 +195,7 @@ Decoder-only models are designed for generation tasks where the model predicts t
 - **GPT-4**: Advanced multimodal model
 
 **Implementation:**
-Decoder-only transformer models are implemented in [`transformer_models.py`](transformer_models.py) with the `DecoderOnlyTransformer` class, which includes:
+Decoder-only transformer models are implemented in [`code/transformer_models.py`](code/transformer_models.py) with the `DecoderOnlyTransformer` class, which includes:
 
 - Causal masking for autoregressive generation
 - Positional encoding for sequence order
@@ -217,7 +217,7 @@ Encoder-decoder models are designed for sequence-to-sequence tasks where the inp
 - **mT5**: Multilingual T5
 
 **Implementation:**
-Encoder-decoder transformer models are implemented in [`transformer_models.py`](transformer_models.py) with the `EncoderDecoderTransformer` class, which includes:
+Encoder-decoder transformer models are implemented in [`code/transformer_models.py`](code/transformer_models.py) with the `EncoderDecoderTransformer` class, which includes:
 
 - Separate encoder and decoder stacks
 - Cross-attention between encoder and decoder
@@ -228,7 +228,7 @@ Encoder-decoder transformer models are implemented in [`transformer_models.py`](
 
 ### Complete Transformer Implementation
 
-The complete transformer implementation is provided in [`transformer.py`](transformer.py), which includes:
+The complete transformer implementation is provided in [`code/transformer.py`](code/transformer.py), which includes:
 
 - `Transformer`: Complete encoder-decoder transformer
 - `EncoderLayer`: Individual encoder layer implementation
@@ -240,7 +240,7 @@ The complete transformer implementation is provided in [`transformer.py`](transf
 
 ### Encoder and Decoder Layers
 
-Individual encoder and decoder layers are implemented in [`encoder_decoder_layers.py`](encoder_decoder_layers.py), which includes:
+Individual encoder and decoder layers are implemented in [`code/encoder_decoder_layers.py`](code/encoder_decoder_layers.py), which includes:
 
 - `EncoderLayer`: Self-attention + feed-forward with residual connections
 - `DecoderLayer`: Masked self-attention + cross-attention + feed-forward
@@ -252,7 +252,7 @@ Individual encoder and decoder layers are implemented in [`encoder_decoder_layer
 ### Loss Functions
 
 **Cross-Entropy Loss for Language Modeling:**
-Cross-entropy loss computation is implemented in the training utilities in [`training.py`](training.py), which provides:
+Cross-entropy loss computation is implemented in the training utilities in [`code/training.py`](code/training.py), which provides:
 
 - Standard cross-entropy loss for language modeling
 - Label smoothing for improved generalization
@@ -262,7 +262,7 @@ Cross-entropy loss computation is implemented in the training utilities in [`tra
 ### Learning Rate Scheduling
 
 **Transformer Learning Rate Schedule:**
-Learning rate scheduling is implemented in [`training.py`](training.py) with the `TransformerTrainer` class, which includes:
+Learning rate scheduling is implemented in [`code/training.py`](code/training.py) with the `TransformerTrainer` class, which includes:
 
 - Cosine annealing scheduler
 - Linear warmup and decay
@@ -283,7 +283,7 @@ Regularization techniques are implemented in the training utilities, including:
 
 ### Example 1: Simple Language Model
 
-A simple language model implementation is provided in [`transformer.py`](transformer.py) with the `GPTModel` class, which includes:
+A simple language model implementation is provided in [`code/transformer.py`](code/transformer.py) with the `GPTModel` class, which includes:
 
 - Decoder-only architecture for language modeling
 - Causal masking for autoregressive generation
@@ -292,7 +292,7 @@ A simple language model implementation is provided in [`transformer.py`](transfo
 
 ### Example 2: Text Classification with BERT-style Model
 
-BERT-style classification models are implemented in [`transformer.py`](transformer.py) with the `BERTModel` class, which includes:
+BERT-style classification models are implemented in [`code/transformer.py`](code/transformer.py) with the `BERTModel` class, which includes:
 
 - Encoder-only architecture for understanding tasks
 - Bidirectional attention for context understanding
