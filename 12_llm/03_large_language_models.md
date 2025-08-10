@@ -225,7 +225,7 @@ Prefix language modeling is implemented in [`code/pretraining_objectives.py`](co
 Autoregressive models for text generation.
 
 **Implementation:**
-The complete implementation of GPT-style models and other LLM architectures is available in [`llm_architectures.py`](llm_architectures.py), which includes:
+The complete implementation of GPT-style models and other LLM architectures is available in [`code/llm_architectures.py`](code/llm_architectures.py), which includes:
 
 - `GPTModel`: GPT-style autoregressive model
 - `BERTModel`: BERT-style bidirectional model
