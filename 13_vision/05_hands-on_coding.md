@@ -73,7 +73,7 @@ conda --version
 cd 13_vision
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate vision-lesson
@@ -99,7 +99,7 @@ vision-env\Scripts\activate
 source vision-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import torch, torchvision, numpy; print('All packages installed successfully!')"
@@ -149,7 +149,7 @@ print(f"Using device: {device}")
 ## Lesson Structure
 
 ### Lesson 1: Vision Transformers (4-5 hours)
-**Files**: `vision_transformer.py`, `patch_embedding.py`, `attention.py`, `position_encoding.py`
+**Files**: `code/vision_transformer.py`, `code/patch_embedding.py`, `code/attention.py`, `code/position_encoding.py`
 
 #### Learning Goals
 - Understand Vision Transformer architecture
@@ -331,7 +331,7 @@ print(f"Predicted class: {torch.argmax(predictions, dim=1)}")
 ---
 
 ### Lesson 2: Self-Supervised Learning (4-5 hours)
-**Files**: `rotation.py`, `jigsaw.py`, `inpainting.py`, `colorization.py`
+**Files**: `code/rotation.py`, `code/jigsaw.py`, `code/inpainting.py`, `code/colorization.py`
 
 #### Learning Goals
 - Understand self-supervised learning principles
@@ -491,7 +491,7 @@ reconstructed_rgb = lab_to_rgb(predicted_colors)
 ---
 
 ### Lesson 3: Contrastive Learning (4-5 hours)
-**Files**: `simclr.py`, `moco.py`, `byol.py`, `dino.py`
+**Files**: `code/simclr.py`, `code/moco.py`, `code/byol.py`, `code/dino.py`
 
 #### Learning Goals
 - Understand contrastive learning principles
@@ -652,7 +652,7 @@ print(f"DINO loss: {loss.item():.4f}")
 ---
 
 ### Lesson 4: Foundation Models and Applications (3-4 hours)
-**Files**: `clip_implementation.py`, `zero_shot_classification.py`, `dalle_generation.py`, `sam_segmentation.py`
+**Files**: `code/clip_implementation.py`, `code/zero_shot_classification.py`, `code/dalle_generation.py`, `code/sam_segmentation.py`
 
 #### Learning Goals
 - Understand foundation models for vision
@@ -1151,7 +1151,7 @@ Remember: Computer Vision is not just algorithms - it's a fundamental approach t
 
 ## Environment Files
 
-### requirements.txt
+### code/requirements.txt
 ```
 torch>=2.0.0
 torchvision>=0.15.0
@@ -1171,7 +1171,7 @@ pillow>=8.0.0
 einops>=0.6.0
 ```
 
-### environment.yaml
+### code/environment.yaml
 ```yaml
 name: vision-lesson
 channels:
