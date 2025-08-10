@@ -231,17 +231,15 @@ Where $`\beta_t = \sqrt{2 \log \frac{\det(A_t)^{1/2}}{\delta \lambda^{d/2}}} + \
 - **Kernel methods**: Extend to non-linear reward functions
 
 **Feature Normalization:**
-```python
-def normalize_features(features):
-    """Normalize feature vectors to unit norm"""
-    norms = np.linalg.norm(features, axis=1, keepdims=True)
-    return features / norms
+See [`feature_utils.py`](feature_utils.py) for the complete implementation.
 
+```python
+# Key functionality:
+def normalize_features(features):
+    # Normalize feature vectors to unit norm
+    
 def standardize_features(features):
-    """Standardize features to zero mean and unit variance"""
-    mean = np.mean(features, axis=0)
-    std = np.std(features, axis=0)
-    return (features - mean) / std
+    # Standardize features to zero mean and unit variance
 ```
 
 ### Parameter Tuning
