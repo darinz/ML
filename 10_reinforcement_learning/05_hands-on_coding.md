@@ -188,7 +188,7 @@ plot_value_function(V_star, size=4, title="Optimal Value Function")
 **Activity 1.3: Policy Iteration**
 ```python
 # Implement policy iteration as an alternative to value iteration
-from markov_decision_processes_examples import policy_iteration
+from code.markov_decision_processes_examples import policy_iteration
 
 # Solve the MDP using policy iteration
 V_pi, pi_pi = policy_iteration(grid_mdp, max_iterations=1000)
