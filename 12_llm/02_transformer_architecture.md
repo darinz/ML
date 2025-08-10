@@ -107,7 +107,7 @@ Where each head computes:
 ```
 
 **Implementation:**
-The multi-head self-attention implementation is available in [`multi_head_attention.py`](multi_head_attention.py), which includes:
+The multi-head self-attention implementation is available in [`code/multi_head_attention.py`](code/multi_head_attention.py), which includes:
 
 - `MultiHeadSelfAttention`: Specialized version for self-attention
 - Proper tensor reshaping and concatenation
@@ -124,7 +124,7 @@ The feed-forward network applies position-wise transformations to each position 
 ```
 
 **Implementation:**
-The feed-forward network implementation is provided in [`feed_forward.py`](feed_forward.py), which includes:
+The feed-forward network implementation is provided in [`code/feed_forward.py`](code/feed_forward.py), which includes:
 
 - `FeedForward`: Standard feed-forward network with ReLU activation
 - `ResidualConnection`: Residual connection with layer normalization
