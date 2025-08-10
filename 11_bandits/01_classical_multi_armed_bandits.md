@@ -337,6 +337,15 @@ class AdBandit:
 
 ## Implementation Examples
 
+### Complete Example Usage
+
+See [`example_usage.py`](example_usage.py) for a complete example that demonstrates how to use all the bandit algorithms together.
+
+```python
+# Run a complete experiment comparing epsilon-greedy, UCB, and Thompson sampling
+# python example_usage.py
+```
+
 ### Basic Bandit Environment
 
 See [`bandit_environment.py`](bandit_environment.py) for the complete implementation.
