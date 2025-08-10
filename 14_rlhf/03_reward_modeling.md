@@ -108,7 +108,7 @@ Where:
 **2. Separate Encoders**: Encode prompt and response separately, then fuse representations
 **3. Cross-Attention Architecture**: Use cross-attention between prompt and response
 
-**Implementation:** See `reward_model.py` for complete reward model architectures:
+**Implementation:** See `code/reward_model.py` for complete reward model architectures:
 - `RewardModel` - Basic concatenation-based reward model
 - `SeparateEncoderRewardModel` - Separate encoders for prompt and response
 - `MultiObjectiveRewardModel` - Multi-objective reward modeling
@@ -119,7 +119,7 @@ Where:
 **1. Multi-Objective Reward Model**: Separate heads for different objectives (helpfulness, harmlessness, honesty)
 **2. Hierarchical Reward Model**: Level-specific reward heads for different aspects of responses
 
-**Implementation:** See `reward_model.py` for advanced architectures:
+**Implementation:** See `code/reward_model.py` for advanced architectures:
 - `MultiObjectiveRewardModel` - Multi-objective reward modeling
 - Support for multiple reward heads
 - Weighted combination of objectives
@@ -133,7 +133,7 @@ Where:
 \mathcal{L}(\phi) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \log \sigma(R_\phi(x, y_w) - R_\phi(x, y_l))
 ```
 
-**Implementation:** See `reward_model.py` for training objectives:
+**Implementation:** See `code/reward_model.py` for training objectives:
 - `RewardModelTrainer` - Complete training pipeline
 - `preference_loss()` - Standard preference learning loss
 - `ranking_loss()` - Multi-response ranking loss
@@ -146,7 +146,7 @@ Where:
 \mathcal{L}(\phi) = -\mathbb{E}_{(x, y_1, \ldots, y_k) \sim \mathcal{D}} \sum_{i=1}^{k-1} \log \sigma(R_\phi(x, y_i) - R_\phi(x, y_{i+1}))
 ```
 
-**Implementation:** See `reward_model.py` for ranking loss:
+**Implementation:** See `code/reward_model.py` for ranking loss:
 - `ranking_loss()` - Multi-response ranking loss
 - Support for ordered preference lists
 - Pairwise ranking computation
@@ -160,7 +160,7 @@ Where:
 
 Where $`\tau`$ is the temperature parameter.
 
-**Implementation:** See `reward_model.py` for contrastive learning:
+**Implementation:** See `code/reward_model.py` for contrastive learning:
 - Temperature-scaled contrastive loss
 - Support for different temperature parameters
 - Contrastive training utilities
@@ -173,7 +173,7 @@ Where $`\tau`$ is the temperature parameter.
 **2. Dropout Regularization**: Apply dropout to prevent overfitting
 **3. Label Smoothing**: Smooth preference labels for better generalization
 
-**Implementation:** See `reward_model.py` for regularization:
+**Implementation:** See `code/reward_model.py` for regularization:
 - L2 regularization support
 - Dropout layers in model architectures
 - Label smoothing utilities
@@ -183,7 +183,7 @@ Where $`\tau`$ is the temperature parameter.
 **1. Focal Loss for Hard Examples**: Focus on difficult preference pairs
 **2. Triplet Loss**: Learn relative distances between responses
 
-**Implementation:** See `reward_model.py` for advanced loss functions:
+**Implementation:** See `code/reward_model.py` for advanced loss functions:
 - Focal loss for hard examples
 - Triplet loss implementation
 - Custom loss function support
@@ -196,7 +196,7 @@ Where $`\tau`$ is the temperature parameter.
 **2. Ranking Correlation**: Spearman correlation with human rankings
 **3. Calibration Metrics**: Expected calibration error
 
-**Implementation:** See `evaluation.py` for comprehensive evaluation:
+**Implementation:** See `code/evaluation.py` for comprehensive evaluation:
 - `RewardModelEvaluator` - Complete evaluation pipeline
 - `preference_accuracy()` - Preference prediction accuracy
 - `ranking_correlation()` - Ranking correlation metrics
@@ -207,7 +207,7 @@ Where $`\tau`$ is the temperature parameter.
 **1. Out-of-Distribution Testing**: Evaluate on unseen data distributions
 **2. Adversarial Testing**: Test robustness against adversarial examples
 
-**Implementation:** See `evaluation.py` for robustness evaluation:
+**Implementation:** See `code/evaluation.py` for robustness evaluation:
 - Out-of-distribution testing utilities
 - Adversarial robustness evaluation
 - Robustness gap computation
@@ -216,7 +216,7 @@ Where $`\tau`$ is the temperature parameter.
 
 ### Complete Reward Model Training
 
-**Implementation:** See `reward_model.py` for complete training pipeline:
+**Implementation:** See `code/reward_model.py` for complete training pipeline:
 - `RewardModelTrainer` - Complete training pipeline
 - `train_step()` - Training step implementation
 - `evaluate()` - Model evaluation utilities
@@ -224,7 +224,7 @@ Where $`\tau`$ is the temperature parameter.
 
 ### Reward Model Inference
 
-**Implementation:** See `reward_model.py` for inference utilities:
+**Implementation:** See `code/reward_model.py` for inference utilities:
 - `RewardModelInference` - Complete inference pipeline
 - `predict_reward()` - Single prediction utilities
 - `rank_responses()` - Response ranking capabilities
@@ -234,7 +234,7 @@ Where $`\tau`$ is the temperature parameter.
 
 ### Multi-Task Reward Learning
 
-**Implementation:** See `reward_model.py` for multi-task learning:
+**Implementation:** See `code/reward_model.py` for multi-task learning:
 - `MultiObjectiveRewardModel` - Multi-task reward modeling
 - Support for multiple objectives
 - Weighted combination of tasks
@@ -242,14 +242,14 @@ Where $`\tau`$ is the temperature parameter.
 
 ### Uncertainty-Aware Reward Models
 
-**Implementation:** See `reward_model.py` for uncertainty modeling:
+**Implementation:** See `code/reward_model.py` for uncertainty modeling:
 - Uncertainty quantification in reward predictions
 - Confidence-aware training
 - Uncertainty-based sample selection
 
 ### Calibrated Reward Models
 
-**Implementation:** See `reward_model.py` for calibration:
+**Implementation:** See `code/reward_model.py` for calibration:
 - Temperature scaling for calibration
 - Calibration loss functions
 - Calibrated prediction utilities
