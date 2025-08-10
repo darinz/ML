@@ -74,7 +74,7 @@ conda --version
 cd 02_generative_learning
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate generative-learning-lesson
@@ -100,7 +100,7 @@ generative-learning-env\Scripts\activate
 source generative-learning-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -139,7 +139,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Gaussian Discriminant Analysis (3-4 hours)
-**File**: `gda_examples.py`
+**File**: `code/gda_examples.py`
 
 #### Learning Goals
 - Understand multivariate normal distributions and their properties
@@ -153,7 +153,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Understanding Bayes' Rule**
 ```python
 # Explore the fundamental equation of generative learning
-from gda_examples import bayes_posterior
+from code.gda_examples import bayes_posterior
 
 # Bayes' rule: p(y|x) = p(x|y)p(y) / p(x)
 # Let's understand each component:
@@ -174,7 +174,7 @@ print(f"Posterior p(y|x): {posterior}")
 **Activity 1.2: Multivariate Normal Density**
 ```python
 # Understand multivariate normal distributions
-from gda_examples import multivariate_normal_density
+from code.gda_examples import multivariate_normal_density
 
 # Test with 2D Gaussian
 x = np.array([1.0, 2.0])
@@ -197,7 +197,7 @@ print(f"Density at mean: {density2:.6f}")
 **Activity 1.3: GDA Parameter Estimation**
 ```python
 # Learn GDA parameters from data
-from gda_examples import gda_fit
+from code.gda_examples import gda_fit
 
 # Generate synthetic data
 np.random.seed(42)
@@ -226,7 +226,7 @@ print(f"Shared covariance Σ:\n{Sigma}")
 **Activity 1.4: GDA Prediction and Visualization**
 ```python
 # Make predictions and visualize results
-from gda_examples import gda_predict, gda_predict_proba, plot_gda_decision_boundary
+from code.gda_examples import gda_predict, gda_predict_proba, plot_gda_decision_boundary
 
 # Make predictions
 y_pred = gda_predict(X, phi, mu0, mu1, Sigma)
@@ -248,7 +248,7 @@ plot_gda_decision_boundary(X, y, phi, mu0, mu1, Sigma, "GDA Decision Boundary")
 **Activity 1.5: Comparison with Logistic Regression**
 ```python
 # Compare GDA with logistic regression
-from gda_examples import logistic_regression_predict
+from code.gda_examples import logistic_regression_predict
 from sklearn.linear_model import LogisticRegression
 
 # Fit logistic regression
@@ -279,7 +279,7 @@ print(f"GDA Accuracy: {accuracy:.3f}")
 ---
 
 ### Lesson 2: Naive Bayes Classification (3-4 hours)
-**File**: `naive_bayes_examples.py`
+**File**: `code/naive_bayes_examples.py`
 
 #### Learning Goals
 - Understand the conditional independence assumption
@@ -293,7 +293,7 @@ print(f"GDA Accuracy: {accuracy:.3f}")
 **Activity 2.1: Bernoulli Naive Bayes**
 ```python
 # Implement Bernoulli Naive Bayes for binary features
-from naive_bayes_examples import estimate_naive_bayes_params, predict_naive_bayes
+from code.naive_bayes_examples import estimate_naive_bayes_params, predict_naive_bayes
 
 # Create simple binary dataset
 X = np.array([
@@ -319,7 +319,7 @@ print(f"Probability of spam: {prob_spam:.3f}")
 **Activity 2.2: Laplace Smoothing**
 ```python
 # Understand the importance of Laplace smoothing
-from naive_bayes_examples import laplace_smoothing_bernoulli
+from code.naive_bayes_examples import laplace_smoothing_bernoulli
 
 # Test with data that has missing feature combinations
 X_small = np.array([[1, 1], [1, 1], [0, 0]])  # Only two combinations
@@ -343,7 +343,7 @@ print(f"φⱼ|ᵧ₌₀: {phi_j_y0_smooth}")
 **Activity 2.3: Multinomial Naive Bayes**
 ```python
 # Implement Multinomial Naive Bayes for count data
-from naive_bayes_examples import multinomial_naive_bayes_params, predict_multinomial_naive_bayes
+from code.naive_bayes_examples import multinomial_naive_bayes_params, predict_multinomial_naive_bayes
 
 # Create count-based dataset (word frequencies)
 X_multi = np.array([
@@ -369,7 +369,7 @@ print(f"Probability of spam: {prob_spam:.3f}")
 **Activity 2.4: Text Classification with Bag-of-Words**
 ```python
 # Build a complete text classification system
-from naive_bayes_examples import create_bag_of_words
+from code.naive_bayes_examples import create_bag_of_words
 
 # Sample text data
 texts = [
@@ -399,7 +399,7 @@ print(f"Probability of spam: {prob_spam:.3f}")
 **Activity 2.5: Visualization and Analysis**
 ```python
 # Visualize Naive Bayes results
-from naive_bayes_examples import plot_naive_bayes_comparison
+from code.naive_bayes_examples import plot_naive_bayes_comparison
 
 # Create 2D dataset for visualization
 np.random.seed(42)
