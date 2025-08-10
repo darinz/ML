@@ -1,143 +1,121 @@
-# Multi-Armed Bandits
+# Classical Multi-Armed Bandits
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Bandits](https://img.shields.io/badge/Bandits-Multi--Armed-green.svg)](https://en.wikipedia.org/wiki/Multi-armed_bandit)
-[![RL](https://img.shields.io/badge/RL-Reinforcement%20Learning-purple.svg)](https://en.wikipedia.org/wiki/Reinforcement_learning)
+This directory contains implementations of classical multi-armed bandit algorithms and supporting code.
 
-Comprehensive materials covering multi-armed bandits for sequential decision-making under uncertainty, balancing exploration and exploitation.
+## File Structure
 
-## Overview
+### Core Algorithms
+- [`epsilon_greedy.py`](epsilon_greedy.py) - Epsilon-greedy algorithm implementation
+- [`ucb.py`](ucb.py) - Upper Confidence Bound (UCB) algorithm implementation  
+- [`thompson_sampling.py`](thompson_sampling.py) - Thompson sampling algorithm implementation
 
-Multi-armed bandits provide the theoretical foundation for balancing exploration and exploitation in dynamic environments, with applications from clinical trials to online advertising.
+### Environment and Utilities
+- [`bandit_environment.py`](bandit_environment.py) - Bandit environment, comparison functions, and visualization
+- [`ad_bandit.py`](ad_bandit.py) - Specialized bandit for online advertising applications
 
-## Materials
+### Examples and Documentation
+- [`example_usage.py`](example_usage.py) - Complete example demonstrating all algorithms
+- [`01_classical_multi_armed_bandits.md`](01_classical_multi_armed_bandits.md) - Comprehensive theoretical and practical guide
 
-### Theory
-- **[01_classical_multi_armed_bandits.md](01_classical_multi_armed_bandits.md)** - Classical bandit algorithms, regret analysis, theoretical guarantees
-- **[02_linear_bandits.md](02_linear_bandits.md)** - Linear bandit algorithms, LinUCB, linear Thompson sampling
-- **[03_contextual_bandits.md](03_contextual_bandits.md)** - Contextual bandits with state-dependent rewards
-- **[04_best_arm_identification.md](04_best_arm_identification.md)** - Best arm identification, pure exploration problems
-- **[05_applications_and_use_cases.md](05_applications_and_use_cases.md)** - Real-world applications and practical implementations
-- **[06_hands-on_coding.md](06_hands-on_coding.md)** - Practical implementation guide
+## Quick Start
 
-### Basic Algorithms
-- **[epsilon_greedy.py](epsilon_greedy.py)** - Epsilon-greedy algorithm implementation
-- **[ucb.py](ucb.py)** - Upper Confidence Bound algorithm
-- **[thompson_sampling.py](thompson_sampling.py)** - Thompson sampling for Bernoulli bandits
-- **[regret_analysis.py](regret_analysis.py)** - Regret computation and visualization
+1. **Run the complete example:**
+   ```bash
+   python example_usage.py
+   ```
 
-### Advanced Algorithms
-- **[linucb.py](linucb.py)** - Linear UCB implementation
-- **[linear_thompson.py](linear_thompson.py)** - Linear Thompson sampling
-- **[contextual_bandits.py](contextual_bandits.py)** - Contextual bandit framework
-- **[neural_bandits.py](neural_bandits.py)** - Deep learning for bandits
-- **[meta_bandits.py](meta_bandits.py)** - Meta-learning approaches
-- **[bai_algorithms.py](bai_algorithms.py)** - Best arm identification methods
-- **[multi_objective.py](multi_objective.py)** - Multi-objective bandits
+2. **Use individual algorithms:**
+   ```python
+   from epsilon_greedy import epsilon_greedy
+   from ucb import ucb
+   from thompson_sampling import thompson_sampling
+   from bandit_environment import BanditEnvironment
+   
+   # Create environment
+   env = BanditEnvironment([0.1, 0.2, 0.3, 0.4, 0.5])
+   
+   # Run algorithms
+   empirical_means = epsilon_greedy(env.arms, epsilon=0.1, T=1000)
+   ```
 
-### Practical Applications
-- **[recommendation_system.py](recommendation_system.py)** - Movie recommendation with bandits
-- **[ad_selection.py](ad_selection.py)** - Online advertising simulation
-- **[clinical_trials.py](clinical_trials.py)** - Adaptive clinical trial design
-- **[dynamic_pricing.py](dynamic_pricing.py)** - Price optimization simulation
+## Algorithm Overview
 
-### Supporting Files
-- **requirements.txt** - Python dependencies
+### Epsilon-Greedy
+- **Pros**: Simple, easy to implement
+- **Cons**: Fixed exploration rate, suboptimal regret bounds
+- **Regret**: O(T^(2/3)) with optimal epsilon decay
 
-## Key Concepts
+### UCB (Upper Confidence Bound)
+- **Pros**: Optimal regret bounds, principled exploration
+- **Cons**: Requires tuning of exploration parameter
+- **Regret**: O(√(KT log T))
 
-### Classical Multi-Armed Bandits
-**Problem**: Choose from $K$ arms with unknown reward distributions
+### Thompson Sampling
+- **Pros**: Bayesian optimal, often performs better in practice
+- **Cons**: Requires prior specification
+- **Regret**: O(√(KT log T)) (similar to UCB)
 
-**Regret**: $R(T) = \sum_{t=1}^T \mu^* - \mu_{a_t}$
+## Dependencies
 
-**Algorithms**:
-- **Epsilon-Greedy**: Random exploration with probability $\epsilon$
-- **UCB**: $a_t = \arg\max_i (\hat{\mu}_i + \sqrt{\frac{2 \log (t)}{n_i}})$
-- **Thompson Sampling**: Sample from posterior distributions
+- numpy
+- matplotlib
+- random (built-in)
 
-### Linear Bandits
-**Model**: $r_t = \langle \theta^*, x_{a_t} \rangle + \eta_t$
+## Usage Examples
 
-**LinUCB**: $a_t = \arg\max_i (\langle \hat{\theta}_t, x_i \rangle + \alpha \sqrt{x_i^T A_t^{-1} x_i})$
-
-### Contextual Bandits
-**Model**: $r_t = \langle \theta^*, x_{a_t, t} \rangle + \eta_t$
-
-**Challenge**: Context vectors change over time
-
-### Best Arm Identification
-**Goal**: Identify best arm with high confidence
-
-**Algorithms**: Successive elimination, LUCB, racing algorithms
-
-## Applications
-
-- **Online Advertising**: Ad selection and bidding optimization
-- **Recommendation Systems**: Content and product recommendations
-- **Clinical Trials**: Adaptive treatment assignment
-- **Dynamic Pricing**: Price optimization and revenue management
-- **Resource Allocation**: Optimal allocation under uncertainty
-
-## Getting Started
-
-1. Read `01_classical_multi_armed_bandits.md` for fundamentals
-2. Study `02_linear_bandits.md` for linear extensions
-3. Learn `03_contextual_bandits.md` for contextual settings
-4. Explore `04_best_arm_identification.md` for pure exploration
-5. Use `05_applications_and_use_cases.md` for practical applications
-6. Follow `06_hands-on_coding.md` for implementation guidance
-
-## Prerequisites
-
-- Probability theory and statistics
-- Basic optimization concepts
-- Python programming and NumPy
-- Understanding of confidence intervals
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-```
-
-## Running Examples
-
-```bash
-python epsilon_greedy.py
-python ucb.py
-python thompson_sampling.py
-python linucb.py
-python recommendation_system.py
-python ad_selection.py
-```
-
-## Quick Start Code
-
+### Basic Usage
 ```python
-# Epsilon-Greedy
-from epsilon_greedy import EpsilonGreedy
-bandit = EpsilonGreedy(n_arms=10, epsilon=0.1)
-action = bandit.select_action()
-reward = environment.step(action)
-bandit.update(action, reward)
+from bandit_environment import BanditEnvironment
+from epsilon_greedy import epsilon_greedy
 
-# UCB
-from ucb import UCB
-bandit = UCB(n_arms=10)
-action = bandit.select_action()
+# Create environment with 5 arms
+arm_means = [0.1, 0.2, 0.3, 0.4, 0.5]
+env = BanditEnvironment(arm_means)
 
-# Linear UCB
-from linucb import LinUCB
-bandit = LinUCB(n_arms=10, d=5, alpha=1.0)
-action = bandit.select_action(context)
+# Run epsilon-greedy
+empirical_means = epsilon_greedy(env.arms, epsilon=0.1, T=1000)
+print(f"Empirical means: {empirical_means}")
 ```
 
-## Algorithm Comparison
+### Algorithm Comparison
+```python
+from bandit_environment import compare_algorithms, plot_regret_comparison
 
-| Algorithm | Regret Bound | Assumptions | Use Case |
-|-----------|--------------|-------------|----------|
-| Epsilon-Greedy | $O(T^{2/3})$ | None | Simple exploration |
-| UCB | $O(\sqrt{KT \log T})$ | Bounded rewards | Theoretical guarantees |
-| Thompson Sampling | $O(\sqrt{KT \log T})$ | Bayesian | Practical performance |
-| LinUCB | $O(d\sqrt{T \log T})$ | Linear rewards | Feature-based decisions | 
+# Define algorithms
+algorithms = {
+    'Epsilon-Greedy': lambda env, T: epsilon_greedy(env.arms, 0.1, T),
+    'UCB': lambda env, T: ucb(env.arms, T),
+    'Thompson Sampling': lambda env, T: thompson_sampling(env.arms, T)
+}
+
+# Compare algorithms
+results = compare_algorithms(env, algorithms, T=1000, n_runs=100)
+
+# Plot results
+plot_regret_comparison(results, 1000)
+```
+
+### Online Advertising
+```python
+from ad_bandit import AdBandit
+
+# Create ad bandit
+bandit = AdBandit(n_ads=10)
+
+# Select ad for user
+ad_id = bandit.select_ad(user_context)
+
+# Update with observed click
+bandit.update(ad_id, click=1)  # or click=0
+```
+
+## Theory
+
+For detailed theoretical background, mathematical formulations, and analysis, see [`01_classical_multi_armed_bandits.md`](01_classical_multi_armed_bandits.md).
+
+Key concepts covered:
+- Exploration-exploitation trade-off
+- Regret analysis and bounds
+- Concentration inequalities
+- Practical considerations and tuning
+- Applications to real-world problems 
