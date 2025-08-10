@@ -49,7 +49,7 @@ Pretext tasks are self-supervised learning objectives that can be solved without
 **Task Definition:**
 Fill in masked regions of an image using surrounding context.
 
-**Implementation:** See `inpainting.py` for comprehensive inpainting implementations:
+**Implementation:** See `code/inpainting.py` for comprehensive inpainting implementations:
 - `InpaintingModel` - CNN-based inpainting model with encoder-decoder architecture
 - `TransformerInpaintingModel` - Vision Transformer-based inpainting
 - `InpaintingTrainer` - Complete training pipeline
@@ -61,7 +61,7 @@ Fill in masked regions of an image using surrounding context.
 **Task Definition:**
 Reconstruct the original image from shuffled patches.
 
-**Implementation:** See `jigsaw.py` for jigsaw puzzle solving:
+**Implementation:** See `code/jigsaw.py` for jigsaw puzzle solving:
 - `JigsawPuzzleDataset` - Dataset wrapper for creating jigsaw puzzles
 - `JigsawPuzzleModel` - Model for solving jigsaw puzzles
 - `JigsawPuzzleLoss` - Loss function for permutation prediction
@@ -74,7 +74,7 @@ Reconstruct the original image from shuffled patches.
 **Task Definition:**
 Predict the rotation angle applied to an image (0°, 90°, 180°, 270°).
 
-**Implementation:** See `rotation.py` for rotation prediction:
+**Implementation:** See `code/rotation.py` for rotation prediction:
 - `RotationDataset` - Dataset wrapper for creating rotated images
 - `RotationPredictionModel` - Model for predicting rotation angles
 - `RotationLoss` - Loss function for rotation classification
@@ -87,7 +87,7 @@ Predict the rotation angle applied to an image (0°, 90°, 180°, 270°).
 **Task Definition:**
 Predict color channels from grayscale input.
 
-**Implementation:** See `colorization.py` for image colorization:
+**Implementation:** See `code/colorization.py` for image colorization:
 - `ColorizationDataset` - Dataset wrapper for grayscale-color pairs
 - `ColorizationModel` - Model for predicting color channels
 - `ColorizationLoss` - Loss function for color prediction
@@ -109,13 +109,13 @@ Contrastive learning learns representations by maximizing agreement between diff
 
 ### SimCLR Framework
 
-**Implementation:** See `simclr.py` for SimCLR implementation:
+**Implementation:** See `code/simclr.py` for SimCLR implementation:
 - `SimCLR` - Complete SimCLR framework
 - `SimCLRAugmentation` - Data augmentation pipeline
 - `ContrastiveLoss` - Contrastive learning loss
 - Training and evaluation utilities
 
-**Data Augmentation:** See `simclr.py` for augmentation pipeline:
+**Data Augmentation:** See `code/simclr.py` for augmentation pipeline:
 - `SimCLRAugmentation` - Complete data augmentation pipeline
 - Random resized crop, horizontal flip, color jittering
 - Random grayscale and normalization
@@ -127,7 +127,7 @@ Contrastive learning learns representations by maximizing agreement between diff
 - **Queue**: Large queue of negative samples
 - **Momentum Update**: Exponential moving average of encoder parameters
 
-**Implementation:** See `moco.py` for MoCo implementation:
+**Implementation:** See `code/moco.py` for MoCo implementation:
 - `MoCo` - Complete MoCo framework
 - `MomentumEncoder` - Momentum-based encoder updates
 - `QueueManager` - Negative sample queue management
@@ -140,7 +140,7 @@ Contrastive learning learns representations by maximizing agreement between diff
 **Key Innovation:**
 BYOL uses two networks (online and target) where the target network is an exponential moving average of the online network.
 
-**Implementation:** See `byol.py` for BYOL implementation:
+**Implementation:** See `code/byol.py` for BYOL implementation:
 - `BYOL` - Complete BYOL framework
 - `OnlineNetwork` - Online network with predictor
 - `TargetNetwork` - Target network with momentum updates
@@ -153,7 +153,7 @@ BYOL uses two networks (online and target) where the target network is an expone
 - **Centering and Sharpening**: Stabilize training
 - **Knowledge Distillation**: Student learns from teacher
 
-**Implementation:** See `dino.py` for DINO implementation:
+**Implementation:** See `code/dino.py` for DINO implementation:
 - `DINO` - Complete DINO framework
 - `MultiCropStrategy` - Multi-crop data augmentation
 - `TeacherStudentDistillation` - Knowledge distillation
@@ -164,18 +164,18 @@ BYOL uses two networks (online and target) where the target network is an expone
 ### Training Pipeline
 
 **Implementation:** See individual method files for complete training pipelines:
-- `simclr.py` - SimCLR training pipeline
-- `moco.py` - MoCo training pipeline
-- `byol.py` - BYOL training pipeline
-- `dino.py` - DINO training pipeline
+- `code/simclr.py` - SimCLR training pipeline
+- `code/moco.py` - MoCo training pipeline
+- `code/byol.py` - BYOL training pipeline
+- `code/dino.py` - DINO training pipeline
 
 ### Evaluation and Transfer
 
 **Linear Evaluation:** See individual method files for evaluation utilities:
-- `simclr.py` - Linear evaluation for SimCLR
-- `moco.py` - Linear evaluation for MoCo
-- `byol.py` - Linear evaluation for BYOL
-- `dino.py` - Linear evaluation for DINO
+- `code/simclr.py` - Linear evaluation for SimCLR
+- `code/moco.py` - Linear evaluation for MoCo
+- `code/byol.py` - Linear evaluation for BYOL
+- `code/dino.py` - Linear evaluation for DINO
 
 ## Applications
 
