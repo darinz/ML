@@ -204,7 +204,7 @@ print(f"Value functions match: {np.allclose(V_star, V_pi, atol=1e-6)}")
 **Activity 1.4: Model Learning**
 ```python
 # Learn MDP model from experience
-from markov_decision_processes_examples import ModelLearner
+from code.markov_decision_processes_examples import ModelLearner
 
 # Create model learner
 model_learner = ModelLearner(states=grid_mdp.states, actions=grid_mdp.actions)
@@ -227,7 +227,7 @@ print(f"Learned transition probabilities for state (0,0): {learned_P[(0,0)]}")
 **Activity 1.5: Bellman Equations**
 ```python
 # Demonstrate Bellman equations in action
-from markov_decision_processes_examples import demonstrate_bellman_equations
+from code.markov_decision_processes_examples import demonstrate_bellman_equations
 
 # Run Bellman equation demonstration
 demonstrate_bellman_equations()
@@ -250,7 +250,7 @@ demonstrate_bellman_equations()
 ---
 
 ### Lesson 2: Continuous State MDPs (4-5 hours)
-**Files**: `continuous_state_mdp_examples.py`
+**Files**: `code/continuous_state_mdp_examples.py`
 
 #### Learning Goals
 - Understand discretization for continuous state spaces
