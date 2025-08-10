@@ -361,7 +361,7 @@ zero_shot_and_in_context_example()
 **Activity 2.6: Practical Notes and Best Practices**
 ```python
 # Learn practical considerations for working with language models
-from pretrain_llm_examples import practical_notes
+from code.pretrain_llm_examples import practical_notes
 
 # Review practical notes
 practical_notes()
