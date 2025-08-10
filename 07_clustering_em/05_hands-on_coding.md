@@ -73,7 +73,7 @@ conda --version
 cd 07_clustering_em
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate clustering-em-lesson
@@ -99,7 +99,7 @@ clustering-em-env\Scripts\activate
 source clustering-em-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -140,7 +140,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: K-Means Clustering (3-4 hours)
-**File**: `kmeans_examples.py`
+**File**: `code/kmeans_examples.py`
 
 #### Learning Goals
 - Understand k-means as an optimization problem
@@ -154,7 +154,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Understanding the Objective Function**
 ```python
 # Explore the k-means objective: minimize J = Σᵢ₌₁ⁿ ||xᵢ - μ_{cᵢ}||²
-from kmeans_examples import compute_distortion
+from code.kmeans_examples import compute_distortion
 
 # Generate sample data
 X, _ = make_blobs(n_samples=300, centers=3, cluster_std=0.6, random_state=42)
@@ -176,7 +176,7 @@ print(f"Good centroids distortion: {distortion_good:.2f}")
 **Activity 1.2: Initialization Strategies**
 ```python
 # Compare different initialization methods
-from kmeans_examples import initialize_centroids
+from code.kmeans_examples import initialize_centroids
 
 # Test random vs k-means++ initialization
 centroids_random = initialize_centroids(X, k=3, method='random')
@@ -193,7 +193,7 @@ print(centroids_kmeans_plus)
 **Activity 1.3: Assignment Step**
 ```python
 # Implement the assignment step: assign each point to nearest centroid
-from kmeans_examples import assign_clusters
+from code.kmeans_examples import assign_clusters
 
 # Test assignment with sample centroids
 centroids = np.array([[0, 0], [2, 2], [-2, -2]])
@@ -208,7 +208,7 @@ print(f"Number of points in each cluster: {np.bincount(labels)}")
 **Activity 1.4: Update Step**
 ```python
 # Implement the update step: recompute centroids as means
-from kmeans_examples import update_centroids
+from code.kmeans_examples import update_centroids
 
 # Update centroids based on current assignments
 new_centroids = update_centroids(X, labels, k=3)
@@ -224,7 +224,7 @@ print(new_centroids)
 **Activity 1.5: Complete K-Means Algorithm**
 ```python
 # Implement the complete k-means algorithm
-from kmeans_examples import kmeans
+from code.kmeans_examples import kmeans
 
 # Run k-means clustering
 centroids, labels, distortion_history = kmeans(X, k=3, max_iters=100, verbose=True)
@@ -238,7 +238,7 @@ print(f"Number of iterations: {len(distortion_history)}")
 **Activity 1.6: Multiple Runs for Better Solutions**
 ```python
 # Run k-means multiple times to find better solutions
-from kmeans_examples import best_of_n_runs
+from code.kmeans_examples import best_of_n_runs
 
 # Find the best solution among multiple runs
 best_centroids, best_labels, best_distortion = best_of_n_runs(X, k=3, n_runs=10)
@@ -251,7 +251,7 @@ print(f"Best distortion found: {best_distortion:.4f}")
 **Activity 1.7: Clustering Evaluation**
 ```python
 # Evaluate clustering quality using various metrics
-from kmeans_examples import evaluate_clustering
+from code.kmeans_examples import evaluate_clustering
 
 # Evaluate the clustering results
 silhouette_avg, inertia, n_clusters = evaluate_clustering(X, best_labels, best_centroids)
@@ -266,7 +266,7 @@ print(f"Number of clusters: {n_clusters}")
 **Activity 1.8: Visualization and Analysis**
 ```python
 # Visualize clustering results and analyze behavior
-from kmeans_examples import visualize_clustering, demonstrate_kmeans_concepts
+from code.kmeans_examples import visualize_clustering, demonstrate_kmeans_concepts
 
 # Visualize the clustering results
 visualize_clustering(X, best_labels, best_centroids, "K-Means Clustering Results")
@@ -292,7 +292,7 @@ demonstrate_kmeans_concepts()
 ---
 
 ### Lesson 2: Gaussian Mixture Models and EM (3-4 hours)
-**File**: `em_mog_examples.py`
+**File**: `code/em_mog_examples.py`
 
 #### Learning Goals
 - Understand mixture models as latent variable models
@@ -306,7 +306,7 @@ demonstrate_kmeans_concepts()
 **Activity 2.1: Understanding Mixture Models**
 ```python
 # Explore the generative model: p(x) = Σⱼ₌₁ᵏ πⱼ N(x|μⱼ, Σⱼ)
-from em_mog_examples import initialize_parameters
+from code.em_mog_examples import initialize_parameters
 
 # Initialize GMM parameters
 phi, mu, Sigma = initialize_parameters(X, k=3, method='random')
@@ -321,7 +321,7 @@ print(f"Covariances shape: {Sigma.shape}")
 **Activity 2.2: E-Step: Computing Responsibilities**
 ```python
 # Implement the E-step: compute soft assignments (responsibilities)
-from em_mog_examples import e_step
+from code.em_mog_examples import e_step
 
 # Compute responsibilities for each data point
 w = e_step(X, phi, mu, Sigma)
@@ -335,7 +335,7 @@ print(f"Sum of responsibilities for first point: {w[0].sum():.4f}")
 **Activity 2.3: M-Step: Parameter Updates**
 ```python
 # Implement the M-step: update parameters given responsibilities
-from em_mog_examples import m_step
+from code.em_mog_examples import m_step
 
 # Update parameters based on current responsibilities
 new_phi, new_mu, new_Sigma = m_step(X, w)
@@ -349,7 +349,7 @@ print(f"Updated means:\n{new_mu}")
 **Activity 2.4: Complete EM Algorithm**
 ```python
 # Implement the complete EM algorithm for GMM
-from em_mog_examples import em_mog
+from code.em_mog_examples import em_mog
 
 # Run EM algorithm for GMM
 phi, mu, Sigma, w, log_likelihoods = em_mog(X, k=3, max_iters=100, verbose=True)
@@ -363,7 +363,7 @@ print(f"Number of iterations: {len(log_likelihoods)}")
 **Activity 2.5: Hard vs Soft Assignments**
 ```python
 # Compare hard assignments (k-means) with soft assignments (GMM)
-from em_mog_examples import assign_clusters, compare_with_kmeans
+from code.em_mog_examples import assign_clusters, compare_with_kmeans
 
 # Get hard assignments from GMM
 hard_labels = assign_clusters(w)
@@ -380,7 +380,7 @@ print(comparison_results)
 **Activity 2.6: GMM Evaluation and Visualization**
 ```python
 # Evaluate GMM clustering and visualize results
-from em_mog_examples import evaluate_gmm, visualize_gmm
+from code.em_mog_examples import evaluate_gmm, visualize_gmm
 
 # Evaluate GMM clustering
 silhouette_avg, log_likelihood, bic = evaluate_gmm(X, w, phi, mu, Sigma)
@@ -398,7 +398,7 @@ visualize_gmm(X, w, phi, mu, Sigma, "GMM Clustering Results")
 **Activity 2.7: Convergence Analysis**
 ```python
 # Analyze EM convergence behavior
-from em_mog_examples import demonstrate_convergence
+from code.em_mog_examples import demonstrate_convergence
 
 # Demonstrate convergence properties
 demonstrate_convergence()
@@ -421,7 +421,7 @@ demonstrate_convergence()
 ---
 
 ### Lesson 3: General EM Framework (3-4 hours)
-**File**: `general_em_examples.py`
+**File**: `code/general_em_examples.py`
 
 #### Learning Goals
 - Understand EM as a general framework for latent variable models
@@ -435,7 +435,7 @@ demonstrate_convergence()
 **Activity 3.1: Understanding the ELBO**
 ```python
 # Explore the ELBO: L(θ) = E_{Z~Q}[log p(X,Z|θ)] - E_{Z~Q}[log Q(Z)]
-from general_em_examples import demonstrate_jensens_inequality
+from code.general_em_examples import demonstrate_jensens_inequality
 
 # Demonstrate Jensen's inequality and its role in ELBO
 demonstrate_jensens_inequality()
@@ -446,7 +446,7 @@ demonstrate_jensens_inequality()
 **Activity 3.2: KL Divergence and Variational Gap**
 ```python
 # Understand the gap between ELBO and true log-likelihood
-from general_em_examples import demonstrate_kl_divergence
+from code.general_em_examples import demonstrate_kl_divergence
 
 # Demonstrate KL divergence and variational gap
 demonstrate_kl_divergence()
@@ -457,10 +457,10 @@ demonstrate_kl_divergence()
 **Activity 3.3: General EM Framework**
 ```python
 # Implement the general EM framework
-from general_em_examples import general_em
+from code.general_em_examples import general_em
 
 # Define E-step, M-step, and ELBO functions for GMM
-from general_em_examples import gmm_initialize, gmm_e_step, gmm_m_step, gmm_elbo
+from code.general_em_examples import gmm_initialize, gmm_e_step, gmm_m_step, gmm_elbo
 
 # Initialize parameters
 init_params = gmm_initialize(X, k=3)
@@ -479,7 +479,7 @@ print(f"Final ELBO: {elbos[-1]:.4f}")
 **Activity 3.4: Bernoulli Mixture Model**
 ```python
 # Apply general EM to Bernoulli Mixture Model
-from general_em_examples import demonstrate_bmm_with_general_em
+from code.general_em_examples import demonstrate_bmm_with_general_em
 
 # Demonstrate BMM with general EM
 demonstrate_bmm_with_general_em()
@@ -490,7 +490,7 @@ demonstrate_bmm_with_general_em()
 **Activity 3.5: ELBO Decomposition**
 ```python
 # Understand the components of the ELBO
-from general_em_examples import demonstrate_elbo_decomposition
+from code.general_em_examples import demonstrate_elbo_decomposition
 
 # Demonstrate ELBO decomposition
 demonstrate_elbo_decomposition()
@@ -513,7 +513,7 @@ demonstrate_elbo_decomposition()
 ---
 
 ### Lesson 4: Variational Auto-Encoders (4-5 hours)
-**File**: `variational_auto_encoder_examples.py`
+**File**: `code/variational_auto_encoder_examples.py`
 
 #### Learning Goals
 - Understand VAEs as deep generative models
@@ -527,7 +527,7 @@ demonstrate_elbo_decomposition()
 **Activity 4.1: Understanding the VAE Objective**
 ```python
 # Explore the VAE ELBO: L = E[log p(x|z)] - KL(q(z|x) || p(z))
-from variational_auto_encoder_examples import demonstrate_vae_objective
+from code.variational_auto_encoder_examples import demonstrate_vae_objective
 
 # Demonstrate VAE objective function
 demonstrate_vae_objective()
@@ -538,7 +538,7 @@ demonstrate_vae_objective()
 **Activity 4.2: Reparameterization Trick**
 ```python
 # Implement the reparameterization trick for gradient estimation
-from variational_auto_encoder_examples import demonstrate_reparameterization
+from code.variational_auto_encoder_examples import demonstrate_reparameterization
 
 # Demonstrate reparameterization trick
 demonstrate_reparameterization()
@@ -549,7 +549,7 @@ demonstrate_reparameterization()
 **Activity 4.3: Encoder and Decoder Networks**
 ```python
 # Implement encoder and decoder neural networks
-from variational_auto_encoder_examples import build_encoder, build_decoder
+from code.variational_auto_encoder_examples import build_encoder, build_decoder
 
 # Build encoder and decoder
 encoder = build_encoder(input_dim=784, latent_dim=2)
@@ -564,7 +564,7 @@ print(f"Decoder parameters: {sum(p.numel() for p in decoder.parameters())}")
 **Activity 4.4: Complete VAE Implementation**
 ```python
 # Implement complete VAE training loop
-from variational_auto_encoder_examples import train_vae
+from code.variational_auto_encoder_examples import train_vae
 
 # Train VAE on MNIST data
 vae, train_losses = train_vae(epochs=10, batch_size=128)
@@ -577,7 +577,7 @@ print(f"Final training loss: {train_losses[-1]:.4f}")
 **Activity 4.5: Latent Space Analysis**
 ```python
 # Analyze the learned latent space
-from variational_auto_encoder_examples import analyze_latent_space
+from code.variational_auto_encoder_examples import analyze_latent_space
 
 # Analyze latent space structure
 analyze_latent_space(vae)
@@ -588,7 +588,7 @@ analyze_latent_space(vae)
 **Activity 4.6: Image Generation and Reconstruction**
 ```python
 # Generate and reconstruct images using VAE
-from variational_auto_encoder_examples import generate_images, reconstruct_images
+from code.variational_auto_encoder_examples import generate_images, reconstruct_images
 
 # Generate new images
 generated_images = generate_images(vae, n_samples=16)
