@@ -78,7 +78,7 @@ Successive Elimination is a simple and intuitive algorithm that eliminates arms 
 3. **Iteration**: Continue until one arm remains
 
 **Implementation:**
-See [`successive_elimination.py`](successive_elimination.py) for the complete implementation.
+See [`code/successive_elimination.py`](code/successive_elimination.py) for the complete implementation.
 
 ```python
 # Key implementation details:
@@ -103,7 +103,7 @@ Racing algorithms maintain confidence intervals for all arms and stop when one a
 4. **Adaptive Allocation**: Pull arms with highest uncertainty
 
 **Implementation:**
-See [`racing_algorithm.py`](racing_algorithm.py) for the complete implementation.
+See [`code/racing_algorithm.py`](code/racing_algorithm.py) for the complete implementation.
 
 ```python
 # Key implementation details:
@@ -123,7 +123,7 @@ LUCB is a sophisticated algorithm that pulls the arm with highest upper bound an
 3. **Stopping Criterion**: Stop when intervals separate
 
 **Implementation:**
-See [`lucb.py`](lucb.py) for the complete implementation.
+See [`code/lucb.py`](code/lucb.py) for the complete implementation.
 
 ```python
 # Key implementation details:
