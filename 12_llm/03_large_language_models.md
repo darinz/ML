@@ -84,31 +84,10 @@ Where:
 - $`C`$ is the compute budget in FLOPs
 
 **Implementation:**
+See [`scaling_laws.py`](scaling_laws.py) for the complete implementation of scaling laws and optimal model/data size calculations.
+
 ```python
-def compute_optimal_scaling(compute_budget_flops):
-    """
-    Compute optimal model size and data size given compute budget.
-    
-    Args:
-        compute_budget_flops: Total compute budget in FLOPs
-    
-    Returns:
-        optimal_params: Optimal number of parameters
-        optimal_tokens: Optimal number of training tokens
-    """
-    # Chinchilla scaling constants
-    A = 6.9e13
-    B = 1.4e13
-    alpha = 0.28
-    beta = 3.65
-    
-    # Compute optimal parameters
-    optimal_params = A * (compute_budget_flops ** alpha)
-    
-    # Compute optimal tokens
-    optimal_tokens = B * (optimal_params ** beta)
-    
-    return int(optimal_params), int(optimal_tokens)
+from scaling_laws import compute_optimal_scaling
 
 # Example usage
 compute_budget = 1e24  # 1 ZettaFLOP
@@ -122,26 +101,10 @@ print(f"Optimal tokens: {tokens:,}")
 Understanding how much data is needed for different model sizes.
 
 **Data Requirements:**
+See [`scaling_laws.py`](scaling_laws.py) for the complete implementation of data requirement estimation.
+
 ```python
-def estimate_data_requirements(model_size_billions, tokens_per_epoch=1e12):
-    """
-    Estimate data requirements for different model sizes.
-    
-    Args:
-        model_size_billions: Model size in billions of parameters
-        tokens_per_epoch: Tokens per training epoch
-    
-    Returns:
-        epochs_needed: Number of training epochs
-        total_tokens: Total tokens needed
-    """
-    # Chinchilla optimal data ratio
-    optimal_tokens_per_param = 20  # tokens per parameter
-    
-    total_tokens_needed = model_size_billions * 1e9 * optimal_tokens_per_param
-    epochs_needed = total_tokens_needed / tokens_per_epoch
-    
-    return epochs_needed, total_tokens_needed
+from scaling_laws import estimate_data_requirements
 
 # Example for different model sizes
 model_sizes = [1, 7, 70, 175, 540]  # billions of parameters
