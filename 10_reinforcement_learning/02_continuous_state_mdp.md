@@ -2,6 +2,18 @@
 
 This section explores how to handle Markov Decision Processes (MDPs) when the state space is infinite or continuous—a common scenario in robotics, control, and real-world applications. The focus is on building intuition, understanding the math, and learning practical strategies.
 
+## From Discrete to Continuous State Spaces
+
+We've now explored **Markov Decision Processes (MDPs)** - the foundational mathematical framework for reinforcement learning. We've seen how MDPs model sequential decision-making under uncertainty, how value and policy iteration algorithms can solve finite MDPs optimally, and how these methods provide the theoretical foundation for learning optimal behavior through interaction with environments.
+
+However, while finite MDPs provide excellent intuition and work well for problems with small, discrete state spaces, **real-world problems** often involve continuous state variables that cannot be easily discretized. Consider a robot navigating through space - its position, velocity, and orientation are all continuous variables that can take infinitely many values.
+
+This motivates our exploration of **continuous state MDPs** - extending the MDP framework to handle infinite or continuous state spaces. We'll see how discretization can approximate continuous problems, how value function approximation enables learning in high-dimensional spaces, and how these techniques bridge the gap between theoretical MDPs and practical applications in robotics, control, and real-world decision-making.
+
+The transition from discrete to continuous state spaces represents the bridge from theoretical foundations to practical applications - taking our understanding of MDPs and extending it to handle the complexity and richness of real-world problems.
+
+In this section, we'll explore discretization techniques, value function approximation methods, and practical algorithms for solving continuous state MDPs.
+
 ---
 
 ## Why Continuous State Spaces Matter
@@ -159,4 +171,22 @@ Once you have an approximate value function $V(s)$, you can extract a policy:
 
 **Analogy:**
 - Think of value function approximation as learning to predict the value of a chess position: you can't memorize every possible position, but you can learn a function that generalizes from experience.
+
+## From Value Function Approximation to Advanced Control
+
+We've now explored **continuous state MDPs** - extending the MDP framework to handle infinite or continuous state spaces. We've seen how discretization can approximate continuous problems, how value function approximation enables learning in high-dimensional spaces, and how fitted value iteration provides practical algorithms for solving complex control problems.
+
+However, while value function approximation provides powerful tools for handling continuous state spaces, **real-world control problems** often require more sophisticated techniques that leverage the structure of the underlying system. Many physical systems have known dynamics, cost structures, and constraints that can be exploited for more efficient and robust control.
+
+This motivates our exploration of **advanced control methods** - specialized techniques that combine the principles of reinforcement learning with classical control theory. We'll see how Linear Quadratic Regulation (LQR) provides exact solutions for linear systems, how Differential Dynamic Programming (DDP) handles nonlinear systems through iterative optimization, and how Linear Quadratic Gaussian (LQG) control addresses partial observability through optimal state estimation.
+
+The transition from value function approximation to advanced control represents the bridge from general-purpose learning algorithms to domain-specific optimization techniques - taking our understanding of continuous state MDPs and applying it to structured control problems with known dynamics and cost functions.
+
+In the next section, we'll explore LQR, DDP, and LQG control methods, understanding how they leverage system structure for more efficient and robust control.
+
+---
+
+**Previous: [Markov Decision Processes](01_markov_decision_processes.md)** - Understand the foundational framework for sequential decision making.
+
+**Next: [Advanced Control Methods](03_advanced_control.md)** - Learn specialized control techniques for structured systems.
 
