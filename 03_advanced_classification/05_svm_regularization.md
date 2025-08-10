@@ -27,16 +27,16 @@ For instance, the left figure below shows an optimal margin classifier, and when
 
 **The Solution**: To make the algorithm work for non-linearly separable datasets as well as be less sensitive to outliers, we reformulate our optimization (using $\ell_1$ **regularization**) as follows:
 
-```math
+$$
 \min_{w, x, b} \quad \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i
-```
+$$
 
 subject to
 
-```math
+$$
 y^{(i)} (w^T x^{(i)} + b) \geq 1 - \xi_i, \quad i = 1, \ldots, n
 \xi_i \geq 0, \quad i = 1, \ldots, n.
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
@@ -65,9 +65,9 @@ Suppose you have a dataset of emails, and a few spam emails are mislabeled as no
 
 As before, we can form the Lagrangian:
 
-```math
+$$
 \mathcal{L}(w, b, \xi, \alpha, r) = \frac{1}{2} w^T w + C \sum_{i=1}^n \xi_i - \sum_{i=1}^n \alpha_i \left[ y^{(i)} (w^T x^{(i)} + b) - 1 + \xi_i \right] - \sum_{i=1}^n r_i \xi_i.
-```
+$$
 
 Here, the $\alpha_i$'s and $r_i$'s are our Lagrange multipliers (constrained to be $\geq 0$). We won't go through the derivation of the dual again in detail, but after setting the derivatives with respect to $w$ and $b$ to zero as before, substituting them back in, and simplifying, we obtain the following dual form of the problem:
 
@@ -86,15 +86,15 @@ As before, we also have that $w$ can be expressed in terms of the $\alpha_i$'s a
 
 Also, the KKT dual-complementarity conditions (which in the next section will be useful for testing for the convergence of the SMO algorithm) are:
 
-```math
+$$
 \alpha_i = 0 \implies y^{(i)} (w^T x^{(i)} + b) \geq 1 \tag{6.16}
-```
-```math
+$$
+$$
 \alpha_i = C \implies y^{(i)} (w^T x^{(i)} + b) \leq 1 \tag{6.17}
-```
-```math
+$$
+$$
 0 < \alpha_i < C \implies y^{(i)} (w^T x^{(i)} + b) = 1. \tag{6.18}
-```
+$$
 
 ---
 **Remark:**
@@ -127,9 +127,9 @@ The SMO (sequential minimal optimization) algorithm, due to John Platt, gives an
 
 Consider trying to solve the unconstrained optimization problem
 
-```math
+$$
 \max_{\alpha} W(\alpha_1, \alpha_2, \ldots, \alpha_n).
-```
+$$
 
 Here, we think of $W$ as just some function of the parameters $\alpha_i$'s, and for now ignore any relationship between this problem and SVMs. We've already seen two optimization algorithms, gradient ascent and Newton's method. The new algorithm we're going to consider here is called **coordinate ascent**:
 
@@ -138,9 +138,9 @@ Loop until convergence:  {
 
 For $i = 1, \ldots, n$,  {
 
-```math
+$$
   \alpha_i := \arg\max_{\tilde{\alpha}_i} W(\alpha_1, \ldots, \alpha_{i-1}, \tilde{\alpha}_i, \alpha_{i+1}, \ldots, \alpha_n).
-```
+$$
   }
 
 }
@@ -175,25 +175,25 @@ We close off the discussion of SVMs by sketching the derivation of the SMO algor
 
 Here's the (dual) optimization problem that we want to solve:
 
-```math
+$$
 \begin{align}
 \max_{\alpha} \quad & W(\alpha) = \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n y^{(i)} y^{(j)} \alpha_i \alpha_j \langle x^{(i)}, x^{(j)} \rangle \tag{6.19} \\
 \text{s.t.} \quad & 0 \leq \alpha_i \leq C, \quad i = 1, \ldots, n \tag{6.20} \\
 & \sum_{i=1}^n \alpha_i y^{(i)} = 0. \tag{6.21}
 \end{align}
-```
+$$
 
 **The Challenge**: Let's say we have set of $\alpha_i$'s that satisfy the constraints (6.20, 6.21). Now, suppose we want to hold $\alpha_2, \ldots, \alpha_n$ fixed, and take a coordinate ascent step and reoptimize the objective with respect to $\alpha_1$. Can we make any progress? The answer is no, because the constraint (6.21) ensures that
 
-```math
+$$
 \alpha_1 y^{(1)} = - \sum_{i=2}^n \alpha_i y^{(i)}.
-```
+$$
 
 Or, by multiplying both sides by $y^{(1)}$, we equivalently have
 
-```math
+$$
 \alpha_1 = -y^{(1)} \sum_{i=2}^n \alpha_i y^{(i)}.
-```
+$$
 
 (This step used the fact that $y^{(1)} \in \{-1, 1\}$, and hence $(y^{(1)})^2 = 1$.) Hence, $\alpha_1$ is exactly determined by the other $\alpha_i$'s, and if we were to hold $\alpha_2, \ldots, \alpha_n$ fixed, then we can't make any change to $\alpha_1$ without violating the constraint (6.21) in the optimization problem.
 
@@ -226,13 +226,13 @@ The key reason that SMO is an efficient algorithm is that the update to $\alpha_
 
 Let's say we currently have some setting of the $\alpha_i$'s that satisfy the constraints (6.20, 6.21), and suppose we've decided to hold $\alpha_3, \ldots, \alpha_n$ fixed, and want to reoptimize $W(\alpha_1, \alpha_2, \ldots, \alpha_n)$ with respect to $\alpha_1$ and $\alpha_2$ (subject to the constraints). From (6.21), we require that
 
-```math
+$$
 \alpha_1 y^{(1)} + \alpha_2 y^{(2)} = - \sum_{i=3}^n \alpha_i y^{(i)}.
-```
+$$
 
-```math
+$$
 \alpha_1 y^{(1)} + \alpha_2 y^{(2)} = \zeta. \tag{6.22}
-```
+$$
 
 **The Constraint Line**: We can thus picture the constraints on $\alpha_1$ and $\alpha_2$ as follows:
 
@@ -244,25 +244,25 @@ From the constraints (6.20), we know that $\alpha_1$ and $\alpha_2$ must lie wit
 
 Using Equation (6.22), we can also write $\alpha_1$ as a function of $\alpha_2$:
 
-```math
+$$
 \alpha_1 = (\zeta - \alpha_2 y^{(2)}) y^{(1)}.
-```
+$$
 
 (Check this derivation yourself; we again used the fact that $y^{(1)} \in \{-1, 1\}$ so that $(y^{(1)})^2 = 1$.) Hence, the objective $W(\alpha)$ can be written
 
-```math
+$$
 W(\alpha_1, \alpha_2, \ldots, \alpha_n) = W(((\zeta - \alpha_2 y^{(2)}) y^{(1)}, \alpha_2, \ldots, \alpha_n).
-```
+$$
 
 Treating $\alpha_3, \ldots, \alpha_n$ as constants, you should be able to verify that this is just some quadratic function in $\alpha_2$. I.e., this can also be expressed in the form $a \alpha_2^2 + b \alpha_2 + c$ for some appropriate $a, b, c$. If we ignore the "box" constraints (6.20) (or, equivalently, that $L \leq \alpha_2 \leq H$), then we can easily maximize this quadratic function by setting its derivative to zero and solving. We'll let $\alpha_2^{\text{new, unclipped}}$ denote the resulting value of $\alpha_2$. You should also be able to convince yourself that if we had instead wanted to maximize $W$ with respect to $\alpha_2$ but subject to the box constraint, then we can find the resulting value optimal simply by taking $\alpha_2^{\text{new, unclipped}}$ and "clipping" it to lie in the $[L, H]$ interval, to get
 
-```math
+$$
 \alpha_2^{\text{new}} = \begin{cases}
 H & \text{if } \alpha_2^{\text{new, unclipped}} > H \\
 \alpha_2^{\text{new, unclipped}} & \text{if } L \leq \alpha_2^{\text{new, unclipped}} \leq H \\
 L & \text{if } \alpha_2^{\text{new, unclipped}} < L
 \end{cases}
-```
+$$
 
 *Implementation details are provided in the accompanying Python examples file.*
 
