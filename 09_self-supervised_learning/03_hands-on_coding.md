@@ -251,7 +251,7 @@ print(comparison_results)
 **Activity 1.8: Feature Visualization and Analysis**
 ```python
 # Visualize learned features and analyze representation quality
-from pretraining_examples import visualize_features, analyze_feature_quality
+from code.pretraining_examples import visualize_features, analyze_feature_quality
 
 # Visualize features using t-SNE
 visualize_features(features, labels, "Learned Features Visualization")
@@ -268,7 +268,7 @@ print(feature_analysis)
 **Activity 1.9: Practical Considerations**
 ```python
 # Learn practical considerations for self-supervised learning
-from pretraining_examples import practical_considerations
+from code.pretraining_examples import practical_considerations
 
 # Review practical considerations
 practical_considerations()
@@ -291,7 +291,7 @@ practical_considerations()
 ---
 
 ### Lesson 2: Large Language Models and Pretraining (4-5 hours)
-**File**: `pretrain_llm_examples.py`
+**File**: `code/pretrain_llm_examples.py`
 
 #### Learning Goals
 - Understand language modeling and the chain rule
@@ -306,7 +306,7 @@ practical_considerations()
 **Activity 2.1: Language Modeling and Chain Rule**
 ```python
 # Understand the mathematical foundation of language modeling
-from pretrain_llm_examples import chain_rule_example
+from code.pretrain_llm_examples import chain_rule_example
 
 # Demonstrate the chain rule for language modeling
 chain_rule_example()
@@ -317,7 +317,7 @@ chain_rule_example()
 **Activity 2.2: Transformer Input/Output Interface**
 ```python
 # Understand how Transformers process text input and output
-from pretrain_llm_examples import transformer_io_example
+from code.pretrain_llm_examples import transformer_io_example
 
 # Demonstrate Transformer input/output interface
 transformer_io_example()
@@ -328,7 +328,7 @@ transformer_io_example()
 **Activity 2.3: Autoregressive Text Generation**
 ```python
 # Implement text generation with temperature sampling
-from pretrain_llm_examples import autoregressive_generation_example
+from code.pretrain_llm_examples import autoregressive_generation_example
 
 # Demonstrate text generation with different temperatures
 autoregressive_generation_example()
@@ -339,7 +339,7 @@ autoregressive_generation_example()
 **Activity 2.4: Language Model Finetuning**
 ```python
 # Implement finetuning for language models
-from pretrain_llm_examples import finetuning_example
+from code.pretrain_llm_examples import finetuning_example
 
 # Demonstrate language model finetuning
 finetuning_example()
@@ -350,7 +350,7 @@ finetuning_example()
 **Activity 2.5: Zero-Shot and In-Context Learning**
 ```python
 # Explore zero-shot and in-context learning capabilities
-from pretrain_llm_examples import zero_shot_and_in_context_example
+from code.pretrain_llm_examples import zero_shot_and_in_context_example
 
 # Demonstrate zero-shot and in-context learning
 zero_shot_and_in_context_example()
