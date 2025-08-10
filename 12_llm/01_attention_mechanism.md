@@ -158,7 +158,7 @@ Where each head is:
 
 ### Implementation Structure
 
-The complete implementation of multi-head attention can be found in [`multi_head_attention.py`](multi_head_attention.py), which includes:
+The complete implementation of multi-head attention can be found in [`code/multi_head_attention.py`](code/multi_head_attention.py), which includes:
 
 - `MultiHeadAttention`: Standard multi-head attention for general use
 - `MultiHeadSelfAttention`: Specialized version for self-attention
@@ -190,7 +190,7 @@ PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)
 
 ### Implementation
 
-The positional encoding implementation is available in [`positional_encoding.py`](positional_encoding.py), which includes:
+The positional encoding implementation is available in [`code/positional_encoding.py`](code/positional_encoding.py), which includes:
 
 - `PositionalEncoding`: Sinusoidal positional encoding
 - `LearnedPositionalEmbedding`: Learned positional embeddings as an alternative
@@ -214,7 +214,7 @@ The positional encoding implementation is available in [`positional_encoding.py`
 
 ### Complete Attention Implementation
 
-The core attention implementation is provided in [`scaled_dot_product_attention.py`](scaled_dot_product_attention.py), which includes:
+The core attention implementation is provided in [`code/scaled_dot_product_attention.py`](code/scaled_dot_product_attention.py), which includes:
 
 - `ScaledDotProductAttention`: The fundamental attention mechanism
 - `simple_self_attention`: A simplified demonstration function
@@ -223,7 +223,7 @@ The core attention implementation is provided in [`scaled_dot_product_attention.
 
 ### Attention Visualization
 
-Attention visualization utilities are available in [`attention_visualization.py`](attention_visualization.py), which provides:
+Attention visualization utilities are available in [`code/attention_visualization.py`](code/attention_visualization.py), which provides:
 
 - `visualize_attention`: Creates heatmaps of attention weights
 - Proper formatting and styling for attention analysis
@@ -247,7 +247,7 @@ Reformulates attention to avoid quadratic complexity.
 
 Memory-efficient attention implementation for long sequences.
 
-All advanced attention variants are implemented in [`advanced_attention.py`](advanced_attention.py), which includes:
+All advanced attention variants are implemented in [`code/advanced_attention.py`](code/advanced_attention.py), which includes:
 
 - `local_attention`: Window-based local attention
 - `sparse_attention`: Pattern-based sparse attention
@@ -260,23 +260,23 @@ All advanced attention variants are implemented in [`advanced_attention.py`](adv
 
 ### Example 1: Simple Self-Attention
 
-A basic self-attention implementation is provided in [`scaled_dot_product_attention.py`](scaled_dot_product_attention.py) with the `simple_self_attention` function.
+A basic self-attention implementation is provided in [`code/scaled_dot_product_attention.py`](code/scaled_dot_product_attention.py) with the `simple_self_attention` function.
 
 ### Example 2: Attention for Text Classification
 
-Text classification using attention is implemented in [`attention_applications.py`](attention_applications.py) with the `AttentionClassifier` class.
+Text classification using attention is implemented in [`code/attention_applications.py`](code/attention_applications.py) with the `AttentionClassifier` class.
 
 ### Example 3: Attention for Sequence-to-Sequence
 
-Sequence-to-sequence models with attention are implemented in [`attention_applications.py`](attention_applications.py) with the `Seq2SeqAttention` class.
+Sequence-to-sequence models with attention are implemented in [`code/attention_applications.py`](code/attention_applications.py) with the `Seq2SeqAttention` class.
 
 ### Example 4: Language Modeling with Attention
 
-Language models using attention mechanisms are implemented in [`attention_applications.py`](attention_applications.py) with the `AttentionLanguageModel` class.
+Language models using attention mechanisms are implemented in [`code/attention_applications.py`](code/attention_applications.py) with the `AttentionLanguageModel` class.
 
 ### Example 5: Question Answering with Attention
 
-Question answering systems using attention are implemented in [`attention_applications.py`](attention_applications.py) with the `AttentionQuestionAnswering` class.
+Question answering systems using attention are implemented in [`code/attention_applications.py`](code/attention_applications.py) with the `AttentionQuestionAnswering` class.
 
 The applications file also includes demonstration functions:
 - `simple_self_attention_example()`
@@ -301,7 +301,7 @@ The applications file also includes demonstration functions:
 
 ### Memory Optimization
 
-Memory-efficient attention implementations are available in [`advanced_attention.py`](advanced_attention.py):
+Memory-efficient attention implementations are available in [`code/advanced_attention.py`](code/advanced_attention.py):
 
 - `memory_efficient_attention`: Uses gradient checkpointing
 - `flash_attention`: Flash attention implementation (if available)
@@ -309,7 +309,7 @@ Memory-efficient attention implementations are available in [`advanced_attention
 
 ### Scaling to Long Sequences
 
-Long sequence handling is implemented in [`advanced_attention.py`](advanced_attention.py) with the `LongSequenceAttention` class, which provides:
+Long sequence handling is implemented in [`code/advanced_attention.py`](code/advanced_attention.py) with the `LongSequenceAttention` class, which provides:
 
 - Automatic switching between standard and sliding window attention
 - Configurable window sizes
@@ -370,9 +370,9 @@ As you build attention-based models, remember to start simple and gradually add 
 
 **Next Steps:**
 - Explore transformer architecture implementations in [`02_transformer_architecture.md`](02_transformer_architecture.md)
-- Study advanced attention variants like Flash Attention in [`flash_attention.py`](flash_attention.py)
-- Practice with real-world applications in [`attention_applications.py`](attention_applications.py)
-- Experiment with different positional encoding schemes in [`positional_encoding.py`](positional_encoding.py)
+- Study advanced attention variants like Flash Attention in [`code/flash_attention.py`](code/flash_attention.py)
+- Practice with real-world applications in [`code/attention_applications.py`](code/attention_applications.py)
+- Experiment with different positional encoding schemes in [`code/positional_encoding.py`](code/positional_encoding.py)
 
 ## From Attention Mechanisms to Complete Architectures
 
