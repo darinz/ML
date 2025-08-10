@@ -340,7 +340,7 @@ class ClinicalTrialBAI:
 ### Product Development
 
 **Feature Selection:**
-See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+See [`code/bai_applications.py`](code/bai_applications.py) for the complete implementation.
 
 ```python
 # Key functionality:
@@ -353,7 +353,7 @@ class FeatureSelectionBAI:
 ### Algorithm Selection
 
 **Machine Learning Algorithm Selection:**
-See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+See [`code/bai_applications.py`](code/bai_applications.py) for the complete implementation.
 
 ```python
 # Key functionality:
