@@ -300,7 +300,7 @@ print(f"Approximated value for state {state}: {value:.3f}")
 **Activity 2.3: Fitted Value Iteration**
 ```python
 # Implement fitted value iteration for continuous MDPs
-from continuous_state_mdp_examples import fitted_value_iteration, ContinuousMDP
+from code.continuous_state_mdp_examples import fitted_value_iteration, ContinuousMDP
 
 # Create continuous MDP
 continuous_mdp = ContinuousMDP(state_dim=2)
