@@ -4,6 +4,18 @@
 
 Linear bandits represent a significant extension of classical multi-armed bandits by incorporating structured information about the arms. Instead of treating each arm as an independent entity, linear bandits assume that rewards are linear functions of arm features, enabling more efficient learning through information sharing between similar arms.
 
+## From Independent Arms to Structured Learning
+
+We've now explored **classical multi-armed bandits** - the foundational framework for sequential decision-making under uncertainty. We've seen how the exploration-exploitation trade-off manifests in various algorithms like epsilon-greedy, UCB, and Thompson sampling, and how these methods provide theoretical guarantees for regret minimization.
+
+However, while classical bandits treat each arm independently, **real-world problems** often exhibit structure that can be exploited for more efficient learning. Consider a recommendation system where products have features - similar products likely have similar reward distributions, and learning about one product can inform our understanding of similar products.
+
+This motivates our exploration of **linear bandits** - extending the bandit framework to handle structured action spaces where rewards are linear functions of arm features. We'll see how LinUCB and linear Thompson sampling can exploit arm similarities, how feature-based learning reduces sample complexity, and how these methods enable efficient learning in high-dimensional action spaces.
+
+The transition from classical to linear bandits represents the bridge from independent learning to structured learning - taking our understanding of the exploration-exploitation trade-off and extending it to leverage the structure inherent in many real-world problems.
+
+In this section, we'll explore linear bandits, understanding how they exploit arm similarities and enable more efficient learning through feature-based representations.
+
 ### Motivation
 
 The classical multi-armed bandit framework treats each arm independently, which can be inefficient when arms share common structure. Linear bandits address this limitation by:
@@ -636,4 +648,22 @@ Linear bandits bridge the gap between classical bandits and more complex context
 
 ---
 
-**Note**: This guide covers the fundamentals of linear bandits. For more advanced topics, see the sections on Contextual Bandits, Kernel Bandits, and Generalized Linear Bandits. 
+**Note**: This guide covers the fundamentals of linear bandits. For more advanced topics, see the sections on Contextual Bandits, Kernel Bandits, and Generalized Linear Bandits.
+
+## From Static Features to Dynamic Contexts
+
+We've now explored **linear bandits** - extending the bandit framework to handle structured action spaces where rewards are linear functions of arm features. We've seen how LinUCB and linear Thompson sampling can exploit arm similarities, how feature-based learning reduces sample complexity, and how these methods enable efficient learning in high-dimensional action spaces.
+
+However, while linear bandits leverage the structure of arm features, **real-world environments** are often dynamic and context-dependent. Consider an online advertising system where the effectiveness of an ad depends not just on the ad itself, but also on the user's current context - their demographics, browsing history, time of day, and other contextual factors.
+
+This motivates our exploration of **contextual bandits** - extending the bandit framework to handle dynamic contexts where the optimal action depends on the current state. We'll see how contextual UCB and contextual Thompson sampling adapt to changing environments, how personalization enables tailored decisions, and how these methods handle the complexity of real-world applications.
+
+The transition from linear to contextual bandits represents the bridge from static structure to dynamic adaptation - taking our understanding of feature-based learning and extending it to handle the temporal and contextual dynamics inherent in many real-world problems.
+
+In the next section, we'll explore contextual bandits, understanding how they adapt to changing contexts and enable personalized decision-making.
+
+---
+
+**Previous: [Classical Multi-Armed Bandits](01_classical_multi_armed_bandits.md)** - Understand the foundational framework for sequential decision making.
+
+**Next: [Contextual Bandits](03_contextual_bandits.md)** - Learn how to adapt to dynamic contexts and personalize decisions. 
