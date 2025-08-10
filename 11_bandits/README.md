@@ -5,25 +5,25 @@ This directory contains implementations of classical multi-armed bandit algorith
 ## File Structure
 
 ### Core Algorithms (Classical Bandits)
-- [`epsilon_greedy.py`](epsilon_greedy.py) - Epsilon-greedy algorithm implementation
-- [`ucb.py`](ucb.py) - Upper Confidence Bound (UCB) algorithm implementation  
-- [`thompson_sampling.py`](thompson_sampling.py) - Thompson sampling algorithm implementation
+- [`code/epsilon_greedy.py`](code/epsilon_greedy.py) - Epsilon-greedy algorithm implementation
+- [`code/ucb.py`](code/ucb.py) - Upper Confidence Bound (UCB) algorithm implementation  
+- [`code/thompson_sampling.py`](code/thompson_sampling.py) - Thompson sampling algorithm implementation
 
 ### Core Algorithms (Linear Bandits)
-- [`linucb.py`](linucb.py) - Linear Upper Confidence Bound (LinUCB) algorithm
-- [`linear_thompson_sampling.py`](linear_thompson_sampling.py) - Linear Thompson Sampling algorithm
-- [`oful.py`](oful.py) - Optimism in the Face of Uncertainty for Linear Bandits (OFUL)
+- [`code/linucb.py`](code/linucb.py) - Linear Upper Confidence Bound (LinUCB) algorithm
+- [`code/linear_thompson_sampling.py`](code/linear_thompson_sampling.py) - Linear Thompson Sampling algorithm
+- [`code/oful.py`](code/oful.py) - Optimism in the Face of Uncertainty for Linear Bandits (OFUL)
 
 ### Environment and Utilities
-- [`bandit_environment.py`](bandit_environment.py) - Classical bandit environment, comparison functions, and visualization
-- [`linear_bandit_environment.py`](linear_bandit_environment.py) - Linear bandit environment and utilities
-- [`feature_utils.py`](feature_utils.py) - Feature engineering utilities
-- [`ad_bandit.py`](ad_bandit.py) - Specialized bandit for online advertising applications
-- [`application_examples.py`](application_examples.py) - Real-world application examples
+- [`code/bandit_environment.py`](code/bandit_environment.py) - Classical bandit environment, comparison functions, and visualization
+- [`code/linear_bandit_environment.py`](code/linear_bandit_environment.py) - Linear bandit environment and utilities
+- [`code/feature_utils.py`](code/feature_utils.py) - Feature engineering utilities
+- [`code/ad_bandit.py`](code/ad_bandit.py) - Specialized bandit for online advertising applications
+- [`code/application_examples.py`](code/application_examples.py) - Real-world application examples
 
 ### Examples and Documentation
-- [`example_usage.py`](example_usage.py) - Complete example demonstrating classical bandit algorithms
-- [`linear_bandit_example.py`](linear_bandit_example.py) - Complete example demonstrating linear bandit algorithms
+- [`code/example_usage.py`](code/example_usage.py) - Complete example demonstrating classical bandit algorithms
+- [`code/linear_bandit_example.py`](code/linear_bandit_example.py) - Complete example demonstrating linear bandit algorithms
 - [`01_classical_multi_armed_bandits.md`](01_classical_multi_armed_bandits.md) - Comprehensive guide to classical bandits
 - [`02_linear_bandits.md`](02_linear_bandits.md) - Comprehensive guide to linear bandits
 
@@ -31,15 +31,15 @@ This directory contains implementations of classical multi-armed bandit algorith
 
 1. **Run the complete example:**
    ```bash
-   python example_usage.py
+   python code/example_usage.py
    ```
 
 2. **Use classical bandit algorithms:**
    ```python
-   from epsilon_greedy import epsilon_greedy
-   from ucb import ucb
-   from thompson_sampling import thompson_sampling
-   from bandit_environment import BanditEnvironment
+   from code.epsilon_greedy import epsilon_greedy
+   from code.ucb import ucb
+   from code.thompson_sampling import thompson_sampling
+   from code.bandit_environment import BanditEnvironment
    
    # Create environment
    env = BanditEnvironment([0.1, 0.2, 0.3, 0.4, 0.5])
@@ -50,9 +50,9 @@ This directory contains implementations of classical multi-armed bandit algorith
 
 3. **Use linear bandit algorithms:**
    ```python
-   from linucb import LinUCB
-   from linear_thompson_sampling import LinearThompsonSampling
-   from linear_bandit_environment import LinearBanditEnvironment
+   from code.linucb import LinUCB
+   from code.linear_thompson_sampling import LinearThompsonSampling
+   from code.linear_bandit_environment import LinearBanditEnvironment
    
    # Create environment
    d = 5  # Feature dimension
@@ -110,8 +110,8 @@ This directory contains implementations of classical multi-armed bandit algorith
 
 ### Basic Usage
 ```python
-from bandit_environment import BanditEnvironment
-from epsilon_greedy import epsilon_greedy
+from code.bandit_environment import BanditEnvironment
+from code.epsilon_greedy import epsilon_greedy
 
 # Create environment with 5 arms
 arm_means = [0.1, 0.2, 0.3, 0.4, 0.5]
@@ -124,7 +124,7 @@ print(f"Empirical means: {empirical_means}")
 
 ### Classical Bandit Algorithm Comparison
 ```python
-from bandit_environment import compare_algorithms, plot_regret_comparison
+from code.bandit_environment import compare_algorithms, plot_regret_comparison
 
 # Define algorithms
 algorithms = {
@@ -142,7 +142,7 @@ plot_regret_comparison(results, 1000)
 
 ### Linear Bandit Algorithm Comparison
 ```python
-from linear_bandit_environment import compare_linear_algorithms, plot_linear_bandit_results
+from code.linear_bandit_environment import compare_linear_algorithms, plot_linear_bandit_results
 
 # Define algorithms
 algorithms = {
@@ -157,7 +157,7 @@ results = compare_linear_algorithms(env, algorithms)
 
 ### Online Advertising
 ```python
-from ad_bandit import AdBandit
+from code.ad_bandit import AdBandit
 
 # Create ad bandit
 bandit = AdBandit(n_ads=10)
