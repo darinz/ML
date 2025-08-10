@@ -262,7 +262,7 @@ T5-style models are implemented in [`code/llm_architectures.py`](code/llm_archit
 
 ### Complete LLM Training Pipeline
 
-The complete LLM training pipeline is implemented in [`training.py`](training.py) with the `LanguageModelTrainer` class, which provides:
+The complete LLM training pipeline is implemented in [`code/training.py`](code/training.py) with the `LanguageModelTrainer` class, which provides:
 
 - Comprehensive training loop with mixed precision
 - Learning rate scheduling with warmup
