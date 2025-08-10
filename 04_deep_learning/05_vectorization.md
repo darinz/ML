@@ -29,6 +29,18 @@ Vectorization has been crucial since the early days of scientific computing:
 - **2000s**: GPU computing revolutionized parallel processing
 - **2010s**: Deep learning frameworks made vectorization automatic
 
+## From Training Algorithms to Computational Efficiency
+
+We've now explored **backpropagation** - the fundamental algorithm that enables neural networks to learn by efficiently computing gradients through the computational graph. We've seen how this algorithm leverages the modular structure of neural networks and enables training of deep architectures.
+
+However, while backpropagation provides the mathematical framework for training, implementing it efficiently requires careful attention to **computational optimization**. Modern deep learning systems process massive amounts of data and require training of models with millions of parameters, making computational efficiency crucial.
+
+This motivates our exploration of **vectorization** - the techniques that enable efficient computation by leveraging parallel processing and optimized matrix operations. We'll see how vectorization can dramatically speed up both forward and backward passes, making deep learning practical for real-world applications.
+
+The transition from training algorithms to computational efficiency represents the bridge from mathematical correctness to practical performance - taking our understanding of how neural networks learn and turning it into systems that can train efficiently on large-scale problems.
+
+In this section, we'll explore how vectorization works, how it can be applied to neural network operations, and how it enables the computational efficiency needed for modern deep learning.
+
 ---
 
 ## 7.5 Mathematical Foundations
@@ -701,3 +713,21 @@ print(f"Memory usage: {memory_usage():.2f} MB")
 ---
 
 *This concludes our comprehensive exploration of vectorization in deep learning. Vectorization is not just an optimization technique—it's a fundamental paradigm that enables the scalability and efficiency that make modern deep learning possible.*
+
+## From Computational Efficiency to Practical Implementation
+
+We've now explored **vectorization** - the techniques that enable efficient computation by leveraging parallel processing and optimized matrix operations. We've seen how vectorization can dramatically speed up both forward and backward passes, making deep learning practical for real-world applications.
+
+However, while we've established the theoretical foundations and computational techniques, true mastery of deep learning comes from **hands-on implementation**. Understanding the mathematical principles and optimization techniques is essential, but implementing neural networks from scratch, experimenting with different architectures, and applying them to real-world problems is where the concepts truly come to life.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the concepts we've learned. We'll put our theoretical knowledge into practice by implementing neural networks from scratch, experimenting with different architectures, and developing the practical skills needed to apply deep learning to real-world problems.
+
+The transition from computational efficiency to practical implementation represents the bridge from theoretical understanding to practical mastery - taking our knowledge of how deep learning works and turning it into working systems that can solve real problems.
+
+In the next section, we'll implement complete neural network systems, experiment with different architectures and optimization techniques, and develop the practical skills needed for deep learning applications.
+
+---
+
+**Previous: [Backpropagation](04_backpropagation.md)** - Understand how neural networks learn through efficient gradient computation.
+
+**Next: [Hands-on Coding](06_hands-on_coding.md)** - Implement neural networks from scratch and apply deep learning to real-world problems.
