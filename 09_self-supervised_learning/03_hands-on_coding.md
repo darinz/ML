@@ -11,6 +11,18 @@ We've explored the elegant framework of **self-supervised learning**, which addr
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different self-supervised learning techniques, and develop the intuition needed to build foundation models that can adapt to various downstream tasks.
 
+## From Theoretical Understanding to Hands-On Mastery
+
+We've now explored **large language models** - specialized foundation models for text that leverage the sequential and contextual nature of language. We've seen how language modeling works through the chain rule of probability, how Transformer architectures process text, and how these models can generate coherent text and adapt to new tasks through finetuning, zero-shot learning, and in-context learning.
+
+However, while understanding the theoretical foundations of self-supervised learning and large language models is essential, true mastery comes from **practical implementation**. The concepts we've learned - contrastive learning, language modeling, text generation, and adaptation methods - need to be applied to real problems to develop intuition and practical skills.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the self-supervised learning and language model concepts we've learned. We'll put our theoretical knowledge into practice by implementing contrastive learning for computer vision, building language models for text generation, and developing the practical skills needed to create foundation models that can adapt to various downstream tasks.
+
+The transition from theoretical understanding to practical implementation represents the bridge from knowledge to application - taking our understanding of how self-supervised learning and language models work and turning it into practical tools for building powerful AI systems.
+
+In this practical guide, we'll implement complete systems for self-supervised learning and language models, experiment with different techniques, and develop the practical skills needed for real-world applications in computer vision and natural language processing.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -753,6 +765,10 @@ The principles we've learned here - representation learning, adaptation, and sca
 Remember: Self-supervised learning is the key to unlocking the potential of unlabeled data - it's what enables us to build powerful foundation models that can adapt to any task. Keep exploring, building, and applying these concepts to new problems!
 
 ---
+
+**Previous: [Large Language Models](02_pretrain_llm.md)** - Learn how to build and deploy large language models for text generation and understanding.
+
+**Next: [Reinforcement Learning](../10_reinforcement_learning/README.md)** - Explore techniques for learning through interaction and feedback.
 
 ## Environment Files
 
