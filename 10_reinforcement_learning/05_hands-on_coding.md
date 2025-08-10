@@ -328,7 +328,7 @@ print("Fitted value iteration completed successfully")
 **Activity 2.4: Feature Engineering**
 ```python
 # Explore different feature representations
-from continuous_state_mdp_examples import (
+from code.continuous_state_mdp_examples import (
     radial_basis_features, fourier_features, demonstrate_value_approximation
 )
 
@@ -361,7 +361,7 @@ demonstrate_value_approximation()
 ---
 
 ### Lesson 3: Policy Gradient Methods (4-5 hours)
-**Files**: `policy_gradient_examples.py`
+**Files**: `code/policy_gradient_examples.py`
 
 #### Learning Goals
 - Understand the policy gradient theorem
