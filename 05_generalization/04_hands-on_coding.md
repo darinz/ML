@@ -72,7 +72,7 @@ conda --version
 cd 05_generalization
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate generalization-lesson
@@ -98,7 +98,7 @@ generalization-env\Scripts\activate
 source generalization-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -138,7 +138,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Bias-Variance Decomposition (3-4 hours)
-**File**: `bias_variance_decomposition_examples.py`
+**File**: `code/bias_variance_decomposition_examples.py`
 
 #### Learning Goals
 - Understand the mathematical foundations of bias-variance decomposition
@@ -152,7 +152,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Understanding the True Function**
 ```python
 # Explore the true underlying function and data generation process
-from bias_variance_decomposition_examples import h_star, generate_data
+from code.bias_variance_decomposition_examples import h_star, generate_data
 
 # Define the true function (quadratic)
 x = np.linspace(0, 1, 100)
@@ -181,7 +181,7 @@ print(f"Training data: {len(x_train)} points with noise σ = 0.2")
 **Activity 1.2: Model Complexity Comparison**
 ```python
 # Compare different model complexities and their behavior
-from bias_variance_decomposition_examples import fit_polynomial_model, compute_mse
+from code.bias_variance_decomposition_examples import fit_polynomial_model, compute_mse
 
 # Fit models of different complexities
 degrees = [1, 2, 5, 10]
@@ -224,7 +224,7 @@ plt.show()
 **Activity 1.3: Bias-Variance Decomposition**
 ```python
 # Implement Monte Carlo estimation of bias and variance
-from bias_variance_decomposition_examples import estimate_bias_variance_decomposition
+from code.bias_variance_decomposition_examples import estimate_bias_variance_decomposition
 
 # Estimate bias-variance decomposition for different model complexities
 degrees = [1, 2, 5, 10]
@@ -257,7 +257,7 @@ for degree in degrees:
 **Activity 1.4: Bias-Variance Tradeoff Visualization**
 ```python
 # Visualize the complete bias-variance tradeoff
-from bias_variance_decomposition_examples import plot_bias_variance_tradeoff
+from code.bias_variance_decomposition_examples import plot_bias_variance_tradeoff
 
 # Plot the tradeoff curve
 degrees = list(range(1, 16))
@@ -281,7 +281,7 @@ plot_bias_variance_tradeoff(degrees, x0=0.5, n_repeats=200, n_train=8, sigma=0.2
 ---
 
 ### Lesson 2: Double Descent Phenomenon (3-4 hours)
-**File**: `double_descent_examples.py`
+**File**: `code/double_descent_examples.py`
 
 #### Learning Goals
 - Understand the double descent phenomenon and its implications
@@ -295,7 +295,7 @@ plot_bias_variance_tradeoff(degrees, x0=0.5, n_repeats=200, n_train=8, sigma=0.2
 **Activity 2.1: Model-Wise Double Descent**
 ```python
 # Explore model-wise double descent by varying polynomial degree
-from double_descent_examples import simulate_modelwise_double_descent, plot_modelwise_double_descent
+from code.double_descent_examples import simulate_modelwise_double_descent, plot_modelwise_double_descent
 
 # Simulate model-wise double descent
 degrees, test_errors = simulate_modelwise_double_descent(
@@ -311,7 +311,7 @@ plot_modelwise_double_descent(degrees, test_errors)
 **Activity 2.2: Sample-Wise Double Descent**
 ```python
 # Explore sample-wise double descent by varying training set size
-from double_descent_examples import simulate_samplewise_double_descent, plot_samplewise_double_descent
+from code.double_descent_examples import simulate_samplewise_double_descent, plot_samplewise_double_descent
 
 # Simulate sample-wise double descent
 sample_sizes, test_errors = simulate_samplewise_double_descent(
@@ -327,7 +327,7 @@ plot_samplewise_double_descent(sample_sizes, test_errors, d=50)
 **Activity 2.3: Regularization Effects**
 ```python
 # Understand how regularization affects double descent
-from double_descent_examples import demonstrate_regularization_effect
+from code.double_descent_examples import demonstrate_regularization_effect
 
 # Demonstrate regularization effects
 demonstrate_regularization_effect()
@@ -338,7 +338,7 @@ demonstrate_regularization_effect()
 **Activity 2.4: Implicit Regularization**
 ```python
 # Explore implicit regularization in modern optimizers
-from double_descent_examples import demonstrate_implicit_regularization
+from code.double_descent_examples import demonstrate_implicit_regularization
 
 # Demonstrate implicit regularization
 demonstrate_implicit_regularization()
@@ -361,7 +361,7 @@ demonstrate_implicit_regularization()
 ---
 
 ### Lesson 3: Complexity Bounds and Theoretical Foundations (3-4 hours)
-**File**: `complexity_bounds_examples.py`
+**File**: `code/complexity_bounds_examples.py`
 
 #### Learning Goals
 - Understand concentration inequalities and their applications
@@ -375,7 +375,7 @@ demonstrate_implicit_regularization()
 **Activity 3.1: Hoeffding Bound Demonstration**
 ```python
 # Understand concentration inequalities through Hoeffding bound
-from complexity_bounds_examples import demonstrate_hoeffding_bound
+from code.complexity_bounds_examples import demonstrate_hoeffding_bound
 
 # Demonstrate Hoeffding bound
 demonstrate_hoeffding_bound(phi=0.6, n=100, gamma=0.1, n_trials=10000)
@@ -386,7 +386,7 @@ demonstrate_hoeffding_bound(phi=0.6, n=100, gamma=0.1, n_trials=10000)
 **Activity 3.2: Union Bound Analysis**
 ```python
 # Understand the union bound and its applications
-from complexity_bounds_examples import demonstrate_union_bound
+from code.complexity_bounds_examples import demonstrate_union_bound
 
 # Demonstrate union bound
 demonstrate_union_bound(p_single=0.01, k=10)
@@ -397,7 +397,7 @@ demonstrate_union_bound(p_single=0.01, k=10)
 **Activity 3.3: Empirical vs Generalization Error**
 ```python
 # Analyze the gap between training and test performance
-from complexity_bounds_examples import demonstrate_empirical_vs_generalization_error
+from code.complexity_bounds_examples import demonstrate_empirical_vs_generalization_error
 
 # Demonstrate empirical vs generalization error
 demonstrate_empirical_vs_generalization_error(phi=0.7, n=50, n_test=10000)
@@ -408,7 +408,7 @@ demonstrate_empirical_vs_generalization_error(phi=0.7, n=50, n_test=10000)
 **Activity 3.4: Sample Complexity Bounds**
 ```python
 # Understand how many samples are needed for good generalization
-from complexity_bounds_examples import demonstrate_sample_complexity_bounds
+from code.complexity_bounds_examples import demonstrate_sample_complexity_bounds
 
 # Demonstrate sample complexity bounds
 demonstrate_sample_complexity_bounds(gamma=0.1, delta=0.05, k_max=1000)
@@ -419,7 +419,7 @@ demonstrate_sample_complexity_bounds(gamma=0.1, delta=0.05, k_max=1000)
 **Activity 3.5: VC Dimension Analysis**
 ```python
 # Understand VC dimension for measuring model complexity
-from complexity_bounds_examples import demonstrate_vc_dimension_2d
+from code.complexity_bounds_examples import demonstrate_vc_dimension_2d
 
 # Demonstrate VC dimension for 2D linear classifiers
 demonstrate_vc_dimension_2d()
@@ -430,7 +430,7 @@ demonstrate_vc_dimension_2d()
 **Activity 3.6: Learning Curves**
 ```python
 # Analyze learning curves and their implications
-from complexity_bounds_examples import demonstrate_learning_curves
+from code.complexity_bounds_examples import demonstrate_learning_curves
 
 # Demonstrate learning curves
 demonstrate_learning_curves()
