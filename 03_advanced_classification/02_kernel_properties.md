@@ -161,12 +161,14 @@ Suppose for now that $K$ is indeed a valid kernel corresponding to some feature 
 Now, if $K$ is a valid kernel, then $K_{ij} = K(x^{(i)}, x^{(j)}) = \phi(x^{(i)})^T \phi(x^{(j)}) = \phi(x^{(j)})^T \phi(x^{(i)}) = K(x^{(j)}, x^{(i)}) = K_{ji}$, and hence $K$ must be symmetric. Moreover, letting $\phi_k(x)$ denote the $k$-th coordinate of the vector $\phi(x)$, we have
 
 $$
-z^T K z = \sum_i \sum_j z_i K_{ij} z_j \\
-= \sum_i \sum_j z_i \phi(x^{(i)})^T \phi(x^{(j)}) z_j \\
-= \sum_i \sum_j z_i \sum_k \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\
-= \sum_k \sum_i \sum_j z_i \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\
-= \sum_k \left( \sum_i z_i \phi_k(x^{(i)}) \right)^2 \\
-\geq 0.
+\begin{align}
+z^T K z &= \sum_i \sum_j z_i K_{ij} z_j \\
+&= \sum_i \sum_j z_i \phi(x^{(i)})^T \phi(x^{(j)}) z_j \\
+&= \sum_i \sum_j z_i \sum_k \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\
+&= \sum_k \sum_i \sum_j z_i \phi_k(x^{(i)}) \phi_k(x^{(j)}) z_j \\
+&= \sum_k \left( \sum_i z_i \phi_k(x^{(i)}) \right)^2 \\
+&\geq 0.
+\end{align}
 $$
 
 *Implementation details are provided in the accompanying Python examples file.*
