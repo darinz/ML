@@ -171,7 +171,7 @@ print(f"Actions: {grid_mdp.actions}")
 **Activity 1.2: Value Iteration Implementation**
 ```python
 # Implement value iteration to find optimal value functions
-from markov_decision_processes_examples import value_iteration, plot_value_function
+from code.markov_decision_processes_examples import value_iteration, plot_value_function
 
 # Solve the MDP using value iteration
 V_star, pi_star = value_iteration(grid_mdp, theta=1e-6, max_iterations=1000)
