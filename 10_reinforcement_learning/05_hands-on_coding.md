@@ -559,7 +559,7 @@ demonstrate_lqr()
 **Activity 4.3: Differential Dynamic Programming**
 ```python
 # Implement DDP for nonlinear systems
-from advanced_control_examples import ddp, demonstrate_ddp
+from code.advanced_control_examples import ddp, demonstrate_ddp
 
 # Define nonlinear dynamics and cost
 def dynamics(s, a):
@@ -590,7 +590,7 @@ demonstrate_ddp()
 **Activity 4.4: Kalman Filtering and LQG**
 ```python
 # Implement Kalman filter and LQG control
-from advanced_control_examples import (
+from code.advanced_control_examples import (
     KalmanFilter, LQGController, demonstrate_lqg
 )
 
