@@ -63,7 +63,7 @@ conda --version
 cd 01_linear_models/02_classification_logistic_regression
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate classification-lesson
@@ -89,7 +89,7 @@ classification-env\Scripts\activate
 source classification-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -128,7 +128,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Binary Classification with Logistic Regression (2-3 hours)
-**File**: `logistic_regression_examples.py`
+**File**: `code/logistic_regression_examples.py`
 
 #### Learning Goals
 - Understand why linear regression fails for classification
@@ -142,7 +142,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Understanding the Sigmoid Function**
 ```python
 # Explore the sigmoid function properties
-from logistic_regression_examples import sigmoid, sigmoid_derivative
+from code.logistic_regression_examples import sigmoid, sigmoid_derivative
 
 # Test sigmoid function
 z_values = np.array([-5, -2, 0, 2, 5])
@@ -159,7 +159,7 @@ print("Sigmoid outputs:", probabilities)
 **Activity 1.2: Logistic Regression Hypothesis**
 ```python
 # Implement and test hypothesis function
-from logistic_regression_examples import hypothesis
+from code.logistic_regression_examples import hypothesis
 
 # Test with different parameters
 theta = np.array([0.5, 1.0, -0.5])  # [bias, feature1, feature2]
@@ -176,7 +176,7 @@ print(f"Key difference: Linear can be negative, logistic is always 0-1")
 **Activity 1.3: Log-Likelihood and Loss Functions**
 ```python
 # Understand the connection between likelihood and loss
-from logistic_regression_examples import log_likelihood, logistic_loss
+from code.logistic_regression_examples import log_likelihood, logistic_loss
 
 # Generate sample data
 X = np.array([[1, 2], [1, 3], [1, 1]])
@@ -194,7 +194,7 @@ print(f"Note: They are related but have different signs")
 **Activity 1.4: Complete Training Pipeline**
 ```python
 # Run the complete logistic regression example
-from logistic_regression_examples import demonstrate_logistic_regression
+from code.logistic_regression_examples import demonstrate_logistic_regression
 
 # This will:
 # 1. Generate synthetic classification data
@@ -219,7 +219,7 @@ from logistic_regression_examples import demonstrate_logistic_regression
 ---
 
 ### Lesson 2: Perceptron Algorithm (2-3 hours)
-**File**: `perceptron_examples.py`
+**File**: `code/perceptron_examples.py`
 
 #### Learning Goals
 - Understand the historical significance of perceptron
@@ -233,8 +233,8 @@ from logistic_regression_examples import demonstrate_logistic_regression
 **Activity 2.1: Threshold Function vs Sigmoid**
 ```python
 # Compare perceptron threshold with sigmoid
-from perceptron_examples import perceptron_threshold
-from logistic_regression_examples import sigmoid
+from code.perceptron_examples import perceptron_threshold
+from code.logistic_regression_examples import sigmoid
 
 # Test both functions
 z_values = np.array([-2, -1, 0, 1, 2])
@@ -251,7 +251,7 @@ print("Sigmoid outputs:", sigmoid_outputs)
 **Activity 2.2: Perceptron Learning Rule**
 ```python
 # Understand the perceptron update rule
-from perceptron_examples import perceptron_update
+from code.perceptron_examples import perceptron_update
 
 # Simulate a single update
 theta = np.array([0.1, 0.2, 0.3])
@@ -270,7 +270,7 @@ print(f"Update: {theta_new - theta}")
 **Activity 2.3: Complete Perceptron Training**
 ```python
 # Train perceptron on synthetic data
-from perceptron_examples import demonstrate_perceptron
+from code.perceptron_examples import demonstrate_perceptron
 
 # This will:
 # 1. Generate linearly separable data
@@ -283,7 +283,7 @@ from perceptron_examples import demonstrate_perceptron
 **Activity 2.4: Convergence Analysis**
 ```python
 # Analyze perceptron convergence
-from perceptron_examples import generate_linearly_separable_data, train_perceptron
+from code.perceptron_examples import generate_linearly_separable_data, train_perceptron
 
 # Generate data with different separations
 X_easy, y_easy = generate_linearly_separable_data(n_samples=50, random_state=42)
@@ -312,7 +312,7 @@ print(f"Hard data converged in: {len(history_hard['errors'])} iterations")
 ---
 
 ### Lesson 3: Multi-Class Classification (3-4 hours)
-**File**: `multiclass_softmax_example.py`
+**File**: `code/multiclass_softmax_example.py`
 
 #### Learning Goals
 - Understand softmax function and its properties
@@ -326,7 +326,7 @@ print(f"Hard data converged in: {len(history_hard['errors'])} iterations")
 **Activity 3.1: Softmax Function Properties**
 ```python
 # Explore softmax function
-from multiclass_softmax_example import softmax, softmax_temperature
+from code.multiclass_softmax_example import softmax, softmax_temperature
 
 # Test basic softmax
 logits = np.array([[2, 1, 0]])
@@ -345,7 +345,7 @@ print("Soft probabilities (T=2.0):", probs_soft)
 **Activity 3.2: Cross-Entropy Loss**
 ```python
 # Understand multi-class loss function
-from multiclass_softmax_example import cross_entropy_loss
+from code.multiclass_softmax_example import cross_entropy_loss
 
 # Test with different predictions
 logits = np.array([[2, 1, 0], [0, 2, 1], [1, 0, 2]])
@@ -361,7 +361,7 @@ print(f"Cross-entropy loss: {loss:.3f}")
 **Activity 3.3: Multi-Class Training**
 ```python
 # Train softmax regression
-from multiclass_softmax_example import demonstrate_multiclass_classification
+from code.multiclass_softmax_example import demonstrate_multiclass_classification
 
 # This will:
 # 1. Generate 3-class synthetic data
@@ -374,7 +374,7 @@ from multiclass_softmax_example import demonstrate_multiclass_classification
 **Activity 3.4: Numerical Stability**
 ```python
 # Test numerical stability
-from multiclass_softmax_example import softmax
+from code.multiclass_softmax_example import softmax
 
 # Test with large logits (potential overflow)
 logits_large = np.array([[1000, 999, 998]])
