@@ -375,7 +375,7 @@ print(f"  Linear Thompson: {np.mean(results_thompson['cumulative_rewards'][-1]):
 **Activity 2.4: Feature Engineering**
 ```python
 # Explore feature engineering for bandits
-from feature_engineering import (
+from code.feature_engineering import (
     create_polynomial_features, create_rbf_features, 
     create_fourier_features, compare_feature_representations
 )
