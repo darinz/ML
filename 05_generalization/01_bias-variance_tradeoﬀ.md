@@ -9,9 +9,9 @@ This chapter addresses one of the most fundamental questions in machine learning
 In supervised learning, we are given a training dataset $`\{(x^{(i)}, y^{(i)})\}_{i=1}^n`$ where each example consists of an input $`x^{(i)}`$ and its corresponding output $`y^{(i)}`$. Our goal is to learn a model $`h_\theta`$ that can predict outputs for new inputs.
 
 **Training Process:** We learn the model by minimizing a loss function $`J(\theta)`$ on the training data. For example, with mean squared error loss:
-```math
+$$
 J(\theta) = \frac{1}{n} \sum_{i=1}^n (y^{(i)} - h_\theta(x^{(i)}))^2
-```
+$$
 
 **The Key Insight:** Minimizing training error is not our ultimate goal—it's just our strategy for learning. The real measure of success is how well the model performs on **unseen test examples**.
 
@@ -20,9 +20,9 @@ J(\theta) = \frac{1}{n} \sum_{i=1}^n (y^{(i)} - h_\theta(x^{(i)}))^2
 Consider a test example $`(x, y)`$ drawn from the same underlying distribution $`\mathcal{D}`$ as our training data. The test error for this example is the squared difference between our prediction and the true value: $`(h_\theta(x) - y)^2`$.
 
 The **expected test error** (also called generalization error) is:
-```math
+$$
 L(\theta) = \mathbb{E}_{(x, y) \sim \mathcal{D}}[(y - h_\theta(x))^2]
-```
+$$
 
 **Important Notes:**
 - The expectation is over all possible test examples from distribution $`\mathcal{D}`$
@@ -180,9 +180,9 @@ Consider the following setup:
 - **Evaluation:** We want to predict at a fixed point $`x`$
 
 The **mean squared error (MSE)** at point $`x`$ is:
-```math
+$$
 \mathrm{MSE}(x) = \mathbb{E}_{S, \xi}[(y - \hat{h}_S(x))^2]
-```
+$$
 
 This expectation is over:
 - The randomness in drawing training set $`S`$
@@ -191,14 +191,14 @@ This expectation is over:
 ### Key Mathematical Tool: Independence Lemma
 
 **Claim 8.1.1:** If $`A`$ and $`B`$ are independent random variables with $`\mathbb{E}[A] = 0`$, then:
-```math
+$$
 \mathbb{E}[(A + B)^2] = \mathbb{E}[A^2] + \mathbb{E}[B^2]
-```
+$$
 
 **Proof:** Expand the square and use independence:
-```math
+$$
 \mathbb{E}[(A + B)^2] = \mathbb{E}[A^2 + 2AB + B^2] = \mathbb{E}[A^2] + 2\mathbb{E}[AB] + \mathbb{E}[B^2]
-```
+$$
 
 Since $`A`$ and $`B`$ are independent, $`\mathbb{E}[AB] = \mathbb{E}[A]\mathbb{E}[B] = 0`$, giving us the result.
 
@@ -206,25 +206,25 @@ Since $`A`$ and $`B`$ are independent, $`\mathbb{E}[AB] = \mathbb{E}[A]\mathbb{E
 
 First, we separate the irreducible noise from the model's prediction error:
 
-```math
+$$
 \mathrm{MSE}(x) = \mathbb{E}_{S, \xi}[(y - \hat{h}_S(x))^2] = \mathbb{E}_{S, \xi}[(\xi + (h^*(x) - \hat{h}_S(x)))^2] \tag{8.3}
-```
+$$
 
 **Explanation:** We rewrite $`y = h^*(x) + \xi`$ and group terms.
 
 Now apply Claim 8.1.1 with $`A = \xi`$ and $`B = h^*(x) - \hat{h}_S(x)`$:
 
-```math
+$$
 = \mathbb{E}[\xi^2] + \mathbb{E}[(h^*(x) - \hat{h}_S(x))^2] \quad \text{(by Claim 8.1.1)} \tag{8.4}
-```
+$$
 
 **Explanation:** The noise $`\xi`$ is independent of the model error, and $`\mathbb{E}[\xi] = 0`$.
 
 Since $`\mathbb{E}[\xi^2] = \sigma^2`$ (the noise variance):
 
-```math
+$$
 = \sigma^2 + \mathbb{E}[(h^*(x) - \hat{h}_S(x))^2]
-```
+$$
 
 **Interpretation:** The MSE decomposes into:
 1. **Irreducible error** ($`\sigma^2`$): Error due to noise in the data
@@ -242,23 +242,23 @@ This is the prediction we would get if we could train on infinitely many dataset
 
 Now we decompose the model error by adding and subtracting $`h_{avg}(x)`$:
 
-```math
+$$
 h^*(x) - \hat{h}_S(x) = (h^*(x) - h_{avg}(x)) + (h_{avg}(x) - \hat{h}_S(x))
-```
+$$
 
 The first term is constant (doesn't depend on the training set), and the second term has mean zero (by definition of $`h_{avg}(x)`$). Applying Claim 8.1.1 again:
 
-```math
+$$
 \mathrm{MSE}(x) = \sigma^2 + \mathbb{E}[(h^*(x) - \hat{h}_S(x))^2] \tag{8.5}
-```
+$$
 
-```math
+$$
 = \sigma^2 + (h^*(x) - h_{avg}(x))^2 + \mathbb{E}[(h_{avg}(x) - \hat{h}_S(x))^2] \tag{8.6}
-```
+$$
 
-```math
+$$
 = \underbrace{\sigma^2}_{\text{irreducible error}} + \underbrace{(h^*(x) - h_{avg}(x))^2}_{\text{bias}^2} + \underbrace{\mathrm{var}(\hat{h}_S(x))}_{\text{variance}} \tag{8.7}
-```
+$$
 
 ### Understanding Each Component
 
