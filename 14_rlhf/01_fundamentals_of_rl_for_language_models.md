@@ -476,4 +476,20 @@ Understanding these fundamentals is crucial for implementing effective RLHF syst
 
 ---
 
-**Note**: This guide provides the mathematical and conceptual foundations. For practical implementation, see the implementation examples and code repositories referenced in the main README. 
+**Note**: This guide provides the mathematical and conceptual foundations. For practical implementation, see the implementation examples and code repositories referenced in the main README.
+
+## From Theoretical Foundations to Human Feedback Collection
+
+We've now explored **the fundamentals of reinforcement learning for language models** - the mathematical and conceptual foundations that underpin modern RLHF systems. We've seen how traditional RL concepts are adapted for language generation tasks, the unique challenges this domain presents, and the mathematical frameworks that enable learning from human preferences rather than supervised labels.
+
+However, while understanding the theoretical foundations is crucial, **the quality and quantity of human feedback** is what ultimately determines the success of RLHF systems. Consider training a model to be helpful, harmless, and honest - the effectiveness of this training depends entirely on how well we collect and structure human feedback about what constitutes good behavior.
+
+This motivates our exploration of **human feedback collection** - the systematic process of gathering, structuring, and validating human preferences and judgments about model outputs. We'll see how different types of feedback (binary preferences, rankings, ratings, natural language explanations) capture different aspects of human judgment, how to design effective annotation guidelines and quality control measures, and how to mitigate biases and ensure diverse perspectives in the feedback collection process.
+
+The transition from theoretical foundations to human feedback collection represents the bridge from understanding how RLHF works to implementing the data collection pipeline that makes it possible - taking our knowledge of the mathematical framework and applying it to the practical challenge of gathering high-quality human feedback.
+
+In the next section, we'll explore human feedback collection, understanding how to design effective data collection strategies that enable successful RLHF training.
+
+---
+
+**Next: [Human Feedback Collection](02_human_feedback_collection.md)** - Learn how to collect and structure human preferences for RLHF training. 
