@@ -242,6 +242,8 @@ def update_mean(old_mean, old_count, new_value):
     return (old_mean * old_count + new_value) / (old_count + 1)
 ```
 
+*Note: These implementation details are handled in the separate Python files: [`ucb.py`](ucb.py), [`epsilon_greedy.py`](epsilon_greedy.py), and [`thompson_sampling.py`](thompson_sampling.py).*
+
 **Parallelization:**
 - **Batch updates**: Process multiple rewards simultaneously
 - **Distributed bandits**: Multiple agents sharing information
