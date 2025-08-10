@@ -575,7 +575,7 @@ print(f"Multi-objective bandit performance: {multi_results['final_reward']:.2f}"
 **Activity 4.1: Best Arm Identification**
 ```python
 # Explore best arm identification
-from bai_algorithms import (
+from code.bai_algorithms import (
     SuccessiveElimination, RacingAlgorithm, run_bai_experiment
 )
 
