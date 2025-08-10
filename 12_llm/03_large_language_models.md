@@ -818,26 +818,13 @@ def visualize_attention(model, input_text, tokenizer, layer_idx=0, head_idx=0):
 
 ### Model Quantization
 
-```python
-import torch.quantization as quantization
+See [`deployment_inference.py`](deployment_inference.py) for the complete implementation of model quantization and other deployment techniques.
 
-def quantize_model(model, calibration_data):
-    """Quantize model for faster inference."""
-    model.eval()
-    
-    # Prepare for quantization
-    model.qconfig = quantization.get_default_qconfig('fbgemm')
-    quantization.prepare(model, inplace=True)
-    
-    # Calibrate
-    with torch.no_grad():
-        for batch in calibration_data:
-            model(batch)
-    
-    # Convert to quantized model
-    quantized_model = quantization.convert(model, inplace=False)
-    
-    return quantized_model
+```python
+from deployment_inference import quantize_model
+
+# Usage
+quantized_model = quantize_model(model, calibration_data)
 ```
 
 ### Text Generation
