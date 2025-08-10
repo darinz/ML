@@ -28,8 +28,8 @@ Generative learning algorithms model the joint distribution $p(x,y)$ by learning
   - Laplace smoothing and text classification applications
 
 ### Implementation
-- **[gda_examples.py](gda_examples.py)** - GDA implementation with parameter estimation, prediction, and visualization
-- **[naive_bayes_examples.py](naive_bayes_examples.py)** - Naive Bayes with text preprocessing and feature importance
+- **[code/gda_examples.py](code/gda_examples.py)** - GDA implementation with parameter estimation, prediction, and visualization
+- **[code/naive_bayes_examples.py](code/naive_bayes_examples.py)** - Naive Bayes with text preprocessing and feature importance
 
 ### Visualizations
 - **img/** - Gaussian contours, decision boundaries, and parameter estimation results
