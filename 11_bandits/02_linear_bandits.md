@@ -163,42 +163,14 @@ Where $`\mathcal{C}_t`$ is the confidence ellipsoid:
 ```
 
 **Implementation:**
+See [`oful.py`](oful.py) for the complete implementation.
+
 ```python
+# Key implementation details:
 class OFUL:
-    def __init__(self, d, delta=0.1, lambda_reg=1.0):
-        self.d = d
-        self.delta = delta
-        self.lambda_reg = lambda_reg
-        
-        self.A = lambda_reg * np.eye(d)
-        self.b = np.zeros(d)
-        self.theta_hat = np.zeros(d)
-        
-    def select_arm(self, arms):
-        """Select arm using OFUL algorithm"""
-        # Update parameter estimate
-        self.theta_hat = np.linalg.solve(self.A, self.b)
-        
-        # Calculate confidence radius
-        beta = self._calculate_beta()
-        
-        # Find optimistic parameter within confidence ellipsoid
-        theta_opt = self._find_optimistic_parameter(arms, beta)
-        
-        # Choose arm with highest optimistic reward
-        predicted_rewards = [np.dot(theta_opt, x) for x in arms]
-        return np.argmax(predicted_rewards)
-    
-    def _calculate_beta(self):
-        """Calculate confidence radius"""
-        t = np.trace(self.A) - self.d * self.lambda_reg
-        return np.sqrt(2 * np.log(1 / self.delta) + self.d * np.log(1 + t / (self.d * self.lambda_reg)))
-    
-    def _find_optimistic_parameter(self, arms, beta):
-        """Find optimistic parameter within confidence ellipsoid"""
-        # This is a simplified version - in practice, this requires solving an optimization problem
-        # For simplicity, we'll use the UCB approach
-        return self.theta_hat + beta * np.linalg.solve(self.A, np.random.randn(self.d))
+    # Construct confidence ellipsoids around parameter estimate
+    # Use optimism to guide exploration
+    # Calculate confidence radius based on concentration inequalities
 ```
 
 ## Theoretical Analysis
