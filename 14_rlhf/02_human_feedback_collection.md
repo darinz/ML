@@ -2,6 +2,18 @@
 
 This guide provides a comprehensive overview of human feedback collection for reinforcement learning from human feedback (RLHF) systems. We'll explore different types of feedback, collection strategies, annotation guidelines, quality control measures, and practical implementation considerations.
 
+## From Theoretical Foundations to Human Feedback Collection
+
+We've now explored **the fundamentals of reinforcement learning for language models** - the mathematical and conceptual foundations that underpin modern RLHF systems. We've seen how traditional RL concepts are adapted for language generation tasks, the unique challenges this domain presents, and the mathematical frameworks that enable learning from human preferences rather than supervised labels.
+
+However, while understanding the theoretical foundations is crucial, **the quality and quantity of human feedback** is what ultimately determines the success of RLHF systems. Consider training a model to be helpful, harmless, and honest - the effectiveness of this training depends entirely on how well we collect and structure human feedback about what constitutes good behavior.
+
+This motivates our exploration of **human feedback collection** - the systematic process of gathering, structuring, and validating human preferences and judgments about model outputs. We'll see how different types of feedback (binary preferences, rankings, ratings, natural language explanations) capture different aspects of human judgment, how to design effective annotation guidelines and quality control measures, and how to mitigate biases and ensure diverse perspectives in the feedback collection process.
+
+The transition from theoretical foundations to human feedback collection represents the bridge from understanding how RLHF works to implementing the data collection pipeline that makes it possible - taking our knowledge of the mathematical framework and applying it to the practical challenge of gathering high-quality human feedback.
+
+In this section, we'll explore human feedback collection, understanding how to design effective data collection strategies that enable successful RLHF training.
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -1171,4 +1183,22 @@ Effective feedback collection enables the training of language models that bette
 
 ---
 
-**Note**: This guide provides the theoretical and practical foundations for human feedback collection. For specific implementation details and platform integrations, refer to the implementation examples and external resources referenced in the main README. 
+**Note**: This guide provides the theoretical and practical foundations for human feedback collection. For specific implementation details and platform integrations, refer to the implementation examples and external resources referenced in the main README.
+
+## From Data Collection to Reward Modeling
+
+We've now explored **human feedback collection** - the systematic process of gathering, structuring, and validating human preferences and judgments about model outputs. We've seen how different types of feedback (binary preferences, rankings, ratings, natural language explanations) capture different aspects of human judgment, how to design effective annotation guidelines and quality control measures, and how to mitigate biases and ensure diverse perspectives in the feedback collection process.
+
+However, while collecting high-quality human feedback is essential, **raw feedback data** is not directly usable for training language models. Consider having thousands of preference judgments - we need a way to convert these relative preferences into a reward function that can guide policy optimization and provide consistent feedback during training.
+
+This motivates our exploration of **reward modeling** - the process of learning a function that maps prompt-response pairs to scalar reward values, capturing human preferences and judgments. We'll see how to design neural network architectures that can learn from preference data, how to formulate training objectives that capture the relative nature of human preferences, how to validate and calibrate reward models, and how to address challenges like reward hacking and distributional shift.
+
+The transition from human feedback collection to reward modeling represents the bridge from raw preference data to learnable reward signals - taking our understanding of how to collect human feedback and applying it to the challenge of building reward functions that can guide effective policy optimization.
+
+In the next section, we'll explore reward modeling, understanding how to convert human preferences into reward functions that enable successful RLHF training.
+
+---
+
+**Previous: [Fundamentals of RL for Language Models](01_fundamentals_of_rl_for_language_models.md)** - Understand the mathematical foundations of RLHF.
+
+**Next: [Reward Modeling](03_reward_modeling.md)** - Learn how to convert human preferences into reward functions. 
