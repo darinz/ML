@@ -11,6 +11,18 @@ We've explored the elegant framework of **Multi-Armed Bandits**, which addresses
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different bandit algorithms, and develop the intuition needed to build intelligent systems that learn from experience while maximizing rewards.
 
+## From Theoretical Understanding to Hands-On Mastery
+
+We've now explored **applications and use cases** - the practical implementation of bandit algorithms across diverse domains. We've seen how bandits optimize ad selection and bidding in online advertising, how they enable personalized recommendations in e-commerce and content platforms, how they improve clinical trials and drug discovery in healthcare, how they optimize pricing strategies in dynamic markets, and how they enhance A/B testing and algorithm selection processes.
+
+However, while understanding applications is valuable, **true mastery** comes from hands-on implementation. Consider building a recommendation system that adapts to user preferences, or implementing an A/B testing framework that efficiently identifies the best variant - these require not just theoretical knowledge but practical skills in implementing bandit algorithms, handling real data, and optimizing performance.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the bandit concepts we've learned. We'll put our theoretical knowledge into practice by implementing classical bandit algorithms like epsilon-greedy, UCB, and Thompson sampling, building linear and contextual bandits, applying best arm identification techniques, and developing practical applications for recommendation systems, A/B testing, and other real-world scenarios.
+
+The transition from applications to hands-on coding represents the bridge from understanding to implementation - taking our knowledge of how bandits solve real-world problems and turning it into practical tools for building intelligent decision-making systems.
+
+In this practical guide, we'll implement complete bandit systems, experiment with different algorithms and applications, and develop the practical skills needed for real-world deployment of multi-armed bandits.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -1025,6 +1037,12 @@ The principles we've learned here - exploration-exploitation, uncertainty quanti
 5. **Continue learning** about sequential decision making
 
 Remember: Multi-Armed Bandits are not just algorithms - they're a fundamental approach to intelligent decision-making under uncertainty. Keep exploring, building, and applying these concepts to create smarter, more adaptive systems!
+
+---
+
+**Previous: [Applications and Use Cases](05_applications_and_use_cases.md)** - Explore real-world applications of multi-armed bandits.
+
+**Next: [Transformers and Large Language Models](../12_llm/README.md)** - Explore attention mechanisms and transformer architectures.
 
 ---
 
