@@ -10,6 +10,18 @@ This chapter covers three fundamental advanced control methods that extend beyon
 
 These methods are essential in robotics, aerospace, and control theory, providing both theoretical insights and practical solutions for complex control problems.
 
+## From Value Function Approximation to Advanced Control
+
+We've now explored **continuous state MDPs** - extending the MDP framework to handle infinite or continuous state spaces. We've seen how discretization can approximate continuous problems, how value function approximation enables learning in high-dimensional spaces, and how fitted value iteration provides practical algorithms for solving complex control problems.
+
+However, while value function approximation provides powerful tools for handling continuous state spaces, **real-world control problems** often require more sophisticated techniques that leverage the structure of the underlying system. Many physical systems have known dynamics, cost structures, and constraints that can be exploited for more efficient and robust control.
+
+This motivates our exploration of **advanced control methods** - specialized techniques that combine the principles of reinforcement learning with classical control theory. We'll see how Linear Quadratic Regulation (LQR) provides exact solutions for linear systems, how Differential Dynamic Programming (DDP) handles nonlinear systems through iterative optimization, and how Linear Quadratic Gaussian (LQG) control addresses partial observability through optimal state estimation.
+
+The transition from value function approximation to advanced control represents the bridge from general-purpose learning algorithms to domain-specific optimization techniques - taking our understanding of continuous state MDPs and applying it to structured control problems with known dynamics and cost functions.
+
+In this chapter, we'll explore LQR, DDP, and LQG control methods, understanding how they leverage system structure for more efficient and robust control.
+
 ---
 
 ## 16.1 Finite-Horizon Markov Decision Processes
@@ -719,3 +731,21 @@ The Kalman filter was famously used in the **Apollo Lunar Module** for navigatio
 - **Deep Learning Integration:** Neural network policies, end-to-end learning
 
 These methods form the foundation of modern control theory and continue to be essential tools in robotics, aerospace, and autonomous systems.
+
+## From Model-Based Control to Model-Free Learning
+
+We've now explored **advanced control methods** - specialized techniques that combine the principles of reinforcement learning with classical control theory. We've seen how Linear Quadratic Regulation (LQR) provides exact solutions for linear systems, how Differential Dynamic Programming (DDP) handles nonlinear systems through iterative optimization, and how Linear Quadratic Gaussian (LQG) control addresses partial observability through optimal state estimation.
+
+However, while these model-based control methods are powerful when we have good models of the system dynamics, **many real-world problems** involve systems where the dynamics are unknown, complex, or difficult to model accurately. In these cases, we need methods that can learn optimal behavior directly from experience without requiring explicit models of the environment.
+
+This motivates our exploration of **policy gradient methods** - model-free reinforcement learning techniques that directly optimize policy parameters using gradient ascent. We'll see how REINFORCE learns policies from experience, how variance reduction techniques improve learning efficiency, and how these methods enable learning in complex, unknown environments where model-based approaches are not feasible.
+
+The transition from model-based control to model-free learning represents the bridge from structured optimization to adaptive learning - taking our understanding of optimal control and extending it to scenarios where system models are unknown or unreliable.
+
+In the next section, we'll explore policy gradient methods, understanding how they learn optimal policies directly from experience without requiring explicit models of the environment.
+
+---
+
+**Previous: [Continuous State MDPs](02_continuous_state_mdp.md)** - Learn how to handle infinite and continuous state spaces.
+
+**Next: [Policy Gradient Methods](04_policy_gradient.md)** - Learn model-free reinforcement learning techniques.
