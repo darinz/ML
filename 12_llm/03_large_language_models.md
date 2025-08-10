@@ -160,7 +160,7 @@ Model parallelism is implemented in [`code/training_techniques.py`](code/trainin
 Zero Redundancy Optimizer for memory efficiency.
 
 **Implementation:**
-ZeRO optimization is implemented in [`training_techniques.py`](training_techniques.py) with the `ZeROLLM` class and `setup_zero_optimizer` function, which provides:
+ZeRO optimization is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `ZeROLLM` class and `setup_zero_optimizer` function, which provides:
 
 - Zero Redundancy Optimizer setup
 - Memory-efficient training
@@ -174,7 +174,7 @@ ZeRO optimization is implemented in [`training_techniques.py`](training_techniqu
 BERT-style pre-training where random tokens are masked and predicted.
 
 **Implementation:**
-The complete implementation of MLM training and other pre-training objectives is available in [`pretraining_objectives.py`](pretraining_objectives.py), which includes:
+The complete implementation of MLM training and other pre-training objectives is available in [`code/pretraining_objectives.py`](code/pretraining_objectives.py), which includes:
 
 - `MLMTrainer`: MLM training with random token masking
 - `CLMTrainer`: Causal language modeling for GPT-style training
@@ -187,7 +187,7 @@ The complete implementation of MLM training and other pre-training objectives is
 GPT-style pre-training where the model predicts the next token.
 
 **Implementation:**
-Causal language modeling is implemented in [`pretraining_objectives.py`](pretraining_objectives.py) with the `CLMTrainer` class, which provides:
+Causal language modeling is implemented in [`code/pretraining_objectives.py`](code/pretraining_objectives.py) with the `CLMTrainer` class, which provides:
 
 - Sequence shifting for CLM targets
 - Cross-entropy loss computation
