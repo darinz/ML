@@ -400,7 +400,7 @@ print("Sum:", np.sum(probs_stable))
 ---
 
 ### Lesson 4: Newton's Method Optimization (3-4 hours)
-**File**: `newtons_method_examples.py`
+**File**: `code/newtons_method_examples.py`
 
 #### Learning Goals
 - Understand Newton's method for optimization
@@ -414,7 +414,7 @@ print("Sum:", np.sum(probs_stable))
 **Activity 4.1: Newton's Method in 1D**
 ```python
 # Understand Newton's method for root finding
-from newtons_method_examples import newton_1d
+from code.newtons_method_examples import newton_1d
 
 # Find square root of 2
 f = lambda x: x**2 - 2
@@ -429,7 +429,7 @@ print(f"f(root): {f(root):.2e}")
 **Activity 4.2: Newton's Method for Maximization**
 ```python
 # Apply Newton's method to function maximization
-from newtons_method_examples import newton_maximize_1d
+from code.newtons_method_examples import newton_maximize_1d
 
 # Maximize a simple function
 l = lambda x: -(x-2)**2 + 1  # Maximum at x=2
@@ -444,7 +444,7 @@ print(f"Maximum value = {l(max_x):.6f}")
 **Activity 4.3: Logistic Regression with Newton's Method**
 ```python
 # Apply Newton's method to logistic regression
-from newtons_method_examples import newton_logistic_regression
+from code.newtons_method_examples import newton_logistic_regression
 
 # Generate synthetic data
 from sklearn.datasets import make_classification
@@ -459,7 +459,7 @@ print(f"Newton's method converged in {len(history_newton['likelihood'])} iterati
 **Activity 4.4: Comparison with Gradient Ascent**
 ```python
 # Compare Newton's method with gradient ascent
-from newtons_method_examples import compare_newton_vs_gradient
+from code.newtons_method_examples import compare_newton_vs_gradient
 
 # This will:
 # 1. Train logistic regression with both methods
