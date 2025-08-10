@@ -18,9 +18,9 @@ Understanding how and why machine learning models generalize to new data, and wh
 - **[03_complexity_bounds.md](03_complexity_bounds.md)** - Concentration inequalities, VC dimension, sample complexity bounds
 
 ### Implementation
-- **[bias_variance_decomposition_examples.py](bias_variance_decomposition_examples.py)** - Underfitting vs overfitting, bias-variance decomposition, polynomial regression
-- **[double_descent_examples.py](double_descent_examples.py)** - Model-wise and sample-wise double descent, regularization effects
-- **[complexity_bounds_examples.py](complexity_bounds_examples.py)** - Hoeffding bounds, VC dimension visualization, learning curves
+- **[code/bias_variance_decomposition_examples.py](code/bias_variance_decomposition_examples.py)** - Underfitting vs overfitting, bias-variance decomposition, polynomial regression
+- **[code/double_descent_examples.py](code/double_descent_examples.py)** - Model-wise and sample-wise double descent, regularization effects
+- **[code/complexity_bounds_examples.py](code/complexity_bounds_examples.py)** - Hoeffding bounds, VC dimension visualization, learning curves
 
 ### Reference Materials
 - **cs229-notes4_bias-variance.pdf** - CS229 comprehensive theoretical coverage
@@ -81,7 +81,7 @@ pip install numpy matplotlib scipy scikit-learn
 ## Running Examples
 
 ```bash
-python bias_variance_decomposition_examples.py
-python double_descent_examples.py
-python complexity_bounds_examples.py
+python code/bias_variance_decomposition_examples.py
+python code/double_descent_examples.py
+python code/complexity_bounds_examples.py
 ``` 
