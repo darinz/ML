@@ -672,4 +672,20 @@ As you build attention-based models, remember to start simple and gradually add 
 - Explore transformer architecture implementations
 - Study advanced attention variants like Flash Attention
 - Practice with real-world applications
-- Experiment with different positional encoding schemes 
+- Experiment with different positional encoding schemes
+
+## From Attention Mechanisms to Complete Architectures
+
+We've now explored **attention mechanisms** - the foundational innovation that powers modern transformer architectures and large language models. We've seen how the query-key-value framework enables parallel processing of sequences, how multi-head attention captures different types of relationships simultaneously, and how positional encoding maintains sequence order information.
+
+However, while attention mechanisms provide the core computational unit, **real-world language models** require complete architectures that combine attention with other essential components. Consider a machine translation system - it needs not just attention, but also encoders to understand the source language, decoders to generate the target language, and mechanisms to coordinate between them.
+
+This motivates our exploration of **transformer architecture** - the complete framework that combines attention mechanisms with encoder-decoder structures, feed-forward networks, layer normalization, and residual connections. We'll see how the original transformer architecture was designed for sequence-to-sequence tasks, how modern variants like BERT and GPT serve different purposes, and how these architectures enable the powerful language models that have revolutionized AI.
+
+The transition from attention mechanisms to transformer architecture represents the bridge from core components to complete systems - taking our understanding of how attention works and building it into full architectures that can understand, generate, and manipulate language.
+
+In the next section, we'll explore transformer architecture, understanding how attention mechanisms are integrated into complete models for various language tasks.
+
+---
+
+**Next: [Transformer Architecture](02_transformer_architecture.md)** - Learn how to build complete transformer models for language understanding and generation. 
