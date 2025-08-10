@@ -11,6 +11,18 @@ We've explored the elegant framework of **Reinforcement Learning from Human Feed
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different RLHF techniques, and develop the intuition needed to build aligned AI systems that respect human values.
 
+## From Theoretical Understanding to Hands-On Mastery
+
+We've now explored **advanced alignment techniques** - methods that go beyond standard RLHF to ensure more robust, safe, and beneficial AI behavior. We've seen how Direct Preference Optimization (DPO) eliminates the need for separate reward models, how Constitutional AI enables self-critique and revision, how Red Teaming systematically identifies and addresses safety vulnerabilities, and how multi-objective alignment balances competing objectives like helpfulness, harmlessness, and honesty.
+
+However, while understanding alignment techniques is valuable, **true mastery** comes from hands-on implementation. Consider building a chatbot that can safely handle sensitive topics, or implementing a content generation system that maintains honesty while being helpful - these require not just theoretical knowledge but practical skills in implementing RLHF pipelines, reward modeling, and alignment techniques.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the RLHF concepts we've learned. We'll put our theoretical knowledge into practice by implementing complete RLHF pipelines, building reward models from preference data, applying policy optimization algorithms, and developing practical applications for chatbot alignment, content generation, and safety evaluation.
+
+The transition from alignment techniques to hands-on coding represents the bridge from understanding to implementation - taking our knowledge of how RLHF and alignment work and turning it into practical tools for building aligned AI systems.
+
+In this practical guide, we'll implement complete RLHF systems, experiment with different alignment techniques, and develop the practical skills needed for real-world applications in AI alignment and safety.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -974,6 +986,12 @@ The principles we've learned here - preference learning, policy optimization, an
 5. **Continue learning** about AI safety and alignment
 
 Remember: RLHF is not just a technical technique - it's a fundamental approach to building AI systems that respect human values and preferences. Keep exploring, building, and applying these concepts to create better, safer AI systems!
+
+---
+
+**Previous: [Alignment Techniques](05_alignment_techniques.md)** - Learn advanced techniques for ensuring AI safety and alignment.
+
+**Next: [Multi-Modal AI](../15_multimodal/README.md)** - Explore techniques for combining vision, language, and other modalities.
 
 ---
 
