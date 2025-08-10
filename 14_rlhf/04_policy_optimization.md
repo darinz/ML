@@ -111,59 +111,11 @@ Where:
 \nabla_\theta J(\theta) = \mathbb{E}_{s \sim \rho_\pi, a \sim \pi_\theta} [R(s,a) \nabla_\theta \log \pi_\theta(a|s)]
 ```
 
-**Implementation**:
-```python
-def reinforce_loss(log_probs, rewards):
-    """
-    Compute REINFORCE loss for language generation
-    
-    Args:
-        log_probs: Log probabilities of generated tokens [batch_size, seq_len]
-        rewards: Rewards for each sequence [batch_size]
-    
-    Returns:
-        loss: Policy gradient loss
-    """
-    # Compute log probability of each sequence
-    seq_log_probs = log_probs.sum(dim=1)  # [batch_size]
-    
-    # Compute loss (negative because we want to maximize reward)
-    loss = -(seq_log_probs * rewards).mean()
-    
-    return loss
-
-class REINFORCETrainer:
-    def __init__(self, model, reward_model, learning_rate=1e-5):
-        self.model = model
-        self.reward_model = reward_model
-        self.optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
-    
-    def train_step(self, prompts, responses, rewards):
-        """
-        Perform one training step with REINFORCE
-        
-        Args:
-            prompts: Input prompts
-            responses: Generated responses
-            rewards: Rewards for each response
-        """
-        # Tokenize inputs
-        inputs = self.tokenizer(prompts + responses, return_tensors='pt', padding=True)
-        
-        # Get log probabilities
-        outputs = self.model(**inputs)
-        log_probs = outputs.logits.log_softmax(dim=-1)
-        
-        # Compute REINFORCE loss
-        loss = reinforce_loss(log_probs, rewards)
-        
-        # Backward pass
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-        
-        return loss.item()
-```
+**Implementation:** See `policy_optimization.py` for REINFORCE implementation:
+- `REINFORCETrainer` - Complete REINFORCE trainer for language models
+- `reinforce_loss()` - REINFORCE loss computation
+- `train_step()` - Training step implementation
+- `generate_responses()` - Response generation utilities
 
 ### REINFORCE with Baseline
 
@@ -174,49 +126,10 @@ class REINFORCETrainer:
 
 Where $`b(s)`$ is a baseline function.
 
-**Implementation**:
-```python
-def reinforce_with_baseline(log_probs, rewards, baseline):
-    """
-    Compute REINFORCE loss with baseline subtraction
-    
-    Args:
-        log_probs: Log probabilities of generated tokens
-        rewards: Rewards for each sequence
-        baseline: Baseline values for each sequence
-    
-    Returns:
-        loss: Policy gradient loss with baseline
-    """
-    seq_log_probs = log_probs.sum(dim=1)
-    
-    # Subtract baseline from rewards
-    advantage = rewards - baseline
-    
-    # Compute loss
-    loss = -(seq_log_probs * advantage).mean()
-    
-    return loss
-
-class BaselineEstimator:
-    def __init__(self, model):
-        self.model = model
-    
-    def estimate_baseline(self, states):
-        """
-        Estimate baseline values for given states
-        
-        Args:
-            states: State representations
-        
-        Returns:
-            baseline: Estimated baseline values
-        """
-        with torch.no_grad():
-            baseline = self.model(states)
-        
-        return baseline
-```
+**Implementation:** See `policy_optimization.py` for baseline methods:
+- Baseline estimation utilities
+- Advantage computation with baselines
+- Variance reduction techniques
 
 ### Actor-Critic Methods
 
@@ -229,48 +142,10 @@ class BaselineEstimator:
 A_t = R_t + \gamma V_\phi(s_{t+1}) - V_\phi(s_t)
 ```
 
-**Implementation**:
-```python
-class ActorCriticTrainer:
-    def __init__(self, actor, critic, learning_rate=1e-4):
-        self.actor = actor
-        self.critic = critic
-        self.actor_optimizer = torch.optim.AdamW(actor.parameters(), lr=learning_rate)
-        self.critic_optimizer = torch.optim.AdamW(critic.parameters(), lr=learning_rate)
-    
-    def train_step(self, states, actions, rewards, next_states):
-        """
-        Perform one training step with actor-critic
-        
-        Args:
-            states: Current states
-            actions: Taken actions
-            rewards: Received rewards
-            next_states: Next states
-        """
-        # Compute advantages
-        current_values = self.critic(states)
-        next_values = self.critic(next_states)
-        advantages = rewards + 0.99 * next_values - current_values
-        
-        # Actor loss (policy gradient)
-        log_probs = self.actor.get_log_probs(states, actions)
-        actor_loss = -(log_probs * advantages.detach()).mean()
-        
-        # Critic loss (value function regression)
-        critic_loss = torch.nn.functional.mse_loss(current_values, rewards + 0.99 * next_values)
-        
-        # Update networks
-        self.actor_optimizer.zero_grad()
-        actor_loss.backward()
-        self.actor_optimizer.step()
-        
-        self.critic_optimizer.zero_grad()
-        critic_loss.backward()
-        self.critic_optimizer.step()
-        
-        return actor_loss.item(), critic_loss.item()
-```
+**Implementation:** See `policy_optimization.py` for actor-critic methods:
+- Actor-critic training utilities
+- Advantage estimation with value functions
+- Value function learning
 
 ## Proximal Policy Optimization (PPO)
 
@@ -293,202 +168,25 @@ Where:
 
 ### PPO Implementation
 
-```python
-class PPOTrainer:
-    def __init__(self, model, ref_model, reward_model, tokenizer, 
-                 learning_rate=1e-5, clip_epsilon=0.2, kl_coef=0.1):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.tokenizer = tokenizer
-        self.optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
-        self.clip_epsilon = clip_epsilon
-        self.kl_coef = kl_coef
-    
-    def compute_advantages(self, rewards, values, gamma=0.99):
-        """
-        Compute advantages using GAE (Generalized Advantage Estimation)
-        
-        Args:
-            rewards: Reward sequence
-            values: Value estimates
-            gamma: Discount factor
-        
-        Returns:
-            advantages: Computed advantages
-        """
-        advantages = torch.zeros_like(rewards)
-        gae = 0
-        
-        for t in reversed(range(len(rewards))):
-            if t == len(rewards) - 1:
-                next_value = 0
-            else:
-                next_value = values[t + 1]
-            
-            delta = rewards[t] + gamma * next_value - values[t]
-            gae = delta + gamma * 0.95 * gae
-            advantages[t] = gae
-        
-        return advantages
-    
-    def ppo_loss(self, log_probs, old_log_probs, advantages, rewards, kl_div):
-        """
-        Compute PPO loss with KL penalty
-        
-        Args:
-            log_probs: Current policy log probabilities
-            old_log_probs: Old policy log probabilities
-            advantages: Advantage estimates
-            rewards: Rewards
-            kl_div: KL divergence from reference model
-        
-        Returns:
-            loss: PPO loss
-        """
-        # Compute probability ratio
-        ratio = torch.exp(log_probs - old_log_probs)
-        
-        # PPO-clip loss
-        clip_adv = torch.clamp(ratio, 1-self.clip_epsilon, 1+self.clip_epsilon) * advantages
-        ppo_loss = -torch.min(ratio * advantages, clip_adv).mean()
-        
-        # Add KL penalty
-        kl_penalty = self.kl_coef * kl_div
-        
-        return ppo_loss + kl_penalty
-    
-    def train_step(self, prompts, responses, rewards):
-        """
-        Perform one PPO training step
-        
-        Args:
-            prompts: Input prompts
-            responses: Generated responses
-            rewards: Rewards for responses
-        """
-        # Tokenize inputs
-        inputs = self.tokenizer(prompts + responses, return_tensors='pt', padding=True)
-        
-        # Get current policy log probabilities
-        outputs = self.model(**inputs)
-        log_probs = outputs.logits.log_softmax(dim=-1)
-        
-        # Get old policy log probabilities (from reference model)
-        with torch.no_grad():
-            ref_outputs = self.ref_model(**inputs)
-            old_log_probs = ref_outputs.logits.log_softmax(dim=-1)
-        
-        # Compute KL divergence
-        kl_div = torch.nn.functional.kl_div(
-            log_probs, old_log_probs, reduction='batchmean'
-        )
-        
-        # Compute advantages (simplified - in practice use GAE)
-        advantages = rewards - rewards.mean()
-        
-        # Compute PPO loss
-        loss = self.ppo_loss(log_probs, old_log_probs, advantages, rewards, kl_div)
-        
-        # Update model
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-        
-        return loss.item()
-```
+**Implementation:** See `policy_optimization.py` for complete PPO implementation:
+- `PPOTrainer` - Complete PPO trainer for language models
+- `compute_advantages()` - Generalized Advantage Estimation (GAE)
+- `compute_kl_divergence()` - KL divergence computation
+- `ppo_loss()` - PPO loss with clipping
+- `train_step()` - Complete PPO training step
+- `generate_responses()` - Response generation
+- `save_model()` and `load_model()` - Model persistence
 
 ### PPO for Language Models
 
-**Token-level PPO**:
-```python
-class TokenLevelPPO:
-    def __init__(self, model, ref_model, reward_model, tokenizer):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.tokenizer = tokenizer
-    
-    def token_level_ppo_loss(self, prompt_ids, response_ids, rewards):
-        """
-        Compute PPO loss at token level
-        
-        Args:
-            prompt_ids: Input prompt token IDs
-            response_ids: Generated response token IDs
-            rewards: Rewards for each token
-        
-        Returns:
-            loss: Token-level PPO loss
-        """
-        # Get log probabilities for each token
-        inputs = torch.cat([prompt_ids, response_ids], dim=1)
-        outputs = self.model(inputs)
-        log_probs = outputs.logits.log_softmax(dim=-1)
-        
-        # Get reference log probabilities
-        with torch.no_grad():
-            ref_outputs = self.ref_model(inputs)
-            ref_log_probs = ref_outputs.logits.log_softmax(dim=-1)
-        
-        # Compute ratio for each token
-        ratio = torch.exp(log_probs - ref_log_probs)
-        
-        # Apply PPO clipping
-        clip_ratio = torch.clamp(ratio, 0.8, 1.2)
-        advantages = rewards.unsqueeze(-1)  # [batch_size, seq_len]
-        
-        ppo_loss = -torch.min(ratio * advantages, clip_ratio * advantages).mean()
-        
-        return ppo_loss
-```
+**Token-level PPO**: Apply PPO at the token level for fine-grained control
 
-**Sequence-level PPO**:
-```python
-class SequenceLevelPPO:
-    def __init__(self, model, ref_model, reward_model, tokenizer):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.tokenizer = tokenizer
-    
-    def sequence_level_ppo_loss(self, prompt_ids, response_ids, rewards):
-        """
-        Compute PPO loss at sequence level
-        
-        Args:
-            prompt_ids: Input prompt token IDs
-            response_ids: Generated response token IDs
-            rewards: Rewards for each sequence
-        
-        Returns:
-            loss: Sequence-level PPO loss
-        """
-        # Get sequence log probabilities
-        inputs = torch.cat([prompt_ids, response_ids], dim=1)
-        outputs = self.model(inputs)
-        log_probs = outputs.logits.log_softmax(dim=-1)
-        
-        # Sum log probabilities over sequence
-        seq_log_probs = log_probs.sum(dim=1)  # [batch_size]
-        
-        # Get reference log probabilities
-        with torch.no_grad():
-            ref_outputs = self.ref_model(inputs)
-            ref_log_probs = ref_outputs.logits.log_softmax(dim=-1)
-            ref_seq_log_probs = ref_log_probs.sum(dim=1)
-        
-        # Compute ratio
-        ratio = torch.exp(seq_log_probs - ref_seq_log_probs)
-        
-        # Apply PPO clipping
-        clip_ratio = torch.clamp(ratio, 0.8, 1.2)
-        advantages = rewards
-        
-        ppo_loss = -torch.min(ratio * advantages, clip_ratio * advantages).mean()
-        
-        return ppo_loss
-```
+**Sequence-level PPO**: Apply PPO at the sequence level for natural reward structure
+
+**Implementation:** See `policy_optimization.py` for language model adaptations:
+- Token-level and sequence-level optimization
+- Language model specific training utilities
+- Response generation and evaluation
 
 ## Trust Region Policy Optimization (TRPO)
 
@@ -506,142 +204,13 @@ Where:
 
 ### TRPO Implementation
 
-```python
-class TRPOTrainer:
-    def __init__(self, model, ref_model, reward_model, tokenizer, 
-                 max_kl=0.01, damping=0.1):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.tokenizer = tokenizer
-        self.max_kl = max_kl
-        self.damping = damping
-    
-    def conjugate_gradient(self, states, actions, advantages, max_iter=10):
-        """
-        Solve linear system using conjugate gradient
-        
-        Args:
-            states: State representations
-            actions: Action representations
-            advantages: Advantage estimates
-            max_iter: Maximum iterations
-        
-        Returns:
-            step: Policy update step
-        """
-        # Initialize
-        x = torch.zeros_like(self.model.parameters())
-        r = advantages  # Initial residual
-        p = r.clone()
-        
-        for _ in range(max_iter):
-            # Compute Ap (Fisher-vector product)
-            Ap = self.fisher_vector_product(p, states, actions)
-            
-            # Compute step size
-            alpha = torch.dot(r, r) / torch.dot(p, Ap)
-            
-            # Update x and residual
-            x = x + alpha * p
-            r_new = r - alpha * Ap
-            
-            # Check convergence
-            if torch.norm(r_new) < 1e-8:
-                break
-            
-            # Update search direction
-            beta = torch.dot(r_new, r_new) / torch.dot(r, r)
-            p = r_new + beta * p
-            r = r_new
-        
-        return x
-    
-    def fisher_vector_product(self, v, states, actions):
-        """
-        Compute Fisher-vector product
-        
-        Args:
-            v: Vector to multiply
-            states: State representations
-            actions: Action representations
-        
-        Returns:
-            Fv: Fisher-vector product
-        """
-        # Compute KL divergence
-        kl_div = self.compute_kl(states, actions)
-        
-        # Compute gradient of KL
-        kl_grad = torch.autograd.grad(kl_div, self.model.parameters(), 
-                                     create_graph=True)
-        
-        # Compute Fisher-vector product
-        Fv = torch.autograd.grad(torch.dot(kl_grad, v), self.model.parameters())
-        
-        return torch.stack(Fv)
-    
-    def compute_kl(self, states, actions):
-        """
-        Compute KL divergence between current and reference policies
-        
-        Args:
-            states: State representations
-            actions: Action representations
-        
-        Returns:
-            kl_div: KL divergence
-        """
-        # Get current policy log probabilities
-        current_log_probs = self.model.get_log_probs(states, actions)
-        
-        # Get reference policy log probabilities
-        with torch.no_grad():
-            ref_log_probs = self.ref_model.get_log_probs(states, actions)
-        
-        # Compute KL divergence
-        kl_div = torch.nn.functional.kl_div(
-            current_log_probs, ref_log_probs, reduction='batchmean'
-        )
-        
-        return kl_div
-    
-    def trpo_step(self, prompts, responses, rewards):
-        """
-        Perform one TRPO step
-        
-        Args:
-            prompts: Input prompts
-            responses: Generated responses
-            rewards: Rewards for responses
-        """
-        # Tokenize inputs
-        inputs = self.tokenizer(prompts + responses, return_tensors='pt', padding=True)
-        
-        # Compute advantages
-        advantages = rewards - rewards.mean()
-        
-        # Compute policy gradient
-        log_probs = self.model.get_log_probs(inputs['input_ids'], inputs['attention_mask'])
-        policy_loss = -(log_probs * advantages).mean()
-        
-        # Compute gradient
-        grad = torch.autograd.grad(policy_loss, self.model.parameters())
-        
-        # Solve for step direction using conjugate gradient
-        step = self.conjugate_gradient(inputs['input_ids'], inputs['attention_mask'], advantages)
-        
-        # Scale step to satisfy KL constraint
-        kl_div = self.compute_kl(inputs['input_ids'], inputs['attention_mask'])
-        scale = torch.sqrt(2 * self.max_kl / kl_div)
-        step = step * torch.clamp(scale, max=1.0)
-        
-        # Apply step
-        for param, step_param in zip(self.model.parameters(), step):
-            param.data += step_param
-        
-        return policy_loss.item()
-```
+**Implementation:** See `policy_optimization.py` for complete TRPO implementation:
+- `TRPOTrainer` - Complete TRPO trainer
+- `conjugate_gradient()` - Conjugate gradient optimization
+- `fisher_vector_product()` - Fisher information matrix operations
+- `compute_kl()` - KL divergence computation
+- `trpo_step()` - TRPO training step
+- `get_log_probs()` and `get_ref_log_probs()` - Log probability utilities
 
 ## Language Model Specifics
 
@@ -661,326 +230,54 @@ class TRPOTrainer:
 
 **Purpose**: Prevent policy from deviating too far from reference model
 
-**Implementation**:
-```python
-def kl_penalty_loss(policy_loss, kl_div, kl_coef=0.1, target_kl=0.01):
-    """
-    Compute loss with KL penalty
-    
-    Args:
-        policy_loss: Main policy loss
-        kl_div: KL divergence from reference model
-        kl_coef: KL penalty coefficient
-        target_kl: Target KL divergence
-    
-    Returns:
-        total_loss: Combined loss
-    """
-    # Adaptive KL penalty
-    if kl_div > 2 * target_kl:
-        kl_coef *= 1.5
-    elif kl_div < 0.5 * target_kl:
-        kl_coef *= 0.5
-    
-    total_loss = policy_loss + kl_coef * kl_div
-    
-    return total_loss
-```
+**Implementation:** See `policy_optimization.py` for KL control:
+- KL divergence computation and monitoring
+- Adaptive KL penalty coefficients
+- KL constraint enforcement
 
 ### Entropy Regularization
 
 **Purpose**: Encourage exploration and prevent premature convergence
 
-**Implementation**:
-```python
-def entropy_regularized_loss(policy_loss, log_probs, entropy_coef=0.01):
-    """
-    Add entropy regularization to policy loss
-    
-    Args:
-        policy_loss: Main policy loss
-        log_probs: Policy log probabilities
-        entropy_coef: Entropy coefficient
-    
-    Returns:
-        total_loss: Loss with entropy regularization
-    """
-    # Compute entropy
-    probs = torch.exp(log_probs)
-    entropy = -(probs * log_probs).sum(dim=-1).mean()
-    
-    # Add entropy regularization
-    total_loss = policy_loss - entropy_coef * entropy
-    
-    return total_loss
-```
+**Implementation:** See `policy_optimization.py` for entropy regularization:
+- Entropy computation and regularization
+- Exploration encouragement
+- Convergence prevention
 
 ## Implementation Examples
 
 ### Complete PPO Training Loop
 
-```python
-class PPOTrainingLoop:
-    def __init__(self, model, ref_model, reward_model, tokenizer, 
-                 learning_rate=1e-5, batch_size=32, ppo_epochs=4):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.tokenizer = tokenizer
-        self.optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
-        self.batch_size = batch_size
-        self.ppo_epochs = ppo_epochs
-    
-    def generate_responses(self, prompts, max_length=100):
-        """Generate responses using current policy"""
-        responses = []
-        
-        for prompt in prompts:
-            inputs = self.tokenizer(prompt, return_tensors='pt')
-            
-            with torch.no_grad():
-                outputs = self.model.generate(
-                    **inputs,
-                    max_length=max_length,
-                    do_sample=True,
-                    temperature=0.7,
-                    pad_token_id=self.tokenizer.eos_token_id
-                )
-            
-            response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-            responses.append(response)
-        
-        return responses
-    
-    def compute_rewards(self, prompts, responses):
-        """Compute rewards using reward model"""
-        rewards = []
-        
-        for prompt, response in zip(prompts, responses):
-            reward = self.reward_model.predict_reward(prompt, response)
-            rewards.append(reward)
-        
-        return torch.tensor(rewards)
-    
-    def ppo_epoch(self, prompts, responses, rewards):
-        """Perform one PPO epoch"""
-        # Tokenize all data
-        all_texts = [p + r for p, r in zip(prompts, responses)]
-        inputs = self.tokenizer(all_texts, return_tensors='pt', padding=True, truncation=True)
-        
-        # Get log probabilities
-        outputs = self.model(**inputs)
-        log_probs = outputs.logits.log_softmax(dim=-1)
-        
-        # Get reference log probabilities
-        with torch.no_grad():
-            ref_outputs = self.ref_model(**inputs)
-            ref_log_probs = ref_outputs.logits.log_softmax(dim=-1)
-        
-        # Compute advantages
-        advantages = rewards - rewards.mean()
-        
-        # PPO training
-        for _ in range(self.ppo_epochs):
-            # Compute ratio
-            ratio = torch.exp(log_probs - ref_log_probs)
-            
-            # PPO-clip loss
-            clip_ratio = torch.clamp(ratio, 0.8, 1.2)
-            ppo_loss = -torch.min(ratio * advantages, clip_ratio * advantages).mean()
-            
-            # KL penalty
-            kl_div = torch.nn.functional.kl_div(
-                log_probs, ref_log_probs, reduction='batchmean'
-            )
-            total_loss = ppo_loss + 0.1 * kl_div
-            
-            # Update model
-            self.optimizer.zero_grad()
-            total_loss.backward()
-            self.optimizer.step()
-    
-    def train(self, prompts, num_iterations=1000):
-        """Main training loop"""
-        for iteration in range(num_iterations):
-            # Generate responses
-            responses = self.generate_responses(prompts)
-            
-            # Compute rewards
-            rewards = self.compute_rewards(prompts, responses)
-            
-            # PPO update
-            self.ppo_epoch(prompts, responses, rewards)
-            
-            # Log progress
-            if iteration % 100 == 0:
-                avg_reward = rewards.mean().item()
-                print(f"Iteration {iteration}, Average Reward: {avg_reward:.4f}")
-```
+**Implementation:** See `policy_optimization.py` for complete training pipeline:
+- `PolicyOptimizationPipeline` - Complete RLHF training pipeline
+- Support for PPO, TRPO, and REINFORCE methods
+- `train_epoch()` - Complete training loop
+- `evaluate()` - Model evaluation utilities
+- `save_model()` and `load_model()` - Model persistence
 
 ### Advanced PPO with GAE
 
-```python
-class AdvancedPPOTrainer:
-    def __init__(self, model, ref_model, reward_model, value_model, tokenizer):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.value_model = value_model
-        self.tokenizer = tokenizer
-    
-    def compute_gae(self, rewards, values, gamma=0.99, lambda_=0.95):
-        """
-        Compute Generalized Advantage Estimation (GAE)
-        
-        Args:
-            rewards: Reward sequence
-            values: Value estimates
-            gamma: Discount factor
-            lambda_: GAE parameter
-        
-        Returns:
-            advantages: GAE advantages
-            returns: Returns
-        """
-        advantages = torch.zeros_like(rewards)
-        returns = torch.zeros_like(rewards)
-        
-        gae = 0
-        for t in reversed(range(len(rewards))):
-            if t == len(rewards) - 1:
-                next_value = 0
-            else:
-                next_value = values[t + 1]
-            
-            delta = rewards[t] + gamma * next_value - values[t]
-            gae = delta + gamma * lambda_ * gae
-            advantages[t] = gae
-            returns[t] = gae + values[t]
-        
-        return advantages, returns
-    
-    def train_step(self, prompts, responses, rewards):
-        """Advanced PPO training step with GAE"""
-        # Tokenize inputs
-        inputs = self.tokenizer(prompts + responses, return_tensors='pt', padding=True)
-        
-        # Get policy log probabilities
-        outputs = self.model(**inputs)
-        log_probs = outputs.logits.log_softmax(dim=-1)
-        
-        # Get value estimates
-        values = self.value_model(**inputs)
-        
-        # Get reference log probabilities
-        with torch.no_grad():
-            ref_outputs = self.ref_model(**inputs)
-            ref_log_probs = ref_outputs.logits.log_softmax(dim=-1)
-        
-        # Compute GAE advantages
-        advantages, returns = self.compute_gae(rewards, values)
-        
-        # Normalize advantages
-        advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
-        
-        # PPO loss
-        ratio = torch.exp(log_probs - ref_log_probs)
-        clip_ratio = torch.clamp(ratio, 0.8, 1.2)
-        ppo_loss = -torch.min(ratio * advantages, clip_ratio * advantages).mean()
-        
-        # Value loss
-        value_loss = torch.nn.functional.mse_loss(values, returns)
-        
-        # KL penalty
-        kl_div = torch.nn.functional.kl_div(
-            log_probs, ref_log_probs, reduction='batchmean'
-        )
-        
-        # Total loss
-        total_loss = ppo_loss + 0.5 * value_loss + 0.1 * kl_div
-        
-        return total_loss
-```
+**Implementation:** See `policy_optimization.py` for advanced PPO:
+- `PPOTrainer` - Advanced PPO with GAE
+- `compute_advantages()` - Generalized Advantage Estimation
+- Value function learning and integration
+- Advanced training utilities
 
 ## Advanced Techniques
 
 ### Multi-Objective PPO
 
-```python
-class MultiObjectivePPO:
-    def __init__(self, model, ref_model, reward_models, tokenizer):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_models = reward_models  # Dictionary of reward models
-        self.tokenizer = tokenizer
-    
-    def multi_objective_loss(self, prompts, responses, objectives):
-        """
-        Compute multi-objective PPO loss
-        
-        Args:
-            prompts: Input prompts
-            responses: Generated responses
-            objectives: Dictionary of objective weights
-        
-        Returns:
-            total_loss: Combined multi-objective loss
-        """
-        total_loss = 0
-        
-        for objective_name, weight in objectives.items():
-            if objective_name in self.reward_models:
-                reward_model = self.reward_models[objective_name]
-                rewards = reward_model.compute_rewards(prompts, responses)
-                
-                # Compute PPO loss for this objective
-                ppo_loss = self.compute_ppo_loss(prompts, responses, rewards)
-                total_loss += weight * ppo_loss
-        
-        return total_loss
-```
+**Implementation:** See `policy_optimization.py` for multi-objective optimization:
+- Multi-objective loss computation
+- Weighted combination of objectives
+- Objective-specific training
 
 ### Conservative Policy Iteration
 
-```python
-class ConservativePolicyIteration:
-    def __init__(self, model, ref_model, reward_model, tokenizer, 
-                 max_kl=0.01, damping=0.1):
-        self.model = model
-        self.ref_model = ref_model
-        self.reward_model = reward_model
-        self.tokenizer = tokenizer
-        self.max_kl = max_kl
-        self.damping = damping
-    
-    def natural_policy_gradient(self, states, actions, advantages):
-        """
-        Compute natural policy gradient
-        
-        Args:
-            states: State representations
-            actions: Action representations
-            advantages: Advantage estimates
-        
-        Returns:
-            natural_grad: Natural policy gradient
-        """
-        # Compute Fisher information matrix
-        kl_div = self.compute_kl(states, actions)
-        fisher_grad = torch.autograd.grad(kl_div, self.model.parameters(), 
-                                        create_graph=True)
-        
-        # Solve linear system for natural gradient
-        natural_grad = self.solve_linear_system(fisher_grad, advantages)
-        
-        return natural_grad
-    
-    def solve_linear_system(self, fisher_grad, advantages):
-        """Solve linear system using conjugate gradient"""
-        # Implementation of conjugate gradient solver
-        # This is a simplified version
-        return fisher_grad  # Placeholder
-```
+**Implementation:** See `policy_optimization.py` for conservative methods:
+- Natural policy gradient computation
+- Fisher information matrix operations
+- Conservative update strategies
 
 ## Best Practices
 
