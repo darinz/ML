@@ -627,7 +627,7 @@ print(f"Average user satisfaction: {rec_results['user_satisfaction']:.3f}")
 **Activity 4.3: Advertising Selection**
 ```python
 # Implement bandit-based ad selection
-from ad_selection import (
+from code.ad_selection import (
     AdSelectionBandit, run_ad_selection_experiment
 )
 
