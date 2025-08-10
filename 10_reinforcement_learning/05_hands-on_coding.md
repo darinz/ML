@@ -11,6 +11,18 @@ We've explored the elegant framework of **Reinforcement Learning (RL)**, which a
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different RL algorithms, and develop the intuition needed to build intelligent agents that learn from experience.
 
+## From Theoretical Understanding to Hands-On Mastery
+
+We've now explored **policy gradient methods** - model-free reinforcement learning techniques that directly optimize policy parameters using gradient ascent. We've seen how REINFORCE learns policies from experience, how variance reduction techniques improve learning efficiency, and how these methods enable learning in complex, unknown environments where model-based approaches are not feasible.
+
+However, while understanding the theoretical foundations of reinforcement learning and policy gradient methods is essential, true mastery comes from **practical implementation**. The concepts we've learned - MDPs, value functions, continuous state spaces, advanced control, and policy gradients - need to be applied to real problems to develop intuition and practical skills.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the reinforcement learning concepts we've learned. We'll put our theoretical knowledge into practice by implementing value and policy iteration, building continuous state RL systems, applying advanced control methods, and developing policy gradient algorithms for real-world problems.
+
+The transition from theoretical understanding to practical implementation represents the bridge from knowledge to application - taking our understanding of how reinforcement learning works and turning it into practical tools for building intelligent agents that learn from experience.
+
+In this practical guide, we'll implement complete reinforcement learning systems, experiment with different algorithms, and develop the practical skills needed for real-world applications in robotics, control, and autonomous systems.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -992,6 +1004,10 @@ The principles we've learned here - value functions, policy gradients, and optim
 Remember: Reinforcement Learning is not just an algorithm - it's a fundamental approach to building intelligent systems that learn and adapt. Keep exploring, building, and applying these concepts to create smarter, more capable AI systems!
 
 ---
+
+**Previous: [Policy Gradient Methods](04_policy_gradient.md)** - Learn model-free reinforcement learning techniques.
+
+**Next: [Multi-Armed Bandits](../11_bandits/README.md)** - Explore sequential decision making under uncertainty.
 
 ## Environment Files
 
