@@ -71,7 +71,7 @@ conda --version
 cd 08_dimensionality_reduction
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate dimensionality-reduction-lesson
@@ -97,7 +97,7 @@ dimensionality-reduction-env\Scripts\activate
 source dimensionality-reduction-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -138,7 +138,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Principal Components Analysis (PCA) (4-5 hours)
-**File**: `pca_examples.py`
+**File**: `code/pca_examples.py`
 
 #### Learning Goals
 - Understand the curse of dimensionality and why PCA is necessary
@@ -153,7 +153,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Understanding the Curse of Dimensionality**
 ```python
 # Explore why high-dimensional data is problematic
-from pca_examples import demonstrate_curse_of_dimensionality
+from code.pca_examples import demonstrate_curse_of_dimensionality
 
 # Demonstrate the curse of dimensionality
 demonstrate_curse_of_dimensionality()
@@ -164,7 +164,7 @@ demonstrate_curse_of_dimensionality()
 **Activity 1.2: Data Preprocessing and Normalization**
 ```python
 # Understand why normalization is crucial for PCA
-from pca_examples import demonstrate_normalization
+from code.pca_examples import demonstrate_normalization
 
 # Demonstrate normalization importance
 demonstrate_normalization()
@@ -175,7 +175,7 @@ demonstrate_normalization()
 **Activity 1.3: Manual PCA Implementation**
 ```python
 # Implement PCA from scratch using eigenvalue decomposition
-from pca_examples import manual_pca_implementation
+from code.pca_examples import manual_pca_implementation
 
 # Generate sample data
 X, _ = make_blobs(n_samples=100, centers=3, n_features=4, random_state=42)
@@ -193,7 +193,7 @@ print(f"Explained variance: {explained_variance}")
 **Activity 1.4: Geometric Intuition and Visualization**
 ```python
 # Visualize principal components and understand geometric intuition
-from pca_examples import demonstrate_geometric_intuition, plot_2d_data_with_pca
+from code.pca_examples import demonstrate_geometric_intuition, plot_2d_data_with_pca
 
 # Generate 2D data for visualization
 X_2d, _ = make_blobs(n_samples=200, centers=3, n_features=2, random_state=42)
@@ -210,7 +210,7 @@ demonstrate_geometric_intuition()
 **Activity 1.5: Explained Variance Analysis**
 ```python
 # Analyze how much variance is explained by each component
-from pca_examples import analyze_explained_variance
+from code.pca_examples import analyze_explained_variance
 
 # Load iris dataset for analysis
 iris = load_iris()
@@ -228,7 +228,7 @@ print(f"Cumulative variance: {cumulative_variance}")
 **Activity 1.6: Reconstruction and Information Loss**
 ```python
 # Understand the trade-off between compression and reconstruction quality
-from pca_examples import demonstrate_reconstruction
+from code.pca_examples import demonstrate_reconstruction
 
 # Demonstrate reconstruction with different numbers of components
 demonstrate_reconstruction(X_iris, n_components_list=[1, 2, 3, 4])
@@ -239,7 +239,7 @@ demonstrate_reconstruction(X_iris, n_components_list=[1, 2, 3, 4])
 **Activity 1.7: Practical Applications**
 ```python
 # Apply PCA to face recognition (eigenfaces)
-from pca_examples import demonstrate_face_recognition_example
+from code.pca_examples import demonstrate_face_recognition_example
 
 # Demonstrate face recognition with PCA
 demonstrate_face_recognition_example()
@@ -250,7 +250,7 @@ demonstrate_face_recognition_example()
 **Activity 1.8: Comparison with Scikit-learn**
 ```python
 # Validate manual implementation against scikit-learn
-from pca_examples import compare_implementations
+from code.pca_examples import compare_implementations
 
 # Compare manual vs scikit-learn PCA
 comparison_results = compare_implementations(X_iris)
@@ -264,7 +264,7 @@ print(comparison_results)
 **Activity 1.9: Advanced Topics and Limitations**
 ```python
 # Explore limitations of linear PCA and alternatives
-from pca_examples import demonstrate_linear_vs_nonlinear
+from code.pca_examples import demonstrate_linear_vs_nonlinear
 
 # Demonstrate linear vs nonlinear dimensionality reduction
 demonstrate_linear_vs_nonlinear()
@@ -275,7 +275,7 @@ demonstrate_linear_vs_nonlinear()
 **Activity 1.10: Best Practices**
 ```python
 # Learn best practices for effective PCA usage
-from pca_examples import pca_best_practices
+from code.pca_examples import pca_best_practices
 
 # Review PCA best practices
 pca_best_practices()
@@ -298,7 +298,7 @@ pca_best_practices()
 ---
 
 ### Lesson 2: Independent Components Analysis (ICA) (4-5 hours)
-**File**: `ica_examples.py`
+**File**: `code/ica_examples.py`
 
 #### Learning Goals
 - Understand statistical independence vs correlation
@@ -313,7 +313,7 @@ pca_best_practices()
 **Activity 2.1: Understanding Statistical Independence**
 ```python
 # Explore the difference between independence and correlation
-from ica_examples import demonstrate_independence_vs_correlation
+from code.ica_examples import demonstrate_independence_vs_correlation
 
 # Demonstrate independence vs correlation
 demonstrate_independence_vs_correlation()
@@ -324,7 +324,7 @@ demonstrate_independence_vs_correlation()
 **Activity 2.2: The Cocktail Party Problem**
 ```python
 # Simulate the classic cocktail party problem
-from ica_examples import simulate_cocktail_party
+from code.ica_examples import simulate_cocktail_party
 
 # Simulate mixed signals
 mixed_signals, true_sources, mixing_matrix = simulate_cocktail_party()
@@ -339,7 +339,7 @@ print(f"Mixing matrix shape: {mixing_matrix.shape}")
 **Activity 2.3: ICA Ambiguities and Constraints**
 ```python
 # Understand fundamental limitations of ICA
-from ica_examples import demonstrate_ica_ambiguities
+from code.ica_examples import demonstrate_ica_ambiguities
 
 # Demonstrate ICA ambiguities
 demonstrate_ica_ambiguities()
@@ -350,7 +350,7 @@ demonstrate_ica_ambiguities()
 **Activity 2.4: Data Preprocessing - Whitening**
 ```python
 # Implement whitening for ICA preprocessing
-from ica_examples import demonstrate_whitening
+from code.ica_examples import demonstrate_whitening
 
 # Demonstrate whitening process
 demonstrate_whitening()
@@ -361,7 +361,7 @@ demonstrate_whitening()
 **Activity 2.5: Manual ICA Implementation**
 ```python
 # Implement ICA using gradient ascent
-from ica_examples import manual_ica_gradient_ascent
+from code.ica_examples import manual_ica_gradient_ascent
 
 # Apply manual ICA to mixed signals
 unmixing_matrix, separated_signals = manual_ica_gradient_ascent(
@@ -377,7 +377,7 @@ print(f"Separated signals shape: {separated_signals.shape}")
 **Activity 2.6: FastICA Implementation**
 ```python
 # Implement the more efficient FastICA algorithm
-from ica_examples import fastica_implementation
+from code.ica_examples import fastica_implementation
 
 # Apply FastICA to mixed signals
 unmixing_matrix_fast, separated_signals_fast = fastica_implementation(
@@ -393,7 +393,7 @@ print(f"FastICA separated signals shape: {separated_signals_fast.shape}")
 **Activity 2.7: Comparison of ICA Methods**
 ```python
 # Compare different ICA approaches
-from ica_examples import compare_ica_methods
+from code.ica_examples import compare_ica_methods
 
 # Compare gradient ascent vs FastICA
 comparison_results = compare_ica_methods()
@@ -407,7 +407,7 @@ print(comparison_results)
 **Activity 2.8: Audio Separation Application**
 ```python
 # Apply ICA to audio signal separation
-from ica_examples import demonstrate_audio_separation
+from code.ica_examples import demonstrate_audio_separation
 
 # Demonstrate audio separation
 demonstrate_audio_separation()
@@ -418,7 +418,7 @@ demonstrate_audio_separation()
 **Activity 2.9: Image Separation Application**
 ```python
 # Apply ICA to image component analysis
-from ica_examples import demonstrate_image_separation
+from code.ica_examples import demonstrate_image_separation
 
 # Demonstrate image separation
 demonstrate_image_separation()
@@ -429,7 +429,7 @@ demonstrate_image_separation()
 **Activity 2.10: Limitations and Best Practices**
 ```python
 # Understand ICA limitations and best practices
-from ica_examples import demonstrate_gaussian_limitation, ica_best_practices
+from code.ica_examples import demonstrate_gaussian_limitation, ica_best_practices
 
 # Demonstrate Gaussian limitation
 demonstrate_gaussian_limitation()
