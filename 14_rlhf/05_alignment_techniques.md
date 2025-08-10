@@ -87,7 +87,7 @@ P(y_w \succ y_l | x) &= \sigma(R_\phi(x, y_w) - R_\phi(x, y_l)) \\
 
 ### DPO Implementation
 
-**Implementation:** See `dpo.py` for complete DPO implementation:
+**Implementation:** See `code/dpo.py` for complete DPO implementation:
 - `DPOTrainer` - Complete DPO trainer for language models
 - `dpo_loss()` - DPO loss computation
 - `get_log_probs()` and `get_ref_log_probs()` - Log probability utilities
@@ -100,7 +100,7 @@ P(y_w \succ y_l | x) &= \sigma(R_\phi(x, y_w) - R_\phi(x, y_l)) \\
 **1. Multi-Response DPO**: Handle multiple responses with ranking information
 **2. Constrained DPO**: Add KL divergence constraints to prevent policy drift
 
-**Implementation:** See `dpo.py` for advanced DPO variants:
+**Implementation:** See `code/dpo.py` for advanced DPO variants:
 - `DPODataset` - Dataset wrapper for DPO training
 - `DPOPipeline` - Complete DPO training pipeline
 - `AdaptiveDPO` - Adaptive beta parameter adjustment
@@ -120,7 +120,7 @@ Constitutional AI uses a self-critique and revision framework where the model ev
 
 ### Implementation
 
-**Implementation:** See `constitutional_ai.py` for complete Constitutional AI implementation:
+**Implementation:** See `code/constitutional_ai.py` for complete Constitutional AI implementation:
 - `ConstitutionalAI` - Complete Constitutional AI framework
 - `evaluate_alignment()` - Alignment evaluation utilities
 - `MultiAgentConstitutionalAI` - Multi-agent Constitutional AI
@@ -132,7 +132,7 @@ Constitutional AI uses a self-critique and revision framework where the model ev
 **1. Multi-Agent Constitutional AI**: Separate agents for generation, critique, and revision
 **2. Iterative Constitutional AI**: Iterative improvement with convergence criteria
 
-**Implementation:** See `constitutional_ai.py` for advanced Constitutional AI:
+**Implementation:** See `code/constitutional_ai.py` for advanced Constitutional AI:
 - Multi-agent architectures
 - Iterative improvement algorithms
 - Training and evaluation utilities
@@ -151,7 +151,7 @@ Red teaming involves systematically testing language models to identify potentia
 
 ### Implementation
 
-**Implementation:** See `red_teaming.py` for complete Red Teaming implementation:
+**Implementation:** See `code/red_teaming.py` for complete Red Teaming implementation:
 - `RedTeaming` - Complete Red Teaming framework
 - `GradientBasedRedTeaming` - Gradient-based adversarial attacks
 - `MultiObjectiveRedTeaming` - Multi-objective Red Teaming
@@ -162,7 +162,7 @@ Red teaming involves systematically testing language models to identify potentia
 **1. Gradient-Based Attacks**: Use gradient information to optimize adversarial prompts
 **2. Multi-Objective Red Teaming**: Test multiple harmful behaviors simultaneously
 
-**Implementation:** See `red_teaming.py` for advanced Red Teaming:
+**Implementation:** See `code/red_teaming.py` for advanced Red Teaming:
 - Gradient-based optimization
 - Multi-objective testing
 - Automated evaluation and reporting
@@ -173,7 +173,7 @@ Red teaming involves systematically testing language models to identify potentia
 
 Value learning involves explicitly learning and incorporating human values into the model's decision-making process.
 
-**Implementation:** See `safety_alignment.py` for value learning implementation:
+**Implementation:** See `code/safety_alignment.py` for value learning implementation:
 - `SafetyAlignment` - Complete safety alignment framework
 - `evaluate_safety_alignment()` - Safety alignment evaluation
 - Value-guided training utilities
@@ -185,7 +185,7 @@ Value learning involves explicitly learning and incorporating human values into 
 
 Multi-objective alignment involves balancing multiple competing objectives like helpfulness, harmlessness, and honesty.
 
-**Implementation:** See `alignment_eval.py` for multi-objective alignment:
+**Implementation:** See `code/alignment_eval.py` for multi-objective alignment:
 - `AlignmentEvaluator` - Complete alignment evaluation framework
 - `PreferenceAlignmentEvaluator` - Preference-based alignment evaluation
 - `MultiObjectiveAlignmentEvaluator` - Multi-objective alignment evaluation
@@ -195,7 +195,7 @@ Multi-objective alignment involves balancing multiple competing objectives like 
 
 ### Complete Alignment Pipeline
 
-**Implementation:** See `alignment_eval.py` for complete alignment pipeline:
+**Implementation:** See `code/alignment_eval.py` for complete alignment pipeline:
 - `AlignmentEvaluator` - Complete alignment evaluation pipeline
 - `evaluate_alignment()` - Multi-dimensional alignment evaluation
 - `generate_alignment_report()` - Comprehensive reporting utilities
@@ -203,7 +203,7 @@ Multi-objective alignment involves balancing multiple competing objectives like 
 
 ### Alignment Evaluation
 
-**Implementation:** See `alignment_eval.py` for comprehensive evaluation:
+**Implementation:** See `code/alignment_eval.py` for comprehensive evaluation:
 - `AlignmentEvaluator` - Complete evaluation framework
 - `PreferenceAlignmentEvaluator` - Preference-based evaluation
 - `MultiObjectiveAlignmentEvaluator` - Multi-objective evaluation
@@ -213,7 +213,7 @@ Multi-objective alignment involves balancing multiple competing objectives like 
 
 ### Robust Alignment
 
-**Implementation:** See `safety_alignment.py` for robust alignment:
+**Implementation:** See `code/safety_alignment.py` for robust alignment:
 - `SafetyAlignment` - Robust safety alignment framework
 - Robustness testing and evaluation
 - Safety constraint enforcement
@@ -221,7 +221,7 @@ Multi-objective alignment involves balancing multiple competing objectives like 
 
 ### Adaptive Alignment
 
-**Implementation:** See `dpo.py` for adaptive alignment:
+**Implementation:** See `code/dpo.py` for adaptive alignment:
 - `AdaptiveDPO` - Adaptive DPO with dynamic parameter adjustment
 - Performance-based method selection
 - Continuous improvement algorithms
