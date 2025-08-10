@@ -264,7 +264,7 @@ demonstrate_bellman_equations()
 **Activity 2.1: State Space Discretization**
 ```python
 # Explore discretization of continuous state spaces
-from continuous_state_mdp_examples import discretize_state, demonstrate_discretization
+from code.continuous_state_mdp_examples import discretize_state, demonstrate_discretization
 
 # Test discretization function
 state = np.array([0.3, 1.5])
