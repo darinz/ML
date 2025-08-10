@@ -415,7 +415,7 @@ For deeper theoretical understanding and advanced perspectives on GLM constructi
 - **Purdue Materials** (`expfamily_purdue.pdf`): Comprehensive treatment with detailed examples of exponential families in GLM contexts
 
 ### **Recommended Study Path for GLM Construction**
-1. **Foundation**: Master the concepts in this document and practice with `constructing_glm_examples.py`
+1. **Foundation**: Master the concepts in this document and practice with `code/constructing_glm_examples.py`
 2. **Theoretical Deepening**: Study `the-exponential-family_lecture12_columbia.pdf` for clear explanations of exponential family foundations
 3. **Advanced Applications**: Dive into `the-exponential-family_MIT18_655S16_LecNote7.pdf` for comprehensive coverage of GLM theory and applications
 4. **Specialized Topics**: Use institution-specific materials for particular GLM extensions and advanced topics
