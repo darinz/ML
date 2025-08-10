@@ -122,7 +122,7 @@ empirical_means = epsilon_greedy(env.arms, epsilon=0.1, T=1000)
 print(f"Empirical means: {empirical_means}")
 ```
 
-### Algorithm Comparison
+### Classical Bandit Algorithm Comparison
 ```python
 from bandit_environment import compare_algorithms, plot_regret_comparison
 
@@ -138,6 +138,21 @@ results = compare_algorithms(env, algorithms, T=1000, n_runs=100)
 
 # Plot results
 plot_regret_comparison(results, 1000)
+```
+
+### Linear Bandit Algorithm Comparison
+```python
+from linear_bandit_environment import compare_linear_algorithms, plot_linear_bandit_results
+
+# Define algorithms
+algorithms = {
+    'LinUCB': lambda d: LinUCB(d, alpha=1.0),
+    'Linear TS': lambda d: LinearThompsonSampling(d, sigma=1.0),
+    'OFUL': lambda d: OFUL(d, delta=0.1)
+}
+
+# Compare algorithms
+results = compare_linear_algorithms(env, algorithms)
 ```
 
 ### Online Advertising
@@ -156,11 +171,14 @@ bandit.update(ad_id, click=1)  # or click=0
 
 ## Theory
 
-For detailed theoretical background, mathematical formulations, and analysis, see [`01_classical_multi_armed_bandits.md`](01_classical_multi_armed_bandits.md).
+For detailed theoretical background, mathematical formulations, and analysis, see:
+- [`01_classical_multi_armed_bandits.md`](01_classical_multi_armed_bandits.md) - Classical bandits
+- [`02_linear_bandits.md`](02_linear_bandits.md) - Linear bandits
 
 Key concepts covered:
 - Exploration-exploitation trade-off
 - Regret analysis and bounds
 - Concentration inequalities
+- Feature-based learning and structured action spaces
 - Practical considerations and tuning
 - Applications to real-world problems 
