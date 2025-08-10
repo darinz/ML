@@ -17,6 +17,18 @@ Policy gradient methods represent a fundamental approach to reinforcement learni
 - Natural language processing
 - Financial trading
 
+## From Model-Based Control to Model-Free Learning
+
+We've now explored **advanced control methods** - specialized techniques that combine the principles of reinforcement learning with classical control theory. We've seen how Linear Quadratic Regulation (LQR) provides exact solutions for linear systems, how Differential Dynamic Programming (DDP) handles nonlinear systems through iterative optimization, and how Linear Quadratic Gaussian (LQG) control addresses partial observability through optimal state estimation.
+
+However, while these model-based control methods are powerful when we have good models of the system dynamics, **many real-world problems** involve systems where the dynamics are unknown, complex, or difficult to model accurately. In these cases, we need methods that can learn optimal behavior directly from experience without requiring explicit models of the environment.
+
+This motivates our exploration of **policy gradient methods** - model-free reinforcement learning techniques that directly optimize policy parameters using gradient ascent. We'll see how REINFORCE learns policies from experience, how variance reduction techniques improve learning efficiency, and how these methods enable learning in complex, unknown environments where model-based approaches are not feasible.
+
+The transition from model-based control to model-free learning represents the bridge from structured optimization to adaptive learning - taking our understanding of optimal control and extending it to scenarios where system models are unknown or unreliable.
+
+In this chapter, we'll explore policy gradient methods, understanding how they learn optimal policies directly from experience without requiring explicit models of the environment.
+
 ---
 
 ## 17.1 The Policy Gradient Framework
@@ -517,4 +529,22 @@ def reinforce_continuous():
 5. **Hierarchical**: Combine with hierarchical RL
 
 Policy gradient methods remain fundamental to modern reinforcement learning, providing the foundation for many advanced algorithms and applications.
+
+## From Theoretical Understanding to Practical Implementation
+
+We've now explored **policy gradient methods** - model-free reinforcement learning techniques that directly optimize policy parameters using gradient ascent. We've seen how REINFORCE learns policies from experience, how variance reduction techniques improve learning efficiency, and how these methods enable learning in complex, unknown environments where model-based approaches are not feasible.
+
+However, while understanding the theoretical foundations of reinforcement learning and policy gradient methods is essential, true mastery comes from **practical implementation**. The concepts we've learned - MDPs, value functions, continuous state spaces, advanced control, and policy gradients - need to be applied to real problems to develop intuition and practical skills.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the reinforcement learning concepts we've learned. We'll put our theoretical knowledge into practice by implementing value and policy iteration, building continuous state RL systems, applying advanced control methods, and developing policy gradient algorithms for real-world problems.
+
+The transition from theoretical understanding to practical implementation represents the bridge from knowledge to application - taking our understanding of how reinforcement learning works and turning it into practical tools for building intelligent agents that learn from experience.
+
+In the next section, we'll implement complete reinforcement learning systems, experiment with different algorithms, and develop the practical skills needed for real-world applications in robotics, control, and autonomous systems.
+
+---
+
+**Previous: [Advanced Control Methods](03_advanced_control.md)** - Learn specialized control techniques for structured systems.
+
+**Next: [Hands-on Coding](05_hands-on_coding.md)** - Implement reinforcement learning algorithms with practical examples.
 
