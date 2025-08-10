@@ -71,7 +71,7 @@ conda --version
 cd 01_linear_models/03_generalized_linear_models
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate glm-lesson
@@ -97,7 +97,7 @@ glm-env\Scripts\activate
 source glm-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn, pandas; print('All packages installed successfully!')"
@@ -139,7 +139,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Exponential Family Foundations (3-4 hours)
-**File**: `exponential_family_examples.py`
+**File**: `code/exponential_family_examples.py`
 
 #### Learning Goals
 - Understand the canonical form of exponential family distributions
@@ -153,7 +153,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Understanding the Canonical Form**
 ```python
 # Explore the exponential family canonical form
-from exponential_family_examples import exponential_family_pdf
+from code.exponential_family_examples import exponential_family_pdf
 
 # The canonical form: p(y; η) = b(y) * exp(η^T * T(y) - a(η))
 # Let's understand each component:
@@ -173,7 +173,7 @@ print("Understanding exponential family components...")
 **Activity 1.2: Bernoulli Distribution as Exponential Family**
 ```python
 # Implement Bernoulli distribution in exponential family form
-from exponential_family_examples import BernoulliExponentialFamily
+from code.exponential_family_examples import BernoulliExponentialFamily
 
 # Create Bernoulli exponential family instance
 bernoulli_ef = BernoulliExponentialFamily()
@@ -197,7 +197,7 @@ print(f"Sufficient statistic T({y}) = {T_y}")
 **Activity 1.3: Gaussian Distribution as Exponential Family**
 ```python
 # Implement Gaussian distribution in exponential family form
-from exponential_family_examples import GaussianExponentialFamily
+from code.exponential_family_examples import GaussianExponentialFamily
 
 # Create Gaussian exponential family instance
 gaussian_ef = GaussianExponentialFamily()
@@ -221,7 +221,7 @@ print(f"Log partition function a(η) = {a_eta:.3f}")
 **Activity 1.4: Interactive Demonstrations**
 ```python
 # Run interactive demonstrations
-from exponential_family_examples import interactive_bernoulli_demo, interactive_gaussian_demo
+from code.exponential_family_examples import interactive_bernoulli_demo, interactive_gaussian_demo
 
 # Bernoulli demonstration
 print("=== Bernoulli Distribution Demo ===")
@@ -252,7 +252,7 @@ interactive_gaussian_demo()
 ---
 
 ### Lesson 2: GLM Construction and Implementation (4-5 hours)
-**File**: `constructing_glm_examples.py`
+**File**: `code/constructing_glm_examples.py`
 
 #### Learning Goals
 - Master the three fundamental GLM assumptions
@@ -266,7 +266,7 @@ interactive_gaussian_demo()
 **Activity 2.1: Understanding GLM Framework**
 ```python
 # Explore the generic GLM framework
-from constructing_glm_examples import GLMFramework
+from code.constructing_glm_examples import GLMFramework
 
 # The three fundamental assumptions:
 # 1. Exponential family response distribution
@@ -281,7 +281,7 @@ print("Understanding GLM framework components...")
 **Activity 2.2: Linear Regression as GLM**
 ```python
 # Implement linear regression using GLM framework
-from constructing_glm_examples import LinearRegressionGLM
+from code.constructing_glm_examples import LinearRegressionGLM
 
 # Create linear regression GLM
 lr_glm = LinearRegressionGLM()
@@ -308,7 +308,7 @@ print(f"Sklearn parameters: {np.concatenate([[sklearn_lr.intercept_], sklearn_lr
 **Activity 2.3: Logistic Regression as GLM**
 ```python
 # Implement logistic regression using GLM framework
-from constructing_glm_examples import LogisticRegressionGLM
+from code.constructing_glm_examples import LogisticRegressionGLM
 
 # Create logistic regression GLM
 logistic_glm = LogisticRegressionGLM()
@@ -339,7 +339,7 @@ print(f"Accuracy: {accuracy:.3f}")
 **Activity 2.4: Parameter Estimation Methods**
 ```python
 # Compare different estimation methods
-from constructing_glm_examples import compare_estimation_methods
+from code.constructing_glm_examples import compare_estimation_methods
 
 # This will compare:
 # 1. Maximum likelihood estimation
@@ -359,7 +359,7 @@ compare_estimation_methods()
 **Activity 2.5: Real-World Applications**
 ```python
 # Apply GLMs to real-world problems
-from constructing_glm_examples import housing_price_example, medical_diagnosis_example
+from code.constructing_glm_examples import housing_price_example, medical_diagnosis_example
 
 # Housing price prediction (linear regression GLM)
 print("=== Housing Price Prediction ===")
