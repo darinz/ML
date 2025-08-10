@@ -22,11 +22,11 @@ Advanced classification techniques using kernel methods and SVMs to handle compl
 - **[03_svm_margins.md](03_svm_margins.md)** - Functional/geometric margins, maximum margin classification
 
 ### Implementation
-- **[kernel_methods_examples.py](kernel_methods_examples.py)** - Curse of dimensionality, kernel trick, multiple kernel comparison
-- **[kernel_properties_examples.py](kernel_properties_examples.py)** - Positive definiteness testing, Mercer's theorem, kernel PCA
-- **[svm_margins_equations.py](svm_margins_equations.py)** - Linear classifier visualization, margin calculations, SVM optimization
-- **[svm_optimal_margin_examples.py](svm_optimal_margin_examples.py)** - Primal/dual formulations, support vectors, kernel SVM
-- **[svm_regularization_examples.py](svm_regularization_examples.py)** - SMO algorithm, slack variables, KKT conditions
+- **[code/kernel_methods_examples.py](code/kernel_methods_examples.py)** - Curse of dimensionality, kernel trick, multiple kernel comparison
+- **[code/kernel_properties_examples.py](code/kernel_properties_examples.py)** - Positive definiteness testing, Mercer's theorem, kernel PCA
+- **[code/svm_margins_equations.py](code/svm_margins_equations.py)** - Linear classifier visualization, margin calculations, SVM optimization
+- **[code/svm_optimal_margin_examples.py](code/svm_optimal_margin_examples.py)** - Primal/dual formulations, support vectors, kernel SVM
+- **[code/svm_regularization_examples.py](code/svm_regularization_examples.py)** - SMO algorithm, slack variables, KKT conditions
 
 ### Visualizations
 - **img/** - Decision boundaries, constraints, coordinate ascent, hyperplanes
