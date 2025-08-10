@@ -103,46 +103,14 @@ Where:
 - **Confidence ellipsoid**: $`A_t^{-1}`$ captures uncertainty in parameter estimate
 
 **Implementation:**
-```python
-import numpy as np
-from scipy.linalg import solve
+See [`linucb.py`](linucb.py) for the complete implementation.
 
+```python
+# Key implementation details:
 class LinUCB:
-    def __init__(self, d, alpha=1.0, lambda_reg=1.0):
-        self.d = d
-        self.alpha = alpha
-        self.lambda_reg = lambda_reg
-        
-        # Initialize design matrix and parameter estimate
-        self.A = lambda_reg * np.eye(d)  # Regularized design matrix
-        self.b = np.zeros(d)  # Cumulative rewards
-        self.theta_hat = np.zeros(d)  # Parameter estimate
-        
-    def select_arm(self, arms):
-        """Select arm using LinUCB algorithm"""
-        # Update parameter estimate
-        self.theta_hat = solve(self.A, self.b)
-        
-        # Calculate UCB values for all arms
-        ucb_values = []
-        for x in arms:
-            # Exploitation term
-            exploitation = np.dot(self.theta_hat, x)
-            
-            # Exploration term
-            exploration = self.alpha * np.sqrt(np.dot(x, solve(self.A, x)))
-            
-            ucb_values.append(exploitation + exploration)
-        
-        return np.argmax(ucb_values)
-    
-    def update(self, arm_idx, reward, arm_features):
-        """Update algorithm with observed reward"""
-        x = arm_features[arm_idx]
-        
-        # Update design matrix and cumulative rewards
-        self.A += np.outer(x, x)
-        self.b += reward * x
+    # Initialize design matrix A and cumulative rewards b
+    # Select arm: argmax(θ̂ᵀx + α√(xᵀA⁻¹x))
+    # Update: A += xxᵀ, b += reward * x
 ```
 
 **Theoretical Guarantees:**
@@ -165,44 +133,14 @@ Linear Thompson Sampling maintains a Gaussian posterior over the parameter vecto
 - **Posterior**: $`\theta | \mathcal{F}_t \sim \mathcal{N}(\hat{\theta}_t, A_t^{-1})`$
 
 **Implementation:**
-```python
-import numpy as np
-from scipy.stats import multivariate_normal
+See [`linear_thompson_sampling.py`](linear_thompson_sampling.py) for the complete implementation.
 
+```python
+# Key implementation details:
 class LinearThompsonSampling:
-    def __init__(self, d, sigma=1.0, lambda_reg=1.0):
-        self.d = d
-        self.sigma = sigma
-        self.lambda_reg = lambda_reg
-        
-        # Initialize posterior parameters
-        self.A = lambda_reg * np.eye(d)
-        self.b = np.zeros(d)
-        self.theta_hat = np.zeros(d)
-        
-    def select_arm(self, arms):
-        """Select arm using Linear Thompson Sampling"""
-        # Update parameter estimate
-        self.theta_hat = np.linalg.solve(self.A, self.b)
-        
-        # Sample from posterior
-        posterior_cov = self.sigma**2 * np.linalg.inv(self.A)
-        theta_sample = multivariate_normal.rvs(
-            mean=self.theta_hat, 
-            cov=posterior_cov
-        )
-        
-        # Choose arm with highest sampled reward
-        predicted_rewards = [np.dot(theta_sample, x) for x in arms]
-        return np.argmax(predicted_rewards)
-    
-    def update(self, arm_idx, reward, arm_features):
-        """Update algorithm with observed reward"""
-        x = arm_features[arm_idx]
-        
-        # Update posterior parameters
-        self.A += np.outer(x, x) / (self.sigma**2)
-        self.b += reward * x / (self.sigma**2)
+    # Maintain Gaussian posterior over parameter vector
+    # Sample from posterior to select arms
+    # Update posterior based on observed rewards
 ```
 
 **Theoretical Guarantees:**
