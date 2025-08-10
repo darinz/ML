@@ -855,25 +855,14 @@ print(f"Bias scores: {bias_scores}")
 
 ### Safety Measures
 
-```python
-def safety_filter(text, harmful_patterns):
-    """Filter potentially harmful content."""
-    text_lower = text.lower()
-    
-    for pattern in harmful_patterns:
-        if pattern in text_lower:
-            return False
-    
-    return True
+See [`ethical_considerations.py`](ethical_considerations.py) for the complete implementation of safety measures and content filtering.
 
-def generate_safe_text(model, tokenizer, prompt, safety_filter_func):
-    """Generate text with safety filtering."""
-    generated_text = generate_text(model, tokenizer, prompt)
-    
-    if safety_filter_func(generated_text):
-        return generated_text
-    else:
-        return "I cannot generate that content."
+```python
+from ethical_considerations import safety_filter, generate_safe_text
+
+# Usage
+is_safe = safety_filter(text, harmful_patterns)
+safe_text = generate_safe_text(model, tokenizer, prompt, safety_filter)
 ```
 
 ## Conclusion
@@ -892,6 +881,23 @@ Large Language Models represent a significant advancement in artificial intellig
 - Study model compression and efficiency improvements
 - Practice with real-world datasets and applications
 - Consider ethical implications and safety measures
+
+## Complete Example
+
+For a complete demonstration of all LLM components working together, see [`llm_example.py`](llm_example.py). This script shows:
+
+- **Scaling Laws Analysis**: Optimal model and data size calculations
+- **Model Architecture Creation**: GPT, BERT, and T5 style models
+- **Training Techniques**: Mixed precision, gradient checkpointing, model parallelism
+- **Pre-training Objectives**: MLM, CLM, and span corruption
+- **Evaluation and Monitoring**: Perplexity, attention visualization, efficiency metrics
+- **Deployment and Inference**: Quantization, text generation, performance measurement
+- **Ethical Considerations**: Bias detection, content filtering, fairness metrics
+
+Run the complete example:
+```bash
+python llm_example.py
+```
 
 ---
 
