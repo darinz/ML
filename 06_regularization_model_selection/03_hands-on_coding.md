@@ -71,7 +71,7 @@ conda --version
 cd 06_regularization_model_selection
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate regularization-model-selection-lesson
@@ -97,7 +97,7 @@ regularization-model-selection-env\Scripts\activate
 source regularization-model-selection-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy, sklearn; print('All packages installed successfully!')"
@@ -138,7 +138,7 @@ np.random.seed(42)  # For reproducible results
 ## Lesson Structure
 
 ### Lesson 1: Regularization Techniques (3-4 hours)
-**File**: `regularization_examples.py`
+**File**: `code/regularization_examples.py`
 
 #### Learning Goals
 - Understand the mathematical framework of regularization
@@ -152,7 +152,7 @@ np.random.seed(42)  # For reproducible results
 **Activity 1.1: Regularization Framework**
 ```python
 # Understand the core regularization equation: J_λ(θ) = J(θ) + λR(θ)
-from regularization_examples import demonstrate_regularization_framework
+from code.regularization_examples import demonstrate_regularization_framework
 
 # Demonstrate regularization framework
 demonstrate_regularization_framework()
@@ -163,7 +163,7 @@ demonstrate_regularization_framework()
 **Activity 1.2: L2 Regularization (Ridge Regression)**
 ```python
 # Implement and analyze L2 regularization
-from regularization_examples import demonstrate_l2_regularization
+from code.regularization_examples import demonstrate_l2_regularization
 
 # Demonstrate L2 regularization
 demonstrate_l2_regularization()
@@ -174,7 +174,7 @@ demonstrate_l2_regularization()
 **Activity 1.3: L2 Regularization Visualization**
 ```python
 # Visualize how L2 regularization affects coefficients
-from regularization_examples import visualize_l2_regularization
+from code.regularization_examples import visualize_l2_regularization
 
 # Visualize L2 regularization effects
 visualize_l2_regularization()
@@ -185,7 +185,7 @@ visualize_l2_regularization()
 **Activity 1.4: L1 Regularization (LASSO)**
 ```python
 # Implement and analyze L1 regularization
-from regularization_examples import demonstrate_l1_regularization
+from code.regularization_examples import demonstrate_l1_regularization
 
 # Demonstrate L1 regularization
 demonstrate_l1_regularization()
@@ -196,7 +196,7 @@ demonstrate_l1_regularization()
 **Activity 1.5: L1 Regularization Visualization**
 ```python
 # Visualize how L1 regularization affects coefficients
-from regularization_examples import visualize_l1_regularization
+from code.regularization_examples import visualize_l1_regularization
 
 # Visualize L1 regularization effects
 visualize_l1_regularization()
@@ -207,7 +207,7 @@ visualize_l1_regularization()
 **Activity 1.6: Elastic Net**
 ```python
 # Implement combined L1 and L2 regularization
-from regularization_examples import demonstrate_elastic_net
+from code.regularization_examples import demonstrate_elastic_net
 
 # Demonstrate Elastic Net
 demonstrate_elastic_net()
@@ -218,7 +218,7 @@ demonstrate_elastic_net()
 **Activity 1.7: Scaling Importance**
 ```python
 # Understand why feature scaling is crucial for regularization
-from regularization_examples import demonstrate_scaling_importance
+from code.regularization_examples import demonstrate_scaling_importance
 
 # Demonstrate scaling importance
 demonstrate_scaling_importance()
@@ -229,7 +229,7 @@ demonstrate_scaling_importance()
 **Activity 1.8: Parameter Selection**
 ```python
 # Learn how to select optimal regularization parameters
-from regularization_examples import demonstrate_parameter_selection
+from code.regularization_examples import demonstrate_parameter_selection
 
 # Demonstrate parameter selection
 demonstrate_parameter_selection()
@@ -252,7 +252,7 @@ demonstrate_parameter_selection()
 ---
 
 ### Lesson 2: Model Selection and Bayesian Methods (3-4 hours)
-**File**: `model_selection_and_bayes_examples.py`
+**File**: `code/model_selection_and_bayes_examples.py`
 
 #### Learning Goals
 - Understand the model selection problem and bias-variance tradeoff
@@ -266,7 +266,7 @@ demonstrate_parameter_selection()
 **Activity 2.1: Model Selection Problem**
 ```python
 # Understand the fundamental challenge of model selection
-from model_selection_and_bayes_examples import demonstrate_model_selection_problem
+from code.model_selection_and_bayes_examples import demonstrate_model_selection_problem
 
 # Demonstrate model selection problem
 demonstrate_model_selection_problem()
@@ -277,7 +277,7 @@ demonstrate_model_selection_problem()
 **Activity 2.2: Hold-Out Validation**
 ```python
 # Implement simple hold-out validation
-from model_selection_and_bayes_examples import demonstrate_hold_out_validation
+from code.model_selection_and_bayes_examples import demonstrate_hold_out_validation
 
 # Demonstrate hold-out validation
 demonstrate_hold_out_validation()
@@ -288,7 +288,7 @@ demonstrate_hold_out_validation()
 **Activity 2.3: K-Fold Cross-Validation**
 ```python
 # Implement k-fold cross-validation for robust performance estimation
-from model_selection_and_bayes_examples import demonstrate_k_fold_cross_validation
+from code.model_selection_and_bayes_examples import demonstrate_k_fold_cross_validation
 
 # Demonstrate k-fold cross-validation
 demonstrate_k_fold_cross_validation()
@@ -299,7 +299,7 @@ demonstrate_k_fold_cross_validation()
 **Activity 2.4: Leave-One-Out Cross-Validation**
 ```python
 # Implement leave-one-out cross-validation for small datasets
-from model_selection_and_bayes_examples import demonstrate_leave_one_out_cv
+from code.model_selection_and_bayes_examples import demonstrate_leave_one_out_cv
 
 # Demonstrate leave-one-out CV
 demonstrate_leave_one_out_cv()
@@ -310,7 +310,7 @@ demonstrate_leave_one_out_cv()
 **Activity 2.5: Maximum Likelihood Estimation**
 ```python
 # Implement MLE for parameter estimation
-from model_selection_and_bayes_examples import demonstrate_mle
+from code.model_selection_and_bayes_examples import demonstrate_mle
 
 # Demonstrate MLE
 demonstrate_mle()
@@ -321,7 +321,7 @@ demonstrate_mle()
 **Activity 2.6: Maximum A Posteriori Estimation**
 ```python
 # Implement MAP estimation with regularization
-from model_selection_and_bayes_examples import demonstrate_map_estimation
+from code.model_selection_and_bayes_examples import demonstrate_map_estimation
 
 # Demonstrate MAP estimation
 demonstrate_map_estimation()
@@ -332,7 +332,7 @@ demonstrate_map_estimation()
 **Activity 2.7: Full Bayesian Inference**
 ```python
 # Implement full Bayesian inference for uncertainty quantification
-from model_selection_and_bayes_examples import demonstrate_bayesian_inference
+from code.model_selection_and_bayes_examples import demonstrate_bayesian_inference
 
 # Demonstrate Bayesian inference
 demonstrate_bayesian_inference()
@@ -343,7 +343,7 @@ demonstrate_bayesian_inference()
 **Activity 2.8: Practical Guidelines**
 ```python
 # Learn practical guidelines for model selection and validation
-from model_selection_and_bayes_examples import demonstrate_practical_guidelines
+from code.model_selection_and_bayes_examples import demonstrate_practical_guidelines
 
 # Demonstrate practical guidelines
 demonstrate_practical_guidelines()
