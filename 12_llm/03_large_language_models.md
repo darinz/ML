@@ -275,7 +275,7 @@ The complete LLM training pipeline is implemented in [`code/training.py`](code/t
 ### Learning Rate Scheduling
 
 **Cosine Annealing with Warmup:**
-Learning rate scheduling is implemented in [`training_techniques.py`](training_techniques.py) with the `CosineAnnealingWarmupScheduler` class, which provides:
+Learning rate scheduling is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `CosineAnnealingWarmupScheduler` class, which provides:
 
 - Cosine annealing with warmup
 - Configurable warmup and total steps
@@ -285,7 +285,7 @@ Learning rate scheduling is implemented in [`training_techniques.py`](training_t
 ### Weight Initialization
 
 **Proper initialization for large models:**
-Weight initialization is implemented in [`training_techniques.py`](training_techniques.py) with the `init_weights` function, which provides:
+Weight initialization is implemented in [`code/training_techniques.py`](code/training_techniques.py) with the `init_weights` function, which provides:
 
 - Xavier uniform initialization for linear layers
 - Normal initialization for embeddings
