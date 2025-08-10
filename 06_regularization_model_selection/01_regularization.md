@@ -369,7 +369,21 @@ Characterizing the implicit regularization effect formally is still a challengin
 - Try different optimization settings to see their implicit effects
 - Learn about advanced regularization techniques for your specific domain
 
+## From Regularization Techniques to Model Selection Strategies
+
+We've now explored **regularization** - the fundamental techniques that help prevent overfitting by adding constraints or penalties to the learning process. We've seen how L1, L2, and Elastic Net regularization work, how implicit regularization affects optimization, and how these techniques help us find the sweet spot between underfitting and overfitting.
+
+However, while regularization provides the tools to control model complexity, we still need systematic methods to **choose the right model** and **estimate its performance** reliably. Regularization tells us how to constrain a model, but it doesn't tell us which model to use or how to compare different options.
+
+This motivates our exploration of **model selection** - the systematic process of choosing among different models, model complexities, and hyperparameters. We'll see how cross-validation provides reliable performance estimates, how Bayesian methods incorporate uncertainty and prior knowledge, and how to avoid common pitfalls in model selection.
+
+The transition from regularization to model selection represents the bridge from technique to strategy - taking our knowledge of how to control model complexity and turning it into a systematic approach for building optimal models.
+
+In the next section, we'll explore cross-validation techniques, Bayesian approaches, and practical guidelines for selecting the best model for any given problem.
+
 ---
+
+**Next: [Model Selection](02_model_selection.md)** - Learn systematic approaches for choosing optimal models and estimating their performance.
 
 ## Footnotes
 
