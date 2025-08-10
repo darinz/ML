@@ -420,7 +420,7 @@ demonstrate_baseline_comparison()
 **Activity 3.3: Actor-Critic Methods**
 ```python
 # Implement actor-critic methods
-from policy_gradient_examples import (
+from code.policy_gradient_examples import (
     ValueFunction, actor_critic, demonstrate_actor_critic
 )
 
@@ -442,7 +442,7 @@ demonstrate_actor_critic()
 **Activity 3.4: Continuous Policies**
 ```python
 # Implement continuous action policies
-from policy_gradient_examples import (
+from code.policy_gradient_examples import (
     GaussianPolicy, ContinuousCartPole, demonstrate_continuous_policy
 )
 
