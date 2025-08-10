@@ -11,6 +11,18 @@ We've explored the elegant framework of **generalization in machine learning**, 
 
 However, true understanding comes from **hands-on implementation**. This practical guide will help you translate the theoretical concepts into working code, experiment with different model complexities, and develop the intuition needed to understand and improve generalization performance.
 
+## From Theoretical Foundations to Hands-On Mastery
+
+We've now explored the **theoretical foundations** of generalization - from the mathematical tools like union bounds and concentration inequalities to the formal learning framework and sample complexity bounds. These theoretical results provide rigorous guarantees about generalization and help us understand the fundamental limits of learning.
+
+However, while understanding the theoretical foundations is essential, true mastery of generalization comes from **practical implementation**. The theoretical concepts we've learned - bias-variance decomposition, double descent phenomena, and sample complexity bounds - need to be applied to real problems to develop intuition and practical skills.
+
+This motivates our exploration of **hands-on coding** - the practical implementation of all the generalization concepts we've learned. We'll put our theoretical knowledge into practice by implementing bias-variance decomposition, visualizing double descent phenomena, and developing the practical skills needed to analyze and improve model generalization.
+
+The transition from theoretical foundations to practical implementation represents the bridge from understanding to application - taking our knowledge of why generalization works and turning it into practical tools for building better machine learning models.
+
+In this practical guide, we'll implement complete systems for analyzing generalization, experiment with different model complexities, and develop the practical skills needed for real-world machine learning applications.
+
 ## Learning Objectives
 
 By completing this hands-on learning guide, you will:
@@ -737,6 +749,10 @@ The principles we've learned here - bias-variance tradeoff, theoretical bounds, 
 Remember: Understanding generalization is the foundation of machine learning - it's what separates memorization from true learning. Keep exploring, building, and applying these concepts to new problems!
 
 ---
+
+**Previous: [Complexity Bounds](03_complexity_bounds.md)** - Learn the theoretical foundations that provide rigorous guarantees about generalization.
+
+**Next: [Regularization and Model Selection](../06_regularization_model_selection/README.md)** - Explore regularization techniques and model selection strategies.
 
 ## Environment Files
 
