@@ -73,7 +73,7 @@ conda --version
 cd 10_reinforcement_learning
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate rl-lesson
@@ -99,7 +99,7 @@ rl-env\Scripts\activate
 source rl-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy; print('All packages installed successfully!')"
@@ -142,7 +142,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 ## Lesson Structure
 
 ### Lesson 1: Markov Decision Processes (4-5 hours)
-**Files**: `markov_decision_processes_examples.py`
+**Files**: `code/markov_decision_processes_examples.py`
 
 #### Learning Goals
 - Understand the MDP framework and Bellman equations
@@ -156,7 +156,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 **Activity 1.1: Understanding MDP Framework**
 ```python
 # Explore the fundamentals of Markov Decision Processes
-from markov_decision_processes_examples import MDP, create_grid_world_mdp
+from code.markov_decision_processes_examples import MDP, create_grid_world_mdp
 
 # Create a simple grid world MDP
 grid_mdp = create_grid_world_mdp(size=4, goal_reward=1.0, step_cost=-0.01)
