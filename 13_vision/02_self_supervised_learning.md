@@ -49,238 +49,51 @@ Pretext tasks are self-supervised learning objectives that can be solved without
 **Task Definition:**
 Fill in masked regions of an image using surrounding context.
 
-**Implementation:**
-```python
-class InpaintingPretextTask(nn.Module):
-    def __init__(self, mask_ratio=0.15, mask_size=32):
-        super().__init__()
-        self.mask_ratio = mask_ratio
-        self.mask_size = mask_size
-        self.encoder = nn.Sequential(
-            nn.Conv2d(3, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 128, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(128, 128, 3, padding=1),
-            nn.ReLU()
-        )
-        self.decoder = nn.Sequential(
-            nn.Conv2d(128, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 3, 3, padding=1),
-            nn.Sigmoid()
-        )
-    
-    def create_mask(self, image_size):
-        """Create random rectangular masks."""
-        mask = torch.ones(image_size)
-        num_masks = int(self.mask_ratio * (image_size[1] * image_size[2]) / (self.mask_size ** 2))
-        
-        for _ in range(num_masks):
-            x = torch.randint(0, image_size[1] - self.mask_size, (1,))
-            y = torch.randint(0, image_size[2] - self.mask_size, (1,))
-            mask[:, x:x+self.mask_size, y:y+self.mask_size] = 0
-        
-        return mask
-    
-    def forward(self, x):
-        # Create mask
-        mask = self.create_mask(x.shape).to(x.device)
-        
-        # Apply mask
-        masked_x = x * mask
-        
-        # Encode
-        features = self.encoder(masked_x)
-        
-        # Decode
-        reconstructed = self.decoder(features)
-        
-        return reconstructed, x, mask
-```
+**Implementation:** See `inpainting.py` for comprehensive inpainting implementations:
+- `InpaintingModel` - CNN-based inpainting model with encoder-decoder architecture
+- `TransformerInpaintingModel` - Vision Transformer-based inpainting
+- `InpaintingTrainer` - Complete training pipeline
+- `create_inpainting_model()` - Factory function for different model types
+- `visualize_inpainting()` - Visualization utilities for inpainting results
 
 ### Jigsaw Puzzle Solving
 
 **Task Definition:**
 Reconstruct the original image from shuffled patches.
 
-**Implementation:**
-```python
-class JigsawPretextTask(nn.Module):
-    def __init__(self, num_patches=9, num_permutations=100):
-        super().__init__()
-        self.num_patches = num_patches
-        self.num_permutations = num_permutations
-        self.patch_size = 64
-        
-        # Permutation classifier
-        self.classifier = nn.Sequential(
-            nn.Linear(3 * self.patch_size * self.patch_size, 512),
-            nn.ReLU(),
-            nn.Dropout(0.5),
-            nn.Linear(512, 256),
-            nn.ReLU(),
-            nn.Dropout(0.5),
-            nn.Linear(256, self.num_permutations)
-        )
-    
-    def create_patches(self, x):
-        """Divide image into patches."""
-        batch_size = x.shape[0]
-        patches = []
-        
-        for i in range(int(math.sqrt(self.num_patches))):
-            for j in range(int(math.sqrt(self.num_patches))):
-                patch = x[:, :, 
-                         i*self.patch_size:(i+1)*self.patch_size,
-                         j*self.patch_size:(j+1)*self.patch_size]
-                patches.append(patch.flatten(1))
-        
-        return torch.stack(patches, dim=1)  # [batch_size, num_patches, patch_dim]
-    
-    def create_permutation(self):
-        """Create a random permutation of patches."""
-        return torch.randperm(self.num_patches)
-    
-    def forward(self, x):
-        # Create patches
-        patches = self.create_patches(x)
-        
-        # Create permutation
-        perm = self.create_permutation()
-        
-        # Apply permutation
-        permuted_patches = patches[:, perm]
-        
-        # Flatten for classification
-        permuted_input = permuted_patches.flatten(1)
-        
-        # Predict permutation
-        logits = self.classifier(permuted_input)
-        
-        return logits, perm
-```
+**Implementation:** See `jigsaw.py` for jigsaw puzzle solving:
+- `JigsawPuzzleDataset` - Dataset wrapper for creating jigsaw puzzles
+- `JigsawPuzzleModel` - Model for solving jigsaw puzzles
+- `JigsawPuzzleLoss` - Loss function for permutation prediction
+- `generate_permutations()` - Generate permutation sets
+- `train_jigsaw_puzzle()` - Training pipeline
+- `evaluate_jigsaw_model()` - Evaluation utilities
 
 ### Rotation Prediction
 
 **Task Definition:**
 Predict the rotation angle applied to an image (0°, 90°, 180°, 270°).
 
-**Implementation:**
-```python
-class RotationPretextTask(nn.Module):
-    def __init__(self, num_rotations=4):
-        super().__init__()
-        self.num_rotations = num_rotations
-        self.encoder = nn.Sequential(
-            nn.Conv2d(3, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2),
-            nn.Conv2d(64, 128, 3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2),
-            nn.Conv2d(128, 256, 3, padding=1),
-            nn.ReLU(),
-            nn.AdaptiveAvgPool2d((1, 1)),
-            nn.Flatten(),
-            nn.Linear(256, 128),
-            nn.ReLU(),
-            nn.Linear(128, num_rotations)
-        )
-    
-    def rotate_image(self, x, rotation_idx):
-        """Apply rotation to image."""
-        angles = [0, 90, 180, 270]
-        angle = angles[rotation_idx]
-        
-        if angle == 0:
-            return x
-        elif angle == 90:
-            return x.transpose(2, 3).flip(2)
-        elif angle == 180:
-            return x.flip(2, 3)
-        elif angle == 270:
-            return x.transpose(2, 3).flip(3)
-    
-    def forward(self, x):
-        batch_size = x.shape[0]
-        
-        # Create rotated versions
-        rotated_images = []
-        labels = []
-        
-        for i in range(self.num_rotations):
-            rotated = self.rotate_image(x, i)
-            rotated_images.append(rotated)
-            labels.extend([i] * batch_size)
-        
-        # Stack rotated images
-        rotated_batch = torch.cat(rotated_images, dim=0)
-        labels = torch.tensor(labels, dtype=torch.long, device=x.device)
-        
-        # Predict rotation
-        logits = self.encoder(rotated_batch)
-        
-        return logits, labels
-```
+**Implementation:** See `rotation.py` for rotation prediction:
+- `RotationDataset` - Dataset wrapper for creating rotated images
+- `RotationPredictionModel` - Model for predicting rotation angles
+- `RotationLoss` - Loss function for rotation classification
+- `train_rotation_model()` - Training pipeline
+- `evaluate_rotation_model()` - Evaluation utilities
+- `visualize_rotation_predictions()` - Visualization tools
 
 ### Colorization
 
 **Task Definition:**
 Predict color channels from grayscale input.
 
-**Implementation:**
-```python
-class ColorizationPretextTask(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.encoder = nn.Sequential(
-            nn.Conv2d(1, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 128, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(128, 256, 3, padding=1),
-            nn.ReLU()
-        )
-        self.decoder = nn.Sequential(
-            nn.Conv2d(256, 128, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(128, 64, 3, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 2, 3, padding=1),  # a, b channels
-            nn.Tanh()
-        )
-    
-    def rgb_to_lab(self, x):
-        """Convert RGB to LAB color space."""
-        # Simplified conversion (in practice, use proper color space conversion)
-        # This is a placeholder for the actual RGB to LAB conversion
-        return x
-    
-    def lab_to_rgb(self, l, ab):
-        """Convert LAB to RGB color space."""
-        # Simplified conversion (in practice, use proper color space conversion)
-        # This is a placeholder for the actual LAB to RGB conversion
-        return torch.cat([l, ab], dim=1)
-    
-    def forward(self, x):
-        # Convert to LAB
-        lab = self.rgb_to_lab(x)
-        l_channel = lab[:, 0:1]  # Lightness channel
-        ab_channels = lab[:, 1:]  # a, b channels
-        
-        # Encode grayscale
-        features = self.encoder(l_channel)
-        
-        # Decode color
-        predicted_ab = self.decoder(features)
-        
-        return predicted_ab, ab_channels
-```
+**Implementation:** See `colorization.py` for image colorization:
+- `ColorizationDataset` - Dataset wrapper for grayscale-color pairs
+- `ColorizationModel` - Model for predicting color channels
+- `ColorizationLoss` - Loss function for color prediction
+- `reconstruct_image()` - Image reconstruction utilities
+- `train_colorization_model()` - Training pipeline
+- `visualize_colorization_results()` - Visualization tools
 
 ## Contrastive Learning
 
@@ -296,80 +109,16 @@ Contrastive learning learns representations by maximizing agreement between diff
 
 ### SimCLR Framework
 
-**Architecture:**
-```python
-class SimCLR(nn.Module):
-    def __init__(self, encoder, projection_dim=128, temperature=0.5):
-        super().__init__()
-        self.encoder = encoder
-        self.temperature = temperature
-        
-        # Projection head
-        self.projection = nn.Sequential(
-            nn.Linear(encoder.output_dim, 512),
-            nn.ReLU(),
-            nn.Linear(512, projection_dim)
-        )
-    
-    def forward(self, x1, x2):
-        # Encode both views
-        h1 = self.encoder(x1)
-        h2 = self.encoder(x2)
-        
-        # Project to comparison space
-        z1 = self.projection(h1)
-        z2 = self.projection(h2)
-        
-        # Normalize
-        z1 = F.normalize(z1, dim=1)
-        z2 = F.normalize(z2, dim=1)
-        
-        return z1, z2
-    
-    def contrastive_loss(self, z1, z2):
-        """Compute contrastive loss."""
-        batch_size = z1.shape[0]
-        
-        # Concatenate all representations
-        representations = torch.cat([z1, z2], dim=0)
-        
-        # Compute similarity matrix
-        similarity_matrix = torch.matmul(representations, representations.T) / self.temperature
-        
-        # Create labels for positive pairs
-        labels = torch.arange(batch_size, device=z1.device)
-        labels = torch.cat([labels + batch_size, labels], dim=0)
-        
-        # Mask out self-similarity
-        mask = torch.eye(2 * batch_size, device=z1.device).bool()
-        similarity_matrix = similarity_matrix[~mask].view(2 * batch_size, -1)
-        labels = labels[~mask].view(2 * batch_size, -1)
-        
-        # Compute loss
-        loss = F.cross_entropy(similarity_matrix, labels)
-        
-        return loss
-```
+**Implementation:** See `simclr.py` for SimCLR implementation:
+- `SimCLR` - Complete SimCLR framework
+- `SimCLRAugmentation` - Data augmentation pipeline
+- `ContrastiveLoss` - Contrastive learning loss
+- Training and evaluation utilities
 
-**Data Augmentation:**
-```python
-class SimCLRAugmentation:
-    def __init__(self, size=224):
-        self.size = size
-        self.transform = transforms.Compose([
-            transforms.RandomResizedCrop(size, scale=(0.2, 1.0)),
-            transforms.RandomHorizontalFlip(p=0.5),
-            transforms.RandomApply([
-                transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
-            ], p=0.8),
-            transforms.RandomGrayscale(p=0.2),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-        ])
-    
-    def __call__(self, x):
-        return self.transform(x), self.transform(x)
-```
+**Data Augmentation:** See `simclr.py` for augmentation pipeline:
+- `SimCLRAugmentation` - Complete data augmentation pipeline
+- Random resized crop, horizontal flip, color jittering
+- Random grayscale and normalization
 
 ### MoCo (Momentum Contrast)
 
@@ -378,74 +127,11 @@ class SimCLRAugmentation:
 - **Queue**: Large queue of negative samples
 - **Momentum Update**: Exponential moving average of encoder parameters
 
-**Implementation:**
-```python
-class MoCo(nn.Module):
-    def __init__(self, encoder, queue_size=65536, momentum=0.999, temperature=0.07):
-        super().__init__()
-        self.encoder_q = encoder  # Query encoder
-        self.encoder_k = copy.deepcopy(encoder)  # Key encoder
-        
-        # Freeze key encoder
-        for param in self.encoder_k.parameters():
-            param.requires_grad = False
-        
-        # Queue for negative samples
-        self.register_buffer("queue", torch.randn(encoder.output_dim, queue_size))
-        self.queue = F.normalize(self.queue, dim=0)
-        self.register_buffer("queue_ptr", torch.zeros(1, dtype=torch.long))
-        
-        self.queue_size = queue_size
-        self.momentum = momentum
-        self.temperature = temperature
-    
-    @torch.no_grad()
-    def momentum_update(self):
-        """Update key encoder with momentum."""
-        for param_q, param_k in zip(self.encoder_q.parameters(), self.encoder_k.parameters()):
-            param_k.data = param_k.data * self.momentum + param_q.data * (1. - self.momentum)
-    
-    @torch.no_grad()
-    def dequeue_and_enqueue(self, keys):
-        """Dequeue and enqueue keys."""
-        batch_size = keys.shape[0]
-        ptr = int(self.queue_ptr)
-        
-        # Replace keys at ptr
-        if ptr + batch_size > self.queue_size:
-            batch_size = self.queue_size - ptr
-            keys = keys[:batch_size]
-        
-        self.queue[:, ptr:ptr + batch_size] = keys.T
-        ptr = (ptr + batch_size) % self.queue_size
-        
-        self.queue_ptr[0] = ptr
-    
-    def forward(self, im_q, im_k):
-        # Query encoder
-        q = self.encoder_q(im_q)
-        q = F.normalize(q, dim=1)
-        
-        # Key encoder
-        with torch.no_grad():
-            k = self.encoder_k(im_k)
-            k = F.normalize(k, dim=1)
-        
-        # Compute logits
-        l_pos = torch.einsum('nc,nc->n', [q, k]).unsqueeze(-1)
-        l_neg = torch.einsum('nc,ck->nk', [q, self.queue.clone().detach()])
-        
-        logits = torch.cat([l_pos, l_neg], dim=1)
-        logits = logits / self.temperature
-        
-        # Labels: positive pairs are the first column
-        labels = torch.zeros(logits.shape[0], dtype=torch.long, device=logits.device)
-        
-        # Dequeue and enqueue
-        self.dequeue_and_enqueue(k)
-        
-        return logits, labels
-```
+**Implementation:** See `moco.py` for MoCo implementation:
+- `MoCo` - Complete MoCo framework
+- `MomentumEncoder` - Momentum-based encoder updates
+- `QueueManager` - Negative sample queue management
+- Training and evaluation utilities
 
 ## Modern Self-Supervised Methods
 
@@ -454,73 +140,11 @@ class MoCo(nn.Module):
 **Key Innovation:**
 BYOL uses two networks (online and target) where the target network is an exponential moving average of the online network.
 
-**Implementation:**
-```python
-class BYOL(nn.Module):
-    def __init__(self, encoder, projection_dim=256, prediction_dim=256, momentum=0.996):
-        super().__init__()
-        self.encoder = encoder
-        self.momentum = momentum
-        
-        # Online network
-        self.online_projector = nn.Sequential(
-            nn.Linear(encoder.output_dim, 512),
-            nn.BatchNorm1d(512),
-            nn.ReLU(),
-            nn.Linear(512, projection_dim)
-        )
-        self.online_predictor = nn.Sequential(
-            nn.Linear(projection_dim, 512),
-            nn.BatchNorm1d(512),
-            nn.ReLU(),
-            nn.Linear(512, prediction_dim)
-        )
-        
-        # Target network
-        self.target_projector = copy.deepcopy(self.online_projector)
-        
-        # Freeze target network
-        for param in self.target_projector.parameters():
-            param.requires_grad = False
-    
-    @torch.no_grad()
-    def momentum_update(self):
-        """Update target network with momentum."""
-        for param_online, param_target in zip(self.online_projector.parameters(), 
-                                            self.target_projector.parameters()):
-            param_target.data = param_target.data * self.momentum + param_online.data * (1. - self.momentum)
-    
-    def forward(self, x1, x2):
-        # Online network
-        h1 = self.encoder(x1)
-        h2 = self.encoder(x2)
-        
-        z1_online = self.online_projector(h1)
-        z2_online = self.online_projector(h2)
-        
-        p1 = self.online_predictor(z1_online)
-        p2 = self.online_predictor(z2_online)
-        
-        # Target network
-        with torch.no_grad():
-            z1_target = self.target_projector(h1)
-            z2_target = self.target_projector(h2)
-        
-        # Normalize
-        p1 = F.normalize(p1, dim=1)
-        p2 = F.normalize(p2, dim=1)
-        z1_target = F.normalize(z1_target, dim=1)
-        z2_target = F.normalize(z2_target, dim=1)
-        
-        return p1, p2, z1_target, z2_target
-    
-    def loss(self, p1, p2, z1_target, z2_target):
-        """Compute BYOL loss."""
-        loss1 = 2 - 2 * F.cosine_similarity(p1, z2_target, dim=1)
-        loss2 = 2 - 2 * F.cosine_similarity(p2, z1_target, dim=1)
-        
-        return (loss1 + loss2).mean()
-```
+**Implementation:** See `byol.py` for BYOL implementation:
+- `BYOL` - Complete BYOL framework
+- `OnlineNetwork` - Online network with predictor
+- `TargetNetwork` - Target network with momentum updates
+- Training and evaluation utilities
 
 ### DINO (Self-Distillation with No Labels)
 
@@ -529,77 +153,11 @@ class BYOL(nn.Module):
 - **Centering and Sharpening**: Stabilize training
 - **Knowledge Distillation**: Student learns from teacher
 
-**Implementation:**
-```python
-class DINO(nn.Module):
-    def __init__(self, encoder, projection_dim=256, momentum=0.996, temperature=0.1):
-        super().__init__()
-        self.encoder = encoder
-        self.momentum = momentum
-        self.temperature = temperature
-        
-        # Student network
-        self.student_head = nn.Sequential(
-            nn.Linear(encoder.output_dim, 512),
-            nn.GELU(),
-            nn.Linear(512, projection_dim)
-        )
-        
-        # Teacher network
-        self.teacher_head = copy.deepcopy(self.student_head)
-        
-        # Freeze teacher
-        for param in self.teacher_head.parameters():
-            param.requires_grad = False
-    
-    @torch.no_grad()
-    def momentum_update(self):
-        """Update teacher network with momentum."""
-        for param_student, param_teacher in zip(self.student_head.parameters(), 
-                                              self.teacher_head.parameters()):
-            param_teacher.data = param_teacher.data * self.momentum + param_student.data * (1. - self.momentum)
-    
-    def forward(self, crops):
-        # Student forward pass
-        student_outputs = []
-        for crop in crops:
-            features = self.encoder(crop)
-            output = self.student_head(features)
-            student_outputs.append(output)
-        
-        # Teacher forward pass (only for global crops)
-        teacher_outputs = []
-        with torch.no_grad():
-            for i in range(len(crops) // 2):  # Only global crops
-                features = self.encoder(crops[i])
-                output = self.teacher_head(features)
-                teacher_outputs.append(output)
-        
-        return student_outputs, teacher_outputs
-    
-    def loss(self, student_outputs, teacher_outputs):
-        """Compute DINO loss."""
-        total_loss = 0
-        num_crops = len(student_outputs)
-        num_global_crops = len(teacher_outputs)
-        
-        # Compute loss for each global crop
-        for i in range(num_global_crops):
-            teacher_output = teacher_outputs[i]
-            
-            # Compute loss with all student outputs
-            for j in range(num_crops):
-                student_output = student_outputs[j]
-                
-                # Cross-entropy loss
-                logits = torch.matmul(student_output, teacher_output.T) / self.temperature
-                labels = torch.arange(student_output.shape[0], device=student_output.device)
-                loss = F.cross_entropy(logits, labels)
-                
-                total_loss += loss
-        
-        return total_loss / (num_global_crops * num_crops)
-```
+**Implementation:** See `dino.py` for DINO implementation:
+- `DINO` - Complete DINO framework
+- `MultiCropStrategy` - Multi-crop data augmentation
+- `TeacherStudentDistillation` - Knowledge distillation
+- Training and evaluation utilities
 
 ## Implementation Examples
 
