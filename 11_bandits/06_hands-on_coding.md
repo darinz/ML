@@ -603,7 +603,7 @@ print(f"Sample complexity: {bai_results['sample_complexity']}")
 **Activity 4.2: Recommendation Systems**
 ```python
 # Implement bandit-based recommendation system
-from recommendation_system import (
+from code.recommendation_system import (
     BanditRecommender, run_recommendation_experiment
 )
 
