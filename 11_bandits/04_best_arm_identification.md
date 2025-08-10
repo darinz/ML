@@ -144,7 +144,7 @@ Sequential Halving is an efficient algorithm that eliminates half of the remaini
 4. **Termination**: Continue until one arm remains
 
 **Implementation:**
-See [`sequential_halving.py`](sequential_halving.py) for the complete implementation.
+See [`code/sequential_halving.py`](code/sequential_halving.py) for the complete implementation.
 
 ```python
 # Key implementation details:
