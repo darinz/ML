@@ -18,14 +18,14 @@ Self-supervised learning leverages unlabeled data to learn useful representation
 - **[03_hands-on_coding.md](03_hands-on_coding.md)** - Practical implementation guide
 
 ### Implementation
-- **[pretraining_examples.py](pretraining_examples.py)** - Self-supervised learning implementations, contrastive learning, data augmentation
-- **[pretrain_llm_examples.py](pretrain_llm_examples.py)** - Language modeling, Transformer interface, text generation, adaptation methods
+- **[code/pretraining_examples.py](code/pretraining_examples.py)** - Self-supervised learning implementations, contrastive learning, data augmentation
+- **[code/pretrain_llm_examples.py](code/pretrain_llm_examples.py)** - Language modeling, Transformer interface, text generation, adaptation methods
 
 ### Interactive Notebook
 - **[02_pretrain_llm.ipynb](02_pretrain_llm.ipynb)** - Jupyter notebook with interactive LLM examples
 
 ### Supporting Files
-- **requirements.txt** - Python dependencies
+- **code/requirements.txt** - Python dependencies
 - **img/** - Visualizations and diagrams
 
 ## Key Concepts
@@ -80,25 +80,25 @@ Self-supervised learning leverages unlabeled data to learn useful representation
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 
 ## Running Examples
 
 ```bash
-python pretraining_examples.py
-python pretrain_llm_examples.py
+python code/pretraining_examples.py
+python code/pretrain_llm_examples.py
 ```
 
 ## Quick Start Code
 
 ```python
 # Contrastive Learning
-from pretraining_examples import contrastive_learning_example
+from code.pretraining_examples import contrastive_learning_example
 features, loss = contrastive_learning_example()
 
 # Language Modeling
-from pretrain_llm_examples import language_modeling_example
+from code.pretrain_llm_examples import language_modeling_example
 model, generated_text = language_modeling_example()
 
 # Using Transformers
