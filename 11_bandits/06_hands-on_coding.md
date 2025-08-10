@@ -73,7 +73,7 @@ conda --version
 cd 11_bandits
 
 # Create a new conda environment
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 
 # Activate the environment
 conda activate bandits-lesson
@@ -99,7 +99,7 @@ bandits-env\Scripts\activate
 source bandits-env/bin/activate
 
 # Install requirements
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 
 # Verify installation
 python -c "import numpy, matplotlib, scipy; print('All packages installed successfully!')"
@@ -141,7 +141,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 ## Lesson Structure
 
 ### Lesson 1: Classical Multi-Armed Bandits (3-4 hours)
-**Files**: `epsilon_greedy.py`, `ucb.py`, `thompson_sampling.py`
+**Files**: `code/epsilon_greedy.py`, `code/ucb.py`, `code/thompson_sampling.py`
 
 #### Learning Goals
 - Understand the exploration-exploitation trade-off
@@ -155,7 +155,7 @@ plt.rcParams['figure.figsize'] = (10, 6)
 **Activity 1.1: Understanding the Bandit Problem**
 ```python
 # Explore the fundamental bandit problem
-from epsilon_greedy import EpsilonGreedy
+from code.epsilon_greedy import EpsilonGreedy
 
 # Create a simple bandit environment
 arm_means = [0.1, 0.3, 0.5, 0.2, 0.4]  # True reward means
@@ -174,7 +174,7 @@ print(f"Best arm: {np.argmax(arm_means)}")
 **Activity 1.2: Epsilon-Greedy Implementation**
 ```python
 # Implement and test epsilon-greedy algorithm
-from epsilon_greedy import run_epsilon_greedy_experiment, compare_epsilon_values
+from code.epsilon_greedy import run_epsilon_greedy_experiment, compare_epsilon_values
 
 # Run epsilon-greedy experiment
 cumulative_rewards, regrets = run_epsilon_greedy_experiment(
