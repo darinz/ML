@@ -829,72 +829,28 @@ quantized_model = quantize_model(model, calibration_data)
 
 ### Text Generation
 
+See [`deployment_inference.py`](deployment_inference.py) for the complete implementation of text generation and other inference techniques.
+
 ```python
-def generate_text(model, tokenizer, prompt, max_length=100, temperature=0.8, top_k=50):
-    """Generate text using the trained model."""
-    model.eval()
-    
-    # Encode prompt
-    input_ids = tokenizer.encode(prompt, return_tensors='pt')
-    input_ids = input_ids.to(next(model.parameters()).device)
-    
-    generated_ids = input_ids.clone()
-    
-    with torch.no_grad():
-        for _ in range(max_length):
-            # Get model predictions
-            outputs = model(generated_ids)
-            next_token_logits = outputs.logits[:, -1, :] / temperature
-            
-            # Apply top-k filtering
-            top_k_logits, top_k_indices = torch.topk(next_token_logits, top_k)
-            
-            # Sample from top-k
-            probs = torch.softmax(top_k_logits, dim=-1)
-            next_token_idx = torch.multinomial(probs, num_samples=1)
-            next_token = top_k_indices[0, next_token_idx[0]]
-            
-            # Append to generated sequence
-            generated_ids = torch.cat([generated_ids, next_token.unsqueeze(0).unsqueeze(0)], dim=1)
-            
-            # Stop if end token
-            if next_token.item() == tokenizer.eos_token_id:
-                break
-    
-    # Decode generated text
-    generated_text = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
-    return generated_text
+from deployment_inference import generate_text
+
+# Usage
+generated_text = generate_text(model, tokenizer, "Hello world", max_length=50)
+print(f"Generated: {generated_text}")
 ```
 
 ## Ethical Considerations
 
 ### Bias Detection and Mitigation
 
+See [`ethical_considerations.py`](ethical_considerations.py) for the complete implementation of bias detection and other ethical tools.
+
 ```python
-def detect_bias(model, tokenizer, test_prompts, target_groups):
-    """Detect bias in model outputs."""
-    model.eval()
-    bias_scores = {}
-    
-    for group in target_groups:
-        group_scores = []
-        
-        for prompt in test_prompts:
-            # Generate completions
-            input_ids = tokenizer.encode(prompt, return_tensors='pt')
-            
-            with torch.no_grad():
-                outputs = model(input_ids)
-                probs = torch.softmax(outputs.logits[:, -1, :], dim=-1)
-            
-            # Calculate bias score for this group
-            group_tokens = [tokenizer.encode(group, add_special_tokens=False)[0]]
-            group_prob = probs[0, group_tokens].mean().item()
-            group_scores.append(group_prob)
-        
-        bias_scores[group] = np.mean(group_scores)
-    
-    return bias_scores
+from ethical_considerations import detect_bias
+
+# Usage
+bias_scores = detect_bias(model, tokenizer, test_prompts, target_groups)
+print(f"Bias scores: {bias_scores}")
 ```
 
 ### Safety Measures
