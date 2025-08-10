@@ -255,7 +255,7 @@ P(\exists i, t : |\hat{\mu}_i(t) - \mu_i| \geq \beta_i(t)) \leq \delta
 ### Numerical Stability
 
 **Confidence Interval Calculation:**
-See [`bai_utils.py`](bai_utils.py) for the complete implementation.
+See [`code/bai_utils.py`](code/bai_utils.py) for the complete implementation.
 
 ```python
 # Key functionality:
@@ -314,7 +314,7 @@ Identify the best arm when there are multiple objectives to optimize.
 ### A/B Testing
 
 **Website Design Testing:**
-See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+See [`code/bai_applications.py`](code/bai_applications.py) for the complete implementation.
 
 ```python
 # Key functionality:
@@ -327,7 +327,7 @@ class ABTestBAI:
 ### Clinical Trials
 
 **Treatment Comparison:**
-See [`bai_applications.py`](bai_applications.py) for the complete implementation.
+See [`code/bai_applications.py`](code/bai_applications.py) for the complete implementation.
 
 ```python
 # Key functionality:
