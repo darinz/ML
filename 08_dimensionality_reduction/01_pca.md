@@ -526,5 +526,21 @@ Principal Components Analysis is a fundamental technique for dimensionality redu
 
 The key insight is that by finding the eigenvectors of the covariance matrix, we discover the directions that capture the most variance in the data, allowing us to represent the data more efficiently while preserving its essential structure.
 
+## From Variance Maximization to Statistical Independence
+
+We've now explored **Principal Components Analysis (PCA)** - a fundamental technique for dimensionality reduction that finds directions of maximum variance in the data. We've seen how PCA works by performing eigenvalue decomposition on the covariance matrix, how it provides an optimal linear transformation for dimensionality reduction, and how it preserves as much information as possible while reducing dimensions.
+
+However, while PCA is excellent for finding directions that maximize variance and decorrelate the data, it has limitations: it only finds **uncorrelated** components, not necessarily **statistically independent** ones. In many real-world scenarios, especially those involving mixed signals or source separation, we need to go beyond correlation to find truly independent components.
+
+This motivates our exploration of **Independent Components Analysis (ICA)** - a technique that finds components that are statistically independent, not just uncorrelated. We'll see how ICA can separate mixed signals into their original sources, how it handles the cocktail party problem, and how it provides a more powerful approach for certain types of data analysis.
+
+The transition from PCA to ICA represents the bridge from variance maximization to statistical independence - taking our understanding of linear dimensionality reduction and extending it to handle source separation and signal unmixing problems.
+
+In the next section, we'll explore how ICA works, how it differs from PCA, and how it can be applied to problems like audio separation, brain signal processing, and financial data analysis.
+
+---
+
+**Next: [Independent Components Analysis](02_ica.md)** - Learn how to separate mixed signals into statistically independent sources.
+
 
 
