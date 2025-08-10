@@ -18,12 +18,12 @@ Dimensionality reduction helps visualize, interpret, and process high-dimensiona
 - **[03_hands-on_coding.md](03_hands-on_coding.md)** - Practical implementation guide
 
 ### Implementation
-- **[pca_examples.py](pca_examples.py)** - Complete PCA implementation with 10 comprehensive sections
-- **[ica_examples.py](ica_examples.py)** - Complete ICA implementation with 10 detailed sections
+- **[code/pca_examples.py](code/pca_examples.py)** - Complete PCA implementation with 10 comprehensive sections
+- **[code/ica_examples.py](code/ica_examples.py)** - Complete ICA implementation with 10 detailed sections
 
 ### Supporting Files
-- **requirements.txt** - Python dependencies
-- **environment.yaml** - Conda environment setup
+- **code/requirements.txt** - Python dependencies
+- **code/environment.yaml** - Conda environment setup
 - **img/** - Figures and diagrams
 
 ## Key Concepts
@@ -83,30 +83,30 @@ Dimensionality reduction helps visualize, interpret, and process high-dimensiona
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 
 Or use conda:
 ```bash
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 ```
 
 ## Running Examples
 
 ```bash
-python pca_examples.py
-python ica_examples.py
+python code/pca_examples.py
+python code/ica_examples.py
 ```
 
 ## Quick Start Code
 
 ```python
 # PCA
-from pca_examples import pca_manual
+from code.pca_examples import pca_manual
 X_reduced, components, explained_variance = pca_manual(X, n_components=2)
 
 # ICA
-from ica_examples import ica_gradient_ascent
+from code.ica_examples import ica_gradient_ascent
 unmixing_matrix, independent_components = ica_gradient_ascent(X, n_components=3)
 
 # Using scikit-learn
