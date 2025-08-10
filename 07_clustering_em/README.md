@@ -16,14 +16,18 @@ Materials cover unsupervised learning techniques for discovering patterns and st
 - **[01_clustering.md](01_clustering.md)** - K-means clustering algorithm and concepts
 - **[02_em_mixture_of_gaussians.md](02_em_mixture_of_gaussians.md)** - GMM and EM algorithm details
 - **[03_general_em.md](03_general_em.md)** - General EM framework and variational inference
+- **[04_variational_auto-encoder.md](04_variational_auto-encoder.md)** - VAE concepts and implementation
+- **[05_hands-on_coding.md](05_hands-on_coding.md)** - Practical implementation guide
 
 ### Implementation
 - **[kmeans_examples.py](kmeans_examples.py)** - Complete k-means implementation with examples
 - **[em_mog_examples.py](em_mog_examples.py)** - EM for Gaussian Mixture Models
 - **[general_em_examples.py](general_em_examples.py)** - General EM framework with multiple models
+- **[variational_auto_encoder_examples.py](variational_auto_encoder_examples.py)** - Complete VAE implementation
 
 ### Supporting Files
 - **requirements.txt** - Python dependencies
+- **environment.yaml** - Conda environment setup
 - **img/** - Images and visualizations
 
 ## Key Concepts
@@ -51,6 +55,13 @@ Materials cover unsupervised learning techniques for discovering patterns and st
 1. **E-step**: $Q(Z) = \arg\max_Q$ ELBO
 2. **M-step**: $\theta = \arg\max_\theta \mathbb{E}_{Z\sim Q}[\log p(X,Z|\theta)]$
 
+### Variational Auto-Encoders (VAE)
+**Generative Model**: $p(x,z) = p(z) \cdot p(x|z; \theta)$
+
+**Approximate Posterior**: $q(z|x; \phi) \approx p(z|x; \theta)$
+
+**ELBO**: $\mathcal{L}(\theta,\phi) = \mathbb{E}_{z\sim q}[\log p(x|z;\theta)] - \text{KL}(q(z|x;\phi) || p(z))$
+
 ## Applications
 
 - **Data Exploration**: Discovering natural groupings in data
@@ -58,13 +69,16 @@ Materials cover unsupervised learning techniques for discovering patterns and st
 - **Anomaly Detection**: Identifying unusual patterns
 - **Image Segmentation**: Grouping similar pixels
 - **Document Clustering**: Organizing text collections
+- **Generative Modeling**: Creating new data samples
 
 ## Getting Started
 
 1. Read `01_clustering.md` for k-means fundamentals
 2. Study `02_em_mixture_of_gaussians.md` for GMM and EM
 3. Learn `03_general_em.md` for general framework
-4. Run Python examples to see algorithms in action
+4. Explore `04_variational_auto-encoder.md` for VAE concepts
+5. Use `05_hands-on_coding.md` for practical implementation
+6. Run Python examples to see algorithms in action
 
 ## Prerequisites
 
@@ -79,12 +93,18 @@ Materials cover unsupervised learning techniques for discovering patterns and st
 pip install -r requirements.txt
 ```
 
+Or use conda:
+```bash
+conda env create -f environment.yaml
+```
+
 ## Running Examples
 
 ```bash
 python kmeans_examples.py
 python em_mog_examples.py
 python general_em_examples.py
+python variational_auto_encoder_examples.py
 ```
 
 ## Quick Start Code
@@ -102,6 +122,12 @@ phi, mu, Sigma, w, logliks, elbos = em_mog(X, k=3)
 from general_em_examples import general_em, gmm_initialize, gmm_e_step, gmm_m_step
 init_params = gmm_initialize(X, k=3)
 params, Q, elbos, n_iters = general_em(X, init_params, gmm_e_step, gmm_m_step)
+
+# VAE
+from variational_auto_encoder_examples import VAE
+vae = VAE(input_dim=784, hidden_dim=400, latent_dim=20)
+vae.fit(X_train)
+samples = vae.sample(n_samples=10)
 ```
 
 ## Method Comparison
