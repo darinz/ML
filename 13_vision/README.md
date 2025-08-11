@@ -20,32 +20,32 @@ Modern computer vision has been revolutionized by transformer architectures and 
 - **[05_hands-on_coding.md](05_hands-on_coding.md)** - Practical implementation guide
 
 ### Vision Transformer Components
-- **[vision_transformer.py](vision_transformer.py)** - Complete ViT implementation
-- **[patch_embedding.py](patch_embedding.py)** - Image patching and embedding
-- **[attention.py](attention.py)** - Multi-head self-attention for vision
-- **[position_encoding.py](position_encoding.py)** - Position embedding methods
+- **[code/vision_transformer.py](code/vision_transformer.py)** - Complete ViT implementation
+- **[code/patch_embedding.py](code/patch_embedding.py)** - Image patching and embedding
+- **[code/attention.py](code/attention.py)** - Multi-head self-attention for vision
+- **[code/position_encoding.py](code/position_encoding.py)** - Position embedding methods
 
 ### Self-Supervised Learning
-- **[inpainting.py](inpainting.py)** - Image inpainting implementation
-- **[jigsaw.py](jigsaw.py)** - Jigsaw puzzle solving
-- **[rotation.py](rotation.py)** - Rotation prediction
-- **[colorization.py](colorization.py)** - Image colorization
+- **[code/inpainting.py](code/inpainting.py)** - Image inpainting implementation
+- **[code/jigsaw.py](code/jigsaw.py)** - Jigsaw puzzle solving
+- **[code/rotation.py](code/rotation.py)** - Rotation prediction
+- **[code/colorization.py](code/colorization.py)** - Image colorization
 
 ### Contrastive Learning
-- **[simclr.py](simclr.py)** - SimCLR implementation
-- **[moco.py](moco.py)** - MoCo framework
-- **[byol.py](byol.py)** - BYOL training
-- **[dino.py](dino.py)** - DINO self-distillation
+- **[code/simclr.py](code/simclr.py)** - SimCLR implementation
+- **[code/moco.py](code/moco.py)** - MoCo framework
+- **[code/byol.py](code/byol.py)** - BYOL training
+- **[code/dino.py](code/dino.py)** - DINO self-distillation
 
 ### Foundation Models
-- **[clip_implementation.py](clip_implementation.py)** - CLIP model implementation
-- **[sam_segmentation.py](sam_segmentation.py)** - SAM for segmentation
-- **[dalle_generation.py](dalle_generation.py)** - DALL-E style generation
-- **[zero_shot_classification.py](zero_shot_classification.py)** - Zero-shot learning
+- **[code/clip_implementation.py](code/clip_implementation.py)** - CLIP model implementation
+- **[code/sam_segmentation.py](code/sam_segmentation.py)** - SAM for segmentation
+- **[code/dalle_generation.py](code/dalle_generation.py)** - DALL-E style generation
+- **[code/zero_shot_classification.py](code/zero_shot_classification.py)** - Zero-shot learning
 
 ### Supporting Files
-- **requirements.txt** - Python dependencies
-- **environment.yaml** - Conda environment setup
+- **code/requirements.txt** - Python dependencies
+- **code/environment.yaml** - Conda environment setup
 
 ## Key Concepts
 
@@ -99,24 +99,24 @@ Modern computer vision has been revolutionized by transformer architectures and 
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 # or
-conda env create -f environment.yaml
+conda env create -f code/environment.yaml
 ```
 
 ## Quick Start
 
 ```python
 # Vision Transformer
-from vision_transformer import VisionTransformer
+from code.vision_transformer import VisionTransformer
 model = VisionTransformer(image_size=224, patch_size=16, num_classes=1000)
 
 # SimCLR
-from simclr import SimCLR
+from code.simclr import SimCLR
 model = SimCLR(encoder='resnet50', projection_dim=128)
 
 # CLIP
-from clip_implementation import CLIP
+from code.clip_implementation import CLIP
 model = CLIP(image_encoder='vit_base', text_encoder='transformer')
 ```
 
