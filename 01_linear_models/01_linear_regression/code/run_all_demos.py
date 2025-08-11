@@ -24,6 +24,9 @@ def main():
         from regression_vs_classification_demo import demonstrate_regression_vs_classification
         from multiple_features_demo import demonstrate_multiple_features
         from loss_functions_demo import demonstrate_loss_functions
+        from optimization_approaches_demo import demonstrate_optimization_approaches
+        from gradient_descent_visualization_demo import demonstrate_gradient_descent_visualization
+        from learning_rate_effects_demo import demonstrate_learning_rate_effects
         
         print("All modules imported successfully!")
         print()
@@ -47,6 +50,21 @@ def main():
         print("4. Loss Functions")
         print("-" * 40)
         demonstrate_loss_functions()
+        print("\n" + "="*50 + "\n")
+        
+        print("5. Optimization Approaches")
+        print("-" * 40)
+        demonstrate_optimization_approaches()
+        print("\n" + "="*50 + "\n")
+        
+        print("6. Gradient Descent Visualization")
+        print("-" * 40)
+        demonstrate_gradient_descent_visualization()
+        print("\n" + "="*50 + "\n")
+        
+        print("7. Learning Rate Effects")
+        print("-" * 40)
+        demonstrate_learning_rate_effects()
         print("\n" + "="*50 + "\n")
         
         print("All demonstrations completed successfully!")
