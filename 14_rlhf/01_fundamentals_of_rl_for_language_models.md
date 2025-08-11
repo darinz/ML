@@ -69,11 +69,11 @@ Instead of providing specific "correct" answers, you show the model two response
 
 In RL for language models, we formulate the problem as:
 
-**Environment**: Text generation task (e.g., question answering, summarization, dialogue)
-**Agent**: Language model policy $`\pi_\theta`$ with parameters $`\theta`$
-**State**: Current conversation context or prompt $`s_t`$
-**Action**: Next token to generate $`a_t`$ from vocabulary $`\mathcal{V}`$
-**Reward**: Human preference score or learned reward function $`R(s_t, a_t, s_{t+1})`$
+- **Environment**: Text generation task (e.g., question answering, summarization, dialogue)
+- **Agent**: Language model policy $`\pi_\theta`$ with parameters $`\theta`$
+- **State**: Current conversation context or prompt $`s_t`$
+- **Action**: Next token to generate $`a_t`$ from vocabulary $`\mathcal{V}`$
+- **Reward**: Human preference score or learned reward function $`R(s_t, a_t, s_{t+1})`$
 
 ### Sequential Decision Making
 
