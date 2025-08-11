@@ -7,6 +7,8 @@
 
 Comprehensive introduction to deep learning, covering mathematical foundations, neural network architectures, and efficient implementation techniques.
 
+> **For an in-depth treatment of Deep Learning:** Check out the comprehensive [Deep Learning repository](https://github.com/darinz/DL) which covers everything from neural network basics to cutting-edge generative AI, including modern architectures like Transformers, CNNs, RNNs, and advanced topics in computer vision and NLP.
+
 ## Overview
 
 Deep learning enables machines to learn complex patterns directly from raw data through hierarchical representations, representing a paradigm shift in artificial intelligence.
