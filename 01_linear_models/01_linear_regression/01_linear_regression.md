@@ -321,113 +321,457 @@ def demonstrate_linear_vs_nonlinear():
 linear_demo = demonstrate_linear_vs_nonlinear()
 ```
 
-## The Supervised Learning Problem: Formalizing Our Goal
+## Regression vs. Classification: Understanding Problem Types
 
-Given data like this, how can we learn to predict the prices of other houses in Portland, as a function of the size of their living areas? This is the essence of supervised learning: using known examples to make predictions about new, unseen cases.
+Supervised learning problems can be broadly categorized into two types: regression and classification. Understanding the difference is crucial for choosing the right approach and interpreting results correctly.
 
-**Real-World Analogy: The Language Learning Problem**
-Think of supervised learning like learning a new language:
-- **Vocabulary Examples**: Training data (word → meaning pairs)
-- **Language Learner**: Learning algorithm (linear regression)
-- **New Words**: Test data (words without meanings)
-- **Learning Process**: Study examples to understand patterns
-- **Translation**: Use learned patterns to understand new words
-- **Accuracy**: Check if translations are correct
+**Real-World Analogy: The Weather Forecast Problem**
+Think of regression vs. classification like different types of weather forecasts:
+- **Regression**: "Tomorrow's temperature will be 72.5°F" (continuous prediction)
+- **Classification**: "Tomorrow will be sunny" (categorical prediction)
+- **Temperature Prediction**: Can take any value in a range (regression)
+- **Weather Type**: Can only be sunny, cloudy, rainy, etc. (classification)
+- **Precision**: Regression gives exact values, classification gives categories
+- **Application**: Different tools for different needs
 
-**Visual Analogy: The Pattern Recognition Problem**
-Think of supervised learning like recognizing patterns:
-- **Pattern Examples**: Training data (input → output pairs)
-- **Pattern Learner**: Learning algorithm (linear regression)
-- **New Patterns**: Test data (inputs without outputs)
-- **Learning**: Study examples to understand the pattern
-- **Recognition**: Use learned pattern to predict new outputs
-- **Verification**: Check if predictions are accurate
+**Visual Analogy: The Measurement Problem**
+Think of regression vs. classification like different measurement systems:
+- **Regression**: Like a thermometer - gives continuous readings (temperature)
+- **Classification**: Like a traffic light - gives discrete states (red, yellow, green)
+- **Thermometer**: Can show 72.3°F, 72.4°F, 72.5°F (infinite possibilities)
+- **Traffic Light**: Can only be red, yellow, or green (finite possibilities)
+- **Granularity**: Regression is fine-grained, classification is coarse-grained
 
-### Formal Problem Statement: Mathematical Precision
+### Regression Problems: Predicting Continuous Values
 
-To formalize this, we define:
-- **Input features**: The variables we use to make predictions (e.g., living area), denoted as $x^{(i)}$ for the $i$-th example. In general, $x^{(i)}$ can be a vector if there are multiple features.
-- **Target variable**: The value we want to predict (e.g., price), denoted as $y^{(i)}$ for the $i$-th example.
-- **Training example**: A pair $(x^{(i)}, y^{(i)})$ representing the input and output for the $i$-th data point.
-- **Training set**: The collection of all training examples, $\{(x^{(i)}, y^{(i)}) ; i = 1, \ldots, n\}$, where $n$ is the number of examples.
+When the target variable that we're trying to predict is **continuous**, such as in our housing example, we call the learning problem a **regression** problem. Linear regression is the most common example, but there are many other regression algorithms.
 
-**Real-World Analogy: The Library Catalog Problem**
-Think of the formal problem like a library catalog:
-- **Book Information**: Input features (title, author, genre, year)
-- **Book Location**: Target variable (shelf number)
-- **Catalog Entry**: Training example (book info → location)
-- **Catalog System**: Training set (all book entries)
-- **New Book**: Test example (book info without location)
-- **Location Prediction**: Use catalog to find new book location
+**Real-World Analogy: The Speed Limit Problem**
+Think of regression like predicting speed limits:
+- **Road Features**: Number of lanes, road type, location, time of day
+- **Speed Limit**: Target variable (can be 25, 30, 35, 40, 45, 50, 55, 65, 70 mph)
+- **Continuous Nature**: Speed can be any value in a range
+- **Prediction**: "This road should have a 42.3 mph speed limit"
+- **Precision**: Can predict fractional values
+- **Interpretation**: "For each additional lane, speed limit increases by 5.2 mph"
 
-We use $\mathcal{X}$ to denote the space of input values and $\mathcal{Y}$ for the space of output values. In this example, $\mathcal{X} = \mathcal{Y} = \mathbb{R}$, meaning both inputs and outputs are real numbers. In more complex problems, $\mathcal{X}$ could be a higher-dimensional space.
+**Examples of regression problems:**
+- **House Price Prediction**: Living area, bedrooms → Price (continuous)
+- **Stock Price Forecasting**: Historical prices, volume → Future price (continuous)
+- **Temperature Estimation**: Humidity, pressure, time → Temperature (continuous)
+- **Student Performance**: Study hours, attendance → Test score (continuous)
+- **Medical Diagnosis**: Age, weight, blood pressure → Disease severity (continuous)
 
-### The Learning Objective: Finding the Best Function
+**Key characteristics:**
+- **Target variable is continuous**: Can take any real value in a range
+- **Loss functions**: Mean squared error, mean absolute error, Huber loss
+- **Output interpretation**: Real numbers with meaningful units
+- **Evaluation metrics**: RMSE, MAE, R-squared, correlation coefficient
 
-The goal of supervised learning is, given a training set, to learn a function $h : \mathcal{X} \to \mathcal{Y}$ so that $h(x)$ is a good predictor for the corresponding value of $y$. This function $h$ is called a **hypothesis**. The process of learning is to choose $h$ from a set of possible functions (the hypothesis space) so that it best fits the data.
+**Practical Example - Regression vs. Classification:**
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import mean_squared_error, accuracy_score
 
-**Real-World Analogy: The Function Approximation Problem**
-Think of the learning objective like approximating a complex function:
-- **True Function**: Unknown relationship between inputs and outputs
-- **Sample Points**: Training data (input-output pairs)
-- **Approximation**: Hypothesis function (linear model)
-- **Fitting**: Find the best approximation to the true function
-- **Prediction**: Use approximation to predict new outputs
-- **Accuracy**: Measure how well approximation matches true function
+def demonstrate_regression_vs_classification():
+    """Demonstrate the difference between regression and classification"""
+    
+    # Generate sample data
+    np.random.seed(42)
+    n_samples = 100
+    
+    # Regression data: house size vs. price
+    house_sizes = np.random.uniform(1000, 3000, n_samples)
+    house_prices = 100 + 0.15 * house_sizes + np.random.normal(0, 20, n_samples)
+    
+    # Classification data: house size vs. expensive/cheap
+    price_threshold = np.median(house_prices)
+    house_categories = (house_prices > price_threshold).astype(int)  # 0=cheap, 1=expensive
+    
+    print("Regression vs. Classification Comparison")
+    print("=" * 50)
+    print("Regression: Predicting continuous values")
+    print("Classification: Predicting discrete categories")
+    print()
+    
+    # Fit regression model
+    lr_regression = LinearRegression()
+    lr_regression.fit(house_sizes.reshape(-1, 1), house_prices)
+    price_predictions = lr_regression.predict(house_sizes.reshape(-1, 1))
+    
+    # Fit classification model
+    lr_classification = LogisticRegression()
+    lr_classification.fit(house_sizes.reshape(-1, 1), house_categories)
+    category_predictions = lr_classification.predict(house_sizes.reshape(-1, 1))
+    category_probabilities = lr_classification.predict_proba(house_sizes.reshape(-1, 1))[:, 1]
+    
+    # Calculate metrics
+    mse = mean_squared_error(house_prices, price_predictions)
+    accuracy = accuracy_score(house_categories, category_predictions)
+    
+    print("Model Performance:")
+    print(f"Regression MSE: {mse:.2f}")
+    print(f"Classification Accuracy: {accuracy:.3f}")
+    print()
+    
+    print("Prediction Examples:")
+    print("House Size: 2000 sq ft")
+    print(f"  Regression: ${price_predictions[50]:.0f} (continuous)")
+    print(f"  Classification: {'Expensive' if category_predictions[50] else 'Cheap'} (discrete)")
+    print(f"  Classification Probability: {category_probabilities[50]:.3f}")
+    print()
+    
+    # Visualization
+    plt.figure(figsize=(15, 5))
+    
+    # Regression plot
+    plt.subplot(1, 3, 1)
+    plt.scatter(house_sizes, house_prices, alpha=0.6, c='blue', label='Data')
+    plt.plot(house_sizes, price_predictions, 'r-', linewidth=2, label='Regression Line')
+    plt.xlabel('House Size (sq ft)')
+    plt.ylabel('Price ($1000s)')
+    plt.title('Regression: Continuous Prediction')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    # Classification plot
+    plt.subplot(1, 3, 2)
+    colors = ['red' if cat == 0 else 'blue' for cat in house_categories]
+    plt.scatter(house_sizes, house_categories, c=colors, alpha=0.6, label='Data')
+    plt.plot(house_sizes, category_probabilities, 'g-', linewidth=2, label='Probability')
+    plt.xlabel('House Size (sq ft)')
+    plt.ylabel('Category (0=Cheap, 1=Expensive)')
+    plt.title('Classification: Discrete Prediction')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    # Comparison
+    plt.subplot(1, 3, 3)
+    plt.hist(house_prices, bins=20, alpha=0.7, label='Price Distribution')
+    plt.axvline(price_threshold, color='red', linestyle='--', label='Classification Threshold')
+    plt.xlabel('Price ($1000s)')
+    plt.ylabel('Frequency')
+    plt.title('Price Distribution & Threshold')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # Analysis
+    print("Key Differences:")
+    print("-" * 20)
+    print("Regression:")
+    print("  - Output: Continuous values")
+    print("  - Loss: Mean squared error")
+    print("  - Interpretation: 'How much?'")
+    print("  - Example: Price = $342,500")
+    print()
+    print("Classification:")
+    print("  - Output: Discrete categories")
+    print("  - Loss: Cross-entropy")
+    print("  - Interpretation: 'Which category?'")
+    print("  - Example: Expensive (with 85% confidence)")
+    
+    return mse, accuracy
 
-<img src="./img/learning_algorithm.png" width="300px" />
+reg_class_demo = demonstrate_regression_vs_classification()
+```
 
-### Understanding the Hypothesis Space: The Space of Possibilities
+### Classification Problems: Predicting Discrete Categories
 
-The hypothesis space is the set of all possible functions we consider. For linear regression, this space consists of all linear functions of the form:
+When $y$ can take on only a small number of **discrete values** (such as if, given the living area, we wanted to predict if a dwelling is a house or an apartment), we call it a **classification** problem. Classification is used in tasks like spam detection, image recognition, and medical diagnosis.
 
-$$h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots + \theta_d x_d$$
+**Real-World Analogy: The Email Sorting Problem**
+Think of classification like sorting emails:
+- **Email Features**: Sender, subject, content, time, attachments
+- **Email Category**: Target variable (spam, important, work, personal)
+- **Discrete Nature**: Email can only be in one category
+- **Prediction**: "This email is spam with 95% confidence"
+- **Precision**: Gives probability for each category
+- **Interpretation**: "Words like 'free' and 'money' increase spam probability"
 
-where $\theta = [\theta_0, \theta_1, \ldots, \theta_d]^T$ is the parameter vector. The learning algorithm's job is to find the best values for these parameters.
+**Examples of classification problems:**
+- **Spam Detection**: Email content → Spam/Not spam (binary)
+- **Image Recognition**: Image pixels → Cat/Dog/Bird (multi-class)
+- **Medical Diagnosis**: Symptoms, tests → Healthy/Sick (binary)
+- **Credit Card Fraud**: Transaction data → Fraud/Legitimate (binary)
+- **Sentiment Analysis**: Text → Positive/Negative/Neutral (multi-class)
 
-**Real-World Analogy: The Recipe Space Problem**
-Think of the hypothesis space like a recipe book:
-- **Recipe Book**: All possible recipes (hypothesis space)
-- **Recipe Type**: Linear recipes (linear functions)
-- **Ingredients**: Parameters (θ values)
-- **Recipe Selection**: Choose the best recipe for the data
-- **Parameter Tuning**: Adjust ingredient amounts
-- **Best Recipe**: Optimal parameters for the data
+**Key characteristics:**
+- **Target variable is discrete**: Can only take specific categorical values
+- **Loss functions**: Cross-entropy, hinge loss, log loss
+- **Output interpretation**: Class labels or probabilities
+- **Evaluation metrics**: Accuracy, precision, recall, F1-score, ROC-AUC
 
-**Visual Analogy: The Function Family Problem**
-Think of the hypothesis space like a family of functions:
-- **Function Family**: All possible linear functions
-- **Family Members**: Different parameter combinations
-- **Parameter Space**: All possible θ values
-- **Best Member**: Function that fits data best
-- **Selection Process**: Search through parameter space
-- **Optimal Choice**: Parameters that minimize error
+### Why the Distinction Matters: Choosing the Right Tool
 
-### Notation Summary: The Language of Linear Regression
+The distinction is important because it determines:
+1. **Type of model**: Different algorithms are designed for different problem types
+2. **Loss function**: We need different ways to measure prediction error
+3. **Evaluation metrics**: Accuracy vs. mean squared error, for example
+4. **Output interpretation**: Class probabilities vs. continuous predictions
+5. **Business impact**: Different types of errors have different costs
 
-- $x^{(i)}$: Input variable (feature) for the $i$-th training example (e.g., living area)
-- $y^{(i)}$: Output variable (target) for the $i$-th training example (e.g., price)
-- $(x^{(i)}, y^{(i)})$: The $i$-th training example
-- $n$: Number of training examples
-- Training set: $\{(x^{(i)}, y^{(i)}) ; i = 1, \ldots, n\}$
-- $\mathcal{X}$: Space of input values (features)
-- $\mathcal{Y}$: Space of output values (targets)
-- $h$: Hypothesis function, $h : \mathcal{X} \to \mathcal{Y}$
-- $\theta$: Parameter vector that defines the hypothesis
+**Real-World Analogy: The Tool Selection Problem**
+Think of the distinction like choosing the right tool:
+- **Regression**: Like a ruler - measures continuous quantities
+- **Classification**: Like a sorting machine - puts items in categories
+- **Ruler**: Perfect for measuring length, weight, temperature
+- **Sorter**: Perfect for categorizing items, making decisions
+- **Wrong Tool**: Using a ruler to sort items or a sorter to measure length
+- **Right Tool**: Using the appropriate method for the problem
 
-**Real-World Analogy: The Mathematical Language Problem**
-Think of notation like mathematical language:
-- **Variables**: Words in the language (x, y, θ)
-- **Functions**: Sentences in the language (h(x))
-- **Equations**: Complete thoughts (y = θ₀ + θ₁x)
-- **Sets**: Collections of objects ({training examples})
-- **Spaces**: Universes of possibilities (X, Y spaces)
-- **Learning**: Understanding the language to solve problems
+In this section, we focus on regression, but many of the ideas carry over to classification with appropriate modifications.
 
-**Key Insights from the Introduction:**
-1. **Linear regression is foundational**: It's the starting point for understanding machine learning
-2. **Supervised learning is pattern recognition**: We learn from examples to predict new cases
-3. **Linear models are powerful**: They work well for many real-world problems
-4. **Interpretability matters**: Linear models provide clear insights
-5. **Trade-offs exist**: Simplicity vs. accuracy, speed vs. complexity
-6. **Mathematical notation is essential**: It provides precise communication
+## Linear Regression with Multiple Features: Beyond Simple Lines
+
+In many real-world problems, we have more than one feature. To make our housing example more interesting, let's consider a slightly richer dataset in which we also know the number of bedrooms in each house:
+
+| Living area (ft²) | #bedrooms | Price (1000$s) |
+|------------------|-----------|---------------|
+| 2104             | 3         | 400           |
+| 1600             | 3         | 330           |
+| 2400             | 3         | 369           |
+| 1416             | 2         | 232           |
+| 3000             | 4         | 540           |
+| ...              | ...       | ...           |
+
+**Real-World Analogy: The Recipe Complexity Problem**
+Think of multiple features like a complex recipe:
+- **Single Ingredient**: Simple recipe (flour only → basic bread)
+- **Multiple Ingredients**: Complex recipe (flour, sugar, eggs, milk → cake)
+- **Ingredient Interactions**: Some ingredients work together
+- **Feature Importance**: Some ingredients matter more than others
+- **Recipe Optimization**: Find the best combination of ingredients
+- **Prediction**: How good will the result be with these ingredients?
+
+**Visual Analogy: The Multi-dimensional Space Problem**
+Think of multiple features like navigating in 3D space:
+- **1D Space**: Like walking on a line (single feature)
+- **2D Space**: Like walking on a plane (two features)
+- **3D Space**: Like flying in space (three features)
+- **Higher Dimensions**: Like navigating in abstract spaces
+- **Hyperplane**: The "line" that best fits the data in high dimensions
+- **Distance**: How far points are from the hyperplane
+
+### Extending to Multiple Features: The Power of More Information
+
+Here, the $x$'s are two-dimensional vectors in $\mathbb{R}^2$. For instance, $x_1^{(i)}$ is the living area of the $i$-th house in the training set, and $x_2^{(i)}$ is its number of bedrooms. In general, $x^{(i)}$ can be a vector of any length, depending on how many features we include.
+
+**Real-World Analogy: The Detective Work Problem**
+Think of multiple features like detective work:
+- **Single Clue**: Limited information (suspect height only)
+- **Multiple Clues**: Rich information (height, age, location, motive)
+- **Clue Weighting**: Some clues are more important than others
+- **Clue Interactions**: Some clues work together
+- **Evidence Combination**: Combine all clues for best prediction
+- **Case Solving**: Use all available evidence to solve the case
+
+**Why multiple features?**
+- **More Information**: More features provide richer context
+- **Better Predictions**: Multiple features often lead to more accurate models
+- **Feature Interactions**: Some features work together in complex ways
+- **Redundancy**: Some features may be redundant or correlated
+- **Feature Selection**: Choosing the right features is crucial
+
+**Feature selection**—deciding which features to use—is an important part of building a good model, but for now, let's take the features as given.
+
+### The Linear Model Assumption: The Foundation of Simplicity
+
+The idea of linear regression is to approximate the target variable $y$ as a linear function of the input features $x$. This means we assume that the relationship between the features and the target can be captured by a straight line (or hyperplane in higher dimensions).
+
+**Real-World Analogy: The Assembly Line Problem**
+Think of the linear model like an assembly line:
+- **Input Components**: Different features (parts, materials, time)
+- **Output Product**: Target variable (final product quality)
+- **Linear Process**: Each component contributes independently
+- **Additive Effects**: Effects of components add up linearly
+- **No Interactions**: Components don't interact with each other
+- **Simple Assembly**: Easy to understand and optimize
+
+**Mathematical intuition**: We're assuming that each feature contributes independently to the target, and these contributions add up linearly. This is a strong assumption, but it's often a good starting point.
+
+**Visual Analogy: The Weighted Sum Problem**
+Think of the linear model like a weighted sum:
+- **Features**: Different ingredients with different weights
+- **Weights**: How much each feature matters
+- **Sum**: Combine all weighted features
+- **Linear Combination**: Simple addition of weighted terms
+- **No Cross-terms**: No multiplication between features
+- **Interpretability**: Easy to understand each feature's contribution
+
+### The Hypothesis Function: The Mathematical Model
+
+To perform supervised learning, we must decide how we're going to represent functions/hypotheses $h$ in a computer. As an initial choice, let's say we decide to approximate $y$ as a linear function of $x$:
+
+$$
+h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2
+$$
+
+Here, the $\theta$'s are the **parameters** (also called **weights**) parameterizing the space of linear functions mapping from $\mathcal{X}$ to $\mathcal{Y}$. Each $\theta_j$ determines how much the corresponding feature $x_j$ influences the prediction.
+
+**Real-World Analogy: The Tax System Problem**
+Think of the hypothesis function like a tax system:
+- **Income Sources**: Different features (salary, investments, property)
+- **Tax Rates**: Parameters (θ values) - how much each source is taxed
+- **Base Tax**: Intercept (θ₀) - minimum tax even with zero income
+- **Total Tax**: Sum of taxes from all sources
+- **Tax Formula**: Total = Base + (Rate₁ × Salary) + (Rate₂ × Investments)
+- **Tax Optimization**: Find the best rates for fairness and revenue
+
+**Understanding the parameters:**
+- **$\theta_0$ (Intercept)**: Called the **intercept** or **bias** term, and it allows the model to fit data that does not pass through the origin
+- **$\theta_1$ (Living Area Coefficient)**: Represents the change in price for a one-unit increase in living area (holding bedrooms constant)
+- **$\theta_2$ (Bedroom Coefficient)**: Represents the change in price for a one-unit increase in bedrooms (holding living area constant)
+
+**Practical Example - Multiple Features:**
+```python
+def demonstrate_multiple_features():
+    """Demonstrate linear regression with multiple features"""
+    
+    # Generate sample data with multiple features
+    np.random.seed(42)
+    n_samples = 100
+    
+    # Features: living area, bedrooms, age
+    living_area = np.random.uniform(1000, 3000, n_samples)
+    bedrooms = np.random.randint(1, 6, n_samples)
+    age = np.random.uniform(0, 50, n_samples)
+    
+    # Target: house price (with some feature interactions)
+    base_price = 100
+    area_effect = 0.15 * living_area
+    bedroom_effect = 25 * bedrooms
+    age_effect = -2 * age  # older houses are cheaper
+    noise = np.random.normal(0, 20, n_samples)
+    
+    price = base_price + area_effect + bedroom_effect + age_effect + noise
+    
+    print("Multiple Features Linear Regression")
+    print("=" * 50)
+    print("Features: Living Area, Bedrooms, Age")
+    print("Target: House Price")
+    print()
+    
+    # Create feature matrix
+    X = np.column_stack([living_area, bedrooms, age])
+    
+    # Fit linear regression
+    lr = LinearRegression()
+    lr.fit(X, price)
+    
+    # Get coefficients
+    coefficients = lr.coef_
+    intercept = lr.intercept_
+    
+    print("Model Coefficients:")
+    print(f"Intercept (θ₀): ${intercept:.2f}")
+    print(f"Living Area (θ₁): ${coefficients[0]:.3f} per sq ft")
+    print(f"Bedrooms (θ₂): ${coefficients[1]:.2f} per bedroom")
+    print(f"Age (θ₃): ${coefficients[2]:.2f} per year")
+    print()
+    
+    # Make predictions
+    predictions = lr.predict(X)
+    mse = mean_squared_error(price, predictions)
+    r2 = lr.score(X, price)
+    
+    print("Model Performance:")
+    print(f"Mean Squared Error: ${mse:.2f}")
+    print(f"R-squared: {r2:.3f}")
+    print()
+    
+    # Example predictions
+    print("Example Predictions:")
+    examples = [
+        [2000, 3, 10],  # 2000 sq ft, 3 bedrooms, 10 years old
+        [1500, 2, 5],   # 1500 sq ft, 2 bedrooms, 5 years old
+        [3000, 4, 20]   # 3000 sq ft, 4 bedrooms, 20 years old
+    ]
+    
+    for i, example in enumerate(examples):
+        pred = lr.predict([example])[0]
+        print(f"House {i+1}: {example[0]} sq ft, {example[1]} bedrooms, {example[2]} years old")
+        print(f"  Predicted Price: ${pred:.0f}")
+        print()
+    
+    # Visualization
+    plt.figure(figsize=(15, 5))
+    
+    # Feature vs. Price plots
+    features = ['Living Area', 'Bedrooms', 'Age']
+    colors = ['blue', 'green', 'red']
+    
+    for i, (feature, color) in enumerate(zip([living_area, bedrooms, age], colors)):
+        plt.subplot(1, 3, i+1)
+        plt.scatter(feature, price, alpha=0.6, c=color)
+        plt.xlabel(features[i])
+        plt.ylabel('Price ($1000s)')
+        plt.title(f'{features[i]} vs. Price')
+        plt.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # Analysis
+    print("Key Insights:")
+    print("-" * 20)
+    print("1. Each feature contributes independently to the price")
+    print("2. Coefficients show the marginal effect of each feature")
+    print("3. Intercept represents the base price")
+    print("4. Model assumes no interactions between features")
+    print("5. R-squared shows how well the model fits the data")
+    
+    return coefficients, intercept, mse, r2
+
+multi_feature_demo = demonstrate_multiple_features()
+```
+
+### Vectorized Notation: The Power of Matrix Operations
+
+When there is no risk of confusion, we will drop the $\theta$ subscript in $h_\theta(x)$, and write it more simply as $h(x)$. To simplify our notation, we also introduce the convention of letting $x_0 = 1$ (this is the **intercept term**), so that
+
+$$
+h(x) = \sum_{i=0}^d \theta_i x_i = \theta^T x,
+$$
+
+where on the right-hand side above we are viewing $\theta$ and $x$ both as vectors, and here $d$ is the number of input variables (not counting $x_0$). This vectorized notation is very convenient for both mathematical analysis and efficient computation in code.
+
+**Real-World Analogy: The Assembly Line Problem**
+Think of vectorized notation like an assembly line:
+- **Raw Materials**: Input vector x (features)
+- **Processing Weights**: Parameter vector θ (coefficients)
+- **Assembly Process**: Matrix multiplication θ^T x
+- **Final Product**: Output h(x) (prediction)
+- **Efficiency**: Process all materials at once
+- **Scalability**: Same process works for any number of materials
+
+**Benefits of vectorized notation:**
+1. **Compactness**: The formula is much shorter and cleaner
+2. **Computational efficiency**: Matrix operations are optimized in most programming languages
+3. **Mathematical elegance**: Many theoretical results are easier to derive
+4. **Scalability**: The same formula works for any number of features
+5. **Parallel processing**: Can compute multiple predictions simultaneously
+
+**Example**: For our housing problem with $x_0 = 1$, $x_1 = \text{living area}$, $x_2 = \text{bedrooms}$:
+$$h(x) = \theta_0 \cdot 1 + \theta_1 \cdot x_1 + \theta_2 \cdot x_2 = \theta^T x$$
+
+**Visual Analogy: The Calculator Problem**
+Think of vectorized notation like using a calculator:
+- **Individual Calculations**: Like adding numbers one by one
+- **Vectorized Operations**: Like using the sum function
+- **Efficiency**: Vectorized is much faster
+- **Simplicity**: One operation instead of many
+- **Error Reduction**: Less chance of mistakes
+- **Scalability**: Works for any number of inputs
+
+**Key Insights from Multiple Features:**
+1. **More features can improve predictions**: But only if they're relevant
+2. **Feature selection is important**: Not all features are equally useful
+3. **Linear models assume independence**: Features don't interact
+4. **Vectorized notation is powerful**: Enables efficient computation
+5. **Interpretability remains**: Coefficients have clear meanings
+6. **Scaling matters**: Features should be on similar scales
