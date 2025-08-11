@@ -31,6 +31,8 @@ def main():
         from matrix_derivatives_demo import demonstrate_matrix_derivatives
         from probabilistic_thinking_demo import demonstrate_probabilistic_thinking
         from linear_assumptions_demo import demonstrate_linear_assumptions
+        from global_vs_local_fitting_demo import demonstrate_global_vs_local_fitting
+        from bias_variance_tradeoff_demo import demonstrate_bias_variance_tradeoff
         
         print("All modules imported successfully!")
         print()
@@ -89,6 +91,16 @@ def main():
         print("11. Linear Assumptions")
         print("-" * 40)
         demonstrate_linear_assumptions()
+        print("\n" + "="*50 + "\n")
+        
+        print("12. Global vs. Local Fitting")
+        print("-" * 40)
+        demonstrate_global_vs_local_fitting()
+        print("\n" + "="*50 + "\n")
+        
+        print("13. Bias-Variance Trade-off")
+        print("-" * 40)
+        demonstrate_bias_variance_tradeoff()
         print("\n" + "="*50 + "\n")
         
         print("All demonstrations completed successfully!")
