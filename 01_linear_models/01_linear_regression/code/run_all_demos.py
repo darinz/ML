@@ -29,6 +29,8 @@ def main():
         from learning_rate_effects_demo import demonstrate_learning_rate_effects
         from normal_equations_vs_gradient_descent_demo import demonstrate_normal_equations_vs_gradient_descent
         from matrix_derivatives_demo import demonstrate_matrix_derivatives
+        from probabilistic_thinking_demo import demonstrate_probabilistic_thinking
+        from linear_assumptions_demo import demonstrate_linear_assumptions
         
         print("All modules imported successfully!")
         print()
@@ -77,6 +79,16 @@ def main():
         print("9. Matrix Derivatives")
         print("-" * 40)
         demonstrate_matrix_derivatives()
+        print("\n" + "="*50 + "\n")
+        
+        print("10. Probabilistic Thinking")
+        print("-" * 40)
+        demonstrate_probabilistic_thinking()
+        print("\n" + "="*50 + "\n")
+        
+        print("11. Linear Assumptions")
+        print("-" * 40)
+        demonstrate_linear_assumptions()
         print("\n" + "="*50 + "\n")
         
         print("All demonstrations completed successfully!")
