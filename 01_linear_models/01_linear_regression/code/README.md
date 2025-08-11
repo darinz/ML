@@ -67,6 +67,18 @@ This directory contains Python code examples that demonstrate the concepts cover
   - R² score evaluation for different data types
   - Practical guidelines for when to use linear models
 
+- **`global_vs_local_fitting_demo.py`** - Global vs. local fitting approaches
+  - Comparison of global linear, global polynomial, and local weighted regression
+  - Performance analysis using mean squared error
+  - Implementation of simplified locally weighted regression
+  - Trade-offs between model complexity and computational cost
+
+- **`bias_variance_tradeoff_demo.py`** - Bias-variance trade-off in model complexity
+  - Analysis of different polynomial degrees (1, 2, 5, 10, 15)
+  - Calculation of MSE, bias squared, and variance for each model
+  - Visualization of underfitting vs. overfitting behavior
+  - Identification of optimal model complexity sweet spot
+
 ### Utility Files
 
 - **`run_all_demos.py`** - Main script to run all demonstrations
@@ -116,6 +128,12 @@ python probabilistic_thinking_demo.py
 
 # Linear assumptions
 python linear_assumptions_demo.py
+
+# Global vs. local fitting
+python global_vs_local_fitting_demo.py
+
+# Bias-variance trade-off
+python bias_variance_tradeoff_demo.py
 ```
 
 ### Option 3: Import and Use in Jupyter Notebook
@@ -132,6 +150,8 @@ from normal_equations_vs_gradient_descent_demo import demonstrate_normal_equatio
 from matrix_derivatives_demo import demonstrate_matrix_derivatives
 from probabilistic_thinking_demo import demonstrate_probabilistic_thinking
 from linear_assumptions_demo import demonstrate_linear_assumptions
+from global_vs_local_fitting_demo import demonstrate_global_vs_local_fitting
+from bias_variance_tradeoff_demo import demonstrate_bias_variance_tradeoff
 
 # Run any demonstration
 r2_linear, r2_quadratic, r2_exponential = demonstrate_linear_vs_nonlinear()
@@ -184,6 +204,9 @@ Each demonstration file follows a consistent structure:
 - **Probabilistic Foundations**: Why least squares makes sense
 - **Model Assumptions**: When linear models work and when they don't
 - **Noise Distributions**: How different noise types affect model choice
+- **Local Adaptation**: How locally weighted regression captures non-linear patterns
+- **Model Complexity**: Understanding the bias-variance trade-off
+- **Global vs. Local**: When to use different fitting approaches
 
 ## Learning Objectives
 
