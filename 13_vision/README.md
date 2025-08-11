@@ -6,6 +6,8 @@
 
 Comprehensive materials covering modern computer vision advances including Vision Transformers, self-supervised learning, contrastive learning, and foundation models.
 
+> **For an in-depth treatment of Computer Vision:** Check out the comprehensive [Computer Vision repository](https://github.com/darinz/CV) which covers everything from fundamental image processing and feature detection to advanced deep learning architectures, object detection, segmentation, and modern vision foundation models.
+
 ## Overview
 
 Modern computer vision has been revolutionized by transformer architectures and self-supervised learning, enabling breakthroughs in image understanding, generation, and segmentation.
