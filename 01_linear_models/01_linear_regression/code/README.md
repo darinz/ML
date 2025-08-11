@@ -55,6 +55,18 @@ This directory contains Python code examples that demonstrate the concepts cover
   - Visualization of matrices and their derivatives
   - Step-by-step computation of partial derivatives
 
+- **`probabilistic_thinking_demo.py`** - Why probabilistic interpretation matters
+  - Comparison of different noise distributions (Gaussian, Laplace, outliers)
+  - Performance analysis of least squares vs. other methods
+  - Visualization of noise distributions and residual patterns
+  - Error comparison between MSE and MAE for different noise types
+
+- **`linear_assumptions_demo.py`** - When linear models work and when they don't
+  - Comparison of linear vs. non-linear relationships
+  - Analysis of additive vs. multiplicative noise
+  - R² score evaluation for different data types
+  - Practical guidelines for when to use linear models
+
 ### Utility Files
 
 - **`run_all_demos.py`** - Main script to run all demonstrations
@@ -98,6 +110,12 @@ python normal_equations_vs_gradient_descent_demo.py
 
 # Matrix derivatives
 python matrix_derivatives_demo.py
+
+# Probabilistic thinking
+python probabilistic_thinking_demo.py
+
+# Linear assumptions
+python linear_assumptions_demo.py
 ```
 
 ### Option 3: Import and Use in Jupyter Notebook
@@ -112,6 +130,8 @@ from gradient_descent_visualization_demo import demonstrate_gradient_descent_vis
 from learning_rate_effects_demo import demonstrate_learning_rate_effects
 from normal_equations_vs_gradient_descent_demo import demonstrate_normal_equations_vs_gradient_descent
 from matrix_derivatives_demo import demonstrate_matrix_derivatives
+from probabilistic_thinking_demo import demonstrate_probabilistic_thinking
+from linear_assumptions_demo import demonstrate_linear_assumptions
 
 # Run any demonstration
 r2_linear, r2_quadratic, r2_exponential = demonstrate_linear_vs_nonlinear()
@@ -161,6 +181,9 @@ Each demonstration file follows a consistent structure:
 - **Normal Equations**: Analytical solution to linear regression
 - **Matrix Derivatives**: Foundation for analytical optimization
 - **Computational Trade-offs**: When to use different methods
+- **Probabilistic Foundations**: Why least squares makes sense
+- **Model Assumptions**: When linear models work and when they don't
+- **Noise Distributions**: How different noise types affect model choice
 
 ## Learning Objectives
 
@@ -179,6 +202,9 @@ After running these demonstrations, you should understand:
 11. The mathematical foundation of normal equations
 12. How matrix derivatives enable analytical solutions
 13. Computational trade-offs between different optimization approaches
+14. The probabilistic justification for least squares regression
+15. When linear model assumptions are valid and when they fail
+16. How different noise distributions affect model performance
 
 ## Notes
 
