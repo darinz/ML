@@ -664,7 +664,7 @@ If $K_1$ and $K_2$ are kernels, then the following are also kernels:
 **Grid search**: Common approach for parameter optimization
 
 **Example for RBF kernel**:
-$$python
+```python
 # Grid of gamma values to try
 gamma_values = [0.001, 0.01, 0.1, 1, 10, 100]
 
@@ -672,7 +672,7 @@ gamma_values = [0.001, 0.01, 0.1, 1, 10, 100]
 for gamma in gamma_values:
     score = cross_validate(K_rbf(gamma), X, y)
     print(f"Gamma: {gamma}, Score: {score}")
-$$
+```
 
 **Advanced techniques**:
 - **Bayesian optimization**: More efficient than grid search
