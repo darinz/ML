@@ -32,6 +32,14 @@ Foundation models represent a fundamental shift from **task-specific models** to
 
 This chapter introduces the paradigm of foundation models and the basic concepts of self-supervised learning, which is the key technique behind their success.
 
+### A mental model: what is a "representation"?
+
+- **Working definition**: A representation $`\phi_\theta(x)`$ is a vector that preserves the information that matters for future tasks while discarding nuisances.
+- **Geometric picture**: Think of mapping raw inputs onto a manifold in $`\mathbb{R}^m`$ where distances reflect semantic similarity. Good pretraining shapes this space so that "things that mean the same thing" are close.
+- **Invariances vs. equivariances**:
+  - **Invariant features** ignore transformations that should not change meaning (e.g., color jitter for object identity).
+  - **Equivariant features** transform predictably with the input (e.g., translation shifts the feature in a structured way). Pretraining often mixes both.
+
 ## 14.1 Pretraining and adaptation
 
 The foundation models paradigm consists of two main phases: **pretraining** (or simply training) and **adaptation**. This two-phase approach is what enables foundation models to be so powerful and flexible.
@@ -143,6 +151,30 @@ Where:
 
 After minimizing $`L_{\text{pre}}(\theta)`$, we obtain a pretrained model $`\hat{\theta}`$ that has learned useful features from the data.
 
+#### Two helpful viewpoints for contrastive losses
+
+- **Softmax over the batch (classification view):** For an anchor $`z_i`$, treat its positive $`z_j`$ as the correct class among all $`\{z_k\}`$ in the batch:
+
+  ```math
+  p_\tau(j\,|\,i) = \frac{\exp(\operatorname{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\operatorname{sim}(z_i, z_k)/\tau)}.
+  ```
+
+  Minimizing InfoNCE maximizes the log-likelihood of picking the true positive. The temperature $`\tau`$ controls how peaky the softmax is: small $`\tau`$ focuses on the hardest negatives; large $`\tau`$ spreads probability mass more smoothly.
+
+- **Noise-contrastive estimation view:** Contrastive learning can be seen as learning to discriminate joint samples (positive pairs) from product-of-marginals samples (negatives). Larger batches provide more negatives and a tighter estimate, which is why batch size (or a memory bank/queue) often matters.
+
+#### Practical knobs that matter in practice
+
+- **Temperature $`\tau`$**: Lower values increase emphasis on hard negatives but can cause training instability; typical ranges in vision are $`0.05\text{–}0.2`$.
+- **Batch/queue size**: More negatives usually improve performance. Queues (e.g., MoCo) or feature banks approximate large batches without large memory.
+- **Projection head**: A small MLP after the encoder helps optimization. Use the representation before the head for downstream tasks.
+- **Augmentation strength**: Too weak → trivial; too strong → task becomes impossible. Tune per domain.
+
+#### Avoiding representation collapse (intuition)
+
+- **Contrastive methods** avoid collapse because positives must be closer than many diverse negatives.
+- **Non-contrastive methods** (e.g., BYOL/SimSiam) prevent collapse via architectural asymmetry (online/target networks) and stop-gradient tricks. Intuition: the teacher provides a slowly moving target that the student cannot trivially match with a constant vector.
+
 ### Adaptation (Linear Probe & Finetuning)
 
 Once we have a pretrained model, we want to use it for a new task. There are two main strategies:
@@ -228,6 +260,14 @@ The choice between linear probe and finetuning depends on several factors:
    - Moderate accuracy acceptable: Linear probe may suffice
 
 ---
+
+#### Parameter-efficient adaptation (when full finetuning is too heavy)
+
+- **Adapters**: Small bottleneck layers inserted between transformer blocks; train only adapters.
+- **LoRA**: Train low-rank updates to weight matrices while keeping original weights frozen.
+- **Prefix/Prompt tuning**: Learn a small set of virtual tokens (or prefixes) while keeping the backbone frozen.
+
+When to use: limited compute, frequent task switching, or to maintain a single frozen backbone serving many tasks.
 
 ## 14.2 Pretraining methods in computer vision
 
@@ -374,6 +414,25 @@ SimCLR (Simple Framework for Contrastive Learning of Visual Representations) is 
 - Use SimCLR to pretrain a model on unlabeled images.
 - For each image, generate two augmentations and treat them as a positive pair.
 - Use a contrastive loss to train the model so that positive pairs are close and negative pairs are far apart.
+
+#### Mutual information and invariances (intuition)
+
+- **MI perspective (intuition)**: Pulling positives together while pushing against negatives can be interpreted as maximizing a lower bound on the mutual information between shared content of the two views. The model is encouraged to retain information common across augmentations and discard augmentation-specific noise.
+- **Augmentations define the invariances you learn**: If you include heavy color jitter, the model becomes color-invariant. Choose augmentations to match the invariances desired by downstream tasks.
+
+#### Quick recipe (computer vision)
+
+1. Choose an encoder (e.g., ResNet-50) and a 2-layer projection head.
+2. Use strong, diverse augmentations (crop+resize, color jitter, blur, flip).
+3. Temperature $`\tau \approx 0.1`$, learning rate with warmup and cosine decay.
+4. Large effective batch size via distributed training or a queue.
+5. Train 100–800 epochs depending on data size; evaluate with a linear probe.
+
+#### Common failure modes and fixes
+
+- **Too-easy positives**: Views are nearly identical → features overfit to low-level cues. Fix: strengthen augmentation or add jitter/blur.
+- **False negatives**: Two images of the same class treated as negatives. Mitigation: larger batch helps; class-aware sampling if labels exist; multi-positive strategies.
+- **Optimization instability**: Very low $`\tau`$ or high learning rate. Fix: raise $`\tau`$, tune LR, use gradient clipping.
 
 #### Advantages and Limitations
 
