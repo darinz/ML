@@ -27,6 +27,8 @@ def main():
         from optimization_approaches_demo import demonstrate_optimization_approaches
         from gradient_descent_visualization_demo import demonstrate_gradient_descent_visualization
         from learning_rate_effects_demo import demonstrate_learning_rate_effects
+        from normal_equations_vs_gradient_descent_demo import demonstrate_normal_equations_vs_gradient_descent
+        from matrix_derivatives_demo import demonstrate_matrix_derivatives
         
         print("All modules imported successfully!")
         print()
@@ -65,6 +67,16 @@ def main():
         print("7. Learning Rate Effects")
         print("-" * 40)
         demonstrate_learning_rate_effects()
+        print("\n" + "="*50 + "\n")
+        
+        print("8. Normal Equations vs. Gradient Descent")
+        print("-" * 40)
+        demonstrate_normal_equations_vs_gradient_descent()
+        print("\n" + "="*50 + "\n")
+        
+        print("9. Matrix Derivatives")
+        print("-" * 40)
+        demonstrate_matrix_derivatives()
         print("\n" + "="*50 + "\n")
         
         print("All demonstrations completed successfully!")
