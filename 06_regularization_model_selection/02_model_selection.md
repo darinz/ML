@@ -1,19 +1,19 @@
 # Model Selection, Cross-Validation, and Bayesian Methods
 
 ## Table of Contents
-1. [Introduction to Model Selection](#93-model-selection-via-cross-validation)
+1. [Introduction to Model Selection](#introduction-to-model-selection)
 2. [The Model Selection Problem](#the-model-selection-problem)
 3. [Cross-Validation Methods](#cross-validation-the-gold-standard)
-4. [Bayesian Statistics](#94-bayesian-statistics-and-regularization)
+4. [Bayesian Statistics](#bayesian-statistics-and-regularization)
 5. [Frequentist vs Bayesian Approaches](#frequentist-vs-bayesian-approaches)
 6. [Practical Guidelines](#practical-guidelines)
 7. [Advanced Topics](#advanced-topics)
 
 ---
 
-## 9.3 Model Selection via Cross Validation
+## Introduction to Model Selection: The Art of Choosing the Right Tool
 
-### What is Model Selection?
+### What is Model Selection? The Quest for the Perfect Fit
 
 Selecting the right model is one of the most important—and challenging—tasks in machine learning. The "model" could mean the type of algorithm (e.g., linear regression, SVM, neural network), or it could mean the specific settings or complexity of a model (e.g., the degree of a polynomial, the number of layers in a neural network, or the regularization strength in ridge regression).
 
@@ -22,16 +22,55 @@ Selecting the right model is one of the most important—and challenging—tasks
 - **Too Complex**: Model may fit the noise in the training data rather than the true signal (high variance, overfitting)
 - **The Goal**: Find the "sweet spot" between these two extremes
 
-### Why is Model Selection Important?
+### Why is Model Selection Important? The Consequences of Poor Choices
 
-**Real-World Analogy:**
+**Real-World Analogies:**
+
+**1. The Tool Selection Problem:**
 Imagine you're choosing a tool for a job. A simple screwdriver might not be powerful enough for complex tasks, while a Swiss Army knife with 50 tools might be overkill and confusing. You need the right tool for the job—not too simple, not too complex.
 
-**Example:**  
+**2. The Clothing Fitting Problem:**
+Think of model selection like choosing clothes:
+- **Too small (underfitting)**: Doesn't fit well, restricts movement
+- **Too large (overfitting)**: Looks sloppy, doesn't provide proper support
+- **Just right**: Fits well, allows movement, looks good
+
+**3. The Recipe Complexity Problem:**
+A chef choosing how complex a recipe to use:
+- **Too simple**: Bland, missing important flavors
+- **Too complex**: Overwhelming, masks the main ingredients
+- **Just right**: Balanced flavors that enhance the dish
+
+**Example - Polynomial Fitting:**  
 Suppose you're fitting a curve to data points. If you use a straight line (degree 1 polynomial), it might miss important bends in the data. If you use a degree 10 polynomial, it might wiggle wildly to pass through every point, capturing noise rather than the true trend.
 
 **Key Question:**  
 How do we choose the best model or the best complexity for our data, *without* peeking at the test set (which would give us an overly optimistic estimate of performance)?
+
+### The Model Selection Landscape: What We're Really Choosing
+
+**Types of Model Selection:**
+
+**1. Algorithm Selection:**
+- Linear regression vs. polynomial regression vs. neural networks
+- SVM vs. random forest vs. gradient boosting
+- Different activation functions, loss functions
+
+**2. Hyperparameter Tuning:**
+- Learning rate, batch size, number of epochs
+- Regularization strength ($`\lambda`$)
+- Number of layers, neurons per layer
+- Kernel parameters (for SVM)
+
+**3. Feature Selection:**
+- Which features to include/exclude
+- Feature engineering choices
+- Dimensionality reduction parameters
+
+**4. Architecture Selection:**
+- Model complexity (polynomial degree, network depth)
+- Model capacity (number of parameters)
+- Model family (parametric vs. non-parametric)
 
 ## From Regularization Techniques to Model Selection Strategies
 
@@ -47,11 +86,22 @@ In this section, we'll explore cross-validation techniques, Bayesian approaches,
 
 ---
 
-## The Model Selection Problem
+## The Model Selection Problem: Formalizing the Challenge
 
-### Formal Definition
+### Formal Definition: The Mathematical Framework
 
 Suppose we are trying to select among several different models for a learning problem. For instance, we might be using a polynomial regression model $`h_\theta(x) = g(\theta_0 + \theta_1 x + \theta_2 x^2 + \cdots + \theta_k x^k)`$, and wish to decide if $`k`$ should be $`0, 1, \ldots, 10`$. How can we automatically select a model that represents a good tradeoff between the twin evils of bias and variance?
+
+**The Model Selection Objective:**
+```math
+M^* = \arg\min_{M \in \mathcal{M}} \mathbb{E}_{(x,y) \sim P} [L(h_M(x), y)]
+```
+
+Where:
+- $`\mathcal{M}`$ is the set of candidate models
+- $`h_M`$ is the hypothesis learned by model $`M`$
+- $`L`$ is the loss function
+- $`P`$ is the true data distribution
 
 **Other Examples:**
 - Choosing the bandwidth parameter $`\tau`$ for locally weighted regression
@@ -59,29 +109,78 @@ Suppose we are trying to select among several different models for a learning pr
 - Deciding between linear regression, polynomial regression, or neural networks
 - Choosing the number of hidden layers in a neural network
 
-### The Model Space
+### The Model Space: Exploring the Universe of Possibilities
 
 For the sake of concreteness, in these notes we assume we have some finite set of models $`\mathcal{M} = \{M_1, \ldots, M_d\}`$ that we're trying to select among. For instance, in our first example above, the model $`M_i`$ would be an $`i`$-th degree polynomial regression model.
 
-**Generalization to Infinite Model Spaces:**
-If we are trying to choose from an infinite set of models, say corresponding to the possible values of the bandwidth $`\tau \in \mathbb{R}^+`$, we may discretize $`\tau`$ and consider only a finite number of possible values for it. More generally, most of the algorithms described here can all be viewed as performing optimization search in the space of models, and we can perform this search over infinite model classes as well.
+**Visualizing the Model Space:**
+```
+Model Space:
+M₁ (degree 0) → M₂ (degree 1) → M₃ (degree 2) → ... → M₁₀ (degree 9) → M₁₁ (degree 10)
+     ↑              ↑              ↑                        ↑              ↑
+  Constant      Linear         Quadratic              High-order     Very complex
+   (bias)      (simple)         (moderate)              (complex)      (overfit)
+```
 
-### The Bias-Variance Tradeoff
+**Generalization to Infinite Model Spaces:**
+If we are trying to choose from an infinite set of models, say corresponding to the possible values of the bandwidth $`\tau \in \mathbb{R}^+``, we may discretize $`\tau`$ and consider only a finite number of possible values for it. More generally, most of the algorithms described here can all be viewed as performing optimization search in the space of models, and we can perform this search over infinite model classes as well.
+
+**Search Strategies:**
+- **Grid search**: Try all combinations of hyperparameters
+- **Random search**: Sample random combinations
+- **Bayesian optimization**: Use probabilistic models to guide search
+- **Evolutionary algorithms**: Use genetic algorithms to evolve good models
+
+### The Bias-Variance Tradeoff: The Fundamental Tension
 
 **Understanding the Tradeoff:**
 - **Bias**: How much the model's predictions differ from the true values on average
 - **Variance**: How much the model's predictions vary when trained on different datasets
 - **Total Error**: $`\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}`$
 
-**Visual Analogy:**
+**Visual Analogy: The Dart Throwing Game**
 Think of bias and variance like trying to hit a target with darts:
-- **High Bias, Low Variance**: Consistently hitting the same wrong spot
-- **Low Bias, High Variance**: Hitting all around the target but rarely on it
-- **Low Bias, Low Variance**: Consistently hitting the target
+- **High Bias, Low Variance**: Consistently hitting the same wrong spot (like always hitting 2 inches to the left)
+- **Low Bias, High Variance**: Hitting all around the target but rarely on it (like scattering darts everywhere)
+- **Low Bias, Low Variance**: Consistently hitting the target (the ideal)
+
+**Mathematical Intuition:**
+```math
+\text{Bias} = \mathbb{E}[\hat{f}(x)] - f(x)
+\text{Variance} = \mathbb{E}[(\hat{f}(x) - \mathbb{E}[\hat{f}(x)])^2]
+```
+
+Where $`\hat{f}(x)`$ is our model's prediction and $`f(x)`$ is the true function.
+
+**The Sweet Spot:**
+The optimal model complexity minimizes the sum of squared bias and variance. This is the fundamental principle behind model selection.
+
+### The Model Selection Challenge: Why It's Hard
+
+**The Core Problem:**
+We want to minimize the true generalization error, but we can only observe training error. The gap between these two is what makes model selection challenging.
+
+**Why Training Error is Misleading:**
+- **Optimistic bias**: Training error underestimates true error
+- **Complexity penalty**: More complex models can always fit training data better
+- **No generalization guarantee**: Good training performance doesn't guarantee good test performance
+
+**The Information Gap:**
+```
+What we want:     True generalization error
+What we observe:  Training error
+The challenge:    Bridge this gap reliably
+```
+
+**Real-World Example:**
+Imagine you're studying for an exam:
+- **Training error**: How well you do on practice problems
+- **True error**: How well you'll do on the actual exam
+- **The gap**: Practice problems might not represent the exam perfectly
 
 ---
 
-## The Pitfall of Naive Model Selection
+## The Pitfall of Naive Model Selection: Why Simple Approaches Fail
 
 ### The Wrong Way: Training Error
 
@@ -92,7 +191,7 @@ A tempting but flawed approach is to simply pick the model that fits the trainin
 - More complex models can always fit the training data better
 - This doesn't tell us how well the model will generalize
 
-**Analogy:**  
+**Analogy - The Memorization Problem:**  
 Imagine memorizing answers to practice exam questions. You'll ace the practice test, but if the real exam has different questions, you might struggle. Similarly, a model that "memorizes" the training data may not generalize well.
 
 **Mathematical Explanation:**
@@ -101,11 +200,100 @@ $`\mathbb{E}[\hat{\varepsilon}_{\text{train}}(h)] \leq \varepsilon(h)`$
 
 The inequality becomes more severe as model complexity increases.
 
+**Visual Example:**
+```
+Model Complexity:  Low  →  Medium  →  High
+Training Error:   0.3  →   0.1    →  0.01
+True Error:       0.3  →   0.15   →  0.5
+                  ↑              ↑
+               Good fit      Overfitting!
+```
+
+### Other Naive Approaches That Fail
+
+**1. Using Test Set for Selection:**
+- **Problem**: Test set should only be used for final evaluation
+- **Why it fails**: Gives overly optimistic performance estimates
+- **Result**: Model may not generalize to truly unseen data
+
+**2. Using All Data for Training:**
+- **Problem**: No way to estimate generalization performance
+- **Why it fails**: Can't distinguish between good and bad models
+- **Result**: Blind selection with no performance guarantees
+
+**3. Using Fixed Validation Set:**
+- **Problem**: May not be representative of true data distribution
+- **Why it fails**: Single split can be unlucky
+- **Result**: Unreliable performance estimates
+
+**4. Using Model Complexity as Proxy:**
+- **Problem**: Simpler models aren't always better
+- **Why it fails**: Ignores the actual data and problem structure
+- **Result**: May choose suboptimal models
+
+### The Information Leakage Problem
+
+**What is Information Leakage?**
+Information leakage occurs when information from the test set (or future data) is used during model training or selection.
+
+**Common Sources of Leakage:**
+- Using test set for hyperparameter tuning
+- Feature engineering based on test set statistics
+- Data preprocessing that uses test set information
+- Model selection based on test set performance
+
+**Why It's Dangerous:**
+- Gives overly optimistic performance estimates
+- Models may not generalize to truly unseen data
+- Results are not reproducible in real-world settings
+
+**Example of Leakage:**
+```python
+# WRONG: Using test set for model selection
+for model in models:
+    model.fit(X_train, y_train)
+    score = model.score(X_test, y_test)  # LEAKAGE!
+    if score > best_score:
+        best_model = model
+
+# CORRECT: Using validation set for model selection
+for model in models:
+    model.fit(X_train, y_train)
+    score = model.score(X_val, y_val)  # No leakage
+    if score > best_score:
+        best_model = model
+```
+
+### The Need for Proper Validation
+
+**The Solution:**
+We need a way to estimate generalization performance without using the test set. This is where cross-validation comes in.
+
+**Key Principles:**
+1. **Separate concerns**: Use different data for training, validation, and testing
+2. **Unbiased estimation**: Get reliable estimates of generalization performance
+3. **Robust selection**: Choose models that generalize well
+4. **Avoid leakage**: Never use test set for model selection
+
+**The Validation Strategy:**
+```
+Data Split:
+Training Set (60-80%)  →  Train models
+Validation Set (10-20%) →  Select best model
+Test Set (10-20%)      →  Final evaluation
+```
+
+This approach ensures that:
+- We can train multiple models
+- We can compare them fairly
+- We get reliable performance estimates
+- We avoid information leakage
+
 ---
 
 ## Cross Validation: The Gold Standard
 
-### What is Cross-Validation?
+### What is Cross-Validation? The Art of Simulating New Data
 
 Cross validation is a family of techniques that help us estimate how well a model will perform on new data, *without* using the test set. The core idea is to simulate the process of seeing new data by holding out part of the training data, training the model on the rest, and evaluating it on the held-out part.
 
@@ -114,7 +302,19 @@ Cross validation is a family of techniques that help us estimate how well a mode
 - Train on one part, evaluate on the other
 - This gives us an unbiased estimate of generalization performance
 
-### Hold-out Cross Validation (Simple Cross Validation)
+**Visual Analogy: The Practice Test Strategy**
+Think of cross-validation like taking practice exams:
+- **Training set**: Study materials and practice problems
+- **Validation set**: Practice exam that simulates the real test
+- **Test set**: The actual exam (only used once at the end)
+
+**Why Cross-Validation Works:**
+1. **Simulates real-world conditions**: We evaluate on data the model hasn't seen
+2. **Provides unbiased estimates**: No information leakage from test set
+3. **Enables fair comparison**: All models evaluated on same data
+4. **Reduces variance**: Multiple evaluations give more stable estimates
+
+### Hold-out Cross Validation (Simple Cross Validation): The Foundation
 
 **Algorithm:**
 1. **Step 1:** Randomly split your data into a training set and a validation (hold-out) set. A common split is 70% training, 30% validation, but this can vary.
@@ -130,12 +330,51 @@ $`\hat{\varepsilon}_{\text{val}}(h_i) = \frac{1}{|S_{\text{val}}|} \sum_{(x,y) \
 
 Then select: $`M^* = \arg\min_i \hat{\varepsilon}_{\text{val}}(h_i)`$
 
+**Practical Implementation:**
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+# Split data
+X_train, X_val, y_train, y_val = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+# Try different models
+models = {
+    'linear': LinearRegression(),
+    'polynomial_2': PolynomialFeatures(degree=2),
+    'polynomial_3': PolynomialFeatures(degree=3),
+    'ridge': Ridge(alpha=1.0),
+    'lasso': Lasso(alpha=0.1)
+}
+
+best_model = None
+best_score = float('inf')
+
+for name, model in models.items():
+    # Train model
+    model.fit(X_train, y_train)
+    
+    # Evaluate on validation set
+    y_pred = model.predict(X_val)
+    score = mean_squared_error(y_val, y_pred)
+    
+    print(f"{name}: {score:.4f}")
+    
+    if score < best_score:
+        best_score = score
+        best_model = name
+
+print(f"\nBest model: {best_model}")
+```
+
 **Practical Considerations:**
 - **Large datasets**: You can afford to set aside a substantial validation set
 - **Small datasets**: You may need more efficient use of data—this is where k-fold cross validation comes in
 - **Stratification**: For classification, ensure the validation set has similar class proportions
 
-### Validation Set Size Guidelines
+### Validation Set Size Guidelines: Finding the Right Balance
 
 By testing/validating on a set of examples $`S_{\text{cv}}`$ that the models were not trained on, we obtain a better estimate of each hypothesis $`h_i`$'s true generalization/test error. Thus, this approach is essentially picking the model with the smallest estimated generalization/test error.
 
@@ -152,7 +391,21 @@ By testing/validating on a set of examples $`S_{\text{cv}}`$ that the models wer
 **ImageNet Example:**
 For the ImageNet dataset that has about 1M training images, the validation set is sometimes set to be 50K images, which is only about 5% of the total examples.
 
-### Optional Retraining Step
+**The Trade-off:**
+```
+Validation Set Size:  Small  →  Medium  →  Large
+Training Set Size:   Large  →  Medium  →  Small
+Estimate Variance:   High   →  Medium  →  Low
+Estimate Bias:       Low    →  Medium  →  High
+```
+
+**Guidelines for Different Scenarios:**
+- **Very small datasets (n < 100)**: Use k-fold cross-validation
+- **Small datasets (100 ≤ n < 1000)**: 70-30 split
+- **Medium datasets (1000 ≤ n < 10000)**: 80-20 split
+- **Large datasets (n ≥ 10000)**: 90-10 split or smaller validation
+
+### Optional Retraining Step: Using All Available Data
 
 Optionally, step 3 in the algorithm may also be replaced with selecting the model $`M_i`$ according to $`\arg\min_i \hat{\varepsilon}_{S_{\text{cv}}}(h_i)`$, and then retraining $`M_i`$ on the entire training set $`S`$.
 
@@ -165,7 +418,30 @@ Optionally, step 3 in the algorithm may also be replaced with selecting the mode
 - Retraining on all data typically improves performance
 - Final model should use all available training data
 
-### Limitations of Hold-out Validation
+**Implementation:**
+```python
+# After selecting best model
+best_model_name = 'ridge'  # From previous selection
+best_model = models[best_model_name]
+
+# Retrain on all training data (train + validation)
+X_full_train = np.vstack([X_train, X_val])
+y_full_train = np.concatenate([y_train, y_val])
+
+best_model.fit(X_full_train, y_full_train)
+
+# Now evaluate on test set
+y_test_pred = best_model.predict(X_test)
+final_score = mean_squared_error(y_test, y_test_pred)
+print(f"Final test score: {final_score:.4f}")
+```
+
+**When NOT to retrain:**
+- **Unstable algorithms**: Some algorithms are sensitive to data perturbations
+- **Computational constraints**: Retraining might be too expensive
+- **Reproducibility concerns**: Need exact same model for comparison
+
+### Limitations of Hold-out Validation: The Data Waste Problem
 
 The disadvantage of using hold out cross validation is that it "wastes" about 30% of the data. Even if we were to take the optional step of retraining the model on the entire training set, it's still as if we're trying to find a good model for a learning problem in which we had $`0.7n`$ training examples, rather than $`n`$ training examples, since we're testing models that were trained on only $`0.7n`$ examples each time.
 
@@ -174,20 +450,36 @@ The disadvantage of using hold out cross validation is that it "wastes" about 30
 - **Expensive data**: When data collection is costly
 - **Rare events**: When positive examples are scarce
 
+**Example - Medical Diagnosis:**
+If you have only 100 patients with a rare disease, losing 30 patients for validation might mean:
+- Only 70 patients for training
+- Reduced statistical power
+- Less reliable model selection
+
 **Solution**: Use k-fold cross validation for more efficient data usage.
 
 ---
 
-### k-Fold Cross Validation
+### k-Fold Cross Validation: Maximizing Data Efficiency
 
-#### Motivation
+#### Motivation: The Data Efficiency Problem
 
 Hold-out validation "wastes" some data, since the model never sees the validation set during training. k-fold cross validation addresses this by rotating the validation set.
 
 **Key Insight:**
 Every data point gets to be in the validation set exactly once, and in the training set $`k-1`$ times.
 
-#### How it Works
+**Visual Analogy: The Round-Robin Tournament**
+Think of k-fold as a "round-robin tournament" where every data point gets a chance to be in the validation set:
+```
+Fold 1: [V][T][T][T][T][T][T][T][T][T]  (1 validation, 9 training)
+Fold 2: [T][V][T][T][T][T][T][T][T][T]  (1 validation, 9 training)
+Fold 3: [T][T][V][T][T][T][T][T][T][T]  (1 validation, 9 training)
+...
+Fold 10:[T][T][T][T][T][T][T][T][T][V]  (1 validation, 9 training)
+```
+
+#### How it Works: The Algorithm in Detail
 
 **Algorithm:**
 1. Split the data into $`k`$ equal-sized "folds"
@@ -207,7 +499,41 @@ Where $`h_j^{(i)}`$ is model $`M_j`$ trained on all folds except $`i`$.
 **Final selection:**
 $`M^* = \arg\min_j \frac{1}{k} \sum_{i=1}^k \hat{\varepsilon}_i^{(j)}`$
 
-#### Common Choices and Trade-offs
+**Practical Implementation:**
+```python
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import Ridge
+
+# Define models to compare
+models = {
+    'ridge_0.1': Ridge(alpha=0.1),
+    'ridge_1.0': Ridge(alpha=1.0),
+    'ridge_10.0': Ridge(alpha=10.0),
+    'lasso_0.1': Lasso(alpha=0.1),
+    'lasso_1.0': Lasso(alpha=1.0)
+}
+
+# Compare models using 5-fold cross-validation
+results = {}
+for name, model in models.items():
+    scores = cross_val_score(model, X, y, cv=5, scoring='neg_mean_squared_error')
+    mean_score = -scores.mean()  # Convert back to MSE
+    std_score = scores.std()
+    
+    results[name] = {
+        'mean': mean_score,
+        'std': std_score,
+        'scores': scores
+    }
+    
+    print(f"{name}: {mean_score:.4f} ± {std_score:.4f}")
+
+# Select best model
+best_model_name = min(results.keys(), key=lambda x: results[x]['mean'])
+print(f"\nBest model: {best_model_name}")
+```
+
+#### Common Choices and Trade-offs: Finding the Right k
 
 **Common choices:**  
 $`k = 10`$ is popular, but for very small datasets, $`k = n`$ (leave-one-out cross validation) is sometimes used.
@@ -222,19 +548,67 @@ $`k = 10`$ is popular, but for very small datasets, $`k = n`$ (leave-one-out cro
 - **$`k = 10`**: Standard choice, good balance of bias and variance
 - **$`k = n`** (LOOCV): When data is very scarce
 
-**Analogy:**  
-Think of k-fold as a "round robin tournament" where every data point gets a chance to be in the validation set.
+**Decision Framework:**
+```
+Dataset Size:    Very Small  →  Small  →  Medium  →  Large
+Recommended k:   n (LOOCV)   →  10     →  10      →  5
+Reason:          Max data     →  Balance →  Balance →  Speed
+```
 
-#### Computational Complexity
+**Computational Considerations:**
+```
+k = 5:   Train each model 5 times
+k = 10:  Train each model 10 times  
+k = n:   Train each model n times (very expensive!)
+```
 
-A typical choice for the number of folds to use here would be $`k = 10`$. While the fraction of data held out each time is now $`1/k`$—much smaller than before—this procedure may also be more computationally expensive than hold-out cross validation, since we now need to train each model $`k`$ times.
+#### Computational Complexity: The Cost of Accuracy
+
+A typical choice for the number of folds to use here would be $`k = 10``. While the fraction of data held out each time is now $`1/k`$—much smaller than before—this procedure may also be more computationally expensive than hold-out cross validation, since we now need to train each model $`k`$ times.
 
 **Complexity Analysis:**
 - **Hold-out**: Train each model once
 - **k-fold**: Train each model $`k`$ times
 - **Total cost**: $`k \times \text{number of models} \times \text{training time per model}`$
 
-#### Leave-One-Out Cross Validation (LOOCV)
+**Example - Polynomial Regression:**
+```python
+# Compare polynomial degrees using 10-fold CV
+degrees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+results = []
+
+for degree in degrees:
+    model = Pipeline([
+        ('poly', PolynomialFeatures(degree=degree)),
+        ('linear', LinearRegression())
+    ])
+    
+    # 10-fold cross-validation
+    scores = cross_val_score(model, X, y, cv=10, scoring='neg_mean_squared_error')
+    mean_mse = -scores.mean()
+    
+    results.append({
+        'degree': degree,
+        'mse': mean_mse,
+        'std': scores.std()
+    })
+    
+    print(f"Degree {degree}: {mean_mse:.4f} ± {scores.std():.4f}")
+
+# Plot results
+degrees = [r['degree'] for r in results]
+mses = [r['mse'] for r in results]
+stds = [r['std'] for r in results]
+
+plt.errorbar(degrees, mses, yerr=stds, marker='o')
+plt.xlabel('Polynomial Degree')
+plt.ylabel('Mean Squared Error')
+plt.title('Model Selection via Cross-Validation')
+plt.grid(True)
+plt.show()
+```
+
+#### Leave-One-Out Cross Validation (LOOCV): The Ultimate in Data Efficiency
 
 While $`k = 10`$ is a commonly used choice, in problems in which data is really scarce, sometimes we will use the extreme choice of $`k = n`$ in order to leave out as little data as possible each time. In this setting, we would repeatedly train on all but one of the training examples in $`S`$, and test on that held-out example. The resulting $`n`$ errors are then averaged together to obtain our estimate of the generalization error of a model.
 
@@ -253,9 +627,26 @@ While $`k = 10`$ is a commonly used choice, in problems in which data is really 
 - High variance in the estimate
 - May not be practical for large datasets
 
+**Implementation:**
+```python
+from sklearn.model_selection import LeaveOneOut
+
+# For very small datasets
+loo = LeaveOneOut()
+scores = cross_val_score(model, X, y, cv=loo, scoring='neg_mean_squared_error')
+mean_mse = -scores.mean()
+print(f"LOOCV MSE: {mean_mse:.4f}")
+```
+
+**When LOOCV is Worth It:**
+- **Medical studies**: Each patient is expensive to recruit
+- **Rare disease diagnosis**: Very few positive examples
+- **Expensive experiments**: Each data point costs significant resources
+- **Research validation**: Need most unbiased estimate possible
+
 ---
 
-### Cross Validation for Model Evaluation
+### Cross Validation for Model Evaluation: Beyond Selection
 
 Cross validation isn't just for model selection—it's also a powerful tool for evaluating a single model's performance, especially when you want to report results in a paper or compare algorithms fairly.
 
@@ -264,12 +655,44 @@ Cross validation isn't just for model selection—it's also a powerful tool for 
 - **Algorithm comparison**: Fair comparison between methods
 - **Performance estimation**: Get confidence intervals for model performance
 
+**Confidence Intervals:**
+```python
+# Get confidence interval for model performance
+scores = cross_val_score(model, X, y, cv=10, scoring='neg_mean_squared_error')
+mean_score = -scores.mean()
+std_score = scores.std()
+
+# 95% confidence interval
+ci_lower = mean_score - 1.96 * std_score / np.sqrt(10)
+ci_upper = mean_score + 1.96 * std_score / np.sqrt(10)
+
+print(f"Performance: {mean_score:.4f} [{ci_lower:.4f}, {ci_upper:.4f}]")
+```
+
 **Practical Tips:**
 - Always use a validation set or cross-validation for model selection—never the test set!
 - For small datasets, prefer k-fold or leave-one-out cross validation
 - For large datasets, a simple hold-out set is often sufficient and computationally efficient
 - Use stratified sampling for classification problems
 - Fix random seeds for reproducibility
+
+**Stratified Cross-Validation:**
+```python
+from sklearn.model_selection import StratifiedKFold
+
+# For classification problems
+skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+scores = cross_val_score(classifier, X, y, cv=skf, scoring='accuracy')
+```
+
+**Time Series Cross-Validation:**
+```python
+from sklearn.model_selection import TimeSeriesSplit
+
+# For time series data
+tscv = TimeSeriesSplit(n_splits=5)
+scores = cross_val_score(model, X, y, cv=tscv, scoring='neg_mean_squared_error')
+```
 
 ---
 
