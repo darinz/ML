@@ -6,6 +6,10 @@
 
 Comprehensive materials covering transformer architectures and large language models, from attention mechanisms to modern training techniques and applications.
 
+> **For an in-depth treatment of Natural Language Processing:** Check out the comprehensive [NLP repository](https://github.com/darinz/NLP) which covers everything from text preprocessing and feature extraction to advanced language models and applications.
+
+> **For an in-depth treatment of Natural Language Understanding:** Explore the detailed [NLU repository](https://github.com/darinz/NLU) which focuses on semantic understanding, intent recognition, and advanced language comprehension techniques.
+
 ## Overview
 
 Transformers and language models have become the foundation of modern AI systems, powering applications from machine translation to conversational AI through attention-based architectures.
