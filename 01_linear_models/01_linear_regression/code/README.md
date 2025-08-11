@@ -228,6 +228,9 @@ After running these demonstrations, you should understand:
 14. The probabilistic justification for least squares regression
 15. When linear model assumptions are valid and when they fail
 16. How different noise distributions affect model performance
+17. How locally weighted regression adapts to local data structure
+18. The bias-variance trade-off in model complexity selection
+19. When to use global vs. local fitting approaches
 
 ## Notes
 
