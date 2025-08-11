@@ -43,6 +43,18 @@ This directory contains Python code examples that demonstrate the concepts cover
   - Convergence speed analysis and comparison
   - Guidelines for choosing learning rates
 
+- **`normal_equations_vs_gradient_descent_demo.py`** - Comparison of analytical vs. iterative methods
+  - Performance comparison between normal equations and gradient descent
+  - Computational time and memory usage analysis
+  - Accuracy comparison and parameter differences
+  - Trade-offs between exact and approximate solutions
+
+- **`matrix_derivatives_demo.py`** - Matrix derivative computation and verification
+  - Analytical computation of matrix derivatives
+  - Numerical verification using finite differences
+  - Visualization of matrices and their derivatives
+  - Step-by-step computation of partial derivatives
+
 ### Utility Files
 
 - **`run_all_demos.py`** - Main script to run all demonstrations
@@ -80,6 +92,12 @@ python gradient_descent_visualization_demo.py
 
 # Learning rate effects
 python learning_rate_effects_demo.py
+
+# Normal equations vs. gradient descent
+python normal_equations_vs_gradient_descent_demo.py
+
+# Matrix derivatives
+python matrix_derivatives_demo.py
 ```
 
 ### Option 3: Import and Use in Jupyter Notebook
@@ -92,6 +110,8 @@ from loss_functions_demo import demonstrate_loss_functions
 from optimization_approaches_demo import demonstrate_optimization_approaches
 from gradient_descent_visualization_demo import demonstrate_gradient_descent_visualization
 from learning_rate_effects_demo import demonstrate_learning_rate_effects
+from normal_equations_vs_gradient_descent_demo import demonstrate_normal_equations_vs_gradient_descent
+from matrix_derivatives_demo import demonstrate_matrix_derivatives
 
 # Run any demonstration
 r2_linear, r2_quadratic, r2_exponential = demonstrate_linear_vs_nonlinear()
@@ -138,6 +158,9 @@ Each demonstration file follows a consistent structure:
 - **Gradient Descent**: Understanding the optimization algorithm
 - **Learning Rates**: How step size affects convergence
 - **Convergence Analysis**: Studying optimization behavior
+- **Normal Equations**: Analytical solution to linear regression
+- **Matrix Derivatives**: Foundation for analytical optimization
+- **Computational Trade-offs**: When to use different methods
 
 ## Learning Objectives
 
@@ -153,6 +176,9 @@ After running these demonstrations, you should understand:
 8. How gradient descent works and why it's important
 9. The critical role of learning rate in optimization
 10. How to analyze convergence behavior and choose appropriate parameters
+11. The mathematical foundation of normal equations
+12. How matrix derivatives enable analytical solutions
+13. Computational trade-offs between different optimization approaches
 
 ## Notes
 
