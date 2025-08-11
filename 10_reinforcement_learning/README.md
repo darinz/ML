@@ -6,6 +6,8 @@
 
 Advanced lecture notes and Python implementations for reinforcement learning and control theory with mathematical rigor and practical demonstrations.
 
+> **For an in-depth treatment of Reinforcement Learning:** Check out the comprehensive [Reinforcement Learning repository](https://github.com/darinz/RL) which covers everything from fundamental RL algorithms to advanced deep reinforcement learning, including policy gradients, actor-critic methods, and modern applications in robotics and game playing.
+
 ## Overview
 
 Comprehensive coverage of MDPs, continuous state spaces, advanced control methods, and policy gradient algorithms for decision-making under uncertainty.
