@@ -696,9 +696,9 @@ scores = cross_val_score(model, X, y, cv=tscv, scoring='neg_mean_squared_error')
 
 ---
 
-## 9.4 Bayesian Statistics and Regularization
+## Bayesian Statistics and Regularization: Incorporating Uncertainty and Prior Knowledge
 
-### Introduction to Bayesian Methods
+### Introduction to Bayesian Methods: A Different Way of Thinking
 
 So far, we've discussed how to select models and estimate their performance. But how do we *fit* the parameters of a model? And how do we avoid overfitting at the parameter level? This is where statistical estimation and regularization come in.
 
@@ -709,9 +709,36 @@ How do we estimate model parameters in a way that prevents overfitting and incor
 1. **Frequentist**: Treat parameters as fixed but unknown
 2. **Bayesian**: Treat parameters as random variables with distributions
 
+**Philosophical Difference:**
+- **Frequentist**: "What's the probability of the data given the parameters?"
+- **Bayesian**: "What's the probability of the parameters given the data?"
+
+**Real-World Analogy: The Weather Forecast Problem**
+Think of parameter estimation like weather forecasting:
+- **Frequentist approach**: "Given the current weather patterns, what's the probability it will rain tomorrow?"
+- **Bayesian approach**: "Given that it rained today and the forecast was sunny, what's the probability the weather model is correct?"
+
+### The Bayesian Mindset: Embracing Uncertainty
+
+**Key Insight:**
+In the Bayesian view, we don't just want a single "best" estimate of parameters—we want to understand our uncertainty about those parameters.
+
+**Why This Matters:**
+- **Uncertainty quantification**: We can say "we're 95% confident the parameter is between 0.3 and 0.7"
+- **Prior knowledge**: We can incorporate what we already know
+- **Robust decisions**: We can make decisions that account for uncertainty
+- **Model comparison**: We can compare models more systematically
+
+**Visual Analogy: The Detective's Approach**
+Think of Bayesian inference like detective work:
+- **Prior**: What we know before seeing the evidence
+- **Evidence**: The data we observe
+- **Posterior**: What we believe after seeing the evidence
+- **Uncertainty**: How confident we are in our conclusions
+
 ---
 
-## Frequentist vs Bayesian Approaches
+## Frequentist vs Bayesian Approaches: Two Philosophies of Statistics
 
 ### Frequentist View: Maximum Likelihood Estimation (MLE)
 
@@ -742,11 +769,37 @@ Taking the log and maximizing gives us the familiar least squares solution.
 - ❌ **No regularization**: Can overfit with small datasets
 - ❌ **No uncertainty quantification**: Doesn't tell us how confident we are
 
----
+**Practical Implementation:**
+```python
+import numpy as np
+from scipy.optimize import minimize
 
-## Bayesian View: Priors, Posteriors, and Prediction
+def negative_log_likelihood(theta, X, y, sigma=1.0):
+    """Negative log-likelihood for linear regression with Gaussian noise"""
+    predictions = X @ theta
+    residuals = y - predictions
+    log_likelihood = -0.5 * np.sum(residuals**2) / (sigma**2) - len(y) * np.log(sigma * np.sqrt(2*np.pi))
+    return -log_likelihood  # Negative because we minimize
 
-### The Bayesian Framework
+# Generate some data
+np.random.seed(42)
+X = np.random.randn(100, 2)
+true_theta = np.array([1.5, -0.8])
+y = X @ true_theta + 0.1 * np.random.randn(100)
+
+# MLE estimation
+initial_theta = np.zeros(2)
+result = minimize(negative_log_likelihood, initial_theta, args=(X, y))
+mle_theta = result.x
+
+print(f"True parameters: {true_theta}")
+print(f"MLE estimates: {mle_theta}")
+print(f"Difference: {np.linalg.norm(true_theta - mle_theta):.4f}")
+```
+
+### Bayesian View: Priors, Posteriors, and Prediction
+
+### The Bayesian Framework: A Complete Probabilistic Model
 
 In the Bayesian approach, we treat $`\theta`$ as a *random variable* with its own probability distribution, reflecting our uncertainty about its true value.
 
@@ -755,7 +808,19 @@ In the Bayesian approach, we treat $`\theta`$ as a *random variable* with its ow
 - **Likelihood $`p(y|x, \theta)`$:** How likely the data is, given $`\theta`$
 - **Posterior $`p(\theta|S)`$:** What we believe about $`\theta`$ after seeing the data $`S`$
 
-### Bayes' Rule for Parameters
+**Visual Analogy: The Learning Process**
+Think of Bayesian learning like updating your beliefs:
+```
+Prior Belief → See Data → Update Belief → Posterior Belief
+(Initial)     (Evidence)   (Learning)     (Final)
+```
+
+**Example - Coin Flipping:**
+- **Prior**: "I think the coin is fair (50% heads)"
+- **Data**: Flip 10 times, get 7 heads
+- **Posterior**: "Given this data, I think the coin is biased toward heads (maybe 60-70%)"
+
+### Bayes' Rule for Parameters: The Fundamental Equation
 
 **The Fundamental Equation:**
 ```math
@@ -771,7 +836,57 @@ p(\theta|S) = \frac{p(S|\theta)p(\theta)}{p(S)} = \frac{\left(\prod_{i=1}^n p(y^
 **The Denominator:**
 The denominator ensures the posterior is a valid probability distribution (integrates to 1). It's often the most challenging part to compute.
 
-### Bayesian Prediction
+**Intuition:**
+- **Numerator**: How likely is this parameter value AND how much do we believe in it?
+- **Denominator**: Normalize so probabilities sum to 1
+- **Result**: Updated beliefs about parameters given the data
+
+**Practical Example - Bayesian Coin Flipping:**
+```python
+import numpy as np
+from scipy.stats import beta
+import matplotlib.pyplot as plt
+
+# Prior: Beta(2, 2) - slightly favoring fair coin
+prior_alpha, prior_beta = 2, 2
+
+# Data: 7 heads out of 10 flips
+heads, total = 7, 10
+
+# Posterior: Beta(2+7, 2+3) = Beta(9, 5)
+posterior_alpha = prior_alpha + heads
+posterior_beta = prior_beta + (total - heads)
+
+# Plot prior and posterior
+theta = np.linspace(0, 1, 100)
+prior = beta.pdf(theta, prior_alpha, prior_beta)
+posterior = beta.pdf(theta, posterior_alpha, posterior_beta)
+
+plt.figure(figsize=(10, 6))
+plt.plot(theta, prior, 'b-', label='Prior: Beta(2, 2)', linewidth=2)
+plt.plot(theta, posterior, 'r-', label='Posterior: Beta(9, 5)', linewidth=2)
+plt.axvline(0.5, color='k', linestyle='--', alpha=0.5, label='Fair coin')
+plt.axvline(heads/total, color='g', linestyle='--', alpha=0.5, label=f'Data: {heads}/{total}')
+plt.xlabel('Probability of Heads')
+plt.ylabel('Density')
+plt.title('Bayesian Coin Flipping: Prior vs Posterior')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# Point estimates
+prior_mean = prior_alpha / (prior_alpha + prior_beta)
+posterior_mean = posterior_alpha / (posterior_alpha + posterior_beta)
+posterior_std = np.sqrt((posterior_alpha * posterior_beta) / 
+                       ((posterior_alpha + posterior_beta)**2 * (posterior_alpha + posterior_beta + 1)))
+
+print(f"Prior mean: {prior_mean:.3f}")
+print(f"Posterior mean: {posterior_mean:.3f} ± {posterior_std:.3f}")
+print(f"95% credible interval: [{beta.ppf(0.025, posterior_alpha, posterior_beta):.3f}, "
+      f"{beta.ppf(0.975, posterior_alpha, posterior_beta):.3f}]")
+```
+
+### Bayesian Prediction: Making Predictions with Uncertainty
 
 **Fully Bayesian Prediction:**  
 To predict for a new $`x`$, we average over all possible $`\theta`$ weighted by their posterior probability:
@@ -792,7 +907,88 @@ If $`y`$ is continuous, we might want the expected value:
 **Example - Bayesian Linear Regression:**
 For linear regression with Gaussian prior and likelihood, the posterior is also Gaussian, and predictions have both a mean and variance (uncertainty).
 
-### Choosing the Likelihood Function
+**Practical Implementation:**
+```python
+from scipy.stats import multivariate_normal
+
+def bayesian_linear_regression(X_train, y_train, X_test, prior_mean, prior_cov, noise_var=1.0):
+    """
+    Bayesian linear regression with Gaussian prior and likelihood
+    """
+    # Posterior parameters
+    prior_precision = np.linalg.inv(prior_cov)
+    data_precision = X_train.T @ X_train / noise_var
+    
+    posterior_precision = prior_precision + data_precision
+    posterior_cov = np.linalg.inv(posterior_precision)
+    
+    posterior_mean = posterior_cov @ (
+        prior_precision @ prior_mean + 
+        X_train.T @ y_train / noise_var
+    )
+    
+    # Predictions
+    predictions = X_test @ posterior_mean
+    
+    # Prediction uncertainty
+    prediction_var = noise_var + np.diag(X_test @ posterior_cov @ X_test.T)
+    prediction_std = np.sqrt(prediction_var)
+    
+    return predictions, prediction_std, posterior_mean, posterior_cov
+
+# Example usage
+np.random.seed(42)
+X_train = np.random.randn(50, 2)
+true_theta = np.array([1.5, -0.8])
+y_train = X_train @ true_theta + 0.1 * np.random.randn(50)
+
+X_test = np.random.randn(20, 2)
+
+# Prior: centered at zero with some uncertainty
+prior_mean = np.zeros(2)
+prior_cov = np.eye(2) * 10.0
+
+# Bayesian predictions
+predictions, pred_std, post_mean, post_cov = bayesian_linear_regression(
+    X_train, y_train, X_test, prior_mean, prior_cov
+)
+
+print(f"True parameters: {true_theta}")
+print(f"Posterior mean: {post_mean}")
+print(f"Posterior std: {np.sqrt(np.diag(post_cov))}")
+
+# Plot predictions with uncertainty
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.scatter(X_train[:, 0], y_train, alpha=0.6, label='Training data')
+plt.scatter(X_test[:, 0], predictions, color='red', alpha=0.6, label='Predictions')
+plt.fill_between(X_test[:, 0], 
+                predictions - 2*pred_std, 
+                predictions + 2*pred_std, 
+                alpha=0.3, color='red', label='95% confidence')
+plt.xlabel('Feature 1')
+plt.ylabel('Target')
+plt.title('Bayesian Linear Regression Predictions')
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.scatter(X_train[:, 1], y_train, alpha=0.6, label='Training data')
+plt.scatter(X_test[:, 1], predictions, color='red', alpha=0.6, label='Predictions')
+plt.fill_between(X_test[:, 1], 
+                predictions - 2*pred_std, 
+                predictions + 2*pred_std, 
+                alpha=0.3, color='red', label='95% confidence')
+plt.xlabel('Feature 2')
+plt.ylabel('Target')
+plt.title('Bayesian Linear Regression Predictions')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+### Choosing the Likelihood Function: The Data Model
 
 In the equation above, $`p(y^{(i)}|x^{(i)}, \theta)`$ comes from whatever model you're using for your learning problem. For example, if you are using Bayesian logistic regression, then you might choose:
 
@@ -800,11 +996,17 @@ $`p(y^{(i)}|x^{(i)}, \theta) = h_\theta(x^{(i)})^{y^{(i)}}(1-h_\theta(x^{(i)}))^
 
 Where $`h_\theta(x) = \frac{1}{1 + \exp(-\theta^T x)}`$ is the sigmoid function.
 
+**Common Likelihood Functions:**
+- **Linear regression**: Gaussian likelihood
+- **Logistic regression**: Bernoulli likelihood
+- **Poisson regression**: Poisson likelihood
+- **Classification**: Categorical likelihood
+
 ---
 
-## MAP Estimation and Regularization
+## MAP Estimation and Regularization: The Connection
 
-### The MAP Approximation
+### The MAP Approximation: A Practical Compromise
 
 Computing the full posterior is often intractable, so we approximate it by its mode—the most probable value, called the **maximum a posteriori (MAP)** estimate:
 
@@ -815,7 +1017,13 @@ Computing the full posterior is often intractable, so we approximate it by its m
 **Key Insight:**
 This is like MLE, but with an extra term for the prior $`p(\theta)`$.
 
-### Connection to Regularization
+**Visual Analogy: The Mountain Climbing Problem**
+Think of MAP estimation like finding the highest peak in a mountain range:
+- **MLE**: Find the highest point in the data likelihood "mountain"
+- **MAP**: Find the highest point in the posterior "mountain" (likelihood × prior)
+- **Prior**: Acts like a "gravity" that pulls us toward certain regions
+
+### Connection to Regularization: The Mathematical Bridge
 
 **Gaussian Prior → L2 Regularization:**
 If the prior is Gaussian, $`\theta \sim \mathcal{N}(0, \tau^2 I)`$, MAP estimation is equivalent to adding L2 regularization (ridge regression) in linear models.
@@ -833,11 +1041,57 @@ If the prior is Laplace, $`p(\theta) \propto \exp(-\lambda \|\theta\|_1)`$, MAP 
 **Practical Note:**  
 Regularization helps prevent overfitting by discouraging large parameter values, which often correspond to overly complex models.
 
+**Implementation Example:**
+```python
+from sklearn.linear_model import Ridge, Lasso
+from scipy.optimize import minimize
+
+def map_estimation_with_gaussian_prior(X, y, prior_std=1.0, noise_std=1.0):
+    """
+    MAP estimation with Gaussian prior (equivalent to Ridge regression)
+    """
+    def objective(theta):
+        # Log-likelihood (assuming Gaussian noise)
+        predictions = X @ theta
+        residuals = y - predictions
+        log_likelihood = -0.5 * np.sum(residuals**2) / (noise_std**2)
+        
+        # Log-prior (Gaussian)
+        log_prior = -0.5 * np.sum(theta**2) / (prior_std**2)
+        
+        return -(log_likelihood + log_prior)  # Negative because we minimize
+    
+    # Optimize
+    initial_theta = np.zeros(X.shape[1])
+    result = minimize(objective, initial_theta)
+    return result.x
+
+# Compare MAP with Ridge regression
+np.random.seed(42)
+X = np.random.randn(100, 5)
+true_theta = np.array([1.0, -0.5, 0.3, 0.0, 0.0])  # Some zero coefficients
+y = X @ true_theta + 0.1 * np.random.randn(100)
+
+# MAP estimation
+map_theta = map_estimation_with_gaussian_prior(X, y, prior_std=1.0)
+
+# Ridge regression (should be equivalent)
+ridge = Ridge(alpha=1.0/(2*1.0**2))  # alpha = 1/(2*prior_std^2)
+ridge.fit(X, y)
+ridge_theta = ridge.coef_
+
+print("Comparison of MAP and Ridge:")
+print(f"True parameters: {true_theta}")
+print(f"MAP estimates:   {map_theta}")
+print(f"Ridge estimates: {ridge_theta}")
+print(f"MAP vs Ridge difference: {np.linalg.norm(map_theta - ridge_theta):.6f}")
+```
+
 ---
 
-## Example: Bayesian Logistic Regression
+## Example: Bayesian Logistic Regression: A Complete Case Study
 
-### The Model
+### The Model: Binary Classification with Uncertainty
 
 Suppose you're doing binary classification with logistic regression. In the Bayesian view, you put a prior on the weights $`\theta`$, and your predictions average over all plausible values of $`\theta`$ given the data.
 
@@ -852,7 +1106,7 @@ $`\theta \sim \mathcal{N}(0, \tau^2 I)`$ (Gaussian prior)
 **Posterior:**
 $`p(\theta|S) \propto \left(\prod_{i=1}^n h_\theta(x^{(i)})^{y^{(i)}}(1-h_\theta(x^{(i)}))^{(1-y^{(i)})}\right) \exp\left(-\frac{\|\theta\|_2^2}{2\tau^2}\right)`$
 
-### MAP Estimation
+### MAP Estimation: The Practical Approach
 
 In practice, you might use the MAP estimate, which is equivalent to regularized logistic regression:
 
@@ -860,11 +1114,103 @@ $`\theta_{\text{MAP}} = \arg\max_\theta \sum_{i=1}^n [y^{(i)} \log h_\theta(x^{(
 
 This is exactly the objective function for L2-regularized logistic regression!
 
+**Complete Implementation:**
+```python
+import numpy as np
+from scipy.optimize import minimize
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, log_loss
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def bayesian_logistic_regression(X_train, y_train, X_test, prior_std=1.0):
+    """
+    Bayesian logistic regression with Gaussian prior
+    """
+    def objective(theta):
+        # Log-likelihood
+        logits = X_train @ theta
+        probs = sigmoid(logits)
+        log_likelihood = np.sum(y_train * np.log(probs + 1e-15) + 
+                               (1 - y_train) * np.log(1 - probs + 1e-15))
+        
+        # Log-prior
+        log_prior = -0.5 * np.sum(theta**2) / (prior_std**2)
+        
+        return -(log_likelihood + log_prior)
+    
+    # MAP estimation
+    initial_theta = np.zeros(X_train.shape[1])
+    result = minimize(objective, initial_theta, method='L-BFGS-B')
+    map_theta = result.x
+    
+    # Predictions
+    logits_test = X_test @ map_theta
+    probs_test = sigmoid(logits_test)
+    predictions = (probs_test > 0.5).astype(int)
+    
+    return map_theta, probs_test, predictions
+
+# Generate synthetic data
+np.random.seed(42)
+n_samples, n_features = 200, 3
+X = np.random.randn(n_samples, n_features)
+true_theta = np.array([1.5, -0.8, 0.3])
+logits = X @ true_theta
+probs = sigmoid(logits)
+y = (np.random.rand(n_samples) < probs).astype(int)
+
+# Split data
+train_idx = np.random.choice(n_samples, 150, replace=False)
+test_idx = np.setdiff1d(np.arange(n_samples), train_idx)
+
+X_train, X_test = X[train_idx], X[test_idx]
+y_train, y_test = y[train_idx], y[test_idx]
+
+# Bayesian logistic regression
+map_theta, probs_test, predictions = bayesian_logistic_regression(X_train, y_train, X_test)
+
+# Compare with sklearn
+sklearn_lr = LogisticRegression(penalty='l2', C=1.0, solver='lbfgs', random_state=42)
+sklearn_lr.fit(X_train, y_train)
+sklearn_predictions = sklearn_lr.predict(X_test)
+
+print("Bayesian Logistic Regression Results:")
+print(f"True parameters: {true_theta}")
+print(f"MAP estimates: {map_theta}")
+print(f"Sklearn estimates: {sklearn_lr.coef_[0]}")
+print(f"Bayesian accuracy: {accuracy_score(y_test, predictions):.3f}")
+print(f"Sklearn accuracy: {accuracy_score(y_test, sklearn_predictions):.3f}")
+
+# Plot predictions with uncertainty
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.scatter(X_test[:, 0], y_test, alpha=0.6, label='True labels')
+plt.scatter(X_test[:, 0], probs_test, color='red', alpha=0.6, label='Predicted probabilities')
+plt.xlabel('Feature 1')
+plt.ylabel('Probability')
+plt.title('Bayesian Logistic Regression Predictions')
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.scatter(X_test[:, 1], y_test, alpha=0.6, label='True labels')
+plt.scatter(X_test[:, 1], probs_test, color='red', alpha=0.6, label='Predicted probabilities')
+plt.xlabel('Feature 2')
+plt.ylabel('Probability')
+plt.title('Bayesian Logistic Regression Predictions')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
 ---
 
-## Practical Guidelines
+## Practical Guidelines: When to Use Each Approach
 
-### When to Use Each Approach
+### When to Use Each Approach: A Decision Framework
 
 **Use MLE when:**
 - ✅ You have lots of data
@@ -887,7 +1233,18 @@ This is exactly the objective function for L2-regularized logistic regression!
 - ❌ You need computational efficiency
 - ❌ You have very large datasets
 
-### Choosing Priors
+**Decision Tree:**
+```
+Do you need uncertainty quantification?
+├─ Yes → Full Bayesian
+└─ No → Do you have prior knowledge?
+    ├─ Yes → MAP
+    └─ No → Do you have lots of data?
+        ├─ Yes → MLE
+        └─ No → MAP (for regularization)
+```
+
+### Choosing Priors: The Art of Prior Specification
 
 **Conjugate Priors:**
 - **Gaussian prior + Gaussian likelihood → Gaussian posterior**
@@ -903,7 +1260,27 @@ This is exactly the objective function for L2-regularized logistic regression!
 - Previous studies or experiments
 - Expert opinion
 
-### Computational Considerations
+**Practical Guidelines:**
+```python
+# Example: Choosing priors for different scenarios
+
+# 1. Non-informative prior (when you know nothing)
+non_informative_prior = lambda theta: 1.0  # Uniform
+
+# 2. Weakly informative prior (when you have some idea)
+weakly_informative_prior = lambda theta: np.exp(-0.1 * np.sum(theta**2))  # N(0, 10)
+
+# 3. Informative prior (when you have strong beliefs)
+informative_prior = lambda theta: np.exp(-10 * np.sum((theta - [1.0, -0.5])**2))  # N([1, -0.5], 0.1)
+
+# 4. Hierarchical prior (when you have multiple related parameters)
+def hierarchical_prior(theta, hyperprior_params):
+    # theta ~ N(0, sigma^2), sigma ~ Gamma(a, b)
+    sigma = hyperprior_params['sigma']
+    return np.exp(-0.5 * np.sum(theta**2) / (sigma**2))
+```
+
+### Computational Considerations: The Practical Reality
 
 **MLE:**
 - Usually fast and straightforward
@@ -920,90 +1297,17 @@ This is exactly the objective function for L2-regularized logistic regression!
 - May require MCMC or variational methods
 - Provides uncertainty quantification
 
----
+**Computational Complexity Comparison:**
+```
+Method:           MLE     →  MAP     →  Full Bayesian
+Speed:            Fast    →  Fast    →  Slow
+Memory:           Low     →  Low     →  High
+Uncertainty:      None    →  Point   →  Full distribution
+Implementation:   Easy    →  Easy    →  Complex
+```
 
-## Advanced Topics
-
-### Model Comparison
-
-**Bayesian Model Selection:**
-Compare models using the marginal likelihood (evidence):
-
-$`p(S|M) = \int_\theta p(S|\theta, M) p(\theta|M) d\theta`$
-
-**Bayes Factor:**
-$`BF = \frac{p(S|M_1)}{p(S|M_2)}`$
-
-- $`BF > 1`$: Model 1 is preferred
-- $`BF < 1`$: Model 2 is preferred
-
-### Hierarchical Models
-
-**Multi-level Models:**
-- Parameters have their own distributions
-- Useful for grouped data
-- Example: Students within schools, patients within hospitals
-
-### Approximate Bayesian Methods
-
-**Variational Inference:**
-- Approximate the posterior with a simpler distribution
-- Faster than MCMC
-- Less accurate than exact methods
-
-**MCMC Methods:**
-- Metropolis-Hastings
-- Hamiltonian Monte Carlo
-- No-U-Turn Sampler (NUTS)
-
----
-
-## Summary
-
-**Key Concepts:**
-1. **Model selection** is about finding the right complexity
-2. **Cross-validation** provides unbiased performance estimates
-3. **Bayesian methods** incorporate prior knowledge and uncertainty
-4. **MAP estimation** connects Bayesian methods to regularization
-5. **Different approaches** have different trade-offs
-
-**Practical Tips:**
-- Use cross-validation for model selection
-- Choose the right validation strategy for your dataset size
-- Consider both frequentist and Bayesian approaches
-- Regularization helps prevent overfitting
-- Document your choices and assumptions
-
-**Next Steps:**
-- Experiment with different cross-validation strategies
-- Try Bayesian methods on your datasets
-- Learn about advanced Bayesian computational methods
-- Consider the uncertainty in your predictions
-
-## From Theoretical Understanding to Practical Implementation
-
-We've now explored **model selection** - the systematic process of choosing among different models, model complexities, and hyperparameters. We've learned how cross-validation provides reliable performance estimates, how Bayesian methods incorporate uncertainty and prior knowledge, and how to avoid common pitfalls in model selection.
-
-However, while understanding the theoretical foundations of regularization and model selection is essential, true mastery comes from **practical implementation**. The concepts we've learned - regularization techniques, cross-validation strategies, and Bayesian approaches - need to be applied to real problems to develop intuition and practical skills.
-
-This motivates our exploration of **hands-on coding** - the practical implementation of all the regularization and model selection concepts we've learned. We'll put our theoretical knowledge into practice by implementing regularization techniques, building cross-validation systems, and developing the practical skills needed to build robust, generalizable models.
-
-The transition from theoretical understanding to practical implementation represents the bridge from knowledge to application - taking our understanding of how regularization and model selection work and turning it into practical tools for building better machine learning models.
-
-In the next section, we'll implement complete systems for regularization and model selection, experiment with different techniques, and develop the practical skills needed for real-world machine learning applications.
-
----
-
-**Previous: [Regularization](01_regularization.md)** - Understand the fundamental techniques for preventing overfitting and controlling model complexity.
-
-**Next: [Hands-on Coding](03_hands-on_coding.md)** - Implement regularization and model selection techniques with practical examples.
-
-## Footnotes
-
-[^5]: Given that we said in the previous set of notes that bias and variance are two very different beasts, some readers may be wondering if we should be calling them "twin" evils here. Perhaps it'd be better to think of them as non-identical twins. The phrase "the fraternal twin evils of bias and variance" doesn't have the same ring to it, though.
-
-[^6]: If we are trying to choose from an infinite set of models, say corresponding to the possible values of the bandwidth $`\tau \in \mathbb{R}^+`$, we may discretize $`\tau`$ and consider only a finite number of possible values for it. More generally, most of the algorithms described here can all be viewed as performing optimization search in the space of models, and we can perform this search over infinite model classes as well.
-
-[^7]: Since we are now viewing $`\theta`$ as a random variable, it is okay to condition on its value, and write $`p(y|x, \theta)`$ instead of $`p(y|x; \theta)`$.
-
-[^8]: The integral below would be replaced by a summation if $`y`$ is discrete-valued.
+**When Computational Cost Matters:**
+- **Real-time applications**: Use MLE or MAP
+- **Large datasets**: Use MLE or MAP
+- **Research/analysis**: Use Full Bayesian when possible
+- **Production systems**: Use MAP for good balance
