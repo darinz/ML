@@ -211,115 +211,14 @@ Think of linear models like approximating a curve with a line:
 6. **Statistical Properties**: Well-understood theoretical foundations
 
 **Practical Example - Linear vs. Non-linear Relationships:**
-```python
-import numpy as np
-import matplotlib.pyplot as plt
 
-def demonstrate_linear_vs_nonlinear():
-    """Demonstrate when linear models work well and when they don't"""
-    
-    # Generate data with different relationships
-    np.random.seed(42)
-    x = np.linspace(0, 10, 100)
-    
-    # Linear relationship
-    y_linear = 2 * x + 1 + np.random.normal(0, 0.5, 100)
-    
-    # Non-linear relationship (quadratic)
-    y_quadratic = 0.5 * x**2 - 2 * x + 3 + np.random.normal(0, 0.5, 100)
-    
-    # Non-linear relationship (exponential)
-    y_exponential = 2 * np.exp(0.3 * x) + np.random.normal(0, 1, 100)
-    
-    print("Linear vs. Non-linear Relationships")
-    print("=" * 40)
-    print("Linear models work well when:")
-    print("1. The true relationship is approximately linear")
-    print("2. We only need a rough approximation")
-    print("3. We want interpretable coefficients")
-    print("4. We have limited data")
-    print()
-    
-    # Fit linear models to all three datasets
-    from sklearn.linear_model import LinearRegression
-    
-    # Linear relationship
-    X_linear = x.reshape(-1, 1)
-    lr_linear = LinearRegression()
-    lr_linear.fit(X_linear, y_linear)
-    y_pred_linear = lr_linear.predict(X_linear)
-    
-    # Quadratic relationship
-    lr_quadratic = LinearRegression()
-    lr_quadratic.fit(X_linear, y_quadratic)
-    y_pred_quadratic = lr_quadratic.predict(X_linear)
-    
-    # Exponential relationship
-    lr_exponential = LinearRegression()
-    lr_exponential.fit(X_linear, y_exponential)
-    y_pred_exponential = lr_exponential.predict(X_linear)
-    
-    # Calculate R-squared scores
-    from sklearn.metrics import r2_score
-    r2_linear = r2_score(y_linear, y_pred_linear)
-    r2_quadratic = r2_score(y_quadratic, y_pred_quadratic)
-    r2_exponential = r2_score(y_exponential, y_pred_exponential)
-    
-    print("Model Performance (R² scores):")
-    print(f"Linear relationship: {r2_linear:.3f} (Excellent fit)")
-    print(f"Quadratic relationship: {r2_quadratic:.3f} (Good approximation)")
-    print(f"Exponential relationship: {r2_exponential:.3f} (Poor fit)")
-    print()
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Linear relationship
-    plt.subplot(1, 3, 1)
-    plt.scatter(x, y_linear, alpha=0.6, label='Data')
-    plt.plot(x, y_pred_linear, 'r-', linewidth=2, label='Linear Fit')
-    plt.xlabel('X')
-    plt.ylabel('Y')
-    plt.title(f'Linear Relationship\nR² = {r2_linear:.3f}')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Quadratic relationship
-    plt.subplot(1, 3, 2)
-    plt.scatter(x, y_quadratic, alpha=0.6, label='Data')
-    plt.plot(x, y_pred_quadratic, 'r-', linewidth=2, label='Linear Fit')
-    plt.xlabel('X')
-    plt.ylabel('Y')
-    plt.title(f'Quadratic Relationship\nR² = {r2_quadratic:.3f}')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Exponential relationship
-    plt.subplot(1, 3, 3)
-    plt.scatter(x, y_exponential, alpha=0.6, label='Data')
-    plt.plot(x, y_pred_exponential, 'r-', linewidth=2, label='Linear Fit')
-    plt.xlabel('X')
-    plt.ylabel('Y')
-    plt.title(f'Exponential Relationship\nR² = {r2_exponential:.3f}')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Analysis
-    print("Key Insights:")
-    print("-" * 20)
-    print("1. Linear models work perfectly for linear relationships")
-    print("2. They provide good approximations for mildly non-linear relationships")
-    print("3. They fail for highly non-linear relationships")
-    print("4. R² score tells us how well the linear model fits")
-    print("5. Sometimes a simple approximation is better than a complex model")
-    
-    return r2_linear, r2_quadratic, r2_exponential
+See the complete implementation in [`code/linear_vs_nonlinear_demo.py`](code/linear_vs_nonlinear_demo.py) for a demonstration of when linear models work well and when they don't. The code shows:
 
-linear_demo = demonstrate_linear_vs_nonlinear()
-```
+- Linear relationships (excellent fit)
+- Quadratic relationships (good approximation) 
+- Exponential relationships (poor fit)
+- R² score analysis for each case
+- Visualizations comparing model performance
 
 ## Regression vs. Classification: Understanding Problem Types
 
@@ -369,116 +268,14 @@ Think of regression like predicting speed limits:
 - **Evaluation metrics**: RMSE, MAE, R-squared, correlation coefficient
 
 **Practical Example - Regression vs. Classification:**
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression, LogisticRegression
-from sklearn.metrics import mean_squared_error, accuracy_score
 
-def demonstrate_regression_vs_classification():
-    """Demonstrate the difference between regression and classification"""
-    
-    # Generate sample data
-    np.random.seed(42)
-    n_samples = 100
-    
-    # Regression data: house size vs. price
-    house_sizes = np.random.uniform(1000, 3000, n_samples)
-    house_prices = 100 + 0.15 * house_sizes + np.random.normal(0, 20, n_samples)
-    
-    # Classification data: house size vs. expensive/cheap
-    price_threshold = np.median(house_prices)
-    house_categories = (house_prices > price_threshold).astype(int)  # 0=cheap, 1=expensive
-    
-    print("Regression vs. Classification Comparison")
-    print("=" * 50)
-    print("Regression: Predicting continuous values")
-    print("Classification: Predicting discrete categories")
-    print()
-    
-    # Fit regression model
-    lr_regression = LinearRegression()
-    lr_regression.fit(house_sizes.reshape(-1, 1), house_prices)
-    price_predictions = lr_regression.predict(house_sizes.reshape(-1, 1))
-    
-    # Fit classification model
-    lr_classification = LogisticRegression()
-    lr_classification.fit(house_sizes.reshape(-1, 1), house_categories)
-    category_predictions = lr_classification.predict(house_sizes.reshape(-1, 1))
-    category_probabilities = lr_classification.predict_proba(house_sizes.reshape(-1, 1))[:, 1]
-    
-    # Calculate metrics
-    mse = mean_squared_error(house_prices, price_predictions)
-    accuracy = accuracy_score(house_categories, category_predictions)
-    
-    print("Model Performance:")
-    print(f"Regression MSE: {mse:.2f}")
-    print(f"Classification Accuracy: {accuracy:.3f}")
-    print()
-    
-    print("Prediction Examples:")
-    print("House Size: 2000 sq ft")
-    print(f"  Regression: ${price_predictions[50]:.0f} (continuous)")
-    print(f"  Classification: {'Expensive' if category_predictions[50] else 'Cheap'} (discrete)")
-    print(f"  Classification Probability: {category_probabilities[50]:.3f}")
-    print()
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Regression plot
-    plt.subplot(1, 3, 1)
-    plt.scatter(house_sizes, house_prices, alpha=0.6, c='blue', label='Data')
-    plt.plot(house_sizes, price_predictions, 'r-', linewidth=2, label='Regression Line')
-    plt.xlabel('House Size (sq ft)')
-    plt.ylabel('Price ($1000s)')
-    plt.title('Regression: Continuous Prediction')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Classification plot
-    plt.subplot(1, 3, 2)
-    colors = ['red' if cat == 0 else 'blue' for cat in house_categories]
-    plt.scatter(house_sizes, house_categories, c=colors, alpha=0.6, label='Data')
-    plt.plot(house_sizes, category_probabilities, 'g-', linewidth=2, label='Probability')
-    plt.xlabel('House Size (sq ft)')
-    plt.ylabel('Category (0=Cheap, 1=Expensive)')
-    plt.title('Classification: Discrete Prediction')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Comparison
-    plt.subplot(1, 3, 3)
-    plt.hist(house_prices, bins=20, alpha=0.7, label='Price Distribution')
-    plt.axvline(price_threshold, color='red', linestyle='--', label='Classification Threshold')
-    plt.xlabel('Price ($1000s)')
-    plt.ylabel('Frequency')
-    plt.title('Price Distribution & Threshold')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Analysis
-    print("Key Differences:")
-    print("-" * 20)
-    print("Regression:")
-    print("  - Output: Continuous values")
-    print("  - Loss: Mean squared error")
-    print("  - Interpretation: 'How much?'")
-    print("  - Example: Price = $342,500")
-    print()
-    print("Classification:")
-    print("  - Output: Discrete categories")
-    print("  - Loss: Cross-entropy")
-    print("  - Interpretation: 'Which category?'")
-    print("  - Example: Expensive (with 85% confidence)")
-    
-    return mse, accuracy
+See the complete implementation in [`code/regression_vs_classification_demo.py`](code/regression_vs_classification_demo.py) for a demonstration of the differences between regression and classification. The code shows:
 
-reg_class_demo = demonstrate_regression_vs_classification()
-```
+- Regression: Predicting continuous house prices
+- Classification: Predicting discrete categories (expensive/cheap)
+- Model performance comparison (MSE vs. Accuracy)
+- Visualization of both approaches
+- Probability outputs for classification
 
 ### Classification Problems: Predicting Discrete Categories
 
@@ -628,107 +425,14 @@ Think of the hypothesis function like a tax system:
 - **$\theta_2$ (Bedroom Coefficient)**: Represents the change in price for a one-unit increase in bedrooms (holding living area constant)
 
 **Practical Example - Multiple Features:**
-```python
-def demonstrate_multiple_features():
-    """Demonstrate linear regression with multiple features"""
-    
-    # Generate sample data with multiple features
-    np.random.seed(42)
-    n_samples = 100
-    
-    # Features: living area, bedrooms, age
-    living_area = np.random.uniform(1000, 3000, n_samples)
-    bedrooms = np.random.randint(1, 6, n_samples)
-    age = np.random.uniform(0, 50, n_samples)
-    
-    # Target: house price (with some feature interactions)
-    base_price = 100
-    area_effect = 0.15 * living_area
-    bedroom_effect = 25 * bedrooms
-    age_effect = -2 * age  # older houses are cheaper
-    noise = np.random.normal(0, 20, n_samples)
-    
-    price = base_price + area_effect + bedroom_effect + age_effect + noise
-    
-    print("Multiple Features Linear Regression")
-    print("=" * 50)
-    print("Features: Living Area, Bedrooms, Age")
-    print("Target: House Price")
-    print()
-    
-    # Create feature matrix
-    X = np.column_stack([living_area, bedrooms, age])
-    
-    # Fit linear regression
-    lr = LinearRegression()
-    lr.fit(X, price)
-    
-    # Get coefficients
-    coefficients = lr.coef_
-    intercept = lr.intercept_
-    
-    print("Model Coefficients:")
-    print(f"Intercept (θ₀): ${intercept:.2f}")
-    print(f"Living Area (θ₁): ${coefficients[0]:.3f} per sq ft")
-    print(f"Bedrooms (θ₂): ${coefficients[1]:.2f} per bedroom")
-    print(f"Age (θ₃): ${coefficients[2]:.2f} per year")
-    print()
-    
-    # Make predictions
-    predictions = lr.predict(X)
-    mse = mean_squared_error(price, predictions)
-    r2 = lr.score(X, price)
-    
-    print("Model Performance:")
-    print(f"Mean Squared Error: ${mse:.2f}")
-    print(f"R-squared: {r2:.3f}")
-    print()
-    
-    # Example predictions
-    print("Example Predictions:")
-    examples = [
-        [2000, 3, 10],  # 2000 sq ft, 3 bedrooms, 10 years old
-        [1500, 2, 5],   # 1500 sq ft, 2 bedrooms, 5 years old
-        [3000, 4, 20]   # 3000 sq ft, 4 bedrooms, 20 years old
-    ]
-    
-    for i, example in enumerate(examples):
-        pred = lr.predict([example])[0]
-        print(f"House {i+1}: {example[0]} sq ft, {example[1]} bedrooms, {example[2]} years old")
-        print(f"  Predicted Price: ${pred:.0f}")
-        print()
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Feature vs. Price plots
-    features = ['Living Area', 'Bedrooms', 'Age']
-    colors = ['blue', 'green', 'red']
-    
-    for i, (feature, color) in enumerate(zip([living_area, bedrooms, age], colors)):
-        plt.subplot(1, 3, i+1)
-        plt.scatter(feature, price, alpha=0.6, c=color)
-        plt.xlabel(features[i])
-        plt.ylabel('Price ($1000s)')
-        plt.title(f'{features[i]} vs. Price')
-        plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Analysis
-    print("Key Insights:")
-    print("-" * 20)
-    print("1. Each feature contributes independently to the price")
-    print("2. Coefficients show the marginal effect of each feature")
-    print("3. Intercept represents the base price")
-    print("4. Model assumes no interactions between features")
-    print("5. R-squared shows how well the model fits the data")
-    
-    return coefficients, intercept, mse, r2
 
-multi_feature_demo = demonstrate_multiple_features()
-```
+See the complete implementation in [`code/multiple_features_demo.py`](code/multiple_features_demo.py) for a demonstration of linear regression with multiple features. The code shows:
+
+- Multiple features: Living area, bedrooms, and age
+- Model coefficients and their interpretation
+- Feature importance analysis
+- Example predictions for different house configurations
+- Visualization of feature-price relationships
 
 ### Vectorized Notation: The Power of Matrix Operations
 
@@ -975,102 +679,14 @@ Think of squared error like a spring:
 4. **Penalty structure**: It penalizes large errors more heavily than small ones
 
 **Practical Example - Different Loss Functions:**
-```python
-def demonstrate_loss_functions():
-    """Demonstrate different loss functions and their properties"""
-    
-    # Generate sample data
-    np.random.seed(42)
-    x = np.linspace(-3, 3, 100)
-    y_true = 2 * x + 1 + np.random.normal(0, 0.5, 100)
-    
-    # Different predictions (errors)
-    errors = np.linspace(-2, 2, 100)
-    
-    # Calculate different loss functions
-    squared_error = errors**2
-    absolute_error = np.abs(errors)
-    huber_loss = np.where(np.abs(errors) <= 1, 0.5 * errors**2, np.abs(errors) - 0.5)
-    
-    print("Loss Function Comparison")
-    print("=" * 40)
-    print("Different ways to measure prediction errors:")
-    print("1. Squared Error: Penalizes large errors heavily")
-    print("2. Absolute Error: Treats all errors equally")
-    print("3. Huber Loss: Combines benefits of both")
-    print()
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Loss functions
-    plt.subplot(1, 3, 1)
-    plt.plot(errors, squared_error, 'b-', linewidth=2, label='Squared Error')
-    plt.plot(errors, absolute_error, 'r-', linewidth=2, label='Absolute Error')
-    plt.plot(errors, huber_loss, 'g-', linewidth=2, label='Huber Loss')
-    plt.xlabel('Error')
-    plt.ylabel('Loss')
-    plt.title('Loss Functions')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Derivatives
-    plt.subplot(1, 3, 2)
-    plt.plot(errors, 2 * errors, 'b-', linewidth=2, label='Squared Error Derivative')
-    plt.plot(errors, np.sign(errors), 'r-', linewidth=2, label='Absolute Error Derivative')
-    plt.plot(errors, np.where(np.abs(errors) <= 1, errors, np.sign(errors)), 'g-', linewidth=2, label='Huber Loss Derivative')
-    plt.xlabel('Error')
-    plt.ylabel('Derivative')
-    plt.title('Loss Function Derivatives')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Penalty comparison
-    plt.subplot(1, 3, 3)
-    error_sizes = [0.1, 0.5, 1.0, 2.0]
-    se_penalties = [e**2 for e in error_sizes]
-    ae_penalties = [abs(e) for e in error_sizes]
-    
-    x_pos = np.arange(len(error_sizes))
-    width = 0.35
-    
-    plt.bar(x_pos - width/2, se_penalties, width, label='Squared Error', alpha=0.7)
-    plt.bar(x_pos + width/2, ae_penalties, width, label='Absolute Error', alpha=0.7)
-    plt.xlabel('Error Size')
-    plt.ylabel('Penalty')
-    plt.title('Penalty Comparison')
-    plt.xticks(x_pos, error_sizes)
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Analysis
-    print("Key Properties:")
-    print("-" * 20)
-    print("Squared Error:")
-    print("  - Differentiable everywhere")
-    print("  - Heavily penalizes large errors")
-    print("  - Leads to closed-form solutions")
-    print("  - Corresponds to Gaussian noise")
-    print()
-    print("Absolute Error:")
-    print("  - Not differentiable at zero")
-    print("  - Treats all errors equally")
-    print("  - More robust to outliers")
-    print("  - Corresponds to Laplace noise")
-    print()
-    print("Huber Loss:")
-    print("  - Combines benefits of both")
-    print("  - Robust to outliers")
-    print("  - Differentiable everywhere")
-    print("  - Best of both worlds")
-    
-    return squared_error, absolute_error, huber_loss
 
-loss_demo = demonstrate_loss_functions()
-```
+See the complete implementation in [`code/loss_functions_demo.py`](code/loss_functions_demo.py) for a demonstration of different loss functions and their properties. The code shows:
+
+- Squared Error: Differentiable, heavily penalizes large errors
+- Absolute Error: Robust to outliers, treats all errors equally
+- Huber Loss: Combines benefits of both approaches
+- Visualization of loss functions and their derivatives
+- Penalty comparison for different error sizes
 
 ### Vectorized Form and Mean Squared Error: Computational Efficiency
 
