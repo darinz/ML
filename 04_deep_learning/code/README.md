@@ -11,6 +11,14 @@ This directory contains Python code examples that complement the deep learning c
 - **`loss_functions_comparison.py`** - Compares different regression loss functions (MSE, MAE, Huber) on data with outliers
 - **`mse_calculation_demo.py`** - Step-by-step demonstration of MSE calculation with a simple linear model
 
+### Neural Network Fundamentals
+
+- **`neural_network_basics_demo.py`** - Demonstrates basic neural network concepts by comparing different architectures (single layer, one hidden layer, two hidden layers)
+- **`single_neuron_demo.py`** - Shows how a single neuron works with different activation functions and house price prediction
+- **`linear_vs_nonlinear_activation_demo.py`** - Demonstrates why non-linear activation functions are necessary by comparing linear and non-linear models
+- **`activation_functions_demo.py`** - Comprehensive comparison of activation functions (ReLU, Sigmoid, Tanh) and their derivatives
+- **`house_price_prediction_demo.py`** - Complete implementation of single neuron for house price prediction with evaluation and visualization
+
 ### Neural Networks and Deep Learning
 
 - **`neural_networks_code_examples.py`** - Comprehensive examples of neural network implementations
@@ -49,6 +57,9 @@ Most files include visualization code that will display plots when run. Make sur
 2. **Loss Functions**: Compare different loss functions and their properties
 3. **Model Evaluation**: Learn how to calculate and interpret model performance
 4. **Visualization**: Understand model behavior through plots and visualizations
+5. **Neural Network Basics**: Understand how neurons work and how they combine to form networks
+6. **Activation Functions**: Learn about different activation functions and when to use each
+7. **Single Neuron Applications**: See how single neurons can solve real-world problems
 
 ## Dependencies
 
