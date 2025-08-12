@@ -28,9 +28,10 @@ Think of neural networks like a complex cooking recipe:
 
 **Mathematical Intuition: Function Composition**
 A neural network is essentially a composition of simple functions:
-```math
+
+$$
 f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
-```
+$$
 Where each $f_i$ is a layer that transforms its input into a more useful representation.
 
 ### Key Characteristics: What Makes Neural Networks Special
@@ -58,9 +59,9 @@ Think of neural networks like building construction:
 
 A neural network can be viewed as a composition of functions:
 
-```math
+$$
 f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
-```
+$$
 
 Where each $f_i$ represents a layer transformation, and $\circ$ denotes function composition.
 
@@ -122,10 +123,10 @@ A neuron takes multiple inputs, combines them linearly, adds a bias, and then ap
 
 For a single neuron with input $x \in \mathbb{R}^d$:
 
-```math
+$$
 z = w^T x + b
 a = \sigma(z)
-```
+$$
 
 Where:
 - $w \in \mathbb{R}^d$ is the weight vector
@@ -157,9 +158,9 @@ The code shows how a single neuron processes inputs through linear combination a
 
 **The Problem with Linear Activations**: If we used $\sigma(z) = z$ (linear activation), then:
 
-```math
+$$
 f(x) = w_2^T (W_1 x + b_1) + b_2 = (w_2^T W_1) x + (w_2^T b_1 + b_2) = W' x + b'
-```
+$$
 
 This reduces to a linear function, losing the power of non-linearity.
 
@@ -192,9 +193,9 @@ The code shows that neural networks with non-linear activations can fit complex 
 
 #### 1. Rectified Linear Unit (ReLU) - The Workhorse
 
-```math
+$$
 \sigma(z) = \max(0, z)
-```
+$$
 
 **Properties**:
 - **Range**: $[0, \infty)$
@@ -217,9 +218,9 @@ Think of ReLU like a light switch:
 
 #### 2. Sigmoid Function - The Probability Converter
 
-```math
+$$
 \sigma(z) = \frac{1}{1 + e^{-z}}
-```
+$$
 
 **Properties**:
 - **Range**: $(0, 1)$
@@ -236,9 +237,9 @@ Think of sigmoid like a thermostat:
 
 #### 3. Hyperbolic Tangent (tanh) - The Balanced Option
 
-```math
+$$
 \sigma(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
-```
+$$
 
 **Properties**:
 - **Range**: $(-1, 1)$
@@ -268,9 +269,9 @@ The code provides a comprehensive comparison of activation functions, helping un
 
 Consider predicting house prices based on house size. A single neuron with ReLU activation can model the relationship:
 
-```math
+$$
 \hat{h}_\theta(x) = \max(w \cdot x + b, 0)
-```
+$$
 
 Where:
 - $x$ is the house size (square feet)
@@ -319,9 +320,9 @@ Think of ReLU like a progressive tax system:
 **Parameter Learning**:
 The parameters $w$ and $b$ are learned through gradient descent by minimizing a loss function (e.g., mean squared error):
 
-```math
+$$
 J(w, b) = \frac{1}{n} \sum_{i=1}^n (y^{(i)} - \hat{h}_\theta(x^{(i)}))^2
-```
+$$
 
 **Key Insights from Single Neurons**:
 1. **Non-linearity is crucial**: Without it, we're just doing linear regression
