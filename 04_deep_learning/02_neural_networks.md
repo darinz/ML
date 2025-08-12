@@ -67,93 +67,15 @@ Where each $f_i$ represents a layer transformation, and $\circ$ denotes function
 **Intuition**: Each layer takes the output of the previous layer and transforms it into a new representation that's more useful for the final task.
 
 **Practical Example - Image Recognition:**
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.datasets import make_moons
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import train_test_split
 
-def demonstrate_neural_network_basics():
-    """Demonstrate basic neural network concepts"""
-    
-    # Generate non-linear data
-    np.random.seed(42)
-    X, y = make_moons(n_samples=1000, noise=0.1, random_state=42)
-    
-    # Split data
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    
-    # Train different neural network architectures
-    from sklearn.neural_network import MLPClassifier
-    
-    # Single layer (no hidden layers)
-    nn_single = MLPClassifier(hidden_layer_sizes=(), random_state=42, max_iter=1000)
-    nn_single.fit(X_train, y_train)
-    single_score = nn_single.score(X_test, y_test)
-    
-    # One hidden layer
-    nn_one_layer = MLPClassifier(hidden_layer_sizes=(10,), random_state=42, max_iter=1000)
-    nn_one_layer.fit(X_train, y_train)
-    one_layer_score = nn_one_layer.score(X_test, y_test)
-    
-    # Two hidden layers
-    nn_two_layers = MLPClassifier(hidden_layer_sizes=(10, 5), random_state=42, max_iter=1000)
-    nn_two_layers.fit(X_train, y_train)
-    two_layer_score = nn_two_layers.score(X_test, y_test)
-    
-    print(f"Neural Network Performance:")
-    print(f"Single Layer (Linear): {single_score:.3f}")
-    print(f"One Hidden Layer: {one_layer_score:.3f}")
-    print(f"Two Hidden Layers: {two_layer_score:.3f}")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Original data
-    plt.subplot(1, 3, 1)
-    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.6, s=20)
-    plt.title('Original Data (Non-linear Pattern)')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.grid(True, alpha=0.3)
-    
-    # Single layer decision boundary
-    plt.subplot(1, 3, 2)
-    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100),
-                        np.linspace(y_min, y_max, 100))
-    
-    Z_single = nn_single.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z_single = Z_single.reshape(xx.shape)
-    
-    plt.contourf(xx, yy, Z_single, alpha=0.3)
-    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.6, s=20)
-    plt.title(f'Single Layer (Linear)\nAccuracy: {single_score:.3f}')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.grid(True, alpha=0.3)
-    
-    # Two layer decision boundary
-    plt.subplot(1, 3, 3)
-    Z_two = nn_two_layers.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z_two = Z_two.reshape(xx.shape)
-    
-    plt.contourf(xx, yy, Z_two, alpha=0.3)
-    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.6, s=20)
-    plt.title(f'Two Hidden Layers\nAccuracy: {two_layer_score:.3f}')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return single_score, one_layer_score, two_layer_score
+See the complete implementation in [`code/neural_network_basics_demo.py`](code/neural_network_basics_demo.py) which demonstrates:
 
-nn_demo = demonstrate_neural_network_basics()
-```
+- Comparison of different neural network architectures (single layer, one hidden layer, two hidden layers)
+- Training on non-linear data (moon-shaped dataset)
+- Visualization of decision boundaries for each architecture
+- Performance comparison showing how depth affects learning capacity
+
+The code shows that deeper networks can learn more complex decision boundaries and achieve higher accuracy on non-linear data.
 
 ## From Mathematical Foundations to Neural Network Architectures: The Bridge to Practice
 
@@ -221,102 +143,15 @@ Think of a neuron like a credit scoring system:
 - **Activation**: Final credit score (a)
 
 **Visual Example - Single Neuron Computation:**
-```python
-def demonstrate_single_neuron():
-    """Demonstrate how a single neuron works"""
-    
-    # Define a simple neuron
-    def neuron(x, w, b, activation='relu'):
-        # Linear combination
-        z = np.dot(w, x) + b
-        
-        # Non-linear activation
-        if activation == 'relu':
-            a = np.maximum(0, z)
-        elif activation == 'sigmoid':
-            a = 1 / (1 + np.exp(-z))
-        elif activation == 'tanh':
-            a = np.tanh(z)
-        else:
-            a = z  # Linear
-            
-        return z, a
-    
-    # Example: House price prediction
-    # Features: [square_feet, bedrooms, age]
-    x = np.array([2000, 3, 10])  # 2000 sq ft, 3 bedrooms, 10 years old
-    
-    # Different weight configurations
-    configurations = [
-        {'w': np.array([100, 5000, -1000]), 'b': 50000, 'name': 'Price-focused'},
-        {'w': np.array([50, 3000, -500]), 'b': 100000, 'name': 'Luxury-focused'},
-        {'w': np.array([75, 4000, -750]), 'b': 75000, 'name': 'Balanced'}
-    ]
-    
-    print("Single Neuron: House Price Prediction")
-    print("Input features: [square_feet, bedrooms, age]")
-    print("Input values:", x)
-    print()
-    
-    for config in configurations:
-        z, a = neuron(x, config['w'], config['b'], 'relu')
-        
-        print(f"{config['name']} Neuron:")
-        print(f"  Weights: {config['w']}")
-        print(f"  Bias: {config['b']}")
-        print(f"  Linear combination (z): {z:.0f}")
-        print(f"  Activation (a): {a:.0f}")
-        print(f"  Interpretation: ${a:,.0f} predicted price")
-        print()
-    
-    # Visualization of different activation functions
-    z_range = np.linspace(-5, 5, 1000)
-    
-    plt.figure(figsize=(15, 5))
-    
-    # ReLU
-    plt.subplot(1, 3, 1)
-    a_relu = np.maximum(0, z_range)
-    plt.plot(z_range, a_relu, 'b-', linewidth=2)
-    plt.title('ReLU Activation: max(0, z)')
-    plt.xlabel('z (pre-activation)')
-    plt.ylabel('a (activation)')
-    plt.grid(True, alpha=0.3)
-    plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
-    plt.axvline(x=0, color='k', linestyle='-', alpha=0.3)
-    
-    # Sigmoid
-    plt.subplot(1, 3, 2)
-    a_sigmoid = 1 / (1 + np.exp(-z_range))
-    plt.plot(z_range, a_sigmoid, 'r-', linewidth=2)
-    plt.title('Sigmoid Activation: 1/(1 + e^(-z))')
-    plt.xlabel('z (pre-activation)')
-    plt.ylabel('a (activation)')
-    plt.grid(True, alpha=0.3)
-    plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
-    plt.axhline(y=1, color='k', linestyle='-', alpha=0.3)
-    plt.axvline(x=0, color='k', linestyle='-', alpha=0.3)
-    
-    # Tanh
-    plt.subplot(1, 3, 3)
-    a_tanh = np.tanh(z_range)
-    plt.plot(z_range, a_tanh, 'g-', linewidth=2)
-    plt.title('Tanh Activation: (e^z - e^(-z))/(e^z + e^(-z))')
-    plt.xlabel('z (pre-activation)')
-    plt.ylabel('a (activation)')
-    plt.grid(True, alpha=0.3)
-    plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
-    plt.axhline(y=1, color='k', linestyle='-', alpha=0.3)
-    plt.axhline(y=-1, color='k', linestyle='-', alpha=0.3)
-    plt.axvline(x=0, color='k', linestyle='-', alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return configurations
 
-neuron_demo = demonstrate_single_neuron()
-```
+See the complete implementation in [`code/single_neuron_demo.py`](code/single_neuron_demo.py) which demonstrates:
+
+- Single neuron computation with different activation functions (ReLU, Sigmoid, Tanh)
+- House price prediction example with multiple weight configurations
+- Step-by-step computation showing linear combination and activation
+- Visualization of different activation functions and their properties
+
+The code shows how a single neuron processes inputs through linear combination and non-linear activation to produce meaningful outputs.
 
 ### Why Non-Linear Activation Functions? - The Key to Power
 
@@ -343,77 +178,15 @@ Think of linear vs. non-linear like building construction:
 **The Solution**: Non-linear activation functions introduce the ability to model complex, non-linear relationships.
 
 **Practical Example - Linear vs. Non-linear:**
-```python
-def demonstrate_linear_vs_nonlinear():
-    """Demonstrate why non-linear activation functions are necessary"""
-    
-    # Generate non-linear data
-    np.random.seed(42)
-    x = np.linspace(-3, 3, 100)
-    y_true = np.sin(x) + 0.3 * np.random.randn(100)
-    
-    # Try to fit with linear and non-linear models
-    from sklearn.linear_model import LinearRegression
-    from sklearn.neural_network import MLPRegressor
-    
-    # Linear model
-    linear_model = LinearRegression()
-    linear_model.fit(x.reshape(-1, 1), y_true)
-    y_linear = linear_model.predict(x.reshape(-1, 1))
-    
-    # Non-linear model (neural network with ReLU)
-    nn_model = MLPRegressor(hidden_layer_sizes=(10,), activation='relu', 
-                           random_state=42, max_iter=1000)
-    nn_model.fit(x.reshape(-1, 1), y_true)
-    y_nn = nn_model.predict(x.reshape(-1, 1))
-    
-    # Calculate errors
-    linear_error = np.mean((y_true - y_linear)**2)
-    nn_error = np.mean((y_true - y_nn)**2)
-    
-    print(f"Fitting Non-linear Data:")
-    print(f"Linear Model MSE: {linear_error:.4f}")
-    print(f"Neural Network MSE: {nn_error:.4f}")
-    print(f"Improvement: {linear_error/nn_error:.1f}x better")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    plt.scatter(x, y_true, alpha=0.6, s=20, label='Data')
-    plt.plot(x, y_linear, 'r-', linewidth=2, label='Linear Model')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Linear Model vs Non-linear Data')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    plt.scatter(x, y_true, alpha=0.6, s=20, label='Data')
-    plt.plot(x, y_nn, 'g-', linewidth=2, label='Neural Network')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Neural Network vs Non-linear Data')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    plt.plot(x, y_true, 'b-', alpha=0.7, label='True Function')
-    plt.plot(x, y_linear, 'r--', linewidth=2, label='Linear Model')
-    plt.plot(x, y_nn, 'g--', linewidth=2, label='Neural Network')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Comparison of Fits')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return linear_error, nn_error
 
-linear_vs_nonlinear = demonstrate_linear_vs_nonlinear()
-```
+See the complete implementation in [`code/linear_vs_nonlinear_activation_demo.py`](code/linear_vs_nonlinear_activation_demo.py) which demonstrates:
+
+- Comparison between linear and non-linear models on sinusoidal data
+- Training linear regression vs neural network with ReLU activation
+- Visualization of model fits and performance comparison
+- Demonstration of why non-linear activation functions are necessary
+
+The code shows that neural networks with non-linear activations can fit complex patterns that linear models cannot capture.
 
 ### Common Activation Functions: The Tools in Our Toolkit
 
@@ -481,100 +254,15 @@ Think of tanh like a volume control:
 - **Result**: Balanced around zero, bounded
 
 **Practical Example - Activation Function Comparison:**
-```python
-def demonstrate_activation_functions():
-    """Compare different activation functions"""
-    
-    # Generate data
-    z = np.linspace(-5, 5, 1000)
-    
-    # Calculate different activation functions
-    relu = np.maximum(0, z)
-    sigmoid = 1 / (1 + np.exp(-z))
-    tanh = np.tanh(z)
-    
-    # Calculate derivatives
-    relu_deriv = np.where(z > 0, 1, 0)
-    sigmoid_deriv = sigmoid * (1 - sigmoid)
-    tanh_deriv = 1 - tanh**2
-    
-    # Visualization
-    plt.figure(figsize=(15, 10))
-    
-    # Activation functions
-    plt.subplot(2, 3, 1)
-    plt.plot(z, relu, 'b-', linewidth=2, label='ReLU')
-    plt.title('ReLU: max(0, z)')
-    plt.xlabel('z')
-    plt.ylabel('σ(z)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 3, 2)
-    plt.plot(z, sigmoid, 'r-', linewidth=2, label='Sigmoid')
-    plt.title('Sigmoid: 1/(1 + e^(-z))')
-    plt.xlabel('z')
-    plt.ylabel('σ(z)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 3, 3)
-    plt.plot(z, tanh, 'g-', linewidth=2, label='Tanh')
-    plt.title('Tanh: (e^z - e^(-z))/(e^z + e^(-z))')
-    plt.xlabel('z')
-    plt.ylabel('σ(z)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Derivatives
-    plt.subplot(2, 3, 4)
-    plt.plot(z, relu_deriv, 'b-', linewidth=2, label='ReLU Derivative')
-    plt.title('ReLU Derivative')
-    plt.xlabel('z')
-    plt.ylabel('σ\'(z)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 3, 5)
-    plt.plot(z, sigmoid_deriv, 'r-', linewidth=2, label='Sigmoid Derivative')
-    plt.title('Sigmoid Derivative')
-    plt.xlabel('z')
-    plt.ylabel('σ\'(z)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 3, 6)
-    plt.plot(z, tanh_deriv, 'g-', linewidth=2, label='Tanh Derivative')
-    plt.title('Tanh Derivative')
-    plt.xlabel('z')
-    plt.ylabel('σ\'(z)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Show key properties
-    print("Activation Function Properties:")
-    print("ReLU:")
-    print("  - Range: [0, ∞)")
-    print("  - Pros: Simple, efficient, no vanishing gradient")
-    print("  - Cons: Can 'die' (get stuck at 0)")
-    print()
-    print("Sigmoid:")
-    print("  - Range: (0, 1)")
-    print("  - Pros: Smooth, interpretable as probability")
-    print("  - Cons: Vanishing gradient problem")
-    print()
-    print("Tanh:")
-    print("  - Range: (-1, 1)")
-    print("  - Pros: Zero-centered, bounded")
-    print("  - Cons: Still has vanishing gradient")
-    
-    return z, relu, sigmoid, tanh
 
-activation_demo = demonstrate_activation_functions()
-```
+See the complete implementation in [`code/activation_functions_demo.py`](code/activation_functions_demo.py) which demonstrates:
+
+- Comparison of different activation functions (ReLU, Sigmoid, Tanh)
+- Visualization of both activation functions and their derivatives
+- Detailed analysis of properties, advantages, and disadvantages
+- Interactive plots showing the behavior of each function
+
+The code provides a comprehensive comparison of activation functions, helping understand when to use each one based on their mathematical properties.
 
 ### Single Neuron Example: Housing Price Prediction - Real-World Application
 
@@ -600,89 +288,17 @@ Think of this like a real estate appraiser:
 **Intuition**: The neuron learns to predict a price that increases linearly with size, but never goes below zero (which makes sense for house prices).
 
 **Practical Example - House Price Prediction:**
-```python
-def demonstrate_house_price_prediction():
-    """Demonstrate single neuron for house price prediction"""
-    
-    # Generate house price data
-    np.random.seed(42)
-    house_sizes = np.random.uniform(500, 3000, 100)  # Square feet
-    base_price = 50000  # Base price
-    price_per_sqft = 150  # Price per square foot
-    noise = np.random.normal(0, 10000, 100)  # Some noise
-    
-    house_prices = base_price + price_per_sqft * house_sizes + noise
-    house_prices = np.maximum(house_prices, 0)  # Ensure non-negative
-    
-    # Train a single neuron (linear regression with ReLU)
-    from sklearn.linear_model import LinearRegression
-    
-    # Linear model
-    linear_model = LinearRegression()
-    linear_model.fit(house_sizes.reshape(-1, 1), house_prices)
-    
-    # Predictions
-    predictions = linear_model.predict(house_sizes.reshape(-1, 1))
-    predictions = np.maximum(predictions, 0)  # Apply ReLU
-    
-    # Calculate performance
-    mse = np.mean((house_prices - predictions)**2)
-    mae = np.mean(np.abs(house_prices - predictions))
-    
-    print(f"House Price Prediction Results:")
-    print(f"Learned price per sq ft: ${linear_model.coef_[0]:.2f}")
-    print(f"Learned base price: ${linear_model.intercept_:.2f}")
-    print(f"MSE: ${mse:,.0f}")
-    print(f"MAE: ${mae:,.0f}")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    plt.scatter(house_sizes, house_prices, alpha=0.6, s=30)
-    plt.plot(house_sizes, predictions, 'r-', linewidth=2, label='Neuron Prediction')
-    plt.xlabel('House Size (sq ft)')
-    plt.ylabel('House Price ($)')
-    plt.title('House Price vs Size')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    errors = house_prices - predictions
-    plt.scatter(house_sizes, errors, alpha=0.6, s=30)
-    plt.axhline(y=0, color='r', linestyle='--')
-    plt.xlabel('House Size (sq ft)')
-    plt.ylabel('Prediction Error ($)')
-    plt.title('Prediction Errors')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    plt.hist(errors, bins=20, alpha=0.7)
-    plt.xlabel('Prediction Error ($)')
-    plt.ylabel('Frequency')
-    plt.title('Error Distribution')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Show the neuron's decision process
-    print(f"\nNeuron Decision Process:")
-    print(f"For a 2000 sq ft house:")
-    x_example = 2000
-    z = linear_model.coef_[0] * x_example + linear_model.intercept_
-    a = max(0, z)
-    print(f"  Input (size): {x_example} sq ft")
-    print(f"  Weight (price/sq ft): ${linear_model.coef_[0]:.2f}")
-    print(f"  Bias (base price): ${linear_model.intercept_:.2f}")
-    print(f"  Linear combination: ${z:,.2f}")
-    print(f"  ReLU activation: ${a:,.2f}")
-    print(f"  Final prediction: ${a:,.2f}")
-    
-    return linear_model, mse, mae
 
-house_demo = demonstrate_house_price_prediction()
-```
+See the complete implementation in [`code/house_price_prediction_demo.py`](code/house_price_prediction_demo.py) which demonstrates:
+
+- Single neuron implementation for house price prediction
+- Data generation with realistic house pricing model
+- Training process using linear regression with ReLU activation
+- Comprehensive evaluation with MSE and MAE metrics
+- Visualization of predictions, errors, and error distribution
+- Step-by-step demonstration of neuron computation process
+
+The code shows how a single neuron can learn to predict house prices based on square footage, demonstrating the complete workflow from data to prediction.
 
 ### Mathematical Analysis: Why This Works
 
