@@ -284,95 +284,15 @@ Think of ERM like a dart throwing competition:
 - **Challenge**: Will this technique work well in the actual competition?
 
 **Example - ERM with Different Hypothesis Classes:**
-```python
-def demonstrate_erm():
-    """Demonstrate ERM with different hypothesis classes"""
-    
-    np.random.seed(42)
-    n_samples = 200
-    n_features = 2
-    
-    # Generate data with a non-linear pattern
-    X = np.random.uniform(-2, 2, (n_samples, n_features))
-    y = ((X[:, 0]**2 + X[:, 1]**2) < 1).astype(int)  # Circle pattern
-    
-    # Add some noise
-    noise = np.random.binomial(1, 0.1, n_samples)
-    y = (y + noise) % 2
-    
-    # Split data
-    train_size = 150
-    X_train, X_test = X[:train_size], X[train_size:]
-    y_train, y_test = y[:train_size], y[train_size:]
-    
-    # Different hypothesis classes
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.preprocessing import PolynomialFeatures
-    from sklearn.pipeline import Pipeline
-    from sklearn.tree import DecisionTreeClassifier
-    
-    models = {
-        'Linear': LogisticRegression(random_state=42),
-        'Polynomial (degree=2)': Pipeline([
-            ('poly', PolynomialFeatures(degree=2)),
-            ('linear', LogisticRegression(random_state=42))
-        ]),
-        'Polynomial (degree=5)': Pipeline([
-            ('poly', PolynomialFeatures(degree=5)),
-            ('linear', LogisticRegression(random_state=42))
-        ]),
-        'Decision Tree (depth=3)': DecisionTreeClassifier(max_depth=3, random_state=42),
-        'Decision Tree (depth=10)': DecisionTreeClassifier(max_depth=10, random_state=42)
-    }
-    
-    results = {}
-    for name, model in models.items():
-        model.fit(X_train, y_train)
-        train_error = 1 - model.score(X_train, y_train)
-        test_error = 1 - model.score(X_test, y_test)
-        results[name] = {'train': train_error, 'test': test_error}
-    
-    # Display results
-    print("ERM Results:")
-    print("Model\t\t\tTrain Error\tTest Error\tGap")
-    print("-" * 50)
-    for name, errors in results.items():
-        gap = errors['test'] - errors['train']
-        print(f"{name:<20}\t{errors['train']:.4f}\t\t{errors['test']:.4f}\t\t{gap:.4f}")
-    
-    # Visualization
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
-    axes = axes.flatten()
-    
-    for i, (name, model) in enumerate(models.items()):
-        if i >= 5:  # Only show first 5
-            break
-            
-        # Plot decision boundary
-        x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-        y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-        xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100),
-                            np.linspace(y_min, y_max, 100))
-        
-        Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
-        Z = Z.reshape(xx.shape)
-        
-        axes[i].contourf(xx, yy, Z, alpha=0.3)
-        axes[i].scatter(X_train[:, 0], X_train[:, 1], c=y_train, alpha=0.6, s=20)
-        axes[i].set_title(f'{name}\nTrain: {results[name]["train"]:.3f}, Test: {results[name]["test"]:.3f}')
-        axes[i].set_xlim(x_min, x_max)
-        axes[i].set_ylim(y_min, y_max)
-    
-    # Hide the last subplot
-    axes[5].set_visible(False)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return results
 
-erm_results = demonstrate_erm()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **Multiple Hypothesis Classes**: Linear, polynomial, and decision tree models with different complexities
+- **ERM Performance Comparison**: Training and test errors for each hypothesis class
+- **Decision Boundary Visualization**: How different models learn different decision boundaries
+- **Generalization Gap Analysis**: The relationship between model complexity and generalization performance
+
+The code shows how ERM chooses the hypothesis with minimum training error from each class, and how this choice affects generalization performance across different model complexities.
 
 **Key Insights from ERM:**
 1. **Training error is optimistic**: It underestimates true error
@@ -427,95 +347,15 @@ Think of this like flipping a biased coin:
 - **Hoeffding**: With high probability, the sample average is close to the true probability
 
 **Practical Example - Single Hypothesis Analysis:**
-```python
-def demonstrate_single_hypothesis():
-    """Demonstrate Hoeffding's inequality for a single hypothesis"""
-    
-    np.random.seed(42)
-    true_error = 0.2  # 20% true error rate
-    n_experiments = 1000
-    sample_sizes = [10, 50, 100, 500, 1000]
-    
-    results = []
-    for n in sample_sizes:
-        # Simulate many experiments
-        large_deviations = 0
-        deviations = []
-        
-        for _ in range(n_experiments):
-            # Generate n Bernoulli samples
-            samples = np.random.binomial(1, true_error, n)
-            sample_mean = np.mean(samples)
-            deviation = abs(sample_mean - true_error)
-            deviations.append(deviation)
-            
-            # Check if deviation is large
-            if deviation > 0.05:  # 5% threshold
-                large_deviations += 1
-        
-        empirical_prob = large_deviations / n_experiments
-        theoretical_bound = 2 * np.exp(-2 * 0.05**2 * n)
-        
-        results.append({
-            'n': n,
-            'empirical': empirical_prob,
-            'theoretical': theoretical_bound,
-            'deviations': deviations
-        })
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    ns = [r['n'] for r in results]
-    empirical_probs = [r['empirical'] for r in results]
-    theoretical_bounds = [r['theoretical'] for r in results]
-    
-    plt.semilogy(ns, empirical_probs, 'bo-', label='Empirical', linewidth=2)
-    plt.semilogy(ns, theoretical_bounds, 'r--', label='Hoeffding Bound', linewidth=2)
-    plt.xlabel('Sample Size (n)')
-    plt.ylabel('Probability of Large Deviation')
-    plt.title('Single Hypothesis: Hoeffding Inequality')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    # Show distribution of deviations for n=100
-    n_100_data = [r for r in results if r['n'] == 100][0]
-    plt.hist(n_100_data['deviations'], bins=30, alpha=0.7, label='n=100')
-    plt.axvline(0.05, color='red', linestyle='--', label='Threshold γ=0.05')
-    plt.xlabel('Deviation |True - Training|')
-    plt.ylabel('Frequency')
-    plt.title('Distribution of Deviations (n=100)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    # Show distribution of deviations for n=1000
-    n_1000_data = [r for r in results if r['n'] == 1000][0]
-    plt.hist(n_1000_data['deviations'], bins=30, alpha=0.7, label='n=1000')
-    plt.axvline(0.05, color='red', linestyle='--', label='Threshold γ=0.05')
-    plt.xlabel('Deviation |True - Training|')
-    plt.ylabel('Frequency')
-    plt.title('Distribution of Deviations (n=1000)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Print results
-    print("Single Hypothesis Analysis:")
-    print("Sample Size\tEmpirical\tTheoretical\tRatio")
-    print("-" * 50)
-    for r in results:
-        ratio = r['theoretical'] / r['empirical'] if r['empirical'] > 0 else float('inf')
-        print(f"{r['n']:10d}\t{r['empirical']:.6f}\t{r['theoretical']:.6f}\t{ratio:.2f}")
-    
-    return results
 
-single_hypothesis_results = demonstrate_single_hypothesis()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **Hoeffding's Inequality**: Empirical vs theoretical bounds for single hypothesis analysis
+- **Sample Size Effects**: How probability of large deviations changes with sample size
+- **Deviation Distributions**: Histograms showing the distribution of deviations for different sample sizes
+- **Bound Tightness**: Analysis of how conservative Hoeffding's inequality is in practice
+
+The code shows how Hoeffding's inequality provides exponential concentration guarantees for a single hypothesis, with the probability of large deviations decreasing exponentially with sample size.
 
 ### Step 2: Uniform Convergence for All Hypotheses - The Union Bound Magic
 
@@ -555,75 +395,15 @@ Think of uniform convergence like quality control in manufacturing:
 - **Uniform convergence**: All production lines meet quality standards
 
 **Practical Example - Multiple Hypotheses:**
-```python
-def demonstrate_uniform_convergence():
-    """Demonstrate uniform convergence for finite hypothesis classes"""
-    
-    np.random.seed(42)
-    k_hypotheses = 50  # Number of hypotheses
-    n_samples = 1000   # Sample size
-    n_experiments = 1000  # Number of experiments
-    
-    # Generate true error rates for each hypothesis
-    true_errors = np.random.beta(2, 8, k_hypotheses)  # Most hypotheses have low error
-    
-    # Simulate experiments
-    gamma = 0.05  # Desired accuracy
-    failures = 0
-    
-    for _ in range(n_experiments):
-        # Generate training errors for all hypotheses
-        training_errors = np.random.binomial(n_samples, true_errors) / n_samples
-        
-        # Check if any hypothesis has large deviation
-        deviations = np.abs(true_errors - training_errors)
-        if np.any(deviations > gamma):
-            failures += 1
-    
-    empirical_prob = failures / n_experiments
-    theoretical_bound = k_hypotheses * 2 * np.exp(-2 * gamma**2 * n_samples)
-    
-    print("Uniform Convergence Analysis:")
-    print(f"Number of hypotheses (k): {k_hypotheses}")
-    print(f"Sample size (n): {n_samples}")
-    print(f"Desired accuracy (γ): {gamma}")
-    print(f"Empirical failure probability: {empirical_prob:.6f}")
-    print(f"Theoretical bound: {theoretical_bound:.6f}")
-    print(f"Bound is conservative by factor: {theoretical_bound/empirical_prob:.2f}")
-    
-    # Visualization
-    plt.figure(figsize=(12, 5))
-    
-    plt.subplot(1, 2, 1)
-    # Show one experiment
-    training_errors = np.random.binomial(n_samples, true_errors) / n_samples
-    deviations = np.abs(true_errors - training_errors)
-    
-    plt.scatter(true_errors, training_errors, alpha=0.6, s=20)
-    plt.plot([0, 1], [0, 1], 'r--', label='Perfect agreement')
-    plt.fill_between([0, 1], [0, 1-gamma], [0, 1+gamma], alpha=0.2, color='green', label=f'±{gamma} tolerance')
-    plt.xlabel('True Error Rate')
-    plt.ylabel('Training Error Rate')
-    plt.title('Training vs True Error Rates (One Experiment)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 2, 2)
-    plt.hist(deviations, bins=30, alpha=0.7, label='Deviations')
-    plt.axvline(gamma, color='red', linestyle='--', label=f'Threshold γ={gamma}')
-    plt.xlabel('Deviation |True - Training|')
-    plt.ylabel('Frequency')
-    plt.title('Distribution of Deviations')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return empirical_prob, theoretical_bound
 
-uniform_conv_results = demonstrate_uniform_convergence()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **Uniform Convergence**: How the union bound extends single hypothesis guarantees to all hypotheses
+- **Failure Probability Analysis**: Empirical vs theoretical bounds for uniform convergence
+- **Conservative Nature**: Demonstration of how the union bound is typically conservative
+- **Deviation Analysis**: Distribution of deviations across multiple hypotheses
+
+The code shows how uniform convergence ensures that training error is close to generalization error for all hypotheses simultaneously, providing the foundation for bounding ERM performance.
 
 ### Step 3: Bounding the Generalization Error - The ERM Connection
 
@@ -660,88 +440,15 @@ Think of this like a job interview process:
 - **Bound**: The hired candidate will perform close to the best possible candidate
 
 **Practical Example - ERM Analysis:**
-```python
-def demonstrate_erm_analysis():
-    """Demonstrate ERM analysis with finite hypothesis classes"""
-    
-    np.random.seed(42)
-    k_hypotheses = 20
-    n_samples = 500
-    n_experiments = 1000
-    
-    # Generate true error rates
-    true_errors = np.random.beta(2, 8, k_hypotheses)
-    best_hypothesis = np.argmin(true_errors)
-    best_error = true_errors[best_hypothesis]
-    
-    print(f"Best hypothesis index: {best_hypothesis}")
-    print(f"Best true error: {best_error:.4f}")
-    
-    # Simulate ERM experiments
-    erm_errors = []
-    generalization_gaps = []
-    
-    for _ in range(n_experiments):
-        # Generate training errors
-        training_errors = np.random.binomial(n_samples, true_errors) / n_samples
-        
-        # ERM: choose hypothesis with minimum training error
-        erm_hypothesis = np.argmin(training_errors)
-        erm_error = true_errors[erm_hypothesis]
-        
-        erm_errors.append(erm_error)
-        generalization_gaps.append(erm_error - best_error)
-    
-    # Calculate statistics
-    mean_erm_error = np.mean(erm_errors)
-    mean_gap = np.mean(generalization_gaps)
-    max_gap = np.max(generalization_gaps)
-    
-    print(f"\nERM Analysis Results:")
-    print(f"Mean ERM error: {mean_erm_error:.4f}")
-    print(f"Mean gap from best: {mean_gap:.4f}")
-    print(f"Maximum gap from best: {max_gap:.4f}")
-    print(f"ERM chose best hypothesis: {np.mean(np.array(erm_errors) == best_error):.1%} of the time")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    plt.hist(erm_errors, bins=30, alpha=0.7, label='ERM errors')
-    plt.axvline(best_error, color='red', linestyle='--', label=f'Best error: {best_error:.4f}')
-    plt.xlabel('Generalization Error')
-    plt.ylabel('Frequency')
-    plt.title('Distribution of ERM Generalization Errors')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    plt.hist(generalization_gaps, bins=30, alpha=0.7, label='Gaps')
-    plt.axvline(0, color='red', linestyle='--', label='No gap')
-    plt.xlabel('Gap from Best Error')
-    plt.ylabel('Frequency')
-    plt.title('Distribution of Generalization Gaps')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    # Show how often each hypothesis was chosen
-    hypothesis_counts = np.bincount(erm_hypothesis, minlength=k_hypotheses)
-    plt.bar(range(k_hypotheses), hypothesis_counts, alpha=0.7)
-    plt.axvline(best_hypothesis, color='red', linestyle='--', label=f'Best hypothesis: {best_hypothesis}')
-    plt.xlabel('Hypothesis Index')
-    plt.ylabel('Times Chosen by ERM')
-    plt.title('ERM Hypothesis Selection Frequency')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return erm_errors, generalization_gaps
 
-erm_analysis_results = demonstrate_erm_analysis()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **ERM Performance Analysis**: How well ERM performs compared to the best possible hypothesis
+- **Generalization Gap Distribution**: Analysis of the gap between ERM and optimal performance
+- **Hypothesis Selection Frequency**: How often ERM chooses different hypotheses
+- **Statistical Analysis**: Mean, maximum, and distribution of ERM generalization errors
+
+The code shows how ERM performs in practice, demonstrating that it typically achieves generalization error close to the best possible hypothesis in the class, validating the theoretical bounds.
 
 ### Step 4: Sample Complexity Bounds - How Much Data Do We Need?
 
@@ -767,80 +474,15 @@ Think of sample complexity like building a library:
 - **Sample size**: How many books you need to check
 
 **Practical Example - Sample Size Requirements:**
-```python
-def demonstrate_sample_complexity():
-    """Demonstrate sample complexity requirements"""
-    
-    # Parameters
-    k_values = [10, 100, 1000, 10000]
-    gamma_values = [0.01, 0.02, 0.05, 0.10]
-    delta_values = [0.01, 0.05, 0.10]
-    
-    print("Sample Size Requirements for Finite Hypothesis Classes:")
-    print("k\t\tγ\t\tδ\t\tRequired n")
-    print("-" * 60)
-    
-    for k in k_values:
-        for gamma in gamma_values:
-            for delta in delta_values:
-                n_required = int(np.ceil(np.log(2*k/delta) / (2 * gamma**2)))
-                print(f"{k:8d}\t\t{gamma:.2f}\t\t{delta:.2f}\t\t{n_required:8d}")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    # Fix gamma and delta, vary k
-    gamma = 0.05
-    delta = 0.05
-    k_range = np.logspace(1, 4, 50)
-    n_required = np.log(2*k_range/delta) / (2 * gamma**2)
-    
-    plt.semilogx(k_range, n_required, 'b-', linewidth=2)
-    plt.xlabel('Number of Hypotheses (k)')
-    plt.ylabel('Required Sample Size (n)')
-    plt.title('Sample Size vs Number of Hypotheses')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    # Fix k and delta, vary gamma
-    k = 1000
-    delta = 0.05
-    gamma_range = np.logspace(-2, -1, 50)
-    n_required = np.log(2*k/delta) / (2 * gamma_range**2)
-    
-    plt.semilogx(gamma_range, n_required, 'r-', linewidth=2)
-    plt.xlabel('Desired Accuracy (γ)')
-    plt.ylabel('Required Sample Size (n)')
-    plt.title('Sample Size vs Desired Accuracy')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    # Fix k and gamma, vary delta
-    k = 1000
-    gamma = 0.05
-    delta_range = np.logspace(-2, -1, 50)
-    n_required = np.log(2*k/delta_range) / (2 * gamma**2)
-    
-    plt.semilogx(delta_range, n_required, 'g-', linewidth=2)
-    plt.xlabel('Desired Confidence (δ)')
-    plt.ylabel('Required Sample Size (n)')
-    plt.title('Sample Size vs Desired Confidence')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Show practical implications
-    print(f"\nPractical Implications:")
-    print(f"For k=1000 hypotheses, γ=0.05 accuracy, δ=0.05 confidence:")
-    n_practical = int(np.ceil(np.log(2*1000/0.05) / (2 * 0.05**2)))
-    print(f"Required sample size: n ≥ {n_practical}")
-    print(f"This means you need about {n_practical} training examples")
-    print(f"to be 95% confident that your model's error is within 10% of the best possible")
 
-demonstrate_sample_complexity()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **Sample Complexity Tables**: Comprehensive tables showing required sample sizes for different parameters
+- **Parameter Dependencies**: How sample size requirements depend on number of hypotheses, accuracy, and confidence
+- **Visualization of Relationships**: Log-scale plots showing the relationships between parameters
+- **Practical Guidelines**: Concrete examples of sample size requirements for real-world scenarios
+
+The code shows how the theoretical bounds translate into practical sample size requirements, demonstrating the logarithmic dependence on hypothesis count and quadratic dependence on accuracy.
 
 ### Alternative Formulation: Error Bounds
 
