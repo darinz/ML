@@ -154,107 +154,16 @@ The matrix multiplication module learns to:
 - **Scale**: Apply different weights to different features
 
 **Practical Example - Matrix Multiplication:**
-```python
-def demonstrate_matrix_multiplication():
-    """Demonstrate matrix multiplication module"""
-    
-    # Example: House price prediction
-    # Features: [square_feet, bedrooms, age, location_score]
-    houses = np.array([
-        [2000, 3, 10, 8.5],  # House 1
-        [1500, 2, 5, 7.0],   # House 2
-        [3000, 4, 15, 9.0],  # House 3
-        [1200, 1, 3, 6.5]    # House 4
-    ])
-    
-    # Weight matrix: [price_per_sqft, price_per_bedroom, age_penalty, location_premium]
-    W = np.array([
-        [100, 5000, -1000, 2000],  # Model 1: Price-focused
-        [75, 3000, -500, 1500],    # Model 2: Balanced
-        [50, 2000, -200, 1000]     # Model 3: Budget-focused
-    ])
-    
-    # Bias: Base price for each model
-    b = np.array([50000, 75000, 100000])
-    
-    # Apply matrix multiplication module
-    predictions = np.dot(houses, W.T) + b
-    
-    print("Matrix Multiplication Module: House Price Prediction")
-    print("Input Features: [square_feet, bedrooms, age, location_score]")
-    print()
-    print("Houses:")
-    for i, house in enumerate(houses):
-        print(f"  House {i+1}: {house}")
-    print()
-    print("Weight Matrix (price per unit):")
-    print(f"  Model 1 (Price-focused): {W[0]}")
-    print(f"  Model 2 (Balanced): {W[1]}")
-    print(f"  Model 3 (Budget-focused): {W[2]}")
-    print()
-    print("Bias (base price):", b)
-    print()
-    print("Predictions:")
-    for i, house in enumerate(houses):
-        print(f"  House {i+1}:")
-        for j, model_name in enumerate(['Price-focused', 'Balanced', 'Budget-focused']):
-            print(f"    {model_name}: ${predictions[i, j]:,.0f}")
-        print()
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Show how different features contribute
-    plt.subplot(1, 3, 1)
-    feature_names = ['Square Feet', 'Bedrooms', 'Age', 'Location']
-    model_names = ['Price-focused', 'Balanced', 'Budget-focused']
-    
-    for i, model_name in enumerate(model_names):
-        plt.bar(feature_names, W[i], alpha=0.7, label=model_name)
-    
-    plt.title('Feature Weights by Model')
-    plt.ylabel('Weight')
-    plt.legend()
-    plt.xticks(rotation=45)
-    plt.grid(True, alpha=0.3)
-    
-    # Show predictions for each house
-    plt.subplot(1, 3, 2)
-    x_pos = np.arange(len(houses))
-    width = 0.25
-    
-    for i, model_name in enumerate(model_names):
-        plt.bar(x_pos + i*width, predictions[:, i], width, alpha=0.7, label=model_name)
-    
-    plt.title('Price Predictions by Model')
-    plt.xlabel('House')
-    plt.ylabel('Predicted Price ($)')
-    plt.xticks(x_pos + width, [f'House {i+1}' for i in range(len(houses))])
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    # Show linearity property
-    plt.subplot(1, 3, 3)
-    # Test linearity: double the features, double the output
-    doubled_houses = houses * 2
-    doubled_predictions = np.dot(doubled_houses, W.T) + b
-    original_predictions = np.dot(houses, W.T) + b
-    
-    plt.scatter(original_predictions.flatten(), doubled_predictions.flatten(), alpha=0.7)
-    plt.plot([0, max(original_predictions.flatten())], [0, max(doubled_predictions.flatten())], 'r--', label='Perfect Linearity')
-    plt.xlabel('Original Predictions')
-    plt.ylabel('Doubled Input Predictions')
-    plt.title('Linearity Test')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return houses, W, b, predictions
 
-matrix_demo = demonstrate_matrix_multiplication()
-```
+See the complete implementation in [`code/matrix_multiplication_demo.py`](code/matrix_multiplication_demo.py) which demonstrates:
+
+- Matrix multiplication module for house price prediction
+- Multiple pricing models with different weight configurations
+- Visualization of feature weights and their contributions
+- Demonstration of linearity property through scaling tests
+- Real-world application showing how linear transformations work
+
+The code shows how the fundamental matrix multiplication module enables complex linear transformations in neural networks.
 
 ### Activation Module: The Source of Non-Linearity
 
@@ -303,134 +212,16 @@ Think of activation functions like decision-making processes:
 3. **Element-wise**: Applied independently to each component
 
 **Practical Example - Activation Functions:**
-```python
-def demonstrate_activation_functions():
-    """Demonstrate different activation functions"""
-    
-    # Generate input data
-    z = np.linspace(-5, 5, 1000)
-    
-    # Define activation functions
-    def relu(x):
-        return np.maximum(0, x)
-    
-    def sigmoid(x):
-        return 1 / (1 + np.exp(-x))
-    
-    def tanh(x):
-        return np.tanh(x)
-    
-    def gelu(x):
-        return x * 0.5 * (1 + np.tanh(np.sqrt(2/np.pi) * (x + 0.044715 * x**3)))
-    
-    # Calculate activations
-    relu_output = relu(z)
-    sigmoid_output = sigmoid(z)
-    tanh_output = tanh(z)
-    gelu_output = gelu(z)
-    
-    # Calculate derivatives
-    relu_deriv = np.where(z > 0, 1, 0)
-    sigmoid_deriv = sigmoid_output * (1 - sigmoid_output)
-    tanh_deriv = 1 - tanh_output**2
-    gelu_deriv = 0.5 * (1 + np.tanh(np.sqrt(2/np.pi) * (z + 0.044715 * z**3))) + \
-                 0.5 * z * (1 - np.tanh(np.sqrt(2/np.pi) * (z + 0.044715 * z**3))**2) * \
-                 np.sqrt(2/np.pi) * (1 + 3 * 0.044715 * z**2)
-    
-    # Visualization
-    plt.figure(figsize=(15, 10))
-    
-    # Activation functions
-    plt.subplot(2, 4, 1)
-    plt.plot(z, relu_output, 'b-', linewidth=2)
-    plt.title('ReLU: max(0, z)')
-    plt.xlabel('z')
-    plt.ylabel('σ(z)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 4, 2)
-    plt.plot(z, sigmoid_output, 'r-', linewidth=2)
-    plt.title('Sigmoid: 1/(1 + e^(-z))')
-    plt.xlabel('z')
-    plt.ylabel('σ(z)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 4, 3)
-    plt.plot(z, tanh_output, 'g-', linewidth=2)
-    plt.title('Tanh: (e^z - e^(-z))/(e^z + e^(-z))')
-    plt.xlabel('z')
-    plt.ylabel('σ(z)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 4, 4)
-    plt.plot(z, gelu_output, 'm-', linewidth=2)
-    plt.title('GELU: z * Φ(z)')
-    plt.xlabel('z')
-    plt.ylabel('σ(z)')
-    plt.grid(True, alpha=0.3)
-    
-    # Derivatives
-    plt.subplot(2, 4, 5)
-    plt.plot(z, relu_deriv, 'b-', linewidth=2)
-    plt.title('ReLU Derivative')
-    plt.xlabel('z')
-    plt.ylabel('σ\'(z)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 4, 6)
-    plt.plot(z, sigmoid_deriv, 'r-', linewidth=2)
-    plt.title('Sigmoid Derivative')
-    plt.xlabel('z')
-    plt.ylabel('σ\'(z)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 4, 7)
-    plt.plot(z, tanh_deriv, 'g-', linewidth=2)
-    plt.title('Tanh Derivative')
-    plt.xlabel('z')
-    plt.ylabel('σ\'(z)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(2, 4, 8)
-    plt.plot(z, gelu_deriv, 'm-', linewidth=2)
-    plt.title('GELU Derivative')
-    plt.xlabel('z')
-    plt.ylabel('σ\'(z)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Show practical example
-    print("Activation Function Properties:")
-    print("ReLU:")
-    print("  - Range: [0, ∞)")
-    print("  - Pros: Simple, efficient, no vanishing gradient")
-    print("  - Cons: Can 'die' (get stuck at 0)")
-    print("  - Use case: Hidden layers in most networks")
-    print()
-    print("Sigmoid:")
-    print("  - Range: (0, 1)")
-    print("  - Pros: Smooth, interpretable as probability")
-    print("  - Cons: Vanishing gradient problem")
-    print("  - Use case: Output layer for binary classification")
-    print()
-    print("Tanh:")
-    print("  - Range: (-1, 1)")
-    print("  - Pros: Zero-centered, bounded")
-    print("  - Cons: Still has vanishing gradient")
-    print("  - Use case: Hidden layers when zero-centered output is desired")
-    print()
-    print("GELU:")
-    print("  - Range: (-∞, ∞)")
-    print("  - Pros: Smooth, often performs better than ReLU")
-    print("  - Cons: More computationally expensive")
-    print("  - Use case: Transformer architectures")
-    
-    return z, relu_output, sigmoid_output, tanh_output, gelu_output
 
-activation_demo = demonstrate_activation_functions()
-```
+See the complete implementation in [`code/advanced_activation_functions_demo.py`](code/advanced_activation_functions_demo.py) which demonstrates:
+
+- Comprehensive comparison of activation functions (ReLU, Sigmoid, Tanh, GELU)
+- Visualization of both activation functions and their derivatives
+- Detailed analysis of properties, advantages, and disadvantages
+- Practical use cases for each activation function
+- Interactive plots showing the behavior of each function
+
+The code provides a thorough understanding of different activation functions and when to use each one in neural network architectures.
 
 ### Composing Modules: The Power of Combination
 
@@ -490,112 +281,16 @@ Input → MM₁ → σ₁ → MM₂ → σ₂ → ... → MMₗ → Output
 ```
 
 **Practical Example - Module Composition:**
-```python
-def demonstrate_module_composition():
-    """Demonstrate how modules can be composed"""
-    
-    # Define simple modules
-    def linear_module(x, W, b):
-        """Linear transformation module"""
-        return np.dot(x, W.T) + b
-    
-    def relu_module(x):
-        """ReLU activation module"""
-        return np.maximum(0, x)
-    
-    def sigmoid_module(x):
-        """Sigmoid activation module"""
-        return 1 / (1 + np.exp(-x))
-    
-    # Generate data
-    np.random.seed(42)
-    X = np.random.randn(100, 2)  # 100 samples, 2 features
-    y = (X[:, 0] + X[:, 1] > 0).astype(int)  # Simple classification task
-    
-    # Define different compositions
-    def composition_1(x, W1, b1, W2, b2):
-        """Simple composition: Linear → ReLU → Linear → Sigmoid"""
-        h1 = linear_module(x, W1, b1)      # Module 1: Linear
-        h2 = relu_module(h1)               # Module 2: ReLU
-        h3 = linear_module(h2, W2, b2)     # Module 3: Linear
-        output = sigmoid_module(h3)        # Module 4: Sigmoid
-        return output, [h1, h2, h3, output]
-    
-    def composition_2(x, W1, b1, W2, b2, W3, b3):
-        """Deep composition: Linear → ReLU → Linear → ReLU → Linear → Sigmoid"""
-        h1 = linear_module(x, W1, b1)      # Module 1: Linear
-        h2 = relu_module(h1)               # Module 2: ReLU
-        h3 = linear_module(h2, W2, b2)     # Module 3: Linear
-        h4 = relu_module(h3)               # Module 4: ReLU
-        h5 = linear_module(h4, W3, b3)     # Module 5: Linear
-        output = sigmoid_module(h5)        # Module 6: Sigmoid
-        return output, [h1, h2, h3, h4, h5, output]
-    
-    # Initialize weights randomly
-    W1 = np.random.randn(5, 2) * 0.1
-    b1 = np.zeros(5)
-    W2 = np.random.randn(3, 5) * 0.1
-    b2 = np.zeros(3)
-    W3 = np.random.randn(1, 3) * 0.1
-    b3 = np.zeros(1)
-    
-    # Test compositions
-    output1, activations1 = composition_1(X[:5], W1, b1, W3, b3)
-    output2, activations2 = composition_2(X[:5], W1, b1, W2, b2, W3, b3)
-    
-    print("Module Composition Example:")
-    print("Input shape:", X[:5].shape)
-    print()
-    print("Composition 1 (Linear → ReLU → Linear → Sigmoid):")
-    for i, (name, activation) in enumerate(zip(['Linear1', 'ReLU1', 'Linear2', 'Sigmoid'], activations1)):
-        print(f"  {name}: shape {activation.shape}, range [{activation.min():.3f}, {activation.max():.3f}]")
-    print()
-    print("Composition 2 (Linear → ReLU → Linear → ReLU → Linear → Sigmoid):")
-    for i, (name, activation) in enumerate(zip(['Linear1', 'ReLU1', 'Linear2', 'ReLU2', 'Linear3', 'Sigmoid'], activations2)):
-        print(f"  {name}: shape {activation.shape}, range [{activation.min():.3f}, {activation.max():.3f}]")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Show computational graphs
-    plt.subplot(1, 3, 1)
-    plt.text(0.5, 0.5, 'Composition 1:\nInput → Linear → ReLU → Linear → Sigmoid', 
-             ha='center', va='center', fontsize=12, transform=plt.gca().transAxes)
-    plt.title('Computational Graph 1')
-    plt.axis('off')
-    
-    plt.subplot(1, 3, 2)
-    plt.text(0.5, 0.5, 'Composition 2:\nInput → Linear → ReLU → Linear → ReLU → Linear → Sigmoid', 
-             ha='center', va='center', fontsize=12, transform=plt.gca().transAxes)
-    plt.title('Computational Graph 2')
-    plt.axis('off')
-    
-    # Show activation ranges
-    plt.subplot(1, 3, 3)
-    names1 = ['Linear1', 'ReLU1', 'Linear2', 'Sigmoid']
-    ranges1 = [activations1[i].max() - activations1[i].min() for i in range(len(activations1))]
-    
-    names2 = ['Linear1', 'ReLU1', 'Linear2', 'ReLU2', 'Linear3', 'Sigmoid']
-    ranges2 = [activations2[i].max() - activations2[i].min() for i in range(len(activations2))]
-    
-    x1 = np.arange(len(names1))
-    x2 = np.arange(len(names2))
-    
-    plt.bar(x1 - 0.2, ranges1, 0.4, alpha=0.7, label='Composition 1')
-    plt.bar(x2 + 0.2, ranges2, 0.4, alpha=0.7, label='Composition 2')
-    plt.xlabel('Layer')
-    plt.ylabel('Activation Range')
-    plt.title('Activation Ranges by Layer')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return output1, output2, activations1, activations2
 
-composition_demo = demonstrate_module_composition()
-```
+See the complete implementation in [`code/module_composition_demo.py`](code/module_composition_demo.py) which demonstrates:
+
+- Different ways to compose neural network modules
+- Simple vs deep compositions with varying numbers of layers
+- Visualization of computational graphs and activation ranges
+- Step-by-step analysis of how data flows through composed modules
+- Comparison of activation patterns in different architectures
+
+The code shows how simple modules can be combined to create complex neural network architectures with different computational graphs.
 
 **Key Insights from Basic Building Blocks:**
 1. **Matrix multiplication is fundamental**: All linear transformations are matrix multiplications
