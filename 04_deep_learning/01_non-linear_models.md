@@ -72,84 +72,15 @@ Think of traditional ML vs. deep learning like cooking:
 - **Deep Learning**: The chef learns to cook by watching thousands of cooking videos and figures out the patterns
 
 **Practical Example - Image Recognition:**
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.datasets import make_circles
-from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
 
-def demonstrate_linear_vs_nonlinear():
-    """Demonstrate why non-linear models are necessary"""
-    
-    # Generate non-linear data (XOR-like problem)
-    np.random.seed(42)
-    X, y = make_circles(n_samples=1000, noise=0.1, factor=0.5, random_state=42)
-    
-    # Split data
-    from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    
-    # Train linear model
-    linear_model = LogisticRegression(random_state=42)
-    linear_model.fit(X_train, y_train)
-    linear_score = linear_model.score(X_test, y_test)
-    
-    # Train non-linear model (neural network)
-    non_linear_model = MLPClassifier(hidden_layer_sizes=(10, 5), random_state=42, max_iter=1000)
-    non_linear_model.fit(X_train, y_train)
-    non_linear_score = non_linear_model.score(X_test, y_test)
-    
-    print(f"Linear Model Accuracy: {linear_score:.3f}")
-    print(f"Non-linear Model Accuracy: {non_linear_score:.3f}")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    # Original data
-    plt.subplot(1, 3, 1)
-    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.6, s=20)
-    plt.title('Original Data (Non-linear Pattern)')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.grid(True, alpha=0.3)
-    
-    # Linear decision boundary
-    plt.subplot(1, 3, 2)
-    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100),
-                        np.linspace(y_min, y_max, 100))
-    
-    Z_linear = linear_model.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z_linear = Z_linear.reshape(xx.shape)
-    
-    plt.contourf(xx, yy, Z_linear, alpha=0.3)
-    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.6, s=20)
-    plt.title(f'Linear Model (Accuracy: {linear_score:.3f})')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.grid(True, alpha=0.3)
-    
-    # Non-linear decision boundary
-    plt.subplot(1, 3, 3)
-    Z_nonlinear = non_linear_model.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z_nonlinear = Z_nonlinear.reshape(xx.shape)
-    
-    plt.contourf(xx, yy, Z_nonlinear, alpha=0.3)
-    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.6, s=20)
-    plt.title(f'Non-linear Model (Accuracy: {non_linear_score:.3f})')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return linear_score, non_linear_score
+See the complete implementation in [`code/linear_vs_nonlinear_demo.py`](code/linear_vs_nonlinear_demo.py) which demonstrates:
 
-linear_acc, nonlinear_acc = demonstrate_linear_vs_nonlinear()
-```
+- Generation of non-linear data (XOR-like problem using circles)
+- Comparison between linear (Logistic Regression) and non-linear (Neural Network) models
+- Visualization of decision boundaries for both models
+- Performance comparison showing why non-linear models are necessary for complex patterns
+
+The code shows that linear models achieve poor accuracy (~50%) on non-linear data, while neural networks can learn the complex decision boundary and achieve much higher accuracy.
 
 ### Applications and Impact: Transforming Every Industry
 
@@ -236,70 +167,15 @@ Think of MSE like trying to hit a bullseye:
 **Intuition**: The squared term means that an error of 2 units is penalized 4 times more than an error of 1 unit, making the model more sensitive to outliers.
 
 **Practical Example - MSE vs. Other Losses:**
-```python
-def demonstrate_mse_properties():
-    """Demonstrate the properties of MSE loss"""
-    
-    # Generate sample data
-    np.random.seed(42)
-    true_values = np.array([10, 20, 30, 40, 50])
-    predictions = np.array([12, 18, 32, 35, 55])  # Some predictions are off
-    
-    # Calculate different loss functions
-    mse_loss = np.mean((predictions - true_values)**2)
-    mae_loss = np.mean(np.abs(predictions - true_values))
-    
-    print(f"True values: {true_values}")
-    print(f"Predictions: {predictions}")
-    print(f"Errors: {predictions - true_values}")
-    print(f"MSE Loss: {mse_loss:.2f}")
-    print(f"MAE Loss: {mae_loss:.2f}")
-    
-    # Show how different errors contribute
-    errors = predictions - true_values
-    squared_errors = errors**2
-    abs_errors = np.abs(errors)
-    
-    print(f"\nError Analysis:")
-    print(f"Error\t\tSquared Error\tAbs Error")
-    print("-" * 40)
-    for i in range(len(errors)):
-        print(f"{errors[i]:6.1f}\t\t{squared_errors[i]:8.1f}\t\t{abs_errors[i]:8.1f}")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    plt.scatter(true_values, predictions, alpha=0.7, s=100)
-    plt.plot([0, 60], [0, 60], 'r--', label='Perfect Prediction')
-    plt.xlabel('True Values')
-    plt.ylabel('Predictions')
-    plt.title('Predictions vs True Values')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    plt.bar(range(len(errors)), errors, alpha=0.7)
-    plt.axhline(y=0, color='red', linestyle='--')
-    plt.xlabel('Data Point')
-    plt.ylabel('Error (Prediction - True)')
-    plt.title('Individual Errors')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    plt.bar(range(len(errors)), squared_errors, alpha=0.7, color='orange')
-    plt.xlabel('Data Point')
-    plt.ylabel('Squared Error')
-    plt.title('Squared Errors (MSE Components)')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return mse_loss, mae_loss
 
-mse_demo, mae_demo = demonstrate_mse_properties()
-```
+See the complete implementation in [`code/mse_properties_demo.py`](code/mse_properties_demo.py) which demonstrates:
+
+- Comparison between MSE and MAE loss functions
+- Detailed error analysis showing how different errors contribute to each loss
+- Visualization of predictions vs true values, individual errors, and squared errors
+- Demonstration of how MSE penalizes large errors more heavily than MAE
+
+The code shows that MSE gives higher weight to outliers due to the squared term, while MAE treats all errors equally.
 
 ### Alternative Loss Functions: When MSE Isn't Enough
 
@@ -333,85 +209,15 @@ Think of Huber loss like speed limit enforcement:
 - **Result**: Robust to outliers while maintaining smooth optimization
 
 **Practical Example - Comparing Loss Functions:**
-```python
-def demonstrate_loss_functions():
-    """Compare different regression loss functions"""
-    
-    # Generate data with outliers
-    np.random.seed(42)
-    x = np.linspace(0, 10, 100)
-    y_true = 2 * x + 1 + 0.5 * np.random.randn(100)
-    
-    # Add some outliers
-    y_true[20] += 10  # Outlier 1
-    y_true[80] -= 8   # Outlier 2
-    
-    # Fit models with different loss functions
-    from sklearn.linear_model import LinearRegression, HuberRegressor
-    
-    # Linear regression (uses MSE)
-    lr_mse = LinearRegression()
-    lr_mse.fit(x.reshape(-1, 1), y_true)
-    y_pred_mse = lr_mse.predict(x.reshape(-1, 1))
-    
-    # Huber regression
-    lr_huber = HuberRegressor(epsilon=1.35)  # Default epsilon
-    lr_huber.fit(x.reshape(-1, 1), y_true)
-    y_pred_huber = lr_huber.predict(x.reshape(-1, 1))
-    
-    # Calculate losses
-    mse_mse = np.mean((y_pred_mse - y_true)**2)
-    mae_mse = np.mean(np.abs(y_pred_mse - y_true))
-    mse_huber = np.mean((y_pred_huber - y_true)**2)
-    mae_huber = np.mean(np.abs(y_pred_huber - y_true))
-    
-    print(f"Loss Comparison:")
-    print(f"Model\t\tMSE\t\tMAE")
-    print("-" * 30)
-    print(f"MSE Model\t{mse_mse:.3f}\t\t{mae_mse:.3f}")
-    print(f"Huber Model\t{mse_huber:.3f}\t\t{mae_huber:.3f}")
-    
-    # Visualization
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    plt.scatter(x, y_true, alpha=0.6, s=20, label='Data')
-    plt.plot(x, y_pred_mse, 'r-', linewidth=2, label='MSE Model')
-    plt.plot(x, y_pred_huber, 'g-', linewidth=2, label='Huber Model')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Model Fits')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    errors_mse = y_pred_mse - y_true
-    errors_huber = y_pred_huber - y_true
-    plt.hist(errors_mse, bins=20, alpha=0.7, label='MSE Errors', density=True)
-    plt.hist(errors_huber, bins=20, alpha=0.7, label='Huber Errors', density=True)
-    plt.xlabel('Prediction Error')
-    plt.ylabel('Density')
-    plt.title('Error Distributions')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    plt.scatter(y_true, errors_mse, alpha=0.6, s=20, label='MSE Errors')
-    plt.scatter(y_true, errors_huber, alpha=0.6, s=20, label='Huber Errors')
-    plt.axhline(y=0, color='red', linestyle='--')
-    plt.xlabel('True Values')
-    plt.ylabel('Prediction Errors')
-    plt.title('Errors vs True Values')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return mse_mse, mae_mse, mse_huber, mae_huber
 
-loss_comparison = demonstrate_loss_functions()
-```
+See the complete implementation in [`code/loss_functions_comparison.py`](code/loss_functions_comparison.py) which demonstrates:
+
+- Comparison between MSE and Huber loss on data with outliers
+- Model fitting using Linear Regression (MSE) vs Huber Regression
+- Visualization of model fits, error distributions, and error vs true value plots
+- Demonstration of how Huber loss is more robust to outliers than MSE
+
+The code shows that Huber loss produces more robust models when outliers are present in the data.
 
 ### Worked Example: Step-by-Step MSE Calculation
 
@@ -428,75 +234,15 @@ For the second point: $J^{(2)}(\theta) = \frac{1}{2}(2 \cdot 2 - 4)^2 = \frac{1}
 Total loss: $J(\theta) = \frac{1}{2}(0 + 0) = 0$ (perfect fit)
 
 **Visual Example:**
-```python
-def demonstrate_mse_calculation():
-    """Demonstrate MSE calculation step by step"""
-    
-    # Simple example
-    x_data = np.array([1, 2])
-    y_true = np.array([2, 4])
-    
-    # Model: h(x) = 2x
-    def model(x, theta):
-        return theta * x
-    
-    # Try different parameters
-    thetas = [1.5, 2.0, 2.5]
-    
-    print("MSE Calculation Example:")
-    print("Data: x = [1, 2], y = [2, 4]")
-    print("Model: h(x) = θ * x")
-    print()
-    
-    for theta in thetas:
-        predictions = model(x_data, theta)
-        errors = predictions - y_true
-        squared_errors = errors**2
-        mse = np.mean(squared_errors)
-        
-        print(f"θ = {theta}:")
-        print(f"  Predictions: h(1) = {theta*1}, h(2) = {theta*2}")
-        print(f"  Errors: {errors[0]:.1f}, {errors[1]:.1f}")
-        print(f"  Squared Errors: {squared_errors[0]:.2f}, {squared_errors[1]:.2f}")
-        print(f"  MSE = {mse:.2f}")
-        print()
-    
-    # Visualization
-    plt.figure(figsize=(12, 5))
-    
-    plt.subplot(1, 2, 1)
-    x_plot = np.linspace(0, 3, 100)
-    for theta in thetas:
-        y_plot = model(x_plot, theta)
-        plt.plot(x_plot, y_plot, label=f'θ = {theta}', linewidth=2)
-    
-    plt.scatter(x_data, y_true, color='red', s=100, zorder=5, label='Data Points')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Model Predictions')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 2, 2)
-    mse_values = []
-    for theta in thetas:
-        predictions = model(x_data, theta)
-        mse = np.mean((predictions - y_true)**2)
-        mse_values.append(mse)
-    
-    plt.plot(thetas, mse_values, 'bo-', linewidth=2, markersize=8)
-    plt.xlabel('θ')
-    plt.ylabel('MSE')
-    plt.title('MSE vs θ')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return thetas, mse_values
 
-theta_demo, mse_demo = demonstrate_mse_calculation()
-```
+See the complete implementation in [`code/mse_calculation_demo.py`](code/mse_calculation_demo.py) which demonstrates:
+
+- Step-by-step MSE calculation for different parameter values
+- Simple linear model h(x) = θx with data points (1,2) and (2,4)
+- Visualization of model predictions for different θ values
+- Plot of MSE vs θ showing how the loss function varies with parameters
+
+The code shows that θ = 2.0 gives the minimum MSE (perfect fit), while other values result in higher loss.
 
 **Key Insights from Regression:**
 1. **MSE is the standard**: Most commonly used loss function for regression
