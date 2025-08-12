@@ -20,7 +20,8 @@ The code examples in this directory are designed to help you understand:
 
 ### Double Descent
 
-- **`double_descent_examples.py`** - Examples demonstrating the double descent phenomenon
+- **`double_descent_demo.py`** - Comprehensive demonstration of the double descent phenomenon
+- **`double_descent_examples.py`** - Advanced examples demonstrating the double descent phenomenon
 
 ### Complexity Bounds
 
@@ -73,10 +74,11 @@ python complexity_bounds_examples.py
 
 ### Double Descent
 
-1. **Classical U-Shape**: The traditional bias-variance tradeoff
-2. **Interpolation Threshold**: When models can fit training data perfectly
-3. **Second Descent**: How very complex models can generalize well
-4. **Modern Understanding**: Why deep learning models work despite being overparameterized
+1. **Model-Wise Double Descent**: Three-regime phenomenon (underparameterized, interpolation threshold, overparameterized)
+2. **Sample-Wise Double Descent**: How varying training sample size affects generalization
+3. **Minimum Norm Solution**: Why gradient descent finds solutions that generalize well
+4. **Complexity Measures**: Parameter count vs model norm as complexity measures
+5. **Regularization Effects**: How regularization mitigates peaks at interpolation threshold
 
 ### Complexity Bounds
 
