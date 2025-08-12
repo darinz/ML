@@ -11,12 +11,19 @@ The code examples in this directory are designed to help you understand:
 3. **Feature Scaling**: The importance of proper preprocessing for regularization
 4. **Implicit Regularization**: How optimization algorithms provide regularization
 5. **Model Selection**: Systematic approaches for choosing optimal models
+6. **Cross-Validation**: Hold-out, k-fold, and leave-one-out validation methods
+7. **Bayesian Methods**: MAP estimation and Bayesian inference
+8. **Performance Estimation**: Reliable model evaluation and comparison
 
 ## Files
 
 ### Regularization
 
 - **`regularization_demo.py`** - Comprehensive demonstration of regularization techniques
+
+### Model Selection
+
+- **`model_selection_demo.py`** - Comprehensive demonstration of model selection techniques
 
 ## Learning Objectives
 
@@ -45,6 +52,9 @@ Each Python file can be run independently to demonstrate specific concepts:
 ```bash
 # Run regularization demonstrations
 python regularization_demo.py
+
+# Run model selection demonstrations
+python model_selection_demo.py
 ```
 
 ## Key Concepts Demonstrated
@@ -56,6 +66,14 @@ python regularization_demo.py
 3. **Elastic Net**: Combining L1 and L2 regularization benefits
 4. **Parameter Selection**: Cross-validation for optimal regularization strength
 5. **Feature Scaling**: Importance of standardization for regularization
+
+### Model Selection Techniques
+
+1. **Cross-Validation Methods**: Hold-out, k-fold, and leave-one-out validation
+2. **Naive Model Selection**: Why simple approaches fail and lead to overfitting
+3. **Bayesian Methods**: MAP estimation and Bayesian inference
+4. **Performance Estimation**: Reliable model evaluation and comparison
+5. **Parameter Tuning**: Systematic hyperparameter selection
 
 ### Implicit Regularization
 
@@ -70,6 +88,9 @@ python regularization_demo.py
 2. **Feature Scaling**: Proper preprocessing for regularization
 3. **Performance Analysis**: Training vs test performance evaluation
 4. **Best Practices**: Complete pipelines with scaling and regularization
+5. **Model Comparison**: Fair evaluation of different algorithms
+6. **Uncertainty Quantification**: Confidence intervals and credible intervals
+7. **Computational Efficiency**: Trade-offs between accuracy and speed
 
 ## Expected Outcomes
 
@@ -81,6 +102,11 @@ After working through these examples, you should be able to:
 - **Understand Implicit Effects**: Recognize how optimization affects regularization
 - **Build Pipelines**: Create complete workflows with preprocessing and regularization
 - **Evaluate Performance**: Compare different regularization approaches
+- **Select Models**: Use systematic approaches for model selection
+- **Implement Cross-Validation**: Apply different validation strategies appropriately
+- **Apply Bayesian Methods**: Use MAP estimation and Bayesian inference
+- **Quantify Uncertainty**: Provide confidence intervals and credible intervals
+- **Avoid Common Pitfalls**: Prevent overfitting and information leakage
 
 ## Key Features of the Code
 
@@ -125,6 +151,16 @@ After working through these examples, you should be able to:
 - **Training Dynamics**: Loss curves and convergence patterns
 - **Weight Norms**: Parameter magnitude analysis
 - **Generalization Effects**: How optimizer choice affects performance
+
+### Model Selection Demonstrations
+
+- **Naive Model Selection**: Why simple approaches fail and lead to overfitting
+- **Hold-out Validation**: Basic train/validation split for model comparison
+- **k-Fold Cross-Validation**: Systematic comparison with different k values
+- **Leave-One-Out CV**: Maximum data efficiency for small datasets
+- **Bayesian Coin Flipping**: Complete Bayesian inference workflow
+- **MAP Estimation**: Connection between Bayesian methods and regularization
+- **Bayesian Logistic Regression**: Classification with uncertainty quantification
 
 ## Contributing
 
