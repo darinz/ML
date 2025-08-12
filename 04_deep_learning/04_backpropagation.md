@@ -138,9 +138,9 @@ Think of the chain rule like water flowing down a waterfall:
 #### Basic Chain Rule
 
 For scalar functions:
-```math
+$$
 \frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)
-```
+$$
 
 **Real-World Analogy: The Recipe Scaling Problem**
 Think of the chain rule like scaling a recipe:
@@ -154,9 +154,9 @@ Think of the chain rule like scaling a recipe:
 
 For vector-valued functions, the chain rule becomes more complex:
 
-```math
+$$
 \frac{\partial J}{\partial z_i} = \sum_{j=1}^n \frac{\partial J}{\partial u_j} \frac{\partial g_j}{\partial z_i}
-```
+$$
 
 Where:
 - $J$ is a scalar output (typically the loss)
@@ -176,9 +176,9 @@ Think of the vector chain rule like a factory production line:
 
 In matrix notation, the chain rule can be written as:
 
-```math
+$$
 \frac{\partial J}{\partial z} = \left(\frac{\partial g}{\partial z}\right)^T \frac{\partial J}{\partial u}
-```
+$$
 
 Where $\frac{\partial g}{\partial z}$ is the Jacobian matrix of $g$ with respect to $z$.
 
@@ -218,21 +218,21 @@ Think of computational graphs like flowcharts:
 
 Consider the function $J = f(g(h(x)))$:
 
-```math
+$$
 x → h → u → g → v → f → J
-```
+$$
 
 The forward pass computes:
-```math
+$$
 u = h(x), \quad v = g(u), \quad J = f(v)
-```
+$$
 
 The backward pass computes:
-```math
+$$
 \frac{\partial J}{\partial v} = f'(v)
 \frac{\partial J}{\partial u} = \frac{\partial J}{\partial v} \cdot g'(u)
 \frac{\partial J}{\partial x} = \frac{\partial J}{\partial u} \cdot h'(x)
-```
+$$
 
 **Real-World Analogy: The Assembly Line Problem**
 Think of this like an assembly line:
@@ -677,7 +677,7 @@ $$
 
 ### Algorithm Overview
 
-```python
+$$python
 def backpropagation(network, x, y):
     # Forward pass
     u = [x]
@@ -699,7 +699,7 @@ def backpropagation(network, x, y):
             grad_params.append(module.parameter_gradients(u[i], grad_u[i+1]))
     
     return grad_params
-```
+$$
 
 ### Implementation Details
 
@@ -752,7 +752,7 @@ $$
 
 Gradient checking is a technique to verify the correctness of backpropagation:
 
-```python
+$$python
 def gradient_checking(network, x, y, epsilon=1e-7):
     # Compute gradients using backpropagation
     grad_backprop = backpropagation(network, x, y)
@@ -774,7 +774,7 @@ def gradient_checking(network, x, y, epsilon=1e-7):
     for i, (grad_b, grad_f) in enumerate(zip(grad_backprop, grad_finite)):
         diff = np.linalg.norm(grad_b - grad_f) / np.linalg.norm(grad_b + grad_f)
         print(f"Layer {i}: {diff}")
-```
+$$
 
 #### Debugging Tips
 
@@ -813,7 +813,7 @@ Where $B_t$ is an approximation of the Hessian.
 
 Computing higher-order derivatives using backpropagation:
 
-```python
+$$python
 def higher_order_derivatives(network, x, y, order=2):
     if order == 1:
         return backpropagation(network, x, y)
@@ -822,7 +822,7 @@ def higher_order_derivatives(network, x, y, order=2):
         grad = backpropagation(network, x, y)
         return [higher_order_derivatives(grad_net, x, y, order-1) 
                 for grad_net in grad]
-```
+$$
 
 ### Automatic Differentiation Frameworks
 
@@ -830,7 +830,7 @@ Modern frameworks like PyTorch and TensorFlow implement automatic differentiatio
 
 #### PyTorch Example
 
-```python
+$$python
 import torch
 
 # Define network
@@ -850,11 +850,11 @@ loss.backward()
 print(x.grad)  # Gradient with respect to x
 print(W.grad)  # Gradient with respect to W
 print(b.grad)  # Gradient with respect to b
-```
+$$
 
 #### TensorFlow Example
 
-```python
+$$python
 import tensorflow as tf
 
 # Define network
@@ -870,7 +870,7 @@ with tf.GradientTape() as tape:
 
 # Compute gradients
 gradients = tape.gradient(loss, [x, W, b])
-```
+$$
 
 ---
 
