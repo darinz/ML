@@ -420,80 +420,16 @@ Total Error = Irreducible Error + Bias² + Variance
 - **Feature engineering**: Reduces bias
 
 **Practical Example:**
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.pipeline import Pipeline
 
-def simulate_bias_variance_tradeoff():
-    """Demonstrate bias-variance tradeoff with polynomial regression"""
-    
-    # Generate data
-    np.random.seed(42)
-    X = np.linspace(-2, 2, 100).reshape(-1, 1)
-    true_function = 0.5 * X**2 + 0.3 * X + 1.0
-    noise = 0.1 * np.random.randn(100, 1)
-    y = true_function + noise
-    
-    # Test different polynomial degrees
-    degrees = [1, 2, 3, 5, 10]
-    train_errors = []
-    test_errors = []
-    
-    for degree in degrees:
-        # Create polynomial model
-        model = Pipeline([
-            ('poly', PolynomialFeatures(degree=degree)),
-            ('linear', LinearRegression())
-        ])
-        
-        # Train on subset of data
-        train_idx = np.random.choice(100, 50, replace=False)
-        X_train, y_train = X[train_idx], y[train_idx]
-        X_test, y_test = X[~train_idx], y[~train_idx]
-        
-        model.fit(X_train, y_train)
-        
-        # Calculate errors
-        train_error = np.mean((model.predict(X_train) - y_train)**2)
-        test_error = np.mean((model.predict(X_test) - y_test)**2)
-        
-        train_errors.append(train_error)
-        test_errors.append(test_error)
-    
-    # Plot results
-    plt.figure(figsize=(12, 5))
-    
-    plt.subplot(1, 2, 1)
-    plt.plot(degrees, train_errors, 'bo-', label='Training Error')
-    plt.plot(degrees, test_errors, 'ro-', label='Test Error')
-    plt.xlabel('Polynomial Degree')
-    plt.ylabel('Mean Squared Error')
-    plt.title('Bias-Variance Tradeoff')
-    plt.legend()
-    plt.grid(True)
-    
-    plt.subplot(1, 2, 2)
-    plt.plot(degrees, np.array(test_errors) - np.array(train_errors), 'go-')
-    plt.xlabel('Polynomial Degree')
-    plt.ylabel('Generalization Gap')
-    plt.title('Overfitting Measure')
-    plt.grid(True)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return degrees, train_errors, test_errors
+See the complete implementation in [`code/bias_variance_tradeoff_demo.py`](code/bias_variance_tradeoff_demo.py) which demonstrates:
 
-# Run the simulation
-degrees, train_errors, test_errors = simulate_bias_variance_tradeoff()
+- **Basic Bias-Variance Tradeoff**: Polynomial regression with different degrees showing the U-shaped curve
+- **Bias-Variance Decomposition**: Individual components (bias², variance, irreducible error) and their relationship
+- **Overfitting vs Underfitting**: Concrete examples with linear, quadratic, and high-degree polynomial models
+- **Visual Analysis**: Plots showing training vs test error, generalization gaps, and model predictions
+- **Quantitative Results**: Detailed error analysis for each model complexity level
 
-print("Bias-Variance Tradeoff Results:")
-for i, degree in enumerate(degrees):
-    print(f"Degree {degree}: Train={train_errors[i]:.4f}, Test={test_errors[i]:.4f}, Gap={test_errors[i]-train_errors[i]:.4f}")
-```
+The code shows how model complexity affects the bias-variance tradeoff, demonstrating the fundamental principle that simple models have high bias but low variance, while complex models have low bias but high variance. The optimal model complexity balances these competing factors.
 
 ### Limitations and Modern Extensions: Beyond Classical Theory
 
