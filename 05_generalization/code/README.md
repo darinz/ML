@@ -25,7 +25,8 @@ The code examples in this directory are designed to help you understand:
 
 ### Complexity Bounds
 
-- **`complexity_bounds_examples.py`** - Theoretical foundations and practical examples of complexity bounds
+- **`complexity_bounds_demo.py`** - Comprehensive demonstration of sample complexity bounds and theoretical foundations
+- **`complexity_bounds_examples.py`** - Advanced examples demonstrating sample complexity bounds
 
 ## Learning Objectives
 
@@ -82,10 +83,12 @@ python complexity_bounds_examples.py
 
 ### Complexity Bounds
 
-1. **Theoretical Foundations**: Mathematical bounds on generalization error
-2. **VC Dimension**: Measuring model complexity
-3. **Rademacher Complexity**: Alternative complexity measures
-4. **Practical Implications**: How theory guides practice
+1. **Union Bound**: Controlling probability of multiple events and conservative nature analysis
+2. **Hoeffding's Inequality**: Concentration of averages and exponential decay with sample size
+3. **Learning Theory Recipe**: Four-step process for proving generalization bounds
+4. **Error Rate Analysis**: Training vs generalization error and ERM performance
+5. **Uniform Convergence**: Bounds for all hypotheses simultaneously
+6. **Sample Complexity**: How much data is needed for different accuracy and confidence levels
 
 ## Expected Outcomes
 
