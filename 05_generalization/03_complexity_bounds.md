@@ -241,70 +241,15 @@ Think of error rates like weather prediction:
 - **Key difference**: Past performance is known, future performance is uncertain
 
 **Practical Example - Error Rate Calculation:**
-```python
-def demonstrate_error_rates():
-    """Demonstrate the difference between training and generalization error"""
-    
-    np.random.seed(42)
-    n_samples = 1000
-    n_features = 10
-    
-    # Generate data
-    X = np.random.randn(n_samples, n_features)
-    true_weights = np.random.randn(n_features)
-    true_weights = true_weights / np.linalg.norm(true_weights)  # Normalize
-    
-    # True function: linear classifier with some noise
-    logits = X @ true_weights
-    true_labels = (logits > 0).astype(int)
-    
-    # Add some noise to make it realistic
-    noise = np.random.binomial(1, 0.1, n_samples)  # 10% noise
-    noisy_labels = (true_labels + noise) % 2
-    
-    # Split into training and test sets
-    train_size = 800
-    X_train, X_test = X[:train_size], X[train_size:]
-    y_train, y_test = noisy_labels[:train_size], noisy_labels[train_size:]
-    
-    # Train a simple linear classifier
-    from sklearn.linear_model import LogisticRegression
-    model = LogisticRegression(random_state=42)
-    model.fit(X_train, y_train)
-    
-    # Calculate errors
-    train_predictions = model.predict(X_train)
-    test_predictions = model.predict(X_test)
-    
-    train_error = np.mean(train_predictions != y_train)
-    test_error = np.mean(test_predictions != y_test)
-    
-    print(f"Training Error: {train_error:.4f}")
-    print(f"Test Error: {test_error:.4f}")
-    print(f"Generalization Gap: {test_error - train_error:.4f}")
-    
-    # Visualize the relationship
-    plt.figure(figsize=(10, 5))
-    
-    plt.subplot(1, 2, 1)
-    plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, alpha=0.6, s=20)
-    plt.title('Training Data')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    
-    plt.subplot(1, 2, 2)
-    plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, alpha=0.6, s=20)
-    plt.title('Test Data')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return train_error, test_error
 
-train_error, test_error = demonstrate_error_rates()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **Training vs Generalization Error**: The fundamental difference between empirical and true error rates
+- **Linear Classification**: Real-world example using logistic regression on synthetic data
+- **Generalization Gap**: Visualization of the difference between training and test performance
+- **Data Visualization**: Scatter plots showing training and test data distributions
+
+The code shows how training error (empirical risk) can differ from generalization error (true risk), highlighting the importance of theoretical bounds for understanding this relationship.
 
 ### The Learning Algorithm: Empirical Risk Minimization
 
