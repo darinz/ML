@@ -157,21 +157,15 @@ In deep learning, it's often referred to as **weight decay**, because gradient d
 The term $`(1 - \eta \lambda)`$ shows the weight decay effect.
 
 **Practical Example:**
-```python
-# Without L2 regularization
-def train_without_regularization():
-    for epoch in range(num_epochs):
-        gradients = compute_gradients(loss, parameters)
-        parameters -= learning_rate * gradients
 
-# With L2 regularization (weight decay)
-def train_with_regularization(lambda_val=0.01):
-    for epoch in range(num_epochs):
-        gradients = compute_gradients(loss, parameters)
-        # Add L2 penalty to gradients
-        gradients += lambda_val * parameters
-        parameters -= learning_rate * gradients
-```
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
+
+- **L2 Regularization Effects**: How Ridge regression shrinks coefficients and affects performance
+- **Weight Decay Visualization**: Coefficient magnitudes, performance curves, and norm analysis
+- **Parameter Selection**: Cross-validation approach for choosing optimal regularization strength
+- **Practical Guidelines**: Real-world examples showing the impact of different lambda values
+
+The code shows how L2 regularization encourages small weights through weight decay, preventing overfitting while maintaining model performance.
 
 ### 2. L1 Regularization (LASSO): The Sparse Solution
 
@@ -204,24 +198,16 @@ Think of L1 regularization as constraining the parameters to lie within a diamon
 The L1 penalty creates a "preference" for solutions where some parameters are exactly zero. This happens because the L1 norm has sharp corners at the coordinate axes, and the optimization process is more likely to converge to these corners.
 
 **Practical Example: Feature Selection**
-```python
-# L1 regularization can automatically select relevant features
-import numpy as np
-from sklearn.linear_model import Lasso
 
-# Generate data with only 5 relevant features out of 100
-X = np.random.randn(1000, 100)
-y = X[:, :5] @ np.array([1, 2, 3, 4, 5]) + 0.1 * np.random.randn(1000)
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
 
-# Fit with L1 regularization
-lasso = Lasso(alpha=0.1)
-lasso.fit(X, y)
+- **L1 Regularization Effects**: How LASSO creates sparsity and performs automatic feature selection
+- **Sparsity Analysis**: Visualization of sparsity levels vs regularization strength
+- **Coefficient Paths**: How coefficients change as lambda varies
+- **Feature Selection Accuracy**: Analysis of how well LASSO identifies relevant features
+- **Real-World Application**: Automatic feature selection in high-dimensional datasets
 
-# Check which features were selected (non-zero coefficients)
-selected_features = np.where(lasso.coef_ != 0)[0]
-print(f"Selected features: {selected_features}")
-# Output: Selected features: [0 1 2 3 4] (the relevant ones!)
-```
+The code shows how L1 regularization can automatically identify and select the most relevant features, making models more interpretable and reducing overfitting.
 
 ### 3. L0 "Regularization" (Sparsity): The Ideal but Intractable
 
@@ -270,21 +256,16 @@ R(\theta) = \alpha \|\theta\|_1 + (1-\alpha) \frac{1}{2} \|\theta\|_2^2
 - **Uncertainty about sparsity**: Provides a middle ground
 
 **Practical Example:**
-```python
-from sklearn.linear_model import ElasticNet
 
-# Elastic Net with 70% L1, 30% L2
-elastic_net = ElasticNet(alpha=0.1, l1_ratio=0.7)
-elastic_net.fit(X, y)
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
 
-# Compare with pure L1 and L2
-lasso = Lasso(alpha=0.1)
-ridge = Ridge(alpha=0.1)
+- **Elastic Net Comparison**: Side-by-side comparison of Ridge, LASSO, and Elastic Net
+- **Coefficient Analysis**: How different regularization types affect coefficient values
+- **Performance Comparison**: Training and test scores for each method
+- **Sparsity Analysis**: Comparison of sparsity levels across regularization types
+- **Correlated Features**: How Elastic Net handles correlated features better than LASSO alone
 
-print(f"Elastic Net non-zeros: {np.sum(elastic_net.coef_ != 0)}")
-print(f"Lasso non-zeros: {np.sum(lasso.coef_ != 0)}")
-print(f"Ridge non-zeros: {np.sum(ridge.coef_ != 0)}")
-```
+The code shows how Elastic Net combines the benefits of both L1 and L2 regularization, providing sparsity while maintaining stability with correlated features.
 
 ---
 
@@ -298,46 +279,28 @@ print(f"Ridge non-zeros: {np.sum(ridge.coef_ != 0)}")
 3. Choose the $`\lambda`$ that gives the best validation performance
 
 **Grid Search Example:**
-```python
-import numpy as np
-from sklearn.model_selection import cross_val_score
-from sklearn.linear_model import Ridge
 
-# Define lambda values to try
-lambda_values = [0.001, 0.01, 0.1, 1, 10, 100]
-best_lambda = None
-best_score = -np.inf
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
 
-for lambda_val in lambda_values:
-    # Train model with current lambda
-    model = Ridge(alpha=lambda_val)
-    
-    # Use cross-validation to estimate performance
-    scores = cross_val_score(model, X, y, cv=5)
-    mean_score = np.mean(scores)
-    
-    print(f"Lambda: {lambda_val}, CV Score: {mean_score:.4f}")
-    
-    if mean_score > best_score:
-        best_score = mean_score
-        best_lambda = lambda_val
+- **Cross-Validation Approach**: Systematic grid search for optimal regularization parameters
+- **Performance Visualization**: How CV scores change with different lambda values
+- **Best Parameter Selection**: Automatic identification of optimal regularization strength
+- **Effect Analysis**: Comparison of unregularized vs optimally regularized models
+- **Practical Guidelines**: Real-world examples of parameter tuning
 
-print(f"\nBest lambda: {best_lambda}")
-```
+The code shows how to systematically choose the best regularization parameter using cross-validation, ensuring optimal model performance.
 
 **Visualizing the Effect:**
-```python
-import matplotlib.pyplot as plt
 
-# Plot validation scores vs lambda
-plt.figure(figsize=(10, 6))
-plt.semilogx(lambda_values, cv_scores, 'bo-')
-plt.xlabel('Regularization Parameter (λ)')
-plt.ylabel('Cross-Validation Score')
-plt.title('Regularization Parameter Selection')
-plt.grid(True)
-plt.show()
-```
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
+
+- **Parameter Selection Visualization**: Comprehensive plots showing CV scores vs lambda values
+- **Best Parameter Identification**: Clear visualization of optimal regularization strength
+- **Effect Comparison**: Side-by-side comparison of unregularized vs regularized models
+- **Performance Analysis**: Detailed analysis of how regularization affects model coefficients
+- **Interactive Plots**: Multiple visualization types for understanding regularization effects
+
+The code provides comprehensive visualizations to help understand how regularization parameters affect model performance and coefficient values.
 
 ### When to Use Each Type: The Decision Tree
 
@@ -384,47 +347,40 @@ Do you need feature selection?
 - Example: If feature A ranges from 0-1 and feature B ranges from 0-1000, L2 regularization will penalize feature B much more heavily
 
 **The Problem Illustrated:**
-```python
-# Example with unscaled features
-X_unscaled = np.array([
-    [1, 1000],    # Feature 1: 0-1, Feature 2: 0-1000
-    [0.5, 500],
-    [0.8, 800]
-])
 
-# L2 penalty on coefficients [θ₁, θ₂]
-# Penalty = λ(θ₁² + θ₂²)
-# θ₂ will be penalized much more heavily!
-```
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
+
+- **Feature Scaling Problem**: How unscaled features lead to biased regularization
+- **Scale Comparison**: Visualization of different feature scales and their impact
+- **Coefficient Analysis**: How scaling affects coefficient values and model performance
+- **Performance Comparison**: Training and test scores for scaled vs unscaled features
+- **Practical Guidelines**: Real-world examples showing the importance of proper scaling
+
+The code shows how feature scaling is crucial for regularization to work properly, preventing bias towards features with larger scales.
 
 **Solution: Standardization**
-```python
-from sklearn.preprocessing import StandardScaler
 
-# Standardize features
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
 
-# Now all features have mean=0, std=1
-# L2 penalty treats all features equally
-```
+- **Standardization Process**: How to properly scale features for regularization
+- **Scale Comparison**: Before and after standardization analysis
+- **Performance Impact**: How standardization affects model performance
+- **Coefficient Analysis**: How scaling affects coefficient values
+- **Best Practices**: Complete pipeline with scaling and regularization
+
+The code shows the proper way to implement feature scaling with regularization, ensuring all features are treated equally by the regularization penalty.
 
 **Complete Pipeline:**
-```python
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import Ridge
 
-# Create pipeline with scaling and regularization
-pipeline = Pipeline([
-    ('scaler', StandardScaler()),
-    ('ridge', Ridge(alpha=1.0))
-])
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
 
-# Fit and predict
-pipeline.fit(X_train, y_train)
-predictions = pipeline.predict(X_test)
-```
+- **Pipeline Implementation**: Complete workflow with scaling and regularization
+- **Best Practices**: Proper order of preprocessing and model fitting
+- **Cross-Validation**: How to use pipelines with cross-validation
+- **Performance Analysis**: Comprehensive evaluation of the complete pipeline
+- **Real-World Application**: Practical examples of production-ready regularization
+
+The code shows how to implement a complete machine learning pipeline that properly handles feature scaling and regularization together.
 
 ### Monitoring and Debugging: Signs of Problems
 
@@ -505,25 +461,16 @@ Think of training a model like climbing a mountain with multiple peaks of the sa
 - **Momentum**: Can affect the optimization trajectory
 
 **Practical Example:**
-```python
-import torch
-import torch.nn as nn
 
-# Same model, different optimizers
-model1 = nn.Linear(10, 1)
-model2 = nn.Linear(10, 1)
+See the complete implementation in [`code/regularization_demo.py`](code/regularization_demo.py) which demonstrates:
 
-# Different optimizers
-optimizer1 = torch.optim.SGD(model1.parameters(), lr=0.01)
-optimizer2 = torch.optim.Adam(model2.parameters(), lr=0.001)
+- **Implicit Regularization Effects**: How different optimizers lead to different solutions
+- **Optimizer Comparison**: SGD, Adam, and RMSprop with identical models
+- **Training Dynamics**: Loss curves and convergence patterns for different optimizers
+- **Weight Norm Analysis**: How different optimizers affect parameter magnitudes
+- **Generalization Impact**: How optimizer choice affects model generalization
 
-# Same training loop, different results
-for epoch in range(100):
-    # Training code...
-    pass
-
-# Models may have same training loss but different generalization
-```
+The code shows how the choice of optimizer can implicitly regularize models, leading to different generalization performance even with identical training loss.
 
 ### Theoretical Understanding: The Flat Minima Hypothesis
 
