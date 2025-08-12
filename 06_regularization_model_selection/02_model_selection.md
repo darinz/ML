@@ -331,43 +331,16 @@ $`\hat{\varepsilon}_{\text{val}}(h_i) = \frac{1}{|S_{\text{val}}|} \sum_{(x,y) \
 Then select: $`M^* = \arg\min_i \hat{\varepsilon}_{\text{val}}(h_i)`$
 
 **Practical Implementation:**
-```python
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
 
-# Split data
-X_train, X_val, y_train, y_val = train_test_split(
-    X, y, test_size=0.3, random_state=42
-)
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-# Try different models
-models = {
-    'linear': LinearRegression(),
-    'polynomial_2': PolynomialFeatures(degree=2),
-    'polynomial_3': PolynomialFeatures(degree=3),
-    'ridge': Ridge(alpha=1.0),
-    'lasso': Lasso(alpha=0.1)
-}
+- **Hold-out Validation Process**: Systematic model comparison using train/validation split
+- **Multiple Model Types**: Linear regression, polynomial regression, Ridge, and LASSO
+- **Performance Evaluation**: Training vs validation error analysis
+- **Best Model Selection**: Automatic identification of optimal model
+- **Generalization Gap Analysis**: Overfitting detection and measurement
 
-best_model = None
-best_score = float('inf')
-
-for name, model in models.items():
-    # Train model
-    model.fit(X_train, y_train)
-    
-    # Evaluate on validation set
-    y_pred = model.predict(X_val)
-    score = mean_squared_error(y_val, y_pred)
-    
-    print(f"{name}: {score:.4f}")
-    
-    if score < best_score:
-        best_score = score
-        best_model = name
-
-print(f"\nBest model: {best_model}")
-```
+The code shows how to properly implement hold-out validation to avoid the pitfalls of naive model selection and get reliable performance estimates.
 
 **Practical Considerations:**
 - **Large datasets**: You can afford to set aside a substantial validation set
@@ -419,22 +392,16 @@ Optionally, step 3 in the algorithm may also be replaced with selecting the mode
 - Final model should use all available training data
 
 **Implementation:**
-```python
-# After selecting best model
-best_model_name = 'ridge'  # From previous selection
-best_model = models[best_model_name]
 
-# Retrain on all training data (train + validation)
-X_full_train = np.vstack([X_train, X_val])
-y_full_train = np.concatenate([y_train, y_val])
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-best_model.fit(X_full_train, y_full_train)
+- **Model Retraining**: How to retrain the best model on all available data
+- **Final Evaluation**: Proper test set evaluation after model selection
+- **Data Pipeline**: Complete workflow from selection to final model
+- **Performance Tracking**: Monitoring performance through the selection process
+- **Best Practices**: Avoiding information leakage in the final evaluation
 
-# Now evaluate on test set
-y_test_pred = best_model.predict(X_test)
-final_score = mean_squared_error(y_test, y_test_pred)
-print(f"Final test score: {final_score:.4f}")
-```
+The code shows the complete model selection workflow, including the optional retraining step and final evaluation on the test set.
 
 **When NOT to retrain:**
 - **Unstable algorithms**: Some algorithms are sensitive to data perturbations
@@ -500,38 +467,16 @@ Where $`h_j^{(i)}`$ is model $`M_j`$ trained on all folds except $`i`$.
 $`M^* = \arg\min_j \frac{1}{k} \sum_{i=1}^k \hat{\varepsilon}_i^{(j)}`$
 
 **Practical Implementation:**
-```python
-from sklearn.model_selection import cross_val_score
-from sklearn.linear_model import Ridge
 
-# Define models to compare
-models = {
-    'ridge_0.1': Ridge(alpha=0.1),
-    'ridge_1.0': Ridge(alpha=1.0),
-    'ridge_10.0': Ridge(alpha=10.0),
-    'lasso_0.1': Lasso(alpha=0.1),
-    'lasso_1.0': Lasso(alpha=1.0)
-}
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-# Compare models using 5-fold cross-validation
-results = {}
-for name, model in models.items():
-    scores = cross_val_score(model, X, y, cv=5, scoring='neg_mean_squared_error')
-    mean_score = -scores.mean()  # Convert back to MSE
-    std_score = scores.std()
-    
-    results[name] = {
-        'mean': mean_score,
-        'std': std_score,
-        'scores': scores
-    }
-    
-    print(f"{name}: {mean_score:.4f} ± {std_score:.4f}")
+- **k-Fold Cross-Validation**: Systematic comparison of different regularization strengths
+- **Multiple k Values**: Comparison of 3-fold, 5-fold, and 10-fold CV
+- **Performance Analysis**: Mean and standard deviation of CV scores
+- **Computational Cost**: Analysis of training time vs accuracy trade-offs
+- **Best Parameter Selection**: Automatic identification of optimal regularization strength
 
-# Select best model
-best_model_name = min(results.keys(), key=lambda x: results[x]['mean'])
-print(f"\nBest model: {best_model_name}")
-```
+The code shows how k-fold cross-validation provides more reliable performance estimates than hold-out validation, especially for smaller datasets.
 
 #### Common Choices and Trade-offs: Finding the Right k
 
@@ -572,41 +517,16 @@ A typical choice for the number of folds to use here would be $`k = 10``. While 
 - **Total cost**: $`k \times \text{number of models} \times \text{training time per model}`$
 
 **Example - Polynomial Regression:**
-```python
-# Compare polynomial degrees using 10-fold CV
-degrees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-results = []
 
-for degree in degrees:
-    model = Pipeline([
-        ('poly', PolynomialFeatures(degree=degree)),
-        ('linear', LinearRegression())
-    ])
-    
-    # 10-fold cross-validation
-    scores = cross_val_score(model, X, y, cv=10, scoring='neg_mean_squared_error')
-    mean_mse = -scores.mean()
-    
-    results.append({
-        'degree': degree,
-        'mse': mean_mse,
-        'std': scores.std()
-    })
-    
-    print(f"Degree {degree}: {mean_mse:.4f} ± {scores.std():.4f}")
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-# Plot results
-degrees = [r['degree'] for r in results]
-mses = [r['mse'] for r in results]
-stds = [r['std'] for r in results]
+- **Polynomial Model Selection**: Systematic comparison of polynomial degrees using cross-validation
+- **Error Analysis**: Mean and standard deviation of cross-validation scores
+- **Visualization**: Error bars showing uncertainty in performance estimates
+- **Optimal Degree Selection**: Automatic identification of best polynomial complexity
+- **Overfitting Detection**: Clear visualization of when complexity becomes too high
 
-plt.errorbar(degrees, mses, yerr=stds, marker='o')
-plt.xlabel('Polynomial Degree')
-plt.ylabel('Mean Squared Error')
-plt.title('Model Selection via Cross-Validation')
-plt.grid(True)
-plt.show()
-```
+The code shows how cross-validation can be used to systematically select the optimal model complexity while avoiding overfitting.
 
 #### Leave-One-Out Cross Validation (LOOCV): The Ultimate in Data Efficiency
 
@@ -628,15 +548,16 @@ While $`k = 10`$ is a commonly used choice, in problems in which data is really 
 - May not be practical for large datasets
 
 **Implementation:**
-```python
-from sklearn.model_selection import LeaveOneOut
 
-# For very small datasets
-loo = LeaveOneOut()
-scores = cross_val_score(model, X, y, cv=loo, scoring='neg_mean_squared_error')
-mean_mse = -scores.mean()
-print(f"LOOCV MSE: {mean_mse:.4f}")
-```
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
+
+- **Leave-One-Out Cross-Validation**: Implementation for very small datasets
+- **LOOCV vs k-fold Comparison**: Performance and computational cost analysis
+- **Variance Analysis**: How LOOCV estimates vary compared to k-fold CV
+- **Small Dataset Handling**: When and how to use LOOCV effectively
+- **Computational Trade-offs**: Cost vs accuracy considerations
+
+The code shows how LOOCV provides the most unbiased estimates for small datasets, but at a higher computational cost.
 
 **When LOOCV is Worth It:**
 - **Medical studies**: Each patient is expensive to recruit
@@ -656,18 +577,16 @@ Cross validation isn't just for model selection—it's also a powerful tool for 
 - **Performance estimation**: Get confidence intervals for model performance
 
 **Confidence Intervals:**
-```python
-# Get confidence interval for model performance
-scores = cross_val_score(model, X, y, cv=10, scoring='neg_mean_squared_error')
-mean_score = -scores.mean()
-std_score = scores.std()
 
-# 95% confidence interval
-ci_lower = mean_score - 1.96 * std_score / np.sqrt(10)
-ci_upper = mean_score + 1.96 * std_score / np.sqrt(10)
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-print(f"Performance: {mean_score:.4f} [{ci_lower:.4f}, {ci_upper:.4f}]")
-```
+- **Performance Estimation**: How to get reliable performance estimates using cross-validation
+- **Confidence Intervals**: Statistical confidence intervals for model performance
+- **Uncertainty Quantification**: Understanding the reliability of performance estimates
+- **Model Comparison**: Fair comparison between different algorithms
+- **Research Reporting**: How to report results with proper uncertainty measures
+
+The code shows how to properly estimate model performance with confidence intervals, essential for research and production applications.
 
 **Practical Tips:**
 - Always use a validation set or cross-validation for model selection—never the test set!
@@ -677,22 +596,28 @@ print(f"Performance: {mean_score:.4f} [{ci_lower:.4f}, {ci_upper:.4f}]")
 - Fix random seeds for reproducibility
 
 **Stratified Cross-Validation:**
-```python
-from sklearn.model_selection import StratifiedKFold
 
-# For classification problems
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-scores = cross_val_score(classifier, X, y, cv=skf, scoring='accuracy')
-```
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
+
+- **Stratified Sampling**: Maintaining class proportions in cross-validation folds
+- **Classification Problems**: Proper handling of imbalanced datasets
+- **Time Series Cross-Validation**: Special considerations for temporal data
+- **Different Data Types**: Appropriate cross-validation strategies for different problems
+- **Best Practices**: When to use different cross-validation approaches
+
+The code shows how to implement appropriate cross-validation strategies for different types of data and problems.
 
 **Time Series Cross-Validation:**
-```python
-from sklearn.model_selection import TimeSeriesSplit
 
-# For time series data
-tscv = TimeSeriesSplit(n_splits=5)
-scores = cross_val_score(model, X, y, cv=tscv, scoring='neg_mean_squared_error')
-```
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
+
+- **Temporal Data Handling**: Proper cross-validation for time series data
+- **Forward Chaining**: Training on past data, testing on future data
+- **Temporal Dependencies**: Respecting the time ordering of observations
+- **Forecasting Applications**: Appropriate validation for prediction tasks
+- **Data Leakage Prevention**: Avoiding future information contamination
+
+The code shows how to properly validate models on time series data while respecting temporal dependencies and avoiding data leakage.
 
 ---
 
@@ -770,32 +695,16 @@ Taking the log and maximizing gives us the familiar least squares solution.
 - ❌ **No uncertainty quantification**: Doesn't tell us how confident we are
 
 **Practical Implementation:**
-```python
-import numpy as np
-from scipy.optimize import minimize
 
-def negative_log_likelihood(theta, X, y, sigma=1.0):
-    """Negative log-likelihood for linear regression with Gaussian noise"""
-    predictions = X @ theta
-    residuals = y - predictions
-    log_likelihood = -0.5 * np.sum(residuals**2) / (sigma**2) - len(y) * np.log(sigma * np.sqrt(2*np.pi))
-    return -log_likelihood  # Negative because we minimize
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-# Generate some data
-np.random.seed(42)
-X = np.random.randn(100, 2)
-true_theta = np.array([1.5, -0.8])
-y = X @ true_theta + 0.1 * np.random.randn(100)
+- **Maximum Likelihood Estimation**: Implementation of MLE for linear regression
+- **Likelihood Function**: Proper formulation of the likelihood for Gaussian noise
+- **Optimization**: Using numerical optimization to find MLE estimates
+- **Parameter Estimation**: Comparing true vs estimated parameters
+- **Performance Analysis**: Evaluating the quality of MLE estimates
 
-# MLE estimation
-initial_theta = np.zeros(2)
-result = minimize(negative_log_likelihood, initial_theta, args=(X, y))
-mle_theta = result.x
-
-print(f"True parameters: {true_theta}")
-print(f"MLE estimates: {mle_theta}")
-print(f"Difference: {np.linalg.norm(true_theta - mle_theta):.4f}")
-```
+The code shows how to implement MLE for parameter estimation, providing a foundation for understanding frequentist approaches to model fitting.
 
 ### Bayesian View: Priors, Posteriors, and Prediction
 
@@ -842,49 +751,17 @@ The denominator ensures the posterior is a valid probability distribution (integ
 - **Result**: Updated beliefs about parameters given the data
 
 **Practical Example - Bayesian Coin Flipping:**
-```python
-import numpy as np
-from scipy.stats import beta
-import matplotlib.pyplot as plt
 
-# Prior: Beta(2, 2) - slightly favoring fair coin
-prior_alpha, prior_beta = 2, 2
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-# Data: 7 heads out of 10 flips
-heads, total = 7, 10
+- **Bayesian Inference**: Complete Bayesian analysis from prior to posterior
+- **Prior Specification**: How to choose and implement prior distributions
+- **Posterior Analysis**: Computing posterior distributions and credible intervals
+- **Multiple Datasets**: How posterior beliefs change with different amounts of data
+- **Uncertainty Quantification**: Point estimates and credible intervals
+- **Visualization**: Prior vs posterior comparison with multiple datasets
 
-# Posterior: Beta(2+7, 2+3) = Beta(9, 5)
-posterior_alpha = prior_alpha + heads
-posterior_beta = prior_beta + (total - heads)
-
-# Plot prior and posterior
-theta = np.linspace(0, 1, 100)
-prior = beta.pdf(theta, prior_alpha, prior_beta)
-posterior = beta.pdf(theta, posterior_alpha, posterior_beta)
-
-plt.figure(figsize=(10, 6))
-plt.plot(theta, prior, 'b-', label='Prior: Beta(2, 2)', linewidth=2)
-plt.plot(theta, posterior, 'r-', label='Posterior: Beta(9, 5)', linewidth=2)
-plt.axvline(0.5, color='k', linestyle='--', alpha=0.5, label='Fair coin')
-plt.axvline(heads/total, color='g', linestyle='--', alpha=0.5, label=f'Data: {heads}/{total}')
-plt.xlabel('Probability of Heads')
-plt.ylabel('Density')
-plt.title('Bayesian Coin Flipping: Prior vs Posterior')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-
-# Point estimates
-prior_mean = prior_alpha / (prior_alpha + prior_beta)
-posterior_mean = posterior_alpha / (posterior_alpha + posterior_beta)
-posterior_std = np.sqrt((posterior_alpha * posterior_beta) / 
-                       ((posterior_alpha + posterior_beta)**2 * (posterior_alpha + posterior_beta + 1)))
-
-print(f"Prior mean: {prior_mean:.3f}")
-print(f"Posterior mean: {posterior_mean:.3f} ± {posterior_std:.3f}")
-print(f"95% credible interval: [{beta.ppf(0.025, posterior_alpha, posterior_beta):.3f}, "
-      f"{beta.ppf(0.975, posterior_alpha, posterior_beta):.3f}]")
-```
+The code shows the complete Bayesian workflow, from specifying priors to computing posteriors and quantifying uncertainty.
 
 ### Bayesian Prediction: Making Predictions with Uncertainty
 
@@ -905,88 +782,17 @@ If $`y`$ is continuous, we might want the expected value:
 ```
 
 **Example - Bayesian Linear Regression:**
-For linear regression with Gaussian prior and likelihood, the posterior is also Gaussian, and predictions have both a mean and variance (uncertainty).
 
-**Practical Implementation:**
-```python
-from scipy.stats import multivariate_normal
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-def bayesian_linear_regression(X_train, y_train, X_test, prior_mean, prior_cov, noise_var=1.0):
-    """
-    Bayesian linear regression with Gaussian prior and likelihood
-    """
-    # Posterior parameters
-    prior_precision = np.linalg.inv(prior_cov)
-    data_precision = X_train.T @ X_train / noise_var
-    
-    posterior_precision = prior_precision + data_precision
-    posterior_cov = np.linalg.inv(posterior_precision)
-    
-    posterior_mean = posterior_cov @ (
-        prior_precision @ prior_mean + 
-        X_train.T @ y_train / noise_var
-    )
-    
-    # Predictions
-    predictions = X_test @ posterior_mean
-    
-    # Prediction uncertainty
-    prediction_var = noise_var + np.diag(X_test @ posterior_cov @ X_test.T)
-    prediction_std = np.sqrt(prediction_var)
-    
-    return predictions, prediction_std, posterior_mean, posterior_cov
+- **Bayesian Linear Regression**: Complete implementation with Gaussian priors and likelihoods
+- **Posterior Computation**: Analytical posterior for conjugate priors
+- **Prediction with Uncertainty**: Making predictions with confidence intervals
+- **Parameter Uncertainty**: Quantifying uncertainty in model parameters
+- **Visualization**: Plotting predictions with uncertainty bands
+- **Conjugate Priors**: Using Gaussian-Gaussian conjugate pair for analytical solutions
 
-# Example usage
-np.random.seed(42)
-X_train = np.random.randn(50, 2)
-true_theta = np.array([1.5, -0.8])
-y_train = X_train @ true_theta + 0.1 * np.random.randn(50)
-
-X_test = np.random.randn(20, 2)
-
-# Prior: centered at zero with some uncertainty
-prior_mean = np.zeros(2)
-prior_cov = np.eye(2) * 10.0
-
-# Bayesian predictions
-predictions, pred_std, post_mean, post_cov = bayesian_linear_regression(
-    X_train, y_train, X_test, prior_mean, prior_cov
-)
-
-print(f"True parameters: {true_theta}")
-print(f"Posterior mean: {post_mean}")
-print(f"Posterior std: {np.sqrt(np.diag(post_cov))}")
-
-# Plot predictions with uncertainty
-plt.figure(figsize=(12, 5))
-
-plt.subplot(1, 2, 1)
-plt.scatter(X_train[:, 0], y_train, alpha=0.6, label='Training data')
-plt.scatter(X_test[:, 0], predictions, color='red', alpha=0.6, label='Predictions')
-plt.fill_between(X_test[:, 0], 
-                predictions - 2*pred_std, 
-                predictions + 2*pred_std, 
-                alpha=0.3, color='red', label='95% confidence')
-plt.xlabel('Feature 1')
-plt.ylabel('Target')
-plt.title('Bayesian Linear Regression Predictions')
-plt.legend()
-
-plt.subplot(1, 2, 2)
-plt.scatter(X_train[:, 1], y_train, alpha=0.6, label='Training data')
-plt.scatter(X_test[:, 1], predictions, color='red', alpha=0.6, label='Predictions')
-plt.fill_between(X_test[:, 1], 
-                predictions - 2*pred_std, 
-                predictions + 2*pred_std, 
-                alpha=0.3, color='red', label='95% confidence')
-plt.xlabel('Feature 2')
-plt.ylabel('Target')
-plt.title('Bayesian Linear Regression Predictions')
-plt.legend()
-
-plt.tight_layout()
-plt.show()
-```
+The code shows how to implement Bayesian linear regression with proper uncertainty quantification, providing both point predictions and confidence intervals.
 
 ### Choosing the Likelihood Function: The Data Model
 
@@ -1042,50 +848,17 @@ If the prior is Laplace, $`p(\theta) \propto \exp(-\lambda \|\theta\|_1)`$, MAP 
 Regularization helps prevent overfitting by discouraging large parameter values, which often correspond to overly complex models.
 
 **Implementation Example:**
-```python
-from sklearn.linear_model import Ridge, Lasso
-from scipy.optimize import minimize
 
-def map_estimation_with_gaussian_prior(X, y, prior_std=1.0, noise_std=1.0):
-    """
-    MAP estimation with Gaussian prior (equivalent to Ridge regression)
-    """
-    def objective(theta):
-        # Log-likelihood (assuming Gaussian noise)
-        predictions = X @ theta
-        residuals = y - predictions
-        log_likelihood = -0.5 * np.sum(residuals**2) / (noise_std**2)
-        
-        # Log-prior (Gaussian)
-        log_prior = -0.5 * np.sum(theta**2) / (prior_std**2)
-        
-        return -(log_likelihood + log_prior)  # Negative because we minimize
-    
-    # Optimize
-    initial_theta = np.zeros(X.shape[1])
-    result = minimize(objective, initial_theta)
-    return result.x
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-# Compare MAP with Ridge regression
-np.random.seed(42)
-X = np.random.randn(100, 5)
-true_theta = np.array([1.0, -0.5, 0.3, 0.0, 0.0])  # Some zero coefficients
-y = X @ true_theta + 0.1 * np.random.randn(100)
+- **MAP Estimation**: Implementation of maximum a posteriori estimation
+- **Gaussian Prior**: How Gaussian priors lead to L2 regularization
+- **MAP vs Ridge Equivalence**: Mathematical connection between MAP and Ridge regression
+- **Prior Strength Analysis**: How different prior strengths affect regularization
+- **Parameter Comparison**: Comparing MAP estimates with traditional Ridge regression
+- **Regularization Effect**: Visualization of how priors control parameter magnitudes
 
-# MAP estimation
-map_theta = map_estimation_with_gaussian_prior(X, y, prior_std=1.0)
-
-# Ridge regression (should be equivalent)
-ridge = Ridge(alpha=1.0/(2*1.0**2))  # alpha = 1/(2*prior_std^2)
-ridge.fit(X, y)
-ridge_theta = ridge.coef_
-
-print("Comparison of MAP and Ridge:")
-print(f"True parameters: {true_theta}")
-print(f"MAP estimates:   {map_theta}")
-print(f"Ridge estimates: {ridge_theta}")
-print(f"MAP vs Ridge difference: {np.linalg.norm(map_theta - ridge_theta):.6f}")
-```
+The code shows the mathematical equivalence between MAP estimation with Gaussian priors and L2 regularization, providing a Bayesian interpretation of Ridge regression.
 
 ---
 
@@ -1115,96 +888,17 @@ $`\theta_{\text{MAP}} = \arg\max_\theta \sum_{i=1}^n [y^{(i)} \log h_\theta(x^{(
 This is exactly the objective function for L2-regularized logistic regression!
 
 **Complete Implementation:**
-```python
-import numpy as np
-from scipy.optimize import minimize
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, log_loss
 
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-def bayesian_logistic_regression(X_train, y_train, X_test, prior_std=1.0):
-    """
-    Bayesian logistic regression with Gaussian prior
-    """
-    def objective(theta):
-        # Log-likelihood
-        logits = X_train @ theta
-        probs = sigmoid(logits)
-        log_likelihood = np.sum(y_train * np.log(probs + 1e-15) + 
-                               (1 - y_train) * np.log(1 - probs + 1e-15))
-        
-        # Log-prior
-        log_prior = -0.5 * np.sum(theta**2) / (prior_std**2)
-        
-        return -(log_likelihood + log_prior)
-    
-    # MAP estimation
-    initial_theta = np.zeros(X_train.shape[1])
-    result = minimize(objective, initial_theta, method='L-BFGS-B')
-    map_theta = result.x
-    
-    # Predictions
-    logits_test = X_test @ map_theta
-    probs_test = sigmoid(logits_test)
-    predictions = (probs_test > 0.5).astype(int)
-    
-    return map_theta, probs_test, predictions
+- **Bayesian Logistic Regression**: Complete implementation with Gaussian priors
+- **MAP Estimation**: Maximum a posteriori estimation for classification
+- **Prior Strength Analysis**: How different prior strengths affect performance
+- **Comparison with Traditional Methods**: Bayesian vs sklearn logistic regression
+- **Performance Evaluation**: Accuracy and log-loss comparison
+- **Visualization**: Predicted probabilities vs true labels
 
-# Generate synthetic data
-np.random.seed(42)
-n_samples, n_features = 200, 3
-X = np.random.randn(n_samples, n_features)
-true_theta = np.array([1.5, -0.8, 0.3])
-logits = X @ true_theta
-probs = sigmoid(logits)
-y = (np.random.rand(n_samples) < probs).astype(int)
-
-# Split data
-train_idx = np.random.choice(n_samples, 150, replace=False)
-test_idx = np.setdiff1d(np.arange(n_samples), train_idx)
-
-X_train, X_test = X[train_idx], X[test_idx]
-y_train, y_test = y[train_idx], y[test_idx]
-
-# Bayesian logistic regression
-map_theta, probs_test, predictions = bayesian_logistic_regression(X_train, y_train, X_test)
-
-# Compare with sklearn
-sklearn_lr = LogisticRegression(penalty='l2', C=1.0, solver='lbfgs', random_state=42)
-sklearn_lr.fit(X_train, y_train)
-sklearn_predictions = sklearn_lr.predict(X_test)
-
-print("Bayesian Logistic Regression Results:")
-print(f"True parameters: {true_theta}")
-print(f"MAP estimates: {map_theta}")
-print(f"Sklearn estimates: {sklearn_lr.coef_[0]}")
-print(f"Bayesian accuracy: {accuracy_score(y_test, predictions):.3f}")
-print(f"Sklearn accuracy: {accuracy_score(y_test, sklearn_predictions):.3f}")
-
-# Plot predictions with uncertainty
-plt.figure(figsize=(12, 5))
-
-plt.subplot(1, 2, 1)
-plt.scatter(X_test[:, 0], y_test, alpha=0.6, label='True labels')
-plt.scatter(X_test[:, 0], probs_test, color='red', alpha=0.6, label='Predicted probabilities')
-plt.xlabel('Feature 1')
-plt.ylabel('Probability')
-plt.title('Bayesian Logistic Regression Predictions')
-plt.legend()
-
-plt.subplot(1, 2, 2)
-plt.scatter(X_test[:, 1], y_test, alpha=0.6, label='True labels')
-plt.scatter(X_test[:, 1], probs_test, color='red', alpha=0.6, label='Predicted probabilities')
-plt.xlabel('Feature 2')
-plt.ylabel('Probability')
-plt.title('Bayesian Logistic Regression Predictions')
-plt.legend()
-
-plt.tight_layout()
-plt.show()
-```
+The code shows how to implement Bayesian logistic regression and compares it with traditional regularized logistic regression, demonstrating the Bayesian approach to classification.
 
 ---
 
@@ -1261,24 +955,17 @@ Do you need uncertainty quantification?
 - Expert opinion
 
 **Practical Guidelines:**
-```python
-# Example: Choosing priors for different scenarios
 
-# 1. Non-informative prior (when you know nothing)
-non_informative_prior = lambda theta: 1.0  # Uniform
+See the complete implementation in [`code/model_selection_demo.py`](code/model_selection_demo.py) which demonstrates:
 
-# 2. Weakly informative prior (when you have some idea)
-weakly_informative_prior = lambda theta: np.exp(-0.1 * np.sum(theta**2))  # N(0, 10)
+- **Prior Selection**: Different types of priors for different scenarios
+- **Non-informative Priors**: When you have no prior knowledge
+- **Weakly Informative Priors**: When you have some domain knowledge
+- **Informative Priors**: When you have strong prior beliefs
+- **Hierarchical Priors**: For complex models with multiple parameters
+- **Prior Specification**: How to implement different prior types
 
-# 3. Informative prior (when you have strong beliefs)
-informative_prior = lambda theta: np.exp(-10 * np.sum((theta - [1.0, -0.5])**2))  # N([1, -0.5], 0.1)
-
-# 4. Hierarchical prior (when you have multiple related parameters)
-def hierarchical_prior(theta, hyperprior_params):
-    # theta ~ N(0, sigma^2), sigma ~ Gamma(a, b)
-    sigma = hyperprior_params['sigma']
-    return np.exp(-0.5 * np.sum(theta**2) / (sigma**2))
-```
+The code shows how to choose and implement appropriate priors for different Bayesian modeling scenarios, from non-informative to highly informative priors.
 
 ### Computational Considerations: The Practical Reality
 
