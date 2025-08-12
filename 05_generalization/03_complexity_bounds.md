@@ -230,9 +230,9 @@ This is the fraction of training examples that $`h`$ misclassifies. When we want
 \varepsilon(h) = P_{(x, y) \sim \mathcal{D}}(h(x) \neq y)
 ```
 
-This is the probability that $`h`$ misclassifies a new example drawn from $`\mathcal{D}``.
+This is the probability that $`h`$ misclassifies a new example drawn from $`\mathcal{D}`$.
 
-**Key Insight:** The training error $`\hat{\varepsilon}(h)`$ is a **random variable** (it depends on the random training set), while the generalization error $`\varepsilon(h)`` is a **fixed quantity** for a given hypothesis.
+**Key Insight:** The training error $`\hat{\varepsilon}(h)`$ is a **random variable** (it depends on the random training set), while the generalization error $`\varepsilon(h)`$ is a **fixed quantity** for a given hypothesis.
 
 **Visual Analogy: The Weather Prediction Problem**
 Think of error rates like weather prediction:
@@ -253,19 +253,19 @@ The code shows how training error (empirical risk) can differ from generalizatio
 
 ### The Learning Algorithm: Empirical Risk Minimization
 
-**Empirical Risk Minimization (ERM):** Given a hypothesis class $`\mathcal{H}``, the learning algorithm chooses:
+**Empirical Risk Minimization (ERM):** Given a hypothesis class $`\mathcal{H}`$, the learning algorithm chooses:
 ```math
 \hat{h} = \arg\min_{h \in \mathcal{H}} \hat{\varepsilon}(h)
 ```
 
 That is, it picks the hypothesis with the smallest training error.
 
-**Hypothesis Class:** The set $`\mathcal{H}`` contains all the hypotheses that our learning algorithm considers. For example:
-- **Linear classifiers:** $`\mathcal{H} = \{h_\theta : h_\theta(x) = \mathbf{1}\{\theta^T x \geq 0\}, \theta \in \mathbb{R}^{d+1}\}``
-- **Neural networks:** $`\mathcal{H}`` is the set of all functions representable by a given architecture
-- **Decision trees:** $`\mathcal{H}`` is the set of all decision trees with a given maximum depth
+**Hypothesis Class:** The set $`\mathcal{H}`$ contains all the hypotheses that our learning algorithm considers. For example:
+- **Linear classifiers:** $`\mathcal{H} = \{h_\theta : h_\theta(x) = \mathbf{1}\{\theta^T x \geq 0\}, \theta \in \mathbb{R}^{d+1}\}`$
+- **Neural networks:** $`\mathcal{H}`$ is the set of all functions representable by a given architecture
+- **Decision trees:** $`\mathcal{H}`$ is the set of all decision trees with a given maximum depth
 
-**The Challenge:** We want to bound the generalization error $`\varepsilon(\hat{h})`$ of the learned hypothesis, but we only have access to the training error $`\hat{\varepsilon}(\hat{h})``.
+**The Challenge:** We want to bound the generalization error $`\varepsilon(\hat{h})`$ of the learned hypothesis, but we only have access to the training error $`\hat{\varepsilon}(\hat{h})`$.
 
 **Real-World Analogy: The Restaurant Selection Problem**
 Think of ERM like choosing a restaurant:
@@ -301,7 +301,7 @@ The code shows how ERM chooses the hypothesis with minimum training error from e
 4. **Model selection**: Choosing the right complexity is crucial
 
 **The Fundamental Question:**
-How can we bound the generalization error $`\varepsilon(\hat{h})`$ in terms of the training error $`\hat{\varepsilon}(\hat{h})`$ and the complexity of the hypothesis class $`\mathcal{H}``?
+How can we bound the generalization error $`\varepsilon(\hat{h})`$ in terms of the training error $`\hat{\varepsilon}(\hat{h})`$ and the complexity of the hypothesis class $`\mathcal{H}`$?
 
 This is the central question of statistical learning theory, and the answer involves the mathematical tools we've introduced: concentration inequalities and union bounds.
 
