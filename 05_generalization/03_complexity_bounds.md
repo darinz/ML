@@ -97,70 +97,15 @@ Think of the union bound like setting up safety nets:
 - **Conservative estimate**: We may be overestimating, but we're safe
 
 **Example - Multiple Hypotheses:**
-```python
-import numpy as np
-import matplotlib.pyplot as plt
 
-def demonstrate_union_bound():
-    """Demonstrate the union bound with multiple hypotheses"""
-    
-    # Simulate multiple hypotheses with different error rates
-    np.random.seed(42)
-    n_hypotheses = 100
-    n_samples = 1000
-    
-    # True error rates for each hypothesis
-    true_errors = np.random.beta(2, 8, n_hypotheses)  # Most hypotheses have low error
-    
-    # Simulate training errors
-    training_errors = np.random.binomial(n_samples, true_errors) / n_samples
-    
-    # Calculate deviations
-    deviations = np.abs(true_errors - training_errors)
-    
-    # Union bound calculation
-    gamma = 0.05  # Desired accuracy
-    individual_prob = 2 * np.exp(-2 * gamma**2 * n_samples)  # Hoeffding bound
-    union_bound_prob = n_hypotheses * individual_prob
-    
-    # Actual probability (from simulation)
-    actual_prob = np.mean(deviations > gamma)
-    
-    print(f"Individual failure probability: {individual_prob:.6f}")
-    print(f"Union bound probability: {union_bound_prob:.6f}")
-    print(f"Actual failure probability: {actual_prob:.6f}")
-    print(f"Union bound is conservative by factor: {union_bound_prob/actual_prob:.2f}")
-    
-    # Visualization
-    plt.figure(figsize=(12, 5))
-    
-    plt.subplot(1, 2, 1)
-    plt.scatter(true_errors, training_errors, alpha=0.6)
-    plt.plot([0, 1], [0, 1], 'r--', label='Perfect agreement')
-    plt.fill_between([0, 1], [0, 1-gamma], [0, 1+gamma], alpha=0.2, color='green', label=f'±{gamma} tolerance')
-    plt.xlabel('True Error Rate')
-    plt.ylabel('Training Error Rate')
-    plt.title('Training vs True Error Rates')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 2, 2)
-    plt.hist(deviations, bins=30, alpha=0.7, label='Actual deviations')
-    plt.axvline(gamma, color='red', linestyle='--', label=f'Threshold γ={gamma}')
-    plt.xlabel('Deviation |True - Training|')
-    plt.ylabel('Frequency')
-    plt.title('Distribution of Deviations')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return true_errors, training_errors, deviations
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
 
-# Run the demonstration
-true_errors, training_errors, deviations = demonstrate_union_bound()
-```
+- **Union Bound Analysis**: How the union bound provides conservative estimates for multiple hypotheses
+- **Training vs True Error Rates**: Visualization of the relationship between empirical and true error rates
+- **Deviation Distribution**: Analysis of how deviations between training and true errors are distributed
+- **Conservative Nature**: Demonstration of how the union bound is typically conservative in practice
+
+The code shows how the union bound helps control the probability that any hypothesis has training error far from its generalization error, providing the foundation for uniform convergence.
 
 **When the Union Bound is Tight vs. Loose:**
 - **Tight**: When events are mutually exclusive (can't happen together)
@@ -202,85 +147,15 @@ In machine learning, we often estimate probabilities (like error rates) from fin
 - **Hoeffding**: Tells us how reliable our training error estimate is
 
 **Practical Example - Error Rate Estimation:**
-```python
-def demonstrate_hoeffding():
-    """Demonstrate Hoeffding's inequality with error rate estimation"""
-    
-    np.random.seed(42)
-    true_error_rate = 0.15  # 15% true error rate
-    gamma = 0.05  # 5% accuracy
-    delta = 0.05  # 95% confidence
-    
-    # Calculate required sample size from Hoeffding
-    required_n = int(np.ceil(np.log(2/delta) / (2 * gamma**2)))
-    print(f"Required sample size for {gamma*100}% accuracy with {delta*100}% confidence: {required_n}")
-    
-    # Simulate different sample sizes
-    sample_sizes = [10, 50, 100, 500, 1000, 5000]
-    empirical_probabilities = []
-    theoretical_bounds = []
-    
-    for n in sample_sizes:
-        # Simulate many experiments
-        n_experiments = 10000
-        large_deviations = 0
-        
-        for _ in range(n_experiments):
-            # Generate n Bernoulli samples
-            samples = np.random.binomial(1, true_error_rate, n)
-            sample_mean = np.mean(samples)
-            
-            # Check if deviation is large
-            if abs(sample_mean - true_error_rate) > gamma:
-                large_deviations += 1
-        
-        empirical_prob = large_deviations / n_experiments
-        theoretical_bound = 2 * np.exp(-2 * gamma**2 * n)
-        
-        empirical_probabilities.append(empirical_prob)
-        theoretical_bounds.append(theoretical_bound)
-    
-    # Visualization
-    plt.figure(figsize=(12, 5))
-    
-    plt.subplot(1, 2, 1)
-    plt.semilogy(sample_sizes, empirical_probabilities, 'bo-', label='Empirical', linewidth=2)
-    plt.semilogy(sample_sizes, theoretical_bounds, 'r--', label='Hoeffding Bound', linewidth=2)
-    plt.axhline(delta, color='g', linestyle=':', label=f'Target δ={delta}', alpha=0.7)
-    plt.xlabel('Sample Size (n)')
-    plt.ylabel('Probability of Large Deviation')
-    plt.title('Hoeffding Inequality in Practice')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 2, 2)
-    plt.plot(sample_sizes, empirical_probabilities, 'bo-', label='Empirical', linewidth=2)
-    plt.plot(sample_sizes, theoretical_bounds, 'r--', label='Hoeffding Bound', linewidth=2)
-    plt.axhline(delta, color='g', linestyle=':', label=f'Target δ={delta}', alpha=0.7)
-    plt.xlabel('Sample Size (n)')
-    plt.ylabel('Probability of Large Deviation')
-    plt.title('Hoeffding Inequality (Linear Scale)')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    # Show sample size requirements for different accuracies
-    accuracies = [0.01, 0.02, 0.05, 0.10]
-    confidences = [0.01, 0.05, 0.10]
-    
-    print("\nSample Size Requirements:")
-    print("Accuracy\tConfidence\tSample Size")
-    print("-" * 40)
-    for gamma in accuracies:
-        for delta in confidences:
-            n = int(np.ceil(np.log(2/delta) / (2 * gamma**2)))
-            print(f"{gamma*100:6.1f}%\t\t{delta*100:6.1f}%\t\t{n:8d}")
 
-# Run the demonstration
-demonstrate_hoeffding()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **Hoeffding's Inequality**: Empirical vs theoretical bounds for different sample sizes
+- **Sample Size Requirements**: How much data is needed for different accuracy and confidence levels
+- **Exponential Decay**: Visualization of how probability of large deviations decreases exponentially with sample size
+- **Practical Guidelines**: Sample size tables for different accuracy and confidence requirements
+
+The code shows how Hoeffding's inequality provides mathematical guarantees about the reliability of empirical averages, with the probability of large deviations decreasing exponentially with sample size.
 
 **Key Properties of Hoeffding's Inequality:**
 1. **Exponential decay**: Probability decreases exponentially with sample size
@@ -297,36 +172,15 @@ These two tools—the union bound and Hoeffding's inequality—are the building 
 3. **Combine with optimization** to bound the generalization error of the learned hypothesis
 
 **The Learning Theory Recipe:**
-```python
-def learning_theory_recipe():
-    """The basic recipe for proving generalization bounds"""
-    
-    print("Learning Theory Recipe:")
-    print("1. Single Hypothesis: Use Hoeffding to bound |ε(h) - ε̂(h)|")
-    print("2. All Hypotheses: Use Union Bound to get uniform convergence")
-    print("3. Learned Hypothesis: Combine with ERM to bound ε(ĥ)")
-    print("4. Sample Complexity: Solve for required n")
-    
-    # Example calculation
-    k = 1000  # Number of hypotheses
-    gamma = 0.05  # Desired accuracy
-    delta = 0.05  # Desired confidence
-    
-    # Step 1: Hoeffding for single hypothesis
-    hoeffding_bound = 2 * np.exp(-2 * gamma**2 * n)
-    
-    # Step 2: Union bound for all hypotheses
-    union_bound = k * hoeffding_bound
-    
-    # Step 3: Set equal to delta and solve for n
-    n_required = int(np.ceil(np.log(2*k/delta) / (2 * gamma**2)))
-    
-    print(f"\nExample: k={k}, γ={gamma}, δ={delta}")
-    print(f"Required sample size: n ≥ {n_required}")
-    print(f"With probability ≥ {1-delta}, |ε(h) - ε̂(h)| ≤ {gamma} for all h")
 
-learning_theory_recipe()
-```
+See the complete implementation in [`code/complexity_bounds_demo.py`](code/complexity_bounds_demo.py) which demonstrates:
+
+- **Four-Step Process**: The fundamental recipe for proving generalization bounds
+- **Mathematical Framework**: How to combine Hoeffding's inequality with the union bound
+- **Sample Complexity Calculation**: How to determine required sample sizes for given accuracy and confidence
+- **Practical Example**: Concrete calculations showing the relationship between parameters
+
+The code shows the systematic approach to proving generalization bounds: single hypothesis analysis, uniform convergence, ERM connection, and sample complexity determination.
 
 **The Fundamental Insight:**
 The combination of concentration (Hoeffding) and union bound allows us to control the probability that **any** hypothesis in our class has training error far from its generalization error. This is the foundation of uniform convergence, which is the key theoretical tool for understanding generalization.
