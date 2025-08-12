@@ -146,101 +146,16 @@ Think of finding a solution like parking a car:
 The specific learning algorithm matters. Different algorithms will find different solutions in the overparameterized regime, leading to different generalization behavior.
 
 **Example - Linear Regression:**
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.preprocessing import PolynomialFeatures
 
-def demonstrate_double_descent():
-    """Demonstrate double descent with polynomial regression"""
-    
-    # Generate data
-    np.random.seed(42)
-    n_samples = 50
-    X = np.random.uniform(-2, 2, n_samples).reshape(-1, 1)
-    true_function = 0.5 * X**2 + 0.3 * X + 1.0
-    noise = 0.1 * np.random.randn(n_samples, 1)
-    y = true_function + noise
-    
-    # Test different polynomial degrees
-    degrees = list(range(1, 21))  # 1 to 20
-    train_errors = []
-    test_errors = []
-    test_errors_ridge = []
-    
-    # Generate test data
-    X_test = np.random.uniform(-2, 2, 100).reshape(-1, 1)
-    y_test = 0.5 * X_test**2 + 0.3 * X_test + 1.0 + 0.1 * np.random.randn(100, 1)
-    
-    for degree in degrees:
-        # Create polynomial features
-        poly = PolynomialFeatures(degree=degree)
-        X_poly = poly.fit_transform(X)
-        X_test_poly = poly.transform(X_test)
-        
-        # Unregularized (can show double descent)
-        model = LinearRegression()
-        model.fit(X_poly, y)
-        
-        train_error = np.mean((model.predict(X_poly) - y)**2)
-        test_error = np.mean((model.predict(X_test_poly) - y_test)**2)
-        
-        train_errors.append(train_error)
-        test_errors.append(test_error)
-        
-        # Regularized (smoother curve)
-        ridge = Ridge(alpha=0.1)
-        ridge.fit(X_poly, y)
-        test_error_ridge = np.mean((ridge.predict(X_test_poly) - y_test)**2)
-        test_errors_ridge.append(test_error_ridge)
-    
-    # Plot results
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    plt.plot(degrees, train_errors, 'b-', label='Training Error', linewidth=2)
-    plt.plot(degrees, test_errors, 'r-', label='Test Error', linewidth=2)
-    plt.axvline(x=n_samples, color='g', linestyle='--', alpha=0.7, label='Interpolation Threshold')
-    plt.xlabel('Polynomial Degree')
-    plt.ylabel('Mean Squared Error')
-    plt.title('Double Descent Phenomenon')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 2)
-    plt.plot(degrees, test_errors, 'r-', label='Unregularized', linewidth=2)
-    plt.plot(degrees, test_errors_ridge, 'g-', label='Ridge (α=0.1)', linewidth=2)
-    plt.axvline(x=n_samples, color='g', linestyle='--', alpha=0.7, label='Interpolation Threshold')
-    plt.xlabel('Polynomial Degree')
-    plt.ylabel('Test Error')
-    plt.title('Effect of Regularization')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(1, 3, 3)
-    plt.plot(degrees, np.array(test_errors) - np.array(train_errors), 'purple', linewidth=2)
-    plt.axvline(x=n_samples, color='g', linestyle='--', alpha=0.7, label='Interpolation Threshold')
-    plt.xlabel('Polynomial Degree')
-    plt.ylabel('Generalization Gap')
-    plt.title('Overfitting Measure')
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
-    
-    return degrees, train_errors, test_errors, test_errors_ridge
+See the complete implementation in [`code/double_descent_demo.py`](code/double_descent_demo.py) which demonstrates:
 
-# Run the demonstration
-degrees, train_errors, test_errors, test_errors_ridge = demonstrate_double_descent()
+- **Model-Wise Double Descent**: Polynomial regression showing the three-regime phenomenon (underparameterized, interpolation threshold, overparameterized)
+- **Sample-Wise Double Descent**: How varying the number of training samples affects generalization
+- **Minimum Norm Solution**: Demonstrating why gradient descent finds solutions that generalize well
+- **Complexity Measures**: Comparing parameter count vs model norm as complexity measures
+- **Regularization Effects**: How regularization mitigates the peak at the interpolation threshold
 
-print("Double Descent Analysis:")
-print(f"Interpolation threshold (n=d): {len(train_errors)} samples")
-print(f"Peak test error at degree: {degrees[np.argmax(test_errors)]}")
-print(f"Best test error at degree: {degrees[np.argmin(test_errors)]}")
-print(f"Regularization reduces peak by: {max(test_errors) - max(test_errors_ridge):.4f}")
-```
+The code shows how the classical U-shaped curve is followed by a second descent, demonstrating why overparameterized models can generalize well despite fitting training data perfectly.
 
 ### Historical Context: The Discovery Timeline
 
