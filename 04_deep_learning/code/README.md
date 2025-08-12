@@ -19,6 +19,26 @@ This directory contains Python code examples that complement the deep learning c
 - **`activation_functions_demo.py`** - Comprehensive comparison of activation functions (ReLU, Sigmoid, Tanh) and their derivatives
 - **`house_price_prediction_demo.py`** - Complete implementation of single neuron for house price prediction with evaluation and visualization
 
+### Neural Network Modules
+
+- **`modular_design_demo.py`** - Demonstrates the power of modular design by comparing simple linear models with modular neural networks
+- **`matrix_multiplication_demo.py`** - Shows the fundamental matrix multiplication module for linear transformations
+- **`advanced_activation_functions_demo.py`** - Comprehensive comparison of activation functions including ReLU, Sigmoid, Tanh, and GELU
+- **`module_composition_demo.py`** - Demonstrates how different modules can be composed to create complex architectures
+
+### Backpropagation and Training
+
+- **`backpropagation_necessity_demo.py`** - Demonstrates why backpropagation is essential by comparing random search with gradient descent
+- **`computational_graph_demo.py`** - Shows how computational graphs work with forward and backward passes
+- **`automatic_differentiation_demo.py`** - Compares forward mode and reverse mode automatic differentiation
+
+### Vectorization and Computational Efficiency
+
+- **`vectorization_benefits_demo.py`** - Demonstrates dramatic performance benefits of vectorization with benchmarks
+- **`basic_vectorization_demo.py`** - Shows basic vectorization concepts using neural network forward pass
+- **`matrix_conventions_demo.py`** - Demonstrates column-major vs row-major matrix conventions
+- **`broadcasting_demo.py`** - Shows how broadcasting enables efficient operations between different shapes
+
 ### Neural Networks and Deep Learning
 
 - **`neural_networks_code_examples.py`** - Comprehensive examples of neural network implementations
@@ -60,6 +80,14 @@ Most files include visualization code that will display plots when run. Make sur
 5. **Neural Network Basics**: Understand how neurons work and how they combine to form networks
 6. **Activation Functions**: Learn about different activation functions and when to use each
 7. **Single Neuron Applications**: See how single neurons can solve real-world problems
+8. **Modular Design**: Learn how to build complex architectures from simple, reusable modules
+9. **Module Composition**: Understand how to combine modules to create sophisticated neural networks
+10. **Backpropagation**: Understand the fundamental algorithm that enables neural network training
+11. **Computational Graphs**: Learn how data and gradients flow through neural networks
+12. **Automatic Differentiation**: Understand the technology that makes backpropagation work
+13. **Vectorization**: Learn how to replace loops with efficient matrix operations
+14. **Matrix Conventions**: Understand column-major vs row-major data organization
+15. **Broadcasting**: Learn how automatic shape expansion enables efficient operations
 
 ## Dependencies
 
