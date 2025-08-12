@@ -27,9 +27,9 @@ Think of modules like kitchen appliances:
 
 **Mathematical Intuition: Function Composition**
 Modules are mathematical functions that can be composed:
-```math
+$$
 f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
-```
+$$
 Where each $f_i$ is a module that transforms its input into a more useful representation.
 
 ### What Are Neural Network Modules? - The Atomic Units of Computation
@@ -60,9 +60,9 @@ Think of modules like pipeline stages:
 
 A module can be viewed as a parameterized function:
 
-```math
+$$
 f_\theta: \mathcal{X} \rightarrow \mathcal{Y}
-```
+$$
 
 Where:
 - $\mathcal{X}$ is the input space
@@ -110,9 +110,9 @@ The most fundamental module in neural networks is the matrix multiplication modu
 
 #### Mathematical Definition
 
-```math
+$$
 \mathrm{MM}_{W, b}(z) = Wz + b
-```
+$$
 
 Where:
 - $W \in \mathbb{R}^{n \times m}$ is the weight matrix
@@ -171,9 +171,9 @@ Activation modules introduce non-linearity into neural networks, enabling them t
 
 #### Mathematical Definition
 
-```math
+$$
 \sigma(z) = [\sigma(z_1), \sigma(z_2), \ldots, \sigma(z_n)]^T
-```
+$$
 
 Where $\sigma: \mathbb{R} \rightarrow \mathbb{R}$ is a non-linear function applied element-wise.
 
@@ -227,9 +227,9 @@ The code provides a thorough understanding of different activation functions and
 
 Modules can be composed to create more complex functions:
 
-```math
+$$
 f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)
-```
+$$
 
 Where each $f_i$ is a module.
 
@@ -253,15 +253,15 @@ Think of module composition like an assembly line:
 
 An MLP is a composition of matrix multiplication and activation modules:
 
-```math
+$$
 \mathrm{MLP}(x) = \mathrm{MM}_{W^{[L]}, b^{[L]}}(\sigma(\mathrm{MM}_{W^{[L-1]}, b^{[L-1]}}(\cdots \mathrm{MM}_{W^{[1]}, b^{[1]}}(x))\cdots))
-```
+$$
 
 Or more compactly:
 
-```math
+$$
 \mathrm{MLP}(x) = \mathrm{MM}(\sigma(\mathrm{MM}(\cdots \mathrm{MM}(x))))
-```
+$$
 
 **Real-World Analogy: The Translation Chain Problem**
 Think of MLP like a translation chain:
@@ -276,9 +276,9 @@ Think of MLP like a translation chain:
 
 The computational graph shows the flow of data through the modules:
 
-```math
+$$
 Input → MM₁ → σ₁ → MM₂ → σ₂ → ... → MMₗ → Output
-```
+$$
 
 **Practical Example - Module Composition:**
 
