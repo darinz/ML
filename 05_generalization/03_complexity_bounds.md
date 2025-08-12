@@ -195,10 +195,10 @@ To simplify our exposition, we focus on **binary classification** where the labe
 
 **Data Generation Process:**
 - We have a training set $`S = \{(x^{(i)}, y^{(i)})\}_{i=1}^n`$ of size $`n`$
-- Training examples are drawn independently and identically from a distribution $`\mathcal{D}``
+- Training examples are drawn independently and identically from a distribution $`\mathcal{D}`$
 - Each example consists of an input $`x^{(i)}`$ and its corresponding label $`y^{(i)}`$
 
-**Key Assumption:** The training and test data come from the **same distribution** $`\mathcal{D}``. This is sometimes called the **iid assumption** (independent and identically distributed).
+**Key Assumption:** The training and test data come from the **same distribution** $`\mathcal{D}`$. This is sometimes called the **iid assumption** (independent and identically distributed).
 
 **Real-World Analogy: The Medical Diagnosis Problem**
 Think of binary classification like medical diagnosis:
