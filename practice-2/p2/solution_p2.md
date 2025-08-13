@@ -584,7 +584,117 @@ The bootstrap method cannot be used to estimate the distribution of which of the
 
 **Correct answers:** (d)
 
-**Explanation:** The bootstrap method can be applied to the mean, median, or variance.
+**Explanation:**
+
+The correct answer is **(d)** - the bootstrap method can be applied to all of the above statistics (mean, median, and variance). Here's the detailed explanation:
+
+**Understanding the Bootstrap Method:**
+
+**Bootstrap Definition:**
+The bootstrap is a resampling technique that involves drawing samples with replacement from the original dataset to estimate the sampling distribution of any statistic.
+
+**Mathematical Foundation:**
+- **Original dataset**: $X = \{x_1, x_2, \ldots, x_n\}$
+- **Bootstrap sample**: $X^* = \{x_1^*, x_2^*, \ldots, x_n^*\}$ (drawn with replacement)
+- **Bootstrap statistic**: $\hat{\theta}^* = f(X^*)$ where $f$ is any statistic
+
+**Why Bootstrap Works for Any Statistic:**
+
+**1. General Applicability:**
+The bootstrap is a **general method** that can estimate the sampling distribution of any statistic, not just specific ones. The key requirement is that the statistic can be computed from the data.
+
+**2. Mathematical Justification:**
+For any statistic $\theta = f(X)$, the bootstrap estimates:
+$$\text{SE}(\hat{\theta}) = \sqrt{\frac{1}{B-1}\sum_{b=1}^B (\hat{\theta}_b^* - \bar{\theta}^*)^2}$$
+
+where $B$ is the number of bootstrap samples.
+
+**Application to Each Statistic:**
+
+**Mean:**
+- **Statistic**: $\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i$
+- **Bootstrap estimate**: $\bar{x}^* = \frac{1}{n}\sum_{i=1}^n x_i^*$
+- **Result**: Bootstrap distribution of sample means
+
+**Median:**
+- **Statistic**: $\text{median}(X) = x_{(\frac{n+1}{2})}$ (for odd $n$)
+- **Bootstrap estimate**: $\text{median}(X^*)$
+- **Result**: Bootstrap distribution of sample medians
+
+**Variance:**
+- **Statistic**: $s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2$
+- **Bootstrap estimate**: $s^{*2} = \frac{1}{n-1}\sum_{i=1}^n (x_i^* - \bar{x}^*)^2$
+- **Result**: Bootstrap distribution of sample variances
+
+**Mathematical Example:**
+
+**Original Data**: $X = [1, 2, 3, 4, 5]$
+
+**Bootstrap Sample 1**: $X_1^* = [1, 1, 3, 5, 5]$
+- Mean: $\bar{x}_1^* = 3$
+- Median: $\text{median}_1^* = 3$
+- Variance: $s_1^{*2} = 3.2$
+
+**Bootstrap Sample 2**: $X_2^* = [2, 2, 4, 4, 4]$
+- Mean: $\bar{x}_2^* = 3.2$
+- Median: $\text{median}_2^* = 4$
+- Variance: $s_2^{*2} = 1.2$
+
+**Bootstrap Distribution**: $\{\bar{x}_1^*, \bar{x}_2^*, \ldots\}$, $\{\text{median}_1^*, \text{median}_2^*, \ldots\}$, $\{s_1^{*2}, s_2^{*2}, \ldots\}$
+
+**Why Bootstrap is Universal:**
+
+**1. No Distributional Assumptions:**
+- Works with any underlying data distribution
+- Doesn't require normal distributions
+- Non-parametric approach
+
+**2. Flexibility:**
+- Can estimate any statistic: mean, median, variance, correlation, etc.
+- Works with any sample size
+- Applicable to any type of data
+
+**3. Robustness:**
+- Handles outliers well
+- Works with complex statistics
+- Provides confidence intervals for any statistic
+
+**Practical Applications:**
+
+**Mean Estimation:**
+- **Confidence intervals**: $[\bar{x}_{0.025}, \bar{x}_{0.975}]$
+- **Standard error**: $\text{SE}(\bar{x})$
+- **Bias estimation**: $\text{Bias} = \bar{x}^* - \bar{x}$
+
+**Median Estimation:**
+- **Confidence intervals**: $[\text{median}_{0.025}, \text{median}_{0.975}]$
+- **Robust to outliers**: Median is less sensitive than mean
+- **Non-parametric**: No assumptions about data distribution
+
+**Variance Estimation:**
+- **Confidence intervals**: $[s^2_{0.025}, s^2_{0.975}]$
+- **Precision estimation**: How reliable is our variance estimate?
+- **Model validation**: Estimate uncertainty in model parameters
+
+**Computational Considerations:**
+
+**1. Bootstrap Sample Size:**
+- Typically same size as original dataset
+- With replacement allows for repeated observations
+- Some observations may not appear in a bootstrap sample
+
+**2. Number of Bootstrap Samples:**
+- Usually 1000-10000 bootstrap samples
+- More samples = more accurate estimates
+- Trade-off between accuracy and computational cost
+
+**3. Memory Requirements:**
+- Need to store all bootstrap samples
+- Can be memory-intensive for large datasets
+- May need to use approximation methods
+
+**Conclusion:**
+The bootstrap method is a **universal technique** that can be applied to estimate the sampling distribution of **any statistic**, including mean, median, variance, and many others. Its generality makes it one of the most powerful tools in statistical inference.
 
 ## Problem 10
 
@@ -600,7 +710,111 @@ True/False: Bootstrapping is a resampling technique that involves generating mul
 
 **Correct answers:** (c)
 
-**Explanation:** Note: During exam, a note was added that "prohibitive" here means "too computationally expensive to be useful."
+**Explanation:**
+
+The correct answer is **(c) - False, True**. Here's the detailed explanation:
+
+**Analyzing Each Statement:**
+
+**Statement 1: "Bootstrapping is a resampling technique that involves generating multiple datasets of size $d$ by randomly sampling observations without replacement from the original dataset of size $n$ (where $d \ll n$)."**
+
+**FALSE** ❌
+
+**Why This is Incorrect:**
+
+1. **Bootstrap Sampling is WITH Replacement:**
+   - **Correct definition**: Bootstrap samples are drawn **with replacement** from the original dataset
+   - **Incorrect statement**: Claims sampling is **without replacement**
+   - **Key difference**: With replacement allows the same observation to appear multiple times in a bootstrap sample
+
+2. **Bootstrap Sample Size:**
+   - **Correct practice**: Bootstrap samples are typically the **same size** as the original dataset ($d = n$)
+   - **Incorrect statement**: Claims $d \ll n$ (much smaller than original)
+   - **Reasoning**: We want bootstrap samples to represent the original data distribution
+
+**Mathematical Example:**
+
+**Original Dataset**: $X = [1, 2, 3, 4, 5]$ (size $n = 5$)
+
+**Correct Bootstrap Sample**: $X^* = [1, 1, 3, 5, 5]$ (size $d = 5$, with replacement)
+- Same size as original
+- Observations can repeat
+- Represents original distribution
+
+**Incorrect Sampling (as described)**: $X^* = [1, 3]$ (size $d = 2 \ll 5$, without replacement)
+- Much smaller than original
+- No repeated observations
+- Doesn't represent original distribution
+
+**Statement 2: "Bootstrapping can be computationally prohibitive for large datasets."**
+
+**TRUE** ✅
+
+**Why This is Correct:**
+
+1. **Computational Complexity:**
+   - **Bootstrap samples**: Typically 1000-10000 bootstrap samples
+   - **Total computations**: $B \times n$ where $B$ is number of bootstrap samples
+   - **Large datasets**: Can become computationally expensive
+
+2. **Memory Requirements:**
+   - **Storage**: Need to store $B$ bootstrap samples
+   - **Memory usage**: $O(B \times n)$ memory required
+   - **Large datasets**: Can exceed available memory
+
+3. **Time Complexity:**
+   - **Sample generation**: $O(B \times n)$ time to generate bootstrap samples
+   - **Statistic computation**: $O(B \times f(n))$ where $f(n)$ is complexity of computing the statistic
+   - **Total time**: Can be prohibitive for large $n$ and large $B$
+
+**Mathematical Analysis:**
+
+**Computational Cost:**
+$$\text{Total Cost} = B \times (\text{Sample Generation} + \text{Statistic Computation})$$
+
+For large datasets:
+- **Sample Generation**: $O(B \times n)$
+- **Statistic Computation**: $O(B \times n)$ (for simple statistics like mean)
+- **Total**: $O(B \times n)$
+
+**Example with Large Dataset:**
+- **Dataset size**: $n = 1,000,000$
+- **Bootstrap samples**: $B = 10,000$
+- **Total operations**: $10,000 \times 1,000,000 = 10^{10}$ operations
+- **Time estimate**: Several hours to days depending on hardware
+
+**Solutions for Large Datasets:**
+
+1. **Reduce Bootstrap Samples:**
+   - Use fewer bootstrap samples (e.g., 100-1000 instead of 10000)
+   - Trade-off between accuracy and computational cost
+
+2. **Approximation Methods:**
+   - **Bag of Little Bootstraps (BLB)**: Divide data into subsets
+   - **Subsampling**: Use smaller bootstrap samples
+   - **Parallel Processing**: Distribute computation across multiple cores
+
+3. **Online Bootstrap:**
+   - Generate bootstrap samples on-the-fly
+   - Reduce memory requirements
+   - Trade-off between memory and computation time
+
+**Practical Considerations:**
+
+**When Bootstrap Becomes Prohibitive:**
+- **Dataset size**: $n > 100,000$
+- **Bootstrap samples**: $B > 1000$
+- **Statistic complexity**: Complex statistics that require $O(n^2)$ or higher time
+- **Memory constraints**: Limited RAM for storing bootstrap samples
+
+**When Bootstrap is Feasible:**
+- **Small to medium datasets**: $n < 10,000$
+- **Simple statistics**: Mean, median, variance
+- **Adequate computational resources**: Sufficient RAM and processing power
+
+**Conclusion:**
+- **Statement 1**: FALSE - Bootstrap uses sampling with replacement and typically same sample size
+- **Statement 2**: TRUE - Bootstrap can be computationally prohibitive for large datasets due to the need for many resamples and the associated computational and memory costs
 
 ## Problem 11
 
@@ -616,7 +830,143 @@ Which of the following statements best describes the differences between Random 
 
 **Correct answers:** (b)
 
-**Explanation:** B. In Random Forests, trees are built independently using bagging, while Boosting builds trees sequentially, with each tree learning from the errors of the previous ones.
+**Explanation:**
+
+The correct answer is **(b)** - In Random Forests, trees are built independently using bagging, while Boosting builds trees sequentially, with each tree learning from the errors of the previous ones. Here's the detailed explanation:
+
+**Understanding Ensemble Methods:**
+
+**Ensemble Learning:**
+Ensemble methods combine multiple base learners to improve overall performance. The key insight is that combining several weak learners can create a strong learner.
+
+**Random Forests vs Boosting:**
+
+**Random Forests (Bagging Approach):**
+
+1. **Independent Tree Construction:**
+   - **Parallel training**: All trees are built independently
+   - **No communication**: Each tree doesn't know about other trees
+   - **Independent samples**: Each tree sees different bootstrap samples
+
+2. **Bagging (Bootstrap Aggregating):**
+   - **Bootstrap sampling**: Each tree is trained on a random subset of data
+   - **With replacement**: Same observation can appear multiple times
+   - **Out-of-bag samples**: Some observations are left out for validation
+
+3. **Mathematical Formulation:**
+   For $B$ trees, the prediction is:
+   $$\hat{y} = \frac{1}{B}\sum_{b=1}^B f_b(x)$$
+   
+   where $f_b(x)$ is the prediction of tree $b$.
+
+4. **Training Process:**
+   ```
+   For b = 1 to B:
+       1. Sample bootstrap dataset D_b from original data
+       2. Train decision tree f_b on D_b
+       3. Trees are independent - no information sharing
+   ```
+
+**Boosting (Sequential Approach):**
+
+1. **Sequential Tree Construction:**
+   - **Sequential training**: Trees are built one after another
+   - **Error correction**: Each tree focuses on errors of previous trees
+   - **Weighted samples**: Misclassified samples get higher weights
+
+2. **Error Learning:**
+   - **Residual learning**: Each tree learns the residuals from previous trees
+   - **Weighted loss**: Misclassified samples are weighted more heavily
+   - **Adaptive focus**: Model adapts to difficult samples
+
+3. **Mathematical Formulation:**
+   For $B$ trees, the prediction is:
+   $$\hat{y} = \sum_{b=1}^B \alpha_b f_b(x)$$
+   
+   where $\alpha_b$ is the weight of tree $b$.
+
+4. **Training Process:**
+   ```
+   Initialize: Equal weights for all samples
+   For b = 1 to B:
+       1. Train tree f_b on weighted dataset
+       2. Calculate error and tree weight α_b
+       3. Update sample weights (increase for misclassified)
+       4. Next tree focuses on previously misclassified samples
+   ```
+
+**Key Differences:**
+
+| Aspect | Random Forests | Boosting |
+|--------|----------------|----------|
+| **Training Order** | Parallel (independent) | Sequential (dependent) |
+| **Sample Selection** | Bootstrap sampling | Weighted sampling |
+| **Error Handling** | Reduces variance | Reduces bias |
+| **Overfitting** | Less prone | More prone |
+| **Computational** | Parallelizable | Must be sequential |
+| **Robustness** | More robust to noise | Sensitive to noise |
+
+**Mathematical Analysis:**
+
+**Random Forests Variance Reduction:**
+$$\text{Var}(\hat{y}_{\text{RF}}) = \frac{\text{Var}(f_1)}{B} + \left(1 - \frac{1}{B}\right)\text{Cov}(f_1, f_2)$$
+
+- **First term**: Variance reduction through averaging
+- **Second term**: Correlation between trees (reduced by feature randomization)
+
+**Boosting Bias Reduction:**
+$$\text{Bias}(\hat{y}_{\text{Boost}}) = \text{Bias}(f_1) - \sum_{b=2}^B \alpha_b \text{Improvement}_b$$
+
+- **Sequential improvement**: Each tree reduces bias
+- **Weighted combination**: More weight to better trees
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - "Both reduce variance by averaging multiple deep decision trees":**
+- **Problem**: Boosting doesn't use averaging, it uses weighted combination
+- **Issue**: Boosting focuses on bias reduction, not variance reduction
+- **Result**: Incorrect characterization of both methods
+
+**Option (c) - "Boosting reduces bias by building shallow trees, whereas Random Forests use deep trees":**
+- **Problem**: Both methods can use trees of varying depths
+- **Issue**: Tree depth is not the fundamental difference
+- **Result**: Focuses on wrong aspect of the methods
+
+**Option (d) - "Both are identical in their handling of bias and variance":**
+- **Problem**: They handle bias and variance very differently
+- **Issue**: Random Forests reduce variance, Boosting reduces bias
+- **Result**: Completely incorrect understanding
+
+**Practical Implications:**
+
+**When to Use Random Forests:**
+- **High-dimensional data**: Feature randomization helps
+- **Noisy data**: Robust to outliers and noise
+- **Parallel computing**: Can train trees in parallel
+- **Quick prototyping**: Easy to implement and tune
+
+**When to Use Boosting:**
+- **Low-dimensional data**: Can focus on complex patterns
+- **Clean data**: Sensitive to noise and outliers
+- **High accuracy needed**: Often achieves better performance
+- **Sequential training acceptable**: Can wait for sequential training
+
+**Performance Characteristics:**
+
+**Random Forests:**
+- **Bias**: Moderate (depends on tree depth)
+- **Variance**: Low (reduced through averaging)
+- **Overfitting**: Less prone
+- **Interpretability**: Can extract feature importance
+
+**Boosting:**
+- **Bias**: Low (reduced through sequential learning)
+- **Variance**: Higher (can overfit with too many trees)
+- **Overfitting**: More prone (need careful tuning)
+- **Interpretability**: More complex to interpret
+
+**Conclusion:**
+The fundamental difference between Random Forests and Boosting is their **training approach**: Random Forests use **independent, parallel training** with bagging, while Boosting uses **sequential, dependent training** with error correction. This leads to different bias-variance trade-offs and different practical applications.
 
 ## Problem 12
 
@@ -631,6 +981,140 @@ Which of the following statements is true about a single Decision Tree and Rando
 (d) A single Decision Tree can result in comparably low training error in classification task compared to Random Forest
 
 **Correct answers:** (d)
+
+**Explanation:**
+
+The correct answer is **(d)** - A single Decision Tree can result in comparably low training error in classification task compared to Random Forest. Here's the detailed explanation:
+
+**Understanding Decision Trees vs Random Forests:**
+
+**Single Decision Tree:**
+A decision tree can achieve very low (even zero) training error by growing deep enough to classify each training point correctly.
+
+**Random Forest:**
+An ensemble of decision trees that averages predictions from multiple trees to improve generalization.
+
+**Analysis of Each Statement:**
+
+**Option (a) - "Random Forest has lower training error because it aggregates multiple trees":**
+
+**FALSE** ❌
+
+**Why This is Incorrect:**
+- **Single tree capacity**: A single decision tree can achieve **zero training error** by growing deep enough
+- **Ensemble averaging**: Random Forest averages predictions, which typically **increases training error**
+- **Mathematical reasoning**: For classification, averaging multiple predictions can only maintain or increase error compared to the best individual tree
+
+**Mathematical Example:**
+Consider binary classification with 3 trees:
+- **Tree 1**: Predicts class 1 (correct)
+- **Tree 2**: Predicts class 0 (incorrect)  
+- **Tree 3**: Predicts class 1 (correct)
+- **Random Forest**: Average = 0.67 → predicts class 1 (correct)
+- **Best single tree**: Tree 1 or Tree 3 (both correct)
+
+**Option (b) - "A good Random Forest is composed of decision trees that are highly correlated":**
+
+**FALSE** ❌
+
+**Why This is Incorrect:**
+- **Diversity principle**: Random Forests work best when trees are **uncorrelated**
+- **Variance reduction**: Uncorrelated trees reduce ensemble variance
+- **Feature randomization**: Purpose is to create diverse, uncorrelated trees
+
+**Mathematical Analysis:**
+$$\text{Var}(\hat{y}_{\text{RF}}) = \frac{\text{Var}(f_1)}{B} + \left(1 - \frac{1}{B}\right)\text{Cov}(f_1, f_2)$$
+
+- **Lower correlation** → **Lower covariance** → **Lower variance**
+- **Higher correlation** → **Higher covariance** → **Higher variance**
+
+**Option (c) - "Random Forest is useful because it's easy to explain how a decision is made":**
+
+**FALSE** ❌
+
+**Why This is Incorrect:**
+- **Interpretability**: Single decision trees are much more interpretable
+- **Random Forest complexity**: Multiple trees make interpretation difficult
+- **Black box nature**: Ensemble methods are generally less interpretable
+
+**Single Decision Tree Interpretability:**
+- **Clear decision path**: Can trace exact path from root to leaf
+- **Feature importance**: Direct interpretation of splits
+- **Visual representation**: Easy to visualize and understand
+
+**Random Forest Interpretability:**
+- **Multiple paths**: Need to consider all trees
+- **Aggregated decisions**: Final prediction is combination of many trees
+- **Complex visualization**: Hard to represent multiple trees clearly
+
+**Option (d) - "A single Decision Tree can result in comparably low training error in classification task compared to Random Forest":**
+
+**TRUE** ✅
+
+**Why This is Correct:**
+
+1. **Single Tree Capacity:**
+   - **Perfect memorization**: Can achieve zero training error
+   - **Overfitting ability**: Can grow deep enough to classify each point correctly
+   - **No averaging**: Doesn't suffer from ensemble averaging effects
+
+2. **Mathematical Verification:**
+   For a dataset with $n$ points, a decision tree can have up to $n$ leaves, each containing exactly one training point.
+
+3. **Training Error Comparison:**
+   - **Single tree**: Can achieve 0% training error
+   - **Random Forest**: Typically has higher training error due to averaging
+
+**Practical Example:**
+
+**Dataset**: 100 training points, binary classification
+
+**Single Decision Tree:**
+- **Training error**: 0% (perfect fit)
+- **Test error**: 15% (overfitting)
+
+**Random Forest (100 trees):**
+- **Training error**: 2% (slight averaging effect)
+- **Test error**: 8% (better generalization)
+
+**Key Insights:**
+
+**Training Error vs Test Error:**
+- **Single tree**: Low training error, high test error (overfitting)
+- **Random Forest**: Higher training error, lower test error (better generalization)
+
+**Bias-Variance Tradeoff:**
+- **Single tree**: Low bias, high variance
+- **Random Forest**: Moderate bias, low variance
+
+**When Single Tree Achieves Low Training Error:**
+- **Small datasets**: Easy to memorize all points
+- **Deep trees**: Can grow to fit training data perfectly
+- **No regularization**: No constraints on tree depth
+- **Clean data**: No noise to confuse the tree
+
+**Why Random Forest Has Higher Training Error:**
+- **Averaging effect**: Multiple predictions are averaged
+- **Bootstrap sampling**: Each tree sees different data
+- **Feature randomization**: Trees may miss important features
+- **Regularization**: Implicit regularization through ensemble
+
+**Practical Implications:**
+
+**When to Use Single Decision Tree:**
+- **Interpretability is crucial**: Need to understand decision process
+- **Small datasets**: Can achieve good performance without overfitting
+- **Quick prototyping**: Fast to train and evaluate
+- **Feature importance analysis**: Direct interpretation of splits
+
+**When to Use Random Forest:**
+- **Large datasets**: Better generalization performance
+- **Noisy data**: More robust to outliers and noise
+- **High-dimensional data**: Feature randomization helps
+- **Production systems**: Better reliability and stability
+
+**Conclusion:**
+A single decision tree can indeed achieve comparably low (or even lower) training error compared to Random Forest. The advantage of Random Forest lies not in lower training error, but in better generalization performance and robustness. The single tree's ability to achieve low training error comes at the cost of overfitting and poor generalization.
 
 ## Problem 13
 
