@@ -17,6 +17,85 @@ b. Low bias
 
 Correct answers: (a)
 
+**Explanation:**
+
+The correct answer is **(a) - High bias**. Here's the detailed explanation:
+
+**Understanding the Problem:**
+
+**True Relationship:**
+The stopping distance increases **quadratically** with speed:
+$$\text{Stopping Distance} = k \cdot \text{Speed}^2$$
+
+**Model Assumption:**
+Your linear regression model assumes a **linear** relationship:
+$$\text{Stopping Distance} = w \cdot \text{Speed} + b$$
+
+**Why This Creates High Bias:**
+
+**1. Model Mismatch:**
+- **True relationship**: Quadratic (curved)
+- **Model assumption**: Linear (straight line)
+- The model is fundamentally incapable of capturing the true relationship
+
+**2. Systematic Underestimation:**
+- At higher speeds, the quadratic relationship grows much faster than linear
+- Your linear model will consistently underestimate stopping distances
+- This creates **systematic error** (bias)
+
+**Mathematical Analysis:**
+
+**True Function:**
+$$f_{\text{true}}(x) = kx^2$$
+
+**Linear Model:**
+$$f_{\text{model}}(x) = wx + b$$
+
+**Bias at Point $x$:**
+$$\text{Bias}(x) = \mathbb{E}[f_{\text{model}}(x)] - f_{\text{true}}(x) = wx + b - kx^2$$
+
+**As $x$ increases:**
+- $f_{\text{true}}(x) = kx^2$ grows quadratically
+- $f_{\text{model}}(x) = wx + b$ grows linearly
+- The bias becomes increasingly negative (underestimation)
+
+**Visual Example:**
+```
+Speed:    10    20    30    40    50
+True:     100   400   900   1600  2500
+Linear:   50    100   150   200   250
+Bias:     -50   -300  -750  -1400 -2250
+```
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - Low bias:**
+- Low bias would mean the model can capture the true relationship well
+- A linear model cannot capture a quadratic relationship
+- The systematic underestimation creates high bias
+
+**Bias-Variance Tradeoff Context:**
+
+**High Bias (Current Situation):**
+- Model is too simple for the data
+- Cannot capture the true underlying relationship
+- Results in systematic prediction errors
+
+**Low Variance:**
+- Linear models are stable and consistent
+- Predictions don't vary much with small changes in training data
+- But this stability comes at the cost of high bias
+
+**Solutions to Reduce Bias:**
+
+1. **Use a quadratic model**: $f(x) = w_1x^2 + w_2x + b$
+2. **Polynomial regression**: Higher degree polynomials
+3. **Non-linear basis expansion**: Transform features to capture curvature
+4. **Neural networks**: Can learn non-linear relationships
+
+**Conclusion:**
+The linear model has **high bias** because it cannot capture the quadratic relationship between speed and stopping distance, leading to systematic underestimation at higher speeds.
+
 ## 2. One Answer
 
 Follow the same car scenario as the above question. Compared to using a model that can model a quadratic relationship between stopping distance and speed, would your model have high or low variance?
@@ -26,6 +105,108 @@ a. High variance
 b. Low variance
 
 Correct answers: (b)
+
+**Explanation:**
+
+The correct answer is **(b) - Low variance**. Here's the detailed explanation:
+
+**Understanding the Problem:**
+
+Continuing from the previous question, we have:
+- **True relationship**: Quadratic (stopping distance = $k \cdot \text{speed}^2$)
+- **Model assumption**: Linear (stopping distance = $w \cdot \text{speed} + b$)
+- **Result**: High bias due to model mismatch
+
+**Why This Creates Low Variance:**
+
+**1. Model Simplicity:**
+- Linear models are **simple and stable**
+- They have few parameters to learn
+- Predictions are consistent across different training sets
+
+**2. Insensitive to Training Data Changes:**
+- Small changes in training data don't dramatically affect the learned line
+- The model always learns a straight line relationship
+- Predictions remain relatively stable
+
+**Mathematical Analysis:**
+
+**Linear Model:**
+$$f(x) = wx + b$$
+
+**Parameter Learning:**
+- $w$ and $b$ are learned from training data
+- Small changes in training data cause small changes in $w$ and $b$
+- The overall linear structure remains the same
+
+**Variance Definition:**
+$$\text{Variance} = \mathbb{E}[(f(x) - \mathbb{E}[f(x)])^2]$$
+
+**Why Variance is Low:**
+- Linear models are **deterministic** given the parameters
+- Small parameter changes lead to small prediction changes
+- The model cannot "memorize" complex patterns in the data
+
+**Visual Example:**
+```
+Training Set 1: w=2, b=10
+Training Set 2: w=2.1, b=9.8
+Training Set 3: w=1.9, b=10.2
+
+Predictions at speed=20:
+Set 1: 2(20) + 10 = 50
+Set 2: 2.1(20) + 9.8 = 51.8
+Set 3: 1.9(20) + 10.2 = 48.2
+
+Variance is low because predictions are similar across different training sets.
+```
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - High variance:**
+- High variance would mean the model is very sensitive to training data
+- Linear models are inherently stable and consistent
+- They don't overfit to noise in the training data
+
+**Bias-Variance Tradeoff Context:**
+
+**Current Situation:**
+- **High Bias**: Model cannot capture true quadratic relationship
+- **Low Variance**: Model is stable and consistent
+
+**This is a classic underfitting scenario:**
+- Model is too simple for the data
+- Cannot capture the true relationship (high bias)
+- But is very stable across different training sets (low variance)
+
+**Comparison with More Complex Models:**
+
+**Linear Model (Current):**
+- **Bias**: High (cannot capture quadratic relationship)
+- **Variance**: Low (stable predictions)
+
+**Quadratic Model (Ideal):**
+- **Bias**: Low (can capture true relationship)
+- **Variance**: Low (still relatively simple)
+
+**Very Complex Model (e.g., high-degree polynomial):**
+- **Bias**: Low (can capture complex relationships)
+- **Variance**: High (sensitive to training data)
+
+**Practical Implications:**
+
+**Advantages of Low Variance:**
+- Predictions are consistent and reliable
+- Model generalizes well to similar data
+- Less prone to overfitting
+
+**Disadvantages in This Case:**
+- The low variance comes at the cost of high bias
+- Model consistently makes the wrong type of prediction
+- Cannot capture the true underlying relationship
+
+**Conclusion:**
+The linear model has **low variance** because it is simple and stable, making consistent predictions across different training sets, even though these predictions are systematically wrong due to the high bias.
 
 ## 3. One Answer
 
@@ -39,6 +220,101 @@ b. Variance
 c. Irreducible error
 
 Correct answers: (c)
+
+**Explanation:**
+
+The correct answer is **(c) - Irreducible error**. Here's the detailed explanation:
+
+**Understanding the Problem:**
+
+We have a model that predicts stopping distance based on speed, but in reality, stopping distance is also affected by weather conditions. The model doesn't include weather as a feature.
+
+**Components of Model Error:**
+
+The total prediction error can be decomposed into three components:
+$$\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+**1. Bias:**
+- Error due to model assumptions (e.g., linear vs quadratic relationship)
+- In our case: using linear model when true relationship is quadratic
+
+**2. Variance:**
+- Error due to model sensitivity to training data
+- In our case: how much predictions vary with different training sets
+
+**3. Irreducible Error:**
+- Error due to inherent randomness or missing information
+- Cannot be reduced by any model, no matter how complex
+
+**Why Weather Conditions Create Irreducible Error:**
+
+**1. Missing Information:**
+- Weather conditions affect stopping distance but are not in our model
+- This creates **inherent unpredictability** in the data
+- No model can perfectly predict stopping distance without weather information
+
+**2. Inherent Randomness:**
+- Even with perfect information, there's natural variation in stopping distances
+- Weather introduces additional sources of variation
+- This randomness cannot be eliminated by any model
+
+**Mathematical Analysis:**
+
+**True Model (with weather):**
+$$\text{Stopping Distance} = f(\text{Speed}, \text{Weather}) + \epsilon$$
+
+**Our Model (without weather):**
+$$\text{Stopping Distance} = g(\text{Speed}) + \epsilon'$$
+
+**Error Decomposition:**
+$$\text{Error} = \underbrace{(g(\text{Speed}) - f(\text{Speed}, \text{Weather}))}_{\text{Irreducible}} + \underbrace{\epsilon}_{\text{Noise}}$$
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - Bias:**
+- Bias comes from model assumptions (linear vs quadratic)
+- Weather conditions don't affect the model's functional form
+- This is about missing features, not wrong assumptions
+
+**Option (b) - Variance:**
+- Variance comes from model sensitivity to training data
+- Weather conditions don't make the model more or less sensitive
+- This is about inherent unpredictability, not model instability
+
+**Examples of Irreducible Error:**
+
+**1. Weather Effects:**
+- Rain: Increases stopping distance by 20-30%
+- Snow: Increases stopping distance by 50-100%
+- Ice: Increases stopping distance by 200-300%
+
+**2. Other Missing Factors:**
+- Driver reaction time
+- Tire condition
+- Road surface quality
+- Vehicle weight
+
+**3. Natural Variation:**
+- Even with identical conditions, stopping distances vary
+- Human factors (driver skill, attention)
+- Mechanical factors (brake wear, tire pressure)
+
+**Practical Implications:**
+
+**1. Model Limitations:**
+- No model can achieve perfect predictions without all relevant features
+- Irreducible error sets a lower bound on achievable performance
+
+**2. Feature Engineering:**
+- Adding weather features would reduce irreducible error
+- But some randomness will always remain
+
+**3. Realistic Expectations:**
+- Understanding irreducible error helps set realistic performance goals
+- Don't expect perfect predictions when important factors are missing
+
+**Conclusion:**
+The error from not including weather conditions is **irreducible error** because it represents inherent unpredictability that cannot be eliminated by any model that doesn't have access to weather information.
 
 ## 4. Select All That Apply
 
@@ -54,11 +330,106 @@ d. Increasing the amount of regularization.
 
 Correct answers: (a), (d)
 
-Explanation:
-a) The model has access to more information and thus is less likely to overfit to noise.
-b) Increasing the size of the validation data does not help prevent the model from picking up noise in the training set.
-c) This helps reduce bias not variance
-d) Regularization helps prevent the model from overfitting to the training data.
+**Explanation:**
+
+The correct answers are **(a) and (d)**. Here's the detailed explanation:
+
+**Understanding Model Variance:**
+
+**Definition of Variance:**
+Variance measures how much the model's predictions change when trained on different datasets drawn from the same underlying distribution:
+$$\text{Variance} = \mathbb{E}[(f(x) - \mathbb{E}[f(x)])^2]$$
+
+**High Variance = Overfitting:**
+- Model is too sensitive to training data
+- Learns noise and idiosyncrasies in the training set
+- Poor generalization to new data
+
+**Low Variance = Stability:**
+- Model makes consistent predictions across different training sets
+- Generalizes well to new data
+- Less prone to overfitting
+
+**Analysis of Each Option:**
+
+**Option (a) - Increasing the size of the training data: ✓ CORRECT**
+
+**Why This Reduces Variance:**
+1. **More Information**: Larger training sets provide more representative samples
+2. **Less Noise Sensitivity**: Model is less likely to overfit to noise in smaller datasets
+3. **Better Generalization**: More data helps the model learn the true underlying pattern
+
+**Mathematical Intuition:**
+- With more data points, the model can better estimate the true relationship
+- Law of large numbers: estimates become more stable with more samples
+- Reduces the impact of individual noisy data points
+
+**Example:**
+```
+Small dataset (10 points): Model might fit noise perfectly
+Large dataset (1000 points): Model learns the true trend, ignores noise
+```
+
+**Option (b) - Increasing the size of the validation data: ✗ INCORRECT**
+
+**Why This Doesn't Reduce Variance:**
+1. **Validation data is not used for training**: It doesn't affect what the model learns
+2. **Only affects evaluation**: Helps estimate model performance more accurately
+3. **No impact on model behavior**: The model itself doesn't change
+
+**What validation data does:**
+- Provides unbiased estimate of model performance
+- Helps in model selection and hyperparameter tuning
+- Does not prevent overfitting during training
+
+**Option (c) - Increasing the number of model parameters: ✗ INCORRECT**
+
+**Why This Increases Variance:**
+1. **More Flexibility**: More parameters allow the model to fit training data more closely
+2. **Higher Risk of Overfitting**: Model can memorize training data instead of learning patterns
+3. **Reduces Bias**: More parameters typically reduce bias but increase variance
+
+**Bias-Variance Tradeoff:**
+- More parameters → Lower bias, Higher variance
+- Fewer parameters → Higher bias, Lower variance
+
+**Option (d) - Increasing the amount of regularization: ✓ CORRECT**
+
+**Why This Reduces Variance:**
+1. **Constrains Model Complexity**: Prevents the model from fitting noise in training data
+2. **Promotes Simplicity**: Encourages the model to learn simpler patterns
+3. **Improves Generalization**: Model becomes less sensitive to training data variations
+
+**Types of Regularization:**
+- **L1 (Lasso)**: $||w||_1$ penalty, promotes sparsity
+- **L2 (Ridge)**: $||w||_2^2$ penalty, promotes small weights
+- **Dropout**: Randomly deactivates neurons during training
+- **Early Stopping**: Stops training before overfitting
+
+**Mathematical Effect:**
+$$\text{Loss} = \text{Training Loss} + \lambda \cdot \text{Regularization Term}$$
+
+As $\lambda$ increases:
+- Model becomes simpler
+- Less sensitive to training data
+- Lower variance, but potentially higher bias
+
+**Practical Examples:**
+
+**Training Data Size:**
+```
+Small dataset: Model variance high (overfits to noise)
+Large dataset: Model variance low (learns true pattern)
+```
+
+**Regularization:**
+```
+No regularization: Model can fit training data perfectly (high variance)
+With regularization: Model constrained, more stable (lower variance)
+```
+
+**Conclusion:**
+Options **(a)** and **(d)** reduce model variance by providing more information (larger training set) and constraining model complexity (regularization), respectively.
 
 ## 5. One Answer
 
@@ -70,7 +441,134 @@ b. False
 
 Correct answers: (b)
 
-Explanation: Even with infinite data, there may be noise in the data or inherent unpredictability in the relationship between input and output, which limits how low the prediction error can go.
+**Explanation:**
+
+The correct answer is **(b) - False**. Here's the detailed explanation:
+
+**Understanding the Problem:**
+
+The statement claims that as the number of training data points grows, the prediction error on unseen data approaches 0. This is false because of the fundamental limitations in machine learning.
+
+**Components of Prediction Error:**
+
+The total prediction error can be decomposed into:
+$$\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+**1. Bias:**
+- Error due to model assumptions
+- Can be reduced with more data and better models
+- Approaches zero as model complexity increases
+
+**2. Variance:**
+- Error due to model sensitivity to training data
+- Can be reduced with more data
+- Approaches zero as data size increases
+
+**3. Irreducible Error:**
+- Error due to inherent randomness or missing information
+- **Cannot be reduced by any amount of data**
+- Sets a fundamental lower bound on achievable performance
+
+**Why Prediction Error Cannot Approach Zero:**
+
+**1. Irreducible Error:**
+- **Noise in the data**: Measurement errors, random fluctuations
+- **Missing information**: Important features not captured
+- **Inherent randomness**: Natural variation in the phenomenon
+
+**Mathematical Example:**
+
+**True Model with Noise:**
+$$y = f(x) + \epsilon$$
+where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is irreducible noise.
+
+**Expected Prediction Error:**
+$$\mathbb{E}[(y - \hat{y})^2] = \mathbb{E}[(f(x) - \hat{f}(x))^2] + \sigma^2$$
+
+**As $n \to \infty$:**
+- $\mathbb{E}[(f(x) - \hat{f}(x))^2] \to 0$ (bias and variance approach zero)
+- But $\sigma^2$ remains (irreducible error)
+
+**Result**: Prediction error approaches $\sigma^2$, not zero.
+
+**Practical Examples:**
+
+**1. Medical Diagnosis:**
+- Even with perfect models and infinite data
+- Human biology has inherent variability
+- Some diseases have random onset patterns
+- Prediction error cannot be zero
+
+**2. Stock Price Prediction:**
+- Even with all available information
+- Market movements have random components
+- Unpredictable events affect prices
+- Perfect prediction is impossible
+
+**3. Weather Forecasting:**
+- Even with perfect models and infinite historical data
+- Weather has chaotic, unpredictable elements
+- Small changes can lead to large differences
+- Perfect prediction is impossible
+
+**Mathematical Verification:**
+
+**Cramér-Rao Lower Bound:**
+For any unbiased estimator $\hat{\theta}$:
+$$\text{Var}(\hat{\theta}) \geq \frac{1}{I(\theta)}$$
+where $I(\theta)$ is the Fisher information.
+
+**This sets a fundamental lower bound** on estimation error, regardless of data size.
+
+**Bayesian Perspective:**
+Even with infinite data, there's always uncertainty in predictions due to:
+- Model uncertainty
+- Parameter uncertainty
+- Inherent randomness
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - True:**
+- **Problem**: Ignores irreducible error
+- **Issue**: Assumes perfect predictability
+- **Result**: Unrealistic expectation
+
+**Key Insights:**
+
+**1. Data Limitations:**
+- More data reduces bias and variance
+- But cannot eliminate irreducible error
+- There's always a fundamental limit
+
+**2. Model Limitations:**
+- Perfect models don't exist
+- All models make assumptions
+- These assumptions create bias
+
+**3. Reality Limitations:**
+- Many phenomena are inherently random
+- Perfect prediction is often impossible
+- Understanding irreducible error is crucial
+
+**Practical Implications:**
+
+**1. Realistic Expectations:**
+- Don't expect perfect predictions
+- Focus on reducing bias and variance
+- Accept that some error is unavoidable
+
+**2. Model Selection:**
+- Choose models appropriate for the problem
+- Consider the irreducible error when evaluating performance
+- Don't overfit trying to achieve impossible accuracy
+
+**3. Business Decisions:**
+- Set realistic performance targets
+- Consider the cost of reducing error further
+- Focus on actionable improvements
+
+**Conclusion:**
+The statement is **False** because prediction error cannot approach zero due to irreducible error, which represents inherent randomness and missing information that cannot be eliminated by any amount of data or any model.
 
 ## 6. Select All That Apply
 
@@ -87,18 +585,127 @@ d. For binary logistic regression, if the probability of the positive class is $
 
 Correct answers: (a), (c), (d)
 
-Explanation:
+**Explanation:**
 
-a) True. $\sigma(x)$ has horizontal asymptotes at 0 and 1 and therefore is strictly bounded between those values.
-Because the output probability is the output of o, this implies that the output probability is also strictly contained in (0,1).
-As it cannot output positive or negative labels with probability 1, it is therefore unable to reduce the training loss to exactly 0, though it can get arbitrarily close.
+The correct answers are **(a)**, **(c)**, and **(d)**. Here's the detailed explanation:
 
-b) False. The gradient is highest around $x=0$ and lowest at its asymptotes.
+**Understanding the Sigmoid Function:**
 
-c) True.
-True for $c=0$ and is apparent from visual inspection.
+**Sigmoid Function Definition:**
+$$\sigma(x) = \frac{1}{1 + e^{-x}}$$
 
-d) True. $\sigma(x)=\frac{1}{1+e^{-x}}=\frac{e^{x}}{1+e^{x}}=1-\sigma(-x)$
+**Key Properties:**
+- **Range**: $(0, 1)$ (strictly bounded)
+- **Symmetry**: $\sigma(-x) = 1 - \sigma(x)$
+- **Monotonic**: Strictly increasing function
+- **Smooth**: Continuous and differentiable everywhere
+
+**Analysis of Each Statement:**
+
+**Option (a) - For any finite input $x \in \mathbb{R}$, $\sigma(x)$ is strictly greater than 0 and strictly less than 1: TRUE** ✅
+
+**Mathematical Proof:**
+
+**Lower Bound:**
+For any finite $x \in \mathbb{R}$:
+- $e^{-x} > 0$ (exponential function is always positive)
+- $1 + e^{-x} > 1$
+- $\sigma(x) = \frac{1}{1 + e^{-x}} < 1$
+
+**Upper Bound:**
+For any finite $x \in \mathbb{R}$:
+- $e^{-x} < \infty$ (finite exponential)
+- $1 + e^{-x} < \infty$
+- $\sigma(x) = \frac{1}{1 + e^{-x}} > 0$
+
+**Implications for Logistic Regression:**
+- **Output probabilities**: Always in $(0, 1)$, never exactly 0 or 1
+- **Training loss**: Cannot achieve exactly 0 (perfect classification)
+- **Asymptotic behavior**: Can get arbitrarily close to 0 or 1
+
+**Example:**
+```
+x = 10: σ(10) ≈ 0.99995 (very close to 1, but not exactly 1)
+x = -10: σ(-10) ≈ 0.00005 (very close to 0, but not exactly 0)
+```
+
+**Option (b) - The first derivative of σ is monotonically increasing: FALSE** ❌
+
+**Mathematical Analysis:**
+
+**First Derivative:**
+$$\sigma'(x) = \frac{d}{dx}\sigma(x) = \frac{e^{-x}}{(1 + e^{-x})^2} = \sigma(x)(1 - \sigma(x))$$
+
+**Second Derivative:**
+$$\sigma''(x) = \frac{d^2}{dx^2}\sigma(x) = \sigma(x)(1 - \sigma(x))(1 - 2\sigma(x))$$
+
+**Behavior:**
+- **At $x = 0$**: $\sigma(0) = 0.5$, $\sigma'(0) = 0.25$ (maximum)
+- **As $x \to \infty$**: $\sigma'(x) \to 0$ (decreasing)
+- **As $x \to -\infty$**: $\sigma'(x) \to 0$ (decreasing)
+
+**Result**: The derivative is **not monotonically increasing**. It peaks at $x = 0$ and decreases towards the asymptotes.
+
+**Option (c) - There exists a constant value $c \in \mathbb{R}$ such that σ is convex when restricted to $x < c$ and concave when restricted to $x \geq c$: TRUE** ✅
+
+**Mathematical Proof:**
+
+**Second Derivative Analysis:**
+$$\sigma''(x) = \sigma(x)(1 - \sigma(x))(1 - 2\sigma(x))$$
+
+**Convexity Conditions:**
+- **Convex**: $\sigma''(x) > 0$
+- **Concave**: $\sigma''(x) < 0$
+
+**Critical Point:**
+When $\sigma(x) = 0.5$:
+- $\sigma''(x) = 0.5 \cdot 0.5 \cdot 0 = 0$
+
+**Behavior:**
+- **For $x < 0$**: $\sigma(x) < 0.5$, so $1 - 2\sigma(x) > 0$ → $\sigma''(x) > 0$ (convex)
+- **For $x > 0$**: $\sigma(x) > 0.5$, so $1 - 2\sigma(x) < 0$ → $\sigma''(x) < 0$ (concave)
+
+**Result**: $c = 0$ satisfies the condition.
+
+**Option (d) - For binary logistic regression, if the probability of the positive class is $\sigma(x)$, then the probability of the negative class is $\sigma(-x)$: TRUE** ✅
+
+**Mathematical Proof:**
+
+**Sigmoid Symmetry Property:**
+$$\sigma(-x) = \frac{1}{1 + e^{x}} = \frac{e^{-x}}{e^{-x} + 1} = 1 - \frac{1}{1 + e^{-x}} = 1 - \sigma(x)$$
+
+**For Binary Classification:**
+- **Positive class probability**: $P(Y = 1|X) = \sigma(x)$
+- **Negative class probability**: $P(Y = 0|X) = 1 - \sigma(x) = \sigma(-x)$
+
+**Verification:**
+$$\sigma(x) + \sigma(-x) = \sigma(x) + (1 - \sigma(x)) = 1$$
+
+**Example:**
+```
+x = 2: σ(2) ≈ 0.88, σ(-2) ≈ 0.12
+Sum: 0.88 + 0.12 = 1 ✓
+```
+
+**Practical Implications:**
+
+**1. Training Loss:**
+- Cannot achieve exactly zero loss
+- Can get arbitrarily close to perfect classification
+- Important for setting realistic expectations
+
+**2. Model Interpretability:**
+- Outputs are always probabilities
+- Symmetry property useful for binary classification
+- Convexity/concavity affects optimization
+
+**3. Numerical Stability:**
+- Bounded outputs prevent numerical issues
+- Smooth function enables gradient-based optimization
+- Symmetry simplifies implementation
+
+**Conclusion:**
+Statements **(a)**, **(c)**, and **(d)** are correct. The sigmoid function has bounded outputs, changes from convex to concave at $x = 0$, and satisfies the symmetry property $\sigma(-x) = 1 - \sigma(x)$.
 
 ## 7. Select All That Apply
 
@@ -118,14 +725,134 @@ d. Increasing $\lambda$ generally increases model variance.
 
 Correct answers: (a), (c)
 
-Explanation:
-a) True. Higher A shrinks coefficients, encouraging sparsity.
+**Explanation:**
 
-b) False. Sparsity doesn't guarantee a smaller norm; non-zero coefficients' magnitudes matter.
+The correct answers are **(a)** and **(c)**. Here's the detailed explanation:
 
-c) True. Larger A simplifies the model, leading to underfitting and higher bias.
+**Understanding LASSO Regression:**
 
-d) False. Larger A reduces flexibility, lowering variance.
+**LASSO Objective Function:**
+$$f(w) = \sum_{i=1}^{n}(y^{(i)} - x^{(i)\top}w)^2 + \lambda||w||_1$$
+
+where:
+- First term: Mean squared error (data fitting term)
+- Second term: L1 regularization (sparsity-inducing penalty)
+- $\lambda$: Regularization strength (hyperparameter)
+
+**Analysis of Each Statement:**
+
+**Option (a) - Increasing $\lambda$ will generally reduce the L1 norm of the parameters $w$: TRUE** ✅
+
+**Mathematical Explanation:**
+
+**L1 Norm Definition:**
+$$||w||_1 = \sum_{j=1}^d |w_j|$$
+
+**Effect of Increasing $\lambda$:**
+- **Stronger penalty**: The L1 term becomes more important
+- **Coefficient shrinkage**: Weights are pushed towards zero
+- **Sparsity promotion**: Some coefficients become exactly zero
+
+**Mathematical Intuition:**
+$$\min_w \sum_{i=1}^{n}(y^{(i)} - x^{(i)\top}w)^2 + \lambda||w||_1$$
+
+As $\lambda$ increases:
+- The regularization term dominates
+- The optimal solution has smaller $||w||_1$
+- More coefficients become zero
+
+**Example:**
+```
+λ = 0: w = [2.1, -1.8, 0.9, -0.5], ||w||₁ = 5.3
+λ = 1: w = [1.5, -1.2, 0, -0.1], ||w||₁ = 2.8
+λ = 5: w = [0.8, 0, 0, 0], ||w||₁ = 0.8
+```
+
+**Option (b) - Consider two models $w_1$, $w_2 \in \mathbb{R}^d$. Assume $w_1$ is more sparse, i.e., $w_1$ has strictly more zero coefficients than $w_2$. Then $||w_1||_1 < ||w_2||_1$: FALSE** ❌
+
+**Counterexample:**
+
+**Model 1 (more sparse):**
+$w_1 = [0, 0, 0, 10]$
+- Number of zeros: 3
+- L1 norm: $||w_1||_1 = 10$
+
+**Model 2 (less sparse):**
+$w_2 = [1, 1, 1, 1]$
+- Number of zeros: 0
+- L1 norm: $||w_2||_1 = 4$
+
+**Result**: $w_1$ is more sparse but has larger L1 norm.
+
+**Why This Happens:**
+- **Sparsity**: Counts number of non-zero coefficients
+- **L1 norm**: Sum of absolute values of coefficients
+- **Magnitude matters**: Large non-zero coefficients can dominate
+
+**Option (c) - Increasing $\lambda$ generally increases model bias: TRUE** ✅
+
+**Mathematical Explanation:**
+
+**Bias-Variance Tradeoff:**
+$$\text{Expected Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+**Effect of Increasing $\lambda$:**
+
+**1. Model Simplification:**
+- Larger $\lambda$ forces coefficients to be smaller
+- Model becomes less flexible
+- Cannot fit complex patterns in data
+
+**2. Bias Increase:**
+- Model assumptions become more restrictive
+- Systematic error increases
+- Underfitting occurs
+
+**Mathematical Verification:**
+As $\lambda \to \infty$:
+- $w \to 0$ (all coefficients approach zero)
+- Model becomes constant predictor
+- High bias, low variance
+
+**Example:**
+```
+λ = 0: Complex model, low bias, high variance
+λ = 1: Moderate model, moderate bias, moderate variance  
+λ = 10: Simple model, high bias, low variance
+```
+
+**Option (d) - Increasing $\lambda$ generally increases model variance: FALSE** ❌
+
+**Why This is Incorrect:**
+
+**Effect of Increasing $\lambda$ on Variance:**
+- **Reduced flexibility**: Model becomes less sensitive to training data
+- **Stability**: Predictions become more consistent
+- **Lower variance**: Model is more robust
+
+**Mathematical Intuition:**
+- **Small $\lambda$**: Model can fit training data closely (high variance)
+- **Large $\lambda$**: Model is constrained, less sensitive to data (low variance)
+
+**Practical Implications:**
+
+**1. Model Selection:**
+- **Small $\lambda$**: Good for complex relationships, risk of overfitting
+- **Large $\lambda$**: Good for simple relationships, risk of underfitting
+- **Optimal $\lambda$**: Balances bias and variance
+
+**2. Feature Selection:**
+- **Sparsity**: LASSO automatically performs feature selection
+- **Interpretability**: Fewer features make model easier to understand
+- **Computational efficiency**: Fewer features mean faster prediction
+
+**3. Regularization Effect:**
+- **Prevents overfitting**: Constrains model complexity
+- **Improves generalization**: Better performance on unseen data
+- **Robustness**: Less sensitive to noise in training data
+
+**Conclusion:**
+Options **(a)** and **(c)** are correct. Increasing $\lambda$ in LASSO reduces the L1 norm of parameters (promoting sparsity) and increases model bias (simplifying the model), while decreasing variance (making the model more stable).
 
 ## 8. Select All That Apply
 
