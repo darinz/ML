@@ -349,3 +349,144 @@ Thus, the error in the statement is that the linear kernel is incorrectly claime
 
 **Correct Answer:** c)
 
+## Problem 19: Polynomial Kernel Regression
+
+**2 points**
+
+**Question:** Suppose we are doing polynomial kernel regression with training dataset $X \in \mathbb{R}^{n \times d}$.
+
+### Part (a): Degree 1 Polynomial Kernel (1 point)
+
+**Question:** Let $\mathbf{1} \in \mathbb{R}^n$ denote the vector of ones. Suppose we are using the polynomial kernel with degree up to 1, i.e., degree zero and degree one. Write the corresponding kernel matrix $K$ in terms of $X$ and $\mathbf{1}$.
+
+**Answer:** $K = \rule{8cm}{0.5pt}$
+
+### Part (b): Degree k Polynomial Kernel (1 point)
+
+**Question:** Now suppose we are using the polynomial kernel with degree up to $k$ starting from degree zero. Let $M$ be the corresponding kernel matrix. What is $M_{i,j}$ for row $i$ and column $j$? Write your answer in terms of $K_{i,j}$.
+
+**Answer:** $M_{i,j} = \rule{8cm}{0.5pt}$
+
+**Explanation:** 
+$K = XX^T + \mathbf{1}\mathbf{1}^T$. $M_{i,j} = (K_{i,j})^k$.
+
+The computation of this matrix was done in the homework 3 (poly\_kernel) using numpy.
+
+## Problem 20: k-Nearest-Neighbors
+
+**1 point**
+
+**Question:** Which of the following statements about k-Nearest-Neighbors (k-NN) are true?
+
+**Options:**
+- a) The time complexity of the k-NN algorithm for a single query is $O(N \cdot d)$, where $N$ is the number of training samples and $d$ is the number of features.
+- b) k-NN is highly efficient for large datasets due to low computational cost during the training phase.
+- c) k-NN can suffer from the curse of dimensionality, where the effectiveness of the distance metric diminishes as the number of features increases.
+- d) Scaling features is crucial for k-NN performance to ensure all features contribute equally to distance computation.
+- e) k-NN is inherently faster with very high dimensions (features) because higher dimensions make distances between data points more sparse.
+
+**Correct Answer:** a), c), d)
+
+**Explanation:** 
+- **For (a):** A single query involves iterating through all $N$ data points and calculating a distance metric, with each distance calculation taking $O(d)$ time.
+- **For (b):** k-NN is not efficient for large datasets because $N$ becomes infeasibly large.
+- **For (c):** The curse of dimensionality affects the distance metric of k-NN, making it less helpful in high-dimensional scenarios.
+- **For (d):** Scaling features is crucial because all features need to be on the same scale for distance calculation.
+- **For (e):** k-NN does not get faster as the dimensions of the data increase.
+
+## Problem 21: Neural Network Overparameterization
+
+**1 point**
+
+**Question:** When choosing neural network architecture, one generally avoids overparameterization to prevent overfitting.
+
+**Options:**
+- a) True
+- b) False
+
+**Correct Answer:** b) False
+
+**Explanation:** 
+In practice, overparameterized neural networks tend to generalize well, and overfitting is sometimes not entirely undesirable.
+
+## Problem 22: Forward Stagewise Additive Modeling
+
+**1 point**
+
+**Question:** When performing forward stagewise additive modeling, to compute a model at each iteration, we access:
+
+**Options:**
+- a) The most recently computed model
+- b) The most recently computed ensemble
+- c) All previously computed models
+- d) All previously computed ensembles
+
+**Correct Answer:** b) The most recently computed ensemble
+
+**Explanation:** 
+In forward stagewise additive modeling, at each iteration, the model accesses the most recently computed ensemble, which consists of the combination of all previous models.
+
+## Problem 23: K-means Algorithm Properties
+
+**1 point**
+
+**Question:** Select the following which is true for the K-means algorithm.
+
+**Options:**
+- a) The number of clusters (K) in K-means is a trainable parameter.
+- b) The time complexity for running the K-means learning algorithm is agnostic to the number of data points.
+- c) The time complexity for matching an unseen data point to k learned centroids is agnostic to the number of data points.
+- d) K-means is a parametric model.
+- e) K-means algorithm requires labeled data.
+- f) K-means performs poorly on data with overlapping clusters.
+
+**Correct Answer:** c), d), f)
+
+**Explanation:** 
+- The number of cluster (K) is a hyperparameter and is not trained.
+- The time to learn k centroids scales with respect to the number of data points.
+- The time to match a data point to k centroids scales with respect to k.
+- The centroids in k-means are the learned "parameters".
+- K-means is a Unsupervised Learning method which doesn't require explicit labeling of training data.
+- k-means performs poorly on overlapping clusters. GMMs are more suited for this problem.
+
+## Problem 24: Properties of K-means and Gaussian Mixture Models (GMM)
+
+**1 point**
+
+**Question:** The following statements describe properties of K-means and Gaussian Mixture Models (GMM). Which of them are correct?
+
+**Options:**
+- a) K-means is a "hard clustering" method, while GMM is a "soft clustering" method.
+- b) GMM can be used for both clustering and probability density estimation.
+- c) Both GMM and K-means assume spherical/circular clusters.
+- d) GMM cannot be used when clusters overlap significantly, as it assumes non-overlapping Gaussians.
+- e) K-means is sensitive to the selection of initial centroids, which may lead to different clustering results.
+
+**Correct Answer:** a), b), e)
+
+**Explanation:** 
+- K-means is a hard clustering method because each data point is assigned to exactly one cluster, while GMM is a soft clustering method where each point has a probability of belonging to multiple clusters.
+- GMM is a probabilistic model that can be used not only for clustering but also for probability density estimation.
+- GMM does not assume spherical clusters.
+- GMM can be used when clusters overlap. This is an an advantage over K-means.
+- K-means is sensitive to the initial centroids chosen, and different initializations may lead to different clustering results.
+
+## Problem 25: GMM Parameters
+
+**1 point**
+
+**Question:** Suppose you are training a GMM with $n$ Gaussians. How many parameters need to be learned?
+
+**Answer:** [Student response area]
+
+**Explanation:** 
+$3n - 1$ parameters are needed.
+
+This includes:
+- $n$ means ($\mu$)
+- $n$ covariances ($\Sigma$)
+- $n - 1$ mixing weights ($\pi$)
+
+Note: $3n$, $3n-1$, and $n(d^2 + d + 1)$ were accepted answers, implying that the dimensionality $d$ of the data might be a factor in the covariance parameter count, but the primary answer given is $3n-1$.
+
