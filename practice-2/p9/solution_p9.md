@@ -15,6 +15,87 @@
 **Explanation:** 
 You can't reduce irreducible error.
 
+## Detailed Solution Explanation
+
+**Understanding Irreducible Error:**
+
+Irreducible error represents the fundamental uncertainty in the data that cannot be eliminated by any model, no matter how sophisticated or complex.
+
+**Mathematical Framework:**
+
+In the standard regression setting, we model the relationship as:
+$$y = f(x) + \epsilon$$
+where:
+- $f(x)$ is the true underlying function
+- $\epsilon$ is the irreducible error (noise)
+
+The irreducible error $\epsilon$ is typically assumed to follow a distribution (often Gaussian) with mean 0 and some variance $\sigma^2$:
+$$\epsilon \sim \mathcal{N}(0, \sigma^2)$$
+
+**Why Irreducible Error Cannot Be Reduced:**
+
+**Fundamental Nature:**
+- **Randomness:** Irreducible error represents truly random noise in the system
+- **Unpredictability:** This noise cannot be predicted from the features $x$
+- **Inherent Uncertainty:** Even with perfect knowledge of $f(x)$, we cannot predict $\epsilon$
+
+**Mathematical Proof:**
+The expected prediction error can be decomposed as:
+$$\text{Expected Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+The irreducible error term $\sigma^2$ is independent of the model and cannot be reduced by:
+- Increasing model complexity
+- Adding more training data
+- Improving the algorithm
+- Using better features
+
+**Examples of Irreducible Error:**
+
+**Measurement Error:**
+- Sensor noise in data collection
+- Human error in labeling
+- Instrument precision limitations
+
+**System Noise:**
+- Random fluctuations in biological systems
+- Environmental factors affecting outcomes
+- Unpredictable external influences
+
+**Model Limitations:**
+- Missing features that affect the outcome
+- Features that are fundamentally unobservable
+- Random processes in the system
+
+**Why Other Errors Can Be Reduced:**
+
+**Bias Error:**
+- Can be reduced by using more complex models
+- Can be reduced by using better algorithms
+- Can be reduced by feature engineering
+
+**Variance Error:**
+- Can be reduced by using simpler models
+- Can be reduced by regularization
+- Can be reduced by increasing training data
+
+**Practical Implications:**
+
+**Model Selection:**
+- No model can achieve perfect prediction
+- The goal is to minimize bias and variance
+- Irreducible error sets a lower bound on achievable performance
+
+**Performance Expectations:**
+- Understanding irreducible error helps set realistic goals
+- Prevents over-optimization of models
+- Guides resource allocation decisions
+
+**Key Insights:**
+- Irreducible error is a fundamental limitation, not a model deficiency
+- It cannot be reduced by any modeling technique
+- Understanding this concept is crucial for realistic model evaluation
+- The goal is to minimize reducible errors (bias and variance)
+
 ## Problem 2: Neural Network Overfitting
 
 **1 point**
@@ -34,6 +115,112 @@ Why? Choose the most accurate explanation.
 **Explanation:** 
 The deep neural network is too complex and fits the training data too well (overfitting) resulting in a low bias squared error but fails to generalize as a result of high variance error.
 
+## Detailed Solution Explanation
+
+**Understanding Neural Network Overfitting:**
+
+This problem demonstrates a classic case of overfitting in deep neural networks, where the model learns the training data too well but fails to generalize to new data.
+
+**Mathematical Framework:**
+
+**Bias-Variance Decomposition:**
+The expected prediction error can be decomposed as:
+$$\text{Expected Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+where:
+- **Bias:** How far off the model's predictions are on average from the true values
+- **Variance:** How much the model's predictions vary for different training sets
+- **Irreducible Error:** The fundamental noise in the data
+
+**Analysis of the Scenario:**
+
+**Given Conditions:**
+- Very deep neural network (as deep as possible)
+- Low training loss achieved
+- Poor performance on XOR test data
+- XOR data is not linearly separable
+
+**Why Option B is Correct:**
+
+**Overfitting Mechanism:**
+1. **High Model Complexity:** Very deep networks have many parameters
+2. **Low Training Loss:** Model can fit training data perfectly
+3. **Poor Generalization:** Model fails on unseen data
+4. **High Variance:** Model is sensitive to training data specifics
+
+**Mathematical Interpretation:**
+
+**Training Loss Behavior:**
+$$\text{Training Loss} \rightarrow 0 \text{ as complexity } \rightarrow \infty$$
+
+**Test Loss Behavior:**
+$$\text{Test Loss} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+As complexity increases:
+- **Bias decreases** (model can fit training data better)
+- **Variance increases** (model becomes sensitive to training data)
+- **Overall test error increases** due to high variance
+
+**Why Other Options Are Incorrect:**
+
+**Option A: "Too high bias squared error"**
+- **Contradiction:** Low training loss indicates low bias
+- **Reality:** The model fits training data well, so bias is low
+
+**Option C: "Unable to learn non-linearities"**
+- **Contradiction:** Deep networks can learn non-linearities
+- **Reality:** The issue is overfitting, not inability to learn
+
+**Option D: "Need even deeper network"**
+- **Contradiction:** Making it deeper would worsen overfitting
+- **Reality:** The network is already too complex
+
+**Visual Representation:**
+
+**Training vs Test Performance:**
+```
+Training Loss:  ████████████████████ (very low)
+Test Loss:      ████████████████████████████████ (high)
+                ↑
+                High variance gap
+```
+
+**Bias-Variance Tradeoff:**
+```
+Complexity:     Low ←→ High
+Bias:           High ←→ Low
+Variance:       Low ←→ High
+```
+
+**Solutions to Overfitting:**
+
+**1. Regularization:**
+- **L1/L2 Regularization:** Add penalty terms to loss function
+- **Dropout:** Randomly disable neurons during training
+- **Early Stopping:** Stop training before overfitting occurs
+
+**2. Model Simplification:**
+- **Reduce Depth:** Use fewer layers
+- **Reduce Width:** Use fewer neurons per layer
+- **Feature Selection:** Use fewer input features
+
+**3. Data Augmentation:**
+- **Increase Training Data:** More data reduces overfitting
+- **Data Augmentation:** Create synthetic training examples
+- **Cross-Validation:** Better model selection
+
+**4. Architecture Changes:**
+- **Batch Normalization:** Stabilize training
+- **Residual Connections:** Help with very deep networks
+- **Attention Mechanisms:** Focus on relevant features
+
+**Key Insights:**
+- Overfitting occurs when model complexity exceeds data complexity
+- Low training loss with high test loss indicates overfitting
+- The solution is to reduce model complexity or increase data
+- Understanding bias-variance tradeoff is crucial for model design
+- Regularization techniques help balance this tradeoff
+
 ## Problem 3: Leave-One-Out Cross-Validation
 
 **2 points**
@@ -44,6 +231,130 @@ The deep neural network is too complex and fits the training data too well (over
 
 **Explanation:** 
 For larger datasets, leave-one-out cross validation becomes an extremely expensive process.
+
+## Detailed Solution Explanation
+
+**Understanding Leave-One-Out Cross-Validation Scalability:**
+
+This problem explores the computational and practical limitations of leave-one-out cross-validation (LOOCV) as dataset sizes increase.
+
+**Mathematical Framework:**
+
+**Leave-One-Out Cross-Validation:**
+For a dataset with $n$ samples, LOOCV:
+- Divides data into $n$ folds
+- Each fold has exactly 1 sample
+- Trains on $n-1$ samples, validates on 1 sample
+- Repeats $n$ times, using each sample as validation once
+
+**Expected Test Error Estimate:**
+$$\text{LOOCV Error} = \frac{1}{n} \sum_{i=1}^{n} \text{Error}_i$$
+where $\text{Error}_i$ is the error on the $i$-th validation sample.
+
+**Computational Complexity Analysis:**
+
+**Time Complexity:**
+- **Training Time per Model:** $T(n-1)$ where $T(m)$ is time to train on $m$ samples
+- **Total Training Time:** $n \cdot T(n-1)$
+- **Overall Complexity:** $O(n \cdot T(n-1))$
+
+**Space Complexity:**
+- **Storage per Model:** $S(n-1)$ where $S(m)$ is space for model trained on $m$ samples
+- **Total Storage:** $n \cdot S(n-1)$
+- **Overall Complexity:** $O(n \cdot S(n-1))$
+
+**Why LOOCV Becomes Expensive for Large Datasets:**
+
+**1. Linear Scaling with Dataset Size:**
+- Number of models trained = $n$
+- As $n$ increases, computational cost grows linearly
+- For large $n$, this becomes prohibitive
+
+**2. Training Time Growth:**
+- Most algorithms have super-linear training time
+- $T(n-1) = O((n-1)^p)$ where $p > 1$
+- Total time becomes $O(n \cdot (n-1)^p) = O(n^{p+1})$
+
+**3. Memory Requirements:**
+- Need to store $n$ models simultaneously
+- Memory grows linearly with dataset size
+- May exceed available RAM for large datasets
+
+**Practical Examples:**
+
+**Small Dataset (n = 100):**
+- Models to train: 100
+- Training time: $100 \cdot T(99)$
+- Feasible for most algorithms
+
+**Medium Dataset (n = 1,000):**
+- Models to train: 1,000
+- Training time: $1,000 \cdot T(999)$
+- May be slow but feasible
+
+**Large Dataset (n = 100,000):**
+- Models to train: 100,000
+- Training time: $100,000 \cdot T(99,999)$
+- Often computationally infeasible
+
+**Comparison with K-Fold CV:**
+
+**K-Fold Cross-Validation:**
+- Models to train: $K$ (typically 5 or 10)
+- Training time: $K \cdot T(\frac{K-1}{K} \cdot n)$
+- Much more scalable
+
+**Example Comparison:**
+For $n = 10,000$:
+- **LOOCV:** 10,000 models
+- **5-Fold CV:** 5 models
+- **10-Fold CV:** 10 models
+
+**Alternative Approaches for Large Datasets:**
+
+**1. K-Fold Cross-Validation:**
+- Use $K = 5$ or $K = 10$
+- Much faster than LOOCV
+- Still provides good error estimates
+
+**2. Stratified Sampling:**
+- Use LOOCV on a representative subset
+- Maintains statistical properties
+- Reduces computational cost
+
+**3. Monte Carlo Cross-Validation:**
+- Randomly sample validation sets
+- More flexible than fixed folds
+- Can control computational cost
+
+**4. Holdout Validation:**
+- Single train/validation split
+- Fastest approach
+- Less reliable than cross-validation
+
+**When to Use LOOCV:**
+
+**Advantages:**
+- **Unbiased Estimate:** Uses all data for training
+- **Low Variance:** Many validation sets
+- **No Randomness:** Deterministic results
+
+**Disadvantages:**
+- **High Computational Cost:** Scales linearly with $n$
+- **High Variance:** Single sample validation sets
+- **Memory Intensive:** Stores many models
+
+**Optimal Use Cases:**
+- **Small Datasets:** $n < 1000$
+- **Expensive Data Collection:** When every sample is valuable
+- **Unbiased Estimation Required:** When accuracy is critical
+
+**Key Insights:**
+- LOOCV computational cost grows linearly with dataset size
+- For large datasets, K-fold CV is more practical
+- The choice depends on dataset size and computational resources
+- Understanding scalability is crucial for practical model selection
+- Alternative approaches provide good approximations with lower cost
 
 ## Problem 4: K-Fold Cross-Validation Calculations
 
@@ -62,6 +373,129 @@ For larger datasets, leave-one-out cross validation becomes an extremely expensi
 
 **Explanation:** 
 $5 \times 3 \times 2 \times 7 = 210$
+
+## Detailed Solution Explanation
+
+**Understanding K-Fold Cross-Validation Computational Requirements:**
+
+This problem demonstrates how to calculate the total number of model evaluations needed for hyperparameter tuning using K-fold cross-validation.
+
+**Mathematical Framework:**
+
+**K-Fold Cross-Validation Process:**
+For each hyperparameter combination:
+1. Divide data into $K$ folds
+2. Train $K$ models (each using $K-1$ folds for training)
+3. Evaluate each model on the held-out fold
+4. Average the $K$ validation errors
+
+**Total Number of Model Evaluations:**
+$$\text{Total Evaluations} = \text{Hyperparameter Combinations} \times K$$
+
+**Step-by-Step Calculation:**
+
+**Given Parameters:**
+- **Hyperparameter $\alpha$:** 5 candidate values
+- **Hyperparameter $\beta$:** 3 candidate values  
+- **Hyperparameter $\gamma$:** 2 candidate values
+- **Cross-validation folds:** $K = 7$
+
+**1. Calculate Hyperparameter Combinations:**
+$$\text{Combinations} = |\alpha| \times |\beta| \times |\gamma| = 5 \times 3 \times 2 = 30$$
+
+**2. Calculate Total Model Evaluations:**
+$$\text{Total Evaluations} = \text{Combinations} \times K = 30 \times 7 = 210$$
+
+**Verification:**
+- Each of the 30 hyperparameter combinations requires 7 model trainings
+- Total: $30 \times 7 = 210$ model evaluations
+
+**Visual Representation:**
+
+**Hyperparameter Grid:**
+```
+α₁,β₁,γ₁  α₁,β₁,γ₂  α₁,β₂,γ₁  α₁,β₂,γ₂  α₁,β₃,γ₁  α₁,β₃,γ₂
+α₂,β₁,γ₁  α₂,β₁,γ₂  α₂,β₂,γ₁  α₂,β₂,γ₂  α₂,β₃,γ₁  α₂,β₃,γ₂
+α₃,β₁,γ₁  α₃,β₁,γ₂  α₃,β₂,γ₁  α₃,β₂,γ₂  α₃,β₃,γ₁  α₃,β₃,γ₂
+α₄,β₁,γ₁  α₄,β₁,γ₂  α₄,β₂,γ₁  α₄,β₂,γ₂  α₄,β₃,γ₁  α₄,β₃,γ₂
+α₅,β₁,γ₁  α₅,β₁,γ₂  α₅,β₂,γ₁  α₅,β₂,γ₂  α₅,β₃,γ₁  α₅,β₃,γ₂
+```
+
+**For Each Combination:**
+```
+Fold 1: Train on folds 2-7, validate on fold 1
+Fold 2: Train on folds 1,3-7, validate on fold 2
+Fold 3: Train on folds 1-2,4-7, validate on fold 3
+Fold 4: Train on folds 1-3,5-7, validate on fold 4
+Fold 5: Train on folds 1-4,6-7, validate on fold 5
+Fold 6: Train on folds 1-5,7, validate on fold 6
+Fold 7: Train on folds 1-6, validate on fold 7
+```
+
+**Computational Complexity Analysis:**
+
+**Time Complexity:**
+- **Per Model Training:** $T(n)$ where $n$ is dataset size
+- **Per Combination:** $K \times T(n)$
+- **Total Time:** $|\alpha| \times |\beta| \times |\gamma| \times K \times T(n)$
+
+**Space Complexity:**
+- **Per Model:** $S(n)$ where $S(n)$ is space for model
+- **Total Space:** $K \times S(n)$ (need to store $K$ models simultaneously)
+
+**Why Other Options Are Incorrect:**
+
+**Option A: "Cannot be determined"**
+- **Contradiction:** We have all necessary information
+- **Reality:** The calculation is straightforward
+
+**Option B: 10**
+- **Contradiction:** This would be $|\alpha| + |\beta| + |\gamma| + K$
+- **Reality:** We need the product, not the sum
+
+**Option C: 96**
+- **Contradiction:** This might be $|\alpha| \times |\beta| \times |\gamma| \times (K-1)$
+- **Reality:** We need all $K$ folds for each combination
+
+**Option E: 30**
+- **Contradiction:** This is just the number of hyperparameter combinations
+- **Reality:** We need to multiply by $K$ for cross-validation
+
+**Practical Implications:**
+
+**Computational Cost:**
+- 210 model evaluations can be expensive
+- May require parallel processing
+- Could take hours or days depending on model complexity
+
+**Optimization Strategies:**
+
+**1. Grid Search Optimization:**
+- Use fewer hyperparameter values
+- Use smaller $K$ (e.g., 5 instead of 7)
+- Use early stopping for poor combinations
+
+**2. Random Search:**
+- Sample random hyperparameter combinations
+- Often more efficient than grid search
+- Can find good solutions with fewer evaluations
+
+**3. Bayesian Optimization:**
+- Use probabilistic models to guide search
+- More efficient than random search
+- Requires fewer evaluations
+
+**4. Parallel Processing:**
+- Train multiple models simultaneously
+- Reduces wall-clock time
+- Requires sufficient computational resources
+
+**Key Insights:**
+- The total number of evaluations is the product of hyperparameter combinations and K
+- This can become computationally expensive quickly
+- Understanding this scaling is crucial for practical hyperparameter tuning
+- Alternative search strategies can reduce computational cost
+- The choice of K affects both accuracy and computational cost
 
 ## Problem 5: Maximum Likelihood Estimation - Exponential Distribution
 
