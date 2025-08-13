@@ -1,6 +1,6 @@
 # Practice 6 Solutions
 
-**1. In a machine learning classification problem, you have a dataset with two classes: Positive (P) and Negative (N). The probability of a randomly selected sample being Negative is 0.6. The probability of a correct classification given that the sample is Positive is 0.8, and the probability of a correct classification given that the sample is Negative is 0.6. What is the probability that a randomly selected sample is Positive given that it has been classified as Positive?**
+**Problem 1. In a machine learning classification problem, you have a dataset with two classes: Positive (P) and Negative (N). The probability of a randomly selected sample being Negative is 0.6. The probability of a correct classification given that the sample is Positive is 0.8, and the probability of a correct classification given that the sample is Negative is 0.6. What is the probability that a randomly selected sample is Positive given that it has been classified as Positive?**
 
 *   (a) $\frac{4}{7}$
 *   (b) $\frac{8}{17}$
@@ -53,7 +53,7 @@ $P(P|CP) = \frac{(0.8)(0.4)}{0.56} = \frac{0.32}{0.56} = \frac{32}{56} = \frac{4
 
 ---
 
-**2. What is NOT true in the following statements?**
+**Problem 2. What is NOT true in the following statements?**
 
 **The optimal weight $\hat{W}$ is given by the formula:**
 $$\hat{W} = (X^T X + \lambda I)^{-1} X^T Y$$
@@ -123,7 +123,7 @@ A fresh graduate of CSE 446 is helping a biologist friend model the relationship
 
 <img src="./experiment.png" width="350px">
 
-**3. Based on the scatter plot above, which of the following statements is most likely to be true?**
+**Problem 3. Based on the scatter plot above, which of the following statements is most likely to be true?**
 
 *   (a) The relationship between $x$ and $y$ is linear across all time blocks.
 *   (b) The relationship between $x$ and $y$ is non-linear and follows a piecewise pattern.
@@ -175,7 +175,7 @@ A fresh graduate of CSE 446 is helping a biologist friend model the relationship
 
 ---
 
-**4. If you were to fit a linear regression model to this data, which of the following would be the most appropriate approach?**
+**Problem 4. If you were to fit a linear regression model to this data, which of the following would be the most appropriate approach?**
 
 *   (a) Fit a single linear model to all the data points.
 *   (b) Fit separate linear models for each time block (A, B, C).
@@ -232,7 +232,7 @@ A fresh graduate of CSE 446 is helping a biologist friend model the relationship
 
 ---
 
-**5. Consider a binary classification problem where you want to predict whether a customer will buy a product (class 1) or not (class 0). You have the following confusion matrix:**
+**Problem 5. Consider a binary classification problem where you want to predict whether a customer will buy a product (class 1) or not (class 0). You have the following confusion matrix:**
 
 |                | Predicted 0 | Predicted 1 |
 |----------------|-------------|-------------|
@@ -285,7 +285,7 @@ $\text{Precision} = \frac{90}{90 + 20} = \frac{90}{110} = \frac{9}{11} \approx 0
 
 ---
 
-**6. In the context of the same confusion matrix from question 5, what is the recall (sensitivity) of the classifier?**
+**Problem 6. In the context of the same confusion matrix from question 5, what is the recall (sensitivity) of the classifier?**
 
 *   (a) 0.75
 *   (b) 0.80
@@ -331,7 +331,7 @@ $\text{Recall} = \frac{90}{90 + 10} = \frac{90}{100} = 0.90$
 
 ---
 
-**7. A machine learning model has a training accuracy of 95% and a validation accuracy of 70%. This is most likely an example of:**
+**Problem 7. A machine learning model has a training accuracy of 95% and a validation accuracy of 70%. This is most likely an example of:**
 
 *   (a) Underfitting
 *   (b) Overfitting
@@ -391,7 +391,7 @@ $\text{Recall} = \frac{90}{90 + 10} = \frac{90}{100} = 0.90$
 
 ---
 
-**8. Which of the following regularization techniques is most effective for feature selection?**
+**Problem 8. Which of the following regularization techniques is most effective for feature selection?**
 
 *   (a) L1 regularization (Lasso)
 *   (b) L2 regularization (Ridge)
@@ -461,7 +461,7 @@ $\text{Recall} = \frac{90}{90 + 10} = \frac{90}{100} = 0.90$
 
 ---
 
-**9. In cross-validation, what is the main advantage of using k-fold cross-validation over leave-one-out cross-validation?**
+**Problem 9. In cross-validation, what is the main advantage of using k-fold cross-validation over leave-one-out cross-validation?**
 
 *   (a) It's computationally faster
 *   (b) It provides better estimates of model performance
@@ -534,7 +534,7 @@ $\text{Recall} = \frac{90}{90 + 10} = \frac{90}{100} = 0.90$
 
 ---
 
-**10. Which of the following is NOT a valid reason for standardizing features before training a machine learning model?**
+**Problem 10. Which of the following is NOT a valid reason for standardizing features before training a machine learning model?**
 
 *   (a) To ensure all features have the same scale
 *   (b) To improve convergence speed of gradient descent
@@ -600,7 +600,7 @@ $\text{Recall} = \frac{90}{90 + 10} = \frac{90}{100} = 0.90$
 
 ---
 
-**11. In a neural network, what is the primary purpose of the activation function?**
+**Problem 11. In a neural network, what is the primary purpose of the activation function?**
 
 *   (a) To increase the number of parameters
 *   (b) To introduce non-linearity into the model
@@ -676,7 +676,7 @@ $\text{Recall} = \frac{90}{90 + 10} = \frac{90}{100} = 0.90$
 
 ---
 
-**12. Which of the following loss functions is most appropriate for binary classification?**
+**Problem 12. Which of the following loss functions is most appropriate for binary classification?**
 
 *   (a) Mean Squared Error (MSE)
 *   (b) Binary Cross-Entropy
@@ -757,7 +757,7 @@ $L_{\text{MAE}} = |y - p|$
 
 ---
 
-**13. What is the main difference between Stochastic Gradient Descent (SGD) and Batch Gradient Descent?**
+**Problem 13. What is the main difference between Stochastic Gradient Descent (SGD) and Batch Gradient Descent?**
 
 *   (a) SGD uses momentum while Batch GD does not
 *   (b) SGD updates parameters using a single sample while Batch GD uses all samples
@@ -841,7 +841,7 @@ $L_{\text{MAE}} = |y - p|$
 
 ---
 
-**14. In the context of machine learning, what does the term "bias" refer to?**
+**Problem 14. In the context of machine learning, what does the term "bias" refer to?**
 
 *   (a) The difference between predicted and actual values
 *   (b) The systematic error that occurs when a model is too simple
@@ -919,7 +919,7 @@ $L_{\text{MAE}} = |y - p|$
 
 ---
 
-**15. Which of the following is a valid approach to handle imbalanced datasets?**
+**Problem 15. Which of the following is a valid approach to handle imbalanced datasets?**
 
 *   (a) Always use accuracy as the evaluation metric
 *   (b) Use techniques like SMOTE or class weights
@@ -997,7 +997,7 @@ $L_{\text{MAE}} = |y - p|$
 
 ---
 
-**16. What is the primary purpose of the validation set in machine learning?**
+**Problem 16. What is the primary purpose of the validation set in machine learning?**
 
 *   (a) To train the final model
 *   (b) To evaluate model performance during training
@@ -1085,7 +1085,7 @@ $L_{\text{MAE}} = |y - p|$
 
 ---
 
-**17. In the context of decision trees, what does "pruning" refer to?**
+**Problem 17. In the context of decision trees, what does "pruning" refer to?**
 
 *   (a) Adding more branches to the tree
 *   (b) Removing branches to prevent overfitting
@@ -1176,7 +1176,7 @@ $C_\alpha(T) = C(T) + \alpha|T|$
 
 ---
 
-**18. Which of the following is NOT a common hyperparameter for a neural network?**
+**Problem 18. Which of the following is NOT a common hyperparameter for a neural network?**
 
 *   (a) Learning rate
 *   (b) Number of layers
@@ -1259,7 +1259,7 @@ $C_\alpha(T) = C(T) + \alpha|T|$
 
 ---
 
-**19. What is the main advantage of using ensemble methods like Random Forest?**
+**Problem 19. What is the main advantage of using ensemble methods like Random Forest?**
 
 *   (a) They are always more accurate than single models
 *   (b) They reduce overfitting through averaging
@@ -1355,7 +1355,7 @@ $\text{Var}(\bar{X}) = \frac{\text{Var}(X)}{n}$
 
 ---
 
-**20. In the context of clustering, what does the "elbow method" help determine?**
+**Problem 20. In the context of clustering, what does the "elbow method" help determine?**
 
 *   (a) The optimal number of clusters
 *   (b) The best clustering algorithm
