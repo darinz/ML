@@ -809,6 +809,128 @@ What is the biggest advantage of k-fold cross-validation over Leave-one-out (LOO
 
 **Correct answers:** (c)
 
+**Explanation:**
+
+The correct answer is **(c) - Easier to compute**. Here's the detailed explanation:
+
+**Understanding Cross-Validation Methods:**
+
+**K-Fold Cross-Validation:**
+- Data is divided into $k$ equal parts (folds)
+- Model is trained on $k-1$ folds and validated on the remaining fold
+- This process is repeated $k$ times
+- Results are averaged to get the final performance estimate
+
+**Leave-One-Out (LOO) Cross-Validation:**
+- Special case of k-fold where $k = n$ (number of samples)
+- Each sample serves as the validation set once
+- Model is trained on $n-1$ samples and validated on 1 sample
+- This process is repeated $n$ times
+
+**Computational Complexity Comparison:**
+
+**K-Fold Cross-Validation:**
+- **Number of model trainings**: $k$ times
+- **Training set size**: $\frac{n(k-1)}{k}$ samples per fold
+- **Validation set size**: $\frac{n}{k}$ samples per fold
+- **Total computation**: $O(k \times \text{training time})$
+
+**Leave-One-Out Cross-Validation:**
+- **Number of model trainings**: $n$ times
+- **Training set size**: $n-1$ samples per fold
+- **Validation set size**: $1$ sample per fold
+- **Total computation**: $O(n \times \text{training time})$
+
+**Why K-Fold is Easier to Compute:**
+
+**1. Fewer Model Trainings:**
+- **K-fold**: $k$ trainings (typically $k = 5$ or $10$)
+- **LOO**: $n$ trainings (where $n$ can be very large)
+- **Example**: With $n = 1000$ samples, LOO requires 1000 trainings vs. 10 for 10-fold
+
+**2. Computational Efficiency:**
+- **K-fold**: $O(k \times \text{training time})$
+- **LOO**: $O(n \times \text{training time})$
+- **Ratio**: $\frac{\text{LOO time}}{\text{K-fold time}} = \frac{n}{k}$
+
+**3. Memory Usage:**
+- **K-fold**: Can process folds sequentially, lower memory requirements
+- **LOO**: May require storing all $n$ models simultaneously
+
+**Mathematical Example:**
+
+**Scenario**: $n = 1000$ samples, $k = 10$ for k-fold
+
+**K-Fold Cross-Validation:**
+- Number of trainings: $10$
+- Training set size per fold: $900$ samples
+- Validation set size per fold: $100$ samples
+- Total computation: $10 \times \text{training time}$
+
+**Leave-One-Out Cross-Validation:**
+- Number of trainings: $1000$
+- Training set size per fold: $999$ samples
+- Validation set size per fold: $1$ sample
+- Total computation: $1000 \times \text{training time}$
+
+**Speedup Factor**: $\frac{1000}{10} = 100$ times faster
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - More accurate estimation:**
+- **Problem**: LOO typically provides more accurate estimates
+- **Issue**: LOO uses more training data per fold ($n-1$ vs $\frac{n(k-1)}{k}$)
+- **Result**: LOO is usually more accurate, not k-fold
+
+**Option (b) - Prevents overfitting:**
+- **Problem**: Cross-validation doesn't prevent overfitting
+- **Issue**: It's a model evaluation technique, not a regularization method
+- **Result**: Both methods are evaluation techniques
+
+**Option (d) - Minimizes impact from sample size:**
+- **Problem**: Both methods are affected by sample size
+- **Issue**: LOO is actually more sensitive to sample size
+- **Result**: This is not a distinguishing advantage
+
+**Practical Considerations:**
+
+**When to Use K-Fold:**
+- **Large datasets**: When $n$ is very large
+- **Computational constraints**: Limited time or resources
+- **Quick prototyping**: Need fast model evaluation
+- **Standard practice**: $k = 5$ or $10$ is common
+
+**When to Use LOO:**
+- **Small datasets**: When $n$ is small
+- **Maximum accuracy**: Need the most accurate estimate
+- **Unlimited resources**: Computational cost is not a concern
+- **Research settings**: Where accuracy is paramount
+
+**Trade-offs:**
+
+**K-Fold Advantages:**
+- **Faster computation**: $O(k)$ vs $O(n)$
+- **Lower memory usage**: Sequential processing
+- **Practical for large datasets**: Scales well
+
+**K-Fold Disadvantages:**
+- **Less accurate**: Uses less training data per fold
+- **Higher variance**: Fewer validation samples per fold
+- **Dependent on $k$**: Choice of $k$ affects results
+
+**LOO Advantages:**
+- **More accurate**: Uses maximum training data per fold
+- **Unbiased estimate**: Each sample used exactly once for validation
+- **No parameter choice**: $k$ is automatically determined
+
+**LOO Disadvantages:**
+- **Computationally expensive**: $O(n)$ complexity
+- **High memory usage**: May need to store many models
+- **Impractical for large datasets**: Becomes prohibitively slow
+
+**Conclusion:**
+The biggest advantage of k-fold cross-validation over LOO is that it is **easier to compute**, requiring only $k$ model trainings instead of $n$ trainings, making it much more practical for large datasets.
+
 ## Problem 13
 
 What is the expression for logistic loss? Here $\hat{y}$ is a prediction, and $y$ is the corresponding ground truth label.
@@ -822,6 +944,136 @@ What is the expression for logistic loss? Here $\hat{y}$ is a prediction, and $y
 (d) $\log(1+e^{y\hat{y}})$
 
 **Solution:** The solution is (a).
+
+**Explanation:**
+
+The correct answer is **(a) - $\log(1+e^{-y\hat{y}})$**. Here's the detailed explanation:
+
+**Understanding Logistic Loss:**
+
+**Logistic Loss Definition:**
+The logistic loss (also called log loss or cross-entropy loss) for binary classification is:
+$$L(y, \hat{y}) = \log(1 + e^{-y\hat{y}})$$
+
+where:
+- $y \in \{-1, +1\}$ is the true label
+- $\hat{y} \in \mathbb{R}$ is the predicted score (logit)
+
+**Mathematical Derivation:**
+
+**Step 1: Probability Function**
+The logistic function converts the score $\hat{y}$ to a probability:
+$$P(Y = 1|X) = \frac{1}{1 + e^{-\hat{y}}} = \sigma(\hat{y})$$
+
+**Step 2: Loss for Positive Class ($y = 1$)**
+When $y = 1$, we want $P(Y = 1|X)$ to be high:
+$$L(1, \hat{y}) = -\log P(Y = 1|X) = -\log \frac{1}{1 + e^{-\hat{y}}} = \log(1 + e^{-\hat{y}})$$
+
+**Step 3: Loss for Negative Class ($y = -1$)**
+When $y = -1$, we want $P(Y = 1|X)$ to be low:
+$$L(-1, \hat{y}) = -\log P(Y = -1|X) = -\log \frac{e^{-\hat{y}}}{1 + e^{-\hat{y}}} = \log(1 + e^{\hat{y}})$$
+
+**Step 4: Combined Formula**
+Using the fact that $e^{\hat{y}} = e^{-(-1)\hat{y}}$:
+$$L(y, \hat{y}) = \log(1 + e^{-y\hat{y}})$$
+
+**Properties of Logistic Loss:**
+
+**1. Range:**
+- Minimum: $0$ (when prediction is perfect)
+- Maximum: $\infty$ (when prediction is completely wrong)
+
+**2. Behavior:**
+- **When $y\hat{y} > 0$**: Loss decreases as prediction improves
+- **When $y\hat{y} < 0$**: Loss increases as prediction worsens
+- **When $y\hat{y} = 0$**: Loss equals $\log(2) \approx 0.693$
+
+**3. Smoothness:**
+- Continuous and differentiable everywhere
+- Convex function (good for optimization)
+
+**Why This is Correct:**
+
+**1. Mathematical Consistency:**
+- Properly penalizes incorrect predictions
+- Rewards correct predictions
+- Matches the probabilistic interpretation
+
+**2. Optimization Properties:**
+- Convex function (unique global minimum)
+- Smooth gradients (good for gradient descent)
+- Well-behaved at boundaries
+
+**3. Probabilistic Interpretation:**
+- Directly related to maximum likelihood estimation
+- Consistent with logistic regression framework
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - $-\log(1+e^{-y\hat{y}})$:**
+- **Problem**: Negative sign makes it a reward function, not a loss
+- **Issue**: Would encourage wrong predictions
+- **Result**: Incorrect direction
+
+**Option (c) - $1 + e^{-y\hat{y}}$:**
+- **Problem**: Not a logarithmic function
+- **Issue**: Doesn't have the right mathematical properties
+- **Result**: Not the standard logistic loss
+
+**Option (d) - $\log(1+e^{y\hat{y}})$:**
+- **Problem**: Positive exponent instead of negative
+- **Issue**: Would increase loss for correct predictions
+- **Result**: Incorrect formulation
+
+**Visual Example:**
+
+**Scenario 1: Correct Prediction ($y = 1, \hat{y} = 2$)**
+- $y\hat{y} = 1 \times 2 = 2 > 0$
+- Loss = $\log(1 + e^{-2}) = \log(1 + 0.135) = \log(1.135) \approx 0.127$
+- Low loss (good prediction)
+
+**Scenario 2: Incorrect Prediction ($y = 1, \hat{y} = -1$)**
+- $y\hat{y} = 1 \times (-1) = -1 < 0$
+- Loss = $\log(1 + e^{1}) = \log(1 + 2.718) = \log(3.718) \approx 1.313$
+- High loss (bad prediction)
+
+**Scenario 3: Uncertain Prediction ($y = 1, \hat{y} = 0$)**
+- $y\hat{y} = 1 \times 0 = 0$
+- Loss = $\log(1 + e^{0}) = \log(1 + 1) = \log(2) \approx 0.693$
+- Medium loss (uncertain prediction)
+
+**Relationship to Other Loss Functions:**
+
+**1. Hinge Loss:**
+- $L(y, \hat{y}) = \max(0, 1 - y\hat{y})$
+- Used in support vector machines
+- Less smooth than logistic loss
+
+**2. Zero-One Loss:**
+- $L(y, \hat{y}) = \mathbb{I}[y\hat{y} < 0]$
+- Non-differentiable
+- Not suitable for gradient-based optimization
+
+**3. Squared Loss:**
+- $L(y, \hat{y}) = (y - \hat{y})^2$
+- Not appropriate for classification
+- Doesn't account for probability interpretation
+
+**Optimization Properties:**
+
+**1. Gradient:**
+$$\frac{\partial L}{\partial \hat{y}} = \frac{-y e^{-y\hat{y}}}{1 + e^{-y\hat{y}}} = -y \cdot \frac{1}{1 + e^{y\hat{y}}}$$
+
+**2. Hessian:**
+$$\frac{\partial^2 L}{\partial \hat{y}^2} = \frac{e^{y\hat{y}}}{(1 + e^{y\hat{y}})^2} > 0$$
+
+**3. Convexity:**
+- Second derivative is always positive
+- Ensures unique global minimum
+- Good for optimization algorithms
+
+**Conclusion:**
+The correct expression for logistic loss is **$\log(1+e^{-y\hat{y}})$**, which properly penalizes incorrect predictions and rewards correct predictions in a mathematically consistent way.
 
 ## Problem 14
 
@@ -880,6 +1132,167 @@ What is the output of this network given the current weights and input?
 
 **Correct answers:** (d)
 
+**Explanation:**
+
+The correct answer is **(d) - 9**. Here's the detailed step-by-step explanation:
+
+**Understanding the CNN Architecture:**
+
+**Network Components:**
+1. **Layer 1**: 2D convolutional layer with 2 kernels (2×2), stride 2, no padding
+2. **Layer 2**: Max pooling layer (2×2), stride 2
+3. **Layer 3**: 2D convolutional layer with 1 kernel (1×1), stride 1, no padding
+
+**Step-by-Step Computation:**
+
+**Step 1: Input Layer**
+Input matrix: $4 \times 4$
+$$
+\begin{pmatrix}
+1 & 3 & 0 & 3 \\
+2 & 0 & 1 & 4 \\
+7 & 1 & 6 & 2 \\
+5 & 2 & 5 & 0
+\end{pmatrix}
+$$
+
+**Step 2: Layer 1 - Convolutional Layer**
+
+**Kernel 1:**
+$$
+\begin{pmatrix}
+-1 & 1 \\
+-1 & 1
+\end{pmatrix}
+$$
+
+**Kernel 2:**
+$$
+\begin{pmatrix}
+1 & 1 \\
+-1 & -1
+\end{pmatrix}
+$$
+
+**Convolution Operation with Stride 2:**
+- Kernel size: $2 \times 2$
+- Stride: $2$
+- Output size: $\frac{4 - 2}{2} + 1 = 2$ (both height and width)
+
+**Feature Map 1 (Kernel 1):**
+- Position (0,0): $(-1 \times 1) + (1 \times 3) + (-1 \times 2) + (1 \times 0) = -1 + 3 - 2 + 0 = 0$
+- Position (0,1): $(-1 \times 0) + (1 \times 3) + (-1 \times 1) + (1 \times 4) = 0 + 3 - 1 + 4 = 6$
+- Position (1,0): $(-1 \times 7) + (1 \times 1) + (-1 \times 5) + (1 \times 2) = -7 + 1 - 5 + 2 = -9$
+- Position (1,1): $(-1 \times 6) + (1 \times 2) + (-1 \times 5) + (1 \times 0) = -6 + 2 - 5 + 0 = -9$
+
+Feature Map 1:
+$$
+\begin{pmatrix}
+0 & 6 \\
+-9 & -9
+\end{pmatrix}
+$$
+
+**Feature Map 2 (Kernel 2):**
+- Position (0,0): $(1 \times 1) + (1 \times 3) + (-1 \times 2) + (-1 \times 0) = 1 + 3 - 2 - 0 = 2$
+- Position (0,1): $(1 \times 0) + (1 \times 3) + (-1 \times 1) + (-1 \times 4) = 0 + 3 - 1 - 4 = -2$
+- Position (1,0): $(1 \times 7) + (1 \times 1) + (-1 \times 5) + (-1 \times 2) = 7 + 1 - 5 - 2 = 1$
+- Position (1,1): $(1 \times 6) + (1 \times 2) + (-1 \times 5) + (-1 \times 0) = 6 + 2 - 5 - 0 = 3$
+
+Feature Map 2:
+$$
+\begin{pmatrix}
+2 & -2 \\
+1 & 3
+\end{pmatrix}
+$$
+
+**Layer 1 Output:** Two $2 \times 2$ feature maps
+
+**Step 3: Layer 2 - Max Pooling Layer**
+
+**Max Pooling Operation:**
+- Pool size: $2 \times 2$
+- Stride: $2$
+- Output size: $\frac{2 - 2}{2} + 1 = 1$ (both height and width)
+
+**Pooling Feature Map 1:**
+- Input: $\begin{pmatrix} 0 & 6 \\ -9 & -9 \end{pmatrix}$
+- Max value: $\max(0, 6, -9, -9) = 6$
+
+**Pooling Feature Map 2:**
+- Input: $\begin{pmatrix} 2 & -2 \\ 1 & 3 \end{pmatrix}$
+- Max value: $\max(2, -2, 1, 3) = 3$
+
+**Layer 2 Output:** Two scalar values: $[6, 3]$
+
+**Step 4: Layer 3 - Final Convolutional Layer**
+
+**Kernel:** $1 \times 1$ kernel operating on 2 channels
+- The kernel has weights $[1, 1]$ for the two input channels
+- Input: $[6, 3]$ (from pooling layer)
+- Output: $(1 \times 6) + (1 \times 3) = 6 + 3 = 9$
+
+**Final Output:** $9$
+
+**Mathematical Verification:**
+
+**Layer 1 Convolution:**
+For a $2 \times 2$ kernel with stride 2 on a $4 \times 4$ input:
+- Number of valid positions: $\frac{4 - 2}{2} + 1 = 2$
+- Output size: $2 \times 2$
+
+**Layer 2 Pooling:**
+For a $2 \times 2$ max pooling with stride 2 on a $2 \times 2$ input:
+- Number of valid positions: $\frac{2 - 2}{2} + 1 = 1$
+- Output size: $1 \times 1$ per channel
+
+**Layer 3 Convolution:**
+For a $1 \times 1$ kernel on $1 \times 1$ inputs:
+- Output: Weighted sum of input channels
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - 0:**
+- **Problem**: Incorrect computation in convolution or pooling
+- **Issue**: Would require all intermediate values to be zero
+- **Result**: Mathematically impossible with given kernels
+
+**Option (b) - 4.5:**
+- **Problem**: Incorrect final computation
+- **Issue**: Would require average of 6 and 3, not sum
+- **Result**: Wrong mathematical operation
+
+**Option (c) - 8:**
+- **Problem**: Incorrect computation in any layer
+- **Issue**: Could result from arithmetic error
+- **Result**: Not the correct final value
+
+**Key Concepts Demonstrated:**
+
+**1. Convolutional Operations:**
+- Element-wise multiplication and summation
+- Stride effects on output size
+- Multiple kernel processing
+
+**2. Pooling Operations:**
+- Max pooling reduces spatial dimensions
+- Preserves important features
+- Reduces computational complexity
+
+**3. Multi-Channel Processing:**
+- Each kernel produces one feature map
+- Channels are processed independently
+- Final layer combines channels
+
+**4. Dimensionality Reduction:**
+- $4 \times 4 \rightarrow 2 \times 2 \rightarrow 1 \times 1 \rightarrow$ scalar
+- Each layer reduces spatial dimensions
+- Information is preserved through feature extraction
+
+**Conclusion:**
+The output of this CNN is **9**, which is the result of applying the three-layer architecture with the specified kernels and operations.
+
 ## Problem 15
 
 True/False: Given a set of points in a $d$-dimensional space, using PCA to reduce the dataset to $d' < d$ dimensions will **always** lead to loss of information.
@@ -890,6 +1303,166 @@ True/False: Given a set of points in a $d$-dimensional space, using PCA to reduc
 
 **Correct answers:** (b)
 
+**Explanation:**
+
+The correct answer is **(b) - False**. Here's the detailed explanation:
+
+**Understanding PCA and Information Loss:**
+
+**Principal Component Analysis (PCA):**
+PCA is a dimensionality reduction technique that transforms data into a new coordinate system where the greatest variance lies on the first coordinate (first principal component), the second greatest variance on the second coordinate, and so on.
+
+**Mathematical Foundation:**
+
+**1. Data Representation:**
+- Original data: $X \in \mathbb{R}^{n \times d}$ (n samples, d dimensions)
+- Centered data: $\tilde{X} = X - \mu$ (subtract mean)
+- Covariance matrix: $C = \frac{1}{n}\tilde{X}^T\tilde{X}$
+
+**2. Eigenvalue Decomposition:**
+- $C = V\Lambda V^T$
+- $V$: eigenvectors (principal components)
+- $\Lambda$: diagonal matrix of eigenvalues
+
+**3. Dimensionality Reduction:**
+- Project data onto first $d'$ principal components
+- Reduced data: $X' = XV_{:d'}$
+- Where $V_{:d'}$ contains first $d'$ eigenvectors
+
+**When Information Loss Occurs:**
+
+**1. Non-Zero Eigenvalues:**
+- If all eigenvalues are non-zero, reducing dimensions will cause information loss
+- The amount of variance explained by removed components is lost
+
+**2. Linear Dependencies:**
+- If some eigenvalues are zero, corresponding dimensions contain no information
+- Removing these dimensions causes no information loss
+
+**3. Perfect Correlations:**
+- If some features are perfectly correlated, one can be removed without loss
+- Example: If $X_2 = 2X_1$, then $X_2$ provides no additional information
+
+**Mathematical Example:**
+
+**Scenario 1: No Information Loss**
+Consider data with perfect correlation:
+$$
+X = \begin{pmatrix}
+1 & 2 \\
+2 & 4 \\
+3 & 6 \\
+4 & 8
+\end{pmatrix}
+$$
+
+**Covariance Matrix:**
+$$
+C = \begin{pmatrix}
+1.25 & 2.5 \\
+2.5 & 5
+\end{pmatrix}
+$$
+
+**Eigenvalues:**
+- $\lambda_1 = 6.25$ (explains 100% of variance)
+- $\lambda_2 = 0$ (explains 0% of variance)
+
+**Result:** Reducing to 1 dimension causes **no information loss** because the second component has zero variance.
+
+**Scenario 2: Information Loss**
+Consider uncorrelated data:
+$$
+X = \begin{pmatrix}
+1 & 1 \\
+2 & 3 \\
+3 & 2 \\
+4 & 4
+\end{pmatrix}
+$$
+
+**Covariance Matrix:**
+$$
+C = \begin{pmatrix}
+1.25 & 0.5 \\
+0.5 & 1.25
+\end{pmatrix}
+$$
+
+**Eigenvalues:**
+- $\lambda_1 = 1.75$ (explains 70% of variance)
+- $\lambda_2 = 0.75$ (explains 30% of variance)
+
+**Result:** Reducing to 1 dimension causes **information loss** of 30% of the variance.
+
+**Why the Statement is False:**
+
+**1. Perfect Correlations:**
+- When features are perfectly correlated, one dimension is redundant
+- Removing redundant dimensions causes no information loss
+- Example: Height in inches vs. height in centimeters
+
+**2. Zero Variance Dimensions:**
+- If a dimension has zero variance, it contains no information
+- Removing such dimensions preserves all information
+- Example: Constant features
+
+**3. Linear Dependencies:**
+- When some features are linear combinations of others
+- Removing dependent features causes no information loss
+- Example: $X_3 = X_1 + X_2$
+
+**Mathematical Verification:**
+
+**Information Preservation Criterion:**
+Information is preserved if:
+$$\frac{\sum_{i=1}^{d'} \lambda_i}{\sum_{i=1}^{d} \lambda_i} = 1$$
+
+This occurs when:
+- All eigenvalues $\lambda_{d'+1}, \ldots, \lambda_d = 0$
+- Or when the data lies exactly in a $d'$-dimensional subspace
+
+**Practical Examples:**
+
+**Example 1: No Loss (Perfect Correlation)**
+- Features: Temperature in Celsius and Fahrenheit
+- Relationship: $F = \frac{9}{5}C + 32$
+- PCA reduction: No information loss
+
+**Example 2: Loss (Independent Features)**
+- Features: Height and Weight
+- Relationship: Independent variables
+- PCA reduction: Some information loss
+
+**Example 3: No Loss (Constant Feature)**
+- Features: Height, Weight, and a constant feature
+- Relationship: One feature is constant
+- PCA reduction: No information loss
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - True:**
+- **Problem**: Assumes all dimensions contain unique information
+- **Issue**: Ignores cases of perfect correlation or zero variance
+- **Result**: Incorrect generalization
+
+**Key Insights:**
+
+**1. Information vs. Dimensions:**
+- Information loss depends on data structure, not just dimension reduction
+- Perfect correlations allow lossless compression
+
+**2. Variance as Information:**
+- Zero variance dimensions contain no information
+- Removing them preserves all information
+
+**3. Linear Dependencies:**
+- Dependent features provide redundant information
+- Removing dependencies causes no loss
+
+**Conclusion:**
+PCA dimensionality reduction does **not always** lead to information loss. When data has perfect correlations, zero variance dimensions, or linear dependencies, reducing dimensions can preserve all information. The statement is **False**.
+
 ## Problem 16
 
 True/False: The bootstrap method can be applied to both regression and classification questions.
@@ -899,6 +1472,187 @@ True/False: The bootstrap method can be applied to both regression and classific
 (b) False
 
 **Correct answers:** (a)
+
+**Explanation:**
+
+The correct answer is **(a) - True**. Here's the detailed explanation:
+
+**Understanding the Bootstrap Method:**
+
+**Bootstrap Definition:**
+The bootstrap is a resampling technique that involves drawing samples with replacement from the original dataset to estimate the sampling distribution of a statistic.
+
+**Mathematical Foundation:**
+
+**1. Bootstrap Process:**
+- Original dataset: $X = \{x_1, x_2, \ldots, x_n\}$
+- Bootstrap sample: $X^* = \{x_1^*, x_2^*, \ldots, x_n^*\}$ (drawn with replacement)
+- Multiple bootstrap samples: $X_1^*, X_2^*, \ldots, X_B^*$
+
+**2. Statistic Estimation:**
+- Original statistic: $\hat{\theta} = f(X)$
+- Bootstrap statistics: $\hat{\theta}_1^* = f(X_1^*), \hat{\theta}_2^* = f(X_2^*), \ldots, \hat{\theta}_B^* = f(X_B^*)$
+- Bootstrap distribution: Empirical distribution of $\{\hat{\theta}_1^*, \hat{\theta}_2^*, \ldots, \hat{\theta}_B^*\}$
+
+**Bootstrap for Regression:**
+
+**1. Linear Regression Example:**
+- Model: $y_i = \beta_0 + \beta_1 x_i + \epsilon_i$
+- Original estimate: $\hat{\beta} = (X^TX)^{-1}X^Ty$
+- Bootstrap estimate: $\hat{\beta}^* = (X^{*T}X^*)^{-1}X^{*T}y^*$
+
+**2. Bootstrap Confidence Intervals:**
+- Sort bootstrap estimates: $\hat{\beta}_1^* \leq \hat{\beta}_2^* \leq \ldots \leq \hat{\beta}_B^*$
+- 95% confidence interval: $[\hat{\beta}_{0.025B}^*, \hat{\beta}_{0.975B}^*]$
+
+**3. Standard Error Estimation:**
+$$\text{SE}(\hat{\beta}) = \sqrt{\frac{1}{B-1}\sum_{b=1}^B (\hat{\beta}_b^* - \bar{\beta}^*)^2}$$
+
+**Bootstrap for Classification:**
+
+**1. Classification Accuracy:**
+- Original accuracy: $\text{Acc} = \frac{1}{n}\sum_{i=1}^n \mathbb{I}[y_i = \hat{y}_i]$
+- Bootstrap accuracy: $\text{Acc}_b^* = \frac{1}{n}\sum_{i=1}^n \mathbb{I}[y_i^* = \hat{y}_i^*]$
+
+**2. ROC Curve Bootstrap:**
+- Original ROC: Based on original predictions
+- Bootstrap ROC: Based on bootstrap predictions
+- Confidence bands: Multiple bootstrap ROC curves
+
+**3. Precision/Recall Bootstrap:**
+- Original metrics: Precision, Recall, F1-score
+- Bootstrap metrics: Distribution of these metrics across bootstrap samples
+
+**Mathematical Example:**
+
+**Regression Bootstrap:**
+Consider simple linear regression with data:
+$$(x_1, y_1) = (1, 2), (x_2, y_2) = (2, 4), (x_3, y_3) = (3, 5)$$
+
+**Original Estimate:**
+$$\hat{\beta}_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2} = 1.5$$
+
+**Bootstrap Sample 1:** $(1,2), (1,2), (3,5)$
+$$\hat{\beta}_1^* = 1.5$$
+
+**Bootstrap Sample 2:** $(2,4), (3,5), (2,4)$
+$$\hat{\beta}_1^* = 1.0$$
+
+**Bootstrap Sample 3:** $(1,2), (2,4), (1,2)$
+$$\hat{\beta}_1^* = 2.0$$
+
+**Bootstrap Distribution:** $\{1.5, 1.0, 2.0, \ldots\}$
+
+**Classification Bootstrap:**
+Consider binary classification with data:
+$$(x_1, y_1) = (1, 0), (x_2, y_2) = (2, 1), (x_3, y_3) = (3, 1)$$
+
+**Original Accuracy:** $\text{Acc} = \frac{2}{3} = 0.67$
+
+**Bootstrap Sample 1:** $(1,0), (1,0), (3,1)$
+$$\text{Acc}_1^* = \frac{1}{3} = 0.33$$
+
+**Bootstrap Sample 2:** $(2,1), (3,1), (2,1)$
+$$\text{Acc}_2^* = \frac{3}{3} = 1.0$$
+
+**Bootstrap Sample 3:** $(1,0), (2,1), (1,0)$
+$$\text{Acc}_3^* = \frac{1}{3} = 0.33$$
+
+**Bootstrap Distribution:** $\{0.33, 1.0, 0.33, \ldots\}$
+
+**Why Bootstrap Works for Both:**
+
+**1. General Applicability:**
+- Bootstrap is a **general resampling method**
+- It doesn't depend on the specific type of problem
+- Works with any statistic or estimator
+
+**2. No Distributional Assumptions:**
+- Doesn't require normal distributions
+- Works with any underlying data distribution
+- Non-parametric approach
+
+**3. Flexibility:**
+- Can estimate any statistic: mean, median, correlation, etc.
+- Works with any model: linear, non-linear, neural networks
+- Applicable to any metric: accuracy, precision, recall, MSE, etc.
+
+**Practical Applications:**
+
+**Regression Applications:**
+1. **Confidence Intervals**: For regression coefficients
+2. **Standard Errors**: For parameter estimates
+3. **Prediction Intervals**: For new observations
+4. **Model Comparison**: Comparing different models
+5. **Variable Selection**: Assessing importance of features
+
+**Classification Applications:**
+1. **Accuracy Estimation**: Confidence intervals for accuracy
+2. **ROC Analysis**: Confidence bands for ROC curves
+3. **Precision/Recall**: Distribution of these metrics
+4. **Model Comparison**: Comparing classifiers
+5. **Feature Importance**: Assessing feature contributions
+
+**Advantages of Bootstrap:**
+
+**1. No Assumptions:**
+- Doesn't require normal distributions
+- Works with small sample sizes
+- Robust to outliers
+
+**2. Flexibility:**
+- Can estimate any statistic
+- Works with complex models
+- Easy to implement
+
+**3. Accuracy:**
+- Often more accurate than asymptotic methods
+- Provides good approximations for small samples
+- Handles complex dependencies
+
+**Limitations:**
+
+**1. Computational Cost:**
+- Requires multiple resampling
+- Can be computationally expensive
+- May need many bootstrap samples
+
+**2. Sample Size Requirements:**
+- Needs sufficient original data
+- May not work well with very small samples
+- Requires representative sampling
+
+**3. Dependence Structure:**
+- Assumes independent observations
+- May not work well with time series
+- Requires careful consideration of data structure
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - False:**
+- **Problem**: Incorrectly assumes bootstrap is limited to specific problem types
+- **Issue**: Bootstrap is a general method applicable to any statistical problem
+- **Result**: Misunderstands the universality of bootstrap
+
+**Key Insights:**
+
+**1. Universality:**
+- Bootstrap is a general statistical method
+- Works with any type of data and problem
+- Not limited to specific domains
+
+**2. Flexibility:**
+- Can estimate any statistic or parameter
+- Works with any model or algorithm
+- Applicable to any performance metric
+
+**3. Robustness:**
+- Makes few assumptions about data
+- Works well with small samples
+- Provides reliable estimates
+
+**Conclusion:**
+The bootstrap method **can be applied to both regression and classification questions**. It is a general resampling technique that works with any statistical problem, making it a versatile tool for estimating sampling distributions, confidence intervals, and standard errors across different types of machine learning tasks. The statement is **True**.
 
 ## Problem 17
 
