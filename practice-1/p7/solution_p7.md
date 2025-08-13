@@ -1,6 +1,6 @@
 # Practice 7 Solutions
 
-**1. In a machine learning classification problem, you have a dataset with two classes: Positive (P) and Negative (N). The probability of a randomly selected sample being Positive is $3/5$. The probability of a correct classification given that the sample is Positive is $4/5$, and the probability of a correct classification given that the sample is Negative is $7/10$. What is the probability that a randomly selected sample is Positive given that it has been classified as Positive? One Answer**
+**Problem 1. In a machine learning classification problem, you have a dataset with two classes: Positive (P) and Negative (N). The probability of a randomly selected sample being Positive is $3/5$. The probability of a correct classification given that the sample is Positive is $4/5$, and the probability of a correct classification given that the sample is Negative is $7/10$. What is the probability that a randomly selected sample is Positive given that it has been classified as Positive? One Answer**
 
 *   (a) $\frac{4}{5}$
 *   (b) $\frac{12}{25}$
@@ -9,7 +9,7 @@
 
 **Correct answers:** (a)
 
-**2. Which of the following statements must be true for a square matrix A to have an inverse matrix $A^{-1}$?**
+**Problem 2. Which of the following statements must be true for a square matrix A to have an inverse matrix $A^{-1}$?**
 
 *   (a) A must be symmetric.
 *   (b) The rank of A is less than its number of columns.
@@ -20,7 +20,7 @@
 
 **Explanation:** A square matrix is invertible if and only if its determinant is non-zero, which is a fundamental theorem in linear algebra. Thus, choice (d) is correct. However, even if we forgot this fundamental theorems, we can use process-of-elimination. The symmetry of A has nothing to do with its inverse: imagine if A was all 0s; it's of course symmetric, but certainly non-invertible. Choices (b) and (c) being true would mean A has linearly dependent rows or columns, which cannot result in an invertible matrix.
 
-**3. Consider the following system of linear equations:**
+**Problem 3. Consider the following system of linear equations:**
 
 $$2x + 3y = 16$$
 $$4x + 6y = 32$$
@@ -36,7 +36,7 @@ $$4x + 6y = 32$$
 
 **Explanation:** The second equation is a multiple of the first, meaning they are linearly dependent and represent the same line. Since they are the same line, they intersect at every point, leading to an infinite number of solutions.
 
-**4. For any function $f: \mathbb{R}^n \to \mathbb{R}$, the gradient is defined as:**
+**Problem 4. For any function $f: \mathbb{R}^n \to \mathbb{R}$, the gradient is defined as:**
 
 $$\nabla_w f(w) = \left[ \frac{\partial f(w)}{\partial w_1} \quad \dots \quad \frac{\partial f(w)}{\partial w_n} \right]^T$$
 
@@ -49,7 +49,7 @@ $$\nabla_w f(w) = \left[ \frac{\partial f(w)}{\partial w_1} \quad \dots \quad \f
 
 **Correct answers:** (b)
 
-**5. Which of the following statements is most accurate regarding the principle of Maximum Likelihood Estimation (MLE) in statistical modeling?**
+**Problem 5. Which of the following statements is most accurate regarding the principle of Maximum Likelihood Estimation (MLE) in statistical modeling?**
 
 *   (a) MLE identifies model parameters that maximize the probability of the observed data under the model.
 *   (b) MLE directly computes the probability of parameters being correct, independent of observed data.
@@ -60,7 +60,7 @@ $$\nabla_w f(w) = \left[ \frac{\partial f(w)}{\partial w_1} \quad \dots \quad \f
 
 **Explanation:** MLE aims to maximize the probability of observing the given data under different model parameter values.
 
-**6. A machine learning engineer models the number of website requests per hour using a Poisson distribution. Over 6 hours, the observed requests are 4, 5, 6, 7, 8, and 9. Recall that the probability mass function for a Poisson distribution with parameter $\lambda$ is:**
+**Problem 6. A machine learning engineer models the number of website requests per hour using a Poisson distribution. Over 6 hours, the observed requests are 4, 5, 6, 7, 8, and 9. Recall that the probability mass function for a Poisson distribution with parameter $\lambda$ is:**
 
 $$P(x|\lambda) = e^{-\lambda} \frac{\lambda^x}{x!}$$
 
@@ -76,7 +76,7 @@ $$P(x|\lambda) = e^{-\lambda} \frac{\lambda^x}{x!}$$
 
 **Explanation:** The MLE estimate of $\lambda$ for a Poisson distribution is simply the mean of the observed data. The mean is $\frac{39}{6} = 6.5$.
 
-**7. Assume a simple linear model $Y = Xw$. For simplicity, no intercept is considered. Given the following dataset:**
+**Problem 7. Assume a simple linear model $Y = Xw$. For simplicity, no intercept is considered. Given the following dataset:**
 
 $$X = \begin{bmatrix} 1 & 0 \\ 2 & 2 \end{bmatrix}$$
 $$Y = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$$
