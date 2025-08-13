@@ -25,10 +25,10 @@ This is a classic Bayes' theorem problem. Let's define the events:
 We need to find **P(F|S)**, the probability Sarah has the flu given she has symptoms.
 
 **Using Bayes' theorem:**
-```
-P(F|S) = \frac{P(S|F) \times P(F)}{P(S)}
-P(F|S) = \frac{0.60 \times 0.10}{0.30} = \frac{0.06}{0.30} = 0.20 = 20\%
-```
+
+$P(F|S) = \frac{P(S|F) \times P(F)}{P(S)}$
+
+$P(F|S) = \frac{0.60 \times 0.10}{0.30} = \frac{0.06}{0.30} = 0.20 = 20\%$
 
 **Intuition:** Even though 60% of flu cases show symptoms, only 10% of people have the flu, while 30% of people show symptoms. So among symptomatic people, only 20% actually have the flu.
 
