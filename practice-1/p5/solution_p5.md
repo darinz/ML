@@ -1,6 +1,6 @@
 # Practice 5 Solutions
 
-**1. If $X$ and $Y$ are independent random variables, which of the following are true?**
+** Problem 1. If $X$ and $Y$ are independent random variables, which of the following are true?**
 *   (a) $\text{Cov}(X, Y) = 0$
 *   (b) $E[XY] = E[X]E[Y]$
 *   (c) $\text{Var}(XY) = \text{Var}(X)\text{Var}(Y)$
