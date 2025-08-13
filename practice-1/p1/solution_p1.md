@@ -42,6 +42,23 @@ True/False: The variance of a model typically decreases as the number of feature
 
 **Solution:** The solution is (B).
 
+**Explanation:**
+
+This statement is **false**. In fact, the variance of a model typically **increases** as the number of features increases. This is known as the **"curse of dimensionality"** and is a fundamental concept in machine learning.
+
+**Here's why:**
+
+**1. More parameters to estimate**
+With more features, we have more parameters to estimate from the same amount of data, leading to higher estimation variance.
+
+**2. Sparse data**
+In high-dimensional spaces, data becomes sparse, making it harder to find reliable patterns.
+
+**3. Overfitting risk**
+More features increase the risk of overfitting, which manifests as high variance.
+
+**Practical implications:** This is why regularization techniques (like L1/L2 regularization) and dimensionality reduction methods (like PCA) are so important in practice.
+
 ## Problem 3
 
 Assume you're given two independent random variables X and Y. X is uniformly distributed on the interval [1, 3], whereas Y follows a normal distribution with mean 3 and standard deviation 1. What is $(E[XY])^2 – E[X]E[Y]$?
@@ -138,6 +155,29 @@ True/False: If $\{v_1, v_2, \dots, v_n\}$ and $\{w_1, w_2, \dots, w_n\}$ are lin
 
 **Explanation:**
 
+This is **false**. The sum of linearly independent sets is **not necessarily** linearly independent.
+
+**Counterexample:**
+Consider the vectors in ℝ²:
+- **v₁ = (1, 0)**, **v₂ = (0, 1)** - linearly independent
+- **w₁ = (-1, 0)**, **w₂ = (0, -1)** - linearly independent
+
+But **v₁ + w₁ = (0, 0)** and **v₂ + w₂ = (0, 0)**, so the set **{v₁ + w₁, v₂ + w₂} = {(0, 0), (0, 0)}** is **linearly dependent**.
+
+**Key insight:** Linear independence is **not preserved** under vector addition. The sum of independent sets can create dependent vectors.
+
+## Problem 7
+
+True/False: $E[\epsilon\epsilon^T] = I$ where $\epsilon_i \sim N(0, \sigma^2)$ such that $\epsilon$ is a column vector: $\epsilon \in \mathbb{R}^d$.
+
+(A) True
+
+(B) False
+
+**Solution:** The answer is (B).
+
+**Explanation:**
+
 This is **false**. The statement **E[εε^T] = I** is incorrect.
 
 For a random vector **ε ~ N(0, σ²I)** where ε ∈ ℝᵈ, we have:
@@ -151,17 +191,6 @@ The **(i,j)** entry of E[εε^T] is **E[εᵢεⱼ]**. Since εᵢ ~ N(0, σ²) 
 - **E[εᵢ²] = Var(εᵢ) = σ²** for i = j
 
 **Therefore:** E[εε^T] = σ²I, which equals I only when **σ² = 1**.
-
-## Problem 7
-
-True/False: $E[\epsilon\epsilon^T] = I$ where $\epsilon_i \sim N(0, \sigma^2)$ such that $\epsilon$ is a column vector: $\epsilon \in \mathbb{R}^d$.
-
-(A) True
-
-(B) False
-
-**Solution:** The answer is (B).
-
 
 <img src="./figure_1.png">
 
@@ -294,15 +323,27 @@ Suppose our data distribution has the property that $y_i = \beta x_i + c + \epsi
 
 **Solution:** The answer is (B).
 
-**Explanation:** This is false. The OLS estimator β̂ is actually an unbiased estimator of β under the given assumptions.
+**Explanation:**
 
-Here's why: The OLS estimator is β̂ = (X^T X)^(-1) X^T y
+This is **false**. The OLS estimator β̂ is **biased** when there's a non-zero intercept term c.
 
-Substituting y = Xβ + c + ε: β̂ = (X^T X)^(-1) X^T (Xβ + c + ε) = β + (X^T X)^(-1) X^T c + (X^T X)^(-1) X^T ε
+**Here's why:**
 
-Taking expectation: E[β̂] = β + (X^T X)^(-1) X^T c + (X^T X)^(-1) X^T E[ε] = β + (X^T X)^(-1) X^T c
+The OLS estimator is β̂ = (X^T X)^(-1) X^T y
 
-The estimator is unbiased only if c = 0 (no intercept) or if X^T c = 0. Since the problem doesn't specify that c = 0, the estimator is generally biased.
+Substituting y = Xβ + c + ε:
+```
+β̂ = (X^T X)^(-1) X^T (Xβ + c + ε) = β + (X^T X)^(-1) X^T c + (X^T X)^(-1) X^T ε
+```
+
+Taking expectation:
+```
+E[β̂] = β + (X^T X)^(-1) X^T c + (X^T X)^(-1) X^T E[ε] = β + (X^T X)^(-1) X^T c
+```
+
+**The bias term:** (X^T X)^(-1) X^T c ≠ 0 when c ≠ 0
+
+**Key insight:** The estimator is unbiased **only if c = 0** (no intercept) or if X^T c = 0. Since the problem includes a non-zero intercept c, the estimator is **biased**.
 
 ## Problem 14
 
