@@ -144,6 +144,27 @@ min ||y - Xw||² + λ||w||²
 
 **Correct answers:** (a)
 
+**Explanation:**
+
+Both logistic regression loss functions are **convex**, which guarantees convergence to the global minimum.
+
+**Logistic regression without regularization:**
+```
+L(θ) = -Σᵢ [yᵢ log(σ(θ^T xᵢ)) + (1-yᵢ) log(1-σ(θ^T xᵢ))]
+```
+
+**Logistic regression with L2 regularization:**
+```
+L(θ) = -Σᵢ [yᵢ log(σ(θ^T xᵢ)) + (1-yᵢ) log(1-σ(θ^T xᵢ))] + λ||θ||²
+```
+
+**Why both are convex:**
+- **Log-likelihood term** - convex (logistic function is log-concave)
+- **L2 penalty term** - convex (quadratic function)
+- **Sum of convex functions** - remains convex
+
+**Key insight:** Adding L2 regularization **preserves convexity** and actually makes the optimization more stable.
+
 **7. Which of the following is NOT an assumption of logistic regression?**
 *   (a) The output target is binary.
 *   (b) The input features can be continuous or categorical.
@@ -151,13 +172,87 @@ min ||y - Xw||² + λ||w||²
 
 **Correct answers:** (c)
 
-**Explanation:** Note: Option A was also accepted as a correct answer as logistic regression can refer to multi-class logistic regression.
+**Explanation:**
+
+**Unbiased MLE estimates** for a Gaussian distribution require the **n-1 denominator** for variance.
+
+**Correct formulas:**
+```
+μ̂_MLE = x̄ (sample mean)
+σ̂²_MLE = (1/(n-1)) × Σᵢ(xᵢ - μ̂_MLE)²
+```
+
+**Why n-1 instead of n:**
+
+**1. Bias correction:**
+- **n denominator** gives the MLE estimate (biased)
+- **n-1 denominator** gives the unbiased estimate
+- This is called **Bessel's correction**
+
+**2. Degrees of freedom:**
+- We lose one degree of freedom by estimating μ from the data
+- The n-1 denominator accounts for this estimation
+
+**3. Mathematical justification:**
+- E[σ̂²_MLE] = σ² (unbiased)
+- E[(1/n)Σᵢ(xᵢ - x̄)²] = ((n-1)/n)σ² (biased)
+
+**Why other options are incorrect:**
+- **(a)** Uses n in denominator (biased)
+- **(b)** Uses n in denominator (biased)
+- **(d)** Incorrectly scales the mean
+
+**Key insight:** **Unbiased estimation** requires **Bessel's correction** (n-1 denominator).
+
+**Explanation:**
+
+**Logistic regression assumptions:**
+
+**✓ Valid assumptions:**
+- **(a)** Binary output (though multi-class extensions exist)
+- **(b)** Features can be continuous or categorical
+
+**✗ NOT an assumption:**
+- **(c)** Normal distribution of residuals - this is a **linear regression** assumption
+
+**Key differences from linear regression:**
+- **Logistic regression:** Models probability, uses Bernoulli/binomial distribution
+- **Linear regression:** Models continuous values, assumes normal residuals
+
+**Why normal residuals don't apply:**
+- Logistic regression predicts **probabilities** (bounded between 0 and 1)
+- The response follows a **Bernoulli distribution**, not normal
+- Residuals are not normally distributed in logistic regression
+
+**Note:** Option (a) was also accepted as logistic regression can refer to multi-class extensions.
 
 **8. Suppose we've split a dataset into train, validation, and test sets; trained a regression model on the train set; and found the optimal value for a regularization constant $\lambda$. Select all of the regression methods for which adding the validation set into the train set and retraining can change the optimal value for $\lambda$.**
 *   (a) LASSO regression
 *   (b) Ridge regression
 
 **Correct answers:** (a), (b)
+
+**Explanation:**
+
+**Both LASSO and Ridge regression** can have their optimal λ values change when the validation set is added to the training set.
+
+**Why this happens:**
+
+**1. More training data:**
+- **Larger training set** → different parameter estimates
+- **Different data distribution** → different optimal regularization strength
+- **Reduced variance** → potentially less regularization needed
+
+**2. Different optimization landscape:**
+- **LASSO:** More data can change which features are selected
+- **Ridge:** More data can change the optimal shrinkage amount
+
+**3. Practical considerations:**
+- **Data-dependent regularization** - optimal λ depends on the specific dataset
+- **Sample size effects** - larger datasets often need less regularization
+- **Distribution shifts** - validation set might have different characteristics
+
+**Key insight:** The optimal regularization parameter is **data-dependent**, so changing the training data will likely change the optimal λ.
 
 **9. Suppose that we want to estimate the ideal parameter $\theta^*$ for $p(x, y, \theta)$ given a set of observations $\{x_i, y_i\}$. Which of the following is a key assumption made when using $\hat{\theta}_{MLE} = \arg \max_{\theta} \sum_i \log(p(x_i, y_i|\theta_i))$ for Maximum Likelihood Estimation (MLE) to estimate the model parameter?**
 *   (a) The data is normally distributed.
@@ -167,11 +262,55 @@ min ||y - Xw||² + λ||w||²
 
 **Correct answers:** (b)
 
+**Explanation:**
+
+**i.i.d. assumption** is fundamental to Maximum Likelihood Estimation (MLE).
+
+**Why i.i.d. is required:**
+
+**1. Independence:**
+- Allows us to write the joint likelihood as a **product** of individual likelihoods:
+```
+L(θ) = p(x₁, y₁, θ) × p(x₂, y₂, θ) × ... × p(xₙ, yₙ, θ)
+```
+
+**2. Identically distributed:**
+- All observations come from the **same distribution** with parameter θ
+- Enables the log-likelihood formulation:
+```
+log L(θ) = Σᵢ log(p(xᵢ, yᵢ|θ))
+```
+
+**Why other options are incorrect:**
+- **(a)** Normal distribution is not required for MLE (works with any distribution)
+- **(c)** MLE can handle outliers (though they may affect estimates)
+- **(d)** Linear separability is not a general MLE assumption
+
+**Key insight:** i.i.d. is the **minimal assumption** needed to justify the MLE objective function.
+
 **10. Provide one advantage and one disadvantage of Stochastic Gradient Descent (SGD) over Gradient Descent (GD).**
 
 **Answer:**
 
-**Explanation:** One possible upside: SGD is much faster than GD. One possible downside: Because of stochasticity in SGD, optimizing with SGD can result in a lot of noise in training metrics, making it hard to find a stopping point.
+**Advantage:** SGD is much faster per iteration than GD.
+
+**Disadvantage:** SGD introduces noise in training metrics due to stochasticity, making it harder to determine convergence.
+
+**Explanation:**
+
+**Advantages of SGD:**
+- **Computational efficiency** - processes only one sample (or mini-batch) per iteration
+- **Memory efficiency** - doesn't need to store gradients for all data points
+- **Better generalization** - noise can help escape local minima
+- **Scalability** - works well with large datasets
+
+**Disadvantages of SGD:**
+- **Noisy gradients** - high variance in gradient estimates
+- **Harder convergence detection** - noisy loss curves make stopping criteria unclear
+- **Requires careful tuning** - learning rate scheduling is more critical
+- **Less stable** - may oscillate around the minimum
+
+**Key insight:** SGD trades **stability for speed** - it's faster but requires more careful hyperparameter tuning.
 
 **11. Assume a simple linear model $Y = \beta_1 X$. For simplicity, no intercept is considered. Given the following dataset:**
 
@@ -188,10 +327,35 @@ $Y = \begin{pmatrix} 3 \\ 5 \\ 7 \end{pmatrix}$
 **Answer:** Decrease
 
 **Explanation:**
-1. For the simple linear model without regularization:
-$\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1) + 5(2) + 7(3)}{1^2 + 2^2 + 3^2} = \frac{3 + 10 + 21}{1 + 4 + 9} = \frac{34}{14} = \frac{17}{7}$
 
-2. Now, if $\beta_1$ is positive and greater than zero, the L1 penalty will encourage the coefficient to shrink towards zero. In other words, the Lasso regularization "penalizes" larger coefficients, pushing them towards zero. So, given the same data and a positive $\alpha$, the coefficient $\beta_1$ in Lasso regression will always be less than or equal to its value in simple linear regression without regularization.
+**Part (a) - Least squares estimation:**
+
+The least squares estimate for β₁ is given by:
+```
+β̂₁ = (Σᵢ Xᵢ Yᵢ) / (Σᵢ Xᵢ²)
+```
+
+**Calculation:**
+```
+β̂₁ = (3×1 + 5×2 + 7×3) / (1² + 2² + 3²)
+    = (3 + 10 + 21) / (1 + 4 + 9)
+    = 34 / 14
+    = 17/7
+```
+
+**Part (b) - LASSO effect:**
+
+**β₁ will decrease** when LASSO regularization is applied.
+
+**Why this happens:**
+- **L1 penalty** encourages coefficients to shrink toward zero
+- **Sparsity promotion** - LASSO can set coefficients exactly to zero
+- **Regularization effect** - trades bias for variance reduction
+
+**Mathematical intuition:**
+- Without regularization: β̂₁ = 17/7 ≈ 2.43
+- With LASSO: β̂₁ ≤ 17/7 (always smaller or equal)
+- The L1 penalty λ||β||₁ pushes β₁ toward zero
 
 **12. Suppose you're given a scatter plot of a dataset, and the pattern appears to be a periodic wave-like curve that repeats itself at regular intervals.**
 
@@ -207,7 +371,34 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 
 **Correct answers:** (c)
 
-**Explanation:** Fourier basis functions are particularly suitable for capturing periodic wave-like patterns in data.
+**Explanation:**
+
+**Fourier basis functions** are specifically designed to capture **periodic patterns** in data.
+
+**Why Fourier functions are ideal:**
+
+**1. Mathematical foundation:**
+- **Fourier series** can represent any periodic function
+- **Sine and cosine** functions are naturally periodic
+- **Frequency components** can capture different periodicities
+
+**2. Basis function form:**
+```
+φ(x) = {1, sin(ωx), cos(ωx), sin(2ωx), cos(2ωx), ...}
+```
+
+**3. Advantages for periodic data:**
+- **Natural periodicity** - matches the wave-like pattern
+- **Orthogonal basis** - efficient representation
+- **Frequency control** - ω parameter controls period length
+
+**Why other options are less suitable:**
+- **(a) Polynomial:** Better for smooth, non-periodic trends
+- **(b) Radial basis:** Better for local, non-periodic patterns
+- **(d) Logarithmic:** Better for growth/decay patterns
+- **(e) Exponential:** Better for growth/decay patterns
+
+**Key insight:** Choose basis functions that **match the underlying data structure** - periodic data needs periodic basis functions.
 
 **13. Which of the following statements about convexity is true?**
 
@@ -216,6 +407,33 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 *   (c) If $f(x)$ is convex, then $f(x)$ is everywhere differentiable
 
 **Correct answers:** (a)
+
+**Explanation:**
+
+**Scaling preserves convexity** - if f(x) is convex, then g(x) = (1/3)f(x) is also convex.
+
+**Why this is true:**
+
+**1. Mathematical property:**
+- **Positive scaling** preserves convexity
+- If f(x) is convex, then αf(x) is convex for any α > 0
+- This is because convexity is defined by the inequality:
+```
+f(λx₁ + (1-λ)x₂) ≤ λf(x₁) + (1-λ)f(x₂)
+```
+
+**2. Scaling effect:**
+- Multiplying by 1/3 (positive constant) maintains the inequality
+- The scaled function g(x) = (1/3)f(x) satisfies:
+```
+g(λx₁ + (1-λ)x₂) ≤ λg(x₁) + (1-λ)g(x₂)
+```
+
+**Why other options are incorrect:**
+- **(b)** Gradient descent may get stuck in local minima even for convex functions
+- **(c)** Convex functions need not be differentiable everywhere (e.g., |x| at x=0)
+
+**Key insight:** **Positive scaling** is a **convexity-preserving operation**.
 
 **14. What are the unbiased maximum likelihood estimates (MLE) for the parameters $(\mu, \sigma)$ of a univariate Gaussian distribution, given a dataset of $n$ independently sampled 1-dimensional data points $X = \{x_1, ..., x_n\}$ and the sample mean $\bar{x}$?**
 
@@ -233,6 +451,29 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 
 **Correct answers:** (b)
 
+**Explanation:**
+
+This is **false**. Decreasing the learning rate does **not guarantee** convergence to the global minimum.
+
+**Why this is false:**
+
+**1. Non-convex functions:**
+- **Local minima** can trap gradient descent
+- **Saddle points** can slow convergence significantly
+- **Plateaus** can cause very slow progress
+
+**2. Learning rate effects:**
+- **Too small** → very slow convergence, may get stuck
+- **Too large** → may overshoot or oscillate
+- **Optimal rate** → depends on the function's curvature
+
+**3. Convergence guarantees:**
+- **Convex functions** → guaranteed convergence to global minimum
+- **Non-convex functions** → no such guarantee
+- **Stochastic gradient descent** → additional noise considerations
+
+**Key insight:** **Learning rate alone** cannot overcome the **fundamental limitations** of gradient descent on non-convex functions.
+
 **16. Which of the following functions is strictly convex over its entire domain?**
 
 *   (a) $f(x) = -x^2$
@@ -242,6 +483,31 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 
 **Correct answers:** (d)
 
+**Explanation:**
+
+**e^x is strictly convex** over its entire domain ℝ.
+
+**Analysis of each function:**
+
+**1. f(x) = -x² (concave):**
+- Second derivative: f''(x) = -2 < 0
+- **Concave** (not convex)
+
+**2. f(x) = x³ (not convex):**
+- Second derivative: f''(x) = 6x
+- **Convex for x > 0, concave for x < 0**
+- Not convex over entire domain
+
+**3. f(x) = ln(x) (concave):**
+- Second derivative: f''(x) = -1/x² < 0
+- **Concave** (not convex)
+
+**4. f(x) = e^x (strictly convex):**
+- Second derivative: f''(x) = e^x > 0 for all x
+- **Strictly convex** over entire domain ℝ
+
+**Key insight:** **e^x** is the only function with **positive second derivative everywhere**.
+
 **17. Which of the following is true about a validation set and how it is used?**
 
 *   (a) The validation set allows us to estimate how a model would perform on unseen data
@@ -250,6 +516,29 @@ $\hat{\beta}_1 = \frac{\sum_{i=1}^{3} X_i Y_i}{\sum_{i=1}^{3} X_i^2} = \frac{3(1
 *   (d) The validation set allows us to train a model quicker by decreasing the size of our training data set
 
 **Correct answers:** (a)
+
+**Explanation:**
+
+**Validation sets** provide an **unbiased estimate** of model performance on unseen data.
+
+**Purpose of validation sets:**
+
+**1. Hyperparameter tuning:**
+- **Model selection** - choose best hyperparameters
+- **Architecture selection** - choose best model structure
+- **Feature selection** - choose best feature subset
+
+**2. Performance estimation:**
+- **Unbiased estimate** of generalization error
+- **Prevents overfitting** to test set
+- **Model comparison** without test set contamination
+
+**Why other options are incorrect:**
+- **(b)** Test set is still needed for final evaluation
+- **(c)** Not always added back (depends on methodology)
+- **(d)** Validation set doesn't speed up training
+
+**Key insight:** Validation sets provide **honest estimates** of model performance for **decision-making**.
 
 **18. (2 points) Suppose we have the function**
 
@@ -290,6 +579,30 @@ $$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
 *   (d) 0.045
 
 **Correct answers:** (c)
+
+**Explanation:**
+
+This is a **Bayes' theorem** problem. We need to find P(Spam|Discount).
+
+**Given information:**
+- P(Spam) = 0.05 (5% of emails are spam)
+- P(Discount|Spam) = 0.90 (90% of spam contains "discount")
+- P(Discount) = 0.15 (15% of all emails contain "discount")
+
+**Using Bayes' theorem:**
+```
+P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
+                  = 0.90 × 0.05 / 0.15
+                  = 0.045 / 0.15
+                  = 0.3
+```
+
+**Intuition:**
+- Even though 90% of spam contains "discount", only 5% of emails are spam
+- So among all "discount" emails, only 30% are actually spam
+- The word "discount" is not as strong an indicator as it might seem
+
+**Key insight:** **Base rate matters** - even high conditional probabilities can lead to low posterior probabilities when the prior is small.
 
 **22. Determine if the following statements about k-fold cross-validation are true or false:**
 
@@ -341,4 +654,28 @@ $$\hat{W} = (X^T X + \lambda I)^{-1} X^T Y$$
 
 **Answer:**
 
-**Explanation:** For any $v \in \mathbb{R}^k$, $v^T (X^T X + \lambda I)v = v^T X^T X v + \lambda v^T v > 0$. The matrix is positive-definite. Thus, it is invertible.
+**Explanation:**
+
+**Proof that X^T X + λI is invertible when λ > 0:**
+
+**1. Positive definiteness:**
+For any non-zero vector v ∈ ℝᵈ:
+```
+v^T (X^T X + λI) v = v^T X^T X v + λ v^T v
+```
+
+**2. Analysis of terms:**
+- **v^T X^T X v ≥ 0** (X^T X is positive semi-definite)
+- **λ v^T v > 0** (since λ > 0 and v ≠ 0)
+
+**3. Conclusion:**
+```
+v^T (X^T X + λI) v > 0 for all v ≠ 0
+```
+
+**4. Invertibility:**
+- **Positive definite** matrices are **invertible**
+- **Eigenvalues** are all positive
+- **Determinant** is positive
+
+**Key insight:** The **λI term** ensures positive definiteness, making the matrix **always invertible** regardless of X's rank.
