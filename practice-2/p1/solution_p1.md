@@ -26,7 +26,23 @@ Which line in Figure 2 represents the direction of the first principal component
 
 **Solution:** The answer is (A).
 
-**Explanation:** The first principal component is the direction of maximum variance in the data. After centering the data by subtracting the mean $\mu$, PCA finds the eigenvector corresponding to the largest eigenvalue of the covariance matrix. This direction represents the line along which the data has the highest variance. In the figure, Plot 1 shows the line that best captures the spread of the centered data points, indicating it's the direction of the first principal component.
+**Explanation:** 
+
+The first principal component is the direction of maximum variance in the data. Here's the detailed reasoning:
+
+1. **Data Centering**: First, we subtract the mean $\mu$ from each data point to center the data around the origin. This gives us $X - \mu$.
+
+2. **Covariance Matrix**: The covariance matrix is computed as $C = \frac{1}{n}(X - \mu)^T(X - \mu)$, where $n$ is the number of samples.
+
+3. **Eigenvalue Decomposition**: PCA finds the eigenvectors and eigenvalues of the covariance matrix. The first principal component is the eigenvector corresponding to the largest eigenvalue.
+
+4. **Maximum Variance Direction**: The first principal component represents the direction along which the projected data has maximum variance. This is because the variance of the projected data is given by $\text{Var}(Xv) = v^T C v$, which is maximized when $v$ is the eigenvector of $C$ with the largest eigenvalue.
+
+5. **Visual Interpretation**: In the figure, Plot 1 shows the line that best captures the spread of the centered data points. This line represents the direction where the data varies the most, which is exactly what the first principal component represents.
+
+Mathematically, if $v_1$ is the first principal component, then:
+$$\text{Var}(Xv_1) = \max_{||v||=1} \text{Var}(Xv) = \lambda_1$$
+where $\lambda_1$ is the largest eigenvalue of the covariance matrix.
 
 ## Question 2
 Which of the following statements about kernels is false?
@@ -38,7 +54,26 @@ Which of the following statements about kernels is false?
 
 **Solution:** The answer is (B).
 
-**Explanation:** Statement (B) is false because the kernel matrix $K$ has size $n \times n$ where $n$ is the number of data points. As the dataset size increases, the kernel matrix grows quadratically, making kernel methods computationally expensive for large datasets. The other statements are true: (A) kernel feature vectors can indeed be infinite-dimensional (e.g., RBF kernel), (C) kernel matrices store inner products $\langle \phi(x_i), \phi(x_j) \rangle$, and (D) the kernel trick allows linear models to operate in high-dimensional feature spaces, effectively creating non-linear decision boundaries.
+**Explanation:**
+
+Statement (B) is false. Here's the detailed analysis:
+
+**Why (B) is False:**
+The kernel matrix $K$ has dimensions $n \times n$ where $n$ is the number of data points. This means:
+- **Memory Complexity**: $O(n^2)$ storage required
+- **Computational Complexity**: $O(n^3)$ for matrix operations like inversion
+- **Scaling Issue**: As dataset size grows, the kernel matrix grows quadratically, making it computationally prohibitive for large datasets
+
+**Why the Other Statements are True:**
+
+(A) **Infinite-dimensional feature vectors**: The RBF kernel $K(x_i, x_j) = \exp(-\gamma ||x_i - x_j||^2)$ corresponds to an infinite-dimensional feature space. This is because the Taylor expansion of the exponential function has infinitely many terms.
+
+(C) **Kernel matrix stores inner products**: The kernel matrix is defined as $K_{ij} = \langle \phi(x_i), \phi(x_j) \rangle$, where $\phi$ is the feature mapping. This allows us to compute inner products in the high-dimensional feature space without explicitly computing $\phi(x_i)$.
+
+(D) **Non-linear decision boundaries**: The kernel trick allows linear models (like SVM) to operate in high-dimensional feature spaces, effectively creating non-linear decision boundaries in the original input space.
+
+**Mathematical Example:**
+For a polynomial kernel of degree 2: $K(x_i, x_j) = (1 + x_i^T x_j)^2$, the feature mapping $\phi$ maps to a space of dimension $O(d^2)$, where $d$ is the input dimension.
 
 ## Question 3
 Suppose you have a logistic regression model for spam detection, using a dataset with a binary outcome that indicates whether an email is spam (1) or not spam (0). The predictor variables $x_1$, $x_2$, and $x_3$ are boolean values (0 or 1) that indicate whether the email contains the words "free", "order", and "homework", respectively. The model has four parameters: weights $w_1$, $w_2$, $w_3$, and offset $b$. You find that emails containing the words "free" and "order" have a higher probability of being spam, while emails containing the word "homework" have a lower probability of being spam. Given this information, which of the following signs is most likely for the weights $w_1$, $w_2$, and $w_3$?
@@ -50,7 +85,36 @@ Suppose you have a logistic regression model for spam detection, using a dataset
 
 **Solution:** The answer is (C).
 
-**Explanation:** In logistic regression, the probability of being spam is given by $P(\text{spam}) = \frac{1}{1 + e^{-(w_1 x_1 + w_2 x_2 + w_3 x_3 + b)}}$. If words "free" and "order" increase the probability of being spam, then $w_1$ and $w_2$ must be positive (since $x_1 = 1$ and $x_2 = 1$ for these words). If the word "homework" decreases the probability of being spam, then $w_3$ must be negative (since $x_3 = 1$ for this word). Therefore, $w_1 > 0$, $w_2 > 0$, and $w_3 < 0$.
+**Explanation:**
+
+Let's analyze this step by step using the logistic regression model:
+
+**Logistic Regression Model:**
+The probability of an email being spam is given by:
+$$P(\text{spam}) = \frac{1}{1 + e^{-(w_1 x_1 + w_2 x_2 + w_3 x_3 + b)}}$$
+
+where:
+- $x_1 = 1$ if the email contains "free", $0$ otherwise
+- $x_2 = 1$ if the email contains "order", $0$ otherwise  
+- $x_3 = 1$ if the email contains "homework", $0$ otherwise
+- $w_1, w_2, w_3$ are the weights for each word
+- $b$ is the bias term
+
+**Analyzing Each Word's Effect:**
+
+1. **"free" increases spam probability**: When $x_1 = 1$, we want $P(\text{spam})$ to increase. This means the exponent $-(w_1 \cdot 1 + w_2 x_2 + w_3 x_3 + b)$ should become less negative (closer to zero), so $w_1$ must be **positive**.
+
+2. **"order" increases spam probability**: When $x_2 = 1$, we want $P(\text{spam})$ to increase. Similarly, $w_2$ must be **positive**.
+
+3. **"homework" decreases spam probability**: When $x_3 = 1$, we want $P(\text{spam})$ to decrease. This means the exponent should become more negative, so $w_3$ must be **negative**.
+
+**Mathematical Verification:**
+- For an email with "free" and "order": $P(\text{spam}) = \frac{1}{1 + e^{-(w_1 + w_2 + b)}}$
+- For an email with "homework": $P(\text{spam}) = \frac{1}{1 + e^{-(w_3 + b)}}$
+
+Since $w_1, w_2 > 0$ and $w_3 < 0$, the first probability is higher than the second.
+
+**Conclusion:** $w_1 > 0$, $w_2 > 0$, and $w_3 < 0$, which corresponds to option (C).
 
 ## Question 4
 **True/False:** Solving the k-means objective is an unsupervised learning problem.
@@ -60,7 +124,41 @@ Suppose you have a logistic regression model for spam detection, using a dataset
 
 **Solution:** The answer is (A).
 
-**Explanation:** K-means is indeed an unsupervised learning problem because it does not use any labeled training data. The algorithm groups data points into clusters based on their similarity (distance) without any prior knowledge of the correct cluster assignments. The objective is to minimize the within-cluster sum of squares: $\sum_{i=1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2$, where $\mu_i$ is the centroid of cluster $C_i$.
+**Explanation:**
+
+This is **True**. K-means is a classic example of unsupervised learning. Here's the detailed explanation:
+
+**What is Unsupervised Learning?**
+Unsupervised learning involves finding patterns in data without any labeled examples or target variables. The algorithm learns the structure of the data on its own.
+
+**Why K-means is Unsupervised:**
+
+1. **No Labels Required**: K-means doesn't need any information about the "correct" cluster assignments. It works purely on the input features.
+
+2. **Self-Discovery**: The algorithm discovers clusters by finding groups of similar data points based on their distances to centroids.
+
+3. **Objective Function**: K-means minimizes the within-cluster sum of squares:
+   $$\min_{\{C_1, \ldots, C_k\}} \sum_{i=1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2$$
+   where:
+   - $C_i$ is the $i$-th cluster
+   - $\mu_i$ is the centroid of cluster $C_i$
+   - $||x - \mu_i||^2$ is the squared Euclidean distance
+
+**Algorithm Steps:**
+1. Initialize $k$ centroids randomly
+2. Assign each data point to the nearest centroid
+3. Update centroids as the mean of assigned points
+4. Repeat steps 2-3 until convergence
+
+**Contrast with Supervised Learning:**
+- **Supervised**: Uses labeled data $(x_i, y_i)$ to learn a mapping $f: X \rightarrow Y$
+- **Unsupervised**: Uses only $x_i$ to discover structure in the data
+
+**Examples of Unsupervised Learning:**
+- Clustering (K-means, hierarchical clustering)
+- Dimensionality reduction (PCA, t-SNE)
+- Association rule learning
+- Anomaly detection
 
 ## Question 5
 Which of the following is typical for decision trees trained to have 0 training error?
@@ -72,7 +170,43 @@ Which of the following is typical for decision trees trained to have 0 training 
 
 **Solution:** The answer is (C).
 
-**Explanation:** Decision trees trained to have 0 training error (perfect fit to training data) typically have low bias but high variance. This is because they can perfectly memorize the training data by growing deep enough to classify each training point correctly. However, this leads to overfitting, where the model captures noise in the training data and fails to generalize well to unseen data, resulting in high variance.
+**Explanation:**
+
+Decision trees with 0 training error exhibit **low bias, high variance**. Here's the detailed analysis:
+
+**Bias-Variance Tradeoff:**
+The expected prediction error can be decomposed as:
+$$\text{Expected Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+**Why Low Bias:**
+1. **Perfect Training Fit**: A decision tree can achieve 0 training error by growing deep enough to classify each training point correctly
+2. **High Model Capacity**: Decision trees can represent any boolean function given enough depth
+3. **No Model Limitations**: The tree can perfectly capture the training data patterns
+
+**Why High Variance:**
+1. **Overfitting**: The tree memorizes the training data, including noise
+2. **Instability**: Small changes in training data can lead to completely different tree structures
+3. **Poor Generalization**: The model fails to generalize to unseen data
+
+**Mathematical Intuition:**
+- **Bias**: Measures how well the model can approximate the true underlying function
+- **Variance**: Measures how much the model's predictions vary across different training sets
+
+**Example:**
+Consider a decision tree that grows until each leaf contains exactly one training point:
+- **Training Error**: 0% (perfect fit)
+- **Test Error**: High (poor generalization)
+- **Bias**: Low (can fit any training data)
+- **Variance**: High (very sensitive to training data)
+
+**Visual Analogy:**
+Think of a decision tree with 0 training error as a "memorization machine" - it perfectly remembers the training data but doesn't learn the underlying patterns, making it unstable to new data.
+
+**Solutions to High Variance:**
+- Pruning the tree
+- Using ensemble methods (Random Forest, Gradient Boosting)
+- Setting minimum samples per leaf
+- Limiting maximum depth
 
 ## Question 6
 When is PCA ineffective?
@@ -84,7 +218,45 @@ When is PCA ineffective?
 
 **Solution:** The answer is (B).
 
-**Explanation:** PCA is a linear dimensionality reduction technique that finds linear projections of the data. When the data's underlying structure is non-linear (e.g., data lying on a curved manifold), PCA cannot effectively capture this structure because it only considers linear relationships. In such cases, non-linear dimensionality reduction techniques like t-SNE, UMAP, or kernel PCA would be more appropriate.
+**Explanation:**
+
+PCA is ineffective when the data's underlying structure is **non-linear**. Here's the detailed explanation:
+
+**What PCA Does:**
+PCA finds linear projections that maximize variance:
+$$\max_{||v||=1} \text{Var}(Xv) = \max_{||v||=1} v^T C v$$
+
+where $C$ is the covariance matrix.
+
+**Why PCA Fails with Non-linear Structure:**
+
+1. **Linear Assumption**: PCA assumes that the important directions in the data are linear combinations of the original features
+2. **Manifold Learning**: When data lies on a curved manifold (e.g., Swiss roll, S-curve), the important structure is non-linear
+3. **Projection Limitations**: PCA can only find linear projections, missing the curved structure
+
+**Mathematical Example:**
+Consider data lying on a circle in 2D:
+- **True Structure**: 1-dimensional circle
+- **PCA Result**: Finds 2 principal components (both needed to represent the circle)
+- **Problem**: PCA can't discover that the data is actually 1-dimensional
+
+**Visual Analogy:**
+Imagine trying to flatten a piece of paper that's been rolled into a cylinder:
+- **PCA**: Would try to project it onto a flat surface, losing the cylindrical structure
+- **Non-linear Methods**: Would "unroll" the cylinder to reveal its true 2D structure
+
+**Better Alternatives for Non-linear Data:**
+1. **t-SNE**: Preserves local structure and clusters
+2. **UMAP**: Preserves both local and global structure
+3. **Kernel PCA**: Uses kernel trick to capture non-linear relationships
+4. **Isomap**: Preserves geodesic distances on the manifold
+5. **LLE (Locally Linear Embedding)**: Preserves local linear relationships
+
+**When PCA Works Well:**
+- Data has linear underlying structure
+- Data is approximately Gaussian
+- Main sources of variation are linear combinations of features
+- Goal is to reduce dimensionality while preserving variance
 
 ## Question 7
 The kernel matrix $K$ is not
@@ -96,7 +268,46 @@ The kernel matrix $K$ is not
 
 **Solution:** The answer is (D).
 
-**Explanation:** The kernel matrix $K$ is defined as $K_{ij} = \langle \phi(x_i), \phi(x_j) \rangle$. It is always symmetric because $K_{ij} = K_{ji}$, square because it has dimensions $n \times n$ for $n$ data points, and positive semi-definite because it represents inner products in a feature space. However, it is not necessarily elementwise positive - some kernel values can be negative (e.g., in polynomial kernels with negative coefficients).
+**Explanation:**
+
+The kernel matrix $K$ is **NOT** necessarily elementwise positive. Here's the detailed analysis:
+
+**Kernel Matrix Definition:**
+$$K_{ij} = \langle \phi(x_i), \phi(x_j) \rangle$$
+
+where $\phi$ is the feature mapping and $\langle \cdot, \cdot \rangle$ is the inner product.
+
+**Properties of Kernel Matrix:**
+
+1. **Symmetric (A)**: $K_{ij} = \langle \phi(x_i), \phi(x_j) \rangle = \langle \phi(x_j), \phi(x_i) \rangle = K_{ji}$
+
+2. **Square (B)**: $K$ has dimensions $n \times n$ where $n$ is the number of data points
+
+3. **Positive Semi-definite (C)**: For any vector $x$, $x^T K x \geq 0$ because:
+   $$x^T K x = \sum_{i,j} x_i K_{ij} x_j = \sum_{i,j} x_i \langle \phi(x_i), \phi(x_j) \rangle x_j = \left\langle \sum_i x_i \phi(x_i), \sum_j x_j \phi(x_j) \right\rangle = ||\sum_i x_i \phi(x_i)||^2 \geq 0$$
+
+4. **NOT Elementwise Positive (D)**: Individual elements $K_{ij}$ can be negative.
+
+**Examples of Kernels with Negative Values:**
+
+1. **Polynomial Kernel**: $K(x_i, x_j) = (x_i^T x_j + c)^d$
+   - If $c < 0$ and $d$ is odd, some values can be negative
+
+2. **Sigmoid Kernel**: $K(x_i, x_j) = \tanh(\alpha x_i^T x_j + c)$
+   - Can produce negative values for certain parameter settings
+
+3. **Linear Kernel with Centered Data**: $K(x_i, x_j) = x_i^T x_j$
+   - If data is centered, some inner products can be negative
+
+**Mathematical Example:**
+Consider the linear kernel with 2D data:
+- $x_1 = [1, 0]$, $x_2 = [-1, 0]$
+- $K_{12} = x_1^T x_2 = 1 \cdot (-1) + 0 \cdot 0 = -1 < 0$
+
+**Why This Matters:**
+- Kernel methods work with the kernel matrix, not individual elements
+- The positive semi-definite property ensures the kernel represents a valid inner product space
+- Individual negative values don't affect the mathematical validity of the kernel
 
 ## Question 8
 **True/False:** Ridge regression's optimal parameters $\hat{w} = (X^T X + \lambda I)^{-1} X^T y$ are a linear combination of the data points $x_i$ in $X$.
@@ -106,7 +317,48 @@ The kernel matrix $K$ is not
 
 **Solution:** The answer is (A).
 
-**Explanation:** This is true because ridge regression can be rewritten in dual form. The solution $\hat{w} = (X^T X + \lambda I)^{-1} X^T y$ can be expressed as $\hat{w} = X^T \alpha$ where $\alpha = (XX^T + \lambda I)^{-1} y$. This shows that the optimal weights are indeed a linear combination of the data points, with coefficients given by the dual variables $\alpha$.
+**Explanation:**
+
+This is **True**. Ridge regression's optimal parameters can indeed be expressed as a linear combination of the data points. Here's the detailed proof:
+
+**Primal Form of Ridge Regression:**
+$$\min_w ||y - Xw||_2^2 + \lambda ||w||_2^2$$
+
+**Primal Solution:**
+$$\hat{w} = (X^T X + \lambda I)^{-1} X^T y$$
+
+**Dual Form Derivation:**
+
+1. **Lagrangian**: $L(w, \alpha) = ||y - Xw||_2^2 + \lambda ||w||_2^2 - \alpha^T(Xw - y)$
+
+2. **Stationary Condition**: $\frac{\partial L}{\partial w} = -2X^T(y - Xw) + 2\lambda w = 0$
+
+3. **Solving for w**: $2\lambda w = 2X^T(y - Xw)$
+   $$\lambda w = X^T(y - Xw)$$
+   $$\lambda w = X^T y - X^T X w$$
+   $$(\lambda I + X^T X)w = X^T y$$
+   $$w = (\lambda I + X^T X)^{-1} X^T y$$
+
+4. **Representer Theorem**: We can express $w$ as $w = X^T \alpha$ for some $\alpha$
+
+5. **Substituting**: $X^T \alpha = (\lambda I + X^T X)^{-1} X^T y$
+
+6. **Solving for $\alpha$**: 
+   $$X^T \alpha = (\lambda I + X^T X)^{-1} X^T y$$
+   $$X^T \alpha = X^T (XX^T + \lambda I)^{-1} y$$
+   $$\alpha = (XX^T + \lambda I)^{-1} y$$
+
+**Final Dual Form:**
+$$\hat{w} = X^T \alpha = X^T (XX^T + \lambda I)^{-1} y$$
+
+**Interpretation:**
+- The optimal weights $\hat{w}$ are a linear combination of the data points $x_i$
+- The coefficients $\alpha_i$ are the dual variables
+- This is known as the **Representer Theorem** in kernel methods
+- The dual form is often more efficient when $d > n$ (more features than samples)
+
+**Mathematical Significance:**
+This result connects ridge regression to kernel methods and shows that the solution lies in the span of the training data points.
 
 ## Question 9
 **True/False:** Solving the k-means objective with Lloyd's algorithm (shown in lecture) will always converge to the global optimum of the k-means objective.
@@ -116,7 +368,52 @@ The kernel matrix $K$ is not
 
 **Solution:** The answer is (B).
 
-**Explanation:** Lloyd's algorithm for k-means is a local optimization method that can get stuck in local minima. The algorithm alternates between assigning points to nearest centroids and updating centroids, but this process doesn't guarantee finding the global minimum of the k-means objective. Different initializations can lead to different local optima, which is why k-means is often run multiple times with different random initializations.
+**Explanation:**
+
+This is **False**. Lloyd's algorithm does **NOT** guarantee convergence to the global optimum. Here's the detailed explanation:
+
+**K-means Objective Function:**
+$$\min_{\{C_1, \ldots, C_k\}} \sum_{i=1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2$$
+
+where $C_i$ are the clusters and $\mu_i$ are the centroids.
+
+**Lloyd's Algorithm:**
+1. Initialize centroids randomly
+2. **Assignment Step**: Assign each point to nearest centroid
+3. **Update Step**: Update centroids as mean of assigned points
+4. Repeat until convergence
+
+**Why It's a Local Optimization Method:**
+
+1. **Non-Convex Objective**: The k-means objective is non-convex with many local minima
+2. **Greedy Updates**: Each step only improves the objective locally
+3. **Initialization Dependent**: Different starting points lead to different final solutions
+
+**Mathematical Example:**
+Consider 4 points in 1D: $[0, 1, 4, 5]$ with $k=2$:
+- **Global Optimum**: Clusters $[0,1]$ and $[4,5]$ with centroids at $0.5$ and $4.5$
+- **Local Optimum**: Clusters $[0]$ and $[1,4,5]$ with centroids at $0$ and $3.33$
+
+**Visual Analogy:**
+Think of the objective as a landscape with many valleys (local minima):
+- Lloyd's algorithm is like a ball rolling downhill
+- It will reach the bottom of the valley it starts in
+- But it might not reach the deepest valley (global minimum)
+
+**Convergence Properties:**
+- **Monotonic Convergence**: The objective never increases
+- **Finite Convergence**: Algorithm stops in finite steps
+- **Local Optimum**: Converges to a local minimum, not necessarily global
+
+**Practical Solutions:**
+1. **Multiple Initializations**: Run k-means many times with different random starts
+2. **K-means++**: Better initialization strategy
+3. **Global Optimization**: Use methods like genetic algorithms (computationally expensive)
+
+**Why This Matters:**
+- Different runs can give different results
+- Need to run multiple times to find good solutions
+- Important to report the best result from multiple initializations
 
 ## Question 10
 When might it be appropriate to use ridge regression instead of (unregularized) least square regression?
@@ -128,7 +425,56 @@ When might it be appropriate to use ridge regression instead of (unregularized) 
 
 **Solution:** The answer is (B).
 
-**Explanation:** Ridge regression is particularly useful when $d > n$ (more features than samples) because in this case, the unregularized least squares problem is underdetermined and has infinitely many solutions. Ridge regression adds an $L_2$ penalty term $\lambda ||w||_2^2$ to the objective function, which helps stabilize the solution and prevent overfitting by shrinking the coefficients toward zero.
+**Explanation:**
+
+Ridge regression is most appropriate when **$d > n$** (more features than samples). Here's the detailed analysis:
+
+**The Problem with $d > n$:**
+
+1. **Underdetermined System**: When $d > n$, the system $Xw = y$ has more unknowns than equations
+2. **Infinite Solutions**: There are infinitely many solutions that perfectly fit the training data
+3. **Overfitting**: The model can memorize the training data but won't generalize
+
+**Mathematical Analysis:**
+
+**Unregularized Least Squares:**
+$$\min_w ||y - Xw||_2^2$$
+
+**Normal Equations:**
+$$X^T X w = X^T y$$
+
+**When $d > n$:**
+- $X^T X$ is singular (not invertible)
+- Multiple solutions exist
+- Solution is unstable
+
+**Ridge Regression Solution:**
+$$\min_w ||y - Xw||_2^2 + \lambda ||w||_2^2$$
+
+**Ridge Normal Equations:**
+$$(X^T X + \lambda I) w = X^T y$$
+
+**Benefits of Ridge Regression:**
+
+1. **Regularization**: The $\lambda ||w||_2^2$ term prevents overfitting
+2. **Stability**: $(X^T X + \lambda I)$ is always invertible for $\lambda > 0$
+3. **Shrinkage**: Coefficients are shrunk toward zero
+4. **Unique Solution**: Guarantees a unique, stable solution
+
+**Mathematical Intuition:**
+- **Bias-Variance Tradeoff**: Ridge increases bias but reduces variance
+- **Shrinkage Effect**: $\hat{w}_{\text{ridge}} = \frac{1}{1 + \lambda} \hat{w}_{\text{OLS}}$ (for orthogonal features)
+- **Effective Degrees of Freedom**: $\text{df}(\lambda) = \sum_{i=1}^d \frac{d_i^2}{d_i^2 + \lambda}$ where $d_i$ are singular values
+
+**When Ridge is Less Useful:**
+- $n \gg d$: Standard least squares works well
+- Linear separability: Other methods might be better
+- Categorical features: Need different preprocessing
+
+**Practical Example:**
+- **Genomics**: $d = 20,000$ genes, $n = 100$ patients
+- **Text Classification**: $d = 10,000$ words, $n = 1,000$ documents
+- **Image Features**: $d = 1,000$ features, $n = 100$ images
 
 ## Question 11
 **True/False:** For PCA, the objective function can equivalently be thought of as (1) variance-maximization or (2) reconstruction error-minimization.
