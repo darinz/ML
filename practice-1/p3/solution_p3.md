@@ -1,6 +1,6 @@
 # Practice 3 Solutions
 
-**1. We need to fit a function to our dataset $\{(x_i, y_i)\}_{i=1}^n$. Suppose our dataset looks like the following:**
+**Problem 1. We need to fit a function to our dataset $\{(x_i, y_i)\}_{i=1}^n$. Suppose our dataset looks like the following:**
 
 <img src="./dataset_plot.png" width="450px">
 
@@ -54,7 +54,7 @@ Looking at the dataset plot, we can see a **periodic wave-like pattern** that su
 
 **Key insight:** Choose basis functions that **match the data structure** - periodic data needs periodic functions.
 
-**2. Irreducible error can be completely eliminated by:**
+**Problem 2. Irreducible error can be completely eliminated by:**
 
 *   (a) Collecting more training data
 *   (b) Tuning hyperparameters of the model
@@ -86,7 +86,7 @@ Looking at the dataset plot, we can see a **periodic wave-like pattern** that su
 
 **Key insight:** Irreducible error is a **lower bound** on model performance that cannot be overcome by any modeling technique.
 
-**3. Increasing the regularization of a model would typically:**
+**Problem 3. Increasing the regularization of a model would typically:**
 
 *   (a) Increase its bias and increase its variance
 *   (b) Increase its bias and decrease its variance
@@ -118,7 +118,7 @@ Looking at the dataset plot, we can see a **periodic wave-like pattern** that su
 
 **Key insight:** The optimal regularization strength **balances** this tradeoff for best generalization performance.
 
-**4. In a binary classification problem with balanced classes (exactly the same number of positive examples as negative examples), a machine learning model has an accuracy of 85% and misclassifies 10% of positive examples as negative. What is the probability that the model will correctly classify a negative sample?**
+**Problem 4. In a binary classification problem with balanced classes (exactly the same number of positive examples as negative examples), a machine learning model has an accuracy of 85% and misclassifies 10% of positive examples as negative. What is the probability that the model will correctly classify a negative sample?**
 
 **Answer:** 80%
 
@@ -150,7 +150,7 @@ $\text{True negative rate} = \frac{\text{True negatives}}{\text{Total negatives}
 
 **Key insight:** Use the **confusion matrix** framework to break down the problem systematically.
 
-**5. The below figures are graphs of some loss functions with Loss on the Vertical axis and weight variables on the horizontal axes.**
+**Problem 5. The below figures are graphs of some loss functions with Loss on the Vertical axis and weight variables on the horizontal axes.**
 
 <img src="./loss_function_a.png" width="350px">
 
