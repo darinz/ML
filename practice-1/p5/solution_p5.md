@@ -19,13 +19,12 @@
 - **No relationship** between X and Y
 
 **2. Covariance definition:**
-```
-Cov(X,Y) = E[XY] - E[X]E[Y]
-```
+
+$\text{Cov}(X,Y) = E[XY] - E[X]E[Y]$
 
 **3. For independent variables:**
-- **E[XY] = E[X]E[Y]** (from option b)
-- **Therefore:** Cov(X,Y) = E[X]E[Y] - E[X]E[Y] = 0
+- **$E[XY] = E[X]E[Y]$** (from option b)
+- **Therefore:** $\text{Cov}(X,Y) = E[X]E[Y] - E[X]E[Y] = 0$
 
 **Why (b) is true - Expectation of product:**
 
@@ -40,14 +39,12 @@ Cov(X,Y) = E[XY] - E[X]E[Y]
 **Why (c) is false - Variance of product:**
 
 **1. Correct formula:**
-```
-Var(XY) = E[X²]E[Y²] - (E[X]E[Y])²
-```
+
+$\text{Var}(XY) = E[X^2]E[Y^2] - (E[X]E[Y])^2$
 
 **2. This is NOT equal to:**
-```
-Var(X)Var(Y) = (E[X²] - E[X]²)(E[Y²] - E[Y]²)
-```
+
+$\text{Var}(X)\text{Var}(Y) = (E[X^2] - E[X]^2)(E[Y^2] - E[Y]^2)$
 
 **3. Example:**
 - **X, Y ~ N(0,1)** independent
@@ -56,19 +53,16 @@ Var(X)Var(Y) = (E[X²] - E[X]²)(E[Y²] - E[Y]²)
 **Why (d) is true - Joint probability:**
 
 **1. For independent variables:**
-```
-P(X,Y) = P(X)P(Y)
-```
+
+$P(X,Y) = P(X)P(Y)$
 
 **2. Also:**
-```
-P(Y|X) = P(Y) and P(X|Y) = P(X)
-```
+
+$P(Y|X) = P(Y)$ and $P(X|Y) = P(X)$
 
 **3. Therefore:**
-```
-P(X,Y) = P(Y|X)P(X|Y) = P(Y)P(X) ✓
-```
+
+$P(X,Y) = P(Y|X)P(X|Y) = P(Y)P(X)$ ✓
 
 **Key insight:** **Independence** implies **no linear relationship** (zero covariance) and **factorization** of expectations and probabilities.
 
@@ -100,25 +94,28 @@ P(X,Y) = P(Y|X)P(X|Y) = P(Y)P(X) ✓
 - **False Positive Rate:** P(T|D^c) = 0.10 (10% of healthy people test positive)
 
 **3. Apply Bayes' theorem:**
-```
-P(D|T) = P(T|D)P(D) / P(T)
-```
+
+$P(D|T) = \frac{P(T|D)P(D)}{P(T)}$
 
 **4. Calculate P(T) using law of total probability:**
-```
-P(T) = P(T|D)P(D) + P(T|D^c)P(D^c)
-     = (0.90)(0.02) + (0.10)(0.98)
-     = 0.018 + 0.098
-     = 0.116
-```
+
+$P(T) = P(T|D)P(D) + P(T|D^c)P(D^c)$
+
+$= (0.90)(0.02) + (0.10)(0.98)$
+
+$= 0.018 + 0.098$
+
+$= 0.116$
 
 **5. Substitute into Bayes' theorem:**
-```
-P(D|T) = (0.90)(0.02) / 0.116
-       = 0.018 / 0.116
-       = 18/116
-       = 9/58
-```
+
+$P(D|T) = \frac{(0.90)(0.02)}{0.116}$
+
+$= \frac{0.018}{0.116}$
+
+$= \frac{18}{116}$
+
+$= \frac{9}{58}$
 
 **6. Intuitive interpretation:**
 - **Only 9/58 ≈ 15.5%** of positive test results indicate actual disease
@@ -151,40 +148,42 @@ $$P(X=k|p) = (1-p)^{k-1}p$$
 **Step-by-step derivation:**
 
 **1. Likelihood function:**
-```
-L_n(p) = ∏ᵢ₌₁ⁿ P(X=xᵢ|p) = ∏ᵢ₌₁ⁿ (1-p)^(xᵢ-1)p
-```
+
+$L_n(p) = \prod_{i=1}^{n} P(X=x_i|p) = \prod_{i=1}^{n} (1-p)^{x_i-1}p$
 
 **2. Log-likelihood function:**
-```
-log L_n(p) = Σᵢ₌₁ⁿ log((1-p)^(xᵢ-1)p)
-           = Σᵢ₌₁ⁿ [(xᵢ-1)log(1-p) + log(p)]
-           = Σᵢ₌₁ⁿ (xᵢ-1)log(1-p) + Σᵢ₌₁ⁿ log(p)
-           = (Σᵢ₌₁ⁿ xᵢ - n)log(1-p) + n log(p)
-```
+
+$\log L_n(p) = \sum_{i=1}^{n} \log((1-p)^{x_i-1}p)$
+
+$= \sum_{i=1}^{n} [(x_i-1)\log(1-p) + \log(p)]$
+
+$= \sum_{i=1}^{n} (x_i-1)\log(1-p) + \sum_{i=1}^{n} \log(p)$
+
+$= (\sum_{i=1}^{n} x_i - n)\log(1-p) + n \log(p)$
 
 **3. Take derivative with respect to p:**
-```
-d/dp[log L_n(p)] = -(Σᵢ₌₁ⁿ xᵢ - n)/(1-p) + n/p
-```
+
+$\frac{d}{dp}[\log L_n(p)] = -\frac{\sum_{i=1}^{n} x_i - n}{1-p} + \frac{n}{p}$
 
 **4. Set derivative to zero:**
-```
-0 = -(Σᵢ₌₁ⁿ xᵢ - n)/(1-p) + n/p
-```
+
+$0 = -\frac{\sum_{i=1}^{n} x_i - n}{1-p} + \frac{n}{p}$
 
 **5. Solve for p:**
-```
-n/p = (Σᵢ₌₁ⁿ xᵢ - n)/(1-p)
-n(1-p) = p(Σᵢ₌₁ⁿ xᵢ - n)
-n - np = pΣᵢ₌₁ⁿ xᵢ - np
-n = pΣᵢ₌₁ⁿ xᵢ
-p = n/Σᵢ₌₁ⁿ xᵢ
-```
+
+$\frac{n}{p} = \frac{\sum_{i=1}^{n} x_i - n}{1-p}$
+
+$n(1-p) = p(\sum_{i=1}^{n} x_i - n)$
+
+$n - np = p\sum_{i=1}^{n} x_i - np$
+
+$n = p\sum_{i=1}^{n} x_i$
+
+$p = \frac{n}{\sum_{i=1}^{n} x_i}$
 
 **6. Verification:**
-- **Second derivative:** d²/dp²[log L_n(p)] < 0 for 0 < p < 1
-- **Maximum** confirmed at p = n/Σᵢ₌₁ⁿ xᵢ
+- **Second derivative:** $\frac{d^2}{dp^2}[\log L_n(p)] < 0$ for $0 < p < 1$
+- **Maximum** confirmed at $p = \frac{n}{\sum_{i=1}^{n} x_i}$
 
 **7. Interpretation:**
 - **p = n/Σᵢ₌₁ⁿ xᵢ** is the **reciprocal of the sample mean**
@@ -211,8 +210,8 @@ p = n/Σᵢ₌₁ⁿ xᵢ
 **Why (a) is false - MLE is not always unbiased:**
 
 **1. Counterexample - Sample variance:**
-- **MLE for variance:** σ²_MLE = (1/n)Σ(xᵢ - μ)²
-- **Unbiased estimator:** σ²_unbiased = (1/(n-1))Σ(xᵢ - μ)²
+- **MLE for variance:** $\sigma^2_{\text{MLE}} = \frac{1}{n}\sum(x_i - \mu)^2$
+- **Unbiased estimator:** $\sigma^2_{\text{unbiased}} = \frac{1}{n-1}\sum(x_i - \mu)^2$
 - **MLE is biased** - underestimates true variance
 
 **2. Other examples:**
@@ -237,12 +236,12 @@ p = n/Σᵢ₌₁ⁿ xᵢ
 **Why (d) is true - Correct interpretation:**
 
 **1. MLE objective:**
-```
-max L(θ) = max P(data|θ)
-```
-- **θ** = model parameters
+
+$\max L(\theta) = \max P(\text{data}|\theta)$
+
+- **$\theta$** = model parameters
 - **data** = observed data
-- **L(θ)** = likelihood function
+- **$L(\theta)$** = likelihood function
 
 **2. Frequentist framework:**
 - **Parameters are fixed** (not random)
@@ -279,21 +278,23 @@ max L(θ) = max P(data|θ)
 **Why (a) is true - Non-negative eigenvalues:**
 
 **1. Definition of PSD:**
-- **A is PSD** if x^T A x ≥ 0 for all x ∈ ℝ^n
-- **Equivalent condition:** All eigenvalues of A are ≥ 0
+- **A is PSD** if $x^T A x \geq 0$ for all $x \in \mathbb{R}^n$
+- **Equivalent condition:** All eigenvalues of A are $\geq 0$
 
 **2. Spectral theorem:**
 - **Symmetric matrices** have real eigenvalues
 - **PSD matrices** have non-negative eigenvalues
-- **Eigendecomposition:** A = QΛQ^T where Λ ≥ 0
+- **Eigendecomposition:** $A = Q\Lambda Q^T$ where $\Lambda \geq 0$
 
 **3. Mathematical proof:**
-```
-For eigenvector v with eigenvalue λ:
-Av = λv
-v^T Av = λv^T v = λ||v||² ≥ 0
-Since ||v||² > 0, we must have λ ≥ 0
-```
+
+For eigenvector $v$ with eigenvalue $\lambda$:
+
+$Av = \lambda v$
+
+$v^T Av = \lambda v^T v = \lambda\|v\|^2 \geq 0$
+
+Since $\|v\|^2 > 0$, we must have $\lambda \geq 0$
 
 **Why other options are false:**
 
@@ -333,45 +334,44 @@ Since ||v||² > 0, we must have λ ≥ 0
 **Step-by-step derivation:**
 
 **1. Linear regression model (no intercept):**
-```
-y = Xw + ε
-```
-where w ∈ ℝ^p is the weight vector
+
+$y = Xw + \varepsilon$
+
+where $w \in \mathbb{R}^p$ is the weight vector
 
 **2. Normal equations solution:**
-```
-ŵ = (X^T X)^(-1) X^T Y
-```
+
+$\hat{w} = (X^T X)^{-1} X^T Y$
 
 **3. Prediction for new data point:**
-```
-ŷ_new = x_new^T ŵ
-      = x_new^T (X^T X)^(-1) X^T Y
-```
+
+$\hat{y}_{\text{new}} = x_{\text{new}}^T \hat{w}$
+
+$= x_{\text{new}}^T (X^T X)^{-1} X^T Y$
 
 **4. Why this works:**
 
 **Training phase:**
-- **Minimize:** ||Y - Xw||²
-- **Solution:** ŵ = (X^T X)^(-1) X^T Y
-- **Assumes:** X^T X is invertible (full rank)
+- **Minimize:** $\|Y - Xw\|^2$
+- **Solution:** $\hat{w} = (X^T X)^{-1} X^T Y$
+- **Assumes:** $X^T X$ is invertible (full rank)
 
 **Prediction phase:**
-- **New input:** x_new ∈ ℝ^p
-- **Prediction:** ŷ_new = x_new^T ŵ
-- **Substitute:** ŵ from training
+- **New input:** $x_{\text{new}} \in \mathbb{R}^p$
+- **Prediction:** $\hat{y}_{\text{new}} = x_{\text{new}}^T \hat{w}$
+- **Substitute:** $\hat{w}$ from training
 
 **5. Comparison with intercept model:**
-- **With intercept:** ŷ_new = [x_new^T, 1] × [ŵ^T, b]^T
-- **Without intercept:** ŷ_new = x_new^T ŵ
-- **No bias term** b in the model
+- **With intercept:** $\hat{y}_{\text{new}} = [x_{\text{new}}^T, 1] \times [\hat{w}^T, b]^T$
+- **Without intercept:** $\hat{y}_{\text{new}} = x_{\text{new}}^T \hat{w}$
+- **No bias term** $b$ in the model
 
 **6. Matrix dimensions:**
-- **X:** n × p
-- **Y:** n × 1
-- **x_new:** p × 1
-- **ŵ:** p × 1
-- **ŷ_new:** scalar
+- **X:** $n \times p$
+- **Y:** $n \times 1$
+- **$x_{\text{new}}$:** $p \times 1$
+- **$\hat{w}$:** $p \times 1$
+- **$\hat{y}_{\text{new}}$:** scalar
 
 **Key insight:** **Prediction** is the **dot product** of the new feature vector with the **learned weight vector**.
 
@@ -388,36 +388,34 @@ where w ∈ ℝ^p is the weight vector
 **Step-by-step reasoning:**
 
 **1. Linear regression model with intercept:**
-```
-y_i = x_i^T w + b + ε_i
-```
+
+$y_i = x_i^T w + b + \varepsilon_i$
 
 **2. Augmented data matrix:**
-```
-X_aug = [X, 1] ∈ ℝ^(n×(d+1))
-```
+
+$X_{\text{aug}} = [X, 1] \in \mathbb{R}^{n \times (d+1)}$
+
 where 1 is a column of ones
 
 **3. Normal equations:**
-```
-ŵ_aug = (X_aug^T X_aug)^(-1) X_aug^T Y
-```
+
+$\hat{w}_{\text{aug}} = (X_{\text{aug}}^T X_{\text{aug}})^{-1} X_{\text{aug}}^T Y$
 
 **4. Rank requirement for unique solution:**
-- **X_aug^T X_aug** must be **invertible**
+- **$X_{\text{aug}}^T X_{\text{aug}}$** must be **invertible**
 - **Invertible** requires **full rank**
-- **Full rank** requires **n ≥ d+1**
+- **Full rank** requires **$n \geq d+1$**
 
 **5. Why n = d+1 is minimum:**
 
-**If n < d+1:**
-- **X_aug** has more columns than rows
-- **Rank(X_aug) ≤ n < d+1**
-- **X_aug^T X_aug** is singular
+**If $n < d+1$:**
+- **$X_{\text{aug}}$** has more columns than rows
+- **$\text{rank}(X_{\text{aug}}) \leq n < d+1$**
+- **$X_{\text{aug}}^T X_{\text{aug}}$** is singular
 - **No unique solution**
 
-**If n = d+1:**
-- **X_aug** is square (d+1) × (d+1)
+**If $n = d+1$:**
+- **$X_{\text{aug}}$** is square $(d+1) \times (d+1)$
 - **Full rank** possible (if data is well-conditioned)
 - **Unique solution** exists
 
@@ -457,11 +455,12 @@ where 1 is a column of ones
 - **Maintain interpretability** of linear models
 
 **2. Mathematical approach:**
-```
-Original: y = f(x) (nonlinear)
-Basis expansion: y = w₁φ₁(x) + w₂φ₂(x) + ... + wₖφₖ(x)
-```
-where φᵢ(x) are basis functions
+
+Original: $y = f(x)$ (nonlinear)
+
+Basis expansion: $y = w_1\phi_1(x) + w_2\phi_2(x) + \cdots + w_k\phi_k(x)$
+
+where $\phi_i(x)$ are basis functions
 
 **3. Examples of basis functions:**
 - **Polynomial:** φ(x) = [1, x, x², x³, ...]
@@ -515,36 +514,30 @@ where φᵢ(x) are basis functions
 **Why this is false:**
 
 **1. Linear-Gaussian model:**
-```
-y_i ~ N(x_i^T w, σ²)
-```
+
+$y_i \sim N(x_i^T w, \sigma^2)$
 
 **2. Likelihood function:**
-```
-L(w) = ∏ᵢ (1/√(2πσ²)) exp(-(y_i - x_i^T w)²/(2σ²))
-```
+
+$L(w) = \prod_i \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y_i - x_i^T w)^2}{2\sigma^2}\right)$
 
 **3. Log-likelihood:**
-```
-log L(w) = -n/2 log(2πσ²) - (1/(2σ²)) Σᵢ (y_i - x_i^T w)²
-```
+
+$\log L(w) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_i (y_i - x_i^T w)^2$
 
 **4. MLE objective:**
-```
-max log L(w) = min Σᵢ (y_i - x_i^T w)²
-```
+
+$\max \log L(w) = \min \sum_i (y_i - x_i^T w)^2$
 
 **5. Comparison of loss functions:**
 
 **Squared error (MLE for Gaussian):**
-```
-L_squared = Σᵢ (y_i - x_i^T w)²
-```
+
+$L_{\text{squared}} = \sum_i (y_i - x_i^T w)^2$
 
 **Absolute error (MLE for Laplace):**
-```
-L_absolute = Σᵢ |y_i - x_i^T w|
-```
+
+$L_{\text{absolute}} = \sum_i |y_i - x_i^T w|$
 
 **6. Why Gaussian noise leads to squared error:**
 - **Gaussian distribution** has exponential decay with squared distance
@@ -582,9 +575,8 @@ L_absolute = Σᵢ |y_i - x_i^T w|
 **Why (c) is true - Increasing λ adds bias:**
 
 **1. Ridge regression objective:**
-```
-min ||y - Xw||² + λ||w||²
-```
+
+$\min \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **2. Effect of increasing λ:**
 - **Stronger penalty** on large weights
@@ -601,22 +593,22 @@ min ||y - Xw||² + λ||w||²
 
 **1. When λ = 0:**
 ```
-ŵ_ridge = (X^T X + 0I)^(-1) X^T y
-       = (X^T X)^(-1) X^T y
-       = ŵ_OLS
+\hat{w}_{\text{ridge}} = (X^T X + 0I)^{-1} X^T y
+                      = (X^T X)^{-1} X^T y
+                      = \hat{w}_{\text{OLS}}
 ```
 
 **2. No regularization:**
-- **λ = 0** means no penalty term
-- **Objective:** min ||y - Xw||²
+- **$\lambda = 0$** means no penalty term
+- **Objective:** $\min \|y - Xw\|^2$
 - **Same as** ordinary least squares
 
 **Why (f) is true - λ → ∞ shrinks to zero:**
 
-**1. As λ → ∞:**
+**1. As $\lambda \to \infty$:**
 - **Regularization term** dominates
-- **Objective:** approximately min λ||w||²
-- **Solution:** w → 0
+- **Objective:** approximately $\min \lambda\|w\|^2$
+- **Solution:** $w \to 0$
 
 **2. Intuitive explanation:**
 - **Infinite penalty** on non-zero weights
@@ -663,18 +655,18 @@ min ||y - Xw||² + λ||w||²
 **2. Mathematical difference:**
 
 **Lasso (L1):**
-```
-min ||y - Xw||² + λ||w||₁
-```
-- **||w||₁ = Σ|wᵢ|** (L1 norm)
+
+$\min \|y - Xw\|^2 + \lambda\|w\|_1$
+
+- **$\|w\|_1 = \sum|w_i|$** (L1 norm)
 - **Sharp corners** at axes
 - **Can produce exact zeros**
 
 **Ridge (L2):**
-```
-min ||y - Xw||² + λ||w||₂²
-```
-- **||w||₂² = Σwᵢ²** (L2 norm)
+
+$\min \|y - Xw\|^2 + \lambda\|w\|_2^2$
+
+- **$\|w\|_2^2 = \sum w_i^2$** (L2 norm)
 - **Smooth surface**
 - **Rarely produces exact zeros**
 
@@ -792,7 +784,63 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (b)
 
-**Explanation:** The correct answer is (b), False, because irreducible error is irreducible.
+**Explanation:**
+
+**This statement is false** - irreducible error cannot be reduced by any modeling technique.
+
+**Why this is false:**
+
+**1. Error decomposition:**
+
+$\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
+
+**2. What can be reduced:**
+
+**Bias²:**
+- **Model complexity** optimization
+- **Feature engineering**
+- **Algorithm selection**
+- **Hyperparameter tuning**
+
+**Variance:**
+- **More training data**
+- **Regularization**
+- **Ensemble methods**
+- **Cross-validation**
+
+**3. What cannot be reduced:**
+
+**Irreducible Error:**
+- **Inherent noise** in the data
+- **Measurement uncertainty**
+- **Missing information**
+- **Fundamental randomness**
+
+**4. Why irreducible error is irreducible:**
+
+**Definition:**
+- **Fundamental uncertainty** in the data generation process
+- **Lower bound** on model performance
+- **Independent** of model choice or data size
+- **Cannot be eliminated** by any algorithm
+
+**5. Examples of irreducible error:**
+- **Sensor noise** in measurements
+- **Natural variability** in biological systems
+- **Unpredictable external factors**
+- **Quantum uncertainty** in physical systems
+
+**6. What optimization can do:**
+- **Reduce bias** through better model selection
+- **Reduce variance** through more data/regularization
+- **Cannot touch** irreducible error
+
+**7. Practical implications:**
+- **Perfect models** still have irreducible error
+- **Performance limits** exist regardless of data size
+- **Realistic expectations** about model accuracy
+
+**Key insight:** **Irreducible error** represents the **fundamental limit** on prediction accuracy that **cannot be overcome**.
 
 **14. One Answer**
 
@@ -804,7 +852,65 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (a)
 
-**Explanation:** The correct answer is (a). (b) is incorrect because increasing model complexity usually increases variance. (c) is incorrect because decreasing regularization will usually increase variance. (d) is incorrect because the variance of features is a difference concept than variance of a model—removing the high-variance features could increase or decrease the model variance and there is no way knowing a priori.
+**Explanation:**
+
+**Option (a) is correct** - increasing the number of training examples is most effective for reducing variance.
+
+**Why (a) is correct:**
+
+**1. High-variance, low-bias model characteristics:**
+- **Complex model** that fits training data well
+- **Sensitive** to training data changes
+- **Overfitting** to training data
+- **Poor generalization** to unseen data
+
+**2. How more training data reduces variance:**
+- **Larger sample size** reduces parameter estimation uncertainty
+- **More stable** parameter estimates
+- **Better generalization** to unseen data
+- **Natural regularization** effect
+
+**3. Mathematical intuition:**
+- **Variance** $\propto \sigma^2/n$ (for many estimators)
+- **Larger $n$** → smaller variance
+- **More data** → more stable estimates
+
+**4. Why other options are incorrect:**
+
+**Option (b): Increasing model complexity**
+- **Increases variance** by adding more parameters
+- **More complex models** are more sensitive to data
+- **Opposite effect** of what we want
+
+**Option (c): Decreasing regularization**
+- **Increases variance** by allowing more overfitting
+- **Less constraint** on model parameters
+- **Higher sensitivity** to training data
+
+**Option (d): Removing high-variance features**
+- **Feature variance** ≠ model variance
+- **Removing features** could increase or decrease model variance
+- **No a priori guarantee** of improvement
+
+**5. Alternative variance reduction strategies:**
+- **Regularization** (L1/L2 penalties)
+- **Ensemble methods** (bagging, random forests)
+- **Cross-validation** for model selection
+- **Feature selection** (when appropriate)
+
+**6. Practical considerations:**
+- **Data collection** can be expensive
+- **Quality** of additional data matters
+- **Diminishing returns** as n increases
+- **Balance** with computational cost
+
+**7. When to use each strategy:**
+- **More data:** When available and affordable
+- **Regularization:** When data is limited
+- **Ensemble methods:** When individual models are unstable
+- **Feature selection:** When many irrelevant features exist
+
+**Key insight:** **More training data** is the **most effective** way to reduce variance in high-variance models.
 
 **15. One Answer**
 
@@ -816,15 +922,131 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (a)
 
-**Explanation:** If the validation and training losses are both high, it suggests that the model is underfitting (high bias), meaning it is too simple to capture the underlying patterns in the data. Increasing the model complexity
+**Explanation:**
+
+**Option (a) is correct** - increasing model complexity is appropriate when both training and validation loss are high.
+
+**Why (a) is correct:**
+
+**1. High training and validation loss indicates underfitting:**
+- **Model is too simple** to capture data patterns
+- **High bias, low variance** situation
+- **Poor performance** on both training and test data
+- **Model capacity** is insufficient
+
+**2. Underfitting characteristics:**
+- **Training loss:** High (model can't fit training data)
+- **Validation loss:** High (model can't generalize)
+- **Gap between losses:** Small (low variance)
+- **Model complexity:** Too low
+
+**3. Why increasing complexity helps:**
+- **More parameters** to capture patterns
+- **Higher model capacity** to fit data
+- **Reduced bias** through better representation
+- **Better performance** on both training and validation
+
+**4. Why other options are incorrect:**
+
+**Option (b): Increase k in k-fold CV**
+- **Cross-validation** is for model evaluation, not improvement
+- **Larger k** doesn't change model performance
+- **Doesn't address** the fundamental underfitting issue
+
+**Option (c): Increase training examples**
+- **More data** helps with variance, not bias
+- **Underfitting** persists regardless of data size
+- **Model capacity** is the limiting factor
+
+**Option (d): Apply regularization**
+- **Regularization** reduces complexity
+- **Underfitting** means model is already too simple
+- **Would make the problem worse**
+
+**5. Specific ways to increase complexity:**
+- **Add more features** or basis functions
+- **Increase polynomial degree** in polynomial regression
+- **Add more layers** in neural networks
+- **Use more complex** algorithms
+
+**6. When to use other strategies:**
+- **More data:** When model is overfitting (high variance)
+- **Regularization:** When model is overfitting (high variance)
+- **Feature engineering:** When current features are insufficient
+- **Different algorithm:** When current algorithm is inappropriate
+
+**7. Monitoring improvement:**
+- **Training loss** should decrease
+- **Validation loss** should decrease
+- **Gap** between losses may increase (higher variance)
+- **Overall performance** should improve
+
+**Key insight:** **High training and validation loss** indicates **underfitting**, which requires **increasing model complexity**.
 
 **16.**
 
 **In a project using a customer purchase history dataset with a 60/20/20 train, validation, and test split, the validation accuracy remains consistently lower than the training accuracy. What could be a reason for this?**
 
-**Answer:**
+**Answer:** Overfitting - the model is learning training data patterns that don't generalize to validation data.
 
-**Explanation:** The validation accuracy is likely lower due to overfitting (the model is complex, variance is high). Overfitting happens when a model learns too much detail and noise from the training data, capturing specific patterns that don't apply to new, unseen data. This makes the model perform well on the training set but poorly on the validation or test sets, as it fails to generalize.
+**Explanation:**
+
+**The most likely reason is overfitting** - the model is learning patterns specific to the training data that don't generalize.
+
+**Why overfitting occurs:**
+
+**1. Model complexity vs. data size:**
+- **Complex model** relative to available training data
+- **Too many parameters** to estimate reliably
+- **Model memorizes** training data instead of learning generalizable patterns
+
+**2. Training vs. validation performance gap:**
+- **Training accuracy:** High (model fits training data well)
+- **Validation accuracy:** Lower (model doesn't generalize)
+- **Gap indicates** overfitting
+
+**3. Specific causes in this scenario:**
+
+**Data characteristics:**
+- **Customer purchase patterns** may be complex
+- **Seasonal effects** or temporal dependencies
+- **Individual customer idiosyncrasies** in training data
+
+**Model issues:**
+- **Too many features** relative to data size
+- **Insufficient regularization**
+- **Complex algorithm** for the problem
+
+**4. Other possible reasons:**
+
+**Data leakage:**
+- **Validation set** may have different characteristics
+- **Temporal split** issues (validation data from different time period)
+- **Sampling bias** between train and validation sets
+
+**Feature distribution shift:**
+- **Different customer segments** in validation set
+- **Different time periods** with different purchase patterns
+- **Different data collection** methods
+
+**5. Solutions to address overfitting:**
+
+**Reduce model complexity:**
+- **Feature selection** to remove irrelevant features
+- **Regularization** (L1/L2 penalties)
+- **Simpler algorithms** or fewer parameters
+
+**Increase effective data size:**
+- **Data augmentation** techniques
+- **Cross-validation** for better model selection
+- **Ensemble methods** to reduce variance
+
+**6. Monitoring and diagnosis:**
+- **Track training vs. validation** performance over time
+- **Use learning curves** to identify overfitting
+- **Cross-validation** to get more reliable estimates
+
+**Key insight:** **Consistent gap** between training and validation performance typically indicates **overfitting** due to **model complexity** exceeding **data capacity**.
 
 **17. One Answer**
 
@@ -836,15 +1058,152 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (d)
 
-**Explanation:** D is the correct answer, as it is the only approach that avoids overfitting hyperparameters to data from only one or two hospitals. Each hospital may have a different distribution of patients, doctors, outcomes, etc. So we should not expect all data to be IID.
+**Explanation:**
+
+**Option (d) is correct** - mixing data from all hospitals and random splitting avoids overfitting to specific hospital characteristics.
+
+**Why (d) is correct:**
+
+**1. Problem with hospital-specific splits:**
+- **Each hospital** has unique characteristics
+- **Different patient populations** and demographics
+- **Different medical practices** and protocols
+- **Different data collection** methods and quality
+
+**2. Why hospital-specific splits cause issues:**
+
+**Options (a) and (b):**
+- **Validation/test sets** from single hospitals
+- **Hyperparameter tuning** overfits to one hospital's characteristics
+- **Model selection** biased toward that hospital's patterns
+- **Poor generalization** to other hospitals
+
+**Option (c):**
+- **Validation/test** from hospitals with fewer records
+- **Small validation set** leads to unreliable hyperparameter selection
+- **Test set** may not represent overall hospital population
+- **Statistical power** issues with small samples
+
+**3. Benefits of mixed data splitting:**
+
+**Representative samples:**
+- **All hospitals** represented in each split
+- **Balanced distribution** of hospital characteristics
+- **More reliable** performance estimates
+- **Better generalization** across hospitals
+
+**Statistical advantages:**
+- **Larger validation/test sets** for reliable estimates
+- **IID assumption** more likely to hold
+- **Reduced variance** in performance estimates
+- **More robust** model selection
+
+**4. Practical considerations:**
+
+**Data heterogeneity:**
+- **Different hospitals** may have different patient mixes
+- **Varying data quality** across institutions
+- **Different coding** practices and standards
+- **Temporal differences** in data collection
+
+**Model deployment:**
+- **Model will be used** across all 10 hospitals
+- **Performance should be** representative of all hospitals
+- **Mixed splitting** ensures this representation
+
+**5. Alternative approaches (if needed):**
+- **Stratified sampling** to ensure hospital representation
+- **Cross-validation** with hospital-aware folds
+- **Ensemble methods** trained on different hospital subsets
+
+**6. When hospital-specific splits might be appropriate:**
+- **Testing generalization** to completely new hospitals
+- **Domain adaptation** scenarios
+- **Transfer learning** applications
+
+**Key insight:** **Mixed data splitting** ensures **representative performance estimates** and **avoids overfitting** to specific hospital characteristics.
 
 **18.**
 
 **Given the task of determining loan approval for applicants using a predictive model given applicant features such as race, salary, education, etc., is it always best practice to allow the model to use all of the given features? Why or why not?**
 
-**Answer:**
+**Answer:** No, we should not always use all features. Ethical considerations and potential bias require careful feature selection.
 
-**Explanation:** No, we should not ALWAYS use all the features. In addition to building an accurate model, we also want to build ethically-informed models and this requires us to be thoughtful about what features go into our analyses. For any feature we choose to include, our model may find correlations that are not necessarily causations, that are either coincidental or the result of pre-existing biases. Depending on the most informed choice to make, the best practice may or may not be to include all available features.
+**Explanation:**
+
+**No, we should not always use all features** - ethical considerations and potential bias require thoughtful feature selection.
+
+**Why not to use all features:**
+
+**1. Ethical and legal concerns:**
+
+**Protected attributes:**
+- **Race, gender, age** may be legally protected
+- **Direct discrimination** is illegal in many contexts
+- **Model may learn** discriminatory patterns
+- **Fair lending laws** prohibit certain features
+
+**2. Bias and discrimination:**
+
+**Historical bias:**
+- **Training data** may reflect historical discrimination
+- **Model learns** biased patterns from biased data
+- **Perpetuates** existing inequalities
+- **Proxy discrimination** through correlated features
+
+**3. Correlation vs. causation:**
+
+**Spurious correlations:**
+- **Race and income** may be correlated due to historical factors
+- **Model may use race** as a proxy for income
+- **Correlation doesn't imply** causation
+- **Reinforces** existing biases
+
+**4. Practical considerations:**
+
+**Model interpretability:**
+- **Fewer features** often more interpretable
+- **Regulatory compliance** requires transparency
+- **Stakeholder trust** depends on understanding
+- **Debugging** easier with simpler models
+
+**5. Alternative approaches:**
+
+**Feature engineering:**
+- **Remove protected attributes** entirely
+- **Create fair features** that don't encode bias
+- **Use domain knowledge** to select relevant features
+- **Feature selection** based on business logic
+
+**Fairness techniques:**
+- **Preprocessing** to remove bias
+- **In-processing** fairness constraints
+- **Post-processing** to ensure fairness
+- **Regularization** against unfair predictions
+
+**6. When to include features:**
+
+**Legitimate business need:**
+- **Features directly related** to creditworthiness
+- **Income, employment history, credit score**
+- **Features that predict** ability to repay
+- **Features that don't encode** protected attributes
+
+**7. Best practices:**
+
+**Documentation:**
+- **Justify** each feature inclusion
+- **Document** potential bias sources
+- **Monitor** model fairness over time
+- **Regular audits** of model decisions
+
+**Testing:**
+- **Fairness metrics** (disparate impact, equalized odds)
+- **Bias detection** in predictions
+- **A/B testing** with different feature sets
+- **Stakeholder review** of feature choices
+
+**Key insight:** **Feature selection** in sensitive applications requires **ethical consideration** beyond just **predictive accuracy**.
 
 **19. One Answer**
 
@@ -856,7 +1215,95 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (d)
 
-**Explanation:** Machine learning models can only reliably generalize to data from the same distribution they were trained on; when faced with different distributions, their predictions may become unreliable or biased due to this domain shift, rather than becoming more diverse or accurate.
+**Explanation:**
+
+**Option (d) is correct** - distribution shift can make model predictions unreliable or biased.
+
+**Why (d) is correct:**
+
+**1. Distribution shift problem:**
+- **Training data** comes from one distribution
+- **Deployment data** comes from different distribution
+- **Model assumptions** no longer hold
+- **Performance degradation** inevitable
+
+**2. What happens during distribution shift:**
+
+**Covariate shift:**
+- **Feature distributions** change (e.g., user demographics)
+- **Label distribution** remains same
+- **Model trained** on old user types
+- **Poor performance** on new user types
+
+**Label shift:**
+- **Target variable distribution** changes
+- **Feature distributions** may remain same
+- **Model calibrated** for old label distribution
+- **Biased predictions** on new data
+
+**3. Why other options are incorrect:**
+
+**Option (a): Automatic adaptation**
+- **Models don't adapt** automatically
+- **Static parameters** learned during training
+- **No online learning** mechanism
+- **Requires retraining** to adapt
+
+**Option (b): More diverse predictions**
+- **Diversity doesn't imply** accuracy
+- **Random predictions** are diverse but useless
+- **Distribution shift** typically reduces accuracy
+- **Wrong direction** of effect
+
+**Option (c): Maintain performance indefinitely**
+- **Models are not** distribution-agnostic
+- **Performance depends** on data distribution
+- **Assumes** unrealistic model robustness
+- **Contradicts** fundamental ML principles
+
+**4. Specific consequences:**
+
+**Performance degradation:**
+- **Lower accuracy** on new data
+- **Increased error rates**
+- **Poor generalization** to new users
+- **Unreliable predictions**
+
+**Bias introduction:**
+- **Systematic errors** in predictions
+- **Unfair treatment** of new user groups
+- **Discriminatory outcomes**
+- **Loss of trust** in system
+
+**5. Examples of distribution shift:**
+
+**Website user changes:**
+- **New user demographics** (age, location)
+- **Different usage patterns** (mobile vs. desktop)
+- **Seasonal effects** (holiday shopping)
+- **Platform changes** (new features, redesign)
+
+**6. Solutions to address distribution shift:**
+
+**Monitoring:**
+- **Track performance** over time
+- **Detect distribution** changes
+- **Alert systems** for performance drops
+- **Regular model** evaluation
+
+**Adaptation strategies:**
+- **Online learning** for continuous adaptation
+- **Transfer learning** to adapt to new domains
+- **Domain adaptation** techniques
+- **Regular retraining** with new data
+
+**7. Prevention measures:**
+- **Robust feature engineering**
+- **Domain-invariant** representations
+- **Ensemble methods** for stability
+- **Conservative model** selection
+
+**Key insight:** **Distribution shift** is a **fundamental challenge** in ML that requires **proactive monitoring** and **adaptation strategies**.
 
 **20. One Answer**
 
@@ -866,7 +1313,89 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (b)
 
-**Explanation:** Gradient descent is not always better than stochastic gradient descent. The variability of SGD can escape local minima more effectively than deterministic gradient descent.
+**Explanation:**
+
+**This statement is false** - SGD can sometimes find better solutions than full gradient descent for non-convex problems.
+
+**Why this is false:**
+
+**1. Non-convex optimization challenges:**
+- **Multiple local minima** exist
+- **Global minimum** is hard to find
+- **Optimization landscape** is complex
+- **Convergence** to local optima is common
+
+**2. How SGD can outperform GD:**
+
+**Escape local minima:**
+- **Stochastic noise** helps escape local minima
+- **Random perturbations** explore more of the landscape
+- **Less likely** to get stuck in poor local optima
+- **Better exploration** of solution space
+
+**3. Why GD can get stuck:**
+
+**Deterministic nature:**
+- **Always follows** exact gradient direction
+- **Can get trapped** in local minima
+- **No randomness** to escape poor solutions
+- **Sensitive** to initialization
+
+**4. Mathematical intuition:**
+
+**GD update rule:**
+```
+w_{t+1} = w_t - \eta \nabla L(w_t)
+```
+- **Exact gradient** from all data
+- **Deterministic** path
+- **Converges** to nearest local minimum
+
+**SGD update rule:**
+```
+w_{t+1} = w_t - \eta \nabla L_i(w_t)
+```
+- **Noisy gradient** from mini-batch
+- **Stochastic** path
+- **Can escape** local minima
+
+**5. Practical examples:**
+
+**Neural networks:**
+- **Highly non-convex** optimization
+- **SGD often finds** better solutions
+- **GD may converge** to poor local minima
+- **SGD's noise** is beneficial
+
+**6. Trade-offs:**
+
+**SGD advantages:**
+- **Better exploration** of solution space
+- **Escape local minima**
+- **Computational efficiency**
+- **Scalability** to large datasets
+
+**SGD disadvantages:**
+- **Noisy convergence**
+- **Requires careful** learning rate tuning
+- **May not converge** to exact minimum
+- **Higher variance** in final solution
+
+**7. When each is preferred:**
+
+**Use GD when:**
+- **Convex optimization** problems
+- **Small datasets** that fit in memory
+- **Need exact** convergence
+- **Computational cost** is not a concern
+
+**Use SGD when:**
+- **Non-convex problems** (like neural networks)
+- **Large datasets** that don't fit in memory
+- **Want to escape** local minima
+- **Computational efficiency** is important
+
+**Key insight:** **SGD's stochasticity** can be **advantageous** for **non-convex optimization** by helping escape **local minima**.
 
 **21. Select All That Apply**
 
@@ -878,7 +1407,82 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (a)
 
-**Explanation:** $\eta$ controls the step size in the gradient descent algorithm. $\eta$ and $w$ are independently set. A larger $\eta$ may cause model update to overshoot the global minimum. A smaller $\eta$ may cause model to get stuck in local minimum.
+**Explanation:**
+
+**Only option (a) is correct** - η controls the step size in gradient descent.
+
+**Why (a) is correct:**
+
+**1. Learning rate role:**
+- **η** is the **learning rate** or **step size**
+- **Controls how far** to move in gradient direction
+- **Scales the gradient** vector
+- **Determines convergence** behavior
+
+**2. Mathematical interpretation:**
+```
+w_{t+1} = w_t - η∇f(w_t)
+```
+- **η** multiplies the gradient
+- **Larger η** → larger steps
+- **Smaller η** → smaller steps
+- **Step magnitude** = η × ||∇f(w_t)||
+
+**3. Why other options are incorrect:**
+
+**Option (b): η determines initial value**
+- **η and w₀** are set independently
+- **Initial value w₀** is chosen separately
+- **η only affects** step size, not starting point
+- **No relationship** between η and w₀
+
+**Option (c): Larger η guarantees faster convergence**
+- **Too large η** can cause overshooting
+- **May oscillate** around minimum
+- **May diverge** if η is too large
+- **No guarantee** of faster convergence
+
+**Option (d): Smaller η guarantees faster convergence**
+- **Too small η** leads to slow convergence
+- **May get stuck** in local minima
+- **Many iterations** needed to converge
+- **No guarantee** of faster convergence
+
+**4. Learning rate effects:**
+
+**Too large η:**
+- **Overshooting** the minimum
+- **Oscillations** around optimal point
+- **Divergence** in extreme cases
+- **Unstable** convergence
+
+**Too small η:**
+- **Slow convergence** to minimum
+- **Many iterations** required
+- **May get stuck** in local minima
+- **Computationally expensive**
+
+**Optimal η:**
+- **Fast convergence** without overshooting
+- **Stable** optimization path
+- **Reaches minimum** efficiently
+- **Problem-dependent** choice
+
+**5. Practical considerations:**
+
+**Adaptive learning rates:**
+- **Adam, RMSprop** adjust η automatically
+- **Learning rate scheduling** reduces η over time
+- **Line search** methods find optimal η
+- **Grid search** for hyperparameter tuning
+
+**6. Guidelines for choosing η:**
+- **Start small** (e.g., 0.01, 0.001)
+- **Monitor convergence** behavior
+- **Adjust based on** problem characteristics
+- **Use validation** to tune η
+
+**Key insight:** **Learning rate η** controls **step size** and **convergence behavior**, but **optimal value** depends on the **specific problem**.
 
 **22. Select All That Apply**
 
@@ -890,7 +1494,69 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (b), (c)
 
-**Explanation:** To determine which functions are convex, we need to examine the second derivative of each function. A function $f(x)$ is convex on an interval if $f''(x) \ge 0$ for all $x$ in that interval. (b) and (c) are the functions satisfy the definition. You can also plot the functions for an informal check of the convexity.
+**Explanation:**
+
+**Options (b) and (c) are convex** on their specified domains.
+
+**Analysis of each function:**
+
+**Option (a): f(x) = x³**
+- **f'(x) = 3x²**
+- **f''(x) = 6x**
+- **f''(x) < 0** for x < 0 (concave)
+- **f''(x) > 0** for x > 0 (convex)
+- **Not convex** on $\mathbb{R}$ (mixed convexity)
+
+**Option (b): f(x) = 3x(x-1)/2 = (3x² - 3x)/2**
+- **f'(x) = (6x - 3)/2 = 3x - 3/2**
+- **f''(x) = 3 > 0** for all x
+- **Convex** on $\mathbb{R}$ (positive second derivative)
+
+**Option (c): f(x) = sin(x) on [π, 2π]**
+- **f'(x) = cos(x)**
+- **f''(x) = -sin(x)**
+- **On [π, 2π]:** sin(x) ≤ 0
+- **Therefore:** f''(x) = -sin(x) ≥ 0
+- **Convex** on [π, 2π]
+
+**Option (d): f(x) = log₁₀(x)**
+- **f'(x) = 1/(x ln(10))**
+- **f''(x) = -1/(x² ln(10)) < 0** for x > 0
+- **Concave** on (0, ∞)
+- **Not convex**
+
+**3. Visual interpretation:**
+
+**Option (b):**
+- **Quadratic function** with positive coefficient
+- **U-shaped curve** opening upward
+- **Always convex**
+
+**Option (c):**
+- **Sine function** on [π, 2π]
+- **Curve bends upward** in this interval
+- **Convex** in this domain
+
+**4. Why convexity matters:**
+
+**Optimization properties:**
+- **Local minima** are global minima
+- **Gradient descent** converges to global minimum
+- **No local minima traps**
+- **Efficient optimization** algorithms
+
+**5. Second derivative test:**
+- **f''(x) > 0** → convex
+- **f''(x) < 0** → concave
+- **f''(x) = 0** → inflection point
+
+**6. Practical implications:**
+- **Convex functions** are easier to optimize
+- **Guaranteed convergence** to global minimum
+- **No initialization** sensitivity
+- **Deterministic** optimization path
+
+**Key insight:** **Convexity** is determined by **second derivative sign** and provides **optimization guarantees**.
 
 **23. Which of the following are true about a convex function $f(x): \mathbb{R}^d \rightarrow \mathbb{R}$?**
 *   (a) $f(x)$ must be differentiable across its entire domain.
@@ -900,7 +1566,70 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (d)
 
-**Explanation:** The correct answer(s) are: D. A is incorrect—consider the function $f(x) = |x|$. This is convex but is not differentiable at $x=0$. B is incorrect because a convex function may have multiple connected global minima (e.g., the "half-pipes" we discussed when building up ridge regression) or no global minima (e.g., a hyperplane with non-zero slope). C is only true when $f(x)$ is a linear or affine function, but is not true in general (e.g., a bowl is convex, but when you flip it upside down it becomes concave).
+**Explanation:**
+
+**Only option (d) is correct** - the Hessian matrix must be positive semi-definite for twice differentiable convex functions.
+
+**Why (d) is correct:**
+
+**1. Second-order condition for convexity:**
+- **f is convex** if and only if ∇²f(x) is positive semi-definite
+- **z^T ∇²f(x) z ≥ 0** for all z ∈ ℝ^d
+- **All eigenvalues** of ∇²f(x) are non-negative
+- **This is the** fundamental characterization
+
+**2. Why other options are incorrect:**
+
+**Option (a): Must be differentiable**
+- **Counterexample:** f(x) = |x| is convex but not differentiable at x = 0
+- **Convex functions** can have non-differentiable points
+- **Subdifferential** exists at all points
+- **Differentiability** is not required
+
+**Option (b): Unique global minimum**
+- **Counterexample:** f(x) = 0 (constant function) has infinitely many global minima
+- **Counterexample:** f(x) = x² on [-1,1] has minimum at x = 0, but f(x) = 0 on [0,1] has multiple minima
+- **Convex functions** can have multiple connected global minima
+- **Uniqueness** requires strict convexity
+
+**Option (c): Negative is also convex**
+- **Counterexample:** f(x) = x² is convex, but g(x) = -x² is concave
+- **Only true** for linear/affine functions
+- **Convexity** is not preserved under negation
+- **Negation** flips convexity to concavity
+
+**3. Mathematical details:**
+
+**Hessian condition:**
+```
+For twice differentiable f: ℝ^d → ℝ
+f is convex ⇔ ∇²f(x) is positive semi-definite ∀x
+```
+
+**Positive semi-definite matrix:**
+- **z^T A z ≥ 0** for all z ∈ ℝ^d
+- **All eigenvalues** ≥ 0
+- **Symmetric** matrix
+
+**4. Examples:**
+
+**Convex functions:**
+- **f(x) = x²** → f''(x) = 2 > 0
+- **f(x) = e^x** → f''(x) = e^x > 0
+- **f(x) = ||x||²** → ∇²f(x) = 2I (positive definite)
+
+**Non-differentiable convex:**
+- **f(x) = |x|** (convex but not differentiable at 0)
+
+**5. Practical implications:**
+
+**Optimization:**
+- **Local minima** are global minima
+- **Gradient descent** converges to global minimum
+- **No local minima traps**
+- **Efficient algorithms** available
+
+**Key insight:** **Convexity** is characterized by **positive semi-definite Hessian** for twice differentiable functions, but **differentiability** is not required.
 
 **24. Which of the following have convex objective functions?**
 *   (a) Linear regression
@@ -911,7 +1640,81 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (a), (b), (c), (d), (e)
 
-**Explanation:** All the aforementioned models use a linear function to map inputs to outputs, and their objective function is linear.
+**Explanation:**
+
+**All options have convex objective functions** - this is a key property of these models.
+
+**Why all are convex:**
+
+**1. Linear regression:**
+```
+\text{Objective: } \min \|y - Xw\|^2
+```
+- **Quadratic function** in w
+- **Positive semi-definite** Hessian (2X^T X)
+- **Convex** for any X
+
+**2. Linear regression with basis functions:**
+```
+\text{Objective: } \min \|y - \Phi w\|^2
+```
+where $\Phi = \phi(X)$ are basis functions
+- **Still quadratic** in w
+- **Same convexity** properties as linear regression
+- **Basis transformation** preserves convexity
+
+**3. Ridge regression:**
+```
+\text{Objective: } \min \|y - Xw\|^2 + \lambda\|w\|^2
+```
+- **Sum of convex functions** is convex
+- **$\|y - Xw\|^2$** is convex (quadratic)
+- **$\lambda\|w\|^2$** is convex (quadratic)
+- **Convex combination** remains convex
+
+**4. Lasso regression:**
+```
+\text{Objective: } \min \|y - Xw\|^2 + \lambda\|w\|_1
+```
+- **$\|y - Xw\|^2$** is convex (quadratic)
+- **$\|w\|_1$** is convex (L1 norm)
+- **Sum of convex functions** is convex
+- **L1 penalty** preserves convexity
+
+**5. Logistic regression:**
+```
+\text{Objective: } \min \sum[-y_i \log(\sigma(x_i^T w)) - (1-y_i)\log(1-\sigma(x_i^T w))]
+```
+- **Log-likelihood** of Bernoulli distribution
+- **Sigmoid function** $\sigma(z) = 1/(1+e^{-z})$
+- **Concave log-likelihood** → convex negative log-likelihood
+- **Well-known** to be convex
+
+**6. Mathematical properties:**
+
+**Convexity preservation:**
+- **Linear combinations** of convex functions are convex
+- **Composition** with linear functions preserves convexity
+- **Sum** of convex functions is convex
+- **Regularization** terms are typically convex
+
+**7. Practical implications:**
+
+**Optimization guarantees:**
+- **Global minimum** exists and is unique (if strictly convex)
+- **Gradient descent** converges to global minimum
+- **No local minima** traps
+- **Efficient algorithms** available
+
+**8. Why convexity matters:**
+
+**Reliable optimization:**
+- **Predictable** convergence behavior
+- **No initialization** sensitivity
+- **Deterministic** optimization path
+- **Well-understood** algorithms
+
+**Key insight:** **All these models** have **convex objectives** because they use **linear functions** with **convex loss functions** and **convex regularization**.
 
 **25. Which of the following scenarios are better suited for a logistic regression model over a linear regression model?**
 *   (a) Forecasting the price of stocks for the next year, given the price of stocks for the past year.
@@ -922,7 +1725,87 @@ min ||y - Xw||² + λ||w||₂²
 
 **Correct answers:** (b), (d)
 
-**Explanation:** (b) and (d) are classification problems; the others are more suited to regression problems.
+**Explanation:**
+
+**Options (b) and (d) are classification problems** that are better suited for logistic regression.
+
+**Why (b) and (d) are classification problems:**
+
+**Option (b): Disease diagnosis**
+- **Binary outcome:** Disease present (1) or absent (0)
+- **Classification task:** Predict discrete categories
+- **Logistic regression** outputs probabilities P(disease = 1)
+- **Medical diagnosis** is inherently categorical
+
+**Option (d): College completion prediction**
+- **Binary outcome:** Complete degree (1) or not (0)
+- **Classification task:** Predict success/failure
+- **Logistic regression** outputs P(completion = 1)
+- **Educational outcomes** are often binary
+
+**Why other options are regression problems:**
+
+**Option (a): Stock price forecasting**
+- **Continuous outcome:** Price can be any real number
+- **Regression task:** Predict continuous values
+- **Linear regression** appropriate for continuous targets
+- **Time series** prediction problem
+
+**Option (c): Temperature prediction**
+- **Continuous outcome:** Temperature can be any real number
+- **Regression task:** Predict continuous values
+- **Linear regression** appropriate for continuous targets
+- **Climate modeling** problem
+
+**Option (e): Material hardness prediction**
+- **Continuous outcome:** Hardness scale 1-10 (continuous)
+- **Regression task:** Predict continuous values
+- **Linear regression** appropriate for continuous targets
+- **Material science** prediction problem
+
+**3. Key differences:**
+
+**Logistic regression:**
+- **Binary classification** (0 or 1)
+- **Outputs probabilities** P(y = 1)
+- **Sigmoid activation** function
+- **Log-likelihood** loss function
+
+**Linear regression:**
+- **Continuous prediction** (any real number)
+- **Outputs continuous** values
+- **Linear activation** function
+- **Squared error** loss function
+
+**4. When to use each:**
+
+**Use logistic regression for:**
+- **Binary classification** problems
+- **Probability estimation** tasks
+- **Categorical outcomes**
+- **Risk assessment** problems
+
+**Use linear regression for:**
+- **Continuous prediction** problems
+- **Quantity estimation** tasks
+- **Numerical outcomes**
+- **Forecasting** problems
+
+**5. Model outputs:**
+
+**Logistic regression:**
+- **P(y = 1)** ∈ [0, 1]
+- **Interpretable** as probability
+- **Decision threshold** needed for classification
+- **ROC curves** and AUC metrics
+
+**Linear regression:**
+- **ŷ** ∈ ℝ (any real number)
+- **Direct prediction** of target
+- **No threshold** needed
+- **R²** and RMSE metrics
+
+**Key insight:** **Logistic regression** is for **binary classification**, while **linear regression** is for **continuous prediction**.
 
 **26. Which of the following statements about classification are true?**
 
@@ -936,4 +1819,74 @@ $$\sigma(z)_i = \frac{\exp(z_i)}{\sum_{j=1}^k \exp(z_j)}$$
 
 **Correct answers:** (d)
 
-**Explanation:** Quadratic features can still lead to overfitting, and while some convex optimization problems (like linear regression) have closed-form solutions, others like logistic regression require iterative methods. Softmax regression's complexity depends on implementation, and linear regression can perform basic classification tasks despite not being optimized for this purpose.
+**Explanation:**
+
+**Only option (d) is correct** - linear regression can be used for classification, though it's not optimal.
+
+**Why (d) is correct:**
+
+**1. Linear regression for classification:**
+- **Can predict** binary outcomes (0 or 1)
+- **Outputs continuous** values that can be thresholded
+- **Threshold** at 0.5 for binary classification
+- **Works** but not optimal for classification
+
+**2. Why linear regression works:**
+- **Can learn** linear decision boundaries
+- **Outputs** can be interpreted as scores
+- **Thresholding** converts to binary predictions
+- **Simple** and interpretable
+
+**3. Why it's not optimal:**
+- **No probability** interpretation
+- **Predictions** outside [0,1] range
+- **Squared error** not appropriate for classification
+- **Poor calibration** for probabilities
+
+**Why other options are incorrect:**
+
+**Option (a): Quadratic features avoid overfitting**
+- **Quadratic features** increase model complexity
+- **More parameters** to estimate
+- **Higher risk** of overfitting
+- **Opposite effect** of what's claimed
+
+**Option (b): Closed-form solution for logistic regression**
+- **Logistic regression** is convex but has no closed-form solution
+- **Requires iterative** optimization (gradient descent, Newton's method)
+- **Only linear regression** has closed-form solution among these models
+- **Nonlinear** objective function
+
+**Option (c): Softmax overfits for k=2**
+- **Softmax** works fine for k=2 (equivalent to logistic regression)
+- **No overfitting** issue specific to k=2
+- **Logistic regression** is special case of softmax
+- **Choice between** them is implementation preference
+
+**4. Comparison of approaches:**
+
+**Linear regression for classification:**
+- **Pros:** Simple, interpretable, convex
+- **Cons:** No probability output, poor calibration
+- **Use when:** Quick prototype, interpretability important
+
+**Logistic regression for classification:**
+- **Pros:** Probability output, appropriate loss function
+- **Cons:** Requires iterative optimization
+- **Use when:** Probability estimates needed
+
+**5. Practical considerations:**
+
+**When to use linear regression:**
+- **Quick prototyping**
+- **Interpretability** is crucial
+- **Computational** constraints
+- **Simple** decision boundaries
+
+**When to use logistic regression:**
+- **Probability estimates** needed
+- **Proper classification** metrics important
+- **Model calibration** matters
+- **Standard** classification practice
+
+**Key insight:** **Linear regression** can perform **basic classification** but **logistic regression** is **more appropriate** for classification tasks.
