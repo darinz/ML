@@ -2195,6 +2195,164 @@ where $\mathcal{L}^*(k)$ is the optimal loss with $k$ clusters.
 - B is correct since if all the singular values are equal, the variance is equally distributed across all directions so PCA won't find a meaningful lower-dimensional representation.
 - C is also correct since we find the eigenvalue decomposition of the covariance matrix. It isn't guaranteed that PCA will reduce the dimensionality, for example if all principal components are chosen.
 
+## Detailed Solution Explanation
+
+**Understanding Principal Component Analysis (PCA):**
+
+This problem explores the fundamental properties and limitations of PCA, particularly focusing on eigenvalue relationships and variance distribution.
+
+**Mathematical Framework:**
+
+**PCA Objective:**
+$$\max_w w^T \Sigma w \quad \text{subject to } ||w|| = 1$$
+
+where $\Sigma$ is the covariance matrix of the centered data.
+
+**Eigenvalue Decomposition:**
+$$\Sigma = U \Lambda U^T$$
+
+where:
+- $U$ contains the eigenvectors (principal components)
+- $\Lambda$ is diagonal with eigenvalues $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_d$
+
+**Analysis of Each Option:**
+
+**Option A: "First principal component corresponds to smallest eigenvalue"**
+
+**Why This is False:**
+
+**Mathematical Proof:**
+- The first principal component maximizes $w^T \Sigma w$
+- This corresponds to the eigenvector with the **largest** eigenvalue
+- By convention: $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_d$
+
+**Example:**
+For covariance matrix $\Sigma = \begin{pmatrix} 5 & 2 \\ 2 & 3 \end{pmatrix}$:
+- Eigenvalues: $\lambda_1 = 6.24, \lambda_2 = 1.76$
+- First PC: eigenvector corresponding to $\lambda_1 = 6.24$ (largest)
+- Second PC: eigenvector corresponding to $\lambda_2 = 1.76$ (smallest)
+
+**Option B: "Equal singular values mean no meaningful lower-dimensional representation"**
+
+**Why This is Correct:**
+
+**Mathematical Interpretation:**
+When all singular values are equal:
+$$\lambda_1 = \lambda_2 = \ldots = \lambda_d = \lambda$$
+
+**Implications:**
+1. **Equal Variance:** Variance is equally distributed across all directions
+2. **No Dominant Direction:** No single direction captures significantly more variance
+3. **Reduction Difficult:** Any subset of PCs captures similar variance
+
+**Example:**
+For a 3D dataset with equal eigenvalues $\lambda_1 = \lambda_2 = \lambda_3 = 1$:
+- Each PC explains $\frac{1}{3}$ of the variance
+- No meaningful dimensionality reduction possible
+- All directions are equally important
+
+**Option C: "Principal components are eigenvectors of covariance matrix"**
+
+**Why This is Correct:**
+
+**Mathematical Foundation:**
+PCA finds the eigenvalue decomposition of the covariance matrix:
+$$\Sigma = U \Lambda U^T$$
+
+**Properties:**
+- **Eigenvectors:** Columns of $U$ are the principal components
+- **Orthogonality:** PCs are orthogonal to each other
+- **Variance:** Eigenvalues represent variance explained by each PC
+
+**Example:**
+For centered data matrix $X$:
+$$\Sigma = \frac{1}{n-1} X^T X$$
+
+The principal components are the eigenvectors of this covariance matrix.
+
+**Option D: "Reconstruction error strictly decreases with more components"**
+
+**Why This is False:**
+
+**Mathematical Reality:**
+The reconstruction error is:
+$$\text{Error} = \sum_{i=1}^{n} ||x_i - \hat{x}_i||^2$$
+
+where $\hat{x}_i$ is the reconstruction using $q$ principal components.
+
+**When Error Doesn't Decrease:**
+- **Noise in Data:** If data is mostly noise, additional PCs may not help
+- **Perfect Reconstruction:** Once all PCs are used, error cannot decrease further
+- **Numerical Issues:** Rounding errors may cause slight increases
+
+**Example:**
+For a dataset with rank $r < d$:
+- Using $r$ components: perfect reconstruction
+- Using $r+1$ to $d$ components: same error (no improvement)
+
+**Visual Representation:**
+
+**Eigenvalue Distribution:**
+```
+Unequal eigenvalues:    Equal eigenvalues:
+λ₁ ████████████████     λ₁ ████████████████
+λ₂ ████████████         λ₂ ████████████████
+λ₃ ████████             λ₃ ████████████████
+λ₄ ████                 λ₄ ████████████████
+```
+
+**PCA Process:**
+
+**1. Data Centering:**
+$$X_{centered} = X - \bar{X}$$
+
+**2. Covariance Matrix:**
+$$\Sigma = \frac{1}{n-1} X_{centered}^T X_{centered}$$
+
+**3. Eigenvalue Decomposition:**
+$$\Sigma = U \Lambda U^T$$
+
+**4. Projection:**
+$$X_{reduced} = X_{centered} U_q$$
+
+where $U_q$ contains the first $q$ eigenvectors.
+
+**Practical Implications:**
+
+**When PCA Works Well:**
+- **Clear Structure:** Data has dominant directions of variation
+- **Unequal Eigenvalues:** Some directions capture much more variance
+- **Noise Reduction:** Lower-dimensional representation removes noise
+
+**When PCA Doesn't Work Well:**
+- **Equal Variance:** All directions equally important
+- **Non-linear Structure:** Data has curved or complex structure
+- **High Noise:** Data is mostly random noise
+
+**Example Applications:**
+
+**1. Image Compression:**
+- Eigenfaces for face recognition
+- Dimensionality reduction for image processing
+- Noise reduction in images
+
+**2. Financial Data:**
+- Risk factor analysis
+- Portfolio optimization
+- Market structure analysis
+
+**3. Genomics:**
+- Gene expression analysis
+- Population structure inference
+- Feature selection
+
+**Key Insights:**
+- First PC corresponds to largest eigenvalue (most variance)
+- Equal eigenvalues indicate no meaningful structure
+- PCs are eigenvectors of covariance matrix
+- Reconstruction error may not always decrease
+- Understanding these properties is crucial for proper application
+
 ## Problem 16: Singular Value Decomposition (SVD)
 
 **1 point**
@@ -2221,6 +2379,170 @@ where U and V are orthogonal matrices, and $\Sigma$ is a diagonal matrix contain
 
 $A^T A = \begin{bmatrix} 9 & 12 \\ 12 & 16 \end{bmatrix}$
 
+## Detailed Solution Explanation
+
+**Understanding Singular Value Decomposition (SVD):**
+
+This problem explores the properties of SVD for a specific matrix, focusing on rank, singular values, and the structure of the decomposition.
+
+**Mathematical Framework:**
+
+**SVD Decomposition:**
+For matrix $A \in \mathbb{R}^{m \times n}$:
+$$A = U \Sigma V^T$$
+
+where:
+- $U \in \mathbb{R}^{m \times m}$ is orthogonal (left singular vectors)
+- $\Sigma \in \mathbb{R}^{m \times n}$ is diagonal (singular values)
+- $V \in \mathbb{R}^{n \times n}$ is orthogonal (right singular vectors)
+
+**Given Matrix:**
+$$A = \begin{bmatrix} 3 & 4 \\ 0 & 0 \end{bmatrix}$$
+
+**Analysis of Each Option:**
+
+**Option A: "The rank of A is 1"**
+
+**Why This is True:**
+
+**Mathematical Proof:**
+1. **Row Analysis:** The second row is entirely zero
+2. **Linear Independence:** Only one row is linearly independent
+3. **Rank Definition:** Rank = number of linearly independent rows/columns
+4. **Result:** $\text{rank}(A) = 1$
+
+**Alternative Proof via SVD:**
+- Rank equals number of non-zero singular values
+- Matrix has only one non-zero singular value
+- Therefore, rank = 1
+
+**Option B: "The nonzero singular value of A is 5"**
+
+**Why This is True:**
+
+**Step-by-Step Calculation:**
+
+**1. Compute $A^T A$:**
+$$A^T A = \begin{bmatrix} 3 & 0 \\ 4 & 0 \end{bmatrix} \begin{bmatrix} 3 & 4 \\ 0 & 0 \end{bmatrix} = \begin{bmatrix} 9 & 12 \\ 12 & 16 \end{bmatrix}$$
+
+**2. Find Eigenvalues:**
+$$\det(A^T A - \lambda I) = \det\begin{bmatrix} 9-\lambda & 12 \\ 12 & 16-\lambda \end{bmatrix} = 0$$
+
+$$(9-\lambda)(16-\lambda) - 144 = 0$$
+$$\lambda^2 - 25\lambda + 144 - 144 = 0$$
+$$\lambda^2 - 25\lambda = 0$$
+$$\lambda(\lambda - 25) = 0$$
+
+**Eigenvalues:** $\lambda_1 = 25, \lambda_2 = 0$
+
+**3. Singular Values:**
+$$\sigma_1 = \sqrt{25} = 5, \sigma_2 = \sqrt{0} = 0$$
+
+**Option C: "The columns of V must be [1,0] and [0,1]"**
+
+**Why This is False:**
+
+**Mathematical Reality:**
+- The columns of $V$ are the eigenvectors of $A^T A$
+- They depend on the specific matrix $A$
+- They are not necessarily the standard basis vectors
+
+**Calculation:**
+For eigenvalue $\lambda = 25$:
+$$(A^T A - 25I)v = 0$$
+$$\begin{bmatrix} -16 & 12 \\ 12 & -9 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = 0$$
+
+This gives $v_1 = \frac{3}{4}v_2$, so the eigenvector is proportional to $[3, 4]^T$.
+
+**Option D: "The columns of V form an orthonormal basis for ℝ²"**
+
+**Why This is True:**
+
+**Mathematical Properties:**
+- $V$ is an orthogonal matrix by definition of SVD
+- Orthogonal matrices have orthonormal columns
+- The columns span the entire space $\mathbb{R}^2$
+
+**Verification:**
+- $V^T V = I$ (orthogonality)
+- $\det(V) = \pm 1$ (orthogonal matrix property)
+- Columns are unit vectors and mutually orthogonal
+
+**Complete SVD Analysis:**
+
+**1. Singular Values:**
+$$\Sigma = \begin{bmatrix} 5 & 0 \\ 0 & 0 \end{bmatrix}$$
+
+**2. Right Singular Vectors (V):**
+- First column: eigenvector of $A^T A$ for eigenvalue 25
+- Second column: eigenvector of $A^T A$ for eigenvalue 0
+- Both normalized and orthogonal
+
+**3. Left Singular Vectors (U):**
+- First column: $Av_1 / \sigma_1$
+- Second column: orthogonal to first column
+
+**Visual Representation:**
+
+**Matrix Structure:**
+```
+A = [3  4]    Rank = 1 (one independent row)
+    [0  0]
+```
+
+**SVD Components:**
+```
+U = [u₁ u₂]   Orthogonal matrix
+    [u₃ u₄]
+
+Σ = [5  0]    Diagonal with one non-zero value
+    [0  0]
+
+V = [v₁ v₂]   Orthogonal matrix
+    [v₃ v₄]
+```
+
+**Properties Verification:**
+
+**1. Rank Properties:**
+- **Row Rank:** Number of non-zero rows = 1
+- **Column Rank:** Number of non-zero columns = 1
+- **SVD Rank:** Number of non-zero singular values = 1
+
+**2. Singular Value Properties:**
+- **Non-negative:** $\sigma_i \geq 0$
+- **Ordered:** $\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_r > 0$
+- **Relationship:** $\sigma_i^2$ are eigenvalues of $A^T A$
+
+**3. Orthogonality Properties:**
+- **U:** $U^T U = I$
+- **V:** $V^T V = I$
+- **Columns:** Orthonormal in both matrices
+
+**Practical Implications:**
+
+**1. Dimensionality Reduction:**
+- Matrix has effective rank 1
+- Can be approximated by rank-1 matrix
+- Significant compression possible
+
+**2. Numerical Stability:**
+- Condition number = $\sigma_1 / \sigma_2 = \infty$
+- Matrix is singular
+- Care needed in computations
+
+**3. Applications:**
+- **Image Compression:** Low-rank approximation
+- **Recommendation Systems:** Matrix factorization
+- **Signal Processing:** Noise reduction
+
+**Key Insights:**
+- Rank equals number of non-zero singular values
+- Singular values are square roots of eigenvalues of $A^T A$
+- V columns form orthonormal basis but aren't necessarily standard basis
+- Understanding SVD structure helps with matrix analysis
+- SVD provides optimal low-rank approximations
+
 ## Problem 17: Kernel Methods
 
 **1 point**
@@ -2243,6 +2565,157 @@ $k(x, x') = \exp\left(-\frac{||x - x'||^2}{2\sigma^2}\right)$
 correspond to an infinite-dimensional feature space. This is because an RBF kernel can be expressed as an infinite sum of polynomial terms in a Taylor expansion.
 
 Thus, the error in the statement is that the linear kernel is incorrectly claimed to map data into an infinite-dimensional space, when in reality, it remains in the original finite-dimensional space.
+
+## Detailed Solution Explanation
+
+**Understanding Kernel Methods and Feature Space Mapping:**
+
+This problem explores the fundamental differences between linear and nonlinear kernels in terms of feature space dimensionality.
+
+**Mathematical Framework:**
+
+**Kernel Function Definition:**
+A function $k: \mathcal{X} \times \mathcal{X} \to \mathbb{R}$ is a kernel if there exists a feature map $\phi: \mathcal{X} \to \mathcal{H}$ such that:
+$$k(x, x') = \langle \phi(x), \phi(x') \rangle_{\mathcal{H}}$$
+
+where $\mathcal{H}$ is a Hilbert space (possibly infinite-dimensional).
+
+**Linear Kernel:**
+$$k(x, x') = x^T x'$$
+
+**Gaussian (RBF) Kernel:**
+$$k(x, x') = \exp\left(-\frac{||x - x'||^2}{2\sigma^2}\right)$$
+
+**Analysis of the Statement:**
+
+**The Statement Claims:**
+"Linear kernel $k(x,x') = x^T x'$ maps data into an infinite-dimensional feature space."
+
+**Why This is False:**
+
+**1. Linear Kernel Feature Map:**
+
+For the linear kernel:
+$$k(x, x') = x^T x'$$
+
+**Feature Map:** $\phi(x) = x$
+
+**Verification:**
+$$\langle \phi(x), \phi(x') \rangle = \langle x, x' \rangle = x^T x' = k(x, x')$$
+
+**Dimensionality:** $\phi(x) \in \mathbb{R}^d$ (same as input space)
+
+**2. Comparison with RBF Kernel:**
+
+**RBF Kernel Feature Map:**
+The RBF kernel corresponds to an infinite-dimensional feature space.
+
+**Mathematical Proof:**
+Using the Taylor expansion of the exponential function:
+$$e^z = \sum_{n=0}^{\infty} \frac{z^n}{n!}$$
+
+For the RBF kernel:
+$$k(x, x') = \exp\left(-\frac{||x - x'||^2}{2\sigma^2}\right)$$
+
+$$= \exp\left(-\frac{||x||^2 + ||x'||^2 - 2x^T x'}{2\sigma^2}\right)$$
+
+$$= \exp\left(-\frac{||x||^2}{2\sigma^2}\right) \exp\left(-\frac{||x'||^2}{2\sigma^2}\right) \exp\left(\frac{x^T x'}{\sigma^2}\right)$$
+
+Using the Taylor expansion:
+$$\exp\left(\frac{x^T x'}{\sigma^2}\right) = \sum_{n=0}^{\infty} \frac{(x^T x')^n}{\sigma^{2n} n!}$$
+
+This shows that the RBF kernel corresponds to an infinite sum of polynomial kernels.
+
+**Visual Comparison:**
+
+**Linear Kernel:**
+```
+Input Space: ℝᵈ
+Feature Space: ℝᵈ (same dimension)
+Mapping: x → x (identity)
+```
+
+**RBF Kernel:**
+```
+Input Space: ℝᵈ
+Feature Space: ℝ^∞ (infinite dimension)
+Mapping: x → φ(x) (complex transformation)
+```
+
+**Kernel Properties:**
+
+**1. Linear Kernel Properties:**
+- **Dimensionality:** Preserves input dimension
+- **Complexity:** Linear decision boundary
+- **Computational Cost:** $O(d)$ per evaluation
+- **Memory:** $O(d)$ per support vector
+
+**2. RBF Kernel Properties:**
+- **Dimensionality:** Infinite-dimensional feature space
+- **Complexity:** Non-linear decision boundary
+- **Computational Cost:** $O(d)$ per evaluation
+- **Memory:** $O(d)$ per support vector
+
+**Practical Implications:**
+
+**When to Use Linear Kernel:**
+- **Linear Separability:** Data is linearly separable
+- **High Dimensionality:** Input space is already high-dimensional
+- **Computational Efficiency:** Faster training and prediction
+- **Interpretability:** Easier to understand decision boundary
+
+**When to Use RBF Kernel:**
+- **Non-linear Patterns:** Data has complex non-linear structure
+- **Low Dimensionality:** Input space is low-dimensional
+- **Flexibility:** Can capture complex decision boundaries
+- **Universal Approximation:** Can approximate any continuous function
+
+**Example Applications:**
+
+**Linear Kernel:**
+- **Text Classification:** High-dimensional TF-IDF features
+- **Image Classification:** High-dimensional pixel features
+- **Financial Data:** High-dimensional market features
+
+**RBF Kernel:**
+- **Pattern Recognition:** Complex geometric patterns
+- **Bioinformatics:** Gene expression data
+- **Computer Vision:** Low-dimensional feature vectors
+
+**Mathematical Verification:**
+
+**Linear Kernel Verification:**
+$$\phi(x) = x \implies k(x, x') = \langle x, x' \rangle = x^T x'$$
+
+**RBF Kernel Verification:**
+The infinite-dimensional nature can be seen through the polynomial expansion:
+$$k(x, x') = \sum_{n=0}^{\infty} \frac{(x^T x')^n}{\sigma^{2n} n!}$$
+
+Each term $(x^T x')^n$ corresponds to a polynomial feature of degree $n$.
+
+**Kernel Trick Benefits:**
+
+**1. Computational Efficiency:**
+- Avoid explicit computation in high-dimensional space
+- Compute inner products in original space
+- Maintain $O(d)$ complexity regardless of feature space dimension
+
+**2. Flexibility:**
+- Can use infinite-dimensional feature spaces
+- No need to explicitly construct feature maps
+- Kernel functions can be designed for specific domains
+
+**3. Theoretical Guarantees:**
+- Mercer's theorem ensures valid kernels
+- Representer theorem provides optimal form
+- Generalization bounds available
+
+**Key Insights:**
+- Linear kernel preserves input space dimensionality
+- RBF kernel maps to infinite-dimensional space
+- Kernel trick enables efficient computation in high dimensions
+- Understanding kernel properties is crucial for model selection
+- The choice of kernel affects both complexity and performance
 
 ## Problem 18: Kernel Properties
 
