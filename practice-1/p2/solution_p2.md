@@ -1,6 +1,6 @@
 # Practice 2 Solutions
 
-**1. Which of the following is the definition of irreducible error in machine learning?**
+**Problem 1. Which of the following is the definition of irreducible error in machine learning?**
 *   (a) The error that cannot be eliminated by any model
 *   (b) The error that is caused by overfitting to the training data
 *   (c) The error that is caused by underfitting to the testing data
@@ -27,7 +27,7 @@
 - **(c)** Underfitting error can be reduced with more complex models
 - **(d)** Not all errors are irreducible
 
-**2. What is the general model for $P(Y = 1|X = x,\theta)$ in logistic regression, where $X = (X_0, X_1,..., X_n)$ is the features, $Y$ is the predictions, and $\theta$ is the parameters? Assume that a bias term has already been appended to $X$ (i.e., $X_0 = 1$).**
+**Problem 2. What is the general model for $P(Y = 1|X = x,\theta)$ in logistic regression, where $X = (X_0, X_1,..., X_n)$ is the features, $Y$ is the predictions, and $\theta$ is the parameters? Assume that a bias term has already been appended to $X$ (i.e., $X_0 = 1$).**
 *   (a) $P(Y = 1|X = x, \theta) = \frac{1}{1+e^{-\theta^T x}}$
 *   (b) $P(Y = 1|X = x, \theta) = \theta^T x$
 *   (c) $P(Y = 1|X = x, \theta) = \log(1 + e^{-\theta^T x})$
@@ -55,7 +55,7 @@ $P(Y = 1|X = x, \theta) = \sigma(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}$
 - **(b)** Linear function can output values outside [0,1]
 - **(c)** and **(d)** Log functions don't output probabilities
 
-**3. Two realtors are creating machine learning models to predict house costs based on house traits (i.e. house size, neighborhood, school district, etc.) trained on the same set of houses, using the same model hyperparameters. Realtor A includes 30 different housing traits in their model. Realtor B includes 5 traits in their model. Which of the following outcomes is most likely?**
+**Problem 3. Two realtors are creating machine learning models to predict house costs based on house traits (i.e. house size, neighborhood, school district, etc.) trained on the same set of houses, using the same model hyperparameters. Realtor A includes 30 different housing traits in their model. Realtor B includes 5 traits in their model. Which of the following outcomes is most likely?**
 *   (a) Realtor B's model has higher variance and lower bias than Realtor A's model
 *   (b) Realtor A's model has higher variance than Realtor B's model and without additional information, we cannot know which model has a higher bias
 *   (c) Realtor A's model has higher variance and lower bias than Realtor B's model
@@ -79,7 +79,7 @@ This is a classic **bias-variance tradeoff** problem. More features generally le
 
 **Key insight:** More features **always** increase variance, but bias can go either way depending on feature quality and relevance.
 
-**4. When $L(w,b) = \sum_{i=1}^{n}(y_i - (w^T x_i + b))^2$ is used as a loss function to train a model, which of the following is true?**
+**Problem 4. When $L(w,b) = \sum_{i=1}^{n}(y_i - (w^T x_i + b))^2$ is used as a loss function to train a model, which of the following is true?**
 *   (a) It minimizes the sum of the absolute differences between observed and predicted values.
 *   (b) It maximizes the correlation coefficient between the independent and dependent variables.
 *   (c) It requires the use of gradient descent optimization to find the best-fit line.
@@ -106,7 +106,7 @@ $L(w,b) = \sum_{i=1}^{n} (y_i - (w^T x_i + b))^2$
 - **(b)** Correlation maximization is not the goal of this loss function
 - **(c)** MSE can be solved analytically (normal equations), not just with gradient descent
 
-**5. True/False: As the value of the regularization term coefficient in Ridge Regression increases, the sensitivity of predictions to inputs decreases.**
+**Problem 5. True/False: As the value of the regularization term coefficient in Ridge Regression increases, the sensitivity of predictions to inputs decreases.**
 *   (a) True
 *   (b) False
 
@@ -132,7 +132,7 @@ $\min \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** This is the fundamental **regularization effect** - trading sensitivity for stability and generalization.
 
-**6. Which of the following statements about logistic regression is true?**
+**Problem 6. Which of the following statements about logistic regression is true?**
 *   (a) The loss function of logistic regression without regularization is convex, and the loss function of logistic regression with L2 regularization is convex.
 *   (b) Neither the loss function of logistic regression without regularization is convex nor the loss function of logistic regression with L2 regularization is convex.
 *   (c) The loss function of logistic regression without regularization is convex, but the loss function of logistic regression with L2 regularization is non-convex.
@@ -159,7 +159,7 @@ $L(\theta) = -\sum_i [y_i \log(\sigma(\theta^T x_i)) + (1-y_i) \log(1-\sigma(\th
 
 **Key insight:** Adding L2 regularization **preserves convexity** and actually makes the optimization more stable.
 
-**7. Which of the following is NOT an assumption of logistic regression?**
+**Problem 7. Which of the following is NOT an assumption of logistic regression?**
 *   (a) The output target is binary.
 *   (b) The input features can be continuous or categorical.
 *   (c) The residual errors are normally distributed.
@@ -220,7 +220,7 @@ $\hat{\sigma}^2_{\text{MLE}} = \frac{1}{n-1} \sum_i(x_i - \hat{\mu}_{\text{MLE}}
 
 **Note:** Option (a) was also accepted as logistic regression can refer to multi-class extensions.
 
-**8. Suppose we've split a dataset into train, validation, and test sets; trained a regression model on the train set; and found the optimal value for a regularization constant $\lambda$. Select all of the regression methods for which adding the validation set into the train set and retraining can change the optimal value for $\lambda$.**
+**Problem 8. Suppose we've split a dataset into train, validation, and test sets; trained a regression model on the train set; and found the optimal value for a regularization constant $\lambda$. Select all of the regression methods for which adding the validation set into the train set and retraining can change the optimal value for $\lambda$.**
 *   (a) LASSO regression
 *   (b) Ridge regression
 
@@ -248,7 +248,7 @@ $\hat{\sigma}^2_{\text{MLE}} = \frac{1}{n-1} \sum_i(x_i - \hat{\mu}_{\text{MLE}}
 
 **Key insight:** The optimal regularization parameter is **data-dependent**, so changing the training data will likely change the optimal λ.
 
-**9. Suppose that we want to estimate the ideal parameter $\theta^*$ for $p(x, y, \theta)$ given a set of observations $\{x_i, y_i\}$. Which of the following is a key assumption made when using $\hat{\theta}_{MLE} = \arg \max_{\theta} \sum_i \log(p(x_i, y_i|\theta_i))$ for Maximum Likelihood Estimation (MLE) to estimate the model parameter?**
+**Problem 9. Suppose that we want to estimate the ideal parameter $\theta^*$ for $p(x, y, \theta)$ given a set of observations $\{x_i, y_i\}$. Which of the following is a key assumption made when using $\hat{\theta}_{MLE} = \arg \max_{\theta} \sum_i \log(p(x_i, y_i|\theta_i))$ for Maximum Likelihood Estimation (MLE) to estimate the model parameter?**
 *   (a) The data is normally distributed.
 *   (b) The data is independent and identically distributed (i.i.d.).
 *   (c) The data contains no outliers.
@@ -280,7 +280,7 @@ $\log L(\theta) = \sum_i \log(p(x_i, y_i|\theta))$
 
 **Key insight:** i.i.d. is the **minimal assumption** needed to justify the MLE objective function.
 
-**10. Provide one advantage and one disadvantage of Stochastic Gradient Descent (SGD) over Gradient Descent (GD).**
+**Problem 10. Provide one advantage and one disadvantage of Stochastic Gradient Descent (SGD) over Gradient Descent (GD).**
 
 **Answer:**
 
@@ -304,7 +304,7 @@ $\log L(\theta) = \sum_i \log(p(x_i, y_i|\theta))$
 
 **Key insight:** SGD trades **stability for speed** - it's faster but requires more careful hyperparameter tuning.
 
-**11. Assume a simple linear model $Y = \beta_1 X$. For simplicity, no intercept is considered. Given the following dataset:**
+**Problem 11. Assume a simple linear model $Y = \beta_1 X$. For simplicity, no intercept is considered. Given the following dataset:**
 
 $X = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$
 
@@ -344,7 +344,7 @@ $\hat{\beta}_1 = \frac{3 \times 1 + 5 \times 2 + 7 \times 3}{1^2 + 2^2 + 3^2} = 
 - With LASSO: $\hat{\beta}_1 \leq \frac{17}{7}$ (always smaller or equal)
 - The L1 penalty $\lambda\|\beta\|_1$ pushes $\beta_1$ toward zero
 
-**12. Suppose you're given a scatter plot of a dataset, and the pattern appears to be a periodic wave-like curve that repeats itself at regular intervals.**
+**Problem 12. Suppose you're given a scatter plot of a dataset, and the pattern appears to be a periodic wave-like curve that repeats itself at regular intervals.**
 
 <img src="./scatter_plot.png" width="450px">
 
@@ -386,7 +386,7 @@ $\phi(x) = \{1, \sin(\omega x), \cos(\omega x), \sin(2\omega x), \cos(2\omega x)
 
 **Key insight:** Choose basis functions that **match the underlying data structure** - periodic data needs periodic basis functions.
 
-**13. Which of the following statements about convexity is true?**
+**Problem 13. Which of the following statements about convexity is true?**
 
 *   (a) If $f(x)$ is convex, then $g(x) = \frac{1}{3}f(x)$ is also convex
 *   (b) If $f(x)$ is convex, then gradient descent on minimizing $f(x)$ will always reach global minimum
@@ -419,7 +419,7 @@ $g(\lambda x_1 + (1-\lambda)x_2) \leq \lambda g(x_1) + (1-\lambda)g(x_2)$
 
 **Key insight:** **Positive scaling** is a **convexity-preserving operation**.
 
-**14. What are the unbiased maximum likelihood estimates (MLE) for the parameters $(\mu, \sigma)$ of a univariate Gaussian distribution, given a dataset of $n$ independently sampled 1-dimensional data points $X = \{x_1, ..., x_n\}$ and the sample mean $\bar{x}$?**
+**Problem 14. What are the unbiased maximum likelihood estimates (MLE) for the parameters $(\mu, \sigma)$ of a univariate Gaussian distribution, given a dataset of $n$ independently sampled 1-dimensional data points $X = \{x_1, ..., x_n\}$ and the sample mean $\bar{x}$?**
 
 *   (a) $\hat{\mu}_{MLE} = \bar{x}$, $\hat{\sigma}^2_{MLE} = \frac{1}{n} \sum_{i=1}^n x_i$
 *   (b) $\hat{\mu}_{MLE} = \bar{x}$, $\hat{\sigma}^2_{MLE} = \frac{1}{n} \sum_{i=1}^n (x_i - \hat{\mu}_{MLE})^2$
@@ -428,7 +428,7 @@ $g(\lambda x_1 + (1-\lambda)x_2) \leq \lambda g(x_1) + (1-\lambda)g(x_2)$
 
 **Correct answers:** (c)
 
-**15. True/False: When performing gradient descent, decreasing the learning rate enough will slow down convergence but will eventually guarantee you arrive at the global minimum.**
+**Problem 15. True/False: When performing gradient descent, decreasing the learning rate enough will slow down convergence but will eventually guarantee you arrive at the global minimum.**
 
 *   (a) True
 *   (b) False
@@ -458,7 +458,7 @@ This is **false**. Decreasing the learning rate does **not guarantee** convergen
 
 **Key insight:** **Learning rate alone** cannot overcome the **fundamental limitations** of gradient descent on non-convex functions.
 
-**16. Which of the following functions is strictly convex over its entire domain?**
+**Problem 16. Which of the following functions is strictly convex over its entire domain?**
 
 *   (a) $f(x) = -x^2$
 *   (b) $f(x) = x^3$
