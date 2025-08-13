@@ -89,6 +89,26 @@ This is a classic **bias-variance tradeoff** problem. More features generally le
 
 **Correct answers:** (d)
 
+**Explanation:**
+
+This is the **Mean Squared Error (MSE)** loss function, which is the standard loss function for **linear regression**.
+
+**Mathematical form:**
+```
+L(w,b) = Σᵢ₌₁ⁿ (yᵢ - (w^T xᵢ + b))²
+```
+
+**Key properties:**
+- **Squared differences** - penalizes large errors more heavily than small ones
+- **Differentiable** - enables gradient-based optimization
+- **Convex** - guarantees global minimum
+- **Maximum likelihood** - equivalent to MLE under Gaussian noise assumption
+
+**Why other options are incorrect:**
+- **(a)** This describes Mean Absolute Error (MAE), not MSE
+- **(b)** Correlation maximization is not the goal of this loss function
+- **(c)** MSE can be solved analytically (normal equations), not just with gradient descent
+
 **5. True/False: As the value of the regularization term coefficient in Ridge Regression increases, the sensitivity of predictions to inputs decreases.**
 *   (a) True
 *   (b) False
