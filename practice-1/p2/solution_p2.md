@@ -8,6 +8,25 @@
 
 **Correct answers:** (a)
 
+**Explanation:**
+
+**Irreducible error** is the fundamental uncertainty in the data that **cannot be eliminated** by any model, no matter how sophisticated. This error represents the inherent noise or randomness in the data generation process.
+
+**Key characteristics:**
+- **Independent of model choice** - no algorithm can reduce this error
+- **Represents data uncertainty** - comes from measurement errors, natural variability, or missing information
+- **Lower bound on performance** - sets the theoretical limit for model accuracy
+
+**Examples of irreducible error:**
+- Measurement noise in sensors
+- Natural variability in biological systems
+- Unpredictable external factors affecting the outcome
+
+**Why other options are incorrect:**
+- **(b)** Overfitting error can be reduced with regularization or more data
+- **(c)** Underfitting error can be reduced with more complex models
+- **(d)** Not all errors are irreducible
+
 **2. What is the general model for $P(Y = 1|X = x,\theta)$ in logistic regression, where $X = (X_0, X_1,..., X_n)$ is the features, $Y$ is the predictions, and $\theta$ is the parameters? Assume that a bias term has already been appended to $X$ (i.e., $X_0 = 1$).**
 *   (a) $P(Y = 1|X = x, \theta) = \frac{1}{1+e^{-\theta^T x}}$
 *   (b) $P(Y = 1|X = x, \theta) = \theta^T x$
@@ -16,6 +35,28 @@
 
 **Correct answers:** (a)
 
+**Explanation:**
+
+The **sigmoid function** (also called logistic function) is the core of logistic regression:
+
+```
+P(Y = 1|X = x, θ) = σ(θ^T x) = 1/(1 + e^(-θ^T x))
+```
+
+**Key properties:**
+- **Output range:** [0, 1] - perfect for probability interpretation
+- **Smooth and differentiable** - enables gradient-based optimization
+- **Symmetric around 0.5** - when θ^T x = 0, P(Y = 1) = 0.5
+
+**Mathematical intuition:**
+- When θ^T x → ∞, P(Y = 1) → 1
+- When θ^T x → -∞, P(Y = 1) → 0
+- When θ^T x = 0, P(Y = 1) = 0.5
+
+**Why other options are incorrect:**
+- **(b)** Linear function can output values outside [0,1]
+- **(c)** and **(d)** Log functions don't output probabilities
+
 **3. Two realtors are creating machine learning models to predict house costs based on house traits (i.e. house size, neighborhood, school district, etc.) trained on the same set of houses, using the same model hyperparameters. Realtor A includes 30 different housing traits in their model. Realtor B includes 5 traits in their model. Which of the following outcomes is most likely?**
 *   (a) Realtor B's model has higher variance and lower bias than Realtor A's model
 *   (b) Realtor A's model has higher variance than Realtor B's model and without additional information, we cannot know which model has a higher bias
@@ -23,6 +64,22 @@
 *   (d) Realtor A's model has higher variance and higher bias than Realtor B's model
 
 **Correct answers:** (b)
+
+**Explanation:**
+
+This is a classic **bias-variance tradeoff** problem. More features generally lead to **higher variance** but the effect on bias is **uncertain**.
+
+**Why Realtor A has higher variance:**
+- **More parameters to estimate** from the same amount of data
+- **Higher risk of overfitting** to noise in the training data
+- **Curse of dimensionality** - data becomes sparse in high-dimensional spaces
+
+**Why bias is uncertain:**
+- **Depends on feature relevance** - if the extra 25 features are informative, bias decreases
+- **Depends on feature quality** - if the extra features are noise, bias might increase
+- **Depends on model capacity** - whether the model can effectively use all features
+
+**Key insight:** More features **always** increase variance, but bias can go either way depending on feature quality and relevance.
 
 **4. When $L(w,b) = \sum_{i=1}^{n}(y_i - (w^T x_i + b))^2$ is used as a loss function to train a model, which of the following is true?**
 *   (a) It minimizes the sum of the absolute differences between observed and predicted values.
