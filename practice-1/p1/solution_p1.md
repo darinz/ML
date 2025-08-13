@@ -342,19 +342,19 @@ Let $x_1, x_2 \in \mathbb{R}$ be sampled from the distribution $N(\mu, 1)$, wher
 For **maximum likelihood estimation** of μ, we need to maximize the log-likelihood function.
 
 **The likelihood function:**
-```
+$$
 L(\mu) = f(x_1|\mu) \times f(x_2|\mu) = \left(\frac{1}{\sqrt{2\pi}}\right)^2 \times e^{-\frac{(x_1-\mu)^2}{2}} \times e^{-\frac{(x_2-\mu)^2}{2}}
-```
+$$
 
 **Taking the log:**
-```
+$$
 \log L(\mu) = -\log(2\pi) - \frac{(x_1-\mu)^2}{2} - \frac{(x_2-\mu)^2}{2}
-```
+$$
 
 **To find the maximum:** We take the derivative with respect to μ and set it to zero:
-```
+$$
 \frac{d}{d\mu}[\log L(\mu)] = (x_1-\mu) + (x_2-\mu) = x_1 + x_2 - 2\mu = 0
-```
+$$
 
 **Solving:** $2\mu = x_1 + x_2$, so $\mu = \frac{x_1 + x_2}{2}$
 
@@ -379,14 +379,14 @@ This is **false**. The OLS estimator β̂ is **biased** when there's a non-zero 
 The OLS estimator is $\hat{\beta} = (X^T X)^{-1} X^T y$
 
 Substituting $y = X\beta + c + \varepsilon$:
-```
+$$
 \hat{\beta} = (X^T X)^{-1} X^T (X\beta + c + \varepsilon) = \beta + (X^T X)^{-1} X^T c + (X^T X)^{-1} X^T \varepsilon
-```
+$$
 
 Taking expectation:
-```
+$$
 E[\hat{\beta}] = \beta + (X^T X)^{-1} X^T c + (X^T X)^{-1} X^T E[\varepsilon] = \beta + (X^T X)^{-1} X^T c
-```
+$$
 
 **The bias term:** $(X^T X)^{-1} X^T c \neq 0$ when $c \neq 0$
 
@@ -433,9 +433,9 @@ True/False: Given a fixed training set, the training loss is never larger in a p
 This is **true**. A polynomial of degree **d+1** can always fit the training data at least as well as a polynomial of degree **d**, because the degree d+1 polynomial can simply set the coefficient of the highest degree term to zero, effectively becoming a degree d polynomial.
 
 **Mathematically:** If $p_d(x)$ is the best degree d polynomial fit, then:
-```
+$$
 p_{d+1}(x) = p_d(x) + 0 \cdot x^{d+1}
-```
+$$
 will achieve the same training loss. The degree d+1 polynomial can only do better, never worse.
 
 **Key insight:** This is why training loss **monotonically decreases** as model complexity increases.
@@ -478,14 +478,14 @@ On which factor does the value of irreducible error depend in linear regression?
 The irreducible error depends on **σ²**, the variance of the noise in the data. This is because irreducible error represents the **inherent uncertainty** in the data that cannot be reduced by any model, no matter how good.
 
 **Mathematical definition:**
-```
+$$
 E[(y - f^*(x))^2] \text{ where } f^*(x) \text{ is the true function}
-```
+$$
 
 Since $y = f^*(x) + \varepsilon$ where $\varepsilon \sim N(0, \sigma^2)$, the irreducible error is:
-```
+$$
 E[\varepsilon^2] = \text{Var}(\varepsilon) = \sigma^2
-```
+$$
 
 **Key insight:** This error is independent of the number of observations (n), feature dimensions (m), or any model parameters - it's a **fundamental property** of the data generation process.
 
@@ -598,9 +598,9 @@ In LASSO regression, if the regularization parameter $\lambda = 0$, then which o
 
 When **λ = 0** in LASSO, the regularization term disappears, and the objective function becomes:
 
-```
+$$
 \min \|y - X\beta\|^2
-```
+$$
 
 This is exactly the same as **ordinary least squares (OLS)** regression. The LASSO model reduces to standard linear regression without any regularization.
 
