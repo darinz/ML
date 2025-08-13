@@ -1668,6 +1668,189 @@ Which of the following techniques can be helpful in reducing the original dimens
 
 **Correct answers:** (a), (c)
 
+**Explanation:**
+
+The correct answers are **(a) - L1 Regularization (LASSO)** and **(c) - Principal Component Analysis (PCA)**. Here's the detailed explanation:
+
+**Understanding Dimensionality Reduction:**
+
+**Dimensionality Reduction Definition:**
+Dimensionality reduction is the process of reducing the number of input variables (features) in a dataset while preserving important information.
+
+**Mathematical Foundation:**
+
+**1. Feature Space:**
+- Original data: $X \in \mathbb{R}^{n \times d}$ (n samples, d features)
+- Reduced data: $X' \in \mathbb{R}^{n \times d'}$ where $d' < d$
+- Goal: Preserve important information while reducing complexity
+
+**2. Information Preservation:**
+- Variance preservation (PCA)
+- Feature selection (LASSO)
+- Manifold learning (other methods)
+
+**Option (a) - L1 Regularization (LASSO):**
+
+**LASSO Definition:**
+LASSO (Least Absolute Shrinkage and Selection Operator) is a regularization technique that adds an L1 penalty to the loss function, encouraging sparsity in the coefficient vector.
+
+**Mathematical Formulation:**
+$$\min_{\beta} \frac{1}{2n} \sum_{i=1}^n (y_i - \beta^T x_i)^2 + \lambda \sum_{j=1}^d |\beta_j|$$
+
+**How LASSO Reduces Dimensions:**
+
+**1. Feature Selection:**
+- L1 penalty encourages some coefficients to be exactly zero
+- Zero coefficients correspond to removed features
+- Effective dimensionality is reduced
+
+**2. Sparsity Property:**
+- $\lambda$ controls the amount of regularization
+- Larger $\lambda$ leads to more zero coefficients
+- Fewer non-zero coefficients = lower dimensionality
+
+**3. Mathematical Example:**
+Consider linear regression with 3 features:
+$$\beta = [0.5, 0, -0.3]$$
+
+After LASSO regularization:
+$$\beta_{\text{LASSO}} = [0.3, 0, 0]$$
+
+**Result:** Feature 2 is effectively removed (coefficient = 0)
+
+**Option (c) - Principal Component Analysis (PCA):**
+
+**PCA Definition:**
+PCA is a linear dimensionality reduction technique that transforms data into a new coordinate system where the greatest variance lies on the first coordinate.
+
+**Mathematical Foundation:**
+
+**1. Covariance Matrix:**
+$$C = \frac{1}{n}X^TX$$
+
+**2. Eigenvalue Decomposition:**
+$$C = V\Lambda V^T$$
+
+**3. Dimensionality Reduction:**
+$$X' = XV_{:d'}$$
+
+where $V_{:d'}$ contains the first $d'$ eigenvectors.
+
+**How PCA Reduces Dimensions:**
+
+**1. Linear Transformation:**
+- Projects data onto principal components
+- Reduces from $d$ to $d'$ dimensions
+- Preserves maximum variance
+
+**2. Variance Preservation:**
+- First principal component captures maximum variance
+- Subsequent components capture decreasing variance
+- Total variance explained: $\frac{\sum_{i=1}^{d'} \lambda_i}{\sum_{i=1}^{d} \lambda_i}$
+
+**3. Mathematical Example:**
+Consider 2D data with covariance matrix:
+$$C = \begin{pmatrix}
+2 & 1 \\
+1 & 2
+\end{pmatrix}$$
+
+**Eigenvalues:** $\lambda_1 = 3, \lambda_2 = 1$
+
+**Eigenvectors:** $v_1 = [0.707, 0.707], v_2 = [-0.707, 0.707]$
+
+**1D Reduction:** Project onto $v_1$ only
+$$X' = X \cdot [0.707, 0.707]^T$$
+
+**Variance Preserved:** $\frac{3}{3+1} = 75\%$
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - L2 Regularization (Ridge):**
+
+**Problem:** Ridge regression doesn't reduce dimensions
+- **Mathematical Formulation:**
+$$\min_{\beta} \frac{1}{2n} \sum_{i=1}^n (y_i - \beta^T x_i)^2 + \lambda \sum_{j=1}^d \beta_j^2$$
+
+- **Sparsity Property:** L2 penalty shrinks coefficients but doesn't set them to zero
+- **Result:** All features remain in the model, just with smaller coefficients
+- **Example:** $\beta = [0.5, 0.3, -0.2]$ becomes $\beta_{\text{Ridge}} = [0.4, 0.2, -0.1]$ (all non-zero)
+
+**Option (d) - k-means Clustering:**
+
+**Problem:** k-means is not a dimensionality reduction technique
+- **Purpose:** k-means is a clustering algorithm, not dimensionality reduction
+- **Output:** Assigns data points to clusters, doesn't reduce feature dimensions
+- **Mathematical Formulation:**
+$$\min_{\{S_1, \ldots, S_k\}} \sum_{i=1}^k \sum_{x \in S_i} \|x - \mu_i\|^2$$
+
+- **Result:** Data remains in original dimensional space
+
+**Comparison of Methods:**
+
+**LASSO vs PCA:**
+
+| Aspect | LASSO | PCA |
+|--------|-------|-----|
+| **Type** | Feature selection | Feature transformation |
+| **Sparsity** | Creates sparse coefficients | No sparsity |
+| **Interpretability** | Preserves original features | Creates new features |
+| **Linearity** | Linear in original space | Linear transformation |
+| **Computational Cost** | Iterative optimization | Eigenvalue decomposition |
+
+**Mathematical Comparison:**
+
+**LASSO Feature Selection:**
+- Input: $X \in \mathbb{R}^{n \times d}$
+- Output: $X' \in \mathbb{R}^{n \times d'}$ where $d' \leq d$
+- Method: Remove features with zero coefficients
+
+**PCA Dimensionality Reduction:**
+- Input: $X \in \mathbb{R}^{n \times d}$
+- Output: $X' \in \mathbb{R}^{n \times d'}$ where $d' < d$
+- Method: Linear projection onto principal components
+
+**Practical Examples:**
+
+**LASSO Example:**
+```python
+# Original features: [age, height, weight, income, education]
+# LASSO coefficients: [0.5, 0, 0.3, 0, 0.2]
+# Reduced features: [age, weight, education] (3 out of 5)
+```
+
+**PCA Example:**
+```python
+# Original features: [x1, x2, x3, x4, x5]
+# PCA transformation: [PC1, PC2, PC3]
+# PC1 = 0.7*x1 + 0.3*x2 + 0.1*x3 + 0.2*x4 + 0.1*x5
+```
+
+**Advantages and Disadvantages:**
+
+**LASSO Advantages:**
+- **Interpretability:** Preserves original feature meanings
+- **Sparsity:** Automatically performs feature selection
+- **Computational Efficiency:** Fast for high-dimensional data
+
+**LASSO Disadvantages:**
+- **Feature Correlation:** May arbitrarily select one of correlated features
+- **Stability:** Results can be sensitive to data perturbations
+- **Linearity:** Assumes linear relationships
+
+**PCA Advantages:**
+- **Variance Preservation:** Maximizes variance in reduced dimensions
+- **Orthogonality:** Principal components are uncorrelated
+- **Global Optimization:** Finds optimal linear transformation
+
+**PCA Disadvantages:**
+- **Interpretability:** New features may not have clear meaning
+- **Linearity:** Assumes linear relationships
+- **Variance Focus:** May not preserve other important information
+
+**Conclusion:**
+Both **L1 Regularization (LASSO)** and **Principal Component Analysis (PCA)** are effective techniques for reducing the original dimensions of input data. LASSO achieves this through feature selection by setting some coefficients to zero, while PCA achieves this through linear transformation to a lower-dimensional space that preserves maximum variance.
+
 
 ## Problem 18
 
@@ -1678,6 +1861,160 @@ True/False: Given a dataset $X$ in a $d$-dimensional space, using PCA to project
 (b) False
 
 **Correct answers:** (a)
+
+**Explanation:**
+
+The correct answer is **(a) - True**. Here's the detailed explanation:
+
+**Understanding PCA Projections and Subspaces:**
+
+**PCA Mathematical Foundation:**
+
+**1. Principal Components:**
+- Let $V = [v_1, v_2, \ldots, v_d]$ be the matrix of eigenvectors
+- Eigenvectors are ordered by decreasing eigenvalues: $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_d$
+- Each $v_i$ is a principal component (PC)
+
+**2. Projection Matrices:**
+- $d_2$-dimensional projection: $V_{:d_2} = [v_1, v_2, \ldots, v_{d_2}]$
+- $d_1$-dimensional projection: $V_{:d_1} = [v_1, v_2, \ldots, v_{d_1}]$
+
+**3. Projection Operations:**
+- $d_2$-dimensional projection: $X_{d_2} = XV_{:d_2}$
+- $d_1$-dimensional projection: $X_{d_1} = XV_{:d_1}$
+
+**Subspace Relationship:**
+
+**Mathematical Definition:**
+A subspace $S_1$ is a subspace of $S_2$ if every vector in $S_1$ is also in $S_2$.
+
+**PCA Subspace Structure:**
+
+**1. Nested Subspaces:**
+- $S_1 = \text{span}\{v_1, v_2, \ldots, v_{d_1}\}$
+- $S_2 = \text{span}\{v_1, v_2, \ldots, v_{d_2}\}$
+- Since $d_1 < d_2$, we have $S_1 \subseteq S_2$
+
+**2. Basis Relationship:**
+- $S_1$ has basis: $\{v_1, v_2, \ldots, v_{d_1}\}$
+- $S_2$ has basis: $\{v_1, v_2, \ldots, v_{d_1}, v_{d_1+1}, \ldots, v_{d_2}\}$
+- Every basis vector of $S_1$ is also a basis vector of $S_2$
+
+**Mathematical Proof:**
+
+**Step 1: Define the Subspaces**
+Let $S_1$ and $S_2$ be the subspaces spanned by the first $d_1$ and $d_2$ principal components respectively:
+
+$$S_1 = \text{span}\{v_1, v_2, \ldots, v_{d_1}\}$$
+$$S_2 = \text{span}\{v_1, v_2, \ldots, v_{d_1}, v_{d_1+1}, \ldots, v_{d_2}\}$$
+
+**Step 2: Show Inclusion**
+For any vector $x \in S_1$, we can write:
+$$x = \sum_{i=1}^{d_1} \alpha_i v_i$$
+
+Since $v_1, v_2, \ldots, v_{d_1}$ are also in the basis of $S_2$, we can write:
+$$x = \sum_{i=1}^{d_1} \alpha_i v_i + \sum_{i=d_1+1}^{d_2} 0 \cdot v_i$$
+
+This shows that $x \in S_2$, proving $S_1 \subseteq S_2$.
+
+**Step 3: Projection Relationship**
+The projections are related as:
+$$X_{d_1} = XV_{:d_1} = XV_{:d_2}V_{:d_2}^TV_{:d_1} = X_{d_2}V_{:d_2}^TV_{:d_1}$$
+
+This shows that $X_{d_1}$ can be obtained from $X_{d_2}$ by a linear transformation.
+
+**Visual Example:**
+
+**3D to 2D to 1D Projection:**
+Consider a 3D dataset with principal components:
+- $v_1 = [1, 0, 0]$ (first PC)
+- $v_2 = [0, 1, 0]$ (second PC)
+- $v_3 = [0, 0, 1]$ (third PC)
+
+**2D Projection ($d_2 = 2$):**
+- Subspace: $\text{span}\{[1,0,0], [0,1,0]\}$
+- Projects onto the $xy$-plane
+
+**1D Projection ($d_1 = 1$):**
+- Subspace: $\text{span}\{[1,0,0]\}$
+- Projects onto the $x$-axis
+
+**Relationship:** The $x$-axis is a subspace of the $xy$-plane.
+
+**Mathematical Verification:**
+
+**Eigenvalue Decomposition:**
+$$C = V\Lambda V^T$$
+
+**Projection Matrices:**
+- $P_{d_2} = V_{:d_2}V_{:d_2}^T$ (projection onto $d_2$-dimensional space)
+- $P_{d_1} = V_{:d_1}V_{:d_1}^T$ (projection onto $d_1$-dimensional space)
+
+**Subspace Property:**
+$$P_{d_1} = P_{d_2}P_{d_1}$$
+
+This shows that projecting to $d_1$ dimensions is equivalent to first projecting to $d_2$ dimensions and then to $d_1$ dimensions.
+
+**Why This is True:**
+
+**1. Nested Structure:**
+- PCA creates a hierarchical structure of subspaces
+- Each lower-dimensional projection is contained in higher-dimensional projections
+- This is a fundamental property of PCA
+
+**2. Orthogonality:**
+- Principal components are orthogonal to each other
+- Adding more components doesn't change the existing ones
+- This ensures the nested structure
+
+**3. Optimality:**
+- Each principal component captures maximum remaining variance
+- Lower-dimensional projections are optimal for their dimension
+- Higher-dimensional projections contain all information from lower dimensions
+
+**Practical Implications:**
+
+**1. Incremental Learning:**
+- Can start with low-dimensional projections and add more dimensions
+- Each addition preserves all previous information
+- Useful for progressive model building
+
+**2. Feature Selection:**
+- Can compare models with different numbers of principal components
+- Lower-dimensional models are always contained in higher-dimensional ones
+- Helps in model selection
+
+**3. Visualization:**
+- Can visualize data in different dimensionalities
+- Lower-dimensional visualizations are projections of higher-dimensional ones
+- Maintains interpretability
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - False:**
+- **Problem**: Incorrectly assumes PCA projections are independent
+- **Issue**: Ignores the nested structure of principal components
+- **Result**: Misunderstands the mathematical properties of PCA
+
+**Key Insights:**
+
+**1. Hierarchical Structure:**
+- PCA creates a natural hierarchy of subspaces
+- Each subspace contains all lower-dimensional subspaces
+- This is a unique property of PCA among dimensionality reduction methods
+
+**2. Information Preservation:**
+- Higher-dimensional projections contain all information from lower-dimensional ones
+- No information is lost when moving from lower to higher dimensions
+- This makes PCA particularly useful for progressive analysis
+
+**3. Mathematical Elegance:**
+- The nested structure follows from the orthogonality of principal components
+- This property makes PCA computationally efficient
+- Allows for incremental dimensionality reduction
+
+**Conclusion:**
+The statement is **True**. When using PCA to project data onto different dimensionalities, the lower-dimensional projection ($d_1$) is always a subspace of the higher-dimensional projection ($d_2$). This is a fundamental property of PCA that follows from the nested structure of principal components and their orthogonality.
 
 ## Problem 19
 
@@ -1703,17 +2040,138 @@ There are two types of points plotted:
 - $(2, 1)$
 - $(3, 0.5)$
 
-**Explanation:** The solution for part 1 is:
+**Explanation:**
 
-<img src="img/q19_solution.png" width="450px">
+The solution involves identifying the region where decision boundaries have equal training error. Here's the detailed explanation:
 
-A Cartesian coordinate system is shown with an x-axis ranging from 0 to 4 and a y-axis ranging from 0 to 4. Grid lines are present. The same hollow and filled points as in the problem description are plotted.
+**Understanding Decision Boundaries and Training Error:**
 
-A region is shaded in gray. This shaded region is bounded by two dashed lines:
-- The upper dashed line passes through the points $(1, 2)$ and $(4, 3.5)$. Its equation is approximately $y = 0.5x + 1.5$.
-- The lower dashed line passes through the points $(0, 0)$ and $(3, 0.5)$. Its equation is approximately $y = \frac{1}{6}x$.
+**Decision Boundary Definition:**
+A decision boundary is a surface that separates different classes in the feature space. For binary classification, it's the set of points where the model's prediction changes from one class to another.
 
-The shaded region represents the area between these two dashed lines, inclusive of the lines themselves.
+**Training Error:**
+Training error is the proportion of training samples that are misclassified by the model.
+
+**Equal Training Error Condition:**
+When decision boundaries have equal training error, they misclassify the same number of training samples.
+
+**Analysis of the Data Points:**
+
+**Class 1 (Hollow circles - Class A):**
+- $(1, 2)$
+- $(2, 3)$
+- $(2, 4)$
+- $(3, 3)$
+- $(4, 3.5)$
+
+**Class 2 (Filled dots - Class B):**
+- $(0, 0)$
+- $(1, 0.25)$
+- $(2, 0.5)$
+- $(2, 1)$
+- $(3, 0.5)$
+
+**Finding Decision Boundaries with Equal Error:**
+
+**Step 1: Count Total Points**
+- Total points: 10 (5 from each class)
+- For equal error, both classes must have the same number of misclassifications
+
+**Step 2: Analyze Possible Decision Boundaries**
+
+**Linear Decision Boundaries:**
+The problem asks for decision boundaries that lie inside a specific region. These boundaries must:
+1. Separate the two classes
+2. Have equal training error
+3. Be contained within the shaded region
+
+**Step 3: Determine the Shaded Region**
+
+**Upper Boundary Line:**
+- Passes through $(1, 2)$ and $(4, 3.5)$
+- Slope: $m = \frac{3.5 - 2}{4 - 1} = \frac{1.5}{3} = 0.5$
+- Equation: $y = 0.5x + 1.5$
+
+**Lower Boundary Line:**
+- Passes through $(0, 0)$ and $(3, 0.5)$
+- Slope: $m = \frac{0.5 - 0}{3 - 0} = \frac{0.5}{3} = \frac{1}{6}$
+- Equation: $y = \frac{1}{6}x$
+
+**Mathematical Verification:**
+
+**Upper Line Analysis:**
+For $y = 0.5x + 1.5$:
+- Point $(1, 2)$: $2 = 0.5(1) + 1.5 = 2$ ✓
+- Point $(4, 3.5)$: $3.5 = 0.5(4) + 1.5 = 3.5$ ✓
+
+**Lower Line Analysis:**
+For $y = \frac{1}{6}x$:
+- Point $(0, 0)$: $0 = \frac{1}{6}(0) = 0$ ✓
+- Point $(3, 0.5)$: $0.5 = \frac{1}{6}(3) = 0.5$ ✓
+
+**Why This Region Contains Equal Error Decision Boundaries:**
+
+**1. Class Separation:**
+- The upper line separates most Class A points from Class B points
+- The lower line provides an alternative separation
+- Any line between these boundaries can achieve similar separation
+
+**2. Error Balance:**
+- Decision boundaries in this region can achieve equal error rates
+- They misclassify similar numbers of points from each class
+- The region represents the "sweet spot" for balanced classification
+
+**3. Geometric Interpretation:**
+- The shaded region represents the area where linear decision boundaries can achieve equal training error
+- Lines outside this region would have imbalanced error rates
+- This region contains the optimal decision boundaries for balanced classification
+
+**Decision Boundary Properties:**
+
+**Linear Decision Boundaries:**
+- Form: $y = mx + b$
+- Must lie between the two boundary lines
+- Achieve equal training error for both classes
+
+**Error Calculation:**
+For any decision boundary in the shaded region:
+- Count misclassified Class A points
+- Count misclassified Class B points
+- These counts should be equal or very close
+
+**Practical Example:**
+
+**Sample Decision Boundary:**
+Consider $y = 0.3x + 0.8$ (lies in the shaded region)
+
+**Classification Results:**
+- Class A points above the line: Class A prediction
+- Class A points below the line: Class B prediction (error)
+- Class B points above the line: Class A prediction (error)
+- Class B points below the line: Class B prediction
+
+**Equal Error Achievement:**
+The specific coefficients ensure that the number of misclassified points from each class is balanced.
+
+**Key Insights:**
+
+**1. Geometric Constraints:**
+- The shaded region represents geometric constraints for equal error
+- Decision boundaries must lie within these bounds
+- Outside this region, error rates become imbalanced
+
+**2. Linear Separability:**
+- The problem assumes linear decision boundaries
+- The region contains all linear boundaries with equal error
+- Non-linear boundaries might have different regions
+
+**3. Training Error Optimization:**
+- The region represents the optimal area for balanced classification
+- Decision boundaries in this region minimize the difference in error rates
+- This is important for fair and balanced models
+
+**Conclusion:**
+The shaded region bounded by the lines $y = 0.5x + 1.5$ and $y = \frac{1}{6}x$ contains all linear decision boundaries that achieve equal training error for both classes. This region represents the geometric space where balanced classification is possible.
 
 ## Problem 20
 
