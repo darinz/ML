@@ -1664,6 +1664,158 @@ Since $\hat{y}$ is our prediction, it is equivalent to $w^T x_i$.
 
 Finally, using the definition of $\sigma(\cdot)$ and reducing $-\log(\sigma(y\hat{y}))$ gives us $\log(1+e^{-y\hat{y}})$.
 
+## Detailed Solution Explanation
+
+**Understanding Logistic Loss Minimization Objective:**
+
+This problem explores the mathematical derivation of the logistic loss function, which is fundamental to binary classification problems.
+
+**Mathematical Framework:**
+
+**Binary Classification Setting:**
+- **Input:** $x_i \in \mathbb{R}^d$
+- **Output:** $y_i \in \{-1, 1\}$
+- **Prediction:** $\hat{y}_i = w^T x_i$
+
+**Sigmoid Function:**
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+
+**Properties:**
+- **Range:** $(0, 1)$
+- **Symmetry:** $\sigma(-z) = 1 - \sigma(z)$
+- **Derivative:** $\sigma'(z) = \sigma(z)(1 - \sigma(z))$
+
+**Step-by-Step Derivation:**
+
+**Step 1: Define the Probability Model**
+
+For binary classification, we model the probability of the positive class:
+$$P(y_i = 1 | x_i) = \sigma(w^T x_i) = \frac{1}{1 + e^{-w^T x_i}}$$
+
+**Step 2: Express Probability for Both Classes**
+
+Using the symmetry property of sigmoid:
+$$P(y_i = -1 | x_i) = 1 - \sigma(w^T x_i) = \sigma(-w^T x_i)$$
+
+**Step 3: Combine into Single Expression**
+
+For any $y_i \in \{-1, 1\}$:
+$$P(y_i | x_i) = \sigma(y_i w^T x_i)$$
+
+This works because:
+- When $y_i = 1$: $\sigma(y_i w^T x_i) = \sigma(w^T x_i) = P(y_i = 1 | x_i)$
+- When $y_i = -1$: $\sigma(y_i w^T x_i) = \sigma(-w^T x_i) = P(y_i = -1 | x_i)$
+
+**Step 4: Maximum Likelihood Objective**
+
+We want to maximize the probability of the data:
+$$\max_w \prod_{i=1}^{n} P(y_i | x_i) = \max_w \prod_{i=1}^{n} \sigma(y_i w^T x_i)$$
+
+**Step 5: Convert to Minimization Problem**
+
+Taking the negative log-likelihood:
+$$\min_w -\sum_{i=1}^{n} \log P(y_i | x_i) = \min_w -\sum_{i=1}^{n} \log \sigma(y_i w^T x_i)$$
+
+**Step 6: Simplify the Expression**
+
+Using the definition of sigmoid:
+$$-\log \sigma(y_i w^T x_i) = -\log \frac{1}{1 + e^{-y_i w^T x_i}}$$
+
+$$= -\log 1 + \log(1 + e^{-y_i w^T x_i}) = \log(1 + e^{-y_i w^T x_i})$$
+
+**Step 7: Final Form**
+
+Since $\hat{y}_i = w^T x_i$, the loss function becomes:
+$$\mathcal{L}(w) = \sum_{i=1}^{n} \log(1 + e^{-y_i \hat{y}_i})$$
+
+**Why Option A is Correct:**
+
+The logistic loss function is:
+$$\log(1 + e^{-y\hat{y}})$$
+
+This matches exactly with option A.
+
+**Why Other Options Are Incorrect:**
+
+**Option B: $1 + \log(e^{-y\hat{y}})$**
+- **Simplification:** $1 + \log(e^{-y\hat{y}}) = 1 - y\hat{y}$
+- **Problem:** This is linear, not the correct logistic loss
+- **Issue:** Missing the sigmoid function
+
+**Option C: $1 + e^{-y\hat{y}}$**
+- **Problem:** This is not a log function
+- **Issue:** Missing the logarithm
+- **Result:** Would be exponential, not logarithmic
+
+**Option D: $1 + \log(e^{y\hat{y}})$**
+- **Simplification:** $1 + \log(e^{y\hat{y}}) = 1 + y\hat{y}$
+- **Problem:** This is linear and positive
+- **Issue:** Not a loss function (should decrease with better predictions)
+
+**Properties of Logistic Loss:**
+
+**1. Convexity:**
+- The function is convex in $w$
+- Guarantees unique global minimum
+- Enables efficient optimization
+
+**2. Boundedness:**
+- Loss is always positive
+- Approaches 0 as $y\hat{y} \rightarrow \infty$
+- Approaches $\infty$ as $y\hat{y} \rightarrow -\infty$
+
+**3. Smoothness:**
+- Function is differentiable everywhere
+- Enables gradient-based optimization
+- Well-behaved gradients
+
+**Visual Representation:**
+
+**Loss Function Behavior:**
+```
+yŷ → -∞:  Loss → ∞
+yŷ = 0:   Loss = log(2) ≈ 0.693
+yŷ → ∞:   Loss → 0
+```
+
+**Comparison with Other Loss Functions:**
+
+**Hinge Loss (SVM):**
+$$\max(0, 1 - y\hat{y})$$
+
+**Squared Loss:**
+$$(y - \hat{y})^2$$
+
+**Logistic Loss:**
+$$\log(1 + e^{-y\hat{y}})$$
+
+**Practical Implementation:**
+
+**Python Implementation:**
+```python
+import numpy as np
+
+def logistic_loss(y_true, y_pred):
+    return np.log(1 + np.exp(-y_true * y_pred))
+
+# Example usage
+y_true = np.array([1, -1, 1, -1])
+y_pred = np.array([0.8, -0.3, 0.9, -0.7])
+loss = logistic_loss(y_true, y_pred)
+```
+
+**Gradient of Logistic Loss:**
+
+**Derivative with respect to $\hat{y}$:**
+$$\frac{\partial}{\partial \hat{y}} \log(1 + e^{-y\hat{y}}) = \frac{-y e^{-y\hat{y}}}{1 + e^{-y\hat{y}}} = -y \sigma(-y\hat{y})$$
+
+**Key Insights:**
+- Logistic loss is derived from maximum likelihood estimation
+- It naturally handles binary classification with labels $\{-1, 1\}$
+- The function is convex and well-suited for optimization
+- Understanding the derivation helps with implementation and interpretation
+- The loss function penalizes incorrect predictions exponentially
+
 ## Problem 13: L-infinity Norm Regularization
 
 **1 point**
