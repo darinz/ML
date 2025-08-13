@@ -175,6 +175,8 @@ Softmax ($f(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}}$) should be used in th
 
 **Question:** Snoopy is training a neural network to classify birds into 'Woodstock' and 'Not Woodstock'. A plot of the training and validation accuracy for the neural network model during the training process is provided.
 
+<img src="./img/q10_problem.png" width="350px">
+
 **Figure 6: Snoopy's Training Plot**
 - **Training Accuracy:** Starts around 70% at 2.5 epochs, steadily increases, and reaches approximately 100% accuracy by 15.0 epochs, remaining high thereafter.
 - **Validation Accuracy:** Starts around 62% at 2.5 epochs, shows some fluctuations, increases to about 70% by 7.5 epochs, and then continues to slowly increase, reaching approximately 78% by 20.0 epochs.
@@ -190,3 +192,160 @@ Which of the following actions could Snoopy take to help reduce the difference b
 - e) Decrease the learning rate
 
 **Correct Answer:** a), b), c)
+
+## Problem 11: Feature Selection (LASSO vs. PCA)
+
+**1 point**
+
+**Question:** Although both LASSO and PCA can be used for feature selection, they differ in their approach. Specifically, LASSO sets some weight coefficients to 0 and selects a subset of the original features, whereas PCA selects features that minimize variance and creates a linear combinations of the original features.
+
+**Options:**
+- a) True
+- b) False
+
+**Correct Answer:** b) False
+
+**Explanation:** 
+PCA selects features that capture the most variance, and produces a linear combination of the original features.
+
+## Problem 12: Logistic Loss Minimization Objective
+
+**1 point**
+
+**Question:** What is the minimization objective for logistic loss? Here $\hat{y}$ is the prediction, and $y$ is the ground truth label.
+
+**Options:**
+- a) $\log(1 + e^{-y\hat{y}})$
+- b) $1 + \log(e^{-y\hat{y}})$
+- c) $1 + e^{-y\hat{y}}$
+- d) $1 + \log(e^{y\hat{y}})$
+
+**Correct Answer:** a) $\log(1 + e^{-y\hat{y}})$
+
+**Explanation:** 
+In this classification setting we are attempting to maximize the probability $P(y_i|x_i)$.
+
+Within the logistic regression problem setting, we set $P(y_i|x_i)$ to be equal to $\sigma(y_i w^T x_i)$ where $\sigma(z)$ is the sigmoid function $\frac{1}{1+e^{-z}}$.
+
+If we are attempting to maximize the probability of $P(y_i|x_i)$, this is an equivalent objective to the minimization of the negative logprob.
+
+We therefore have the minimization objective become $-\log(\sigma(y_i w^T x_i))$.
+
+Since $\hat{y}$ is our prediction, it is equivalent to $w^T x_i$.
+
+Finally, using the definition of $\sigma(\cdot)$ and reducing $-\log(\sigma(y\hat{y}))$ gives us $\log(1+e^{-y\hat{y}})$.
+
+## Problem 13: L-infinity Norm Regularization
+
+**1 point**
+
+**Question:** The L-$\infty$ norm is represented as $|| \cdot ||_\infty$ and is calculated for a vector $x \in \mathbb{R}^d$ as $||x||_\infty = \max_i(|x_i|)$. What happens to the parameters in $w$ if we optimize for a standard linear regression objective with L-$\infty$ regularization?
+
+**Options:**
+- a) There will be lots of parameters within $w$ that are the same/similar absolute value.
+- b) $w$ will be very sparse.
+- c) $w$ will not be very sparse.
+- d) Not enough information given to determine any of the above.
+
+**Correct Answer:** a), c)
+
+**Explanation:** 
+The L-$\infty$ ball in parameter space is a square who's most protruding points are where the absolute values of the parameters are equivalent (corners of the square centered at the origin). Therefore A is correct. We know $w$ will not be sparse because the protruding points of the L-$\infty$ ball are not on the origin. Therefore C is also correct. Because A and C are correct, neither B nor D can be correct.
+
+## Problem 14: K-means Clustering
+
+**1 point**
+
+**Question:** True/False: In k-means, increasing the value of $k$ never worsens the model's performance on training data.
+
+**Options:**
+- a) True
+- b) False
+
+**Correct Answer:** a) True
+
+**Explanation:** 
+Increasing $k$ so that it is equal to $n$ will make it so there is one cluster centroid per data point. This will perfectly fit the training data with zero training loss.
+
+## Problem 15: Principal Component Analysis (PCA)
+
+**1 point**
+
+**Question:** Which of the following statements about PCA are true?
+
+**Options:**
+- a) The first principal component corresponds to the eigenvector of the covariance matrix with the smallest eigenvalue.
+- b) If all the singular values are equal, PCA will not find a meaningful lower-dimensional representation.
+- c) The principal components are the eigenvectors of the covariance matrix of the data.
+- d) The reconstruction error of the recovered data points with a rank-q PCA strictly decreases as we increase q for all datasets.
+
+**Correct Answer:** b), c)
+
+**Explanation:** 
+- A is false since the first principal component corresponds to the eigenvector with the largest eigenvalue.
+- B is correct since if all the singular values are equal, the variance is equally distributed across all directions so PCA won't find a meaningful lower-dimensional representation.
+- C is also correct since we find the eigenvalue decomposition of the covariance matrix. It isn't guaranteed that PCA will reduce the dimensionality, for example if all principal components are chosen.
+
+## Problem 16: Singular Value Decomposition (SVD)
+
+**1 point**
+
+**Question:** Consider the $2 \times 2$ matrix:
+
+$A = \begin{bmatrix} 3 & 4 \\ 0 & 0 \end{bmatrix}$
+
+Let the Singular Value Decomposition (SVD) of A be given by: $A = U\Sigma V^T$
+
+where U and V are orthogonal matrices, and $\Sigma$ is a diagonal matrix containing the singular values of A. Which of the following statements are correct?
+
+**Options:**
+- a) The rank of A is 1.
+- b) The nonzero singular value of A is 5.
+- c) The columns of V must be $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.
+- d) The columns of V form an orthonormal basis for $\mathbb{R}^2$.
+
+**Correct Answer:** a), b), d)
+
+**Explanation:** 
+- **(A) True:** The rank of A is the number of nonzero singular values. Since the second row of A is entirely zero, its rank is **1**.
+- **(B) True:** The singular values of A are given by the square roots of the eigenvalues of $A^T A$:
+
+$A^T A = \begin{bmatrix} 9 & 12 \\ 12 & 16 \end{bmatrix}$
+
+## Problem 17: Kernel Methods
+
+**1 point**
+
+**Question:** True/False: In kernel methods, we use a kernel function $k(x, x')$ to implicitly map input data into a feature space with different dimensions without explicitly computing the transformation. If we choose a linear kernel $k(x,x') = x^T x'$, then this is equivalent to mapping data into an infinite-dimensional feature space.
+
+**Options:**
+- a) True
+- b) False
+
+**Correct Answer:** b) False
+
+**Explanation:** 
+The statement is False because the linear kernel $k(x,x') = x^T x'$ does not map the data into an infinite-dimensional feature space. Instead, it corresponds to the original input space (i.e., the feature map $\phi(x)$ is simply $x$ itself).
+
+In contrast, nonlinear kernels, such as the Gaussian (RBF) kernel:
+
+$k(x, x') = \exp\left(-\frac{||x - x'||^2}{2\sigma^2}\right)$
+
+correspond to an infinite-dimensional feature space. This is because an RBF kernel can be expressed as an infinite sum of polynomial terms in a Taylor expansion.
+
+Thus, the error in the statement is that the linear kernel is incorrectly claimed to map data into an infinite-dimensional space, when in reality, it remains in the original finite-dimensional space.
+
+## Problem 18: Kernel Properties
+
+**1 point**
+
+**Question:** Which of the following statements about kernels is/are true?
+
+**Options:**
+- a) The kernel trick is a technique for computing the coordinates in a high-dimensional space.
+- b) If the kernel matrix $K$ is symmetric, it is always a valid kernel.
+- c) Eigenvalues of a valid kernel matrix must always be non-negative.
+- d) The kernel trick eliminates the need for regularization.
+
+**Correct Answer:** c)
+
