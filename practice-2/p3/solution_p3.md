@@ -6,7 +6,57 @@ If we have $n$ data points and $d$ features, we store $nd$ values in total. We c
 
 **Answer:** $qd + qn$
 
-**Explanation:** The answer is $qd + qn$. The first term is due to the fact that we store $q$ principal components each in $\mathbb{R}^d$. We also store $q$ coefficients for each of the principal components for each of the $n$ data points. Justification must be correct and must match answer to receive credit.
+**Explanation:**
+
+The answer is **$qd + qn$**. Here's the detailed breakdown of why this is the correct number of values needed:
+
+**PCA Storage Requirements:**
+
+1. **Principal Components Storage**: $qd$ values
+   - We need to store $q$ principal components
+   - Each principal component is a vector in $\mathbb{R}^d$
+   - Total storage: $q \times d = qd$ values
+
+2. **Coefficients Storage**: $qn$ values
+   - For each of the $n$ data points, we need $q$ coefficients
+   - These coefficients represent how much each data point projects onto each principal component
+   - Total storage: $n \times q = qn$ values
+
+**Mathematical Justification:**
+
+**Original Data Matrix:**
+$$X \in \mathbb{R}^{n \times d}$$
+
+**PCA Decomposition:**
+After centering the data, PCA finds:
+- Principal components: $V = [v_1, v_2, \ldots, v_q] \in \mathbb{R}^{d \times q}$
+- Coefficients: $A = [a_1, a_2, \ldots, a_n]^T \in \mathbb{R}^{n \times q}$
+
+**Approximation:**
+$$\tilde{X} = AV^T$$
+
+where:
+- $A_{ij}$ is the coefficient of data point $i$ on principal component $j$
+- $V_{ij}$ is the $i$-th element of principal component $j$
+
+**Storage Breakdown:**
+- **$V$ matrix**: $d \times q = qd$ values
+- **$A$ matrix**: $n \times q = qn$ values
+- **Total**: $qd + qn$ values
+
+**Comparison with Original Storage:**
+- **Original**: $nd$ values
+- **PCA approximation**: $qd + qn$ values
+- **Compression ratio**: $\frac{qd + qn}{nd} = \frac{q}{n} + \frac{q}{d}$
+
+**When PCA Provides Compression:**
+PCA reduces storage when $qd + qn < nd$, which typically occurs when $q \ll \min(n, d)$.
+
+**Example:**
+For $n = 1000$, $d = 100$, $q = 10$:
+- Original storage: $1000 \times 100 = 100,000$ values
+- PCA storage: $10 \times 100 + 1000 \times 10 = 1,000 + 10,000 = 11,000$ values
+- Compression: ~89% reduction in storage
 
 ## Problem 2
 
@@ -22,7 +72,55 @@ Suppose we have a multilayer perceptron (MLP) model with 17 neurons in the input
 
 **Correct answers:** (b), (c)
 
-**Explanation:** Both options b and c were accepted for this problem.
+**Explanation:**
+
+Both options **(b)** and **(c)** are correct. Here's the detailed explanation of why:
+
+**Neural Network Architecture:**
+- **Input layer**: 17 neurons
+- **Hidden layer**: 25 neurons  
+- **Output layer**: 10 neurons
+
+**Weight Matrix Between Hidden and Output Layers:**
+
+**Option (b): $10 \times 25$**
+- This represents the transpose of the weight matrix
+- Each output neuron connects to all 25 hidden neurons
+- Matrix dimensions: $10 \times 25$ (10 rows, 25 columns)
+- Each row represents the weights for one output neuron
+
+**Option (c): $25 \times 10$**
+- This represents the weight matrix in its standard form
+- Each hidden neuron connects to all 10 output neurons
+- Matrix dimensions: $25 \times 10$ (25 rows, 10 columns)
+- Each row represents the weights from one hidden neuron
+
+**Mathematical Representation:**
+
+**Forward Pass:**
+$$a^{(3)} = f(W^{(2)} a^{(2)} + b^{(2)})$$
+
+where:
+- $a^{(2)} \in \mathbb{R}^{25}$ (hidden layer activations)
+- $W^{(2)} \in \mathbb{R}^{10 \times 25}$ (weight matrix)
+- $b^{(2)} \in \mathbb{R}^{10}$ (bias vector)
+- $a^{(3)} \in \mathbb{R}^{10}$ (output layer activations)
+
+**Matrix Multiplication:**
+$$\begin{bmatrix} w_{11}^{(2)} & w_{12}^{(2)} & \cdots & w_{1,25}^{(2)} \\ w_{21}^{(2)} & w_{22}^{(2)} & \cdots & w_{2,25}^{(2)} \\ \vdots & \vdots & \ddots & \vdots \\ w_{10,1}^{(2)} & w_{10,2}^{(2)} & \cdots & w_{10,25}^{(2)} \end{bmatrix} \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)} \\ \vdots \\ a_{25}^{(2)} \end{bmatrix} + \begin{bmatrix} b_1^{(2)} \\ b_2^{(2)} \\ \vdots \\ b_{10}^{(2)} \end{bmatrix}$$
+
+**Why Both Are Accepted:**
+- **PyTorch/TensorFlow convention**: Often use $10 \times 25$ (output × input)
+- **Mathematical convention**: Often use $25 \times 10$ (input × output)
+- **Both represent the same connections**: Just different matrix orientations
+- **Transpose relationship**: $(10 \times 25)^T = 25 \times 10$
+
+**Total Parameters:**
+- **Weights**: $25 \times 10 = 250$ parameters
+- **Biases**: $10$ parameters
+- **Total**: $260$ parameters for this layer
+
+**Note:** The question was designed to accept both conventions since different frameworks and textbooks use different conventions for weight matrix dimensions.
 
 ## Problem 3
 
@@ -38,17 +136,79 @@ Recall that a kernel function $K(x,x')$ is a metric of the similarity between tw
 
 **Correct answers:** (d)
 
-**Explanation:** The answer is (D). Note that $x, x' \in \mathbb{R}^2$ for this problem.
+**Explanation:**
 
-For (A), $(x^T x')^2 = (x_1x_1' + x_2x_2')^2 = x_1^2x_1'^2 + 2x_1x_1'x_2x_2' + x_2^2x_2'^2 = \begin{bmatrix} x_1^2 \\ \sqrt{2}x_1x_2 \\ x_2^2 \end{bmatrix}^T \begin{bmatrix} x_1'^2 \\ \sqrt{2}x_1'x_2' \\ x_2'^2 \end{bmatrix}$
+The correct answer is **(d)** - all of the above are valid kernel functions. Here's the detailed analysis of each kernel:
 
-$\phi(x)^T \phi(x')$.
+**Kernel Function Definition:**
+A function $K(x, x')$ is a valid kernel if there exists a feature mapping $\phi$ such that:
+$$K(x, x') = \phi(x)^T \phi(x')$$
 
-For (B), $3x^T x' = (\sqrt{3}x)^T (\sqrt{3}x') = \phi(x)^T \phi(x')$, where $\phi(x) = \sqrt{3}x$.
+**Analyzing Each Kernel:**
 
-For (C), $\phi(x) = x$.
+**(a) $(x^T x')^2$ - Polynomial Kernel of Degree 2**
 
-Since all are valid, the answer is (D).
+**Expansion:**
+$$(x^T x')^2 = (x_1x_1' + x_2x_2')^2 = x_1^2x_1'^2 + 2x_1x_1'x_2x_2' + x_2^2x_2'^2$$
+
+**Feature Mapping:**
+$$\phi(x) = \begin{bmatrix} x_1^2 \\ \sqrt{2}x_1x_2 \\ x_2^2 \end{bmatrix}$$
+
+**Verification:**
+$$\phi(x)^T \phi(x') = x_1^2x_1'^2 + \sqrt{2}x_1x_2 \cdot \sqrt{2}x_1'x_2' + x_2^2x_2'^2 = x_1^2x_1'^2 + 2x_1x_1'x_2x_2' + x_2^2x_2'^2 = (x^T x')^2$$
+
+**✅ VALID**
+
+**(b) $3x^T x'$ - Scaled Linear Kernel**
+
+**Feature Mapping:**
+$$\phi(x) = \sqrt{3}x$$
+
+**Verification:**
+$$\phi(x)^T \phi(x') = (\sqrt{3}x)^T (\sqrt{3}x') = 3x^T x'$$
+
+**✅ VALID**
+
+**(c) $x^T x'$ - Linear Kernel**
+
+**Feature Mapping:**
+$$\phi(x) = x$$
+
+**Verification:**
+$$\phi(x)^T \phi(x') = x^T x'$$
+
+**✅ VALID**
+
+**Mathematical Properties of Valid Kernels:**
+
+1. **Symmetry**: $K(x, x') = K(x', x)$ ✓
+2. **Positive Semi-definite**: For any set of points, the kernel matrix is PSD ✓
+3. **Reproducing Property**: Can be written as inner product in feature space ✓
+
+**General Kernel Properties:**
+
+**Polynomial Kernels:**
+$$K(x, x') = (x^T x' + c)^d$$
+- Always valid for $c \geq 0$ and $d \in \mathbb{N}$
+- Feature space dimension: $\binom{d + 2}{2}$ for 2D inputs
+
+**Linear Kernels:**
+$$K(x, x') = x^T x'$$
+- Always valid
+- Feature space = input space
+
+**Scaled Kernels:**
+$$K(x, x') = \alpha \cdot K_0(x, x')$$
+- Valid if $K_0$ is valid and $\alpha > 0$
+
+**Why All Are Valid:**
+- **(a)**: Polynomial kernel of degree 2
+- **(b)**: Scaled version of linear kernel
+- **(c)**: Standard linear kernel
+- All satisfy the kernel properties and can be written as inner products in feature spaces
+
+**Conclusion:**
+Since all three kernels (a), (b), and (c) are valid, the answer is **(d) - All of the above are valid**.
 
 ## Problem 4
 
@@ -66,6 +226,64 @@ Consider the following figure. Which shape is not convex?
 
 **Correct answers:** (b)
 
+**Explanation:**
+
+The correct answer is **(b) - Shape II** is not convex. Here's the detailed explanation:
+
+**Definition of Convexity:**
+A set $S$ is convex if for any two points $x, y \in S$, the line segment connecting them is entirely contained in $S$:
+$$\lambda x + (1-\lambda)y \in S \quad \text{for all } \lambda \in [0,1]$$
+
+**Analyzing Each Shape:**
+
+**Shape I: Circle**
+- **Convex**: ✅ Any line segment between two points inside a circle remains inside the circle
+- **Mathematical property**: Circles are convex sets
+
+**Shape II: Crescent/Moon Shape**
+- **Not Convex**: ❌ There exist points inside the shape where the line segment between them goes outside the shape
+- **Example**: Consider two points on opposite sides of the "crescent" - the line segment between them passes through the empty space
+
+**Shape III: Rectangle**
+- **Convex**: ✅ Any line segment between two points inside a rectangle remains inside the rectangle
+- **Mathematical property**: Rectangles are convex polygons
+
+**Shape IV: Triangle**
+- **Convex**: ✅ Any line segment between two points inside a triangle remains inside the triangle
+- **Mathematical property**: Triangles are convex polygons
+
+**Visual Verification:**
+
+**Convex Shapes (I, III, IV):**
+- Circle: All chords lie within the circle
+- Rectangle: All line segments between interior points remain interior
+- Triangle: All line segments between interior points remain interior
+
+**Non-Convex Shape (II):**
+- Crescent: Line segments between certain interior points pass through exterior regions
+- The "indentation" or "concave" part creates non-convexity
+
+**Mathematical Test:**
+For a set to be convex, it must satisfy:
+$$\text{If } x, y \in S \text{ and } \lambda \in [0,1], \text{ then } \lambda x + (1-\lambda)y \in S$$
+
+**Shape II fails this test** because there exist points $x, y$ in the crescent and some $\lambda \in [0,1]$ such that $\lambda x + (1-\lambda)y$ lies outside the crescent.
+
+**Common Convex Shapes:**
+- Circles, ellipses
+- Triangles, rectangles, polygons (if no indentations)
+- Lines, line segments
+- Half-spaces, hyperplanes
+
+**Common Non-Convex Shapes:**
+- Crescents, moons
+- Stars, crosses
+- Shapes with indentations or holes
+- Disconnected sets
+
+**Conclusion:**
+Only **Shape II (the crescent)** is not convex, making **(b)** the correct answer.
+
 ## Problem 5
 
 What is the typical effect of increasing the penalty ($\lambda$) in the ridge regression loss function? Select all that apply.
@@ -80,6 +298,82 @@ What is the typical effect of increasing the penalty ($\lambda$) in the ridge re
 
 **Correct answers:** (a), (d)
 
+**Explanation:**
+
+The correct answers are **(a)** and **(d)** - increasing the penalty $\lambda$ in ridge regression increases bias and decreases variance. Here's the detailed explanation:
+
+**Ridge Regression Objective Function:**
+$$\min_w \sum_{i=1}^n (y_i - w^T x_i)^2 + \lambda ||w||_2^2$$
+
+where $\lambda$ is the regularization parameter.
+
+**Effect of Increasing $\lambda$:**
+
+**1. Increases Bias (Option a) - TRUE** ✅
+
+**Mathematical Explanation:**
+- As $\lambda \to \infty$, the solution approaches $w = 0$
+- This means the model becomes a constant predictor: $\hat{y} = 0$
+- The model becomes less flexible and cannot fit complex patterns
+- **Bias increases** because the model is too simple to capture the true relationship
+
+**Intuitive Understanding:**
+- Large $\lambda$ forces weights to be small
+- Small weights mean the model cannot make large predictions
+- The model becomes "stiff" and cannot adapt to the data
+- This creates systematic error (bias)
+
+**2. Decreases Variance (Option d) - TRUE** ✅
+
+**Mathematical Explanation:**
+- Ridge regression solution: $\hat{w} = (X^T X + \lambda I)^{-1} X^T y$
+- As $\lambda$ increases, the solution becomes more stable
+- The model is less sensitive to small changes in the training data
+- **Variance decreases** because the model is more robust
+
+**Intuitive Understanding:**
+- Large $\lambda$ prevents overfitting
+- The model cannot memorize the training data
+- Predictions become more consistent across different training sets
+- This reduces random error (variance)
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - Decreases bias: FALSE** ❌
+- Increasing $\lambda$ makes the model simpler, not more complex
+- Simpler models have higher bias, not lower bias
+
+**Option (c) - Increases variance: FALSE** ❌
+- Increasing $\lambda$ makes the model more stable
+- More stable models have lower variance, not higher variance
+
+**Bias-Variance Tradeoff:**
+
+The relationship can be expressed as:
+$$\text{Expected Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+**As $\lambda$ increases:**
+- **Bias**: Increases (model becomes too simple)
+- **Variance**: Decreases (model becomes more stable)
+- **Total Error**: May decrease initially, then increase due to high bias
+
+**Optimal $\lambda$:**
+The best $\lambda$ balances bias and variance to minimize total error.
+
+**Mathematical Verification:**
+
+**Ridge Solution:**
+$$\hat{w}_{\text{ridge}} = (X^T X + \lambda I)^{-1} X^T y$$
+
+**As $\lambda \to \infty$:**
+$$\hat{w}_{\text{ridge}} \to 0$$
+
+**As $\lambda \to 0$:**
+$$\hat{w}_{\text{ridge}} \to \hat{w}_{\text{OLS}} = (X^T X)^{-1} X^T y$$
+
+**Conclusion:**
+Increasing $\lambda$ in ridge regression **increases bias** and **decreases variance**, making options **(a)** and **(d)** correct.
+
 ## Problem 6
 
 Suppose we are performing linear regression using a non-linear basis expansion $\Phi$. Which of the following statements is true about the learned predictor?
@@ -93,6 +387,86 @@ Suppose we are performing linear regression using a non-linear basis expansion $
 (d) It is a non-linear function of the inputs and a non-linear function of the weights.
 
 **Correct answers:** (c)
+
+**Explanation:**
+
+The correct answer is **(c)** - the learned predictor is a non-linear function of the inputs and a linear function of the weights. Here's the detailed explanation:
+
+**Non-Linear Basis Expansion:**
+
+**Model Formulation:**
+$$f(x) = w^T \phi(x)$$
+
+where:
+- $x$ is the original input
+- $\phi(x)$ is the non-linear basis expansion
+- $w$ are the weights
+
+**Key Insight:**
+The model is **linear in the weights** but **non-linear in the inputs** due to the basis expansion.
+
+**Mathematical Analysis:**
+
+**1. Linear in Weights:**
+- The model can be written as: $f(x) = \sum_{i=1}^d w_i \phi_i(x)$
+- This is a **linear combination** of basis functions
+- The weights $w_i$ appear linearly (no powers, products, etc.)
+- This makes optimization easy (convex problem)
+
+**2. Non-Linear in Inputs:**
+- The basis functions $\phi_i(x)$ are non-linear transformations of $x$
+- Examples of basis expansions:
+  - **Polynomial**: $\phi(x) = [1, x, x^2, x^3, \ldots]$
+  - **RBF**: $\phi(x) = [\exp(-||x-c_1||^2), \exp(-||x-c_2||^2), \ldots]$
+  - **Fourier**: $\phi(x) = [\sin(x), \cos(x), \sin(2x), \cos(2x), \ldots]$
+
+**Example with Polynomial Basis:**
+
+**Original Input:** $x \in \mathbb{R}$
+**Basis Expansion:** $\phi(x) = [1, x, x^2, x^3]$
+**Model:** $f(x) = w_0 + w_1 x + w_2 x^2 + w_3 x^3$
+
+**Analysis:**
+- **Linear in weights**: $f(x) = w_0 \cdot 1 + w_1 \cdot x + w_2 \cdot x^2 + w_3 \cdot x^3$
+- **Non-linear in input**: $x^2$ and $x^3$ are non-linear functions of $x$
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - Linear in inputs and weights: FALSE** ❌
+- The basis expansion $\phi(x)$ makes the function non-linear in inputs
+- This is the whole point of using basis expansions
+
+**Option (b) - Linear in inputs, non-linear in weights: FALSE** ❌
+- The weights appear linearly in the model
+- The non-linearity comes from the basis functions, not the weights
+
+**Option (d) - Non-linear in inputs and weights: FALSE** ❌
+- The weights appear linearly in the model
+- Only the inputs are transformed non-linearly
+
+**Optimization Properties:**
+
+**Convexity:**
+- Since the model is linear in weights, the loss function is convex
+- This guarantees convergence to global optimum
+- Gradient descent works well
+
+**Computational Efficiency:**
+- Linear in weights means efficient gradient computation
+- No need for complex optimization algorithms
+
+**Mathematical Verification:**
+
+**Gradient with respect to weights:**
+$$\frac{\partial f}{\partial w_i} = \phi_i(x)$$
+
+**Hessian with respect to weights:**
+$$\frac{\partial^2 f}{\partial w_i \partial w_j} = 0$$
+
+This shows the function is linear in weights.
+
+**Conclusion:**
+The learned predictor is **non-linear in inputs** (due to basis expansion) but **linear in weights** (making optimization easy), making option **(c)** correct.
 
 ## Problem 7
 
