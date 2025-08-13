@@ -115,6 +115,27 @@ L(w,b) = Σᵢ₌₁ⁿ (yᵢ - (w^T xᵢ + b))²
 
 **Correct answers:** (a)
 
+**Explanation:**
+
+This is **true**. As the regularization coefficient λ increases in Ridge Regression, the model becomes **less sensitive** to input changes.
+
+**Mathematical intuition:**
+The Ridge Regression objective is:
+```
+min ||y - Xw||² + λ||w||²
+```
+
+**Why sensitivity decreases:**
+- **Smaller coefficients** - λ penalizes large weights, forcing them toward zero
+- **Smoother predictions** - the model becomes more conservative
+- **Reduced overfitting** - less responsive to noise in the training data
+
+**Practical effect:**
+- **Higher λ** → smaller coefficients → less sensitive to input variations
+- **Lower λ** → larger coefficients → more sensitive to input variations
+
+**Key insight:** This is the fundamental **regularization effect** - trading sensitivity for stability and generalization.
+
 **6. Which of the following statements about logistic regression is true?**
 *   (a) The loss function of logistic regression without regularization is convex, and the loss function of logistic regression with L2 regularization is convex.
 *   (b) Neither the loss function of logistic regression without regularization is convex nor the loss function of logistic regression with L2 regularization is convex.
