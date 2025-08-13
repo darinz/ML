@@ -390,7 +390,7 @@ $$
 
 **The bias term:** $(X^T X)^{-1} X^T c \neq 0$ when $c \neq 0$
 
-**Key insight:** The estimator is unbiased **only if c = 0** (no intercept) or if X^T c = 0. Since the problem includes a non-zero intercept c, the estimator is **biased**.
+**Key insight:** The estimator is unbiased **only if c = 0** (no intercept) or if $X^T c$ = 0. Since the problem includes a non-zero intercept c, the estimator is **biased**.
 
 ## Problem 14
 
