@@ -136,3 +136,57 @@ The answer is all of them.
 The answer is False.
 
 Even for convex optimization objectives, if the learning rate is too high, there is a real probability of overshooting the global minima.
+
+## Problem 8: Neural Network Activation Functions
+
+**1 point**
+
+**Question:** You are building a multi-class classifier using a deep neural network. You notice that your network is training slowly and that the gradients are diminishing quickly. Which activation function for the hidden layers of your network should you switch to, in order to avoid these issues?
+
+**Options:**
+- a) $f(x_i) = \frac{1}{1+e^{-x_i}}$
+- b) $f(x_i) = \max(0, x_i)$
+- c) $f(x_i) = x_i$
+- d) $f(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}}$
+
+**Correct Answer:** b) $f(x_i) = \max(0, x_i)$
+
+**Explanation:** 
+Sigmoid ($f(x_i) = \frac{1}{1+e^{-x_i}}$) can cause vanishing gradients and hence can cause slow learning.
+ReLU ($f(x_i) = \max(0, x_i)$) avoids saturation.
+Having only linear layers reduces the network to a linear one.
+Softmax ($f(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}}$) should be used in the output layer, but not the hidden layers of the network.
+
+## Problem 9: Neural Network Depth and Training Loss
+
+**1 point**
+
+**Question:** If two neural networks differ only in the number of hidden layers, the deeper network will always achieve a lower training loss given the same training data.
+
+**Options:**
+- a) True
+- b) False
+
+**Correct Answer:** b) False
+
+## Problem 10: Reducing Overfitting in Neural Networks
+
+**1 point**
+
+**Question:** Snoopy is training a neural network to classify birds into 'Woodstock' and 'Not Woodstock'. A plot of the training and validation accuracy for the neural network model during the training process is provided.
+
+**Figure 6: Snoopy's Training Plot**
+- **Training Accuracy:** Starts around 70% at 2.5 epochs, steadily increases, and reaches approximately 100% accuracy by 15.0 epochs, remaining high thereafter.
+- **Validation Accuracy:** Starts around 62% at 2.5 epochs, shows some fluctuations, increases to about 70% by 7.5 epochs, and then continues to slowly increase, reaching approximately 78% by 20.0 epochs.
+- **Key Observation:** A significant and increasing gap is observed between the training accuracy and validation accuracy, particularly after about 7.5 epochs, where the training accuracy continues to rise sharply while the validation accuracy plateaus or increases very slowly. This indicates a clear case of overfitting.
+
+Which of the following actions could Snoopy take to help reduce the difference between training and validation accuracy?
+
+**Options:**
+- a) Increase the amount of training data
+- b) Apply regularization techniques
+- c) Reduce the complexity of the model (e.g., use fewer layers or units)
+- d) Train for more epochs without making other changes
+- e) Decrease the learning rate
+
+**Correct Answer:** a), b), c)
