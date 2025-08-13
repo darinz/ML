@@ -26,8 +26,8 @@ We need to find **P(F|S)**, the probability Sarah has the flu given she has symp
 
 **Using Bayes' theorem:**
 ```
-P(F|S) = P(S|F) × P(F) / P(S)
-P(F|S) = 0.60 × 0.10 / 0.30 = 0.06 / 0.30 = 0.20 = 20%
+P(F|S) = \frac{P(S|F) \times P(F)}{P(S)}
+P(F|S) = \frac{0.60 \times 0.10}{0.30} = \frac{0.06}{0.30} = 0.20 = 20\%
 ```
 
 **Intuition:** Even though 60% of flu cases show symptoms, only 10% of people have the flu, while 30% of people show symptoms. So among symptomatic people, only 20% actually have the flu.
@@ -77,14 +77,14 @@ Assume you're given two independent random variables X and Y. X is uniformly dis
 
 For independent random variables **X** and **Y**, we have **E[XY] = E[X]E[Y]**. Let's calculate each component:
 
-- **X ~ Uniform[1,3]**: E[X] = (1+3)/2 = **2**
-- **Y ~ N(3,1)**: E[Y] = **3**
+- **X ~ Uniform[1,3]**: $E[X] = \frac{1+3}{2} = 2$
+- **Y ~ N(3,1)**: $E[Y] = 3$
 
-Since X and Y are independent: **E[XY] = E[X]E[Y] = 2 × 3 = 6**
+Since X and Y are independent: $E[XY] = E[X]E[Y] = 2 \times 3 = 6$
 
-Now we need to calculate: **(E[XY])² - E[X]E[Y] = 6² - 6 = 36 - 6 = 30**
+Now we need to calculate: $(E[XY])^2 - E[X]E[Y] = 6^2 - 6 = 36 - 6 = 30$
 
-**Key insight:** For independent random variables, E[XY] = E[X]E[Y], but **(E[XY])² ≠ E[X]E[Y]**.
+**Key insight:** For independent random variables, $E[XY] = E[X]E[Y]$, but $(E[XY])^2 \neq E[X]E[Y]$.
 
 ## Problem 4
 
@@ -98,22 +98,21 @@ True/False: If the columns of A are orthogonal, then $A^TA$ is diagonal.
 
 **Explanation:**
 
-This is **true**. If the columns of matrix **A** are orthogonal, then **A^T A** is diagonal.
+This is **true**. If the columns of matrix **A** are orthogonal, then **$A^T A$** is diagonal.
 
 **Here's why:**
 
 Let **A = [a₁, a₂, ..., aₙ]** where each aᵢ is a column vector. Then:
 
-```
-A^T A = [a₁^T; a₂^T; ...; aₙ^T] × [a₁, a₂, ..., aₙ]
-```
+$A^T A$ = $[a₁^T; a₂^T; ...; aₙ^T] × [a₁, a₂, ..., aₙ]$
 
-The **(i,j)** entry of A^T A is **aᵢ^T aⱼ**. Since the columns are orthogonal:
 
-- **aᵢ^T aⱼ = 0** for i ≠ j (orthogonality)
-- **aᵢ^T aᵢ = ||aᵢ||²** for i = j (norm squared)
+The **(i,j)** entry of $A^T$ A is **$aᵢ^T aⱼ$**. Since the columns are orthogonal:
 
-**Therefore:** A^T A is a diagonal matrix with diagonal entries **||aᵢ||²**.
+- **$aᵢ^T aⱼ = 0$** for i ≠ j (orthogonality)
+- **$aᵢ^T aᵢ = ||aᵢ||²$** for i = j (norm squared)
+
+**Therefore:** $A^T A$ is a diagonal matrix with diagonal entries **$||aᵢ||²$**.
 
 ## Problem 5
 
@@ -158,11 +157,11 @@ True/False: If $\{v_1, v_2, \dots, v_n\}$ and $\{w_1, w_2, \dots, w_n\}$ are lin
 This is **false**. The sum of linearly independent sets is **not necessarily** linearly independent.
 
 **Counterexample:**
-Consider the vectors in ℝ²:
-- **v₁ = (1, 0)**, **v₂ = (0, 1)** - linearly independent
-- **w₁ = (-1, 0)**, **w₂ = (0, -1)** - linearly independent
+Consider the vectors in $\mathbb{R}^2$:
+- $v_1 = (1, 0)$, $v_2 = (0, 1)$ - linearly independent
+- $w_1 = (-1, 0)$, $w_2 = (0, -1)$ - linearly independent
 
-But **v₁ + w₁ = (0, 0)** and **v₂ + w₂ = (0, 0)**, so the set **{v₁ + w₁, v₂ + w₂} = {(0, 0), (0, 0)}** is **linearly dependent**.
+But $v_1 + w_1 = (0, 0)$ and $v_2 + w_2 = (0, 0)$, so the set $\{v_1 + w_1, v_2 + w_2\} = \{(0, 0), (0, 0)\}$ is **linearly dependent**.
 
 **Key insight:** Linear independence is **not preserved** under vector addition. The sum of independent sets can create dependent vectors.
 
@@ -180,17 +179,17 @@ True/False: $E[\epsilon\epsilon^T] = I$ where $\epsilon_i \sim N(0, \sigma^2)$ s
 
 This is **false**. The statement **E[εε^T] = I** is incorrect.
 
-For a random vector **ε ~ N(0, σ²I)** where ε ∈ ℝᵈ, we have:
-**E[εε^T] = σ²I**, not I.
+For a random vector $\varepsilon \sim N(0, \sigma^2I)$ where $\varepsilon \in \mathbb{R}^d$, we have:
+$E[\varepsilon\varepsilon^T] = \sigma^2I$, not $I$.
 
 **Here's why:**
 
-The **(i,j)** entry of E[εε^T] is **E[εᵢεⱼ]**. Since εᵢ ~ N(0, σ²) and the components are independent:
+The **(i,j)** entry of $E[\varepsilon\varepsilon^T]$ is $E[\varepsilon_i\varepsilon_j]$. Since $\varepsilon_i \sim N(0, \sigma^2)$ and the components are independent:
 
-- **E[εᵢεⱼ] = 0** for i ≠ j (independence)
-- **E[εᵢ²] = Var(εᵢ) = σ²** for i = j
+- $E[\varepsilon_i\varepsilon_j] = 0$ for $i \neq j$ (independence)
+- $E[\varepsilon_i^2] = \text{Var}(\varepsilon_i) = \sigma^2$ for $i = j$
 
-**Therefore:** E[εε^T] = σ²I, which equals I only when **σ² = 1**.
+**Therefore:** $E[\varepsilon\varepsilon^T] = \sigma^2I$, which equals $I$ only when $\sigma^2 = 1$.
 
 <img src="./figure_1.png">
 
@@ -296,20 +295,20 @@ For **maximum likelihood estimation** of μ, we need to maximize the log-likelih
 
 **The likelihood function:**
 ```
-L(μ) = f(x₁|μ) × f(x₂|μ) = (1/√(2π))² × e^(-(x₁-μ)²/2) × e^(-(x₂-μ)²/2)
+L(\mu) = f(x_1|\mu) \times f(x_2|\mu) = \left(\frac{1}{\sqrt{2\pi}}\right)^2 \times e^{-\frac{(x_1-\mu)^2}{2}} \times e^{-\frac{(x_2-\mu)^2}{2}}
 ```
 
 **Taking the log:**
 ```
-log L(μ) = -log(2π) - (x₁-μ)²/2 - (x₂-μ)²/2
+\log L(\mu) = -\log(2\pi) - \frac{(x_1-\mu)^2}{2} - \frac{(x_2-\mu)^2}{2}
 ```
 
 **To find the maximum:** We take the derivative with respect to μ and set it to zero:
 ```
-d/dμ[log L(μ)] = (x₁-μ) + (x₂-μ) = x₁ + x₂ - 2μ = 0
+\frac{d}{d\mu}[\log L(\mu)] = (x_1-\mu) + (x_2-\mu) = x_1 + x_2 - 2\mu = 0
 ```
 
-**Solving:** 2μ = x₁ + x₂, so **μ = (x₁ + x₂)/2**
+**Solving:** $2\mu = x_1 + x_2$, so $\mu = \frac{x_1 + x_2}{2}$
 
 This is the **sample mean**, which is the MLE for the mean of a normal distribution.
 
@@ -329,19 +328,19 @@ This is **false**. The OLS estimator β̂ is **biased** when there's a non-zero 
 
 **Here's why:**
 
-The OLS estimator is β̂ = (X^T X)^(-1) X^T y
+The OLS estimator is $\hat{\beta} = (X^T X)^{-1} X^T y$
 
-Substituting y = Xβ + c + ε:
+Substituting $y = X\beta + c + \varepsilon$:
 ```
-β̂ = (X^T X)^(-1) X^T (Xβ + c + ε) = β + (X^T X)^(-1) X^T c + (X^T X)^(-1) X^T ε
+\hat{\beta} = (X^T X)^{-1} X^T (X\beta + c + \varepsilon) = \beta + (X^T X)^{-1} X^T c + (X^T X)^{-1} X^T \varepsilon
 ```
 
 Taking expectation:
 ```
-E[β̂] = β + (X^T X)^(-1) X^T c + (X^T X)^(-1) X^T E[ε] = β + (X^T X)^(-1) X^T c
+E[\hat{\beta}] = \beta + (X^T X)^{-1} X^T c + (X^T X)^{-1} X^T E[\varepsilon] = \beta + (X^T X)^{-1} X^T c
 ```
 
-**The bias term:** (X^T X)^(-1) X^T c ≠ 0 when c ≠ 0
+**The bias term:** $(X^T X)^{-1} X^T c \neq 0$ when $c \neq 0$
 
 **Key insight:** The estimator is unbiased **only if c = 0** (no intercept) or if X^T c = 0. Since the problem includes a non-zero intercept c, the estimator is **biased**.
 
@@ -385,9 +384,9 @@ True/False: Given a fixed training set, the training loss is never larger in a p
 
 This is **true**. A polynomial of degree **d+1** can always fit the training data at least as well as a polynomial of degree **d**, because the degree d+1 polynomial can simply set the coefficient of the highest degree term to zero, effectively becoming a degree d polynomial.
 
-**Mathematically:** If p_d(x) is the best degree d polynomial fit, then:
+**Mathematically:** If $p_d(x)$ is the best degree d polynomial fit, then:
 ```
-p_{d+1}(x) = p_d(x) + 0·x^{d+1}
+p_{d+1}(x) = p_d(x) + 0 \cdot x^{d+1}
 ```
 will achieve the same training loss. The degree d+1 polynomial can only do better, never worse.
 
@@ -432,12 +431,12 @@ The irreducible error depends on **σ²**, the variance of the noise in the data
 
 **Mathematical definition:**
 ```
-E[(y - f*(x))²] where f*(x) is the true function
+E[(y - f^*(x))^2] \text{ where } f^*(x) \text{ is the true function}
 ```
 
-Since **y = f*(x) + ε** where ε ~ N(0, σ²), the irreducible error is:
+Since $y = f^*(x) + \varepsilon$ where $\varepsilon \sim N(0, \sigma^2)$, the irreducible error is:
 ```
-E[ε²] = Var(ε) = σ²
+E[\varepsilon^2] = \text{Var}(\varepsilon) = \sigma^2
 ```
 
 **Key insight:** This error is independent of the number of observations (n), feature dimensions (m), or any model parameters - it's a **fundamental property** of the data generation process.
@@ -461,7 +460,7 @@ How does the irreducible error change if we increase the regularization coeffici
 The irreducible error **does not change** when we increase the regularization coefficient λ in ridge regression. This is because irreducible error is a property of the **data generation process**, not the model.
 
 **Why this happens:**
-The irreducible error σ² represents the variance of the noise ε in the true relationship **y = f*(x) + ε**. This noise is **inherent to the data** and cannot be reduced by any modeling choice, including regularization.
+The irreducible error $\sigma^2$ represents the variance of the noise $\varepsilon$ in the true relationship $y = f^*(x) + \varepsilon$. This noise is **inherent to the data** and cannot be reduced by any modeling choice, including regularization.
 
 **Key insight:** Regularization affects the bias and variance of the model, but it cannot change the **fundamental uncertainty** in the data itself. The irreducible error remains constant regardless of the regularization strength.
 
@@ -523,11 +522,11 @@ True/False: LASSO is a convex optimization problem.
 
 **Explanation:** LASSO is indeed a convex optimization problem. The LASSO objective function is:
 
-min ||y - Xβ||² + λ||β||₁
+$\min \|y - X\beta\|^2 + \lambda\|\beta\|_1$
 
 This is convex because:
-1. The squared loss term ||y - Xβ||² is a convex function (quadratic)
-2. The L1 penalty term ||β||₁ is a convex function (sum of absolute values)
+1. The squared loss term $\|y - X\beta\|^2$ is a convex function (quadratic)
+2. The L1 penalty term $\|\beta\|_1$ is a convex function (sum of absolute values)
 3. The sum of convex functions is convex
 4. The constraint set is convex (unconstrained)
 
@@ -552,7 +551,7 @@ In LASSO regression, if the regularization parameter $\lambda = 0$, then which o
 When **λ = 0** in LASSO, the regularization term disappears, and the objective function becomes:
 
 ```
-min ||y - Xβ||²
+\min \|y - X\beta\|^2
 ```
 
 This is exactly the same as **ordinary least squares (OLS)** regression. The LASSO model reduces to standard linear regression without any regularization.
@@ -638,7 +637,7 @@ $f(\lambda x_1 + (1 - \lambda)x_2) \le (1-\lambda)f(x_1) + \lambda f(x_2)$
 
 **Explanation:** This is false. The inequality shown is incorrect for the definition of convexity. The correct definition of a convex function is:
 
-f(λx₁ + (1-λ)x₂) ≤ λf(x₁) + (1-λ)f(x₂)
+$f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1) + (1-\lambda)f(x_2)$
 
 The given inequality has λ and (1-λ) swapped on the right-hand side. For a convex function, the function value at a convex combination of points should be less than or equal to the convex combination of the function values.
 
@@ -700,9 +699,9 @@ Which of the following is not a convex set?
 
 **Solution:** No solution is provided for this question.
 
-**Explanation:** The unit sphere {x ∈ ℝ² | ||x||₂ = 1} is not a convex set. A set is convex if for any two points in the set, the line segment connecting them is also in the set.
+**Explanation:** The unit sphere $\{x \in \mathbb{R}^2 \mid \|x\|_2 = 1\}$ is not a convex set. A set is convex if for any two points in the set, the line segment connecting them is also in the set.
 
-For the unit sphere, consider two points on the boundary: (1,0) and (-1,0). The midpoint of the line segment connecting them is (0,0), which has ||(0,0)||₂ = 0 ≠ 1, so it's not in the unit sphere.
+For the unit sphere, consider two points on the boundary: (1,0) and (-1,0). The midpoint of the line segment connecting them is (0,0), which has $\|(0,0)\|_2 = 0 \neq 1$, so it's not in the unit sphere.
 
 The other sets are convex:
 - Unit ball: contains all convex combinations of points within the ball
@@ -896,11 +895,11 @@ in terms of the $n \times d$ matrix $X$ whose $i$-th row is $x_i^T$ and the $n$ 
 **Explanation:** This is the normal equation for linear regression. To derive it, we minimize the loss function L(w) = ||y - Xw||².
 
 Taking the gradient with respect to w and setting it to zero:
-∇L(w) = -2X^T(y - Xw) = 0
+$\nabla L(w) = -2X^T(y - Xw) = 0$
 
-This gives: X^T X w = X^T y
+This gives: $X^T X w = X^T y$
 
-Solving for w: w = (X^T X)^(-1) X^T y
+Solving for w: $w = (X^T X)^{-1} X^T y$
 
 This is the closed-form solution for the optimal parameters that minimize the squared error loss. The matrix (X^T X)^(-1) X^T is called the Moore-Penrose pseudoinverse of X.
 
@@ -920,14 +919,14 @@ True/False: Let $x_1, \dots, x_n \in \mathbb{R}^+$ be sampled i.i.d. from the di
 
 **Explanation:** For the exponential distribution Exp(θ) = θe^(-θx), we need to find the MLE of θ.
 
-The likelihood function is: L(θ) = ∏ᵢ₌₁ⁿ θe^(-θxᵢ) = θⁿ e^(-θ∑ᵢ₌₁ⁿ xᵢ)
+The likelihood function is: $L(\theta) = \prod_{i=1}^{n} \theta e^{-\theta x_i} = \theta^n e^{-\theta\sum_{i=1}^{n} x_i}$
 
-Taking the log: log L(θ) = n log θ - θ∑ᵢ₌₁ⁿ xᵢ
+Taking the log: $\log L(\theta) = n \log \theta - \theta\sum_{i=1}^{n} x_i$
 
 Taking the derivative with respect to θ and setting to zero:
-d/dθ[log L(θ)] = n/θ - ∑ᵢ₌₁ⁿ xᵢ = 0
+$\frac{d}{d\theta}[\log L(\theta)] = \frac{n}{\theta} - \sum_{i=1}^{n} x_i = 0$
 
-Solving: n/θ = ∑ᵢ₌₁ⁿ xᵢ, so θ = n/(∑ᵢ₌₁ⁿ xᵢ)
+Solving: $\frac{n}{\theta} = \sum_{i=1}^{n} x_i$, so $\theta = \frac{n}{\sum_{i=1}^{n} x_i}$
 
 This is the reciprocal of the sample mean, which is the MLE for the exponential distribution parameter.
 
@@ -943,10 +942,10 @@ True/False: In the least-squares linear regression setting, if we double the dat
 
 **Explanation:** This is false. Doubling the data matrix X does not double the least squares solution ŵ.
 
-Here's why: The least squares solution is ŵ = (X^T X)^(-1) X^T y
+Here's why: The least squares solution is $\hat{w} = (X^T X)^{-1} X^T y$
 
 If we double X to 2X, the solution becomes:
-ŵ_new = ((2X)^T (2X))^(-1) (2X)^T y = (4X^T X)^(-1) (2X^T y) = (1/4)(X^T X)^(-1) (2X^T y) = (1/2)(X^T X)^(-1) X^T y = (1/2)ŵ
+$\hat{w}_{\text{new}} = ((2X)^T (2X))^{-1} (2X)^T y = (4X^T X)^{-1} (2X^T y) = \frac{1}{4}(X^T X)^{-1} (2X^T y) = \frac{1}{2}(X^T X)^{-1} X^T y = \frac{1}{2}\hat{w}$
 
 So doubling X actually halves the solution, not doubles it. This makes sense because if we scale the features by 2, the coefficients need to be scaled by 1/2 to maintain the same predictions.
 
