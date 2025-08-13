@@ -112,8 +112,8 @@ Looking at the dataset plot, we can see a **periodic wave-like pattern** that su
 - **Better generalization** - the model generalizes better to unseen data
 
 **Mathematical intuition:**
-- **L2 regularization:** min ||y - Xw||² + λ||w||²
-- **L1 regularization:** min ||y - Xw||² + λ||w||₁
+- **L2 regularization:** $\min \|y - Xw\|^2 + \lambda\|w\|^2$
+- **L1 regularization:** $\min \|y - Xw\|^2 + \lambda\|w\|_1$
 - Both penalize large coefficients, forcing them toward zero
 
 **Key insight:** The optimal regularization strength **balances** this tradeoff for best generalization performance.
@@ -145,9 +145,8 @@ This is a **confusion matrix** problem with balanced classes. Let's solve it ste
 - **True negatives:** 85 - 45 = 40 negative samples correctly classified
 
 **Probability of correctly classifying a negative sample:**
-```
-True negative rate = True negatives / Total negatives = 40/50 = 0.8 = 80%
-```
+
+$\text{True negative rate} = \frac{\text{True negatives}}{\text{Total negatives}} = \frac{40}{50} = 0.8 = 80\%$
 
 **Key insight:** Use the **confusion matrix** framework to break down the problem systematically.
 
@@ -171,9 +170,8 @@ True negative rate = True negatives / Total negatives = 40/50 = 0.8 = 80%
 **Why Graph B is Ridge Regression:**
 
 **1. Mathematical form:**
-```
-L(w) = ||y - Xw||² + λ||w||²
-```
+
+$L(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **2. Visual characteristics:**
 - **Smooth contours** - L2 penalty creates smooth, differentiable surface
@@ -240,12 +238,11 @@ L(w) = ||y - Xw||² + λ||w||²
 - This would make performance estimates **overly optimistic**
 
 **2. Proper workflow:**
-```
-1. Calculate μ_train, σ_train from training data
-2. Standardize training data: (x - μ_train) / σ_train
-3. Standardize validation data: (x - μ_train) / σ_train
-4. Standardize test data: (x - μ_train) / σ_train
-```
+
+1. Calculate $\mu_{\text{train}}$, $\sigma_{\text{train}}$ from training data
+2. Standardize training data: $(x - \mu_{\text{train}}) / \sigma_{\text{train}}$
+3. Standardize validation data: $(x - \mu_{\text{train}}) / \sigma_{\text{train}}$
+4. Standardize test data: $(x - \mu_{\text{train}}) / \sigma_{\text{train}}$
 
 **3. Consequences of using test statistics:**
 - **Different predictions** depending on test set size
@@ -275,9 +272,8 @@ This is a **computational complexity** comparison between LOO and k-fold cross-v
 - **Total models:** 4 × 10 = 40 models
 
 **Ratio:**
-```
-LOO models / 10-fold models = 400,000 / 40 = 10,000
-```
+
+$\text{LOO models} / \text{10-fold models} = 400,000 / 40 = 10,000$
 
 **Why this happens:**
 
@@ -386,11 +382,12 @@ LOO models / 10-fold models = 400,000 / 40 = 10,000
 **Why (d) is not convex:**
 
 **1. Second derivative test:**
-```
-f(x) = 1/(1+e^(-x))
-f'(x) = e^(-x)/(1+e^(-x))²
-f''(x) = e^(-x)(e^(-x)-1)/(1+e^(-x))³
-```
+
+$f(x) = \frac{1}{1+e^{-x}}$
+
+$f'(x) = \frac{e^{-x}}{(1+e^{-x})^2}$
+
+$f''(x) = \frac{e^{-x}(e^{-x}-1)}{(1+e^{-x})^3}$
 
 **2. Analysis:**
 - **f''(x) < 0** for x > 0 (concave)
@@ -429,18 +426,17 @@ $$f(w) = \sum_{i=1}^{n} (y_i - x_i^T w)^2 + \lambda ||w||_2^2$$
 **Mathematical intuition:**
 
 **1. Ridge regression objective:**
-```
-min f(w) = ||y - Xw||² + λ||w||²
-```
+
+$\min f(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **2. As λ → ∞:**
-- The **regularization term λ||w||²** dominates
-- The **data term ||y - Xw||²** becomes negligible
-- The objective becomes approximately: **min λ||w||²**
+- The **regularization term $\lambda\|w\|^2$** dominates
+- The **data term $\|y - Xw\|^2$** becomes negligible
+- The objective becomes approximately: $\min \lambda\|w\|^2$
 
 **3. Solution:**
-- **min ||w||²** subject to no constraints
-- The minimum occurs at **w = 0**
+- $\min \|w\|^2$ subject to no constraints
+- The minimum occurs at $w = 0$
 - All weights shrink toward zero
 
 **4. Intuitive understanding:**
@@ -560,10 +556,10 @@ $$f(w) = \sum_{i=1}^{3} (y_i - wx_i - b)^2 + \lambda w^2$$
 - **Flat regression** - strong regularization prevents overfitting
 
 **3. Mathematical intuition:**
-```
-min f(w,b) = Σ(y_i - wx_i - b)² + λw²
-```
-- **w term** is penalized by λw²
+
+$\min f(w,b) = \sum(y_i - wx_i - b)^2 + \lambda w^2$
+
+- **w term** is penalized by $\lambda w^2$
 - **b term** has no penalty
 - **Optimal w ≈ 0** for large λ
 - **Optimal b** minimizes the sum of squared errors
@@ -579,32 +575,32 @@ min f(w,b) = Σ(y_i - wx_i - b)² + λw²
 
 **Answer:**
 
-**Dimensions:** C ∈ ℝ^(n×m)
-**Range:** range(C) = span({a}) (if b ≠ 0, otherwise {0})
-**Null space:** null(C) = {v ∈ ℝ^m | v^T b = 0} (if a ≠ 0, otherwise ℝ^m)
+**Dimensions:** $C \in \mathbb{R}^{n \times m}$
+**Range:** $\text{range}(C) = \text{span}(\{a\})$ (if $b \neq 0$, otherwise $\{0\}$)
+**Null space:** $\text{null}(C) = \{v \in \mathbb{R}^m \mid v^T b = 0\}$ (if $a \neq 0$, otherwise $\mathbb{R}^m$)
 
 **Explanation:**
 
 This is a **rank-1 matrix** problem. Let's analyze each component:
 
 **1. Dimensions:**
-- **a ∈ ℝ^n** (column vector)
-- **b ∈ ℝ^m** (column vector)  
-- **C = ab^T** (outer product)
-- **C ∈ ℝ^(n×m)** (n rows, m columns)
+- **$a \in \mathbb{R}^n$** (column vector)
+- **$b \in \mathbb{R}^m$** (column vector)  
+- **$C = ab^T$** (outer product)
+- **$C \in \mathbb{R}^{n \times m}$** (n rows, m columns)
 
 **2. Range analysis:**
-- **C = ab^T** is a rank-1 matrix
-- **range(C) = span({a})** - all columns are scalar multiples of a
-- **If b = 0:** C = 0, so range(C) = {0}
-- **If b ≠ 0:** range(C) = span({a})
+- **$C = ab^T$** is a rank-1 matrix
+- **$\text{range}(C) = \text{span}(\{a\})$** - all columns are scalar multiples of a
+- **If $b = 0$:** $C = 0$, so $\text{range}(C) = \{0\}$
+- **If $b \neq 0$:** $\text{range}(C) = \text{span}(\{a\})$
 
 **3. Null space analysis:**
-- **null(C) = {v ∈ ℝ^m | Cv = 0}**
-- **Cv = ab^T v = a(b^T v) = 0**
-- This requires **b^T v = 0** (since a ≠ 0)
-- **null(C) = {v ∈ ℝ^m | v^T b = 0}**
-- **If a = 0:** C = 0, so null(C) = ℝ^m
+- **$\text{null}(C) = \{v \in \mathbb{R}^m \mid Cv = 0\}$**
+- **$Cv = ab^T v = a(b^T v) = 0$**
+- This requires **$b^T v = 0$** (since $a \neq 0$)
+- **$\text{null}(C) = \{v \in \mathbb{R}^m \mid v^T b = 0\}$**
+- **If $a = 0$:** $C = 0$, so $\text{null}(C) = \mathbb{R}^m$
 
 **Key insight:** **Rank-1 matrices** have **1-dimensional range** and **(m-1)-dimensional null space**.
 
@@ -622,9 +618,8 @@ This is a **rank-1 matrix** problem. Let's analyze each component:
 **Mathematical formulation:**
 
 **1. Objective function:**
-```
-min Σ(y_i - ŷ_i)² = min Σ(y_i - x_i^T w)²
-```
+
+$\min \sum(y_i - \hat{y}_i)^2 = \min \sum(y_i - x_i^T w)^2$
 
 **2. Why squared differences:**
 
@@ -664,12 +659,14 @@ This is a **bias-variance decomposition** problem with irreducible error.
 - **Model is unbiased:** bias = 0
 
 **Bias-variance decomposition:**
-```
-Total Error = Bias² + Variance + Irreducible Error
-25% = 0² + Variance + 10%
-25% = Variance + 10%
-Variance = 25% - 10% = 15%
-```
+
+$\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$
+
+$25\% = 0^2 + \text{Variance} + 10\%$
+
+$25\% = \text{Variance} + 10\%$
+
+$\text{Variance} = 25\% - 10\% = 15\%$
 
 **Why this works:**
 
@@ -791,28 +788,28 @@ This is a **gradient descent step size calculation** for the function f(x) = x²
 - **x_{t+1} = x* = 0** (desired next position)
 
 **2. Gradient descent update rule:**
-```
-x_{t+1} = x_t - η∇f(x_t)
-```
+
+$x_{t+1} = x_t - \eta \nabla f(x_t)$
 
 **3. Calculate the gradient:**
-```
-f(x) = x²
-∇f(x) = 2x
-∇f(2) = 2 × 2 = 4
-```
+
+$f(x) = x^2$
+
+$\nabla f(x) = 2x$
+
+$\nabla f(2) = 2 \times 2 = 4$
 
 **4. Set up the equation:**
-```
-0 = 2 - η × 4
-4η = 2
-η = 2/4 = 1/2
-```
+
+$0 = 2 - \eta \times 4$
+
+$4\eta = 2$
+
+$\eta = 2/4 = 1/2$
 
 **5. Verification:**
-```
-x_{t+1} = 2 - (1/2) × 4 = 2 - 2 = 0 ✓
-```
+
+$x_{t+1} = 2 - (1/2) \times 4 = 2 - 2 = 0$ ✓
 
 **Key insight:** For **quadratic functions**, the **optimal step size** is η = 1/L where L is the Lipschitz constant of the gradient (L = 2 for f(x) = x²).
 
@@ -831,27 +828,26 @@ x_{t+1} = 2 - (1/2) × 4 = 2 - 2 = 0 ✓
 **Step-by-step derivation:**
 
 **1. Loss function:**
-```
-L(w) = ||Xw - Y||² + λR(w)
-```
+
+$L(w) = \|Xw - Y\|^2 + \lambda R(w)$
 
 **2. Gradient of squared error term:**
-```
-∇_w ||Xw - Y||² = ∇_w (Xw - Y)^T (Xw - Y)
-                = ∇_w (w^T X^T Xw - 2Y^T Xw + Y^T Y)
-                = 2X^T Xw - 2X^T Y
-                = 2X^T (Xw - Y)
-```
+
+$\nabla_w \|Xw - Y\|^2 = \nabla_w (Xw - Y)^T (Xw - Y)$
+
+$= \nabla_w (w^T X^T Xw - 2Y^T Xw + Y^T Y)$
+
+$= 2X^T Xw - 2X^T Y$
+
+$= 2X^T (Xw - Y)$
 
 **3. Gradient of regularization term:**
-```
-∇_w [λR(w)] = λ∇_w R(w)
-```
+
+$\nabla_w [\lambda R(w)] = \lambda \nabla_w R(w)$
 
 **4. Total gradient:**
-```
-∇_w L(w) = 2X^T (Xw - Y) + λ∇_w R(w)
-```
+
+$\nabla_w L(w) = 2X^T (Xw - Y) + \lambda \nabla_w R(w)$
 
 **Why other options are incorrect:**
 
@@ -879,10 +875,10 @@ This is **Stein's Paradox**, which demonstrates that **biased estimators can out
 - **Shrinkage** reduces variance at the cost of introducing bias
 
 **2. Mathematical intuition:**
-- **Solution 1:** E[X_i] = μ_i, Var(X_i) = σ²
-- **Solution 2:** E[7/8 × X_i] = 7/8 × μ_i, Var(7/8 × X_i) = (7/8)²σ²
-- **Bias:** (7/8 × μ_i - μ_i) = -μ_i/8
-- **Variance reduction:** σ² - (7/8)²σ² = σ²(1 - 49/64) = 15σ²/64
+- **Solution 1:** $E[X_i] = \mu_i$, $\text{Var}(X_i) = \sigma^2$
+- **Solution 2:** $E[7/8 \times X_i] = 7/8 \times \mu_i$, $\text{Var}(7/8 \times X_i) = (7/8)^2\sigma^2$
+- **Bias:** $(7/8 \times \mu_i - \mu_i) = -\mu_i/8$
+- **Variance reduction:** $\sigma^2 - (7/8)^2\sigma^2 = \sigma^2(1 - 49/64) = 15\sigma^2/64$
 
 **3. When this helps:**
 - **High noise** (large σ²) makes variance reduction valuable
