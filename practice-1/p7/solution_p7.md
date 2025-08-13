@@ -93,7 +93,7 @@ $$Y = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$$
 
 **Explanation:** $\hat{w} = (X^T X)^{-1} X^T Y = \begin{bmatrix} 2 \\ -0.5 \end{bmatrix}$, $\hat{Y} = \hat{w}^T x = 8.5$
 
-**8. You have access to data points $\{(x_i, y_i)\}_{i=1}^n$, where $x_i$ are $d$-dimensional vectors ($x_i \in \mathbb{R}^d$) and $y_i$ are scalars ($y_i \in \mathbb{R}$). Additionally, you have weights $\{w_i\}_{i=1}^n$, where $w_i \in \mathbb{R}$ and $w_i > 0$, representing the "importance" of each data point. You want to solve the weighted least squares regression problem:**
+**Problem 8. You have access to data points $\{(x_i, y_i)\}_{i=1}^n$, where $x_i$ are $d$-dimensional vectors ($x_i \in \mathbb{R}^d$) and $y_i$ are scalars ($y_i \in \mathbb{R}$). Additionally, you have weights $\{w_i\}_{i=1}^n$, where $w_i \in \mathbb{R}$ and $w_i > 0$, representing the "importance" of each data point. You want to solve the weighted least squares regression problem:**
 
 $$\hat{\theta} = \arg \min_{\theta \in \mathbb{R}^d} \sum_{i=1}^n w_i (x_i^T \theta - y_i)^2$$
 
