@@ -39,9 +39,7 @@
 
 The **sigmoid function** (also called logistic function) is the core of logistic regression:
 
-```
-P(Y = 1|X = x, θ) = σ(θ^T x) = 1/(1 + e^(-θ^T x))
-```
+$P(Y = 1|X = x, \theta) = \sigma(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}$
 
 **Key properties:**
 - **Output range:** [0, 1] - perfect for probability interpretation
@@ -49,9 +47,9 @@ P(Y = 1|X = x, θ) = σ(θ^T x) = 1/(1 + e^(-θ^T x))
 - **Symmetric around 0.5** - when θ^T x = 0, P(Y = 1) = 0.5
 
 **Mathematical intuition:**
-- When θ^T x → ∞, P(Y = 1) → 1
-- When θ^T x → -∞, P(Y = 1) → 0
-- When θ^T x = 0, P(Y = 1) = 0.5
+- When $\theta^T x \to \infty$, $P(Y = 1) \to 1$
+- When $\theta^T x \to -\infty$, $P(Y = 1) \to 0$
+- When $\theta^T x = 0$, $P(Y = 1) = 0.5$
 
 **Why other options are incorrect:**
 - **(b)** Linear function can output values outside [0,1]
@@ -94,9 +92,8 @@ This is a classic **bias-variance tradeoff** problem. More features generally le
 This is the **Mean Squared Error (MSE)** loss function, which is the standard loss function for **linear regression**.
 
 **Mathematical form:**
-```
-L(w,b) = Σᵢ₌₁ⁿ (yᵢ - (w^T xᵢ + b))²
-```
+
+$L(w,b) = \sum_{i=1}^{n} (y_i - (w^T x_i + b))^2$
 
 **Key properties:**
 - **Squared differences** - penalizes large errors more heavily than small ones
@@ -121,9 +118,8 @@ This is **true**. As the regularization coefficient λ increases in Ridge Regres
 
 **Mathematical intuition:**
 The Ridge Regression objective is:
-```
-min ||y - Xw||² + λ||w||²
-```
+
+$\min \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Why sensitivity decreases:**
 - **Smaller coefficients** - λ penalizes large weights, forcing them toward zero
@@ -149,14 +145,12 @@ min ||y - Xw||² + λ||w||²
 Both logistic regression loss functions are **convex**, which guarantees convergence to the global minimum.
 
 **Logistic regression without regularization:**
-```
-L(θ) = -Σᵢ [yᵢ log(σ(θ^T xᵢ)) + (1-yᵢ) log(1-σ(θ^T xᵢ))]
-```
+
+$L(\theta) = -\sum_i [y_i \log(\sigma(\theta^T x_i)) + (1-y_i) \log(1-\sigma(\theta^T x_i))]$
 
 **Logistic regression with L2 regularization:**
-```
-L(θ) = -Σᵢ [yᵢ log(σ(θ^T xᵢ)) + (1-yᵢ) log(1-σ(θ^T xᵢ))] + λ||θ||²
-```
+
+$L(\theta) = -\sum_i [y_i \log(\sigma(\theta^T x_i)) + (1-y_i) \log(1-\sigma(\theta^T x_i))] + \lambda\|\theta\|^2$
 
 **Why both are convex:**
 - **Log-likelihood term** - convex (logistic function is log-concave)
@@ -177,10 +171,10 @@ L(θ) = -Σᵢ [yᵢ log(σ(θ^T xᵢ)) + (1-yᵢ) log(1-σ(θ^T xᵢ))] + λ||�
 **Unbiased MLE estimates** for a Gaussian distribution require the **n-1 denominator** for variance.
 
 **Correct formulas:**
-```
-μ̂_MLE = x̄ (sample mean)
-σ̂²_MLE = (1/(n-1)) × Σᵢ(xᵢ - μ̂_MLE)²
-```
+
+$\hat{\mu}_{\text{MLE}} = \bar{x}$ (sample mean)
+
+$\hat{\sigma}^2_{\text{MLE}} = \frac{1}{n-1} \sum_i(x_i - \hat{\mu}_{\text{MLE}})^2$
 
 **Why n-1 instead of n:**
 
@@ -194,8 +188,8 @@ L(θ) = -Σᵢ [yᵢ log(σ(θ^T xᵢ)) + (1-yᵢ) log(1-σ(θ^T xᵢ))] + λ||�
 - The n-1 denominator accounts for this estimation
 
 **3. Mathematical justification:**
-- E[σ̂²_MLE] = σ² (unbiased)
-- E[(1/n)Σᵢ(xᵢ - x̄)²] = ((n-1)/n)σ² (biased)
+- $E[\hat{\sigma}^2_{\text{MLE}}] = \sigma^2$ (unbiased)
+- $E[\frac{1}{n}\sum_i(x_i - \bar{x})^2] = \frac{n-1}{n}\sigma^2$ (biased)
 
 **Why other options are incorrect:**
 - **(a)** Uses n in denominator (biased)
@@ -270,16 +264,14 @@ L(θ) = -Σᵢ [yᵢ log(σ(θ^T xᵢ)) + (1-yᵢ) log(1-σ(θ^T xᵢ))] + λ||�
 
 **1. Independence:**
 - Allows us to write the joint likelihood as a **product** of individual likelihoods:
-```
-L(θ) = p(x₁, y₁, θ) × p(x₂, y₂, θ) × ... × p(xₙ, yₙ, θ)
-```
+
+$L(\theta) = p(x_1, y_1, \theta) \times p(x_2, y_2, \theta) \times \cdots \times p(x_n, y_n, \theta)$
 
 **2. Identically distributed:**
-- All observations come from the **same distribution** with parameter θ
+- All observations come from the **same distribution** with parameter $\theta$
 - Enables the log-likelihood formulation:
-```
-log L(θ) = Σᵢ log(p(xᵢ, yᵢ|θ))
-```
+
+$\log L(\theta) = \sum_i \log(p(x_i, y_i|\theta))$
 
 **Why other options are incorrect:**
 - **(a)** Normal distribution is not required for MLE (works with any distribution)
@@ -330,18 +322,13 @@ $Y = \begin{pmatrix} 3 \\ 5 \\ 7 \end{pmatrix}$
 
 **Part (a) - Least squares estimation:**
 
-The least squares estimate for β₁ is given by:
-```
-β̂₁ = (Σᵢ Xᵢ Yᵢ) / (Σᵢ Xᵢ²)
-```
+The least squares estimate for $\beta_1$ is given by:
+
+$\hat{\beta}_1 = \frac{\sum_i X_i Y_i}{\sum_i X_i^2}$
 
 **Calculation:**
-```
-β̂₁ = (3×1 + 5×2 + 7×3) / (1² + 2² + 3²)
-    = (3 + 10 + 21) / (1 + 4 + 9)
-    = 34 / 14
-    = 17/7
-```
+
+$\hat{\beta}_1 = \frac{3 \times 1 + 5 \times 2 + 7 \times 3}{1^2 + 2^2 + 3^2} = \frac{3 + 10 + 21}{1 + 4 + 9} = \frac{34}{14} = \frac{17}{7}$
 
 **Part (b) - LASSO effect:**
 
@@ -353,9 +340,9 @@ The least squares estimate for β₁ is given by:
 - **Regularization effect** - trades bias for variance reduction
 
 **Mathematical intuition:**
-- Without regularization: β̂₁ = 17/7 ≈ 2.43
-- With LASSO: β̂₁ ≤ 17/7 (always smaller or equal)
-- The L1 penalty λ||β||₁ pushes β₁ toward zero
+- Without regularization: $\hat{\beta}_1 = \frac{17}{7} \approx 2.43$
+- With LASSO: $\hat{\beta}_1 \leq \frac{17}{7}$ (always smaller or equal)
+- The L1 penalty $\lambda\|\beta\|_1$ pushes $\beta_1$ toward zero
 
 **12. Suppose you're given a scatter plot of a dataset, and the pattern appears to be a periodic wave-like curve that repeats itself at regular intervals.**
 
@@ -383,9 +370,8 @@ The least squares estimate for β₁ is given by:
 - **Frequency components** can capture different periodicities
 
 **2. Basis function form:**
-```
-φ(x) = {1, sin(ωx), cos(ωx), sin(2ωx), cos(2ωx), ...}
-```
+
+$\phi(x) = \{1, \sin(\omega x), \cos(\omega x), \sin(2\omega x), \cos(2\omega x), \ldots\}$
 
 **3. Advantages for periodic data:**
 - **Natural periodicity** - matches the wave-like pattern
@@ -416,18 +402,16 @@ The least squares estimate for β₁ is given by:
 
 **1. Mathematical property:**
 - **Positive scaling** preserves convexity
-- If f(x) is convex, then αf(x) is convex for any α > 0
+- If $f(x)$ is convex, then $\alpha f(x)$ is convex for any $\alpha > 0$
 - This is because convexity is defined by the inequality:
-```
-f(λx₁ + (1-λ)x₂) ≤ λf(x₁) + (1-λ)f(x₂)
-```
+
+$f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1) + (1-\lambda)f(x_2)$
 
 **2. Scaling effect:**
 - Multiplying by 1/3 (positive constant) maintains the inequality
-- The scaled function g(x) = (1/3)f(x) satisfies:
-```
-g(λx₁ + (1-λ)x₂) ≤ λg(x₁) + (1-λ)g(x₂)
-```
+- The scaled function $g(x) = \frac{1}{3}f(x)$ satisfies:
+
+$g(\lambda x_1 + (1-\lambda)x_2) \leq \lambda g(x_1) + (1-\lambda)g(x_2)$
 
 **Why other options are incorrect:**
 - **(b)** Gradient descent may get stuck in local minima even for convex functions
@@ -489,22 +473,22 @@ This is **false**. Decreasing the learning rate does **not guarantee** convergen
 
 **Analysis of each function:**
 
-**1. f(x) = -x² (concave):**
-- Second derivative: f''(x) = -2 < 0
+**1. $f(x) = -x^2$ (concave):**
+- Second derivative: $f''(x) = -2 < 0$
 - **Concave** (not convex)
 
-**2. f(x) = x³ (not convex):**
-- Second derivative: f''(x) = 6x
+**2. $f(x) = x^3$ (not convex):**
+- Second derivative: $f''(x) = 6x$
 - **Convex for x > 0, concave for x < 0**
 - Not convex over entire domain
 
-**3. f(x) = ln(x) (concave):**
-- Second derivative: f''(x) = -1/x² < 0
+**3. $f(x) = \ln(x)$ (concave):**
+- Second derivative: $f''(x) = -\frac{1}{x^2} < 0$
 - **Concave** (not convex)
 
-**4. f(x) = e^x (strictly convex):**
-- Second derivative: f''(x) = e^x > 0 for all x
-- **Strictly convex** over entire domain ℝ
+**4. $f(x) = e^x$ (strictly convex):**
+- Second derivative: $f''(x) = e^x > 0$ for all x
+- **Strictly convex** over entire domain $\mathbb{R}$
 
 **Key insight:** **e^x** is the only function with **positive second derivative everywhere**.
 
@@ -573,21 +557,16 @@ This is a **hypergeometric probability** problem - drawing without replacement f
 **3. Desired outcome:** All 3 balls are red
 
 **Probability calculation:**
-```
-P(All 3 red) = (Number of ways to choose 3 red) / (Total ways to choose 3 balls)
-             = C(4,3) / C(7,3)
-             = 4 / 35
-             ≈ 0.114 ≈ 11%
-```
+
+$P(\text{All 3 red}) = \frac{\text{Number of ways to choose 3 red}}{\text{Total ways to choose 3 balls}} = \frac{C(4,3)}{C(7,3)} = \frac{4}{35} \approx 0.114 \approx 11\%$
 
 **Where:**
-- **C(4,3)** = number of ways to choose 3 red balls from 4 red balls = 4
-- **C(7,3)** = number of ways to choose 3 balls from 7 total balls = 35
+- **$C(4,3)$** = number of ways to choose 3 red balls from 4 red balls = 4
+- **$C(7,3)$** = number of ways to choose 3 balls from 7 total balls = 35
 
 **Alternative calculation:**
-```
-P(All 3 red) = (4/7) × (3/6) × (2/5) = 24/210 = 4/35
-```
+
+$P(\text{All 3 red}) = \frac{4}{7} \times \frac{3}{6} \times \frac{2}{5} = \frac{24}{210} = \frac{4}{35}$
 
 **Key insight:** **Without replacement** means the probability changes after each draw, unlike binomial probability.
 
@@ -604,22 +583,22 @@ This is **true**. For a matrix X ∈ ℝ^(n×d) of rank d, the matrix X^T X has 
 
 **Why this is true:**
 
-**1. Properties of X^T X:**
-- **Symmetric:** (X^T X)^T = X^T X
-- **Positive semi-definite:** v^T X^T X v ≥ 0 for all v
-- **Rank d:** Since X has rank d, X^T X also has rank d
+**1. Properties of $X^T X$:**
+- **Symmetric:** $(X^T X)^T = X^T X$
+- **Positive semi-definite:** $v^T X^T X v \geq 0$ for all v
+- **Rank d:** Since X has rank d, $X^T X$ also has rank d
 
 **2. Spectral theorem:**
 - **Symmetric matrices** have real eigenvalues
 - **Symmetric matrices** have orthogonal eigenvectors
-- **Eigendecomposition:** X^T X = VDV^T where:
-  - **V** is orthogonal (V^T V = I)
+- **Eigendecomposition:** $X^T X = VDV^T$ where:
+  - **V** is orthogonal ($V^T V = I$)
   - **D** is diagonal with real eigenvalues
 
 **3. Matrix dimensions:**
-- **X^T X ∈ ℝ^(d×d)** (d×d symmetric matrix)
-- **V ∈ ℝ^(d×d)** (orthogonal matrix)
-- **D ∈ ℝ^(d×d)** (diagonal matrix)
+- **$X^T X \in \mathbb{R}^{d \times d}$** (d×d symmetric matrix)
+- **$V \in \mathbb{R}^{d \times d}$** (orthogonal matrix)
+- **$D \in \mathbb{R}^{d \times d}$** (diagonal matrix)
 
 **Key insight:** The **spectral theorem** guarantees that any **symmetric matrix** can be diagonalized by an **orthogonal matrix**.
 
@@ -642,12 +621,8 @@ This is a **Bayes' theorem** problem. We need to find P(Spam|Discount).
 - P(Discount) = 0.15 (15% of all emails contain "discount")
 
 **Using Bayes' theorem:**
-```
-P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
-                  = 0.90 × 0.05 / 0.15
-                  = 0.045 / 0.15
-                  = 0.3
-```
+
+$P(\text{Spam}|\text{Discount}) = \frac{P(\text{Discount}|\text{Spam}) \times P(\text{Spam})}{P(\text{Discount})} = \frac{0.90 \times 0.05}{0.15} = \frac{0.045}{0.15} = 0.3$
 
 **Intuition:**
 - Even though 90% of spam contains "discount", only 5% of emails are spam
@@ -708,7 +683,7 @@ P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
 **Why L1 creates sparsity:**
 
 **1. Mathematical intuition:**
-- **L1 penalty:** λ||w||₁ = λ(|w₁| + |w₂| + ... + |wₙ|)
+- **L1 penalty:** $\lambda\|w\|_1 = \lambda(|w_1| + |w_2| + \cdots + |w_n|)$
 - **L1 constraint region** has **sharp corners** at the axes
 - **Optimal solution** often lies at these corners where some coefficients = 0
 
@@ -746,24 +721,20 @@ P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
 **Mathematical derivation:**
 
 **1. Gaussian noise model:**
-```
-y_i = x_i^T w + ε_i, where ε_i ~ N(0, σ²)
-```
+
+$y_i = x_i^T w + \varepsilon_i, \text{ where } \varepsilon_i \sim N(0, \sigma^2)$
 
 **2. Likelihood function:**
-```
-L(w) = ∏ᵢ p(y_i | x_i, w) = ∏ᵢ (1/√(2πσ²)) exp(-(y_i - x_i^T w)²/(2σ²))
-```
+
+$L(w) = \prod_i p(y_i | x_i, w) = \prod_i \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y_i - x_i^T w)^2}{2\sigma^2}\right)$
 
 **3. Log-likelihood:**
-```
-log L(w) = -n/2 log(2πσ²) - (1/(2σ²)) Σᵢ (y_i - x_i^T w)²
-```
+
+$\log L(w) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_i (y_i - x_i^T w)^2$
 
 **4. MLE objective:**
-```
-max log L(w) = min Σᵢ (y_i - x_i^T w)²
-```
+
+$\max \log L(w) = \min \sum_i (y_i - x_i^T w)^2$
 
 **Why other options are incorrect:**
 - **(b)** MLE maximizes likelihood, not minimizes
@@ -790,13 +761,13 @@ max log L(w) = min Σᵢ (y_i - x_i^T w)²
 **1. Spectral theorem for symmetric matrices:**
 - **Symmetric matrices** have **real eigenvalues**
 - **Symmetric matrices** have **orthogonal eigenvectors**
-- **A^T = A** implies all eigenvalues are real
+- **$A^T = A$** implies all eigenvalues are real
 
 **2. Orthonormal columns property:**
-- **A^T A = I** (orthonormal columns)
-- **A is symmetric** (A^T = A)
-- **Combining:** A^T A = A² = I
-- **Eigenvalues** of A² are squares of eigenvalues of A
+- **$A^T A = I$** (orthonormal columns)
+- **A is symmetric** ($A^T = A$)
+- **Combining:** $A^T A = A^2 = I$
+- **Eigenvalues** of $A^2$ are squares of eigenvalues of A
 
 **3. Analysis:**
 - **A² = I** means eigenvalues of A² are all 1
@@ -825,19 +796,17 @@ $$\hat{W} = (X^T X + \lambda I)^{-1} X^T Y$$
 **Proof that X^T X + λI is invertible when λ > 0:**
 
 **1. Positive definiteness:**
-For any non-zero vector v ∈ ℝᵈ:
-```
-v^T (X^T X + λI) v = v^T X^T X v + λ v^T v
-```
+For any non-zero vector $v \in \mathbb{R}^d$:
+
+$v^T (X^T X + \lambda I) v = v^T X^T X v + \lambda v^T v$
 
 **2. Analysis of terms:**
-- **v^T X^T X v ≥ 0** (X^T X is positive semi-definite)
-- **λ v^T v > 0** (since λ > 0 and v ≠ 0)
+- **$v^T X^T X v \geq 0$** ($X^T X$ is positive semi-definite)
+- **$\lambda v^T v > 0$** (since $\lambda > 0$ and $v \neq 0$)
 
 **3. Conclusion:**
-```
-v^T (X^T X + λI) v > 0 for all v ≠ 0
-```
+
+$v^T (X^T X + \lambda I) v > 0 \text{ for all } v \neq 0$
 
 **4. Invertibility:**
 - **Positive definite** matrices are **invertible**
