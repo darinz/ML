@@ -532,6 +532,109 @@ $\implies \lambda = \frac{n}{x_1+x_2+...+x_n} = \frac{n}{\sum_{i=1}^{n} x_i}$
 
 Thus, the MLE here of $\lambda$ is given by $\lambda = \frac{4}{\sum_{i=1}^{4} x_i}$.
 
+## Detailed Solution Explanation
+
+**Understanding Maximum Likelihood Estimation for Exponential Distribution:**
+
+This problem demonstrates the complete process of deriving the maximum likelihood estimator for the rate parameter of an exponential distribution.
+
+**Mathematical Framework:**
+
+**Exponential Distribution PDF:**
+$$f(x|\lambda) = \lambda e^{-\lambda x} \quad \text{for } x \geq 0$$
+
+**Properties:**
+- **Mean:** $\frac{1}{\lambda}$
+- **Variance:** $\frac{1}{\lambda^2}$
+- **Memoryless Property:** $P(X > s + t | X > s) = P(X > t)$
+
+**Maximum Likelihood Estimation Process:**
+
+**Step 1: Define the Likelihood Function**
+
+For independent observations $x_1, x_2, \ldots, x_n$:
+$$L(\lambda) = \prod_{i=1}^{n} f(x_i|\lambda) = \prod_{i=1}^{n} \lambda e^{-\lambda x_i}$$
+
+**Step 2: Simplify the Likelihood Function**
+
+Using properties of exponentials and products:
+$$L(\lambda) = \lambda^n \cdot e^{-\lambda \sum_{i=1}^{n} x_i}$$
+
+**Step 3: Take the Natural Logarithm**
+
+The log-likelihood function:
+$$\ell(\lambda) = \ln L(\lambda) = n \ln(\lambda) - \lambda \sum_{i=1}^{n} x_i$$
+
+**Step 4: Find the Critical Point**
+
+Take the derivative with respect to $\lambda$:
+$$\frac{d\ell}{d\lambda} = \frac{n}{\lambda} - \sum_{i=1}^{n} x_i$$
+
+Set the derivative equal to zero:
+$$\frac{n}{\lambda} - \sum_{i=1}^{n} x_i = 0$$
+
+**Step 5: Solve for the MLE**
+
+$$\frac{n}{\lambda} = \sum_{i=1}^{n} x_i$$
+$$\lambda = \frac{n}{\sum_{i=1}^{n} x_i}$$
+
+**Step 6: Verify it's a Maximum**
+
+Take the second derivative:
+$$\frac{d^2\ell}{d\lambda^2} = -\frac{n}{\lambda^2} < 0$$
+
+Since the second derivative is negative, the critical point is indeed a maximum.
+
+**Application to the Problem:**
+
+**Given:** $n = 4$ observations: $x_1, x_2, x_3, x_4$
+
+**MLE Solution:**
+$$\hat{\lambda}_{MLE} = \frac{4}{\sum_{i=1}^{4} x_i}$$
+
+**Interpretation:**
+- The MLE is the reciprocal of the sample mean
+- This makes intuitive sense: higher failure rates correspond to shorter lifetimes
+- The estimator is consistent and asymptotically normal
+
+**Properties of the MLE:**
+
+**1. Unbiasedness:**
+- The MLE is biased for finite samples
+- $E[\hat{\lambda}_{MLE}] = \frac{n}{n-1} \lambda \neq \lambda$
+
+**2. Consistency:**
+- $\hat{\lambda}_{MLE} \xrightarrow{P} \lambda$ as $n \rightarrow \infty$
+
+**3. Efficiency:**
+- The MLE achieves the Cramér-Rao lower bound
+- It's the most efficient estimator asymptotically
+
+**4. Asymptotic Normality:**
+- $\sqrt{n}(\hat{\lambda}_{MLE} - \lambda) \xrightarrow{D} \mathcal{N}(0, \lambda^2)$
+
+**Practical Example:**
+
+**Sample Data:** $x_1 = 2, x_2 = 3, x_3 = 1, x_4 = 4$ months
+
+**MLE Calculation:**
+$$\hat{\lambda}_{MLE} = \frac{4}{2 + 3 + 1 + 4} = \frac{4}{10} = 0.4$$
+
+**Interpretation:**
+- Estimated failure rate: 0.4 failures per month
+- Estimated mean lifetime: $\frac{1}{0.4} = 2.5$ months
+
+**Confidence Interval:**
+For large $n$, a 95% confidence interval is:
+$$\hat{\lambda}_{MLE} \pm 1.96 \sqrt{\frac{\hat{\lambda}_{MLE}^2}{n}}$$
+
+**Key Insights:**
+- MLE provides the most likely parameter value given the data
+- For exponential distribution, MLE is the reciprocal of sample mean
+- The method is general and applies to many distributions
+- Understanding the derivation process is crucial for statistical inference
+- The MLE has desirable asymptotic properties
+
 ## Problem 6: Convex Set Operations
 
 **1 point**
@@ -553,6 +656,149 @@ The answer is all of them.
 - For the intersection of convex sets, just consider two circles that are on top of each other.
 - For the union of non-convex sets, just consider a circle that is split into two non-convex sets.
 - For the intersection of convex sets, just consider two circles that are on top of each other.
+
+## Detailed Solution Explanation
+
+**Understanding Convex Set Operations:**
+
+This problem explores the fundamental properties of convex and non-convex sets under intersection and union operations.
+
+**Mathematical Framework:**
+
+**Convex Set Definition:**
+A set $S \subseteq \mathbb{R}^n$ is convex if for all $x, y \in S$ and $\lambda \in [0, 1]$:
+$$\lambda x + (1-\lambda)y \in S$$
+
+**Set Operations:**
+- **Intersection:** $A \cap B = \{x : x \in A \text{ and } x \in B\}$
+- **Union:** $A \cup B = \{x : x \in A \text{ or } x \in B\}$
+
+**Analysis of Each Option:**
+
+**Option A: Intersection of Non-Convex Sets**
+
+**Example:** Two five-pointed stars
+```
+Star 1:    ★
+Star 2:    ★ (rotated)
+Intersection: ● (convex circle)
+```
+
+**Mathematical Construction:**
+- Let $A$ be a five-pointed star (non-convex)
+- Let $B$ be the same star rotated by 72° (non-convex)
+- The intersection $A \cap B$ forms a convex pentagon
+
+**Why This Works:**
+- The intersection eliminates the "pointy" parts
+- The remaining region is convex
+- This demonstrates that intersection can "smooth out" non-convexity
+
+**Option B: Intersection of Convex Sets**
+
+**Example:** Two overlapping circles
+```
+Circle 1:  ○
+Circle 2:  ○
+Intersection: ∩ (convex lens shape)
+```
+
+**Mathematical Construction:**
+- Let $A$ be a circle with center $(0,0)$ and radius $r$
+- Let $B$ be a circle with center $(d,0)$ and radius $r$ where $d < 2r$
+- The intersection $A \cap B$ is a convex lens shape
+
+**Why This Works:**
+- Circles are convex sets
+- The intersection of convex sets is always convex
+- This is a fundamental theorem in convex analysis
+
+**Option C: Union of Non-Convex Sets**
+
+**Example:** A circle split into two non-convex halves
+```
+Original:   ○ (convex circle)
+Split:      ) ( (two non-convex halves)
+Union:      ○ (convex circle)
+```
+
+**Mathematical Construction:**
+- Let $A$ be the left half of a circle (non-convex)
+- Let $B$ be the right half of a circle (non-convex)
+- The union $A \cup B$ forms the original convex circle
+
+**Why This Works:**
+- Each half is non-convex (missing the other half)
+- The union reconstructs the original convex set
+- This shows that union can "fill in" to create convexity
+
+**Option D: Union of Convex Sets**
+
+**Example:** Two overlapping circles
+```
+Circle 1:  ○
+Circle 2:  ○
+Union:     ∪ (non-convex figure-8 shape)
+```
+
+**Mathematical Construction:**
+- Let $A$ be a circle with center $(0,0)$ and radius $r$
+- Let $B$ be a circle with center $(d,0)$ and radius $r$ where $d < 2r$
+- The union $A \cup B$ is a non-convex figure-8 shape
+
+**Why This Works:**
+- Circles are convex sets
+- The union creates a "pinched" region in the middle
+- This region is non-convex (line segment between centers is not in the union)
+
+**Key Theorems:**
+
+**Intersection Properties:**
+- **Convex ∩ Convex = Convex** (always true)
+- **Non-convex ∩ Non-convex = Can be convex** (as shown in Option A)
+
+**Union Properties:**
+- **Convex ∪ Convex = Can be non-convex** (as shown in Option D)
+- **Non-convex ∪ Non-convex = Can be convex** (as shown in Option C)
+
+**Visual Examples:**
+
+**Intersection Cases:**
+```
+Non-convex ∩ Non-convex:
+  ★ ∩ ★ = ● (convex)
+
+Convex ∩ Convex:
+  ○ ∩ ○ = ∩ (convex)
+```
+
+**Union Cases:**
+```
+Non-convex ∪ Non-convex:
+  ) ∪ ( = ○ (convex)
+
+Convex ∪ Convex:
+  ○ ∪ ○ = ∪ (non-convex)
+```
+
+**Practical Implications:**
+
+**Optimization Context:**
+- **Feasible Regions:** Often defined by intersections of constraints
+- **Convex Optimization:** Requires convex feasible region
+- **Constraint Satisfaction:** Intersection preserves convexity
+
+**Machine Learning Applications:**
+- **Support Vector Machines:** Use convex hulls
+- **Convex Hulls:** Union of convex sets can be non-convex
+- **Regularization:** Often involves convex constraints
+
+**Key Insights:**
+- Intersection of convex sets is always convex
+- Union of convex sets is not necessarily convex
+- Non-convex sets can produce convex results under certain operations
+- Understanding these properties is crucial for optimization problems
+- The choice of operation affects the convexity of the result
 
 ## Problem 7: Gradient Descent Convergence
 
