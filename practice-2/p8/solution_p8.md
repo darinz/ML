@@ -129,7 +129,55 @@ This is a classic example of overfitting, which is caused when we have too compl
 **Correct answers:** (a), (c), (d)
 
 **Explanation:** 
-- **a) True:** Linear regression with Gaussian noise model is true because you maximize the likelihood of the data under a linear model which assumes Gaussian noise.
-- **c) True:** GMMs use MLE to estimate the parameters of the mixture components.
-- **d) True:** Neural networks with softmax cross entropy loss are trained to maximize the likelihood of the data under the model.
-- **b) False:** PCA is not a probabilistic model and does not use MLE.
+- **a) True:** Linear regression with Gaussian noise model is true because you maximize the likelihood of the data under a linear model which assumes a Gaussian distribution on errors.
+- **c) True:** Gaussian Mixture Models define a probability distribution that is a mixture of Gaussians and then find the parameters by maximizing likelihood under that model.
+- **d) True:** NNs with softmax define a probability distribution over the classification labels and try to maximize it with cross entropy.
+- **b) False:** PCA does not use MLE because it does not define a probabilistic distribution for the data, it just uses linear algebra to find vectors that explain a lot of variance in the data.
+
+## Problem 6: Maximum Likelihood Estimation - Coin Toss
+
+**1 points One Answer**
+
+**Question:** Yann, a strict frequentist statistician, observes 5 flips of a possibly uneven coin. Here are the outcomes: 1. Heads, 2. Tails, 3. Heads, 4. Heads, 5. Tails. Based on these observations, Yann uses using maximum likelihood estimation to determine the most likely outcome of the next coin toss. What does he predict will happen?
+
+**Options:**
+- a) Heads
+- b) Tails
+- c) Both are equally likely
+- d) It hits Marco in the head
+
+**Correct answers:** (a)
+
+**Explanation:** 
+There were 3 Heads and 2 Tails. Based on these observations, the estimated probability of Heads is $\frac{3}{5} = 0.6$, which is greater than the estimated probability of Tails ($\frac{2}{5} = 0.4$). Therefore, Heads is the most likely outcome.
+
+## Problem 7: Convex Optimization
+
+**Problem Description:** Consider a function $f: \mathbb{R}^d \to \mathbb{R}$ that is differentiable everywhere. Suppose that $f(y) \ge f(x) + \nabla f(x)^T (y-x)$ for all $x, y \in \mathbb{R}^d$. Also, suppose that there exists a unique $x_* \in \mathbb{R}^d$ such that $\nabla_x f(x_*) = 0$.
+
+### Part (a)
+
+**1 points One Answer**
+
+**Question:** $x_*$ is a:
+
+**Options:**
+- a) Minimizer of $f$
+- b) Maximizer of $f$
+- c) Saddle point of $f$
+- d) Not enough information to determine any of the above
+
+**Correct answers:** (a)
+
+### Part (b)
+
+**1 points**
+
+**Question:** Suppose we are unable to solve for $x_*$ in closed-form. Briefly outline a procedure for finding $x_*$.
+
+**Answer:** Gradient descent
+
+**Explanation:** 
+- **Part (a):** $f$ is convex, so $x_*$ must be a minimizer of $f$.
+- **Part (b):** Gradient descent
+
