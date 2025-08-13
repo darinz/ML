@@ -2196,6 +2196,159 @@ There are two types of data points:
 
 **Correct answers:** (a), (c)
 
+**Explanation:**
+
+The correct answers are **(a) - $|x_i|, |y_i|$** and **(c) - $x_i^2, y_i^2$**. Here's the detailed explanation:
+
+**Understanding the Classification Problem:**
+
+**Data Distribution:**
+- **Solid Circles (•)**: Clustered tightly around the origin $(-0.5 \leq x \leq 0.5, -0.5 \leq y \leq 0.5)$
+- **Crosses (×)**: Distributed widely across all four quadrants, forming an outer region that completely surrounds the inner cluster
+
+**Perfect Classification Requirement:**
+For logistic regression to achieve perfect classification, the transformed features must create a decision boundary that completely separates the two classes.
+
+**Mathematical Analysis of Each Option:**
+
+**Option (a) - $|x_i|, |y_i|$ (Absolute Values):**
+
+**Transformation Effect:**
+- $|x_i|$: Maps all points to the first quadrant horizontally
+- $|y_i|$: Maps all points to the first quadrant vertically
+- Combined effect: Maps all points to the first quadrant
+
+**Classification Boundary:**
+- Inner cluster: $|x_i| \leq 0.5$ and $|y_i| \leq 0.5$
+- Outer points: $|x_i| > 0.5$ or $|y_i| > 0.5$
+
+**Perfect Separation:**
+The decision boundary $|x_i| + |y_i| = 1$ creates a diamond shape that perfectly separates:
+- Inner points: $|x_i| + |y_i| < 1$ (solid circles)
+- Outer points: $|x_i| + |y_i| > 1$ (crosses)
+
+**Mathematical Verification:**
+For any point in the inner cluster:
+- $|x_i| \leq 0.5$ and $|y_i| \leq 0.5$
+- $|x_i| + |y_i| \leq 1$
+
+For any point in the outer region:
+- Either $|x_i| > 0.5$ or $|y_i| > 0.5$
+- $|x_i| + |y_i| > 1$
+
+**Option (c) - $x_i^2, y_i^2$ (Squared Values):**
+
+**Transformation Effect:**
+- $x_i^2$: Maps all points to positive values, with points closer to origin having smaller values
+- $y_i^2$: Same effect for y-coordinates
+- Combined effect: Creates a radial distance measure
+
+**Classification Boundary:**
+- Inner cluster: $x_i^2 \leq 0.25$ and $y_i^2 \leq 0.25$
+- Outer points: $x_i^2 > 0.25$ or $y_i^2 > 0.25$
+
+**Perfect Separation:**
+The decision boundary $x_i^2 + y_i^2 = 0.5$ creates a circle that perfectly separates:
+- Inner points: $x_i^2 + y_i^2 < 0.5$ (solid circles)
+- Outer points: $x_i^2 + y_i^2 > 0.5$ (crosses)
+
+**Mathematical Verification:**
+For any point in the inner cluster:
+- $x_i^2 \leq 0.25$ and $y_i^2 \leq 0.25$
+- $x_i^2 + y_i^2 \leq 0.5$
+
+For any point in the outer region:
+- Either $x_i^2 > 0.25$ or $y_i^2 > 0.25$
+- $x_i^2 + y_i^2 > 0.5$
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - $x_i + y_i, x_i - y_i$ (Linear Combinations):**
+
+**Problem:** Linear combinations cannot create non-linear decision boundaries
+- **Transformation Effect**: Rotates and scales the coordinate system
+- **Result**: Still requires a linear decision boundary in the transformed space
+- **Issue**: The original data is not linearly separable, so linear transformations won't help
+
+**Mathematical Analysis:**
+- $x_i + y_i$: Projects points onto the line $y = x$
+- $x_i - y_i$: Projects points onto the line $y = -x$
+- **Problem**: Both inner and outer points can have similar values for these features
+- **Example**: Points $(0.3, 0.3)$ and $(1, -0.4)$ both have $x_i + y_i = 0.6$
+
+**Option (d) - $x_i^3, y_i^3$ (Cubic Values):**
+
+**Problem:** Cubic transformation distorts the distance relationships
+- **Transformation Effect**: Preserves sign but distorts magnitude relationships
+- **Issue**: Points that are close in original space may become far apart, and vice versa
+
+**Mathematical Analysis:**
+- $x_i^3$: Preserves sign but distorts magnitude
+- **Example**: $0.5^3 = 0.125$ vs $1^3 = 1$ (ratio changes from 1:2 to 1:8)
+- **Problem**: Inner cluster points may not remain clustered after transformation
+- **Result**: May not create a clear separation boundary
+
+**Visual Comparison:**
+
+**Original Space:**
+```
+    × × × × ×
+  × • • • × ×
+× × • • • × ×
+× × • • • × ×
+  × × × × × ×
+```
+
+**After $|x_i|, |y_i|$ Transformation:**
+```
+    × × × × ×
+  × • • • × ×
+× × • • • × ×
+× × • • • × ×
+  × × × × × ×
+```
+(All points mapped to first quadrant, clear diamond boundary)
+
+**After $x_i^2, y_i^2$ Transformation:**
+```
+    × × × × ×
+  × • • • × ×
+× × • • • × ×
+× × • • • × ×
+  × × × × × ×
+```
+(All points mapped to positive values, clear circular boundary)
+
+**Logistic Regression Decision Boundary:**
+
+**With Absolute Values:**
+$$\text{Decision Function} = \beta_0 + \beta_1|x_i| + \beta_2|y_i|$$
+$$\text{Decision Boundary}: \beta_0 + \beta_1|x_i| + \beta_2|y_i| = 0$$
+
+**With Squared Values:**
+$$\text{Decision Function} = \beta_0 + \beta_1x_i^2 + \beta_2y_i^2$$
+$$\text{Decision Boundary}: \beta_0 + \beta_1x_i^2 + \beta_2y_i^2 = 0$$
+
+**Key Insights:**
+
+**1. Non-Linear Transformations:**
+- Both absolute values and squared values create non-linear decision boundaries
+- This allows separation of non-linearly separable data
+- Linear combinations cannot achieve this
+
+**2. Distance-Based Features:**
+- Both transformations create distance-based features
+- They preserve the "closeness to origin" property
+- This is crucial for separating the inner cluster from outer points
+
+**3. Geometric Interpretation:**
+- Absolute values create diamond-shaped decision boundaries
+- Squared values create circular decision boundaries
+- Both can perfectly separate the given data distribution
+
+**Conclusion:**
+Both **$|x_i|, |y_i|$** and **$x_i^2, y_i^2$** can allow logistic regression to achieve perfect classification by creating non-linear decision boundaries that separate the inner cluster from the outer points. These transformations preserve the essential geometric structure needed for separation.
+
 ## Problem 21
 
 **Extra credit:** Suppose that we have $x_1, x_2, \dots, x_{2n}$ are independent and identically distributed realizations from the Laplacian distribution, the density of which is described by
@@ -2206,9 +2359,133 @@ Find the M.L.E of $\theta$. Note that for this problem you may find the sign fun
 
 $$\operatorname{sign}(x) = \begin{cases} +1 & x \ge 0 \\ -1 & x < 0 \end{cases}$$
 
-**Answer:**
+**Answer:** $\hat{\theta} \in [x_n, x_{n+1}]$
 
-**Explanation:** The solution is $\hat{\theta} \in [x_n, x_{n+1}]$
+**Explanation:**
+
+The MLE of $\theta$ is the median of the sample. Here's the detailed explanation:
+
+**Understanding the Laplacian Distribution:**
+
+**Probability Density Function:**
+$$f(x | \theta) = \frac{1}{2}e^{-|x-\theta|}$$
+
+**Properties:**
+- **Location parameter**: $\theta$ is the location (median) of the distribution
+- **Symmetry**: The distribution is symmetric around $\theta$
+- **Heavy tails**: Exponential decay in both directions
+
+**Maximum Likelihood Estimation:**
+
+**Step 1: Likelihood Function**
+For independent and identically distributed samples $x_1, x_2, \ldots, x_{2n}$:
+
+$$L(\theta) = \prod_{i=1}^{2n} f(x_i | \theta) = \prod_{i=1}^{2n} \frac{1}{2}e^{-|x_i-\theta|} = \left(\frac{1}{2}\right)^{2n} e^{-\sum_{i=1}^{2n} |x_i-\theta|}$$
+
+**Step 2: Log-Likelihood Function**
+$$\ell(\theta) = \log L(\theta) = 2n \log\left(\frac{1}{2}\right) - \sum_{i=1}^{2n} |x_i-\theta|$$
+
+**Step 3: Maximization Problem**
+Since the first term is constant, maximizing $\ell(\theta)$ is equivalent to minimizing:
+$$\sum_{i=1}^{2n} |x_i-\theta|$$
+
+**Step 4: Optimality Condition**
+The function $\sum_{i=1}^{2n} |x_i-\theta|$ is minimized when $\theta$ is the median of the sample.
+
+**Mathematical Proof:**
+
+**Lemma: The median minimizes the sum of absolute deviations**
+For any set of real numbers $x_1, x_2, \ldots, x_n$, the median minimizes $\sum_{i=1}^n |x_i - \theta|$.
+
+**Proof:**
+1. **Order the sample**: $x_{(1)} \leq x_{(2)} \leq \ldots \leq x_{(2n)}$
+2. **Median**: $m = \frac{x_{(n)} + x_{(n+1)}}{2}$ (for even sample size)
+3. **Optimality**: Any $\theta \in [x_{(n)}, x_{(n+1)}]$ minimizes the sum of absolute deviations
+
+**Step-by-Step Derivation:**
+
+**Step 1: Order Statistics**
+Let $x_{(1)} \leq x_{(2)} \leq \ldots \leq x_{(2n)}$ be the ordered sample.
+
+**Step 2: Objective Function**
+We want to minimize:
+$$S(\theta) = \sum_{i=1}^{2n} |x_{(i)} - \theta|$$
+
+**Step 3: Piecewise Linear Function**
+$S(\theta)$ is piecewise linear with kinks at each $x_{(i)}$.
+
+**Step 4: Optimality at Median**
+- For $\theta < x_{(n)}$: Moving $\theta$ right decreases $S(\theta)$
+- For $\theta > x_{(n+1)}$: Moving $\theta$ left decreases $S(\theta)$
+- For $\theta \in [x_{(n)}, x_{(n+1)}]$: $S(\theta)$ is constant
+
+**Step 5: MLE Solution**
+Therefore, the MLE is any value in the interval $[x_{(n)}, x_{(n+1)}]$.
+
+**Verification with Calculus:**
+
+**Step 1: Differentiate the Objective**
+$$\frac{d}{d\theta} \sum_{i=1}^{2n} |x_i - \theta| = -\sum_{i=1}^{2n} \text{sign}(x_i - \theta)$$
+
+**Step 2: Set Derivative to Zero**
+$$-\sum_{i=1}^{2n} \text{sign}(x_i - \theta) = 0$$
+
+**Step 3: Solve for $\theta$**
+This equation is satisfied when:
+- Number of $x_i > \theta$ equals number of $x_i < \theta$
+- This occurs when $\theta$ is the median
+
+**Step 4: Handle Ties**
+When there are ties (even sample size), any value between the middle two observations is optimal.
+
+**Example with Numbers:**
+
+**Sample**: $x_1 = 1, x_2 = 3, x_3 = 2, x_4 = 4$ ($n = 2$)
+
+**Ordered Sample**: $x_{(1)} = 1, x_{(2)} = 2, x_{(3)} = 3, x_{(4)} = 4$
+
+**Median**: $m = \frac{x_{(2)} + x_{(3)}}{2} = \frac{2 + 3}{2} = 2.5$
+
+**MLE**: $\hat{\theta} \in [x_{(2)}, x_{(3)}] = [2, 3]$
+
+**Verification**:
+- For $\theta = 2$: $S(2) = |1-2| + |2-2| + |3-2| + |4-2| = 1 + 0 + 1 + 2 = 4$
+- For $\theta = 2.5$: $S(2.5) = |1-2.5| + |2-2.5| + |3-2.5| + |4-2.5| = 1.5 + 0.5 + 0.5 + 1.5 = 4$
+- For $\theta = 3$: $S(3) = |1-3| + |2-3| + |3-3| + |4-3| = 2 + 1 + 0 + 1 = 4$
+
+All values in $[2, 3]$ give the same minimum value of 4.
+
+**Key Insights:**
+
+**1. Robustness:**
+- The median is robust to outliers
+- This makes the MLE for Laplacian distribution robust
+- Unlike the mean, it's not affected by extreme values
+
+**2. Non-Uniqueness:**
+- For even sample sizes, the MLE is not unique
+- Any value in the interval $[x_{(n)}, x_{(n+1)}]$ is optimal
+- This reflects the discrete nature of the optimization problem
+
+**3. Connection to L1 Regression:**
+- The MLE for Laplacian distribution is equivalent to L1 regression
+- This is why L1 regression is robust to outliers
+- The connection between distribution and loss function
+
+**Comparison with Normal Distribution:**
+
+**Normal Distribution MLE:**
+- MLE is the sample mean
+- Sensitive to outliers
+- Unique solution
+
+**Laplacian Distribution MLE:**
+- MLE is the sample median
+- Robust to outliers
+- May not be unique
+
+**Conclusion:**
+The MLE of $\theta$ for the Laplacian distribution is the median of the sample. For an even sample size of $2n$, the MLE is any value in the interval $[x_{(n)}, x_{(n+1)}]$, where $x_{(i)}$ denotes the $i$-th order statistic.
 
 ## Problem 22
 
@@ -2222,6 +2499,178 @@ SVM models that use slack variables have higher bias compared to SVM models that
 
 **Correct answers:** (c)
 
+**Explanation:**
+
+The correct answer is **(c) - higher**. Here's the detailed explanation:
+
+**Understanding SVM and Slack Variables:**
+
+**Support Vector Machine (SVM):**
+SVM is a supervised learning algorithm that finds a hyperplane to separate classes while maximizing the margin between them.
+
+**Mathematical Formulation:**
+
+**Hard-Margin SVM (No Slack Variables):**
+$$\min_{w,b} \frac{1}{2}\|w\|^2$$
+$$\text{subject to } y_i(w^T x_i + b) \geq 1 \text{ for all } i$$
+
+**Soft-Margin SVM (With Slack Variables):**
+$$\min_{w,b,\xi} \frac{1}{2}\|w\|^2 + C\sum_{i=1}^n \xi_i$$
+$$\text{subject to } y_i(w^T x_i + b) \geq 1 - \xi_i \text{ for all } i$$
+$$\xi_i \geq 0 \text{ for all } i$$
+
+**Understanding Bias:**
+
+**Bias Definition:**
+Bias is the difference between the expected prediction of the model and the true value. High bias means the model is too simple and cannot capture the true underlying relationship.
+
+**Mathematical Definition:**
+$$\text{Bias} = \mathbb{E}[\hat{f}(x)] - f(x)$$
+
+**Why Slack Variables Increase Bias:**
+
+**1. Constraint Relaxation:**
+- **Hard-margin SVM**: Enforces strict separation with $y_i(w^T x_i + b) \geq 1$
+- **Soft-margin SVM**: Allows violations with $y_i(w^T x_i + b) \geq 1 - \xi_i$
+- **Effect**: The model can make mistakes on training data
+
+**2. Margin Reduction:**
+- **Hard-margin SVM**: Maximizes margin without allowing violations
+- **Soft-margin SVM**: May reduce margin to accommodate misclassified points
+- **Effect**: Smaller margin leads to less robust decision boundary
+
+**3. Model Complexity:**
+- **Hard-margin SVM**: More complex decision boundary to fit all points
+- **Soft-margin SVM**: Simpler decision boundary that allows some errors
+- **Effect**: Simpler model has higher bias
+
+**Mathematical Analysis:**
+
+**Hard-Margin SVM Objective:**
+$$\min_{w,b} \frac{1}{2}\|w\|^2$$
+$$\text{subject to } y_i(w^T x_i + b) \geq 1$$
+
+**Soft-Margin SVM Objective:**
+$$\min_{w,b,\xi} \frac{1}{2}\|w\|^2 + C\sum_{i=1}^n \xi_i$$
+
+**Bias-Variance Tradeoff:**
+
+**Hard-Margin SVM:**
+- **Low Bias**: Tries to fit all training points perfectly
+- **High Variance**: Sensitive to noise and outliers
+- **Risk**: Overfitting to training data
+
+**Soft-Margin SVM:**
+- **Higher Bias**: Allows some training errors
+- **Lower Variance**: More robust to noise
+- **Benefit**: Better generalization
+
+**Visual Example:**
+
+**Scenario 1: Linearly Separable Data**
+```
+Class 1: • • •
+Class 2: × × ×
+
+Hard-margin: Perfect separation with large margin
+Soft-margin: Same result (no slack variables needed)
+```
+
+**Scenario 2: Noisy Data**
+```
+Class 1: • • × •
+Class 2: × × • ×
+
+Hard-margin: Cannot find solution (infeasible)
+Soft-margin: Finds solution with some misclassifications
+```
+
+**Mathematical Verification:**
+
+**Lagrangian Formulation:**
+
+**Hard-Margin SVM:**
+$$L(w,b,\alpha) = \frac{1}{2}\|w\|^2 - \sum_{i=1}^n \alpha_i[y_i(w^T x_i + b) - 1]$$
+
+**Soft-Margin SVM:**
+$$L(w,b,\xi,\alpha,\mu) = \frac{1}{2}\|w\|^2 + C\sum_{i=1}^n \xi_i - \sum_{i=1}^n \alpha_i[y_i(w^T x_i + b) - 1 + \xi_i] - \sum_{i=1}^n \mu_i \xi_i$$
+
+**Optimality Conditions:**
+
+**Hard-Margin SVM:**
+- $\alpha_i \geq 0$ for all $i$
+- $\alpha_i[y_i(w^T x_i + b) - 1] = 0$ for all $i$
+
+**Soft-Margin SVM:**
+- $\alpha_i \geq 0$ and $\mu_i \geq 0$ for all $i$
+- $\alpha_i[y_i(w^T x_i + b) - 1 + \xi_i] = 0$ for all $i$
+- $\mu_i \xi_i = 0$ for all $i$
+
+**Bias Analysis:**
+
+**1. Decision Boundary Complexity:**
+- **Hard-margin**: More complex boundary to fit all points
+- **Soft-margin**: Simpler boundary that allows errors
+- **Result**: Soft-margin has higher bias due to simpler model
+
+**2. Training Error:**
+- **Hard-margin**: Zero training error (when feasible)
+- **Soft-margin**: Non-zero training error
+- **Result**: Higher training error indicates higher bias
+
+**3. Margin Size:**
+- **Hard-margin**: Maximum possible margin
+- **Soft-margin**: Potentially smaller margin
+- **Result**: Smaller margin reduces model complexity, increasing bias
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - equal:**
+- **Problem**: Ignores the fundamental difference in model complexity
+- **Issue**: Slack variables explicitly allow training errors
+- **Result**: This contradicts the mathematical formulation
+
+**Option (b) - lower:**
+- **Problem**: Confuses bias with variance
+- **Issue**: Soft-margin SVM reduces variance, not bias
+- **Result**: Incorrect understanding of the bias-variance tradeoff
+
+**Practical Implications:**
+
+**When to Use Hard-Margin SVM:**
+- Clean, linearly separable data
+- Small datasets
+- When perfect training accuracy is required
+
+**When to Use Soft-Margin SVM:**
+- Noisy data
+- Large datasets
+- When generalization is more important than perfect training fit
+
+**Parameter C Effect:**
+- **Large C**: Approximates hard-margin SVM (low bias, high variance)
+- **Small C**: Allows more errors (higher bias, lower variance)
+
+**Key Insights:**
+
+**1. Model Complexity:**
+- Slack variables reduce model complexity
+- Simpler models have higher bias
+- This is a fundamental tradeoff
+
+**2. Regularization Effect:**
+- Slack variables act as regularization
+- Regularization increases bias to reduce variance
+- This improves generalization
+
+**3. Practical Considerations:**
+- Higher bias is often acceptable for better generalization
+- The goal is to minimize total error (bias + variance)
+- Soft-margin SVM often achieves better overall performance
+
+**Conclusion:**
+SVM models that use slack variables have **higher bias** compared to SVM models that do not use slack variables. This is because slack variables allow the model to make training errors, resulting in a simpler decision boundary that cannot fit the training data as perfectly, thus increasing bias while reducing variance.
+
 ## Problem 23
 
 The following expression for $\hat{\Theta}_{2}$ will appear twice in this exam. Consider a distribution X with unknown mean and variance $\sigma^{2}$. We define the population variance to be as follows
@@ -2230,9 +2679,134 @@ $\hat{\Theta}_{2}=\frac{1}{n}(\sum_{i=1}^{n}(x_{i}-\hat{\Theta}_{1})^{2})$ for $
 
 What is the expected value of $\Theta_{2}$?
 
-**Answer:**
+**Answer:** $\hat{\Theta}_{2}=(1-\frac{1}{n})\sigma^{2}$
 
-**Explanation:** The solution is $\hat{\Theta}_{2}=(1-\frac{1}{n})\sigma^{2}$
+**Explanation:**
+
+The expected value of $\hat{\Theta}_2$ is $(1-\frac{1}{n})\sigma^2$. Here's the detailed explanation:
+
+**Understanding the Problem:**
+
+**Definitions:**
+- $\hat{\Theta}_1 = \frac{1}{n}\sum_{i=1}^{n}x_i$ (sample mean)
+- $\hat{\Theta}_2 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\hat{\Theta}_1)^2$ (sample variance)
+- $\sigma^2$ is the true population variance
+
+**Key Insight:**
+This is asking about the bias of the sample variance estimator. The sample variance is a biased estimator of the population variance.
+
+**Mathematical Derivation:**
+
+**Step 1: Expand the Sample Variance**
+$$\hat{\Theta}_2 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\hat{\Theta}_1)^2$$
+
+**Step 2: Use the Relationship Between Sample and Population Variance**
+We know that:
+$$\sum_{i=1}^{n}(x_i-\hat{\Theta}_1)^2 = \sum_{i=1}^{n}(x_i-\mu)^2 - n(\hat{\Theta}_1-\mu)^2$$
+
+**Step 3: Take Expected Value**
+$$\mathbb{E}[\hat{\Theta}_2] = \mathbb{E}\left[\frac{1}{n}\sum_{i=1}^{n}(x_i-\hat{\Theta}_1)^2\right]$$
+
+**Step 4: Apply Linearity of Expectation**
+$$\mathbb{E}[\hat{\Theta}_2] = \frac{1}{n}\mathbb{E}\left[\sum_{i=1}^{n}(x_i-\mu)^2 - n(\hat{\Theta}_1-\mu)^2\right]$$
+
+**Step 5: Calculate Each Term**
+
+**Term 1: $\mathbb{E}[\sum_{i=1}^{n}(x_i-\mu)^2]$**
+$$\mathbb{E}[\sum_{i=1}^{n}(x_i-\mu)^2] = \sum_{i=1}^{n}\mathbb{E}[(x_i-\mu)^2] = \sum_{i=1}^{n}\sigma^2 = n\sigma^2$$
+
+**Term 2: $\mathbb{E}[n(\hat{\Theta}_1-\mu)^2]$**
+$$\mathbb{E}[n(\hat{\Theta}_1-\mu)^2] = n\mathbb{E}[(\hat{\Theta}_1-\mu)^2] = n \cdot \text{Var}(\hat{\Theta}_1)$$
+
+Since $\hat{\Theta}_1$ is the sample mean:
+$$\text{Var}(\hat{\Theta}_1) = \text{Var}\left(\frac{1}{n}\sum_{i=1}^{n}x_i\right) = \frac{1}{n^2}\sum_{i=1}^{n}\text{Var}(x_i) = \frac{1}{n^2} \cdot n\sigma^2 = \frac{\sigma^2}{n}$$
+
+Therefore:
+$$\mathbb{E}[n(\hat{\Theta}_1-\mu)^2] = n \cdot \frac{\sigma^2}{n} = \sigma^2$$
+
+**Step 6: Combine Terms**
+$$\mathbb{E}[\hat{\Theta}_2] = \frac{1}{n}(n\sigma^2 - \sigma^2) = \frac{1}{n}(n-1)\sigma^2 = \left(1-\frac{1}{n}\right)\sigma^2$$
+
+**Alternative Derivation Using Cochran's Theorem:**
+
+**Cochran's Theorem:**
+If $X_1, X_2, \ldots, X_n$ are i.i.d. normal random variables with mean $\mu$ and variance $\sigma^2$, then:
+$$\frac{\sum_{i=1}^{n}(X_i-\bar{X})^2}{\sigma^2} \sim \chi^2_{n-1}$$
+
+**Application:**
+$$\mathbb{E}\left[\frac{\sum_{i=1}^{n}(X_i-\bar{X})^2}{\sigma^2}\right] = n-1$$
+
+Therefore:
+$$\mathbb{E}\left[\sum_{i=1}^{n}(X_i-\bar{X})^2\right] = (n-1)\sigma^2$$
+
+And:
+$$\mathbb{E}[\hat{\Theta}_2] = \mathbb{E}\left[\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^2\right] = \frac{n-1}{n}\sigma^2 = \left(1-\frac{1}{n}\right)\sigma^2$$
+
+**Verification with Simple Example:**
+
+**Example: n = 2**
+Let $X_1, X_2$ be i.i.d. with variance $\sigma^2$.
+
+**Sample mean:** $\hat{\Theta}_1 = \frac{X_1 + X_2}{2}$
+
+**Sample variance:** $\hat{\Theta}_2 = \frac{1}{2}\left[(X_1-\hat{\Theta}_1)^2 + (X_2-\hat{\Theta}_1)^2\right]$
+
+**Expansion:**
+$$(X_1-\hat{\Theta}_1)^2 = \left(X_1-\frac{X_1+X_2}{2}\right)^2 = \left(\frac{X_1-X_2}{2}\right)^2 = \frac{(X_1-X_2)^2}{4}$$
+
+$$(X_2-\hat{\Theta}_1)^2 = \left(X_2-\frac{X_1+X_2}{2}\right)^2 = \left(\frac{X_2-X_1}{2}\right)^2 = \frac{(X_2-X_1)^2}{4}$$
+
+**Sample variance:**
+$$\hat{\Theta}_2 = \frac{1}{2}\left[\frac{(X_1-X_2)^2}{4} + \frac{(X_2-X_1)^2}{4}\right] = \frac{(X_1-X_2)^2}{4}$$
+
+**Expected value:**
+$$\mathbb{E}[\hat{\Theta}_2] = \mathbb{E}\left[\frac{(X_1-X_2)^2}{4}\right] = \frac{1}{4}\mathbb{E}[(X_1-X_2)^2]$$
+
+Since $X_1$ and $X_2$ are independent:
+$$\mathbb{E}[(X_1-X_2)^2] = \mathbb{E}[X_1^2] + \mathbb{E}[X_2^2] - 2\mathbb{E}[X_1]\mathbb{E}[X_2] = 2\sigma^2$$
+
+Therefore:
+$$\mathbb{E}[\hat{\Theta}_2] = \frac{2\sigma^2}{4} = \frac{\sigma^2}{2} = \left(1-\frac{1}{2}\right)\sigma^2$$
+
+This matches our general formula: $(1-\frac{1}{n})\sigma^2 = (1-\frac{1}{2})\sigma^2 = \frac{\sigma^2}{2}$.
+
+**Bias Analysis:**
+
+**Bias Definition:**
+$$\text{Bias} = \mathbb{E}[\hat{\Theta}_2] - \sigma^2 = \left(1-\frac{1}{n}\right)\sigma^2 - \sigma^2 = -\frac{\sigma^2}{n}$$
+
+**Interpretation:**
+- The sample variance is a **biased estimator** of the population variance
+- It **underestimates** the true variance by a factor of $\frac{\sigma^2}{n}$
+- The bias decreases as sample size increases
+
+**Unbiased Estimator:**
+
+**Corrected Sample Variance:**
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2$$
+
+**Expected Value:**
+$$\mathbb{E}[s^2] = \mathbb{E}\left[\frac{n}{n-1}\hat{\Theta}_2\right] = \frac{n}{n-1}\left(1-\frac{1}{n}\right)\sigma^2 = \sigma^2$$
+
+**Key Insights:**
+
+**1. Degrees of Freedom:**
+- The bias comes from using $n$ instead of $n-1$ in the denominator
+- We lose one degree of freedom by estimating the mean
+- This is why we use $n-1$ for the unbiased estimator
+
+**2. Asymptotic Behavior:**
+- As $n \to \infty$, the bias approaches zero
+- For large samples, the difference between $n$ and $n-1$ is negligible
+- Both estimators are consistent
+
+**3. Practical Implications:**
+- For small samples, the bias can be significant
+- Always use the unbiased estimator $s^2$ in practice
+- The biased estimator $\hat{\Theta}_2$ is sometimes used in theoretical work
+
+**Conclusion:**
+The expected value of $\hat{\Theta}_2$ is $(1-\frac{1}{n})\sigma^2$, which shows that the sample variance is a biased estimator of the population variance, underestimating it by a factor of $\frac{\sigma^2}{n}$.
 
 ## Problem 24
 
@@ -2248,6 +2822,186 @@ Which of the following statements about kernels is/are true? Select all that app
 
 **Correct answers:** (b), (c)
 
+**Explanation:**
+
+The correct answers are **(b) - Kernel matrices depend on the size of the dataset** and **(c) - Kernel matrices are square**. Here's the detailed explanation:
+
+**Understanding Kernel Methods:**
+
+**Kernel Definition:**
+A kernel function $K(x, y)$ is a function that computes the inner product in a high-dimensional feature space without explicitly computing the feature map $\phi(x)$.
+
+**Mathematical Foundation:**
+$$K(x, y) = \langle \phi(x), \phi(y) \rangle$$
+
+**Kernel Matrix Definition:**
+For a dataset $X = \{x_1, x_2, \ldots, x_n\}$, the kernel matrix $K$ is defined as:
+$$K_{ij} = K(x_i, x_j) = \langle \phi(x_i), \phi(x_j) \rangle$$
+
+**Analysis of Each Statement:**
+
+**Option (b) - Kernel matrices depend on the size of the dataset: TRUE**
+
+**Mathematical Verification:**
+- **Kernel matrix size**: $K \in \mathbb{R}^{n \times n}$ where $n$ is the number of data points
+- **Dependence**: The matrix has $n^2$ elements, directly depending on dataset size
+- **Construction**: Each element $K_{ij}$ requires computing $K(x_i, x_j)$
+
+**Example:**
+For datasets of different sizes:
+- **Dataset 1**: 100 points → Kernel matrix: $100 \times 100$
+- **Dataset 2**: 1000 points → Kernel matrix: $1000 \times 1000$
+
+**Computational Complexity:**
+- **Storage**: $O(n^2)$ memory required
+- **Computation**: $O(n^2)$ kernel evaluations
+- **Dependence**: Both storage and computation scale with dataset size
+
+**Option (c) - Kernel matrices are square: TRUE**
+
+**Mathematical Proof:**
+- **Definition**: $K_{ij} = K(x_i, x_j)$
+- **Dimensions**: $K \in \mathbb{R}^{n \times n}$ where $n$ is the number of data points
+- **Symmetry**: $K_{ij} = K(x_i, x_j) = K(x_j, x_i) = K_{ji}$ (for symmetric kernels)
+
+**Properties of Kernel Matrices:**
+
+**1. Symmetry:**
+$$K^T = K$$
+
+**2. Positive Semi-Definiteness:**
+For any vector $c \in \mathbb{R}^n$:
+$$c^T K c \geq 0$$
+
+**3. Diagonal Elements:**
+$$K_{ii} = K(x_i, x_i) \geq 0$$
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - Kernel feature maps always map to higher dimensional space: FALSE**
+
+**Problem:** This is not always true
+- **Counterexample**: Linear kernel $K(x, y) = x^T y$
+- **Feature map**: $\phi(x) = x$ (identity mapping)
+- **Dimensions**: $k = d$ (same dimensionality)
+
+**Mathematical Examples:**
+
+**Linear Kernel:**
+- $K(x, y) = x^T y$
+- $\phi(x) = x$
+- **Result**: $k = d$ (same dimension)
+
+**Polynomial Kernel:**
+- $K(x, y) = (x^T y + 1)^2$
+- $\phi(x) = [x_1^2, x_2^2, \ldots, x_d^2, \sqrt{2}x_1x_2, \ldots, \sqrt{2}x_{d-1}x_d, \sqrt{2}x_1, \ldots, \sqrt{2}x_d, 1]$
+- **Result**: $k = \binom{d+2}{2} > d$ (higher dimension)
+
+**RBF Kernel:**
+- $K(x, y) = e^{-\gamma\|x-y\|^2}$
+- $\phi(x)$ maps to infinite-dimensional space
+- **Result**: $k = \infty > d$ (infinite dimension)
+
+**Option (d) - Kernel matrices are used for data dimensionality reduction: FALSE**
+
+**Problem:** Kernel matrices are not used for dimensionality reduction
+- **Purpose**: Kernel matrices represent similarities in high-dimensional space
+- **Effect**: They actually work in high-dimensional feature spaces
+- **Dimensionality**: Kernel methods often increase dimensionality, not reduce it
+
+**Mathematical Analysis:**
+
+**Kernel Trick Purpose:**
+- **Avoid explicit computation**: Don't compute $\phi(x)$ directly
+- **Work in high dimensions**: Operate in feature space without explicit mapping
+- **Similarity computation**: Compute inner products efficiently
+
+**Dimensionality Reduction Methods:**
+- **PCA**: Reduces dimensions by projecting onto principal components
+- **Kernel PCA**: Uses kernels but still reduces dimensions
+- **Kernel matrices**: Used in kernel methods, not for reduction
+
+**Kernel Matrix Properties:**
+
+**1. Size Dependence:**
+$$K \in \mathbb{R}^{n \times n}$$
+- Size depends on number of data points
+- Grows quadratically with dataset size
+
+**2. Symmetry:**
+$$K_{ij} = K_{ji}$$
+- Due to kernel function symmetry
+- Reduces storage requirements
+
+**3. Positive Semi-Definiteness:**
+$$c^T K c \geq 0 \text{ for all } c \in \mathbb{R}^n$$
+- Required for valid kernel functions
+- Ensures optimization problems are convex
+
+**4. Diagonal Dominance:**
+$$K_{ii} \geq |K_{ij}| \text{ for } i \neq j$$
+- Self-similarity is maximum
+- Reflects kernel function properties
+
+**Practical Examples:**
+
+**Example 1: Linear Kernel**
+```python
+# Dataset: 3 points in 2D
+X = [[1, 2], [3, 4], [5, 6]]
+n = 3
+
+# Kernel matrix (3×3)
+K = [[5,  11, 17],
+     [11, 25, 39],
+     [17, 39, 61]]
+```
+
+**Example 2: RBF Kernel**
+```python
+# Same dataset with RBF kernel
+K = [[1.0,  0.135, 0.0003],
+     [0.135, 1.0,  0.135],
+     [0.0003, 0.135, 1.0]]
+```
+
+**Computational Considerations:**
+
+**1. Memory Requirements:**
+- **Storage**: $O(n^2)$ for full kernel matrix
+- **Sparse kernels**: Can reduce memory usage
+- **Approximation**: Nyström method for large datasets
+
+**2. Computational Complexity:**
+- **Construction**: $O(n^2)$ kernel evaluations
+- **Optimization**: $O(n^3)$ for standard SVM
+- **Scaling**: Becomes prohibitive for large datasets
+
+**3. Scalability Solutions:**
+- **Random features**: Approximate kernel with random projections
+- **Nyström approximation**: Sample subset of data points
+- **Online learning**: Update kernel matrix incrementally
+
+**Key Insights:**
+
+**1. Dataset Dependence:**
+- Kernel matrix size is fundamentally tied to dataset size
+- This is a limitation for large-scale applications
+- Requires approximation methods for big data
+
+**2. Square Structure:**
+- Kernel matrices are always square due to pairwise similarities
+- Symmetry provides computational advantages
+- Positive semi-definiteness ensures mathematical properties
+
+**3. Dimensionality Relationship:**
+- Kernel feature maps can increase, decrease, or maintain dimensionality
+- The kernel trick avoids explicit computation regardless of dimension
+- Kernel matrices work with the implicit high-dimensional space
+
+**Conclusion:**
+Kernel matrices **depend on the size of the dataset** and are **square** matrices. They represent pairwise similarities between data points and are fundamental to kernel methods, but they are not used for dimensionality reduction. The feature map dimensionality can vary depending on the kernel function used.
+
 ## Problem 25
 
 Both LASSO and PCA can be used for feature selection. Which of the following statements are true? Select all that apply.
@@ -2262,6 +3016,177 @@ Both LASSO and PCA can be used for feature selection. Which of the following sta
 
 **Correct answers:** (a), (c)
 
+**Explanation:**
+
+The correct answers are **(a) - LASSO selects a subset (not necessarily a strict subset) of the original features** and **(c) - PCA produces features that are linear combinations of the original features**. Here's the detailed explanation:
+
+**Understanding LASSO and PCA:**
+
+**LASSO (Least Absolute Shrinkage and Selection Operator):**
+LASSO is a regularization technique that adds an L1 penalty to encourage sparsity in the coefficient vector.
+
+**PCA (Principal Component Analysis):**
+PCA is a dimensionality reduction technique that transforms data into a new coordinate system where the greatest variance lies on the first coordinate.
+
+**Mathematical Formulations:**
+
+**LASSO:**
+$$\min_{\beta} \frac{1}{2n} \sum_{i=1}^n (y_i - \beta^T x_i)^2 + \lambda \sum_{j=1}^d |\beta_j|$$
+
+**PCA:**
+$$\max_{v} v^T C v$$
+$$\text{subject to } \|v\| = 1$$
+
+where $C = \frac{1}{n}X^TX$ is the covariance matrix.
+
+**Analysis of Each Statement:**
+
+**Option (a) - LASSO selects a subset (not necessarily a strict subset) of the original features: TRUE**
+
+**Mathematical Explanation:**
+- **L1 Penalty**: $\lambda \sum_{j=1}^d |\beta_j|$ encourages sparsity
+- **Sparsity Effect**: Some coefficients $\beta_j$ become exactly zero
+- **Feature Selection**: Zero coefficients correspond to removed features
+- **Subset Selection**: Non-zero coefficients correspond to selected features
+
+**Mathematical Verification:**
+For LASSO solution $\hat{\beta}$:
+- **Selected features**: $\{j : \hat{\beta}_j \neq 0\}$
+- **Removed features**: $\{j : \hat{\beta}_j = 0\}$
+- **Subset property**: Selected features form a subset of original features
+
+**Example:**
+Original features: $[x_1, x_2, x_3, x_4, x_5]$
+LASSO coefficients: $[0.5, 0, -0.3, 0, 0.2]$
+Selected features: $[x_1, x_3, x_5]$ (subset of original)
+
+**Why "Not Necessarily Strict":**
+- **All features selected**: If $\lambda = 0$, all coefficients may be non-zero
+- **No features selected**: If $\lambda$ is very large, all coefficients may be zero
+- **Strict subset**: Most common case when $0 < \lambda < \infty$
+
+**Option (c) - PCA produces features that are linear combinations of the original features: TRUE**
+
+**Mathematical Explanation:**
+- **Principal Components**: $v_1, v_2, \ldots, v_d$ are eigenvectors of covariance matrix
+- **Transformation**: $z_i = v_i^T x$ for each principal component
+- **Linear Combination**: Each $z_i$ is a linear combination of original features
+
+**Mathematical Verification:**
+For original features $x = [x_1, x_2, \ldots, x_d]^T$:
+- **First PC**: $z_1 = v_1^T x = v_{11}x_1 + v_{12}x_2 + \ldots + v_{1d}x_d$
+- **Second PC**: $z_2 = v_2^T x = v_{21}x_1 + v_{22}x_2 + \ldots + v_{2d}x_d$
+- **General**: $z_i = v_i^T x = \sum_{j=1}^d v_{ij}x_j$
+
+**Example:**
+Original features: $[x_1, x_2, x_3]$
+First PC: $z_1 = 0.7x_1 + 0.3x_2 + 0.1x_3$
+Second PC: $z_2 = -0.2x_1 + 0.8x_2 + 0.1x_3$
+
+**Why Other Options Are Wrong:**
+
+**Option (b) - If you use the kernel trick, PCA and LASSO are equivalent: FALSE**
+
+**Problem:** These are fundamentally different techniques
+- **PCA**: Unsupervised dimensionality reduction
+- **LASSO**: Supervised feature selection with regularization
+- **Kernel trick**: Computational technique, doesn't make methods equivalent
+
+**Mathematical Analysis:**
+
+**Kernel PCA:**
+- **Objective**: $\max_{\alpha} \alpha^T K \alpha$ subject to $\|\alpha\| = 1$
+- **Purpose**: Dimensionality reduction in feature space
+- **Output**: New features (principal components)
+
+**Kernel LASSO:**
+- **Objective**: $\min_{\beta} \frac{1}{2n} \sum_{i=1}^n (y_i - \sum_{j=1}^n \beta_j K(x_i, x_j))^2 + \lambda \sum_{j=1}^n |\beta_j|$
+- **Purpose**: Feature selection in feature space
+- **Output**: Sparse coefficients for support vectors
+
+**Key Differences:**
+1. **Supervision**: LASSO uses labels, PCA doesn't
+2. **Objective**: LASSO minimizes prediction error, PCA maximizes variance
+3. **Output**: LASSO selects features, PCA creates new features
+
+**Option (d) - PCA is a supervised learning algorithm: FALSE**
+
+**Problem:** PCA is an unsupervised learning algorithm
+- **Supervision**: PCA doesn't use target labels
+- **Objective**: Maximizes variance, not prediction accuracy
+- **Application**: Dimensionality reduction, not prediction
+
+**Mathematical Verification:**
+
+**PCA Objective:**
+$$\max_{v} v^T C v$$
+$$\text{subject to } \|v\| = 1$$
+
+**No Labels Involved:**
+- **Covariance matrix**: $C = \frac{1}{n}X^TX$ (only uses features)
+- **No target**: $y$ values are not used in the optimization
+- **Unsupervised**: Learns structure from data only
+
+**Comparison with Supervised Methods:**
+
+**Supervised Learning:**
+- **Linear Regression**: $\min_{\beta} \sum_{i=1}^n (y_i - \beta^T x_i)^2$
+- **LASSO**: $\min_{\beta} \sum_{i=1}^n (y_i - \beta^T x_i)^2 + \lambda \sum_{j=1}^d |\beta_j|$
+- **Uses labels**: $y_i$ values are part of the objective
+
+**Unsupervised Learning:**
+- **PCA**: $\max_{v} v^T C v$
+- **K-means**: $\min_{\{S_k\}} \sum_{k=1}^K \sum_{x \in S_k} \|x - \mu_k\|^2$
+- **No labels**: Only uses feature values
+
+**Feature Selection vs. Feature Creation:**
+
+**LASSO (Feature Selection):**
+- **Input**: Original features $[x_1, x_2, \ldots, x_d]$
+- **Output**: Subset of original features $[x_{i_1}, x_{i_2}, \ldots, x_{i_k}]$
+- **Method**: Sets some coefficients to zero
+
+**PCA (Feature Creation):**
+- **Input**: Original features $[x_1, x_2, \ldots, x_d]$
+- **Output**: New features $[z_1, z_2, \ldots, z_k]$
+- **Method**: Linear combinations of original features
+
+**Practical Examples:**
+
+**LASSO Example:**
+```python
+# Original features: [age, height, weight, income, education]
+# LASSO coefficients: [0.5, 0, 0.3, 0, 0.2]
+# Selected features: [age, weight, education]
+```
+
+**PCA Example:**
+```python
+# Original features: [x1, x2, x3]
+# First PC: z1 = 0.7*x1 + 0.3*x2 + 0.1*x3
+# Second PC: z2 = -0.2*x1 + 0.8*x2 + 0.1*x3
+```
+
+**Key Insights:**
+
+**1. Feature Selection vs. Creation:**
+- **LASSO**: Selects existing features (subset)
+- **PCA**: Creates new features (linear combinations)
+- **Different purposes**: Selection vs. transformation
+
+**2. Supervision:**
+- **LASSO**: Supervised (uses labels)
+- **PCA**: Unsupervised (no labels)
+- **Different learning paradigms**
+
+**3. Objectives:**
+- **LASSO**: Minimize prediction error + sparsity
+- **PCA**: Maximize variance
+- **Different optimization goals**
+
+**Conclusion:**
+**LASSO selects a subset of original features** through sparsity-inducing regularization, while **PCA produces new features as linear combinations** of the original features. These are fundamentally different techniques with different purposes and mathematical foundations.
+
 ## Problem 26
 
 Consider a dataset X where row $X_{i}$ corresponds to a complete medical record of an individual $i\in[n].$ Suppose the first column of X contains each patient's name, and no other column contains their name.
@@ -2274,6 +3199,166 @@ True/False: Removing the first column from X gives a dataset $X_{.,2:d}$ where n
 
 **Correct answers:** (b)
 
+**Explanation:**
+
+The correct answer is **(b) - False**. Here's the detailed explanation:
+
+**Understanding the Problem:**
+
+**Dataset Structure:**
+- **Original dataset**: $X \in \mathbb{R}^{n \times d}$ where $n$ is the number of patients
+- **First column**: Contains patient names (identifiers)
+- **Remaining columns**: Medical features (age, weight, blood pressure, etc.)
+- **After removal**: $X_{.,2:d} \in \mathbb{R}^{n \times (d-1)}$ (dataset without names)
+
+**Key Question:**
+After removing the name column, can there still be unique individuals based on their medical features alone?
+
+**Mathematical Analysis:**
+
+**Uniqueness Definition:**
+An individual (row) is unique if no other row has identical values across all features.
+
+**Mathematical Formulation:**
+For rows $i$ and $j$ in $X_{.,2:d}$:
+- **Unique**: $\exists k \in \{2, \ldots, d\}$ such that $X_{ik} \neq X_{jk}$
+- **Not unique**: $\forall k \in \{2, \ldots, d\}, X_{ik} = X_{jk}$
+
+**Why the Statement is False:**
+
+**1. High-Dimensional Data:**
+- **Medical records**: Often have many features (age, weight, height, blood pressure, cholesterol, etc.)
+- **Curse of dimensionality**: In high dimensions, points are likely to be unique
+- **Probability**: As dimensionality increases, probability of identical rows decreases
+
+**2. Continuous Features:**
+- **Medical measurements**: Often continuous (weight: 70.5 kg, blood pressure: 120/80)
+- **Precision**: Exact matches become very unlikely
+- **Example**: Two people with identical weight, height, age, blood pressure, etc. is extremely rare
+
+**3. Categorical Features:**
+- **Medical categories**: Even categorical features can create uniqueness
+- **Combinations**: Multiple categorical features can uniquely identify individuals
+- **Example**: Gender + age group + blood type + medical history
+
+**Mathematical Example:**
+
+**Scenario: 3 patients with 4 medical features**
+```
+Original Dataset X:
+Name    | Age | Weight | Height | Blood_Pressure
+Alice   | 25  | 65     | 170    | 120/80
+Bob     | 25  | 65     | 170    | 125/85
+Charlie | 25  | 65     | 170    | 120/80
+```
+
+**After removing name column ($X_{.,2:d}$):**
+```
+Age | Weight | Height | Blood_Pressure
+25  | 65     | 170    | 120/80
+25  | 65     | 170    | 125/85
+25  | 65     | 170    | 120/80
+```
+
+**Analysis:**
+- **Row 1 vs Row 2**: Different blood pressure → Unique
+- **Row 1 vs Row 3**: Identical → Not unique
+- **Row 2 vs Row 3**: Different blood pressure → Unique
+
+**Result**: Rows 1 and 2 are unique, but Row 3 is not unique (identical to Row 1).
+
+**Probability Analysis:**
+
+**Assumption**: Features are independent and uniformly distributed
+- **Probability of two rows being identical**: $p = \prod_{i=2}^d p_i$
+- **Where $p_i$**: Probability that feature $i$ is identical between two individuals
+
+**For continuous features:**
+- **Probability of exact match**: Very low (approaches zero)
+- **Example**: Weight match probability ≈ 0.001 (if weight range is 0-1000 kg)
+
+**For categorical features:**
+- **Probability of match**: $1/k_i$ where $k_i$ is number of categories
+- **Example**: Blood type match probability = 1/8 = 0.125
+
+**Overall probability:**
+- **With many features**: $p$ becomes very small
+- **Result**: Most individuals remain unique even without names
+
+**Real-World Medical Data:**
+
+**Typical Medical Features:**
+- **Demographics**: Age, gender, ethnicity
+- **Physical**: Height, weight, BMI
+- **Vital signs**: Blood pressure, heart rate, temperature
+- **Lab results**: Cholesterol, glucose, hemoglobin
+- **Medical history**: Diagnoses, medications, procedures
+
+**Uniqueness in Practice:**
+- **Large datasets**: With hundreds of features, uniqueness is almost guaranteed
+- **Precision**: Medical measurements are often precise enough to create uniqueness
+- **Combinations**: Even if individual features aren't unique, combinations often are
+
+**Counterexample Construction:**
+
+**Scenario where individuals remain unique:**
+```
+Patient | Age | Weight | Height | BP_Systolic | BP_Diastolic | Cholesterol
+P1      | 25  | 70.1   | 175.2  | 120         | 80           | 180
+P2      | 25  | 70.1   | 175.2  | 120         | 80           | 181
+P3      | 25  | 70.1   | 175.2  | 120         | 80           | 180
+```
+
+**After removing names:**
+- **P1 vs P2**: Different cholesterol → Unique
+- **P1 vs P3**: Identical → Not unique
+- **P2 vs P3**: Different cholesterol → Unique
+
+**Result**: P1 and P2 are unique, P3 is not unique.
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - True:**
+- **Problem**: Assumes removing names guarantees no uniqueness
+- **Issue**: Ignores the high-dimensional nature of medical data
+- **Result**: Incorrect assumption about feature uniqueness
+
+**Key Insights:**
+
+**1. Dimensionality Effect:**
+- **High dimensions**: Points are likely to be unique
+- **Medical data**: Often high-dimensional
+- **Result**: Removing one feature doesn't eliminate uniqueness
+
+**2. Feature Precision:**
+- **Continuous measurements**: Exact matches are rare
+- **Medical precision**: Often sufficient to create uniqueness
+- **Combination effect**: Multiple features create uniqueness
+
+**3. Practical Considerations:**
+- **Real medical data**: Rarely has identical patients
+- **Privacy**: Removing names doesn't guarantee anonymity
+- **Re-identification**: Possible through feature combinations
+
+**Privacy Implications:**
+
+**Anonymization Challenge:**
+- **Removing identifiers**: Doesn't guarantee privacy
+- **Feature uniqueness**: Can still identify individuals
+- **k-anonymity**: Need to ensure k individuals share same feature values
+
+**Example of Re-identification:**
+```
+Age | Gender | Zip_Code | Diagnosis
+25  | F      | 90210    | Diabetes
+25  | F      | 90210    | Diabetes
+```
+
+Even without names, this combination might uniquely identify individuals.
+
+**Conclusion:**
+The statement is **False**. Removing the name column from a medical dataset does not guarantee that no individual (row) is unique. Due to the high-dimensional nature of medical data and the precision of medical measurements, individuals can still be unique based on their feature combinations, even without explicit identifiers like names.
+
 ## Problem 27
 
 True/False: The number of clusters k is a hyperparameter for Lloyd's Algorithm for k-means clustering.
@@ -2283,6 +3368,141 @@ True/False: The number of clusters k is a hyperparameter for Lloyd's Algorithm f
 (b) False
 
 **Correct answers:** (a)
+
+**Explanation:**
+
+The correct answer is **(a) - True**. Here's the detailed explanation:
+
+**Understanding Lloyd's Algorithm and Hyperparameters:**
+
+**Lloyd's Algorithm (k-means):**
+Lloyd's algorithm is an iterative clustering algorithm that partitions data into k clusters by minimizing the within-cluster sum of squares.
+
+**Algorithm Steps:**
+1. **Initialization**: Choose k initial cluster centers
+2. **Assignment**: Assign each point to nearest cluster center
+3. **Update**: Recalculate cluster centers as means of assigned points
+4. **Repeat**: Until convergence
+
+**Hyperparameter Definition:**
+A hyperparameter is a parameter whose value is set before the learning process begins, as opposed to parameters that are learned during training.
+
+**Why k is a Hyperparameter:**
+
+**1. Set Before Training:**
+- **k must be specified**: Before running the algorithm
+- **Not learned**: The algorithm doesn't determine k automatically
+- **User choice**: k is chosen based on domain knowledge or validation
+
+**2. Algorithm Dependence:**
+- **Lloyd's algorithm**: Requires k to be specified upfront
+- **Initialization**: k determines number of initial centers
+- **Iteration**: k determines number of clusters throughout
+
+**3. Model Complexity:**
+- **k controls complexity**: More clusters = more complex model
+- **Trade-off**: Balance between fit and generalization
+- **Validation**: k is typically chosen using cross-validation
+
+**Mathematical Formulation:**
+
+**Objective Function:**
+$$\min_{\{S_1, \ldots, S_k\}} \sum_{i=1}^k \sum_{x \in S_i} \|x - \mu_i\|^2$$
+
+where:
+- $S_i$ is the $i$-th cluster
+- $\mu_i$ is the centroid of cluster $i$
+- **k is fixed**: Must be specified before optimization
+
+**Algorithm Pseudocode:**
+```
+Input: Data X, number of clusters k (hyperparameter)
+1. Initialize k centroids randomly
+2. Repeat until convergence:
+   a. Assign each point to nearest centroid
+   b. Update centroids as means of assigned points
+```
+
+**Why k Cannot Be Learned:**
+
+**1. Objective Function:**
+- **Fixed k**: The objective assumes k clusters
+- **No mechanism**: Algorithm has no way to determine optimal k
+- **Local optimization**: Only optimizes cluster assignments for given k
+
+**2. Computational Complexity:**
+- **NP-hard**: Finding optimal k is computationally intractable
+- **Heuristic methods**: k is chosen using external criteria
+- **Validation**: Cross-validation or information criteria
+
+**Methods for Choosing k:**
+
+**1. Elbow Method:**
+- Plot within-cluster sum of squares vs k
+- Choose k at the "elbow" point
+- **Example**: k=3 might show clear elbow, k=4 shows diminishing returns
+
+**2. Silhouette Analysis:**
+- Measure cluster quality for different k
+- Choose k with highest silhouette score
+- **Range**: 0 to 1, higher is better
+
+**3. Gap Statistic:**
+- Compare cluster quality to random data
+- Choose k with maximum gap
+- **Robust**: Accounts for data distribution
+
+**4. Cross-Validation:**
+- Use clustering as preprocessing step
+- Choose k that maximizes downstream performance
+- **Supervised**: Requires labels for downstream task
+
+**Example:**
+
+**Dataset**: 1000 points in 2D
+**Possible k values**: 2, 3, 4, 5, 6
+
+**Elbow Method Results:**
+- k=2: WCSS = 5000
+- k=3: WCSS = 3000 (big improvement)
+- k=4: WCSS = 2000 (big improvement)
+- k=5: WCSS = 1800 (small improvement)
+- k=6: WCSS = 1700 (small improvement)
+
+**Choice**: k=4 (elbow point)
+
+**Comparison with Other Hyperparameters:**
+
+**Lloyd's Algorithm Hyperparameters:**
+- **k**: Number of clusters (most important)
+- **Initialization method**: Random, k-means++, etc.
+- **Convergence criteria**: Maximum iterations, tolerance
+- **Distance metric**: Euclidean, Manhattan, etc.
+
+**Why k is Primary:**
+- **Fundamental**: Determines model structure
+- **Impact**: Affects all aspects of clustering
+- **Choice**: Most critical decision in k-means
+
+**Practical Considerations:**
+
+**1. Domain Knowledge:**
+- **Business context**: Number of customer segments
+- **Biological data**: Number of cell types
+- **Image segmentation**: Number of regions
+
+**2. Computational Limits:**
+- **Large k**: More computation required
+- **Memory**: Storage scales with k
+- **Convergence**: Larger k may take longer to converge
+
+**3. Interpretability:**
+- **Small k**: Easier to interpret clusters
+- **Large k**: More detailed but complex
+- **Balance**: Trade-off between detail and simplicity
+
+**Conclusion:**
+The number of clusters **k is indeed a hyperparameter** for Lloyd's algorithm because it must be specified before training begins, controls the model's complexity, and cannot be learned by the algorithm itself. The choice of k is critical and typically requires external validation methods.
 
 ## Problem 28
 
@@ -2334,6 +3554,100 @@ Which of the following loss functions are convex? Select all that apply.
 
 **Correct answers:** (b), (d), (e)
 
+**Explanation:**
+
+The correct answers are **(b) - Squared loss (MSE)**, **(d) - Logistic loss**, and **(e) - Hinge loss**. Here's the detailed explanation:
+
+**Understanding Convexity in Loss Functions:**
+
+**Convex Function Definition:**
+A function $f(x)$ is convex if for all $x, y$ in its domain and $\lambda \in [0,1]$:
+$$f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y)$$
+
+**Analysis of Each Loss Function:**
+
+**Option (a) - 1-0 loss: NOT CONVEX** ❌
+
+**Mathematical Form:**
+$$L(y, \hat{y}) = \mathbb{I}[y \neq \hat{y}] = \begin{cases} 0 & \text{if } y = \hat{y} \\ 1 & \text{if } y \neq \hat{y} \end{cases}$$
+
+**Why Not Convex:**
+- **Discontinuous**: Jumps from 0 to 1
+- **Non-differentiable**: No gradient at decision boundary
+- **Example**: For $y=1$, $\hat{y}_1=0.4$, $\hat{y}_2=0.6$, $\lambda=0.5$
+  - $L(1, 0.4) = 1$, $L(1, 0.6) = 1$
+  - $L(1, 0.5) = 1$ (convex combination)
+  - But function is not smooth
+
+**Option (b) - Squared loss (MSE): CONVEX** ✅
+
+**Mathematical Form:**
+$$L(y, \hat{y}) = (y - \hat{y})^2$$
+
+**Why Convex:**
+- **Second derivative**: $\frac{d^2L}{d\hat{y}^2} = 2 > 0$ (always positive)
+- **Quadratic function**: Standard convex function
+- **Smooth**: Continuous and differentiable everywhere
+
+**Option (c) - Sigmoid loss: NOT CONVEX** ❌
+
+**Mathematical Form:**
+$$L(y, \hat{y}) = \frac{1}{1 + e^{-y\hat{y}}}$$
+
+**Why Not Convex:**
+- **Sigmoid function**: Not convex in $\hat{y}$
+- **Second derivative**: Can be negative
+- **Example**: For $y=1$, the function is concave in $\hat{y}$
+
+**Option (d) - Logistic loss: CONVEX** ✅
+
+**Mathematical Form:**
+$$L(y, \hat{y}) = \log(1 + e^{-y\hat{y}})$$
+
+**Why Convex:**
+- **Second derivative**: $\frac{d^2L}{d\hat{y}^2} = \frac{e^{y\hat{y}}}{(1 + e^{y\hat{y}})^2} > 0$ (always positive)
+- **Log-sum-exp**: Known convex function
+- **Smooth**: Continuous and differentiable everywhere
+
+**Option (e) - Hinge loss: CONVEX** ✅
+
+**Mathematical Form:**
+$$L(y, \hat{y}) = \max(0, 1 - y\hat{y})$$
+
+**Why Convex:**
+- **Maximum of convex functions**: $\max(0, 1 - y\hat{y})$
+- **Piecewise linear**: Convex in each piece
+- **Subgradient**: Exists everywhere (even at kink)
+
+**Mathematical Verification:**
+
+**Squared Loss Convexity:**
+$$\frac{d^2L}{d\hat{y}^2} = \frac{d^2}{d\hat{y}^2}(y - \hat{y})^2 = 2 > 0$$
+
+**Logistic Loss Convexity:**
+$$\frac{dL}{d\hat{y}} = \frac{-y e^{-y\hat{y}}}{1 + e^{-y\hat{y}}}$$
+$$\frac{d^2L}{d\hat{y}^2} = \frac{e^{y\hat{y}}}{(1 + e^{y\hat{y}})^2} > 0$$
+
+**Hinge Loss Convexity:**
+- **For $y\hat{y} \geq 1$**: $L = 0$ (convex)
+- **For $y\hat{y} < 1$**: $L = 1 - y\hat{y}$ (linear, convex)
+- **At $y\hat{y} = 1$**: Continuous and convex
+
+**Practical Implications:**
+
+**Convex Loss Functions:**
+- **Global optimum**: Guaranteed to find global minimum
+- **Optimization**: Efficient algorithms available
+- **Convergence**: Gradient descent converges to global optimum
+
+**Non-Convex Loss Functions:**
+- **Local optima**: May get stuck in local minima
+- **Optimization**: More complex algorithms needed
+- **Convergence**: No guarantee of global optimum
+
+**Conclusion:**
+**Squared loss (MSE)**, **Logistic loss**, and **Hinge loss** are all convex functions, making them suitable for optimization using gradient-based methods. The 1-0 loss and sigmoid loss are not convex and are more challenging to optimize.
+
 ## Problem 30
 
 In neural networks, the activation functions sigmoid, ReLU, and tanh all
@@ -2347,6 +3661,125 @@ In neural networks, the activation functions sigmoid, ReLU, and tanh all
 (d) are needed to speed up the gradient computation during backpropagation (compared to not using activation functions at all).
 
 **Correct answers:** (c)
+
+**Explanation:**
+
+The correct answer is **(c) - are essential for learning non-linear decision boundaries**. Here's the detailed explanation:
+
+**Understanding Activation Functions in Neural Networks:**
+
+**Activation Functions:**
+Activation functions are non-linear transformations applied to the output of neurons in neural networks. They introduce non-linearity, enabling networks to learn complex patterns.
+
+**Analysis of Each Statement:**
+
+**Option (a) - always output values between 0 and 1: FALSE** ❌
+
+**Mathematical Analysis:**
+
+**Sigmoid Function:**
+$$\sigma(x) = \frac{1}{1 + e^{-x}}$$
+- **Range**: $(0, 1)$ ✓
+- **Output**: Always between 0 and 1
+
+**ReLU Function:**
+$$\text{ReLU}(x) = \max(0, x)$$
+- **Range**: $[0, \infty)$ ❌
+- **Output**: Can be any non-negative value
+
+**Tanh Function:**
+$$\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}$$
+- **Range**: $(-1, 1)$ ❌
+- **Output**: Between -1 and 1, not 0 and 1
+
+**Verification:**
+- **ReLU**: $\text{ReLU}(5) = 5$ (greater than 1)
+- **Tanh**: $\tanh(2) \approx 0.96$ (close to 1 but not exactly 0-1)
+
+**Option (b) - are applied only to the output units: FALSE** ❌
+
+**Why This is Incorrect:**
+- **Hidden layers**: Activation functions are applied to all hidden layers
+- **Output layer**: Sometimes no activation (regression) or different activation (classification)
+- **Purpose**: Introduce non-linearity throughout the network
+
+**Mathematical Formulation:**
+For a neural network with $L$ layers:
+$$a^{(l)} = f^{(l)}(W^{(l)}a^{(l-1)} + b^{(l)})$$
+
+where $f^{(l)}$ is the activation function at layer $l$.
+
+**Example:**
+```
+Input Layer → Hidden Layer 1 (ReLU) → Hidden Layer 2 (ReLU) → Output Layer (Sigmoid)
+```
+
+**Option (c) - are essential for learning non-linear decision boundaries: TRUE** ✅
+
+**Mathematical Proof:**
+
+**Without Activation Functions:**
+If all activation functions are linear ($f(x) = x$):
+$$a^{(L)} = W^{(L)}W^{(L-1)} \ldots W^{(1)}x + \text{bias terms}$$
+
+This is equivalent to:
+$$a^{(L)} = W'x + b'$$
+
+**Result**: The entire network becomes a linear model, regardless of depth.
+
+**With Non-Linear Activation Functions:**
+Each layer can learn non-linear transformations:
+$$a^{(l)} = f^{(l)}(W^{(l)}a^{(l-1)} + b^{(l)})$$
+
+**Result**: The network can approximate any continuous function (universal approximation theorem).
+
+**Example:**
+**XOR Problem** (non-linearly separable):
+- **Linear model**: Cannot separate XOR
+- **Neural network with ReLU**: Can learn XOR with one hidden layer
+
+**Option (d) - are needed to speed up gradient computation: FALSE** ❌
+
+**Why This is Incorrect:**
+- **Gradient computation**: Activation functions actually add computational overhead
+- **Backpropagation**: Requires computing derivatives of activation functions
+- **Speed**: Linear functions would be faster to compute
+
+**Mathematical Analysis:**
+
+**Gradient Computation:**
+$$\frac{\partial L}{\partial w_{ij}^{(l)}} = \frac{\partial L}{\partial a_j^{(l)}} \cdot \frac{\partial a_j^{(l)}}{\partial z_j^{(l)}} \cdot \frac{\partial z_j^{(l)}}{\partial w_{ij}^{(l)})$$
+
+where $z_j^{(l)} = W^{(l)}a^{(l-1)} + b^{(l)}$ and $a_j^{(l)} = f^{(l)}(z_j^{(l)})$.
+
+**Activation Function Derivatives:**
+- **ReLU**: $\frac{d}{dx}\text{ReLU}(x) = \begin{cases} 1 & \text{if } x > 0 \\ 0 & \text{if } x \leq 0 \end{cases}$
+- **Sigmoid**: $\frac{d}{dx}\sigma(x) = \sigma(x)(1-\sigma(x))$
+- **Tanh**: $\frac{d}{dx}\tanh(x) = 1 - \tanh^2(x)$
+
+**Computational Cost:**
+- **Linear**: No additional computation
+- **Non-linear**: Additional computation for activation and its derivative
+
+**Key Insights:**
+
+**1. Non-Linearity is Essential:**
+- **Universal approximation**: Neural networks can approximate any function
+- **Feature learning**: Each layer learns increasingly complex features
+- **Expressiveness**: Enables learning complex patterns
+
+**2. Different Activation Functions:**
+- **ReLU**: Most common, fast, avoids vanishing gradients
+- **Sigmoid**: Outputs probabilities, used in output layer
+- **Tanh**: Similar to sigmoid but centered at zero
+
+**3. Practical Considerations:**
+- **Vanishing gradients**: Sigmoid/tanh can cause this
+- **Dying ReLU**: ReLU can cause neurons to "die"
+- **Choice**: Depends on problem and layer position
+
+**Conclusion:**
+Activation functions are **essential for learning non-linear decision boundaries** because without them, neural networks would be limited to linear transformations regardless of their depth. This is the primary reason for their use in neural networks.
 
 ## Problem 31
 
