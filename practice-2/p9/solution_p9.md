@@ -5872,6 +5872,66 @@ The answer is 320.
 
 Since the batch size is 15, the number of forward passes for one epoch is $\frac{600}{15}$. Since the network is trained for 8 epochs, the total number of forwards passes is $\frac{600}{15} \cdot 8 = 320$.
 
+## Detailed Solution Explanation
+
+**Understanding Neural Network Forward Passes:**
+
+This problem explores the computational aspects of neural network training, specifically calculating the number of forward passes during training.
+
+**Mathematical Framework:**
+
+**Forward Pass Definition:**
+A forward pass is one complete computation through the neural network for a batch of data.
+
+**Training Process:**
+1. **Epoch:** Complete pass through the entire dataset
+2. **Batch:** Subset of data processed together
+3. **Forward Pass:** One computation per batch
+
+**Part (a): 8 Epochs**
+
+**Calculation:**
+- **Dataset Size:** 600 samples
+- **Batch Size:** 15 samples per batch
+- **Batches per Epoch:** $\frac{600}{15} = 40$ batches
+- **Total Epochs:** 8
+- **Total Forward Passes:** $40 \times 8 = 320$
+
+**Mathematical Formula:**
+$$\text{Forward Passes} = \frac{\text{Dataset Size}}{\text{Batch Size}} \times \text{Number of Epochs}$$
+
+**Verification:**
+```python
+dataset_size = 600
+batch_size = 15
+epochs = 8
+
+batches_per_epoch = dataset_size / batch_size  # 40
+total_forward_passes = batches_per_epoch * epochs  # 320
+
+print(f"Batches per epoch: {batches_per_epoch}")
+print(f"Total forward passes: {total_forward_passes}")
+```
+
+**Part (b): 5 Epochs**
+
+**Calculation:**
+- **Batches per Epoch:** 40 (same as above)
+- **Total Epochs:** 5
+- **Total Forward Passes:** $40 \times 5 = 200$
+
+**Verification:**
+```python
+epochs = 5
+total_forward_passes = batches_per_epoch * epochs  # 200
+print(f"Total forward passes: {total_forward_passes}")
+```
+
+**Key Insights:**
+- Forward passes scale linearly with number of epochs
+- Batch size affects computational efficiency
+- Understanding forward pass count helps with training time estimation
+
 ### Part b: 5 Epochs (1 point)
 
 **Question:** How many forward passes through the entire network are needed to train this model for 5 epochs?
@@ -5882,6 +5942,75 @@ Since the batch size is 15, the number of forward passes for one epoch is $\frac
 The answer is 200.
 
 Since the batch size is 15, the number of forward passes for one epoch is $\frac{600}{15}$. Since the network is trained for 5 epochs, the total number of forwards passes is $\frac{600}{15} \cdot 5 = 200$.
+
+## Detailed Solution Explanation
+
+**Understanding Neural Network Derivatives:**
+
+This problem explores the computation of derivatives in a two-layer neural network with ReLU activation, focusing on the chain rule and backpropagation.
+
+**Mathematical Framework:**
+
+**Network Architecture:**
+- **Input:** $x \in \mathbb{R}^d$
+- **Hidden Layer:** $h = \sigma(W_1x + b_1)$ where $\sigma(z) = \max(0, z)$
+- **Output Layer:** $\hat{y} = W_2h + b_2$
+
+**Forward Pass:**
+$$h = \sigma(W_1x + b_1)$$
+$$\hat{y} = W_2h + b_2$$
+
+**Loss Function:**
+$$L = \frac{1}{2}(\hat{y} - y)^2$$
+
+**Backpropagation Derivatives:**
+
+**1. Output Layer Derivatives:**
+$$\frac{\partial L}{\partial \hat{y}} = \hat{y} - y$$
+$$\frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial \hat{y}} \cdot h^T$$
+$$\frac{\partial L}{\partial b_2} = \frac{\partial L}{\partial \hat{y}}$$
+
+**2. Hidden Layer Derivatives:**
+$$\frac{\partial L}{\partial h} = W_2^T \frac{\partial L}{\partial \hat{y}}$$
+$$\frac{\partial L}{\partial W_1} = \frac{\partial L}{\partial h} \cdot \sigma'(W_1x + b_1) \cdot x^T$$
+$$\frac{\partial L}{\partial b_1} = \frac{\partial L}{\partial h} \cdot \sigma'(W_1x + b_1)$$
+
+**3. ReLU Derivative:**
+$$\sigma'(z) = \begin{cases} 1 & \text{if } z > 0 \\ 0 & \text{if } z \leq 0 \end{cases}$$
+
+**Implementation:**
+```python
+def compute_derivatives(x, y, W1, b1, W2, b2):
+    # Forward pass
+    z1 = W1 @ x + b1
+    h = np.maximum(0, z1)  # ReLU
+    z2 = W2 @ h + b2
+    y_pred = z2
+    
+    # Loss
+    loss = 0.5 * (y_pred - y)**2
+    
+    # Backward pass
+    dL_dy = y_pred - y
+    
+    # Output layer derivatives
+    dL_dW2 = dL_dy * h.T
+    dL_db2 = dL_dy
+    
+    # Hidden layer derivatives
+    dL_dh = W2.T * dL_dy
+    dL_dz1 = dL_dh * (z1 > 0)  # ReLU derivative
+    dL_dW1 = dL_dz1 * x.T
+    dL_db1 = dL_dz1
+    
+    return dL_dW1, dL_db1, dL_dW2, dL_db2
+```
+
+**Key Insights:**
+- Chain rule is fundamental to backpropagation
+- ReLU derivative is piecewise constant
+- Derivatives flow backward through the network
+- Understanding derivatives enables gradient-based optimization
 
 ## Problem 31: Neural Network Derivatives
 
