@@ -8,9 +8,9 @@
 
 **Options:**
 - a) Stochastic label noise
--b) Very few data points
-c) Nonlinear relationships in the data
-d) Insufficient model complexity
+- b) Very few data points
+- c) Nonlinear relationships in the data
+- d) Insufficient model complexity
 
 **Correct answers:** (a)
 
@@ -103,11 +103,11 @@ A line plot titled "Training and Validation Loss" shows two curves over "Number 
 **Sub-question:** Which of the following statements are true?
 
 **Options:**
-a) $\bigcirc$ The model has high bias and low variance.
-b) $\bigcirc$ The large gap between training and validation loss indicates underfitting.
-c) $\bigcirc$ Training for more epochs will eventually decrease validation loss.
-d) $\text{\textcircled{O}}$ The model might be too complex for the dataset.
-e) $\text{\textcircled{O}}$ The model is likely memorizing the training data.
+- a) $\bigcirc$ The model has high bias and low variance.
+- b) $\bigcirc$ The large gap between training and validation loss indicates underfitting.
+- c) $\bigcirc$ Training for more epochs will eventually decrease validation loss.
+- d) $\text{\textcircled{O}}$ The model might be too complex for the dataset.
+- e) $\text{\textcircled{O}}$ The model is likely memorizing the training data.
 
 **Correct answers:** (d), (e)
 
@@ -121,10 +121,10 @@ This is a classic example of overfitting, which is caused when we have too compl
 **Question:** Which of the following models that we studied in class use maximum likelihood estimation?
 
 **Options:**
-a) $\text{\textcircled{O}}$ Linear regression with Gaussian noise model
-b) $\bigcirc$ Principal Components Analysis
-c) $\text{\textcircled{O}}$ Gaussian Mixture Models
-d) $\text{\textcircled{O}}$ Neural Network trained to do classification with softmax cross entropy loss
+- a) $\text{\textcircled{O}}$ Linear regression with Gaussian noise model
+- b) $\bigcirc$ Principal Components Analysis
+- c) $\text{\textcircled{O}}$ Gaussian Mixture Models
+- d) $\text{\textcircled{O}}$ Neural Network trained to do classification with softmax cross entropy loss
 
 **Correct answers:** (a), (c), (d)
 
