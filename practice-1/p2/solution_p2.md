@@ -492,7 +492,7 @@ This is **false**. Decreasing the learning rate does **not guarantee** convergen
 
 **Key insight:** **e^x** is the only function with **positive second derivative everywhere**.
 
-**17. Which of the following is true about a validation set and how it is used?**
+**Problem 17. Which of the following is true about a validation set and how it is used?**
 
 *   (a) The validation set allows us to estimate how a model would perform on unseen data
 *   (b) When deciding to use a validation set, you do not need a separate test set
@@ -524,7 +524,7 @@ This is **false**. Decreasing the learning rate does **not guarantee** convergen
 
 **Key insight:** Validation sets provide **honest estimates** of model performance for **decision-making**.
 
-**18. (2 points) Suppose we have the function**
+**Problem 18. (2 points) Suppose we have the function**
 
 $$f(x) = \begin{cases} 1 - e^{-\frac{1}{x^2}} & x \neq 0 \\ 1 & x = 0 \end{cases}$$
 
@@ -542,7 +542,7 @@ $$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
 
 **Explanation:** For $x_0 = 0$ gradient descent is stationary and for $x_0 \neq 0$ it will head towards $\text{sign}(x_0) \infty$ very slowly.
 
-**19. A bag contains 4 red balls and 3 green balls. We draw 3 balls from the bag without replacement. What is the probability that all 3 balls are red? Express your result as a fraction, or as a percentage rounded to the integer percentage (e.g. 77%).**
+**Problem 19. A bag contains 4 red balls and 3 green balls. We draw 3 balls from the bag without replacement. What is the probability that all 3 balls are red? Express your result as a fraction, or as a percentage rounded to the integer percentage (e.g. 77%).**
 
 **Answer:** 11% or 4/35
 
@@ -570,7 +570,7 @@ $P(\text{All 3 red}) = \frac{4}{7} \times \frac{3}{6} \times \frac{2}{5} = \frac
 
 **Key insight:** **Without replacement** means the probability changes after each draw, unlike binomial probability.
 
-**20. True/False: For a matrix $X \in \mathbb{R}^{n \times d}$ of rank $d$, there exists an orthogonal matrix $V$ and diagonal matrix $D$ such that $X^T X = VDV^T$.**
+**Problem 20. True/False: For a matrix $X \in \mathbb{R}^{n \times d}$ of rank $d$, there exists an orthogonal matrix $V$ and diagonal matrix $D$ such that $X^T X = VDV^T$.**
 
 *   (a) True
 *   (b) False
@@ -602,7 +602,7 @@ This is **true**. For a matrix X ∈ ℝ^(n×d) of rank d, the matrix X^T X has 
 
 **Key insight:** The **spectral theorem** guarantees that any **symmetric matrix** can be diagonalized by an **orthogonal matrix**.
 
-**21. You have built a spam detection classifier to help you clean up your email inbox. Your system has uncovered that 90% of all spam emails contain the word "discount". If you assume that the overall probability of an email being spam is 5% and 15% of all incoming emails contain the word "discount", what is the probability that an email containing "discount" is actually spam?**
+**Problem 21. You have built a spam detection classifier to help you clean up your email inbox. Your system has uncovered that 90% of all spam emails contain the word "discount". If you assume that the overall probability of an email being spam is 5% and 15% of all incoming emails contain the word "discount", what is the probability that an email containing "discount" is actually spam?**
 
 *   (a) 0.9
 *   (b) 0.135
@@ -631,7 +631,7 @@ $P(\text{Spam}|\text{Discount}) = \frac{P(\text{Discount}|\text{Spam}) \times P(
 
 **Key insight:** **Base rate matters** - even high conditional probabilities can lead to low posterior probabilities when the prior is small.
 
-**22. Determine if the following statements about k-fold cross-validation are true or false:**
+**Problem 22. Determine if the following statements about k-fold cross-validation are true or false:**
 
 **Statement (1):** For large datasets with $n$ samples, it is recommended to use k-fold cross-validation with a value of $k$ that is close to $n$.
 
@@ -667,7 +667,7 @@ $P(\text{Spam}|\text{Discount}) = \frac{P(\text{Discount}|\text{Spam}) \times P(
 
 **Key insight:** **k-fold CV** trades **computational cost** for **estimation accuracy** - larger k is more accurate but more expensive.
 
-**23. What is the primary encouragement of the L1 regularization term in Lasso regression?**
+**Problem 23. What is the primary encouragement of the L1 regularization term in Lasso regression?**
 
 *   (a) Encourages the model to fit the training data more closely.
 *   (b) Encourages the model to have large coefficients for all features.
@@ -705,7 +705,7 @@ $P(\text{Spam}|\text{Discount}) = \frac{P(\text{Discount}|\text{Spam}) \times P(
 
 **Key insight:** **L1 regularization** provides **automatic feature selection** through sparsity induction.
 
-**24. Consider fitting a linear model by minimizing the least squares objective $\hat{w} = \arg \min_w \sum_{i=1}^n (y_i - x_i^T w)^2$ for a training dataset of i.i.d. input-output pairs $\{(x_i, y_i)\}_{i=1}^n$. Which of the following statements about this objective is true?**
+**Problem 24. Consider fitting a linear model by minimizing the least squares objective $\hat{w} = \arg \min_w \sum_{i=1}^n (y_i - x_i^T w)^2$ for a training dataset of i.i.d. input-output pairs $\{(x_i, y_i)\}_{i=1}^n$. Which of the following statements about this objective is true?**
 
 *   (a) The least squares objective is equivalent to maximizing the likelihood function of the observed data assuming Gaussian noise.
 *   (b) The least squares objective is equivalent to minimizing the likelihood function of the observed data assuming Gaussian noise.
@@ -743,7 +743,7 @@ $\max \log L(w) = \min \sum_i (y_i - x_i^T w)^2$
 
 **Key insight:** **Gaussian noise** leads to **squared error loss**, while **Laplace noise** would lead to **absolute error loss**.
 
-**25. Consider a matrix $A \in \mathbb{R}^{n \times n}$ that is symmetric and has orthonormal columns. Which of the following statements is true?**
+**Problem 25. Consider a matrix $A \in \mathbb{R}^{n \times n}$ that is symmetric and has orthonormal columns. Which of the following statements is true?**
 
 *   (a) All eigenvalues of $A$ are real.
 *   (b) At least one eigenvalue of $A$ is complex.
@@ -781,7 +781,7 @@ $\max \log L(w) = \min \sum_i (y_i - x_i^T w)^2$
 
 **Key insight:** **Symmetric matrices** have **real eigenvalues** regardless of other properties.
 
-**26. Consider the closed form of the optimal weight for Ridge Regression, as derived in a previous homework (HW1):**
+**Problem 26. Consider the closed form of the optimal weight for Ridge Regression, as derived in a previous homework (HW1):**
 
 $$\hat{W} = (X^T X + \lambda I)^{-1} X^T Y$$
 
