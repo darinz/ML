@@ -6419,6 +6419,253 @@ So at every iteration, either the loss is decreasing or staying the same. If it 
 See lecture 16 slide 19.
 https://courses.cs.washington.edu/courses/cse446/25wi/schedule/lecture-16/lecture_16.pdf
 
+## Detailed Solution Explanation
+
+**Understanding K-means Convergence:**
+
+This problem explores the theoretical guarantee that K-means converges to a local minimum, providing a rigorous proof of this fundamental property.
+
+**Mathematical Framework:**
+
+**K-means Objective Function:**
+$$L(\{S_1, \ldots, S_K\}, \{\mu_1, \ldots, \mu_K\}) = \sum_{k=1}^{K} \sum_{x_i \in S_k} ||x_i - \mu_k||^2$$
+
+where:
+- $S_k$ is the set of points assigned to cluster $k$
+- $\mu_k$ is the centroid of cluster $k$
+
+**K-means Algorithm:**
+1. **Assignment Step:** Assign each point to nearest centroid
+2. **Update Step:** Recompute centroids as means of assigned points
+3. **Repeat:** Until convergence
+
+**Convergence Proof:**
+
+**1. Loss Function Properties:**
+
+**Non-negativity:**
+$$L \geq 0 \quad \forall \text{ valid assignments and centroids}$$
+
+**Bounded Below:**
+Since $L \geq 0$, the loss function is bounded below by zero.
+
+**2. Assignment Step Monotonicity:**
+
+**Mathematical Statement:**
+For any fixed centroids $\{\mu_1, \ldots, \mu_K\}$, the assignment step cannot increase the loss.
+
+**Proof:**
+```python
+def assignment_step_monotonicity(points, centroids):
+    # Before assignment
+    old_loss = compute_loss(points, old_assignments, centroids)
+    
+    # New assignment: each point to nearest centroid
+    new_assignments = assign_to_nearest(points, centroids)
+    new_loss = compute_loss(points, new_assignments, centroids)
+    
+    # By definition of "nearest", new_loss <= old_loss
+    assert new_loss <= old_loss
+    return new_loss <= old_loss
+```
+
+**Mathematical Justification:**
+For each point $x_i$:
+- **Old Assignment:** $x_i \in S_j$ (some cluster $j$)
+- **New Assignment:** $x_i \in S_k$ where $k = \arg\min_j ||x_i - \mu_j||^2$
+- **Distance Reduction:** $||x_i - \mu_k||^2 \leq ||x_i - \mu_j||^2$
+
+Therefore:
+$$L_{\text{new}} \leq L_{\text{old}}$$
+
+**3. Update Step Monotonicity:**
+
+**Mathematical Statement:**
+For any fixed assignments $\{S_1, \ldots, S_K\}$, the centroid update step cannot increase the loss.
+
+**Proof:**
+```python
+def update_step_monotonicity(points, assignments):
+    # Before update
+    old_centroids = compute_centroids(points, assignments)
+    old_loss = compute_loss(points, assignments, old_centroids)
+    
+    # New centroids: means of assigned points
+    new_centroids = [np.mean(points[assignments == k]) for k in range(K)]
+    new_loss = compute_loss(points, assignments, new_centroids)
+    
+    # Mean minimizes squared distance
+    assert new_loss <= old_loss
+    return new_loss <= old_loss
+```
+
+**Mathematical Justification:**
+For cluster $k$ with points $\{x_1, \ldots, x_{n_k}\}$:
+- **Old Centroid:** $\mu_k^{\text{old}}$
+- **New Centroid:** $\mu_k^{\text{new}} = \frac{1}{n_k} \sum_{i=1}^{n_k} x_i$
+
+The mean minimizes the sum of squared distances:
+$$\mu_k^{\text{new}} = \arg\min_{\mu} \sum_{i=1}^{n_k} ||x_i - \mu||^2$$
+
+Therefore:
+$$L_{\text{new}} \leq L_{\text{old}}$$
+
+**4. Overall Algorithm Monotonicity:**
+
+**Combined Result:**
+Since both steps are non-increasing:
+$$L^{(t+1)} \leq L^{(t)} \quad \forall t$$
+
+**5. Finite Number of Assignments:**
+
+**Upper Bound:**
+The number of possible cluster assignments is finite:
+$$\text{Number of assignments} \leq K^n$$
+
+where:
+- $K$ = number of clusters
+- $n$ = number of data points
+
+**Mathematical Verification:**
+```python
+def count_possible_assignments(n, K):
+    # Each point can be assigned to any of K clusters
+    # Total combinations: K^n
+    return K**n
+
+# Example: n=100, K=3
+n, K = 100, 3
+max_assignments = count_possible_assignments(n, K)
+print(f"Maximum possible assignments: {max_assignments}")
+# Result: 3^100 (finite but large)
+```
+
+**6. Convergence Guarantee:**
+
+**Mathematical Statement:**
+K-means converges to a local minimum in a finite number of iterations.
+
+**Proof:**
+1. **Monotonicity:** $L^{(t+1)} \leq L^{(t)}$
+2. **Bounded Below:** $L \geq 0$
+3. **Finite Assignments:** At most $K^n$ different assignments
+4. **No Revisiting:** Algorithm never revisits an assignment (would increase loss)
+
+**Convergence Conditions:**
+```python
+def kmeans_convergence_check(old_centroids, new_centroids, old_assignments, new_assignments, tol=1e-6):
+    # Check centroid convergence
+    centroid_converged = np.allclose(old_centroids, new_centroids, atol=tol)
+    
+    # Check assignment convergence
+    assignment_converged = np.array_equal(old_assignments, new_assignments)
+    
+    return centroid_converged and assignment_converged
+```
+
+**Implementation Example:**
+
+**Complete K-means Algorithm:**
+```python
+def kmeans_convergence_proof(X, K, max_iter=100):
+    # Initialize centroids
+    centroids = initialize_centroids(X, K)
+    loss_history = []
+    
+    for iteration in range(max_iter):
+        # Store old values
+        old_centroids = centroids.copy()
+        old_loss = compute_loss(X, assignments, centroids)
+        
+        # Assignment step (monotonic)
+        assignments = assign_to_nearest(X, centroids)
+        loss_after_assignment = compute_loss(X, assignments, centroids)
+        assert loss_after_assignment <= old_loss, "Assignment step increased loss!"
+        
+        # Update step (monotonic)
+        centroids = compute_centroids(X, assignments)
+        new_loss = compute_loss(X, assignments, centroids)
+        assert new_loss <= loss_after_assignment, "Update step increased loss!"
+        
+        # Record loss
+        loss_history.append(new_loss)
+        
+        # Check convergence
+        if np.allclose(old_centroids, centroids):
+            print(f"Converged after {iteration + 1} iterations")
+            break
+    
+    return centroids, assignments, loss_history
+```
+
+**Visual Representation:**
+
+**Loss Function Evolution:**
+```
+Loss
+  ^
+  |    ●
+  |   ●
+  |  ●
+  | ●
+  |●
+  |________________> Iteration
+  0  1  2  3  4  5
+
+Properties:
+- Always decreasing or constant
+- Bounded below by 0
+- Finite number of possible values
+```
+
+**Practical Implications:**
+
+**1. Guaranteed Termination:**
+- Algorithm always stops
+- No infinite loops possible
+- Predictable runtime
+
+**2. Local Optimality:**
+- Converges to local minimum
+- Not necessarily global minimum
+- Multiple runs may give different results
+
+**3. Initialization Sensitivity:**
+```python
+def multiple_kmeans_runs(X, K, n_runs=10):
+    best_loss = float('inf')
+    best_centroids = None
+    
+    for run in range(n_runs):
+        centroids, assignments, loss_history = kmeans_convergence_proof(X, K)
+        final_loss = loss_history[-1]
+        
+        if final_loss < best_loss:
+            best_loss = final_loss
+            best_centroids = centroids
+    
+    return best_centroids, best_loss
+```
+
+**4. Convergence Speed:**
+```python
+def analyze_convergence_speed(loss_history):
+    # Calculate convergence rate
+    convergence_rate = []
+    for i in range(1, len(loss_history)):
+        rate = (loss_history[i-1] - loss_history[i]) / loss_history[i-1]
+        convergence_rate.append(rate)
+    
+    return convergence_rate
+```
+
+**Key Insights:**
+- K-means loss function is monotonically non-increasing
+- Both assignment and update steps preserve this property
+- Finite number of possible assignments guarantees convergence
+- Algorithm converges to local minimum, not necessarily global
+- Understanding convergence helps with algorithm design and analysis
+
 ## Problem 34: Eigenvalue and Eigenspace
 
 **1 point**
@@ -6429,4 +6676,281 @@ https://courses.cs.washington.edu/courses/cse446/25wi/schedule/lecture-16/lectur
 
 **Explanation:** 
 The eigenspace of $\lambda$ equaling $\mathbb{R}^d$ means for any $v \in \mathbb{R}^d$, $Mv = \lambda v$. $M = \lambda I$ immediately follows.
+
+## Detailed Solution Explanation
+
+**Understanding Eigenvalue and Eigenspace:**
+
+This problem explores the relationship between eigenvalues, eigenspaces, and matrix structure, specifically when the eigenspace spans the entire vector space.
+
+**Mathematical Framework:**
+
+**Eigenvalue Definition:**
+For matrix $M \in \mathbb{R}^{d \times d}$ and scalar $\lambda$:
+$$Mv = \lambda v \quad \text{for some non-zero vector } v$$
+
+**Eigenspace Definition:**
+The eigenspace corresponding to eigenvalue $\lambda$ is:
+$$E_\lambda = \{v \in \mathbb{R}^d : Mv = \lambda v\}$$
+
+**Problem Statement:**
+Given that $E_\lambda = \mathbb{R}^d$, find $M$ in terms of $\lambda$.
+
+**Analysis:**
+
+**1. Eigenspace Condition:**
+
+**Mathematical Meaning:**
+$$E_\lambda = \mathbb{R}^d \implies \forall v \in \mathbb{R}^d, Mv = \lambda v$$
+
+**Implication:**
+Every vector in $\mathbb{R}^d$ is an eigenvector of $M$ with eigenvalue $\lambda$.
+
+**2. Matrix Characterization:**
+
+**Standard Basis Analysis:**
+Let $\{e_1, e_2, \ldots, e_d\}$ be the standard basis of $\mathbb{R}^d$.
+
+For each basis vector $e_i$:
+$$Me_i = \lambda e_i$$
+
+**Matrix Construction:**
+```python
+def construct_matrix_from_eigenspace(lambda_val, d):
+    # If every vector is an eigenvector with eigenvalue λ
+    # Then M = λI
+    M = lambda_val * np.eye(d)
+    return M
+
+# Example: λ = 3, d = 3
+lambda_val, d = 3, 3
+M = construct_matrix_from_eigenspace(lambda_val, d)
+print(f"M = λI = {lambda_val}I")
+print(M)
+```
+
+**3. Verification:**
+
+**Forward Direction:**
+If $M = \lambda I$, then for any $v \in \mathbb{R}^d$:
+$$Mv = \lambda I v = \lambda v$$
+
+Therefore, every vector is an eigenvector with eigenvalue $\lambda$.
+
+**Backward Direction:**
+If every vector is an eigenvector with eigenvalue $\lambda$, then:
+$$Mv = \lambda v \quad \forall v \in \mathbb{R}^d$$
+
+This implies $M = \lambda I$.
+
+**Mathematical Proof:**
+
+**Step 1: Standard Basis Verification**
+For standard basis vectors $e_i$:
+$$Me_i = \lambda e_i$$
+
+This means the $i$-th column of $M$ is $\lambda e_i$.
+
+**Step 2: Matrix Structure**
+$$M = [Me_1, Me_2, \ldots, Me_d] = [\lambda e_1, \lambda e_2, \ldots, \lambda e_d]$$
+
+**Step 3: Diagonal Matrix**
+$$M = \lambda \begin{bmatrix} 1 & 0 & \cdots & 0 \\ 0 & 1 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & 1 \end{bmatrix} = \lambda I$$
+
+**Implementation Example:**
+
+**Verification Function:**
+```python
+def verify_eigenspace_condition(M, lambda_val, d):
+    # Check if M = λI
+    expected_M = lambda_val * np.eye(d)
+    is_identity_scaled = np.allclose(M, expected_M)
+    
+    # Check if every standard basis vector is an eigenvector
+    basis_vectors = np.eye(d)
+    all_eigenvectors = True
+    
+    for i in range(d):
+        v = basis_vectors[i]
+        Mv = M @ v
+        lambda_v = lambda_val * v
+        
+        if not np.allclose(Mv, lambda_v):
+            all_eigenvectors = False
+            break
+    
+    return is_identity_scaled and all_eigenvectors
+
+# Test with λ = 5, d = 4
+lambda_val, d = 5, 4
+M = lambda_val * np.eye(d)
+result = verify_eigenspace_condition(M, lambda_val, d)
+print(f"Verification result: {result}")  # True
+```
+
+**Geometric Interpretation:**
+
+**1. Scaling Transformation:**
+- **Matrix:** $M = \lambda I$
+- **Effect:** Scales every vector by factor $\lambda$
+- **Eigenvalue:** $\lambda$ (every direction scaled by same amount)
+
+**2. Isotropic Scaling:**
+```python
+def visualize_scaling_transformation(lambda_val):
+    # Original vectors
+    vectors = np.array([[1, 0], [0, 1], [1, 1], [-1, 1]])
+    
+    # Transformation matrix
+    M = lambda_val * np.eye(2)
+    
+    # Transformed vectors
+    transformed_vectors = vectors @ M.T
+    
+    # All vectors scaled by λ
+    for i, (orig, trans) in enumerate(zip(vectors, transformed_vectors)):
+        print(f"Vector {i+1}: {orig} → {trans} (scaled by {lambda_val})")
+```
+
+**3. Special Cases:**
+
+**Case 1: λ = 1 (Identity Matrix)**
+```python
+# M = I
+# Every vector is an eigenvector with eigenvalue 1
+# No change to any vector
+M_identity = np.eye(3)
+print("Identity matrix: no scaling")
+```
+
+**Case 2: λ = 0 (Zero Matrix)**
+```python
+# M = 0
+# Every vector is an eigenvector with eigenvalue 0
+# All vectors mapped to zero
+M_zero = np.zeros((3, 3))
+print("Zero matrix: all vectors mapped to zero")
+```
+
+**Case 3: λ = -1 (Negative Identity)**
+```python
+# M = -I
+# Every vector is an eigenvector with eigenvalue -1
+# All vectors reflected through origin
+M_negative = -np.eye(3)
+print("Negative identity: reflection through origin")
+```
+
+**Algebraic Properties:**
+
+**1. Eigenvalue Multiplicity:**
+- **Algebraic Multiplicity:** $d$ (characteristic polynomial has root $\lambda$ with multiplicity $d$)
+- **Geometric Multiplicity:** $d$ (eigenspace has dimension $d$)
+
+**2. Characteristic Polynomial:**
+$$p_M(t) = \det(M - tI) = \det(\lambda I - tI) = \det((\lambda - t)I) = (\lambda - t)^d$$
+
+**3. Minimal Polynomial:**
+$$m_M(t) = t - \lambda$$
+
+**Implementation Considerations:**
+
+**1. Matrix Construction:**
+```python
+def create_scaling_matrix(lambda_val, d):
+    """Create matrix M = λI where every vector is an eigenvector"""
+    return lambda_val * np.eye(d)
+
+# Example usage
+M = create_scaling_matrix(2.5, 4)
+print(f"Scaling matrix with λ = 2.5:")
+print(M)
+```
+
+**2. Eigenvalue Computation:**
+```python
+def compute_eigenvalues(M):
+    """Compute eigenvalues of matrix M"""
+    eigenvals = np.linalg.eigvals(M)
+    return eigenvals
+
+# For M = λI, all eigenvalues should be λ
+M = 3.0 * np.eye(5)
+eigenvals = compute_eigenvalues(M)
+print(f"Eigenvalues: {eigenvals}")  # All should be 3.0
+```
+
+**3. Eigenspace Verification:**
+```python
+def verify_full_eigenspace(M, lambda_val, d):
+    """Verify that eigenspace of λ spans entire space"""
+    # Compute eigenvectors
+    eigenvals, eigenvecs = np.linalg.eig(M)
+    
+    # Find eigenvectors corresponding to λ
+    lambda_indices = np.where(np.isclose(eigenvals, lambda_val))[0]
+    lambda_eigenvecs = eigenvecs[:, lambda_indices]
+    
+    # Check if span is full-dimensional
+    rank = np.linalg.matrix_rank(lambda_eigenvecs)
+    spans_full_space = rank == d
+    
+    return spans_full_space
+
+# Test
+M = 2.0 * np.eye(3)
+result = verify_full_eigenspace(M, 2.0, 3)
+print(f"Eigenspace spans full space: {result}")  # True
+```
+
+**Practical Applications:**
+
+**1. Scaling Transformations:**
+- **Computer Graphics:** Uniform scaling of objects
+- **Image Processing:** Brightness/contrast adjustments
+- **Physics:** Isotropic material properties
+
+**2. Numerical Stability:**
+```python
+def condition_number_analysis(lambda_val, d):
+    """Analyze condition number of M = λI"""
+    M = lambda_val * np.eye(d)
+    cond_num = np.linalg.cond(M)
+    
+    print(f"Condition number of {lambda_val}I: {cond_num}")
+    print(f"Numerical stability: {'Good' if cond_num == 1 else 'Depends on λ'}")
+    
+    return cond_num
+
+# Identity matrix has condition number 1 (optimal)
+condition_number_analysis(1.0, 5)
+```
+
+**3. Linear Algebra Operations:**
+```python
+def matrix_operations_with_scaling(lambda_val, d):
+    """Demonstrate matrix operations with M = λI"""
+    M = lambda_val * np.eye(d)
+    
+    # Inverse
+    M_inv = np.linalg.inv(M)
+    print(f"Inverse of {lambda_val}I: {1/lambda_val}I")
+    
+    # Determinant
+    det_M = np.linalg.det(M)
+    print(f"Determinant: {det_M} = {lambda_val}^{d}")
+    
+    # Trace
+    trace_M = np.trace(M)
+    print(f"Trace: {trace_M} = {lambda_val} × {d}")
+    
+    return M_inv, det_M, trace_M
+```
+
+**Key Insights:**
+- When eigenspace equals entire space, matrix must be scalar multiple of identity
+- This represents uniform scaling in all directions
+- Characteristic polynomial has single root with multiplicity d
+- Understanding this relationship is fundamental to linear algebra
+- Such matrices have optimal numerical properties
 
