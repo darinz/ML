@@ -66,7 +66,7 @@ $P(X,Y) = P(Y|X)P(X|Y) = P(Y)P(X)$ ✓
 
 **Key insight:** **Independence** implies **no linear relationship** (zero covariance) and **factorization** of expectations and probabilities.
 
-**2. A certain disease affects 2% of the population. A diagnostic test for this disease has the following characteristics:**
+**Problem 2. A certain disease affects 2% of the population. A diagnostic test for this disease has the following characteristics:**
 *   **Sensitivity (True Positive Rate):** If a person has the disease, the test returns a positive result with probability 0.90.
 *   **False Positive Rate:** If a person does not have the disease, the test returns a positive result with probability 0.10.
 
@@ -129,7 +129,7 @@ $= \frac{9}{58}$
 
 **Key insight:** **Low disease prevalence** combined with **imperfect test accuracy** means most positive results are **false positives**.
 
-**3.**
+**Problem 3.**
 
 **The probability mass function of a geometric distribution with unknown parameter $0 < p \le 1$ is**
 $$P(X=k|p) = (1-p)^{k-1}p$$
@@ -192,7 +192,7 @@ $p = \frac{n}{\sum_{i=1}^{n} x_i}$
 
 **Key insight:** **MLE for geometric distribution** is the **reciprocal of the sample mean**, similar to the exponential distribution.
 
-**4. Select All That Apply**
+**Problem 4. Select All That Apply**
 
 **Which of the following is true about maximum likelihood estimation, in general?**
 *   (a) It always produces unbiased parameter estimates.
@@ -261,7 +261,7 @@ $\max L(\theta) = \max P(\text{data}|\theta)$
 
 **Key insight:** **MLE** is a **frequentist method** that maximizes **data likelihood** and works for **any distribution type**.
 
-**5. Select All That Apply**
+**Problem 5. Select All That Apply**
 
 **Suppose $A \in \mathbb{R}^{n \times n}$ is a positive semi-definite (PSD) matrix. Which of the following is always true about $A$?**
 *   (a) All eigenvalues of $A$ are non-negative.
@@ -321,7 +321,7 @@ Since $\|v\|^2 > 0$, we must have $\lambda \geq 0$
 
 **Key insight:** **PSD matrices** have **non-negative eigenvalues** and satisfy **x^T A x ≥ 0** for all vectors x.
 
-**6.**
+**Problem 6.**
 
 **Assume we have $X \in \mathbb{R}^{n \times p}$ representing $n$ data points with $p$ features each and $Y \in \mathbb{R}^n$ representing the corresponding outcomes. Using linear regression with no offset/intercept, provide an expression to predict the outcome for a new data point $x_{\text{new}} \in \mathbb{R}^p$ in terms of $X$ and $Y$.**
 
@@ -375,7 +375,7 @@ $= x_{\text{new}}^T (X^T X)^{-1} X^T Y$
 
 **Key insight:** **Prediction** is the **dot product** of the new feature vector with the **learned weight vector**.
 
-**7.**
+**Problem 7.**
 
 **Suppose you want to use linear regression to fit a weight vector $w \in \mathbb{R}^d$ and an offset/intercept term $b \in \mathbb{R}$ using data points $x_i \in \mathbb{R}^d$. What is the minimum number of data points $n$ required in your training set such that there will be a single unique solution?**
 
@@ -432,7 +432,7 @@ $\hat{w}_{\text{aug}} = (X_{\text{aug}}^T X_{\text{aug}})^{-1} X_{\text{aug}}^T 
 
 **Key insight:** **n = d+1** ensures the **augmented data matrix** has **full rank** for a **unique solution**.
 
-**8. One Answer**
+**Problem 8. One Answer**
 
 **In a regression model, what is the primary purpose of using general basis functions?**
 *   (a) Transform nonlinear relationships between features and the target variable into a linear form.
@@ -499,7 +499,7 @@ where $\phi_i(x)$ are basis functions
 
 **Key insight:** **Basis functions** enable **linear models** to capture **nonlinear patterns** through **feature transformation**.
 
-**9. One Answer**
+**Problem 9. One Answer**
 
 **In regression, when our prediction model is linear-Gaussian, i.e., $y_i \sim N(x_i^T w, \sigma^2)$ for target output $y_i \in \mathbb{R}$ and feature vectors $x_i \in \mathbb{R}^d$, finding the $w$ that maximizes the data likelihood is equivalent to minimizing the average absolute difference between the target output and predicted output.**
 *   (a) True
@@ -556,7 +556,7 @@ $L_{\text{absolute}} = \sum_i |y_i - x_i^T w|$
 
 **Key insight:** **Gaussian noise assumption** leads to **squared error loss**, not **absolute error loss**.
 
-**10. Select All That Apply**
+**Problem 10. Select All That Apply**
 
 **In ridge regression, we obtain $\hat{w}_{\text{ridge}} = (X^T X + \lambda I)^{-1} X^T y$ for $\lambda \geq 0$. Which of the following is true?**
 *   (a) $X^T X$ is always invertible.
@@ -633,7 +633,7 @@ $\min \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** **Ridge regression** trades **bias for variance** through **L2 regularization**.
 
-**11. One Answer**
+**Problem 11. One Answer**
 
 **You have a dataset with many features. You know a priori that only a small portion of those features are relevant to your prediction problem, but you don't know which are the relevant features. Is it better to use Ridge regression or Lasso regression?**
 *   (a) Ridge regression
@@ -707,7 +707,7 @@ $\min \|y - Xw\|^2 + \lambda\|w\|_2^2$
 
 **Key insight:** **Lasso's sparsity** makes it ideal for **feature selection** when you know most features are irrelevant.
 
-**12. One Answer**
+**Problem 12. One Answer**
 
 **Which of the following best explains the effect of Lasso regression on the bias-variance tradeoff?**
 *   (a) Lasso regression reduces both bias and variance simultaneously, leading to a more accurate model.
@@ -776,7 +776,7 @@ $\min \|y - Xw\|^2 + \lambda\|w\|_2^2$
 
 **Key insight:** **Lasso** implements the **bias-variance tradeoff** through **L1 regularization** and **feature selection**.
 
-**13. One Answer**
+**Problem 13. One Answer**
 
 **In prediction, the total expected prediction error can be decomposed into three components: bias squared, variance, and irreducible error. By optimizing the model complexity and increasing the size of the dataset, it is possible to reduce all three components.**
 *   (a) True
@@ -842,7 +842,7 @@ $\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
 
 **Key insight:** **Irreducible error** represents the **fundamental limit** on prediction accuracy that **cannot be overcome**.
 
-**14. One Answer**
+**Problem 14. One Answer**
 
 **Which strategy is most effective for reducing variance in a high-variance, low-bias model?**
 *   (a) Increasing the number of training examples.
@@ -912,7 +912,7 @@ $\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
 
 **Key insight:** **More training data** is the **most effective** way to reduce variance in high-variance models.
 
-**15. One Answer**
+**Problem 15. One Answer**
 
 **If your model has high validation loss and high training loss, which action is most appropriate to improve the model?**
 *   (a) Increase the model complexity.
@@ -983,7 +983,7 @@ $\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
 
 **Key insight:** **High training and validation loss** indicates **underfitting**, which requires **increasing model complexity**.
 
-**16.**
+**Problem 16.**
 
 **In a project using a customer purchase history dataset with a 60/20/20 train, validation, and test split, the validation accuracy remains consistently lower than the training accuracy. What could be a reason for this?**
 
@@ -1048,7 +1048,7 @@ $\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
 
 **Key insight:** **Consistent gap** between training and validation performance typically indicates **overfitting** due to **model complexity** exceeding **data capacity**.
 
-**17. One Answer**
+**Problem 17. One Answer**
 
 **A consortium of 10 hospitals have pooled together their Electronic Health Records data and want to build a machine learning model to predict patient prognosis based on patient records in their hospitals. They want to maximize the accuracy of their model across all 10 hospitals and do not plan to deploy their model in other hospitals. How should they split the data into train / validation / test sets?**
 *   (a) Leave out data from 1 hospital for the validation set, data from another hospital for the test set, and use the rest for train set.
