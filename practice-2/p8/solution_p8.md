@@ -7,14 +7,18 @@
 **Question:** Which of the following is the cause/reason for irreducible error?
 
 **Options:**
-a) Stochastic label noise
-b) Very few data points
+- a) Stochastic label noise
+-b) Very few data points
 c) Nonlinear relationships in the data
 d) Insufficient model complexity
 
 **Correct answers:** (a)
 
-**Explanation:** A is correct. Stochastic label noise is what drives irreducible error. See lecture 4 slides. In essence, irreducible error comes from randomness that cannot be modeled since there is no deeper pattern to it. B and D are wrong because fewer data points and insufficient model complexity are responsible for reducible error. C is wrong because nonlinear relationships in the data don't have anything to do with irreducible error.
+**Explanation:** 
+- **A is correct.** Stochastic label noise is what drives irreducible error. See lecture 4 slides. 
+- In essence, irreducible error comes from randomness that cannot be modeled since there is no deeper pattern to it. 
+- **B and D are wrong** because fewer data points and insufficient model complexity are responsible for reducible error. 
+- **C is wrong** because nonlinear relationships in the data don't have anything to do with irreducible error.
 
 ## Problem 2: Bias-Variance Analysis
 
@@ -45,9 +49,16 @@ Saket only knows about bias and variance, So based on the model architectures an
 | B     | $\text{\textcircled{O}}$ | $\bigcirc$ | $\text{\textcircled{O}}$ | $\bigcirc$ |
 | C     | $\text{\textcircled{O}}$ | $\bigcirc$ | $\bigcirc$ | $\text{\textcircled{O}}$ |
 
-**Explanation:** Correct answer: A => high bias, low variance; B => low bias, low variance; C => low bias, high variance
+**Explanation:** 
+**Correct answer:** 
+- A → high bias, low variance
+- B → low bias, low variance  
+- C → low bias, high variance
 
-Due to the simpler architecture and high MSEs, A likely underfits. B achieves low but similar train/test MSEs so probably has a good balance. C has a low train MSE but a high test MSE so is probably overfitting, which matches the likely overcomplex architecture.
+**Reasoning:**
+- **Model A:** Due to the simpler architecture and high MSEs, A likely underfits.
+- **Model B:** Achieves low but similar train/test MSEs so probably has a good balance.
+- **Model C:** Has a low train MSE but a high test MSE so is probably overfitting, which matches the likely overcomplex architecture.
 
 ## Problem 3: K-Fold Cross Validation
 
@@ -65,7 +76,12 @@ You get a more accurate estimate of your test error, possibly making hyperparame
 
 A higher K means more folds and therefore much more compute/time needed to find the right hyperparameters. A higher K also means each validation set has fewer data points. This will result in higher variability in the results across different folds.
 
-**Explanation:** Possible answer: Upside - You get a more accurate estimate of your test error, possibly making hyperparameter selection more accurate. Downside - A higher K means more folds and therefore much more compute/time needed to find the right hyperparameters. A higher K also means each validation set has fewer data points. This will result in higher variability in the results across different folds.
+**Explanation:** 
+**Possible answer:**
+
+**Upside:** You get a more accurate estimate of your test error, possibly making hyperparameter selection more accurate.
+
+**Downside:** A higher K means more folds and therefore much more compute/time needed to find the right hyperparameters. A higher K also means each validation set has fewer data points. This will result in higher variability in the results across different folds.
 
 ## Problem 4: Training and Validation Loss
 
@@ -95,7 +111,8 @@ e) $\text{\textcircled{O}}$ The model is likely memorizing the training data.
 
 **Correct answers:** (d), (e)
 
-**Explanation:** This is a classic example of overfitting, which is caused when we have too complex of a model and it ends up memorizing the training set. Overfitting means the model has low bias and high variance. Thus, the only correct options are D and E.
+**Explanation:** 
+This is a classic example of overfitting, which is caused when we have too complex of a model and it ends up memorizing the training set. Overfitting means the model has low bias and high variance. Thus, the only correct options are D and E.
 
 ## Problem 5: Maximum Likelihood Estimation
 
@@ -111,4 +128,8 @@ d) $\text{\textcircled{O}}$ Neural Network trained to do classification with sof
 
 **Correct answers:** (a), (c), (d)
 
-**Explanation:** a) True: is true because you maximize the likelihood of the data under a linear model which assumes Gaussian noise. c) True: GMMs use MLE to estimate the parameters of the mixture components. d) True: Neural networks with softmax cross entropy loss are trained to maximize the likelihood of the data under the model. b) False: PCA is not a probabilistic model and does not use MLE.
+**Explanation:** 
+- **a) True:** Linear regression with Gaussian noise model is true because you maximize the likelihood of the data under a linear model which assumes Gaussian noise.
+- **c) True:** GMMs use MLE to estimate the parameters of the mixture components.
+- **d) True:** Neural networks with softmax cross entropy loss are trained to maximize the likelihood of the data under the model.
+- **b) False:** PCA is not a probabilistic model and does not use MLE.
