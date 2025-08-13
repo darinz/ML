@@ -454,7 +454,7 @@ Consider X = [1 2 3; 4 5 6] (2×3 matrix):
 
 **Key insight:** **Consistent preprocessing** using **training statistics** ensures the model sees data in the same format it was trained on.
 
-**11. Let $x_1, x_2,..., x_n \sim N(\mu, \sigma^2)$, where $\mu \in \mathbb{R}$ is an unknown variable. The PDF of $N(\mu, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$ for any $x \in \mathbb{R}$. Using the log-likelihood, find the maximum likelihood estimation of $\mu$ in terms of $x_i$.**
+**Problem 11. Let $x_1, x_2,..., x_n \sim N(\mu, \sigma^2)$, where $\mu \in \mathbb{R}$ is an unknown variable. The PDF of $N(\mu, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$ for any $x \in \mathbb{R}$. Using the log-likelihood, find the maximum likelihood estimation of $\mu$ in terms of $x_i$.**
 *   (a) $\sum_{i=1}^n x_i$
 *   (b) $\frac{1}{n}\sum_{i=1}^n x_i$
 *   (c) $\sum_{i=1}^n \frac{x_i}{\sigma^2}$
@@ -503,7 +503,7 @@ d/dμ[log L(μ)] = (1/σ²) Σᵢ₌₁ⁿ (xᵢ-μ) = 0
 
 **Key insight:** **MLE for normal mean** is always the **sample mean**, regardless of the variance σ².
 
-**12. True/False: We can make the irreducible error smaller by using a larger number of training samples.**
+**Problem 12. True/False: We can make the irreducible error smaller by using a larger number of training samples.**
 *   (a) True
 *   (b) False
 
@@ -548,7 +548,7 @@ Total Error = Bias² + Variance + Irreducible Error
 
 **Key insight:** **Irreducible error** is a **property of the data**, not the model or training process.
 
-**13. Let $f(x_1, x_2, x_3) = x_1x_2 - x_2^3 + x_1x_3$. What is $\nabla_{x_1,x_2,x_3} f$?**
+**Problem 13. Let $f(x_1, x_2, x_3) = x_1x_2 - x_2^3 + x_1x_3$. What is $\nabla_{x_1,x_2,x_3} f$?**
 *   (a) $x_2 - 3x_2^2 + x_1$
 *   (b) $[x_2+x_3, x_1 - 3x_2^2, x_1]$
 *   (c) $x_2+x_3$
@@ -605,7 +605,7 @@ f(x₁, x₂, x₃) = x₁x₂ - x₂³ + x₁x₃
 
 **Key insight:** **Gradient** is the **vector of partial derivatives** with respect to each variable.
 
-**14. True/False: Convex optimization problems are attractive because they always have exactly one global minimum.**
+**Problem 14. True/False: Convex optimization problems are attractive because they always have exactly one global minimum.**
 *   (a) True
 *   (b) False
 
@@ -656,7 +656,7 @@ f(x) = 0 for x ∈ [a,b], f(x) = 1 otherwise
 
 **Key insight:** **Convexity** guarantees **global optimality** but not **uniqueness** of the solution.
 
-**15. Ridge regression**
+**Problem 15. Ridge regression**
 *   (a) reduces variance at the expense of bias
 *   (b) adds an $l_1$ penalty norm to the cost function
 *   (c) often sets many of the weights to 0 when the regularization parameter $\lambda$ is very large
@@ -706,7 +706,7 @@ min ||y - Xw||² + λ||w||²
 
 **Key insight:** **Ridge regression** implements the **bias-variance tradeoff** through L2 regularization.
 
-**16. For a linear regression model, start with random values for each coefficient. The sum of the squared errors is calculated for each pair of input and output values. A learning rate is used as a scale factor, and the coefficients are updated in the direction towards minimizing the error. The process is repeated until a minimum sum squared error is achieved or no further improvement is possible. What is this process called?**
+**Problem 16. For a linear regression model, start with random values for each coefficient. The sum of the squared errors is calculated for each pair of input and output values. A learning rate is used as a scale factor, and the coefficients are updated in the direction towards minimizing the error. The process is repeated until a minimum sum squared error is achieved or no further improvement is possible. What is this process called?**
 *   (a) LASSO
 *   (b) Gradient Descent
 *   (c) Least squares
@@ -762,7 +762,7 @@ Gradient: ∇L(w) = -2X^T(y - Xw)
 
 **Key insight:** **Gradient descent** is an **iterative optimization algorithm** that uses gradient information to find the minimum of a function.
 
-**17. Let $X \in \mathbb{R}^{m \times n}$, $w \in \mathbb{R}^n$, and $Y \in \mathbb{R}^m$. Consider mean squared error $L(w) = ||Xw-Y||_2^2$. What is $\nabla_w L(w)$?**
+**Problem 17. Let $X \in \mathbb{R}^{m \times n}$, $w \in \mathbb{R}^n$, and $Y \in \mathbb{R}^m$. Consider mean squared error $L(w) = ||Xw-Y||_2^2$. What is $\nabla_w L(w)$?**
 *   (a) $2Y^T (X^T Xw - Y)$
 *   (b) $2X^T(X^T Xw - Y)$
 *   (c) $2Y^T (Xw - Y)$
@@ -814,7 +814,7 @@ L(w) = (Xw)^T (Xw) - (Xw)^T Y - Y^T (Xw) + Y^T Y
 
 **Key insight:** **Matrix calculus** gives us the gradient for vector-valued functions using the **chain rule**.
 
-**18. Write down a closed-form solution for the optimal parameters $w$ that minimize the loss function**
+**Problem 18. Write down a closed-form solution for the optimal parameters $w$ that minimize the loss function**
 $$L(w) = \sum_{i=1}^{n}(y_i - x_i^T w)^2 + \lambda||w||_2^2$$
 **in terms of (1) the $n \times d$ matrix $X$ whose $i$-th row is a $1 \times n$ vector $x_i^T$ (a sample), (2) the $n \times 1$ vector $y$ whose $i$-th entry is $y_i$, and (3) the scalar $\lambda$. (You may assume that any relevant matrix is invertible.)**
 *   (a) $\hat{w} = (X^T X)^{-1} X y + \lambda I$
@@ -872,7 +872,7 @@ w = (X^T X + λI)^(-1) X^T y
 
 **Key insight:** **Ridge regression** adds **λI** to **X^T X** to ensure **invertibility** and provide **regularization**.
 
-**19. How can overfitting be reduced in polynomial regression?**
+**Problem 19. How can overfitting be reduced in polynomial regression?**
 *   (a) By decreasing the size of the validation set during hyperparameter tuning.
 *   (b) By increasing the degree of the polynomial.
 *   (c) By using regularization techniques such as $l_1$ or $l_2$ regularization.
@@ -932,7 +932,7 @@ min Σ(y_i - p(x_i))² + λΣw_j²
 
 **Key insight:** **Regularization** is the most effective way to reduce overfitting while **maintaining model capacity**.
 
-**20. True/False: Linear least squares has a nonconvex loss function.**
+**Problem 20. True/False: Linear least squares has a nonconvex loss function.**
 *   (a) True
 *   (b) False
 
@@ -982,7 +982,7 @@ L(w) = ||y - Xw||² = (y - Xw)^T (y - Xw)
 
 **Key insight:** **Linear least squares** is **convex** because it's a **quadratic function** with **positive semidefinite Hessian**.
 
-**21. True/False: It is possible to apply gradient descent method on linear least squares loss.**
+**Problem 21. True/False: It is possible to apply gradient descent method on linear least squares loss.**
 *   (a) True
 *   (b) False
 
@@ -1034,7 +1034,7 @@ L(w) = ||y - Xw||² = (y - Xw)^T (y - Xw)
 
 **Key insight:** **Gradient descent** is a **versatile optimization method** that works well for **convex functions** like least squares.
 
-**22. Let $x_1, x_2 \in \mathbb{R}_+$ be sampled from the distribution $\text{Exp}(\lambda)$, where $\lambda \in \mathbb{R}_+$ is an unknown variable. Remember that the PDF of the exponential distribution is $f(x) = \lambda e^{-\lambda x}$ for any $x > 0$ and $f(x) = 0$ otherwise. Using the log-likelihood, find the maximum likelihood estimation of $\lambda$ in terms of $x_1, x_2$. Hint: $\frac{d}{dx} e^x = e^x$.**
+**Problem 22. Let $x_1, x_2 \in \mathbb{R}_+$ be sampled from the distribution $\text{Exp}(\lambda)$, where $\lambda \in \mathbb{R}_+$ is an unknown variable. Remember that the PDF of the exponential distribution is $f(x) = \lambda e^{-\lambda x}$ for any $x > 0$ and $f(x) = 0$ otherwise. Using the log-likelihood, find the maximum likelihood estimation of $\lambda$ in terms of $x_1, x_2$. Hint: $\frac{d}{dx} e^x = e^x$.**
 *   (a) $\frac{\log(x_1)+\log(x_2)}{2}$
 *   (b) $\log\left(\frac{e^{x_1}+e^{x_2}}{2}\right)$
 *   (c) $\frac{x_1+x_2}{2}$
@@ -1087,7 +1087,7 @@ d/dλ[log L(λ)] = 2/λ - (x₁+x₂) = 0
 
 **Key insight:** **MLE for exponential distribution** is the **reciprocal of the sample mean**.
 
-**23. Extra Credit: You are taking a multiple-choice exam that has 4 answers for each question. You are a smart student, so in answering a question on this exam, the probability that you know the correct answer is $p$, and you always choose the correct answer when you know it. If you don't know the answer, you choose one (uniformly) at random. What is the probability that you knew the correct answer to a question, given that you answered it correctly?**
+**Problem 23. Extra Credit: You are taking a multiple-choice exam that has 4 answers for each question. You are a smart student, so in answering a question on this exam, the probability that you know the correct answer is $p$, and you always choose the correct answer when you know it. If you don't know the answer, you choose one (uniformly) at random. What is the probability that you knew the correct answer to a question, given that you answered it correctly?**
 *   (a) $p+\frac{1-p}{4}$
 *   (b) $\frac{p}{1+p}$
 *   (c) $\frac{p}{p+\frac{1-p}{4}}$
@@ -1142,7 +1142,7 @@ P(K|C) = P(C|K)P(K) / P(C)
 
 **Key insight:** **Bayes' theorem** helps us update our beliefs about whether you knew the answer based on the outcome.
 
-**24. Select all of the following statements that are False. When training a machine learning model you should**
+**Problem 24. Select all of the following statements that are False. When training a machine learning model you should**
 *   (a) manually select samples from your data to form a test set.
 *   (b) use a test set to help choose hyperparameter values.
 *   (c) never use the test set to make changes to the model.
@@ -1150,7 +1150,7 @@ P(K|C) = P(C|K)P(K) / P(C)
 
 **Correct answers:** (a), (b)
 
-**25. Let $X \sim \text{Uniform}[0, 3]$ and $Y \sim N(2, 2)$ be independent random variables. Then compute $E[XY^2] - E[X]E[Y]^2$.**
+**Problem 25. Let $X \sim \text{Uniform}[0, 3]$ and $Y \sim N(2, 2)$ be independent random variables. Then compute $E[XY^2] - E[X]E[Y]^2$.**
 *   (a) 4
 *   (b) 6
 *   (c) 0
