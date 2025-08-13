@@ -1192,6 +1192,159 @@ max{14, 11, 12, 11} = 14
 - **Stride 1:** Padding 0 (2×2), Padding 1 (4×4), Padding 2 (6×6)
 - **Stride 2:** Padding 0 (1×1), Padding 1 (2×2), Padding 2 (3×3)
 
+## Detailed Solution Explanation
+
+**Understanding Convolution Output Dimensions:**
+
+This problem explores how padding and stride affect the spatial dimensions of convolution output, which is crucial for designing CNN architectures.
+
+**Mathematical Framework:**
+
+**Convolution Output Size Formula:**
+For an input of size $H \times W$, kernel of size $h \times w$, padding $p$, and stride $s$:
+$$\text{Output Height} = \frac{H + 2p - h}{s} + 1$$
+$$\text{Output Width} = \frac{W + 2p - w}{s} + 1$$
+
+**Given Parameters:**
+- Input size: $3 \times 3$
+- Kernel size: $2 \times 2$
+- Padding: $p \in \{0, 1, 2\}$
+- Stride: $s \in \{1, 2\}$
+
+**Step-by-Step Calculations:**
+
+**Case 1: Stride = 1**
+
+**Padding = 0:**
+$$\text{Output Height} = \frac{3 + 2(0) - 2}{1} + 1 = \frac{1}{1} + 1 = 2$$
+$$\text{Output Width} = \frac{3 + 2(0) - 2}{1} + 1 = \frac{1}{1} + 1 = 2$$
+**Result:** $2 \times 2$
+
+**Padding = 1:**
+$$\text{Output Height} = \frac{3 + 2(1) - 2}{1} + 1 = \frac{3}{1} + 1 = 4$$
+$$\text{Output Width} = \frac{3 + 2(1) - 2}{1} + 1 = \frac{3}{1} + 1 = 4$$
+**Result:** $4 \times 4$
+
+**Padding = 2:**
+$$\text{Output Height} = \frac{3 + 2(2) - 2}{1} + 1 = \frac{5}{1} + 1 = 6$$
+$$\text{Output Width} = \frac{3 + 2(2) - 2}{1} + 1 = \frac{5}{1} + 1 = 6$$
+**Result:** $6 \times 6$
+
+**Case 2: Stride = 2**
+
+**Padding = 0:**
+$$\text{Output Height} = \frac{3 + 2(0) - 2}{2} + 1 = \frac{1}{2} + 1 = 1$$
+$$\text{Output Width} = \frac{3 + 2(0) - 2}{2} + 1 = \frac{1}{2} + 1 = 1$$
+**Result:** $1 \times 1$
+
+**Padding = 1:**
+$$\text{Output Height} = \frac{3 + 2(1) - 2}{2} + 1 = \frac{3}{2} + 1 = 2$$
+$$\text{Output Width} = \frac{3 + 2(1) - 2}{2} + 1 = \frac{3}{2} + 1 = 2$$
+**Result:** $2 \times 2$
+
+**Padding = 2:**
+$$\text{Output Height} = \frac{3 + 2(2) - 2}{2} + 1 = \frac{5}{2} + 1 = 3$$
+$$\text{Output Width} = \frac{3 + 2(2) - 2}{2} + 1 = \frac{5}{2} + 1 = 3$$
+**Result:** $3 \times 3$
+
+**Visual Representation:**
+
+**Input Matrix (3×3):**
+```
+X X X
+X X X
+X X X
+```
+
+**Kernel (2×2):**
+```
+K K
+K K
+```
+
+**Stride 1, Padding 0:**
+```
+K K X    X K K    X X X
+K K X    X K K    X X X
+X X X    X X X    K K X
+                    K K X
+```
+**Output:** 2×2
+
+**Stride 1, Padding 1:**
+```
+P P P P P
+P X X X P
+P X X X P
+P X X X P
+P P P P P
+```
+**Output:** 4×4
+
+**Stride 2, Padding 0:**
+```
+K K X
+K K X
+X X X
+```
+**Output:** 1×1
+
+**Key Concepts:**
+
+**Padding Effects:**
+- **No Padding (p=0):** Output is smaller than input
+- **Padding (p>0):** Output can be larger than input
+- **Same Padding:** Output size equals input size
+- **Valid Padding:** No padding, output shrinks
+
+**Stride Effects:**
+- **Stride 1:** Kernel moves one position at a time
+- **Stride 2:** Kernel moves two positions at a time
+- **Larger Stride:** Faster dimension reduction
+- **Smaller Stride:** More detailed feature extraction
+
+**Common Padding Strategies:**
+
+**Same Padding:**
+To maintain input size: $p = \frac{h-1}{2}$ (for odd kernel sizes)
+
+**Valid Padding:**
+$p = 0$ (no padding)
+
+**Full Padding:**
+$p = h-1$ (maximum padding)
+
+**Practical Applications:**
+
+**Feature Preservation:**
+- Use padding to maintain spatial dimensions
+- Important for encoder-decoder architectures
+
+**Dimensionality Reduction:**
+- Use stride to reduce computational cost
+- Common in downsampling layers
+
+**Receptive Field:**
+- Larger padding increases effective input size
+- Important for capturing context
+
+**Computational Considerations:**
+
+**Memory Usage:**
+- Larger output requires more memory
+- Padding increases memory requirements
+
+**Computational Cost:**
+- Output size affects number of operations
+- Stride reduces computational complexity
+
+**Key Insights:**
+- Padding controls output size relative to input
+- Stride controls how quickly dimensions are reduced
+- The formula provides exact output dimensions
+- Understanding these relationships is crucial for CNN design
+- Different combinations serve different architectural needs
+
 ## Problem 13: Ridge vs. Lasso Regression
 
 **1 points One Answer**
@@ -1209,6 +1362,138 @@ max{14, 11, 12, 11} = 14
 **Explanation:** 
 This is true because Ridge "smoothly shrinks" all weights making it more stable to small changes in the data or noise.
 
+## Detailed Solution Explanation
+
+**Understanding Ridge vs Lasso Regression Stability:**
+
+This problem explores the fundamental differences between Ridge and Lasso regularization in terms of feature stability and selection.
+
+**Mathematical Framework:**
+
+**Ridge Regression (L2 Regularization):**
+$$\min_w \sum_{i=1}^{n} (y_i - w^T x_i)^2 + \lambda \sum_{j=1}^{d} w_j^2$$
+
+**Lasso Regression (L1 Regularization):**
+$$\min_w \sum_{i=1}^{n} (y_i - w^T x_i)^2 + \lambda \sum_{j=1}^{d} |w_j|$$
+
+**Key Differences in Optimization:**
+
+**Ridge Regression:**
+- **Objective:** Minimizes squared error + L2 penalty
+- **Gradient:** $\nabla_w \text{Ridge} = -2X^T(y - Xw) + 2\lambda w$
+- **Solution:** $w^* = (X^T X + \lambda I)^{-1} X^T y$
+
+**Lasso Regression:**
+- **Objective:** Minimizes squared error + L1 penalty
+- **Gradient:** $\nabla_w \text{Lasso} = -2X^T(y - Xw) + \lambda \text{sign}(w)$
+- **Solution:** No closed-form solution, requires iterative methods
+
+**Stability Analysis:**
+
+**Ridge Regression Stability:**
+
+**Mathematical Properties:**
+- **Smooth Penalty:** L2 penalty is differentiable everywhere
+- **Continuous Shrinkage:** All weights are shrunk proportionally
+- **Correlation Handling:** Correlated features get similar weights
+
+**Stability Mechanism:**
+$$\frac{\partial w_i}{\partial x_j} = \text{continuous function}$$
+- Small changes in data lead to small changes in weights
+- No sudden jumps in feature importance
+
+**Lasso Regression Instability:**
+
+**Mathematical Properties:**
+- **Non-smooth Penalty:** L1 penalty is not differentiable at zero
+- **Sparse Solutions:** Many weights become exactly zero
+- **Correlation Issues:** Correlated features compete for selection
+
+**Instability Mechanism:**
+$$\frac{\partial w_i}{\partial x_j} = \text{discontinuous at } w_i = 0$$
+- Small changes can cause features to be selected/deselected
+- Winner-takes-all behavior for correlated features
+
+**Geometric Interpretation:**
+
+**Ridge Regression:**
+- **Constraint:** $||w||_2^2 \leq C$ (spherical constraint)
+- **Solution:** Lies on the surface of a sphere
+- **Effect:** Smooth shrinkage toward origin
+
+**Lasso Regression:**
+- **Constraint:** $||w||_1 \leq C$ (diamond constraint)
+- **Solution:** Lies on the surface of a diamond
+- **Effect:** Sparse solution with many zeros
+
+**Visual Comparison:**
+
+**Ridge (L2):**
+```
+    /\
+   /  \
+  /____\
+```
+- Smooth, continuous shrinkage
+- All features retained
+
+**Lasso (L1):**
+```
+    /\
+   /  \
+  /____\
+```
+- Sharp corners at axes
+- Sparse selection
+
+**High-Dimensional Case Analysis:**
+
+**Correlated Features:**
+- **Ridge:** Correlated features get similar, non-zero weights
+- **Lasso:** One feature gets selected, others get zero weight
+
+**Example with Correlated Features:**
+Suppose $x_1$ and $x_2$ are highly correlated ($\rho = 0.95$):
+
+**Ridge Solution:**
+- $w_1 \approx w_2 \approx 0.5$ (both features contribute)
+- Stable to small data changes
+
+**Lasso Solution:**
+- $w_1 = 1.0, w_2 = 0$ or $w_1 = 0, w_2 = 1.0$
+- Unstable: small changes can switch selection
+
+**Practical Implications:**
+
+**When to Use Ridge:**
+- **Stability Required:** When feature importance should be consistent
+- **Correlated Features:** When all features might be important
+- **Continuous Features:** When smooth relationships are expected
+- **Interpretability:** When you want to understand all feature contributions
+
+**When to Use Lasso:**
+- **Feature Selection:** When you want to identify important features
+- **Sparsity Desired:** When you want a simple model
+- **High Dimensionality:** When $d \gg n$
+- **Interpretability:** When you want to know which features matter most
+
+**Hybrid Approaches:**
+
+**Elastic Net:**
+$$\min_w \sum_{i=1}^{n} (y_i - w^T x_i)^2 + \lambda_1 \sum_{j=1}^{d} |w_j| + \lambda_2 \sum_{j=1}^{d} w_j^2$$
+
+**Benefits:**
+- Combines sparsity of Lasso with stability of Ridge
+- Handles correlated features better than Lasso alone
+- More stable than pure Lasso
+
+**Key Insights:**
+- Ridge provides smooth, stable feature importance
+- Lasso provides sparse, potentially unstable selection
+- The choice depends on the specific problem requirements
+- High correlation amplifies the stability difference
+- Elastic Net offers a compromise between the two approaches
+
 ## Problem 14: Logistic Regression with Linearly Separable Data
 
 **1 points One Answer**
@@ -1224,6 +1509,129 @@ This is true because Ridge "smoothly shrinks" all weights making it more stable 
 **Explanation:** 
 If our data is linearly separable we can push the magnitude of $w$ to $\infty$ to push the objective to 0 but never actually reach 0, so there is no solution.
 
+## Detailed Solution Explanation
+
+**Understanding Logistic Regression with Linearly Separable Data:**
+
+This problem explores a fundamental limitation of logistic regression when dealing with perfectly separable data.
+
+**Mathematical Framework:**
+
+**Logistic Regression Model:**
+$$P(y_i = 1 | x_i) = \sigma(w^T x_i) = \frac{1}{1 + e^{-w^T x_i}}$$
+
+**Loss Function (Logistic Loss):**
+$$\mathcal{L}(w) = \sum_{i=1}^{n} \log(1 + e^{-y_i w^T x_i})$$
+
+**Linear Separability:**
+Data is linearly separable if there exists a hyperplane $w^T x = 0$ such that:
+- $w^T x_i > 0$ for all $y_i = 1$ (positive class)
+- $w^T x_i < 0$ for all $y_i = -1$ (negative class)
+
+**Analysis of the Optimization Problem:**
+
+**Objective Function:**
+$$\min_w \sum_{i=1}^{n} \log(1 + e^{-y_i w^T x_i})$$
+
+**Key Insight:**
+For linearly separable data, we can make $y_i w^T x_i$ arbitrarily large for all $i$.
+
+**Mathematical Proof:**
+
+**Step 1: Linear Separability Implication**
+If data is linearly separable, there exists $w^*$ such that:
+$$y_i w^{*T} x_i > 0 \quad \forall i$$
+
+**Step 2: Scaling the Solution**
+For any $\alpha > 0$, consider $w = \alpha w^*$:
+$$y_i w^T x_i = \alpha \cdot y_i w^{*T} x_i > 0 \quad \forall i$$
+
+**Step 3: Loss Behavior as $\alpha \rightarrow \infty$**
+$$\mathcal{L}(\alpha w^*) = \sum_{i=1}^{n} \log(1 + e^{-\alpha y_i w^{*T} x_i})$$
+
+Since $y_i w^{*T} x_i > 0$ for all $i$:
+$$\lim_{\alpha \rightarrow \infty} e^{-\alpha y_i w^{*T} x_i} = 0$$
+
+Therefore:
+$$\lim_{\alpha \rightarrow \infty} \mathcal{L}(\alpha w^*) = \sum_{i=1}^{n} \log(1 + 0) = 0$$
+
+**Step 4: No Finite Solution**
+- The loss approaches 0 but never reaches it
+- No finite $w$ achieves the minimum
+- The optimization problem has no solution
+
+**Geometric Interpretation:**
+
+**Perfect Separation:**
+```
+Class 1:  o o o o o
+          |
+          |  w^T x = 0
+          |
+Class 2:  x x x x x
+```
+
+**Decision Boundary:**
+- $w^T x = 0$ perfectly separates the classes
+- Any scaling of $w$ maintains perfect separation
+- Larger scaling improves confidence but doesn't change classification
+
+**Loss Function Behavior:**
+
+**For Non-separable Data:**
+- Loss has a finite minimum
+- Solution exists and is unique
+- Gradient descent converges
+
+**For Separable Data:**
+- Loss approaches 0 asymptotically
+- No finite solution exists
+- Gradient descent diverges
+
+**Practical Implications:**
+
+**Numerical Issues:**
+- Weights grow without bound
+- Numerical overflow can occur
+- Gradient descent may fail to converge
+
+**Solutions:**
+
+**1. Early Stopping:**
+- Stop training before weights become too large
+- Use validation set to determine stopping point
+
+**2. Regularization:**
+- Add L1 or L2 penalty to prevent unbounded growth
+- $$\mathcal{L}_{reg}(w) = \sum_{i=1}^{n} \log(1 + e^{-y_i w^T x_i}) + \lambda ||w||^2$$
+
+**3. Data Augmentation:**
+- Add noise to make data non-separable
+- Use techniques like label smoothing
+
+**4. Different Loss Functions:**
+- Use hinge loss (SVM) which handles separable data better
+- $$\mathcal{L}_{hinge}(w) = \sum_{i=1}^{n} \max(0, 1 - y_i w^T x_i)$$
+
+**Comparison with Other Methods:**
+
+**Support Vector Machines:**
+- Handle separable data naturally
+- Find the maximum margin hyperplane
+- Solution exists and is unique
+
+**Neural Networks:**
+- Can overfit to separable data
+- Regularization helps prevent this
+- Early stopping is commonly used
+
+**Key Insights:**
+- Linear separability causes logistic regression to fail
+- The problem is fundamental to the loss function
+- Regularization provides a practical solution
+- Understanding this limitation is crucial for model selection
+- Alternative methods may be more appropriate for separable data
+
 ## Problem 15: Singular Value Decomposition
 
 **1 points One Answer**
@@ -1238,6 +1646,137 @@ If our data is linearly separable we can push the magnitude of $w$ to $\infty$ t
 
 **Explanation:** 
 $r = \min(n, m) \ge \text{rank}(M)$. If we perform a rank $r$ reconstruction on a matrix whose maximum rank is $r$, we will get a lossless reconstruction.
+
+## Detailed Solution Explanation
+
+**Understanding Singular Value Decomposition and Perfect Reconstruction:**
+
+This problem explores the relationship between matrix rank, SVD components, and the possibility of lossless reconstruction.
+
+**Mathematical Framework:**
+
+**Singular Value Decomposition:**
+For a matrix $M \in \mathbb{R}^{n \times m}$, the SVD is:
+$$M = U \Sigma V^T$$
+
+where:
+- $U \in \mathbb{R}^{n \times n}$ is orthogonal (left singular vectors)
+- $\Sigma \in \mathbb{R}^{n \times m}$ is diagonal (singular values)
+- $V \in \mathbb{R}^{m \times m}$ is orthogonal (right singular vectors)
+
+**Rank-$r$ Reconstruction:**
+Using the first $r$ singular values and corresponding singular vectors:
+$$M_r = U_r \Sigma_r V_r^T$$
+
+where:
+- $U_r \in \mathbb{R}^{n \times r}$ (first $r$ columns of $U$)
+- $\Sigma_r \in \mathbb{R}^{r \times r}$ (first $r$ singular values)
+- $V_r \in \mathbb{R}^{m \times r}$ (first $r$ columns of $V$)
+
+**Key Mathematical Properties:**
+
+**Matrix Rank:**
+- $\text{rank}(M) = \text{number of non-zero singular values}$
+- $\text{rank}(M) \leq \min(n, m)$
+
+**Perfect Reconstruction Condition:**
+$$M = M_r \iff r \geq \text{rank}(M)$$
+
+**Proof of the Statement:**
+
+**Given:** $r = \min(n, m)$
+
+**Step 1: Rank Relationship**
+Since $r = \min(n, m)$ and $\text{rank}(M) \leq \min(n, m)$:
+$$r \geq \text{rank}(M)$$
+
+**Step 2: SVD Structure**
+The matrix $M$ has at most $\min(n, m)$ non-zero singular values:
+$$\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_{\text{rank}(M)} > 0$$
+$$\sigma_{\text{rank}(M)+1} = \ldots = \sigma_{\min(n,m)} = 0$$
+
+**Step 3: Reconstruction Analysis**
+When $r = \min(n, m)$, we include all singular values:
+$$M_r = U_r \Sigma_r V_r^T = U \Sigma V^T = M$$
+
+**Step 4: Lossless Reconstruction**
+Since we include all non-zero singular values and the corresponding singular vectors, the reconstruction is perfect:
+$$M_r = M$$
+
+**Visual Representation:**
+
+**Full SVD:**
+```
+M = U Σ V^T
+   n×n n×m m×m
+```
+
+**Rank-r Reconstruction:**
+```
+M_r = U_r Σ_r V_r^T
+      n×r r×r  r×m
+```
+
+**When r = min(n,m):**
+```
+M_r = U_r Σ_r V_r^T = U Σ V^T = M
+```
+
+**Example with Numbers:**
+
+**Case 1: n = 3, m = 4 (r = 3)**
+- Matrix $M \in \mathbb{R}^{3 \times 4}$
+- $\text{rank}(M) \leq 3$
+- Using $r = 3$ singular values gives perfect reconstruction
+
+**Case 2: n = 5, m = 2 (r = 2)**
+- Matrix $M \in \mathbb{R}^{5 \times 2}$
+- $\text{rank}(M) \leq 2$
+- Using $r = 2$ singular values gives perfect reconstruction
+
+**Why This Works:**
+
+**Mathematical Intuition:**
+- SVD provides the optimal low-rank approximation
+- When $r \geq \text{rank}(M)$, we include all the "information" in the matrix
+- No information is lost in the reconstruction
+
+**Geometric Interpretation:**
+- $U$ provides an orthonormal basis for the row space
+- $V$ provides an orthonormal basis for the column space
+- $\Sigma$ contains the scaling factors (singular values)
+- Using all singular values preserves the full geometric structure
+
+**Practical Implications:**
+
+**Data Compression:**
+- If $\text{rank}(M) < \min(n, m)$, we can use fewer components
+- Perfect reconstruction with fewer than $\min(n, m)$ components
+
+**Noise Reduction:**
+- Small singular values often represent noise
+- Truncating SVD can improve signal-to-noise ratio
+
+**Dimensionality Reduction:**
+- PCA is essentially SVD of the centered data matrix
+- Choosing $r$ components preserves maximum variance
+
+**Computational Considerations:**
+
+**Storage Requirements:**
+- Full SVD: $O(n^2 + m^2 + nm)$
+- Rank-$r$ approximation: $O(nr + mr + r^2)$
+
+**Computational Complexity:**
+- Computing full SVD: $O(\min(n, m) \cdot nm)$
+- Computing rank-$r$ approximation: $O(r \cdot nm)$
+
+**Key Insights:**
+- Using $r = \min(n, m)$ singular values guarantees perfect reconstruction
+- The condition $r \geq \text{rank}(M)$ is both necessary and sufficient
+- SVD provides the optimal low-rank approximation
+- Understanding this relationship is crucial for dimensionality reduction
+- The result holds regardless of the actual rank of the matrix
 
 ## Problem 16: Principal Components
 
