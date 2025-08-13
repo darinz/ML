@@ -484,7 +484,84 @@ $$(X^T X + \lambda I) w = X^T y$$
 
 **Solution:** The answer is (A).
 
-**Explanation:** This is a fundamental result in PCA. The first principal component maximizes the variance of the projected data: $\max_{||v||=1} \text{Var}(Xv)$. Equivalently, it minimizes the reconstruction error: $\min_{||v||=1} ||X - Xvv^T||_F^2$. These two objectives are mathematically equivalent - maximizing the variance of projections is the same as minimizing the squared distance from the data to its projection onto the principal component.
+**Explanation:**
+
+This is **True**. This is a fundamental result in PCA that shows the equivalence between variance maximization and reconstruction error minimization. Here's the detailed mathematical proof:
+
+**PCA Objective Functions:**
+
+**1. Variance Maximization:**
+$$\max_{||v||=1} \text{Var}(Xv) = \max_{||v||=1} v^T C v$$
+
+where $C = \frac{1}{n}X^TX$ is the covariance matrix.
+
+**2. Reconstruction Error Minimization:**
+$$\min_{||v||=1} ||X - Xvv^T||_F^2$$
+
+where $||\cdot||_F$ is the Frobenius norm.
+
+**Mathematical Proof of Equivalence:**
+
+**Step 1: Expand the Reconstruction Error**
+$$||X - Xvv^T||_F^2 = \text{tr}((X - Xvv^T)^T(X - Xvv^T))$$
+
+**Step 2: Expand the Expression**
+$$= \text{tr}(X^TX - X^TXvv^T - vv^TX^TX + vv^TX^TXvv^T)$$
+
+**Step 3: Use Properties of Trace**
+Since $\text{tr}(AB) = \text{tr}(BA)$ and $v^Tv = 1$ (unit vector):
+$$= \text{tr}(X^TX) - \text{tr}(X^TXvv^T) - \text{tr}(vv^TX^TX) + \text{tr}(vv^TX^TXvv^T)$$
+
+**Step 4: Simplify Each Term**
+- $\text{tr}(X^TX)$: Constant (doesn't depend on $v$)
+- $\text{tr}(X^TXvv^T) = \text{tr}(v^TX^TXv) = v^TX^TXv$
+- $\text{tr}(vv^TX^TX) = \text{tr}(v^TX^TXv) = v^TX^TXv$
+- $\text{tr}(vv^TX^TXvv^T) = \text{tr}(v^TX^TXv \cdot v^Tv) = v^TX^TXv$
+
+**Step 5: Combine Terms**
+$$||X - Xvv^T||_F^2 = \text{tr}(X^TX) - 2v^TX^TXv + v^TX^TXv = \text{tr}(X^TX) - v^TX^TXv$$
+
+**Step 6: Minimization Problem**
+$$\min_{||v||=1} ||X - Xvv^T||_F^2 = \min_{||v||=1} (\text{tr}(X^TX) - v^TX^TXv)$$
+
+Since $\text{tr}(X^TX)$ is constant:
+$$\min_{||v||=1} ||X - Xvv^T||_F^2 = \text{tr}(X^TX) - \max_{||v||=1} v^TX^TXv$$
+
+**Step 7: Final Equivalence**
+$$\min_{||v||=1} ||X - Xvv^T||_F^2 \Leftrightarrow \max_{||v||=1} v^TX^TXv = \max_{||v||=1} \text{Var}(Xv)$$
+
+**Geometric Interpretation:**
+
+**Variance Maximization:**
+- Find direction $v$ where projected data has maximum spread
+- Maximizes the variance of the projections: $\text{Var}(Xv)$
+
+**Reconstruction Error Minimization:**
+- Find direction $v$ that minimizes the distance from data points to their projections
+- Minimizes the squared distance: $||X - Xvv^T||_F^2$
+
+**Why They're Equivalent:**
+- When variance is maximized, the projections capture the most information
+- When reconstruction error is minimized, the projections best represent the original data
+- Both objectives lead to the same optimal direction $v$
+
+**Practical Implications:**
+
+**1. Computational Efficiency:**
+- Can solve either formulation depending on computational preferences
+- Variance maximization often more intuitive
+- Reconstruction error useful for understanding data compression
+
+**2. Interpretability:**
+- Variance maximization: "Find direction of maximum spread"
+- Reconstruction error: "Find direction that best preserves data"
+
+**3. Extensions:**
+- This equivalence extends to multiple principal components
+- Can be generalized to kernel PCA and other dimensionality reduction methods
+
+**Conclusion:**
+The variance maximization and reconstruction error minimization objectives in PCA are mathematically equivalent. This fundamental result shows that finding the direction of maximum variance is the same as finding the direction that minimizes the reconstruction error when projecting data onto a line.
 
 ## Question 12
 Which of the following activation functions can be used in the output layer of a neural network if we wish to predict the probabilities of $k$ classes $\hat{p} = (p_1, p_2,..., p_k)$ such that sum of $\hat{p}$ over all $k$ equals to 1? (Assume $k \ge 2$.)
@@ -496,7 +573,106 @@ Which of the following activation functions can be used in the output layer of a
 
 **Solution:** The answer is (D).
 
-**Explanation:** Softmax is the appropriate activation function for multi-class classification because it outputs a probability distribution that sums to 1. The softmax function is defined as $\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^k e^{z_j}}$, which ensures that all outputs are positive and sum to 1. Tanh and Leaky ReLU don't guarantee this property, and sigmoid is typically used for binary classification.
+**Explanation:**
+
+The correct answer is **(D) - Softmax**. Here's the detailed explanation:
+
+**Understanding Multi-Class Classification:**
+
+**Requirements for Multi-Class Probability Output:**
+- **Non-negative probabilities**: $p_i \geq 0$ for all $i$
+- **Sum to 1**: $\sum_{i=1}^k p_i = 1$
+- **Valid probability distribution**: Must satisfy probability axioms
+
+**Analysis of Each Activation Function:**
+
+**Option (D) - Softmax: CORRECT**
+
+**Mathematical Definition:**
+$$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^k e^{z_j}}$$
+
+**Properties:**
+1. **Non-negative**: $e^{z_i} > 0$ for all $z_i$, so $\text{softmax}(z_i) > 0$
+2. **Sum to 1**: $\sum_{i=1}^k \text{softmax}(z_i) = \sum_{i=1}^k \frac{e^{z_i}}{\sum_{j=1}^k e^{z_j}} = \frac{\sum_{i=1}^k e^{z_i}}{\sum_{j=1}^k e^{z_j}} = 1$
+3. **Monotonic**: Larger input $z_i$ leads to larger probability $p_i$
+
+**Mathematical Verification:**
+For $k = 3$ classes with inputs $z = [2, 1, 0]$:
+- $\text{softmax}(z_1) = \frac{e^2}{e^2 + e^1 + e^0} = \frac{7.39}{7.39 + 2.72 + 1} = 0.66$
+- $\text{softmax}(z_2) = \frac{e^1}{e^2 + e^1 + e^0} = \frac{2.72}{11.11} = 0.24$
+- $\text{softmax}(z_3) = \frac{e^0}{e^2 + e^1 + e^0} = \frac{1}{11.11} = 0.09$
+- **Sum**: $0.66 + 0.24 + 0.09 = 0.99 \approx 1$ (rounding error)
+
+**Why Other Options Are Wrong:**
+
+**Option (A) - Tanh:**
+- **Range**: $(-1, 1)$
+- **Problem**: Outputs can be negative
+- **Sum**: Doesn't sum to 1
+- **Example**: $\tanh([1, 0, -1]) = [0.76, 0, -0.76]$, sum = 0
+
+**Option (B) - Leaky ReLU:**
+- **Range**: $(-\infty, \infty)$
+- **Problem**: Outputs can be negative or unbounded
+- **Sum**: Doesn't sum to 1
+- **Example**: $\text{LeakyReLU}([1, 0, -1]) = [1, 0, -0.01]$, sum = 0.99
+
+**Option (C) - Sigmoid:**
+- **Range**: $(0, 1)$
+- **Problem**: Individual outputs are between 0 and 1, but don't sum to 1
+- **Sum**: Can be any positive number
+- **Example**: $\sigma([1, 0, -1]) = [0.73, 0.5, 0.27]$, sum = 1.5
+
+**Mathematical Comparison:**
+
+**Sigmoid vs Softmax:**
+- **Sigmoid**: $\sigma(z_i) = \frac{1}{1 + e^{-z_i}}$ (independent for each class)
+- **Softmax**: $\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^k e^{z_j}}$ (dependent on all classes)
+
+**Key Difference:**
+- **Sigmoid**: Each class probability is independent
+- **Softmax**: Class probabilities are coupled and compete with each other
+
+**Practical Example:**
+
+**Binary Classification (2 classes):**
+- **Sigmoid**: $P(\text{class 1}) = \sigma(z)$, $P(\text{class 0}) = 1 - \sigma(z)$
+- **Softmax**: $P(\text{class 1}) = \frac{e^{z_1}}{e^{z_0} + e^{z_1}}$, $P(\text{class 0}) = \frac{e^{z_0}}{e^{z_0} + e^{z_1}}$
+
+**Multi-Class Classification (3+ classes):**
+- **Sigmoid**: $P(\text{class i}) = \sigma(z_i)$ (doesn't sum to 1)
+- **Softmax**: $P(\text{class i}) = \frac{e^{z_i}}{\sum_{j=1}^k e^{z_j}}$ (sums to 1)
+
+**Loss Function Compatibility:**
+
+**Cross-Entropy Loss:**
+$$L = -\sum_{i=1}^k y_i \log(\hat{y}_i)$$
+
+where $y_i$ is the true label and $\hat{y}_i$ is the predicted probability.
+
+**Why Softmax Works:**
+- **Valid probabilities**: $\hat{y}_i \in (0, 1)$ and $\sum \hat{y}_i = 1$
+- **Numerical stability**: Works well with cross-entropy loss
+- **Gradient properties**: Has nice gradient properties for optimization
+
+**Numerical Stability:**
+
+**Softmax Implementation:**
+```python
+def softmax(z):
+    # Subtract max for numerical stability
+    z_shifted = z - np.max(z)
+    exp_z = np.exp(z_shifted)
+    return exp_z / np.sum(exp_z)
+```
+
+**Why Subtract Max:**
+- Prevents overflow when $z_i$ is large
+- Maintains same relative probabilities
+- Improves numerical stability
+
+**Conclusion:**
+**Softmax** is the only activation function that guarantees a valid probability distribution for multi-class classification. It ensures all outputs are positive and sum to 1, making it the appropriate choice for the output layer when predicting class probabilities.
 
 ## Question 13
 **True/False:** For decision tree algorithms, small perturbation in the training data can result in large differences in the resulting classifiers.
@@ -506,7 +682,136 @@ Which of the following activation functions can be used in the output layer of a
 
 **Solution:** The answer is (A).
 
-**Explanation:** Decision trees are highly sensitive to small changes in the training data because they make decisions based on threshold splits at each node. A small change in the data can cause a completely different split to be chosen at a node, which can cascade through the entire tree structure, leading to very different decision boundaries. This is why ensemble methods like random forests are often used to improve stability.
+**Explanation:**
+
+The answer is **(A) - True**. Decision trees are indeed highly sensitive to small perturbations in training data. Here's the detailed explanation:
+
+**Understanding Decision Tree Instability:**
+
+**Decision Tree Construction Process:**
+1. **Split Selection**: At each node, find the best feature and threshold to split the data
+2. **Greedy Algorithm**: Choose the split that maximizes information gain or minimizes impurity
+3. **Recursive Partitioning**: Continue until stopping criteria are met
+
+**Why Small Changes Cause Large Differences:**
+
+**1. Threshold Sensitivity:**
+- **Split Point**: Decision trees choose specific threshold values (e.g., $x_1 \leq 5.2$)
+- **Small Data Change**: Adding/removing one point near the threshold can change the optimal split
+- **Cascade Effect**: One changed split affects all subsequent splits in that subtree
+
+**Mathematical Example:**
+
+**Original Data:**
+```
+Feature x1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Labels:     [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+```
+
+**Optimal Split**: $x_1 \leq 5$ (separates all 0s from all 1s)
+
+**After Small Perturbation:**
+```
+Feature x1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Labels:     [0, 0, 0, 0, 1, 1, 1, 1, 1, 1]  # One label changed
+```
+
+**New Optimal Split**: $x_1 \leq 4$ (to separate the remaining 0s)
+
+**2. Information Gain Calculation:**
+The optimal split is determined by maximizing information gain:
+$$\text{IG}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$
+
+**Small Changes Affect:**
+- **Entropy calculations**: $H(S) = -\sum_{i} p_i \log(p_i)$
+- **Class proportions**: $p_i = \frac{|S_i|}{|S|}$
+- **Split point selection**: Threshold that maximizes IG
+
+**3. Greedy Nature:**
+- **Local Optimization**: Each split is chosen independently
+- **No Backtracking**: Once a split is made, it's not reconsidered
+- **Error Propagation**: Early mistakes compound through the tree
+
+**Visual Example:**
+
+**Original Tree:**
+```
+Root: x1 ≤ 5
+├── Left: x2 ≤ 3 (Class 0)
+└── Right: x2 > 3 (Class 1)
+```
+
+**After Perturbation:**
+```
+Root: x1 ≤ 4
+├── Left: x2 ≤ 2 (Class 0)
+└── Right: x2 > 2 (Class 1)
+```
+
+**Completely Different Structure!**
+
+**Mathematical Analysis:**
+
+**Instability Sources:**
+
+**1. Discontinuous Objective:**
+- **Information Gain**: Discrete function of split points
+- **Threshold Changes**: Small data changes can shift optimal threshold
+- **Non-smooth**: No continuity in split selection
+
+**2. High Variance:**
+- **Sample Sensitivity**: Different training samples lead to different trees
+- **Bootstrap Effect**: Each tree in a forest sees different data
+- **Instability**: High variance in predictions
+
+**3. Overfitting Tendency:**
+- **Perfect Fit**: Trees can grow to fit training data exactly
+- **Noise Learning**: Memorizes noise in training data
+- **Poor Generalization**: Fails on unseen data
+
+**Quantitative Example:**
+
+**Stability Measure:**
+Consider two trees $T_1$ and $T_2$ trained on slightly different datasets:
+$$\text{Stability} = \frac{|\text{Agreement}(T_1, T_2)|}{|\text{Total Predictions}|}$$
+
+**Decision trees typically have low stability scores.**
+
+**Solutions to Instability:**
+
+**1. Ensemble Methods:**
+- **Random Forest**: Average predictions from multiple trees
+- **Bagging**: Bootstrap aggregating
+- **Boosting**: Sequential ensemble learning
+
+**2. Regularization:**
+- **Pruning**: Remove unnecessary splits
+- **Minimum samples per split**: Require sufficient data for splits
+- **Maximum depth**: Limit tree complexity
+
+**3. Feature Randomization:**
+- **Random subspaces**: Use subset of features at each split
+- **Feature sampling**: Reduce correlation between trees
+
+**Practical Implications:**
+
+**1. Model Interpretability:**
+- **Unstable trees**: Hard to interpret and trust
+- **Feature importance**: Can vary significantly between runs
+- **Decision paths**: May change completely
+
+**2. Production Deployment:**
+- **Reproducibility**: Same data should produce same tree
+- **Version control**: Track data and model versions
+- **Monitoring**: Detect when model behavior changes
+
+**3. Cross-Validation:**
+- **High variance**: Need more folds for reliable estimates
+- **Stability assessment**: Measure consistency across folds
+- **Ensemble validation**: Validate ensemble rather than individual trees
+
+**Conclusion:**
+Decision trees are **highly sensitive to small perturbations** in training data due to their greedy, threshold-based nature. This instability makes them less reliable for individual use but creates opportunities for ensemble methods like random forests, which leverage this instability to improve overall performance through averaging.
 
 ## Question 14
 **True/False:** The unfairness with respect to race of a model trained on a dataset can be completely resolved by removing race as a feature.
