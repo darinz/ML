@@ -1,6 +1,6 @@
 # Practice 5 Solutions
 
-** Problem 1. If $X$ and $Y$ are independent random variables, which of the following are true?**
+**Problem 1. If $X$ and $Y$ are independent random variables, which of the following are true?**
 *   (a) $\text{Cov}(X, Y) = 0$
 *   (b) $E[XY] = E[X]E[Y]$
 *   (c) $\text{Var}(XY) = \text{Var}(X)\text{Var}(Y)$
@@ -1123,7 +1123,7 @@ $\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
 
 **Key insight:** **Mixed data splitting** ensures **representative performance estimates** and **avoids overfitting** to specific hospital characteristics.
 
-**18.**
+**Problem 18.**
 
 **Given the task of determining loan approval for applicants using a predictive model given applicant features such as race, salary, education, etc., is it always best practice to allow the model to use all of the given features? Why or why not?**
 
@@ -1205,7 +1205,7 @@ $\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
 
 **Key insight:** **Feature selection** in sensitive applications requires **ethical consideration** beyond just **predictive accuracy**.
 
-**19. One Answer**
+**Problem 19. One Answer**
 
 **You are building a predictive model about users of a website. Suppose that after you train your model on historical user data, the distribution of users shifts dramatically. What can happen if you deploy your machine learning system without addressing this distribution shift?**
 *   (a) The model will automatically adapt to new data distributions.
@@ -1305,7 +1305,7 @@ $\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
 
 **Key insight:** **Distribution shift** is a **fundamental challenge** in ML that requires **proactive monitoring** and **adaptation strategies**.
 
-**20. One Answer**
+**Problem 20. One Answer**
 
 **For a possibly non-convex optimization problem, gradient descent on the full dataset always finds a better solution than stochastic gradient descent.**
 *   (a) True
@@ -1397,7 +1397,7 @@ w_{t+1} = w_t - \eta \nabla L_i(w_t)
 
 **Key insight:** **SGD's stochasticity** can be **advantageous** for **non-convex optimization** by helping escape **local minima**.
 
-**21. Select All That Apply**
+**Problem 21. Select All That Apply**
 
 **Given the gradient descent algorithm, $w_{t+1} = w_t - \eta \frac{df(w)}{dw} \Big|_{w=w_t}$, which of the following statement is correct regarding the hyperparameter $\eta$?**
 *   (a) $\eta$ controls the magnitude of each step.
@@ -1484,7 +1484,7 @@ w_{t+1} = w_t - η∇f(w_t)
 
 **Key insight:** **Learning rate η** controls **step size** and **convergence behavior**, but **optimal value** depends on the **specific problem**.
 
-**22. Select All That Apply**
+**Problem 22. Select All That Apply**
 
 **Which of the following functions are convex?**
 *   (a) $f(x) = x^3$
@@ -1558,7 +1558,7 @@ w_{t+1} = w_t - η∇f(w_t)
 
 **Key insight:** **Convexity** is determined by **second derivative sign** and provides **optimization guarantees**.
 
-**23. Which of the following are true about a convex function $f(x): \mathbb{R}^d \rightarrow \mathbb{R}$?**
+**Problem 23. Which of the following are true about a convex function $f(x): \mathbb{R}^d \rightarrow \mathbb{R}$?**
 *   (a) $f(x)$ must be differentiable across its entire domain.
 *   (b) $f(x)$ has a unique global minimum.
 *   (c) $g(x) = -f(x)$ is also convex.
@@ -1631,7 +1631,7 @@ f is convex ⇔ ∇²f(x) is positive semi-definite ∀x
 
 **Key insight:** **Convexity** is characterized by **positive semi-definite Hessian** for twice differentiable functions, but **differentiability** is not required.
 
-**24. Which of the following have convex objective functions?**
+**Problem 24. Which of the following have convex objective functions?**
 *   (a) Linear regression
 *   (b) Linear regression with arbitrary nonlinear basis functions
 *   (c) Ridge regression
@@ -1716,7 +1716,7 @@ where $\Phi = \phi(X)$ are basis functions
 
 **Key insight:** **All these models** have **convex objectives** because they use **linear functions** with **convex loss functions** and **convex regularization**.
 
-**25. Which of the following scenarios are better suited for a logistic regression model over a linear regression model?**
+**Problem 25. Which of the following scenarios are better suited for a logistic regression model over a linear regression model?**
 *   (a) Forecasting the price of stocks for the next year, given the price of stocks for the past year.
 *   (b) Diagnosing the presence or absence of a rare disease, given a medical x-ray.
 *   (c) Predicting what the average global temperature will be in the next year, given historical climate data.
@@ -1807,7 +1807,7 @@ where $\Phi = \phi(X)$ are basis functions
 
 **Key insight:** **Logistic regression** is for **binary classification**, while **linear regression** is for **continuous prediction**.
 
-**26. Which of the following statements about classification are true?**
+**Problem 26. Which of the following statements about classification are true?**
 
 **Recall that the softmax function $\sigma: \mathbb{R}^k \rightarrow (0,1)^k$ takes a vector $z \in \mathbb{R}^k$ and returns a vector $\sigma(z) \in (0,1)^k$ with**
 $$\sigma(z)_i = \frac{\exp(z_i)}{\sum_{j=1}^k \exp(z_j)}$$
