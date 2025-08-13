@@ -1833,6 +1833,175 @@ $$\frac{\partial}{\partial \hat{y}} \log(1 + e^{-y\hat{y}}) = \frac{-y e^{-y\hat
 **Explanation:** 
 The L-$\infty$ ball in parameter space is a square who's most protruding points are where the absolute values of the parameters are equivalent (corners of the square centered at the origin). Therefore A is correct. We know $w$ will not be sparse because the protruding points of the L-$\infty$ ball are not on the origin. Therefore C is also correct. Because A and C are correct, neither B nor D can be correct.
 
+## Detailed Solution Explanation
+
+**Understanding L-∞ Norm Regularization:**
+
+This problem explores the geometric and mathematical properties of L-∞ norm regularization in linear regression.
+
+**Mathematical Framework:**
+
+**L-∞ Norm Definition:**
+For a vector $x \in \mathbb{R}^d$:
+$$||x||_\infty = \max_i(|x_i|)$$
+
+**Regularized Linear Regression Objective:**
+$$\min_w \sum_{i=1}^{n} (y_i - w^T x_i)^2 + \lambda ||w||_\infty$$
+
+**Geometric Interpretation:**
+
+**L-∞ Ball:**
+The set $\{w : ||w||_\infty \leq C\}$ forms a hypercube (square in 2D) centered at the origin.
+
+**2D Example:**
+```
+L-∞ Ball (C = 1):
+    (-1,1)  ────  (1,1)
+       │         │
+       │         │
+    (-1,-1) ──── (1,-1)
+```
+
+**Key Properties:**
+
+**1. Corner Points:**
+- The most protruding points are at the corners
+- At corners: $|w_i| = C$ for some $i$, $|w_j| \leq C$ for others
+- This creates parameters with similar absolute values
+
+**2. Non-Sparsity:**
+- Corners are not at the origin
+- All parameters are typically non-zero
+- L-∞ norm doesn't encourage sparsity like L1 norm
+
+**Mathematical Analysis:**
+
+**Optimization Problem:**
+$$\min_w \frac{1}{2}||y - Xw||^2 + \lambda ||w||_\infty$$
+
+**Subgradient Condition:**
+At optimality, for each component $w_i$:
+$$\frac{\partial}{\partial w_i} \frac{1}{2}||y - Xw||^2 + \lambda \frac{\partial}{\partial w_i} ||w||_\infty = 0$$
+
+**L-∞ Subgradient:**
+$$\frac{\partial}{\partial w_i} ||w||_\infty = \begin{cases}
+\text{sign}(w_i) & \text{if } |w_i| = ||w||_\infty \\
+0 & \text{if } |w_i| < ||w||_\infty
+\end{cases}$$
+
+**Why Option A is Correct:**
+
+**Similar Absolute Values:**
+- The L-∞ norm constraint creates a hypercube
+- The solution tends to lie on the boundary
+- At boundary points, some parameters reach the maximum
+- Other parameters are constrained to be smaller
+- This creates groups of parameters with similar magnitudes
+
+**Example:**
+For a 3D problem with $||w||_\infty \leq 1$:
+- Solution might be: $w = [0.8, -0.9, 0.7]$
+- All parameters have similar absolute values
+- No parameter is exactly zero
+
+**Why Option C is Correct:**
+
+**Non-Sparsity:**
+- L-∞ ball corners are not at coordinate axes
+- Unlike L1 norm, which creates diamond-shaped constraint
+- L-∞ norm doesn't push parameters to exactly zero
+- All parameters typically remain non-zero
+
+**Comparison with Other Norms:**
+
+**L1 Norm (LASSO):**
+- Creates diamond-shaped constraint
+- Encourages sparsity
+- Some parameters become exactly zero
+
+**L2 Norm (Ridge):**
+- Creates circular constraint
+- Smoothly shrinks all parameters
+- No parameters become exactly zero
+
+**L-∞ Norm:**
+- Creates square-shaped constraint
+- Creates groups of similar magnitudes
+- No parameters become exactly zero
+
+**Visual Comparison:**
+
+**2D Parameter Space:**
+```
+L1 (LASSO):     L2 (Ridge):     L-∞:
+    ◇              ○              □
+   /  \           /  \           /  \
+  /    \         /    \         /    \
+ /      \       /      \       /      \
+```
+
+**Practical Implications:**
+
+**When to Use L-∞ Regularization:**
+
+**1. Group Sparsity:**
+- When you want groups of parameters to have similar magnitudes
+- Useful for feature groups that should be treated similarly
+- Prevents individual features from dominating
+
+**2. Robustness:**
+- Less sensitive to outliers than L2
+- More robust than L1 in some cases
+- Good for noisy data
+
+**3. Constraint Satisfaction:**
+- When you need to bound the maximum parameter value
+- Useful in control systems
+- Important for interpretability
+
+**Implementation Example:**
+
+**Python Implementation:**
+```python
+import numpy as np
+from scipy.optimize import minimize
+
+def linf_regularized_regression(X, y, lambda_val):
+    def objective(w):
+        return 0.5 * np.sum((y - X @ w)**2) + lambda_val * np.max(np.abs(w))
+    
+    # Initial guess
+    w0 = np.zeros(X.shape[1])
+    
+    # Optimize
+    result = minimize(objective, w0, method='L-BFGS-B')
+    return result.x
+```
+
+**Properties of L-∞ Regularization:**
+
+**1. Non-Smoothness:**
+- The L-∞ norm is not differentiable everywhere
+- Requires specialized optimization techniques
+- Subgradient methods may be needed
+
+**2. Grouping Effect:**
+- Parameters tend to have similar magnitudes
+- Creates implicit feature grouping
+- Useful for structured problems
+
+**3. Boundedness:**
+- All parameters are bounded by the constraint
+- Prevents any single parameter from becoming too large
+- Provides stability
+
+**Key Insights:**
+- L-∞ norm creates hypercube-shaped constraint
+- Encourages similar absolute values among parameters
+- Does not promote sparsity like L1 norm
+- Useful for problems requiring bounded parameters
+- Understanding the geometry helps with interpretation
+
 ## Problem 14: K-means Clustering
 
 **1 point**
@@ -1847,6 +2016,165 @@ The L-$\infty$ ball in parameter space is a square who's most protruding points 
 
 **Explanation:** 
 Increasing $k$ so that it is equal to $n$ will make it so there is one cluster centroid per data point. This will perfectly fit the training data with zero training loss.
+
+## Detailed Solution Explanation
+
+**Understanding K-means Clustering and Training Performance:**
+
+This problem explores the relationship between the number of clusters $k$ and the training performance in K-means clustering.
+
+**Mathematical Framework:**
+
+**K-means Objective Function:**
+$$\min_{\{c_1, \ldots, c_k\}} \sum_{i=1}^{n} \min_{j=1,\ldots,k} ||x_i - c_j||^2$$
+
+where:
+- $x_i$ are the data points
+- $c_j$ are the cluster centroids
+- $k$ is the number of clusters
+
+**Training Loss:**
+$$\mathcal{L} = \sum_{i=1}^{n} \min_{j=1,\ldots,k} ||x_i - c_j||^2$$
+
+**Why the Statement is True:**
+
+**1. Perfect Clustering with $k = n$:**
+
+When $k = n$, each data point can have its own cluster:
+- **Centroid Assignment:** $c_i = x_i$ for each $i$
+- **Distance:** $||x_i - c_i||^2 = 0$ for each $i$
+- **Total Loss:** $\mathcal{L} = \sum_{i=1}^{n} 0 = 0$
+
+**2. Mathematical Proof:**
+
+**Case 1: $k < n$**
+- Some data points must share centroids
+- At least one data point has distance $> 0$ to its centroid
+- Training loss $> 0$
+
+**Case 2: $k = n$**
+- Each data point gets its own centroid
+- All distances are exactly zero
+- Training loss $= 0$
+
+**Case 3: $k > n$**
+- Some centroids are unused
+- Can achieve same performance as $k = n$
+- Training loss $= 0$
+
+**Visual Example:**
+
+**Dataset with 5 points:**
+```
+Data:  [x₁, x₂, x₃, x₄, x₅]
+```
+
+**Case 1: k = 2**
+```
+Clusters: [c₁, c₂]
+Assignment: x₁,x₂ → c₁, x₃,x₄,x₅ → c₂
+Loss: sum of distances > 0
+```
+
+**Case 2: k = 5**
+```
+Clusters: [c₁, c₂, c₃, c₄, c₅]
+Assignment: x₁ → c₁, x₂ → c₂, x₃ → c₃, x₄ → c₄, x₅ → c₅
+Loss: 0 (perfect fit)
+```
+
+**Why Training Performance Never Worsens:**
+
+**1. Monotonicity Property:**
+
+For any $k_1 < k_2$:
+- The optimal solution with $k_2$ clusters can always achieve at least as good performance as $k_1$ clusters
+- Simply place the extra centroids at the same locations as existing ones
+- This doesn't increase the loss
+
+**2. Mathematical Justification:**
+
+**Optimal Solution Property:**
+$$\mathcal{L}^*(k+1) \leq \mathcal{L}^*(k)$$
+
+where $\mathcal{L}^*(k)$ is the optimal loss with $k$ clusters.
+
+**Proof:**
+- Take the optimal solution for $k$ clusters
+- Add one more centroid at any data point location
+- The loss cannot increase (can only stay the same or decrease)
+
+**Practical Implications:**
+
+**1. Overfitting:**
+- $k = n$ leads to perfect training performance
+- But this is overfitting - no generalization
+- Each cluster contains exactly one data point
+
+**2. Model Selection:**
+- Need to balance training performance vs. generalization
+- Use validation set or cross-validation
+- Consider the elbow method or silhouette analysis
+
+**3. Computational Considerations:**
+- Larger $k$ requires more computation
+- May lead to local optima
+- Initialization becomes more important
+
+**K-means Algorithm Behavior:**
+
+**1. Convergence:**
+- Algorithm always converges to a local minimum
+- Loss never increases during iterations
+- Final loss depends on initialization
+
+**2. Initialization Sensitivity:**
+- Different initializations can lead to different solutions
+- K-means++ helps with better initialization
+- Multiple runs may be needed
+
+**3. Local Optima:**
+- Algorithm may get stuck in local minima
+- Global optimum is NP-hard to find
+- Heuristic methods are used in practice
+
+**Example with Numbers:**
+
+**Dataset:** $X = [1, 2, 3, 4, 5]$
+
+**k = 2:**
+- Centroids: $c_1 = 1.5, c_2 = 4.5$
+- Assignment: $[1,2] \rightarrow c_1, [3,4,5] \rightarrow c_2$
+- Loss: $(1-1.5)^2 + (2-1.5)^2 + (3-4.5)^2 + (4-4.5)^2 + (5-4.5)^2 = 2.5$
+
+**k = 5:**
+- Centroids: $c_1 = 1, c_2 = 2, c_3 = 3, c_4 = 4, c_5 = 5$
+- Assignment: Each point to its own centroid
+- Loss: $0 + 0 + 0 + 0 + 0 = 0$
+
+**Model Selection Strategies:**
+
+**1. Elbow Method:**
+- Plot loss vs. $k$
+- Look for "elbow" where improvement slows
+- Subjective but commonly used
+
+**2. Silhouette Analysis:**
+- Measures cluster quality
+- Higher silhouette score = better clustering
+- More objective than elbow method
+
+**3. Gap Statistic:**
+- Compares to random data
+- More robust to different data distributions
+- Computationally intensive
+
+**Key Insights:**
+- Training performance never worsens with increasing $k$
+- Perfect training performance is achieved when $k = n$
+- This represents overfitting to the training data
+- Model selection is crucial for good generalization
+- Understanding this relationship helps with hyperparameter tuning
 
 ## Problem 15: Principal Component Analysis (PCA)
 
