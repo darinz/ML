@@ -560,9 +560,36 @@ $$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
 
 **19. A bag contains 4 red balls and 3 green balls. We draw 3 balls from the bag without replacement. What is the probability that all 3 balls are red? Express your result as a fraction, or as a percentage rounded to the integer percentage (e.g. 77%).**
 
-**Answer:**
+**Answer:** 11% or 4/35
 
-**Explanation:** 11% or 4/35
+**Explanation:**
+
+This is a **hypergeometric probability** problem - drawing without replacement from a finite population.
+
+**Step-by-step calculation:**
+
+**1. Total balls:** 4 red + 3 green = 7 balls
+**2. Drawing:** 3 balls without replacement
+**3. Desired outcome:** All 3 balls are red
+
+**Probability calculation:**
+```
+P(All 3 red) = (Number of ways to choose 3 red) / (Total ways to choose 3 balls)
+             = C(4,3) / C(7,3)
+             = 4 / 35
+             ≈ 0.114 ≈ 11%
+```
+
+**Where:**
+- **C(4,3)** = number of ways to choose 3 red balls from 4 red balls = 4
+- **C(7,3)** = number of ways to choose 3 balls from 7 total balls = 35
+
+**Alternative calculation:**
+```
+P(All 3 red) = (4/7) × (3/6) × (2/5) = 24/210 = 4/35
+```
+
+**Key insight:** **Without replacement** means the probability changes after each draw, unlike binomial probability.
 
 **20. True/False: For a matrix $X \in \mathbb{R}^{n \times d}$ of rank $d$, there exists an orthogonal matrix $V$ and diagonal matrix $D$ such that $X^T X = VDV^T$.**
 
@@ -570,6 +597,31 @@ $$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
 *   (b) False
 
 **Correct answers:** (a)
+
+**Explanation:**
+
+This is **true**. For a matrix X ∈ ℝ^(n×d) of rank d, the matrix X^T X has an **eigendecomposition** with orthogonal eigenvectors.
+
+**Why this is true:**
+
+**1. Properties of X^T X:**
+- **Symmetric:** (X^T X)^T = X^T X
+- **Positive semi-definite:** v^T X^T X v ≥ 0 for all v
+- **Rank d:** Since X has rank d, X^T X also has rank d
+
+**2. Spectral theorem:**
+- **Symmetric matrices** have real eigenvalues
+- **Symmetric matrices** have orthogonal eigenvectors
+- **Eigendecomposition:** X^T X = VDV^T where:
+  - **V** is orthogonal (V^T V = I)
+  - **D** is diagonal with real eigenvalues
+
+**3. Matrix dimensions:**
+- **X^T X ∈ ℝ^(d×d)** (d×d symmetric matrix)
+- **V ∈ ℝ^(d×d)** (orthogonal matrix)
+- **D ∈ ℝ^(d×d)** (diagonal matrix)
+
+**Key insight:** The **spectral theorem** guarantees that any **symmetric matrix** can be diagonalized by an **orthogonal matrix**.
 
 **21. You have built a spam detection classifier to help you clean up your email inbox. Your system has uncovered that 90% of all spam emails contain the word "discount". If you assume that the overall probability of an email being spam is 5% and 15% of all incoming emails contain the word "discount", what is the probability that an email containing "discount" is actually spam?**
 
@@ -617,6 +669,29 @@ P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
 
 **Correct answers:** (b)
 
+**Explanation:**
+
+**Both statements are false** regarding k-fold cross-validation.
+
+**Statement (1) - False:**
+- **Large datasets** should use **smaller k** values (e.g., k=5 or k=10)
+- **k close to n** would be **leave-one-out (LOO)** validation
+- **LOO is computationally expensive** for large datasets
+- **k=5 or k=10** provides good balance of bias and variance
+
+**Statement (2) - False:**
+- **Larger k** means **more model training** (not fewer)
+- **k-fold CV** trains **k models** total
+- **Smaller k** (e.g., k=5) requires fewer model trainings than larger k (e.g., k=20)
+- **Computational cost** scales linearly with k
+
+**Practical guidelines:**
+- **Small datasets:** Use larger k (LOO or k close to n)
+- **Large datasets:** Use smaller k (k=5 or k=10)
+- **Computational efficiency:** Smaller k is faster
+
+**Key insight:** **k-fold CV** trades **computational cost** for **estimation accuracy** - larger k is more accurate but more expensive.
+
 **23. What is the primary encouragement of the L1 regularization term in Lasso regression?**
 
 *   (a) Encourages the model to fit the training data more closely.
@@ -625,6 +700,35 @@ P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
 *   (d) Encourages sparsity by driving some feature coefficients to zero.
 
 **Correct answers:** (d)
+
+**Explanation:**
+
+**LASSO (L1 regularization) encourages sparsity** by driving some coefficients exactly to zero.
+
+**Why L1 creates sparsity:**
+
+**1. Mathematical intuition:**
+- **L1 penalty:** λ||w||₁ = λ(|w₁| + |w₂| + ... + |wₙ|)
+- **L1 constraint region** has **sharp corners** at the axes
+- **Optimal solution** often lies at these corners where some coefficients = 0
+
+**2. Geometric interpretation:**
+- **L1 constraint:** diamond-shaped region
+- **L2 constraint:** circular region
+- **L1 corners** touch the axes, allowing exact zeros
+- **L2 surface** is smooth, never touches axes
+
+**3. Feature selection:**
+- **Zero coefficients** = irrelevant features
+- **Non-zero coefficients** = important features
+- **Automatic feature selection** without manual intervention
+
+**4. Comparison with Ridge (L2):**
+- **Ridge:** Shrinks coefficients toward zero but never exactly zero
+- **LASSO:** Can set coefficients exactly to zero
+- **LASSO:** Better for feature selection and interpretability
+
+**Key insight:** **L1 regularization** provides **automatic feature selection** through sparsity induction.
 
 **24. Consider fitting a linear model by minimizing the least squares objective $\hat{w} = \arg \min_w \sum_{i=1}^n (y_i - x_i^T w)^2$ for a training dataset of i.i.d. input-output pairs $\{(x_i, y_i)\}_{i=1}^n$. Which of the following statements about this objective is true?**
 
@@ -635,6 +739,39 @@ P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
 
 **Correct answers:** (a)
 
+**Explanation:**
+
+**Least squares is equivalent to maximum likelihood estimation (MLE) under Gaussian noise assumption.**
+
+**Mathematical derivation:**
+
+**1. Gaussian noise model:**
+```
+y_i = x_i^T w + ε_i, where ε_i ~ N(0, σ²)
+```
+
+**2. Likelihood function:**
+```
+L(w) = ∏ᵢ p(y_i | x_i, w) = ∏ᵢ (1/√(2πσ²)) exp(-(y_i - x_i^T w)²/(2σ²))
+```
+
+**3. Log-likelihood:**
+```
+log L(w) = -n/2 log(2πσ²) - (1/(2σ²)) Σᵢ (y_i - x_i^T w)²
+```
+
+**4. MLE objective:**
+```
+max log L(w) = min Σᵢ (y_i - x_i^T w)²
+```
+
+**Why other options are incorrect:**
+- **(b)** MLE maximizes likelihood, not minimizes
+- **(c)** Laplace noise would give L1 loss, not L2 loss
+- **(d)** Wrong noise distribution and wrong optimization direction
+
+**Key insight:** **Gaussian noise** leads to **squared error loss**, while **Laplace noise** would lead to **absolute error loss**.
+
 **25. Consider a matrix $A \in \mathbb{R}^{n \times n}$ that is symmetric and has orthonormal columns. Which of the following statements is true?**
 
 *   (a) All eigenvalues of $A$ are real.
@@ -643,6 +780,35 @@ P(Spam|Discount) = P(Discount|Spam) × P(Spam) / P(Discount)
 *   (d) The eigenvalues of $A$ cannot be determined from the given information.
 
 **Correct answers:** (a)
+
+**Explanation:**
+
+**Symmetric matrices have real eigenvalues** - this is a fundamental property from linear algebra.
+
+**Why (a) is correct:**
+
+**1. Spectral theorem for symmetric matrices:**
+- **Symmetric matrices** have **real eigenvalues**
+- **Symmetric matrices** have **orthogonal eigenvectors**
+- **A^T = A** implies all eigenvalues are real
+
+**2. Orthonormal columns property:**
+- **A^T A = I** (orthonormal columns)
+- **A is symmetric** (A^T = A)
+- **Combining:** A^T A = A² = I
+- **Eigenvalues** of A² are squares of eigenvalues of A
+
+**3. Analysis:**
+- **A² = I** means eigenvalues of A² are all 1
+- **Eigenvalues of A** must be ±1 (since (±1)² = 1)
+- **All eigenvalues are real** (both +1 and -1 are real)
+
+**Why other options are incorrect:**
+- **(b)** Symmetric matrices cannot have complex eigenvalues
+- **(c)** Eigenvalues are ±1, not just 0 or 1
+- **(d)** We can determine eigenvalues from the given properties
+
+**Key insight:** **Symmetric matrices** have **real eigenvalues** regardless of other properties.
 
 **26. Consider the closed form of the optimal weight for Ridge Regression, as derived in a previous homework (HW1):**
 
