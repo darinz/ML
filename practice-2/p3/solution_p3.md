@@ -568,6 +568,113 @@ Consider a training dataset with samples $(x_i, y_i)$, where $x_i \in \mathbb{R}
 
 **Correct answers:** (b)
 
+**Explanation:**
+
+The correct answer is **(b)** - the error of 1-NN classification is at most twice the Bayes error rate. Here's the detailed explanation:
+
+**Understanding 1-Nearest Neighbor Classification:**
+
+**1-NN Algorithm:**
+For a test point $x$, find the nearest training point $x_i$ and predict $y_i$.
+
+**Bayes Error Rate:**
+The Bayes error rate is the minimum possible error rate for any classifier, given by:
+$$\text{Bayes Error} = \mathbb{E}_X[\min\{P(Y=1|X), P(Y=0|X)\}]$$
+
+**Theoretical Result:**
+As $n \to \infty$, the error rate of 1-NN classification satisfies:
+$$\text{Error}_{1\text{-NN}} \leq 2 \times \text{Bayes Error}$$
+
+This is a fundamental result in statistical learning theory.
+
+**Mathematical Proof Sketch:**
+
+**Step 1: Nearest Neighbor Convergence**
+As $n \to \infty$, the nearest neighbor $x_i$ of a test point $x$ converges to $x$:
+$$\lim_{n \to \infty} ||x_i - x|| = 0$$
+
+**Step 2: Probability Estimation**
+The 1-NN classifier estimates $P(Y=1|X=x)$ as:
+$$\hat{P}(Y=1|X=x) = \mathbb{I}[y_i = 1]$$
+
+where $x_i$ is the nearest neighbor of $x$.
+
+**Step 3: Error Analysis**
+The error rate can be written as:
+$$\text{Error}_{1\text{-NN}} = \mathbb{E}_X[P(Y \neq \hat{Y}|X)]$$
+
+where $\hat{Y}$ is the 1-NN prediction.
+
+**Step 4: Bounding the Error**
+For any $x$:
+$$P(Y \neq \hat{Y}|X=x) = P(Y=1|X=x) \cdot \mathbb{I}[\hat{Y}=0] + P(Y=0|X=x) \cdot \mathbb{I}[\hat{Y}=1]$$
+
+As $n \to \infty$, $\hat{Y}$ approaches the Bayes optimal decision, but with some error due to the discrete nature of 1-NN.
+
+**Step 5: The Factor of 2**
+The factor of 2 comes from the worst-case scenario where:
+- The true probability is close to 0.5
+- The nearest neighbor makes the wrong decision
+- This can happen at most twice as often as the Bayes error
+
+**Why Other Options Are Wrong:**
+
+**Option (a) - "Error approaches infinity": FALSE** ❌
+- **Problem**: 1-NN is a consistent estimator
+- **Issue**: As $n \to \infty$, the nearest neighbor gets arbitrarily close to the test point
+- **Result**: Error rate converges to a finite value, not infinity
+
+**Option (c) - "Error is at most the Bayes error rate": FALSE** ❌
+- **Problem**: 1-NN cannot achieve Bayes optimal performance
+- **Issue**: 1-NN makes discrete decisions based on single nearest neighbor
+- **Result**: Error rate is bounded by 2×Bayes error, not 1×Bayes error
+
+**Option (d) - "Error approaches zero": FALSE** ❌
+- **Problem**: Error rate is bounded below by Bayes error
+- **Issue**: Even with infinite data, 1-NN cannot achieve zero error if Bayes error > 0
+- **Result**: Error approaches 2×Bayes error, not zero
+
+**Practical Implications:**
+
+**1. Consistency:**
+- 1-NN is a consistent estimator
+- Error rate converges as $n \to \infty$
+- But convergence can be slow in high dimensions
+
+**2. Performance Bound:**
+- 1-NN error is at most twice the best possible error
+- This provides a theoretical guarantee
+- Useful for understanding algorithm limitations
+
+**3. Comparison with Other Methods:**
+- **k-NN with k > 1**: Can achieve better performance
+- **Kernel methods**: Can approach Bayes optimal performance
+- **Neural networks**: Can achieve very low error rates
+
+**Example:**
+
+**Scenario**: Binary classification with Bayes error = 0.1
+
+**1-NN Performance:**
+- **Error rate**: ≤ 0.2 (twice Bayes error)
+- **Actual performance**: Depends on data distribution
+- **Convergence**: As $n \to \infty$, error approaches this bound
+
+**Mathematical Verification:**
+
+**For smooth $P(Y=1|X)$:**
+- 1-NN estimates $P(Y=1|X=x) \approx P(Y=1|X=x_i)$
+- As $x_i \to x$, the estimate becomes more accurate
+- But discrete nature prevents perfect estimation
+
+**Error Decomposition:**
+$$\text{Error}_{1\text{-NN}} = \text{Bayes Error} + \text{Approximation Error}$$
+
+where the approximation error is bounded by the Bayes error.
+
+**Conclusion:**
+The error of 1-NN classification is **at most twice the Bayes error rate** as $n \to \infty$. This provides a theoretical guarantee on the performance of 1-NN and shows that it is a consistent but not optimal classifier.
+
 ## Problem 14
 
 Which of the following statements about Pooling layers in convolutional neural networks (CNNs) are true? Select all that apply.
@@ -582,6 +689,137 @@ Which of the following statements about Pooling layers in convolutional neural n
 
 **Correct answers:** (c), (d)
 
+**Explanation:**
+
+The correct answers are **(c)** and **(d)**. Here's the detailed analysis of each statement about pooling layers in CNNs:
+
+**Understanding Pooling Layers:**
+
+**Pooling Definition:**
+Pooling layers reduce the spatial dimensions of feature maps by applying a function (max, average, etc.) to local regions.
+
+**Analysis of Each Statement:**
+
+**Option (a) - "A $2 \times 2$ pooling layer has 4 parameters": FALSE** ❌
+
+**Why This is Incorrect:**
+- **Pooling layers have NO parameters**: They are fixed operations
+- **No learnable weights**: Pooling is a deterministic function
+- **No bias terms**: Pooling doesn't add bias
+- **Fixed operation**: Max pooling, average pooling, etc. are parameter-free
+
+**Mathematical Verification:**
+For a $2 \times 2$ max pooling layer:
+$$\text{Output} = \max(x_{i,j}, x_{i,j+1}, x_{i+1,j}, x_{i+1,j+1})$$
+
+This is a fixed operation with no parameters to learn.
+
+**Option (b) - "Pooling layers never change the height and width of the output image": FALSE** ❌
+
+**Why This is Incorrect:**
+- **Pooling ALWAYS reduces spatial dimensions**: This is their primary purpose
+- **Stride effect**: Pooling with stride > 1 reduces dimensions
+- **Padding effect**: Even with padding, pooling typically reduces size
+
+**Mathematical Example:**
+For $2 \times 2$ pooling with stride 2:
+- **Input**: $H \times W$
+- **Output**: $\frac{H}{2} \times \frac{W}{2}$
+
+**Option (c) - "For a max-pooling layer, the gradients with respect to some inputs will always be zero": TRUE** ✅
+
+**Why This is Correct:**
+- **Max pooling selects maximum value**: Only the maximum input contributes to the output
+- **Gradient flow**: Only the maximum input receives gradient
+- **Other inputs**: Receive zero gradient
+
+**Mathematical Verification:**
+For max pooling $y = \max(x_1, x_2, x_3, x_4)$:
+$$\frac{\partial y}{\partial x_i} = \begin{cases} 
+1 & \text{if } x_i = \max(x_1, x_2, x_3, x_4) \\
+0 & \text{otherwise}
+\end{cases}$$
+
+**Example:**
+- **Inputs**: $[2, 5, 1, 3]$
+- **Output**: $\max(2, 5, 1, 3) = 5$
+- **Gradients**: $[0, 1, 0, 0]$ (only the maximum value gets gradient)
+
+**Option (d) - "Pooling layers do not change the depth of the output image": TRUE** ✅
+
+**Why This is Correct:**
+- **Depth preservation**: Pooling operates on each channel independently
+- **No channel mixing**: Pooling doesn't combine different channels
+- **Same number of channels**: Input and output have same depth
+
+**Mathematical Verification:**
+For input tensor $X \in \mathbb{R}^{C \times H \times W}$:
+- **Pooling operation**: Applied to each channel independently
+- **Output tensor**: $Y \in \mathbb{R}^{C \times H' \times W'}$ where $C$ is unchanged
+
+**Example:**
+- **Input**: $64 \times 32 \times 32$ (64 channels, 32×32 spatial)
+- **$2 \times 2$ pooling**: $64 \times 16 \times 16$ (64 channels preserved, spatial dimensions halved)
+
+**Pooling Layer Properties:**
+
+**1. Parameter-Free:**
+- No learnable weights or biases
+- Fixed mathematical operations
+- Computationally efficient
+
+**2. Spatial Reduction:**
+- Reduces height and width
+- Preserves depth (number of channels)
+- Helps with computational efficiency
+
+**3. Translation Invariance:**
+- Small translations don't affect output much
+- Useful for object recognition
+- Reduces sensitivity to exact positioning
+
+**4. Gradient Flow:**
+- **Max pooling**: Only maximum input gets gradient
+- **Average pooling**: All inputs get equal gradient
+- **Backpropagation**: Gradients flow through selected inputs
+
+**Types of Pooling:**
+
+**Max Pooling:**
+- **Operation**: $\max(x_1, x_2, \ldots, x_k)$
+- **Gradient**: Only maximum input gets gradient
+- **Use case**: Most common, preserves important features
+
+**Average Pooling:**
+- **Operation**: $\frac{1}{k}\sum_{i=1}^k x_i$
+- **Gradient**: All inputs get equal gradient
+- **Use case**: Smoothing, less sensitive to outliers
+
+**Global Pooling:**
+- **Operation**: Pool over entire spatial dimensions
+- **Result**: Reduces to $C \times 1 \times 1$
+- **Use case**: Final classification layers
+
+**Practical Implications:**
+
+**1. Computational Efficiency:**
+- Reduces spatial dimensions
+- Decreases computational cost
+- Enables deeper networks
+
+**2. Feature Invariance:**
+- Translation invariance
+- Scale invariance (to some extent)
+- Robust to small perturbations
+
+**3. Memory Efficiency:**
+- Reduces memory requirements
+- Enables larger batch sizes
+- Faster training and inference
+
+**Conclusion:**
+Only statements **(c)** and **(d)** are correct. Pooling layers have no parameters, always reduce spatial dimensions, preserve depth, and for max pooling, only the maximum input receives gradients during backpropagation.
+
 ## Problem 15
 
 Which of the following statements about SVMs are true? Select all that apply.
@@ -595,6 +833,139 @@ Which of the following statements about SVMs are true? Select all that apply.
 (d) SVMs are primarily used for regression tasks.
 
 **Correct answers:** (a), (c)
+
+**Explanation:**
+
+The correct answers are **(a)** and **(c)**. Here's the detailed analysis of each statement about Support Vector Machines (SVMs):
+
+**Understanding Support Vector Machines:**
+
+**SVM Definition:**
+Support Vector Machines are supervised learning models that find optimal hyperplanes to separate classes while maximizing the margin.
+
+**Analysis of Each Statement:**
+
+**Option (a) - "SVMs are only applicable to binary classification problems": TRUE** ✅
+
+**Why This is Correct:**
+- **Original SVM formulation**: Designed for binary classification
+- **Core algorithm**: Finds a single hyperplane to separate two classes
+- **Mathematical foundation**: Based on binary class separation
+
+**Mathematical Formulation:**
+$$\min_{w,b} \frac{1}{2}||w||^2$$
+$$\text{subject to } y_i(w^T x_i + b) \geq 1 \text{ for all } i$$
+
+where $y_i \in \{-1, +1\}$ for binary classification.
+
+**Multi-Class Extensions:**
+While SVMs are fundamentally binary, they can be extended to multi-class problems using:
+- **One-vs-One (OVO)**: Train $\binom{k}{2}$ binary classifiers
+- **One-vs-All (OVA)**: Train $k$ binary classifiers
+- **Directed Acyclic Graph (DAG)**: Hierarchical classification
+
+**Option (b) - "SVMs cannot be applied to non-linearly separable data": FALSE** ❌
+
+**Why This is Incorrect:**
+- **Soft-margin SVM**: Can handle non-linearly separable data using slack variables
+- **Kernel trick**: Can transform data to higher-dimensional space where it's linearly separable
+- **Slack variables**: Allow some training points to be misclassified
+
+**Mathematical Formulation with Slack Variables:**
+$$\min_{w,b,\xi} \frac{1}{2}||w||^2 + C\sum_{i=1}^n \xi_i$$
+$$\text{subject to } y_i(w^T x_i + b) \geq 1 - \xi_i \text{ for all } i$$
+$$\xi_i \geq 0 \text{ for all } i$$
+
+**Kernel Trick:**
+$$K(x_i, x_j) = \phi(x_i)^T \phi(x_j)$$
+
+Common kernels:
+- **Linear**: $K(x_i, x_j) = x_i^T x_j$
+- **Polynomial**: $K(x_i, x_j) = (x_i^T x_j + c)^d$
+- **RBF**: $K(x_i, x_j) = \exp(-\gamma||x_i - x_j||^2)$
+
+**Option (c) - "SVMs are a form of supervised learning": TRUE** ✅
+
+**Why This is Correct:**
+- **Supervised learning**: Requires labeled training data $(x_i, y_i)$
+- **Training process**: Uses labeled examples to learn the decision boundary
+- **Prediction**: Makes predictions on new, unlabeled data
+
+**Supervised Learning Characteristics:**
+- **Training data**: Labeled examples $\{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$
+- **Learning objective**: Find function $f: X \rightarrow Y$ that generalizes well
+- **Evaluation**: Test on held-out labeled data
+
+**Option (d) - "SVMs are primarily used for regression tasks": FALSE** ❌
+
+**Why This is Incorrect:**
+- **Primary use**: Classification problems
+- **Regression variant**: Support Vector Regression (SVR) exists but is less common
+- **Main focus**: Binary and multi-class classification
+
+**SVM Applications:**
+
+**1. Classification Tasks:**
+- **Text classification**: Spam detection, sentiment analysis
+- **Image classification**: Face detection, object recognition
+- **Bioinformatics**: Protein classification, gene expression analysis
+- **Finance**: Credit scoring, fraud detection
+
+**2. Regression Tasks (SVR):**
+- **Time series prediction**: Stock price forecasting
+- **Function approximation**: Non-linear regression
+- **Control systems**: System identification
+
+**SVM Properties:**
+
+**1. Margin Maximization:**
+- **Large margin**: Better generalization
+- **Robust**: Less sensitive to noise
+- **Theoretical guarantee**: Bounds on generalization error
+
+**2. Kernel Flexibility:**
+- **Non-linear decision boundaries**: Through kernel trick
+- **Feature space**: Can work in infinite-dimensional spaces
+- **Domain-specific kernels**: Can design kernels for specific problems
+
+**3. Sparsity:**
+- **Support vectors**: Only subset of training points matter
+- **Efficient prediction**: Fast inference
+- **Memory efficient**: Don't need to store all training data
+
+**Mathematical Advantages:**
+
+**1. Convex Optimization:**
+- **Global optimum**: Guaranteed to find optimal solution
+- **Efficient algorithms**: SMO, coordinate descent
+- **Unique solution**: No local optima
+
+**2. Regularization:**
+- **Margin maximization**: Natural regularization
+- **Parameter C**: Controls trade-off between margin and errors
+- **Generalization**: Good out-of-sample performance
+
+**3. Theoretical Foundation:**
+- **VC dimension**: Bounds on generalization error
+- **Margin theory**: Connection between margin and generalization
+- **Statistical learning theory**: Well-founded theoretical basis
+
+**Comparison with Other Methods:**
+
+**vs Neural Networks:**
+- **SVMs**: Better for small datasets, interpretable
+- **Neural Networks**: Better for large datasets, more flexible
+
+**vs Random Forests:**
+- **SVMs**: Better for high-dimensional data, theoretical guarantees
+- **Random Forests**: Better for categorical features, feature importance
+
+**vs Logistic Regression:**
+- **SVMs**: Better for non-linear problems, margin maximization
+- **Logistic Regression**: Better interpretability, probability estimates
+
+**Conclusion:**
+SVMs are **supervised learning models** primarily used for **binary classification**, though they can be extended to multi-class problems and regression. They can handle **non-linearly separable data** through the kernel trick and soft margins, making them versatile and powerful classification algorithms.
 
 ## Problem 16
 
