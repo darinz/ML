@@ -185,7 +185,7 @@ $L(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** **L2 regularization** creates **smooth, circular contours**, while **L1 regularization** creates **sharp, diamond-shaped contours**.
 
-**6. Irreducible error in machine learning is caused by:**
+**Problem 6. Irreducible error in machine learning is caused by:**
 
 *   (a) Noise in the data
 *   (b) Bias in the model
