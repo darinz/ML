@@ -20,6 +20,39 @@
 - **B and D are wrong** because fewer data points and insufficient model complexity are responsible for reducible error. 
 - **C is wrong** because nonlinear relationships in the data don't have anything to do with irreducible error.
 
+## Detailed Solution Explanation
+
+**Understanding Irreducible Error:**
+
+Irreducible error represents the fundamental uncertainty in the data that cannot be eliminated by any model, no matter how sophisticated. It's the "noise" in the system that makes perfect prediction impossible.
+
+**Mathematical Framework:**
+In the standard regression setting, we model the relationship as:
+$$y = f(x) + \epsilon$$
+where:
+- $f(x)$ is the true underlying function
+- $\epsilon$ is the irreducible error (noise)
+
+The irreducible error $\epsilon$ is typically assumed to follow a distribution (often Gaussian) with mean 0 and some variance $\sigma^2$:
+$$\epsilon \sim \mathcal{N}(0, \sigma^2)$$
+
+**Why Stochastic Label Noise Causes Irreducible Error:**
+- **Stochastic** means random and unpredictable
+- **Label noise** refers to errors in the target variable $y$
+- This noise cannot be learned or predicted from the features $x$
+- Even with perfect knowledge of $f(x)$, we cannot predict $\epsilon$
+
+**Examples of Irreducible Error:**
+- Measurement errors in data collection
+- Random fluctuations in biological systems
+- Unpredictable external factors affecting outcomes
+- Human error in labeling data
+
+**Why Other Options Are Incorrect:**
+- **Option B (Very few data points):** This causes high variance (reducible error) because the model cannot learn the true pattern effectively
+- **Option C (Nonlinear relationships):** This can be modeled with appropriate algorithms (e.g., neural networks, kernel methods)
+- **Option D (Insufficient model complexity):** This causes high bias (reducible error) because the model is too simple to capture the true relationship
+
 ## Problem 2: Bias-Variance Analysis
 
 **1 points One Answer**
@@ -60,6 +93,54 @@ Saket only knows about bias and variance, So based on the model architectures an
 - **Model B:** Achieves low but similar train/test MSEs so probably has a good balance.
 - **Model C:** Has a low train MSE but a high test MSE so is probably overfitting, which matches the likely overcomplex architecture.
 
+## Detailed Solution Explanation
+
+**Understanding Bias-Variance Tradeoff:**
+
+The bias-variance tradeoff is a fundamental concept in machine learning that describes the relationship between model complexity and generalization error.
+
+**Mathematical Framework:**
+The expected prediction error can be decomposed as:
+$$\text{Expected Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+where:
+- **Bias:** How far off the model's predictions are on average from the true values
+- **Variance:** How much the model's predictions vary for different training sets
+- **Irreducible Error:** The fundamental noise in the data
+
+**Analyzing Each Model:**
+
+**Model A (1 hidden layer, 10 neurons):**
+- **Architecture:** Simple model with limited capacity
+- **Performance:** High train MSE (2.5) and test MSE (2.6)
+- **Analysis:** The model cannot capture the underlying pattern in the data
+- **Bias:** High (model is too simple to learn the true relationship)
+- **Variance:** Low (simple models are stable across different training sets)
+
+**Model B (2 hidden layers, 50 neurons each):**
+- **Architecture:** Moderate complexity
+- **Performance:** Low train MSE (0.1) and test MSE (0.2)
+- **Analysis:** The model captures the pattern well without overfitting
+- **Bias:** Low (model can learn the true relationship)
+- **Variance:** Low (good generalization, small gap between train and test)
+
+**Model C (10 hidden layers, 100 neurons each):**
+- **Architecture:** Very complex model with high capacity
+- **Performance:** Very low train MSE (0.01) but high test MSE (1.3)
+- **Analysis:** The model memorizes the training data but doesn't generalize
+- **Bias:** Low (model can fit the training data perfectly)
+- **Variance:** High (model is sensitive to training data, poor generalization)
+
+**Key Insights:**
+- **Underfitting:** High bias, low variance (Model A)
+- **Good Fit:** Low bias, low variance (Model B) 
+- **Overfitting:** Low bias, high variance (Model C)
+
+**Visual Interpretation:**
+- **High Bias:** Model predictions are systematically off-target
+- **High Variance:** Model predictions are scattered around the target
+- **Optimal:** Model predictions cluster tightly around the target
+
 ## Problem 3: K-Fold Cross Validation
 
 **2 points**
@@ -82,6 +163,67 @@ A higher K means more folds and therefore much more compute/time needed to find 
 **Upside:** You get a more accurate estimate of your test error, possibly making hyperparameter selection more accurate.
 
 **Downside:** A higher K means more folds and therefore much more compute/time needed to find the right hyperparameters. A higher K also means each validation set has fewer data points. This will result in higher variability in the results across different folds.
+
+## Detailed Solution Explanation
+
+**Understanding K-Fold Cross Validation:**
+
+K-fold cross validation is a resampling technique used to assess how well a model will generalize to new, unseen data.
+
+**Mathematical Framework:**
+For a dataset with $n$ samples, K-fold CV:
+- Divides data into $K$ equal-sized folds
+- Each fold has approximately $\frac{n}{K}$ samples
+- Trains on $K-1$ folds, validates on 1 fold
+- Repeats $K$ times, using each fold as validation once
+
+**Expected Test Error Estimate:**
+$$\text{CV Error} = \frac{1}{K} \sum_{k=1}^{K} \text{Error}_k$$
+where $\text{Error}_k$ is the error on the $k$-th validation fold.
+
+**Upside of High K (e.g., K = 10 or leave-one-out):**
+
+1. **More Accurate Error Estimation:**
+   - Higher K means more validation sets
+   - Reduces bias in error estimation
+   - Better approximation of true generalization error
+
+2. **Better Hyperparameter Selection:**
+   - More reliable comparison between different hyperparameter settings
+   - Reduces risk of selecting suboptimal hyperparameters due to lucky/unlucky data splits
+
+3. **Statistical Efficiency:**
+   - Uses more data for training (each training set has $\frac{K-1}{K} \cdot n$ samples)
+   - More representative of the true data distribution
+
+**Downside of High K:**
+
+1. **Computational Cost:**
+   - **Time Complexity:** $O(K \cdot T)$ where $T$ is training time for one model
+   - **Space Complexity:** Need to store $K$ models
+   - **Practical Limitation:** May be infeasible for large datasets or complex models
+
+2. **Smaller Validation Sets:**
+   - Each validation set has only $\frac{n}{K}$ samples
+   - **Higher Variance:** Smaller validation sets lead to more variable error estimates
+   - **Less Reliable:** Individual fold errors may not be representative
+
+3. **Statistical Instability:**
+   - High variance in cross-validation estimates
+   - May lead to inconsistent hyperparameter selection
+   - Risk of overfitting to the cross-validation procedure itself
+
+**Optimal K Selection:**
+- **Small datasets:** Use higher K (5-10) or leave-one-out
+- **Large datasets:** Lower K (3-5) is often sufficient
+- **Computational constraints:** Balance accuracy vs. time
+- **Rule of thumb:** K = 5 or K = 10 are common choices
+
+**Example Calculation:**
+For $n = 1000$ samples:
+- **K = 5:** Each fold has 200 samples, train on 800 samples
+- **K = 10:** Each fold has 100 samples, train on 900 samples
+- **Leave-one-out:** Each fold has 1 sample, train on 999 samples
 
 ## Problem 4: Training and Validation Loss
 
@@ -114,6 +256,78 @@ A line plot titled "Training and Validation Loss" shows two curves over "Number 
 **Explanation:** 
 This is a classic example of overfitting, which is caused when we have too complex of a model and it ends up memorizing the training set. Overfitting means the model has low bias and high variance. Thus, the only correct options are D and E.
 
+## Detailed Solution Explanation
+
+**Understanding Overfitting from Loss Curves:**
+
+This problem demonstrates a classic overfitting scenario where the model learns the training data too well but fails to generalize to new data.
+
+**Key Observations from the Plot:**
+
+1. **Training Loss:** Decreases rapidly and reaches near-zero by epoch 7
+2. **Validation Loss:** Initially decreases but then increases after epoch 7
+3. **Gap Between Curves:** Large and growing gap between training and validation loss
+4. **Divergence Point:** Around epoch 7, validation loss starts increasing while training loss remains low
+
+**Mathematical Interpretation:**
+
+**Training Loss Behavior:**
+$$\text{Train Loss}(t) \rightarrow 0 \text{ as } t \rightarrow \infty$$
+This indicates the model has sufficient capacity to fit the training data perfectly.
+
+**Validation Loss Behavior:**
+$$\text{Val Loss}(t) = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+After epoch 7, the variance term dominates, causing validation loss to increase.
+
+**Why Options D and E Are Correct:**
+
+**Option D: "The model might be too complex for the dataset"**
+- **Evidence:** Training loss reaches near-zero quickly
+- **Implication:** Model has more parameters than needed
+- **Result:** Model memorizes training data instead of learning generalizable patterns
+
+**Option E: "The model is likely memorizing the training data"**
+- **Evidence:** Training loss ≈ 0, validation loss increasing
+- **Implication:** Model learns training-specific noise
+- **Result:** Poor generalization to unseen data
+
+**Why Other Options Are Incorrect:**
+
+**Option A: "The model has high bias and low variance"**
+- **Contradiction:** High bias would show high training loss
+- **Reality:** Low training loss indicates low bias
+
+**Option B: "The large gap indicates underfitting"**
+- **Contradiction:** Underfitting shows high training and validation loss
+- **Reality:** Low training loss indicates overfitting, not underfitting
+
+**Option C: "Training for more epochs will eventually decrease validation loss"**
+- **Contradiction:** Validation loss is already increasing
+- **Reality:** More training will likely worsen overfitting
+
+**Solutions to Overfitting:**
+
+1. **Regularization:** Add L1/L2 penalties to reduce model complexity
+2. **Early Stopping:** Stop training when validation loss starts increasing
+3. **Data Augmentation:** Increase effective dataset size
+4. **Model Simplification:** Reduce number of parameters
+5. **Dropout:** Randomly disable neurons during training
+
+**Early Stopping Implementation:**
+```python
+# Monitor validation loss and stop when it increases
+if val_loss > best_val_loss:
+    patience_counter += 1
+    if patience_counter >= patience:
+        stop_training()
+```
+
+**Visual Indicators of Overfitting:**
+- Training loss continues to decrease
+- Validation loss starts increasing
+- Growing gap between training and validation curves
+- Model performance on test set is poor
+
 ## Problem 5: Maximum Likelihood Estimation
 
 **1 points Select All That Apply**
@@ -134,6 +348,81 @@ This is a classic example of overfitting, which is caused when we have too compl
 - **d) True:** NNs with softmax define a probability distribution over the classification labels and try to maximize it with cross entropy.
 - **b) False:** PCA does not use MLE because it does not define a probabilistic distribution for the data, it just uses linear algebra to find vectors that explain a lot of variance in the data.
 
+## Detailed Solution Explanation
+
+**Understanding Maximum Likelihood Estimation (MLE):**
+
+Maximum Likelihood Estimation is a method for estimating parameters of a statistical model by finding the parameter values that maximize the likelihood function.
+
+**Mathematical Framework:**
+For a dataset $\mathcal{D} = \{x_1, x_2, \ldots, x_n\}$ and parameters $\theta$:
+
+$$\mathcal{L}(\theta) = P(\mathcal{D} | \theta) = \prod_{i=1}^{n} P(x_i | \theta)$$
+
+The MLE estimate is:
+$$\hat{\theta}_{MLE} = \arg\max_{\theta} \mathcal{L}(\theta) = \arg\max_{\theta} \log \mathcal{L}(\theta)$$
+
+**Analysis of Each Model:**
+
+**Option A: Linear Regression with Gaussian Noise**
+
+**Model:** $y_i = w^T x_i + \epsilon_i$ where $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$
+
+**Likelihood Function:**
+$$\mathcal{L}(w, \sigma^2) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y_i - w^T x_i)^2}{2\sigma^2}\right)$$
+
+**Log-Likelihood:**
+$$\log \mathcal{L}(w, \sigma^2) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^{n} (y_i - w^T x_i)^2$$
+
+**MLE Solution:** Maximizing log-likelihood is equivalent to minimizing MSE:
+$$\hat{w}_{MLE} = \arg\min_w \sum_{i=1}^{n} (y_i - w^T x_i)^2$$
+
+**Option C: Gaussian Mixture Models (GMM)**
+
+**Model:** $P(x) = \sum_{k=1}^{K} \pi_k \mathcal{N}(x | \mu_k, \Sigma_k)$
+
+**Likelihood Function:**
+$$\mathcal{L}(\{\pi_k, \mu_k, \Sigma_k\}) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k \mathcal{N}(x_i | \mu_k, \Sigma_k)$$
+
+**MLE Solution:** Typically solved using EM algorithm to find:
+$$\{\hat{\pi}_k, \hat{\mu}_k, \hat{\Sigma}_k\}_{MLE} = \arg\max \mathcal{L}(\{\pi_k, \mu_k, \Sigma_k\})$$
+
+**Option D: Neural Networks with Softmax Cross-Entropy**
+
+**Model:** $P(y_i | x_i) = \text{softmax}(f_\theta(x_i))_y$
+
+**Likelihood Function:**
+$$\mathcal{L}(\theta) = \prod_{i=1}^{n} P(y_i | x_i, \theta)$$
+
+**Cross-Entropy Loss:** Negative log-likelihood:
+$$\mathcal{L}_{CE} = -\sum_{i=1}^{n} \log P(y_i | x_i, \theta)$$
+
+**MLE Solution:** Minimizing cross-entropy maximizes likelihood:
+$$\hat{\theta}_{MLE} = \arg\min_\theta \mathcal{L}_{CE}$$
+
+**Option B: Principal Components Analysis (PCA)**
+
+**Why PCA is NOT MLE:**
+- **No Probabilistic Model:** PCA doesn't assume any probability distribution
+- **Geometric Approach:** Finds directions of maximum variance
+- **Optimization Objective:** Maximizes variance, not likelihood
+- **Mathematical Formulation:**
+  $$w^* = \arg\max_w \text{Var}(w^T X) = \arg\max_w w^T \Sigma w$$
+  subject to $||w|| = 1$
+
+**Key Differences:**
+
+| Method | Probabilistic Model | Optimization Objective | Uses MLE |
+|--------|-------------------|----------------------|----------|
+| Linear Regression | Yes (Gaussian noise) | Minimize MSE | Yes |
+| GMM | Yes (Mixture of Gaussians) | Maximize likelihood | Yes |
+| Neural Networks | Yes (Categorical) | Minimize cross-entropy | Yes |
+| PCA | No | Maximize variance | No |
+
+**Practical Implications:**
+- **MLE Methods:** Provide uncertainty estimates, can be extended to Bayesian inference
+- **Non-MLE Methods:** Often faster, but lack probabilistic interpretation
+
 ## Problem 6: Maximum Likelihood Estimation - Coin Toss
 
 **1 points One Answer**
@@ -150,6 +439,79 @@ This is a classic example of overfitting, which is caused when we have too compl
 
 **Explanation:** 
 There were 3 Heads and 2 Tails. Based on these observations, the estimated probability of Heads is $\frac{3}{5} = 0.6$, which is greater than the estimated probability of Tails ($\frac{2}{5} = 0.4$). Therefore, Heads is the most likely outcome.
+
+## Detailed Solution Explanation
+
+**Understanding Maximum Likelihood Estimation for Bernoulli Trials:**
+
+This problem demonstrates how MLE works for estimating the probability parameter of a Bernoulli distribution (coin toss).
+
+**Mathematical Framework:**
+
+**Bernoulli Distribution:**
+For a coin with probability $p$ of heads, the probability mass function is:
+$$P(X = x) = p^x(1-p)^{1-x}$$
+where $x \in \{0, 1\}$ (0 = tails, 1 = heads)
+
+**Likelihood Function:**
+For $n$ independent coin tosses with outcomes $x_1, x_2, \ldots, x_n$:
+$$\mathcal{L}(p) = \prod_{i=1}^{n} p^{x_i}(1-p)^{1-x_i} = p^{\sum_{i=1}^{n} x_i}(1-p)^{n - \sum_{i=1}^{n} x_i}$$
+
+**Log-Likelihood:**
+$$\log \mathcal{L}(p) = \left(\sum_{i=1}^{n} x_i\right) \log p + \left(n - \sum_{i=1}^{n} x_i\right) \log(1-p)$$
+
+**MLE Solution:**
+To find the MLE, we set the derivative to zero:
+$$\frac{d}{dp} \log \mathcal{L}(p) = \frac{\sum_{i=1}^{n} x_i}{p} - \frac{n - \sum_{i=1}^{n} x_i}{1-p} = 0$$
+
+Solving for $p$:
+$$\frac{\sum_{i=1}^{n} x_i}{p} = \frac{n - \sum_{i=1}^{n} x_i}{1-p}$$
+$$(1-p)\sum_{i=1}^{n} x_i = p(n - \sum_{i=1}^{n} x_i)$$
+$$\sum_{i=1}^{n} x_i - p\sum_{i=1}^{n} x_i = pn - p\sum_{i=1}^{n} x_i$$
+$$\sum_{i=1}^{n} x_i = pn$$
+$$\hat{p}_{MLE} = \frac{\sum_{i=1}^{n} x_i}{n} = \frac{\text{Number of heads}}{\text{Total tosses}}$$
+
+**Application to the Problem:**
+
+**Data:** 5 coin tosses with outcomes: H, T, H, H, T
+
+**Counts:**
+- Number of heads: $\sum_{i=1}^{5} x_i = 3$
+- Number of tails: $5 - 3 = 2$
+- Total tosses: $n = 5$
+
+**MLE Estimate:**
+$$\hat{p}_{MLE} = \frac{3}{5} = 0.6$$
+
+**Prediction:**
+Since $\hat{p}_{MLE} = 0.6 > 0.5$, the most likely outcome for the next toss is **Heads**.
+
+**Verification:**
+- $P(\text{Heads}) = 0.6$
+- $P(\text{Tails}) = 1 - 0.6 = 0.4$
+- $0.6 > 0.4$, so Heads is more likely
+
+**Properties of MLE for Bernoulli:**
+
+1. **Unbiased:** $E[\hat{p}_{MLE}] = p$ (for large $n$)
+2. **Consistent:** $\hat{p}_{MLE} \rightarrow p$ as $n \rightarrow \infty$
+3. **Efficient:** Achieves the Cramér-Rao lower bound
+4. **Asymptotically Normal:** $\hat{p}_{MLE} \sim \mathcal{N}(p, \frac{p(1-p)}{n})$
+
+**Confidence Interval:**
+For large $n$, a 95% confidence interval is:
+$$\hat{p}_{MLE} \pm 1.96 \sqrt{\frac{\hat{p}_{MLE}(1-\hat{p}_{MLE})}{n}}$$
+
+**Example:** For our estimate $\hat{p} = 0.6$ with $n = 5$:
+$$0.6 \pm 1.96 \sqrt{\frac{0.6 \times 0.4}{5}} = 0.6 \pm 0.43 = [0.17, 1.03]$$
+
+Note: This interval is wide due to small sample size and extends beyond [0,1], indicating the normal approximation is poor for small $n$.
+
+**Key Insights:**
+- MLE provides the most likely parameter value given the data
+- For Bernoulli trials, MLE is simply the sample proportion
+- The prediction is based on the estimated probability being greater than 0.5
+- Small sample sizes lead to uncertain estimates
 
 ## Problem 7: Convex Optimization
 
