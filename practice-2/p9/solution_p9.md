@@ -490,3 +490,93 @@ This includes:
 
 Note: $3n$, $3n-1$, and $n(d^2 + d + 1)$ were accepted answers, implying that the dimensionality $d$ of the data might be a factor in the covariance parameter count, but the primary answer given is $3n-1$.
 
+## Problem 26: Bootstrapping
+
+**1 point**
+
+**Question:** Which of the following regarding bootstrapping are true?
+
+**Options:**
+- a) Bootstrapping is an approach for hyperparameter tuning.
+- b) Bootstrapping can be applied to large datasets but is most accurate on small datasets.
+- c) For a dataset of size N, there exists $2^N$ possible unique bootstrap datasets.
+- d) Bootstrapping is commonly used to estimate the sampling distribution of a statistic, such as the mean or standard deviation, when the true distribution is unknown.
+- e) Since we select N samples when creating the bootstrap dataset, each data point is guaranteed to be selected.
+
+**Correct Answer:** d)
+
+**Explanation:** 
+Bootstrapping is used to calculate statistics of datasets (making option d correct), not for tuning hyperparameters. The representativeness of bootstrap statistics deteriorates as the size of the dataset decreases since the dataset is less representative of the true distribution. Since we randomly select N data points to create the bootstrapped dataset, there are multiple possible sets.
+
+## Problem 27: Fairness in Machine Learning (Hiring Scenario)
+
+**2 points**
+
+**Question:** Suppose you are the hiring manager at 'Goggles' (a hypothetical tech giant) and you receive thousands of applicants for a role. Since you took CSE446, you decided to build a model and use past hiring data to automate the resume screening process, which has never been done before in the company. The dataset contains resumes and the labels are whether or not the owner of the resume passed the resume screening stage (previously done by humans). The benefit is two fold. You are able to distill the large pool of applicants quickly and you also eliminate human bias when screening resumes. Explain why this approach can be problematic.
+
+**Answer:** [Student response area]
+
+**Explanation:** 
+When the model is trained on biased data, the model can learn about the bias and perpetuate it, which doesn't eliminate human bias.
+
+## Problem 28: Convolutional Neural Networks vs. Deep Neural Networks
+
+**2 points**
+
+**Question:** Give an example of a task where we might expect a convolutional neural network to perform better than a deep neural network. Assume both models have roughly the same number of parameters.
+
+**Follow-up Question:** Provide reasoning why the CNN might perform better in that setting.
+
+**Answer:** [Student response area]
+
+**Explanation:** 
+Images are an example of a task. CNNs use shared parameters to learn filters that can be applied at any point in the image. So, if a cat occurs in the top left or top right corner, you can still recognize it.
+
+## Problem 29: Basis Functions in Linear Regression
+
+**1 point**
+
+**Question:** In the context of linear regression, general basis functions are used to:
+
+**Options:**
+- a) Minimize the computational complexity of linear regression models.
+- b) Increase the speed of convergence in gradient descent optimization.
+- c) Encourage sparsity in the learned weights.
+- d) Transform the input data into a higher-dimensional space to capture non-linear relationships.
+
+**Correct Answer:** d)
+
+**Explanation:** 
+- A is incorrect because using basis functions with linear regression increases computational complexity.
+- B is also wrong since basis functions don't directly affect the convergence rate.
+- For C, sparsity isn't directly affected by using basis functions or not.
+- D is the right answer as transforming input data to higher dimensional space is the exact purpose of basis functions.
+
+## Problem 30: Neural Network Forward Passes
+
+**2 points**
+
+**Question:** A neural network with 6 layers is trained on a dataset of 600 samples with a batch size of 15.
+
+### Part a: 8 Epochs (1 point)
+
+**Question:** How many forward passes through the entire network are needed to train this model for 8 epochs?
+
+**Answer:** [Student response area]
+
+**Explanation:** 
+The answer is 320.
+
+Since the batch size is 15, the number of forward passes for one epoch is $\frac{600}{15}$. Since the network is trained for 8 epochs, the total number of forwards passes is $\frac{600}{15} \cdot 8 = 320$.
+
+### Part b: 5 Epochs (1 point)
+
+**Question:** How many forward passes through the entire network are needed to train this model for 5 epochs?
+
+**Answer:** [Student response area]
+
+**Explanation:** 
+The answer is 200.
+
+Since the batch size is 15, the number of forward passes for one epoch is $\frac{600}{15}$. Since the network is trained for 5 epochs, the total number of forwards passes is $\frac{600}{15} \cdot 5 = 200$.
+
