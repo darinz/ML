@@ -543,6 +543,84 @@ Note: This interval is wide due to small sample size and extends beyond [0,1], i
 - **Part (a):** $f$ is convex, so $x_*$ must be a minimizer of $f$.
 - **Part (b):** Gradient descent
 
+## Detailed Solution Explanation
+
+**Understanding Convex Optimization:**
+
+This problem explores the fundamental properties of convex functions and their optimization.
+
+**Mathematical Framework:**
+
+**Convex Function Definition:**
+A function $f: \mathbb{R}^d \to \mathbb{R}$ is convex if for all $x, y \in \mathbb{R}^d$ and $\lambda \in [0, 1]$:
+$$f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y)$$
+
+**First-Order Condition for Convexity:**
+For a differentiable convex function:
+$$f(y) \geq f(x) + \nabla f(x)^T (y-x) \quad \forall x, y \in \mathbb{R}^d$$
+
+This is exactly the condition given in the problem!
+
+**Part (a): Proving $x_*$ is a Minimizer**
+
+**Given:**
+- $f$ is differentiable and convex
+- $f(y) \geq f(x) + \nabla f(x)^T (y-x)$ for all $x, y$
+- $\nabla f(x_*) = 0$ (critical point)
+
+**Proof that $x_*$ is a minimizer:**
+
+Using the first-order condition with $x = x_*$:
+$$f(y) \geq f(x_*) + \nabla f(x_*)^T (y-x_*) \quad \forall y$$
+
+Since $\nabla f(x_*) = 0$:
+$$f(y) \geq f(x_*) + 0^T (y-x_*) = f(x_*) \quad \forall y$$
+
+This means $f(y) \geq f(x_*)$ for all $y$, which is the definition of $x_*$ being a global minimizer.
+
+**Why Other Options Are Incorrect:**
+
+- **Maximizer:** Would require $f(y) \leq f(x_*)$ for all $y$, which contradicts convexity
+- **Saddle Point:** Would require the function to decrease in some directions and increase in others
+- **Not enough information:** We have sufficient information from convexity and the critical point condition
+
+**Part (b): Finding the Minimizer**
+
+**Gradient Descent Algorithm:**
+When we cannot solve $\nabla f(x) = 0$ analytically, we use iterative methods:
+
+**Algorithm:**
+1. Initialize $x^{(0)} \in \mathbb{R}^d$
+2. For $t = 0, 1, 2, \ldots$:
+   $$x^{(t+1)} = x^{(t)} - \alpha_t \nabla f(x^{(t)})$$
+   where $\alpha_t > 0$ is the learning rate
+
+**Convergence Properties:**
+- **Convex functions:** Gradient descent converges to a global minimum
+- **Lipschitz gradients:** Linear convergence rate
+- **Strongly convex:** Exponential convergence rate
+
+**Mathematical Justification:**
+
+**Descent Property:**
+For convex $f$ with Lipschitz gradient $L$:
+$$f(x^{(t+1)}) \leq f(x^{(t)}) - \frac{\alpha_t}{2} ||\nabla f(x^{(t)})||^2$$
+
+**Convergence Rate:**
+With constant step size $\alpha = \frac{1}{L}$:
+$$f(x^{(t)}) - f(x^*) \leq \frac{L||x^{(0)} - x^*||^2}{2t}$$
+
+**Alternative Methods:**
+1. **Newton's Method:** Uses second derivatives for faster convergence
+2. **Conjugate Gradient:** Efficient for quadratic functions
+3. **L-BFGS:** Quasi-Newton method for large-scale problems
+
+**Key Insights:**
+- Convexity guarantees that any critical point is a global minimum
+- Gradient descent is guaranteed to converge for convex functions
+- The first-order condition is both necessary and sufficient for convexity
+- The learning rate affects convergence speed and stability
+
 ## Problem 8: Gradient Descent Convergence
 
 **1 points One Answer**
@@ -561,6 +639,111 @@ Note: This interval is wide due to small sample size and extends beyond [0,1], i
 
 **Explanation:** 
 Due to the noisy updates of SGD, it is not guaranteed to converge at the minimum but for instance, cycle close to it whereas batch gradient descent alleviates this and is guaranteed to reach the minimum given appropriate step size.
+
+## Detailed Solution Explanation
+
+**Understanding Gradient Descent vs Stochastic Gradient Descent:**
+
+This problem explores the fundamental differences between batch gradient descent (GD) and stochastic gradient descent (SGD) in terms of convergence guarantees.
+
+**Mathematical Framework:**
+
+**Batch Gradient Descent:**
+For a convex function $f(x) = \frac{1}{n}\sum_{i=1}^{n} f_i(x)$:
+$$x^{(t+1)} = x^{(t)} - \alpha \nabla f(x^{(t)}) = x^{(t)} - \alpha \frac{1}{n}\sum_{i=1}^{n} \nabla f_i(x^{(t)})$$
+
+**Stochastic Gradient Descent:**
+$$x^{(t+1)} = x^{(t)} - \alpha \nabla f_i(x^{(t)})$$
+where $i$ is randomly sampled from $\{1, 2, \ldots, n\}$
+
+**Key Differences:**
+
+| Aspect | Batch GD | Stochastic GD |
+|--------|----------|---------------|
+| **Gradient Estimate** | Exact gradient | Noisy gradient estimate |
+| **Computational Cost** | $O(n)$ per iteration | $O(1)$ per iteration |
+| **Convergence** | Deterministic | Stochastic |
+| **Memory** | Requires all data | Processes one sample at a time |
+
+**Convergence Analysis:**
+
+**Batch Gradient Descent:**
+- **Convergence:** Guaranteed to converge to the global minimum
+- **Rate:** Linear convergence for strongly convex functions
+- **Mathematical Guarantee:** For convex $f$ with Lipschitz gradient $L$:
+  $$f(x^{(t)}) - f(x^*) \leq \frac{L||x^{(0)} - x^*||^2}{2t}$$
+
+**Stochastic Gradient Descent:**
+- **Convergence:** Converges in expectation, but with variance
+- **Behavior:** Oscillates around the minimum due to noise
+- **Mathematical Guarantee:** For convex $f$:
+  $$\mathbb{E}[f(\bar{x}^{(T)})] - f(x^*) \leq \frac{||x^{(0)} - x^*||^2}{2\alpha T} + \frac{\alpha \sigma^2}{2}$$
+  where $\sigma^2$ is the variance of gradient estimates
+
+**Why Option D is Correct:**
+
+**"For convex loss functions, gradient descent with the optimal learning rate is guaranteed to eventually converge to the global optimum point while stochastic gradient descent is not."**
+
+**Batch GD Guarantee:**
+- With appropriate step size, batch GD converges to the global minimum
+- The convergence is deterministic and guaranteed
+- No randomness in the algorithm itself
+
+**SGD Limitation:**
+- SGD has inherent randomness due to sampling
+- Even with optimal learning rate, it may not converge exactly to the minimum
+- Instead, it converges to a neighborhood around the minimum
+- The variance term $\frac{\alpha \sigma^2}{2}$ prevents exact convergence
+
+**Visual Interpretation:**
+
+**Batch GD:** Smooth, deterministic path to the minimum
+```
+x → x → x → x → x → x* (converges exactly)
+```
+
+**SGD:** Noisy, stochastic path around the minimum
+```
+x → x → x → x → x → x* (oscillates around minimum)
+```
+
+**Why Other Options Are Incorrect:**
+
+**Option A:** "SGD is guaranteed to converge while GD is not"
+- **Contradiction:** Batch GD has stronger convergence guarantees
+- **Reality:** SGD has weaker convergence guarantees due to noise
+
+**Option B:** "Both GD and SGD will eventually converge to the global optimum"
+- **Contradiction:** SGD may not converge exactly due to variance
+- **Reality:** SGD converges in expectation but with oscillations
+
+**Option C:** "SGD is always guaranteed to converge"
+- **Contradiction:** SGD has stochastic behavior
+- **Reality:** SGD convergence depends on learning rate and noise level
+
+**Practical Implications:**
+
+**When to Use Batch GD:**
+- Small datasets
+- When exact convergence is required
+- When computational resources allow full gradient computation
+
+**When to Use SGD:**
+- Large datasets
+- When approximate convergence is acceptable
+- When computational efficiency is important
+- Online learning scenarios
+
+**Learning Rate Considerations:**
+
+**Batch GD:** Can use larger learning rates due to stable gradients
+**SGD:** Requires smaller learning rates to control variance
+
+**Key Insights:**
+- Batch GD provides deterministic convergence guarantees
+- SGD trades exact convergence for computational efficiency
+- The noise in SGD prevents exact convergence to the minimum
+- Both methods have their place depending on the problem constraints
 
 ## Problem 9: Stochastic Gradient Descent
 
@@ -616,6 +799,98 @@ We are given:
 * The SGD update rule is:
   $$w_{new} = w_{old} - \alpha \cdot \nabla L_i(w_{old})$$
 
+## Detailed Solution Explanation
+
+**Understanding Stochastic Gradient Descent with Linear Regression:**
+
+This problem demonstrates the step-by-step process of performing one iteration of SGD on a simple linear regression problem.
+
+**Mathematical Framework:**
+
+**Linear Regression Model:**
+$$y_i = w \cdot x_i + \epsilon_i$$
+where $\epsilon_i$ is the error term.
+
+**Loss Function:**
+For each data point $(x_i, y_i)$, the squared error loss is:
+$$L_i(w) = (y_i - w \cdot x_i)^2$$
+
+**Gradient Calculation:**
+Using the chain rule:
+$$\nabla L_i(w) = \frac{d}{dw}(y_i - w \cdot x_i)^2 = 2(y_i - w \cdot x_i) \cdot \frac{d}{dw}(y_i - w \cdot x_i) = -2x_i(y_i - w \cdot x_i)$$
+
+**SGD Update Rule:**
+$$w^{(t+1)} = w^{(t)} - \alpha \cdot \nabla L_i(w^{(t)})$$
+
+**Step-by-Step Analysis:**
+
+**Case 1: Selecting Data Point 1 ($x_1 = 5, y_1 = 4$)**
+
+**Step 1: Calculate Loss at Current Weight**
+$$L_1(w_0) = (y_1 - w_0 \cdot x_1)^2 = (4 - 1 \cdot 5)^2 = (4 - 5)^2 = (-1)^2 = 1$$
+
+**Step 2: Calculate Gradient**
+$$\nabla L_1(w_0) = -2x_1(y_1 - w_0 \cdot x_1) = -2(5)(4 - 1 \cdot 5) = -10(4 - 5) = -10(-1) = 10$$
+
+**Step 3: Update Weight**
+$$w_1 = w_0 - \alpha \cdot \nabla L_1(w_0) = 1 - 0.1(10) = 1 - 1 = 0$$
+
+**Interpretation:**
+- The model was overpredicting for this data point (predicted 5, actual 4)
+- The gradient is positive, indicating we need to decrease the weight
+- The weight decreases from 1 to 0
+
+**Case 2: Selecting Data Point 2 ($x_2 = 1, y_2 = 3$)**
+
+**Step 1: Calculate Loss at Current Weight**
+$$L_2(w_0) = (y_2 - w_0 \cdot x_2)^2 = (3 - 1 \cdot 1)^2 = (3 - 1)^2 = (2)^2 = 4$$
+
+**Step 2: Calculate Gradient**
+$$\nabla L_2(w_0) = -2x_2(y_2 - w_0 \cdot x_2) = -2(1)(3 - 1 \cdot 1) = -2(3 - 1) = -2(2) = -4$$
+
+**Step 3: Update Weight**
+$$w_1 = w_0 - \alpha \cdot \nabla L_2(w_0) = 1 - 0.1(-4) = 1 + 0.4 = 1.4$$
+
+**Interpretation:**
+- The model was underpredicting for this data point (predicted 1, actual 3)
+- The gradient is negative, indicating we need to increase the weight
+- The weight increases from 1 to 1.4
+
+**Key Insights:**
+
+**Effect of Data Point Selection:**
+- Different data points can lead to very different updates
+- The magnitude of the gradient depends on both the error and the feature value
+- Larger feature values ($x_1 = 5$ vs $x_2 = 1$) lead to larger gradient magnitudes
+
+**Learning Rate Impact:**
+- $\alpha = 0.1$ controls the step size
+- Smaller learning rate would lead to smaller updates
+- Larger learning rate could cause overshooting
+
+**Geometric Interpretation:**
+- The gradient points in the direction of steepest increase in loss
+- We move in the opposite direction (negative gradient) to minimize loss
+- The step size is proportional to both the learning rate and gradient magnitude
+
+**Comparison of Updates:**
+
+| Data Point | Error | Gradient | Weight Change | New Weight |
+|------------|-------|----------|---------------|------------|
+| $(5, 4)$ | $-1$ | $10$ | $-1$ | $0$ |
+| $(1, 3)$ | $2$ | $-4$ | $0.4$ | $1.4$ |
+
+**Expected Behavior:**
+- Over many iterations, SGD will converge to the optimal weight
+- The optimal weight minimizes the total loss across all data points
+- For this simple case, the optimal weight would be approximately $w^* = 0.7$
+
+**Practical Considerations:**
+- SGD introduces randomness due to data point selection
+- Multiple iterations are needed for convergence
+- Learning rate scheduling can improve convergence
+- Mini-batch SGD is often used in practice for better stability
+
 ## Problem 10: Activation Functions
 
 **1 points One Answer**
@@ -632,6 +907,121 @@ We are given:
 **Explanation:** 
 - The gradient for Sigmoid and Tanh approaches 0 as the magnitude of the input increases.
 - Softmax is not an activation function.
+
+## Detailed Solution Explanation
+
+**Understanding Activation Function Saturation:**
+
+This problem explores the concept of gradient saturation in neural network activation functions, which is crucial for understanding the vanishing gradient problem.
+
+**Mathematical Framework:**
+
+**Sigmoid Function:**
+$$\sigma(x) = \frac{1}{1 + e^{-x}}$$
+
+**Sigmoid Derivative:**
+$$\sigma'(x) = \sigma(x)(1 - \sigma(x)) = \frac{e^{-x}}{(1 + e^{-x})^2}$$
+
+**ReLU Function:**
+$$\text{ReLU}(x) = \max(0, x)$$
+
+**ReLU Derivative:**
+$$\text{ReLU}'(x) = \begin{cases} 
+1 & \text{if } x > 0 \\
+0 & \text{if } x \leq 0
+\end{cases}$$
+
+**Softmax Function:**
+$$\text{softmax}(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{K} e^{x_j}}$$
+
+**Analysis of Each Activation Function:**
+
+**Option A: ReLU (Rectified Linear Unit)**
+
+**Properties:**
+- **Range:** $[0, \infty)$
+- **Gradient:** Constant 1 for positive inputs, 0 for negative inputs
+- **Saturation:** Does NOT saturate for positive inputs
+
+**Gradient Behavior:**
+$$\text{ReLU}'(x) = \begin{cases} 
+1 & \text{if } x > 0 \\
+0 & \text{if } x \leq 0
+\end{cases}$$
+
+**Key Insight:** ReLU does not saturate for large positive inputs - the gradient remains 1 regardless of how large the input becomes.
+
+**Option B: Sigmoid**
+
+**Properties:**
+- **Range:** $(0, 1)$
+- **Gradient:** Approaches 0 for large positive or negative inputs
+- **Saturation:** Saturates for both large positive and negative inputs
+
+**Gradient Analysis:**
+$$\sigma'(x) = \sigma(x)(1 - \sigma(x))$$
+
+For large positive $x$:
+- $\sigma(x) \approx 1$
+- $\sigma'(x) \approx 1(1-1) = 0$
+
+For large negative $x$:
+- $\sigma(x) \approx 0$
+- $\sigma'(x) \approx 0(1-0) = 0$
+
+**Visualization:**
+```
+Sigmoid:    0.5 ←→ 1.0  (saturates)
+Gradient:   0.25 ←→ 0   (vanishes)
+```
+
+**Option C: Softmax**
+
+**Important Distinction:**
+- **Softmax is NOT an activation function** in the traditional sense
+- It's a normalization function that converts a vector of real numbers into a probability distribution
+- It's typically used in the output layer for multi-class classification
+
+**Why Softmax Doesn't Apply:**
+- Softmax operates on vectors, not individual neurons
+- It's used for output normalization, not hidden layer activation
+- The concept of "saturation" doesn't apply in the same way
+
+**Comparison of Gradient Behavior:**
+
+| Function | Input Range | Gradient Behavior | Saturates? |
+|----------|-------------|-------------------|------------|
+| **ReLU** | $[0, \infty)$ | Constant 1 for $x > 0$ | No |
+| **Sigmoid** | $(0, 1)$ | Approaches 0 for large $|x|$ | Yes |
+| **Tanh** | $(-1, 1)$ | Approaches 0 for large $|x|$ | Yes |
+
+**Practical Implications:**
+
+**Vanishing Gradient Problem:**
+- Sigmoid and Tanh can cause vanishing gradients in deep networks
+- When inputs are large, gradients become very small
+- This slows down learning in early layers
+
+**ReLU Advantages:**
+- No vanishing gradient for positive inputs
+- Computationally efficient (no exponential)
+- Promotes sparsity (negative inputs become 0)
+
+**ReLU Disadvantages:**
+- "Dying ReLU" problem (neurons can become permanently inactive)
+- Not differentiable at $x = 0$ (though this rarely matters in practice)
+
+**Modern Alternatives:**
+- **Leaky ReLU:** $f(x) = \max(\alpha x, x)$ where $\alpha < 1$
+- **ELU:** $f(x) = x$ if $x > 0$, $f(x) = \alpha(e^x - 1)$ if $x \leq 0$
+- **Swish:** $f(x) = x \cdot \sigma(x)$
+
+**Key Insights:**
+- Saturation occurs when the gradient approaches zero
+- ReLU avoids saturation for positive inputs
+- Sigmoid and Tanh saturate for large inputs
+- Softmax is not a hidden layer activation function
+- The choice of activation function affects gradient flow in deep networks
 
 ## Problem 11: Matrix Operations (Convolution and Max Pooling)
 
@@ -659,6 +1049,131 @@ Apply the filter $F$ to matrix $M$ with padding = 0 and stride = 1, then perform
 
 **Explanation:** 
 After applying $F$ to $M$, we get: $\begin{pmatrix} 14 & 11 \\ 12 & 11 \end{pmatrix}$. Applying a Max Pool operation with a 2x2 filter just means taking the max of this matrix, since it's a 2x2, so we get the final answer of 14.
+
+## Detailed Solution Explanation
+
+**Understanding Convolution and Max Pooling Operations:**
+
+This problem demonstrates the step-by-step process of applying convolution followed by max pooling, which are fundamental operations in convolutional neural networks (CNNs).
+
+**Mathematical Framework:**
+
+**Convolution Operation:**
+For a matrix $M$ and kernel $F$, the convolution output at position $(i,j)$ is:
+$$(M * F)_{i,j} = \sum_{k=1}^{h} \sum_{l=1}^{w} M_{i+k-1, j+l-1} \cdot F_{k,l}$$
+where $h \times w$ is the size of the kernel.
+
+**Max Pooling Operation:**
+For a $k \times k$ pooling window, the output is:
+$$\text{maxpool}(A)_{i,j} = \max_{k,l \in \text{window}} A_{i+k-1, j+l-1}$$
+
+**Step-by-Step Solution:**
+
+**Step 1: Apply Convolution with Kernel $F$**
+
+**Given:**
+- Matrix $M = \begin{pmatrix} 9 & 7 & 8 \\ 4 & 1 & 3 \\ 2 & 6 & 4 \end{pmatrix}$
+- Kernel $F = \begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}$
+- Padding = 0, Stride = 1
+
+**Convolution Calculation:**
+The kernel is $2 \times 2$, so the output will be $(3-2+1) \times (3-2+1) = 2 \times 2$.
+
+**Position (1,1):**
+$$(M * F)_{1,1} = 9 \cdot 1 + 7 \cdot 0 + 4 \cdot 1 + 1 \cdot 1 = 9 + 0 + 4 + 1 = 14$$
+
+**Position (1,2):**
+$$(M * F)_{1,2} = 7 \cdot 1 + 8 \cdot 0 + 1 \cdot 1 + 3 \cdot 1 = 7 + 0 + 1 + 3 = 11$$
+
+**Position (2,1):**
+$$(M * F)_{2,1} = 4 \cdot 1 + 1 \cdot 0 + 2 \cdot 1 + 6 \cdot 1 = 4 + 0 + 2 + 6 = 12$$
+
+**Position (2,2):**
+$$(M * F)_{2,2} = 1 \cdot 1 + 3 \cdot 0 + 6 \cdot 1 + 4 \cdot 1 = 1 + 0 + 6 + 4 = 11$$
+
+**Convolution Result:**
+$$M * F = \begin{pmatrix} 14 & 11 \\ 12 & 11 \end{pmatrix}$$
+
+**Step 2: Apply Max Pooling**
+
+**Given:**
+- Input: $2 \times 2$ matrix from convolution
+- Pooling window: $2 \times 2$
+- Stride: 1
+
+**Max Pooling Calculation:**
+Since the input is $2 \times 2$ and the pooling window is $2 \times 2$ with stride 1, we have only one pooling operation covering the entire matrix.
+
+**Pooling Operation:**
+$$\text{maxpool}\left(\begin{pmatrix} 14 & 11 \\ 12 & 11 \end{pmatrix}\right) = \max\{14, 11, 12, 11\} = 14$$
+
+**Final Result:** $14$
+
+**Visual Representation:**
+
+**Original Matrix $M$:**
+```
+9  7  8
+4  1  3
+2  6  4
+```
+
+**Kernel $F$:**
+```
+1  0
+1  1
+```
+
+**Convolution Process:**
+```
+Position (1,1):  9·1 + 7·0 + 4·1 + 1·1 = 14
+Position (1,2):  7·1 + 8·0 + 1·1 + 3·1 = 11
+Position (2,1):  4·1 + 1·0 + 2·1 + 6·1 = 12
+Position (2,2):  1·1 + 3·0 + 6·1 + 4·1 = 11
+```
+
+**Convolution Output:**
+```
+14  11
+12  11
+```
+
+**Max Pooling:**
+```
+max{14, 11, 12, 11} = 14
+```
+
+**Key Concepts:**
+
+**Convolution Properties:**
+- **Output Size:** $(H - h + 1) \times (W - w + 1)$ for no padding
+- **Parameter Sharing:** Same kernel applied to all positions
+- **Local Connectivity:** Each output depends on a local region
+
+**Max Pooling Properties:**
+- **Dimensionality Reduction:** Reduces spatial dimensions
+- **Translation Invariance:** Robust to small translations
+- **Feature Selection:** Preserves strongest activations
+
+**Computational Complexity:**
+- **Convolution:** $O(H \times W \times h \times w)$
+- **Max Pooling:** $O(H \times W)$
+
+**Practical Applications:**
+- **Feature Extraction:** Convolution detects patterns
+- **Dimensionality Reduction:** Pooling reduces computational cost
+- **Translation Invariance:** Pooling makes features more robust
+
+**Common Variations:**
+- **Average Pooling:** Uses mean instead of maximum
+- **Strided Convolution:** Larger strides reduce output size
+- **Dilated Convolution:** Increases receptive field without parameters
+
+**Key Insights:**
+- Convolution extracts features by applying learned filters
+- Max pooling reduces dimensionality while preserving important features
+- The combination is fundamental to CNN architecture
+- Understanding the mathematical operations helps with debugging and optimization
 
 ## Problem 12: Spatial Dimensions of Output Image
 
