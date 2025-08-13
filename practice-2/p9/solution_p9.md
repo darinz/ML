@@ -4084,6 +4084,244 @@ def kmeans(X, K, max_iter=100, tol=1e-4):
 - GMM can be used when clusters overlap. This is an an advantage over K-means.
 - K-means is sensitive to the initial centroids chosen, and different initializations may lead to different clustering results.
 
+## Detailed Solution Explanation
+
+**Understanding K-means vs. Gaussian Mixture Models (GMM):**
+
+This problem explores the fundamental differences between K-means and GMM clustering methods, focusing on their mathematical foundations, assumptions, and practical applications.
+
+**Mathematical Framework:**
+
+**K-means Objective:**
+$$\min_{\{S_1, \ldots, S_K\}, \{\mu_1, \ldots, \mu_K\}} \sum_{k=1}^{K} \sum_{x_i \in S_k} ||x_i - \mu_k||^2$$
+
+**GMM Objective:**
+$$\max_{\{\pi_k, \mu_k, \Sigma_k\}} \sum_{i=1}^{N} \log \sum_{k=1}^{K} \pi_k \mathcal{N}(x_i | \mu_k, \Sigma_k)$$
+
+where:
+- $\pi_k$ is the mixing weight for component $k$
+- $\mu_k$ is the mean of component $k$
+- $\Sigma_k$ is the covariance matrix of component $k$
+- $\mathcal{N}(x | \mu, \Sigma)$ is the multivariate normal distribution
+
+**Analysis of Each Option:**
+
+**Option A: "K-means is a 'hard clustering' method, while GMM is a 'soft clustering' method"**
+
+**Why This is True:**
+
+**K-means (Hard Clustering):**
+- **Assignment:** Each point belongs to exactly one cluster
+- **Decision Rule:** $c_i = \arg\min_k ||x_i - \mu_k||^2$
+- **Membership:** Binary assignment (0 or 1)
+
+**Mathematical Representation:**
+$$p(z_i = k | x_i) = \begin{cases} 1 & \text{if } k = \arg\min_j ||x_i - \mu_j||^2 \\ 0 & \text{otherwise} \end{cases}$$
+
+**GMM (Soft Clustering):**
+- **Assignment:** Each point has probability of belonging to each cluster
+- **Decision Rule:** $p(z_i = k | x_i) = \frac{\pi_k \mathcal{N}(x_i | \mu_k, \Sigma_k)}{\sum_{j=1}^{K} \pi_j \mathcal{N}(x_i | \mu_j, \Sigma_j)}$
+- **Membership:** Probabilistic assignment (values between 0 and 1)
+
+**Example:**
+For a point $x_i$:
+- **K-means:** $[0, 1, 0]$ (belongs to cluster 2)
+- **GMM:** $[0.1, 0.7, 0.2]$ (70% probability of belonging to cluster 2)
+
+**Option B: "GMM can be used for both clustering and probability density estimation"**
+
+**Why This is True:**
+
+**GMM as Clustering Method:**
+- **Cluster Assignment:** Assign points to most likely component
+- **Soft Clustering:** Provide probabilistic cluster memberships
+- **Model Selection:** Choose number of components
+
+**GMM as Density Estimator:**
+- **Probability Density:** $p(x) = \sum_{k=1}^{K} \pi_k \mathcal{N}(x | \mu_k, \Sigma_k)$
+- **Data Generation:** Can generate new samples from learned distribution
+- **Likelihood:** Can compute likelihood of new data points
+
+**Mathematical Verification:**
+$$\int p(x) dx = \sum_{k=1}^{K} \pi_k \int \mathcal{N}(x | \mu_k, \Sigma_k) dx = \sum_{k=1}^{K} \pi_k = 1$$
+
+**Example Applications:**
+- **Clustering:** Customer segmentation, image segmentation
+- **Density Estimation:** Anomaly detection, data generation
+- **Missing Data:** Imputation using learned distribution
+
+**Option C: "Both GMM and K-means assume spherical/circular clusters"**
+
+**Why This is False:**
+
+**K-means Assumptions:**
+- **Spherical Clusters:** Assumes clusters are roughly spherical
+- **Equal Variance:** Implicitly assumes similar cluster sizes
+- **Euclidean Distance:** Uses Euclidean distance metric
+
+**GMM Assumptions:**
+- **Elliptical Clusters:** Can model clusters of different shapes
+- **Different Covariances:** Each component can have different $\Sigma_k$
+- **Flexible Shapes:** Can capture elongated, rotated clusters
+
+**Visual Comparison:**
+```
+K-means (spherical):        GMM (elliptical):
+    ●●●    ○○○                ●●●○○○
+   ●●●●●  ○○○○○              ●●●○○○○
+    ●●●    ○○○                ●●●○○○
+```
+
+**Mathematical Evidence:**
+- **K-means:** Uses Euclidean distance (assumes spherical)
+- **GMM:** Uses Mahalanobis distance $d(x, \mu_k) = \sqrt{(x - \mu_k)^T \Sigma_k^{-1} (x - \mu_k)}$
+
+**Option D: "GMM cannot be used when clusters overlap significantly, as it assumes non-overlapping Gaussians"**
+
+**Why This is False:**
+
+**GMM and Overlapping Clusters:**
+
+**Advantage of GMM:**
+- **Probabilistic Nature:** Can handle overlapping clusters naturally
+- **Soft Assignment:** Points can belong to multiple clusters with different probabilities
+- **Overlap Modeling:** Can model the overlap region explicitly
+
+**Mathematical Framework:**
+For overlapping clusters, GMM provides:
+$$p(z_i = k | x_i) = \frac{\pi_k \mathcal{N}(x_i | \mu_k, \Sigma_k)}{\sum_{j=1}^{K} \pi_j \mathcal{N}(x_i | \mu_j, \Sigma_j)}$$
+
+**Example:**
+In overlap region:
+- **K-means:** Forced to assign to one cluster
+- **GMM:** Can assign probabilities like $[0.4, 0.6]$ to two clusters
+
+**Visual Representation:**
+```
+Overlapping Clusters:
+    ●●●○○○
+   ●●●○○○○
+    ●●●○○○
+
+K-means: Forced assignment
+GMM: Probabilistic assignment
+```
+
+**Option E: "K-means is sensitive to the selection of initial centroids, which may lead to different clustering results"**
+
+**Why This is True:**
+
+**K-means Initialization Sensitivity:**
+
+**Problem:**
+- **Local Optima:** K-means converges to local minimum
+- **Initialization Dependent:** Different starting points → different final clusters
+- **No Guarantee:** No guarantee of finding global optimum
+
+**Example:**
+```python
+# Different initializations
+centroids_1 = [[1, 1], [5, 5]]  # Good initialization
+centroids_2 = [[2, 2], [3, 3]]  # Poor initialization
+
+# May lead to different final clusters
+```
+
+**Mathematical Analysis:**
+The objective function has multiple local minima:
+$$J = \sum_{k=1}^{K} \sum_{x_i \in S_k} ||x_i - \mu_k||^2$$
+
+**Solutions:**
+1. **K-means++:** Better initialization strategy
+2. **Multiple Runs:** Run with different initializations
+3. **Best Result:** Choose result with lowest objective value
+
+**Comparison of Methods:**
+
+**1. Clustering Approach:**
+- **K-means:** Hard assignment, centroid-based
+- **GMM:** Soft assignment, probabilistic
+
+**2. Cluster Shape:**
+- **K-means:** Spherical clusters
+- **GMM:** Elliptical clusters
+
+**3. Overlap Handling:**
+- **K-means:** Poor with overlapping clusters
+- **GMM:** Good with overlapping clusters
+
+**4. Initialization:**
+- **K-means:** Sensitive to initialization
+- **GMM:** Less sensitive (EM algorithm)
+
+**5. Applications:**
+- **K-means:** Well-separated, spherical clusters
+- **GMM:** Overlapping, elliptical clusters, density estimation
+
+**Practical Implications:**
+
+**1. Algorithm Selection:**
+- **Well-separated Data:** K-means often sufficient
+- **Overlapping Data:** GMM preferred
+- **Density Estimation:** GMM required
+
+**2. Model Complexity:**
+- **K-means:** Simpler, faster
+- **GMM:** More complex, more flexible
+
+**3. Interpretability:**
+- **K-means:** Clear cluster assignments
+- **GMM:** Probabilistic interpretations
+
+**Implementation Considerations:**
+
+**1. K-means Implementation:**
+```python
+def kmeans(X, K, max_iter=100):
+    # Initialize centroids
+    centroids = kmeans_plus_plus(X, K)
+    
+    for iteration in range(max_iter):
+        # Hard assignment
+        labels = np.argmin([np.linalg.norm(X - c, axis=1) for c in centroids], axis=0)
+        
+        # Update centroids
+        new_centroids = [X[labels == k].mean(axis=0) for k in range(K)]
+        
+        if np.allclose(centroids, new_centroids):
+            break
+            
+        centroids = new_centroids
+    
+    return centroids, labels
+```
+
+**2. GMM Implementation:**
+```python
+def gmm(X, K, max_iter=100):
+    # Initialize parameters
+    pi = np.ones(K) / K
+    means = kmeans_plus_plus(X, K)
+    covs = [np.eye(X.shape[1]) for _ in range(K)]
+    
+    for iteration in range(max_iter):
+        # E-step: Compute responsibilities
+        responsibilities = compute_responsibilities(X, pi, means, covs)
+        
+        # M-step: Update parameters
+        pi, means, covs = update_parameters(X, responsibilities)
+    
+    return pi, means, covs
+```
+
+**Key Insights:**
+- K-means uses hard clustering, GMM uses soft clustering
+- GMM can be used for both clustering and density estimation
+- GMM can handle elliptical clusters, K-means assumes spherical
+- GMM handles overlapping clusters better than K-means
+- K-means is sensitive to initialization, GMM is more robust
+- Understanding these differences helps in algorithm selection
+
 ## Problem 25: GMM Parameters
 
 **1 point**
@@ -4101,6 +4339,242 @@ This includes:
 - $n - 1$ mixing weights ($\pi$)
 
 Note: $3n$, $3n-1$, and $n(d^2 + d + 1)$ were accepted answers, implying that the dimensionality $d$ of the data might be a factor in the covariance parameter count, but the primary answer given is $3n-1$.
+
+## Detailed Solution Explanation
+
+**Understanding Gaussian Mixture Model (GMM) Parameters:**
+
+This problem explores the parameter count in GMM models, focusing on the mathematical structure and constraints that determine the number of learnable parameters.
+
+**Mathematical Framework:**
+
+**GMM Model:**
+$$p(x) = \sum_{k=1}^{n} \pi_k \mathcal{N}(x | \mu_k, \Sigma_k)$$
+
+where:
+- $\pi_k$ is the mixing weight for component $k$
+- $\mu_k$ is the mean vector for component $k$
+- $\Sigma_k$ is the covariance matrix for component $k$
+- $\mathcal{N}(x | \mu, \Sigma)$ is the multivariate normal distribution
+
+**Parameter Analysis:**
+
+**1. Mixing Weights ($\pi_k$):**
+
+**Total Parameters:** $n$ mixing weights
+
+**Constraint:** $\sum_{k=1}^{n} \pi_k = 1$
+
+**Independent Parameters:** $n - 1$ (one is determined by the constraint)
+
+**Mathematical Justification:**
+$$\pi_n = 1 - \sum_{k=1}^{n-1} \pi_k$$
+
+**Example:**
+For $n = 3$ components:
+- **Parameters:** $\pi_1, \pi_2, \pi_3$
+- **Constraint:** $\pi_1 + \pi_2 + \pi_3 = 1$
+- **Independent:** $\pi_1, \pi_2$ (then $\pi_3 = 1 - \pi_1 - \pi_2$)
+
+**2. Mean Vectors ($\mu_k$):**
+
+**Total Parameters:** $n \times d$ parameters
+
+where $d$ is the dimensionality of the data.
+
+**Mathematical Structure:**
+$$\mu_k = [\mu_{k1}, \mu_{k2}, \ldots, \mu_{kd}]^T$$
+
+**Example:**
+For $n = 2, d = 3$:
+- **Component 1:** $\mu_1 = [\mu_{11}, \mu_{12}, \mu_{13}]^T$
+- **Component 2:** $\mu_2 = [\mu_{21}, \mu_{22}, \mu_{23}]^T$
+- **Total:** $2 \times 3 = 6$ parameters
+
+**3. Covariance Matrices ($\Sigma_k$):**
+
+**Total Parameters:** $n \times \frac{d(d+1)}{2}$ parameters
+
+**Mathematical Structure:**
+$$\Sigma_k = \begin{bmatrix} \sigma_{k11} & \sigma_{k12} & \cdots & \sigma_{k1d} \\ \sigma_{k21} & \sigma_{k22} & \cdots & \sigma_{k2d} \\ \vdots & \vdots & \ddots & \vdots \\ \sigma_{kd1} & \sigma_{kd2} & \cdots & \sigma_{kdd} \end{bmatrix}$$
+
+**Symmetry Constraint:** $\Sigma_k = \Sigma_k^T$ (symmetric matrix)
+
+**Positive Definiteness:** $\Sigma_k \succ 0$ (all eigenvalues positive)
+
+**Example:**
+For $d = 2$:
+$$\Sigma_k = \begin{bmatrix} \sigma_{k11} & \sigma_{k12} \\ \sigma_{k21} & \sigma_{k22} \end{bmatrix}$$
+
+**Symmetry:** $\sigma_{k12} = \sigma_{k21}$
+**Parameters:** $\sigma_{k11}, \sigma_{k12}, \sigma_{k22}$ (3 parameters)
+
+**General Formula:** $\frac{d(d+1)}{2}$ parameters per covariance matrix
+
+**Complete Parameter Count:**
+
+**Total Parameters:**
+$$\text{Total} = (n-1) + n \cdot d + n \cdot \frac{d(d+1)}{2}$$
+
+**Simplified Form:**
+$$\text{Total} = n-1 + nd + \frac{nd(d+1)}{2}$$
+
+**For Specific Cases:**
+
+**Case 1: Univariate GMM ($d = 1$):**
+- **Mixing weights:** $n-1$
+- **Means:** $n \times 1 = n$
+- **Variances:** $n \times 1 = n$
+- **Total:** $(n-1) + n + n = 3n - 1$
+
+**Case 2: Bivariate GMM ($d = 2$):**
+- **Mixing weights:** $n-1$
+- **Means:** $n \times 2 = 2n$
+- **Covariances:** $n \times 3 = 3n$ (3 parameters per 2×2 matrix)
+- **Total:** $(n-1) + 2n + 3n = 6n - 1$
+
+**Case 3: General Multivariate GMM:**
+- **Mixing weights:** $n-1$
+- **Means:** $nd$
+- **Covariances:** $\frac{nd(d+1)}{2}$
+- **Total:** $n-1 + nd + \frac{nd(d+1)}{2}$
+
+**Visual Representation:**
+
+**Parameter Structure:**
+```
+GMM with n=3 components, d=2 dimensions:
+
+Mixing Weights (π):
+π₁, π₂, π₃ (constrained: π₁ + π₂ + π₃ = 1)
+Independent: π₁, π₂ (2 parameters)
+
+Means (μ):
+μ₁ = [μ₁₁, μ₁₂]     (2 parameters)
+μ₂ = [μ₂₁, μ₂₂]     (2 parameters)
+μ₃ = [μ₃₁, μ₃₂]     (2 parameters)
+Total: 6 parameters
+
+Covariances (Σ):
+Σ₁ = [σ₁₁₁  σ₁₁₂]   (3 parameters - symmetric)
+     [σ₁₂₁  σ₁₂₂]
+Σ₂ = [σ₂₁₁  σ₂₁₂]   (3 parameters - symmetric)
+     [σ₂₂₁  σ₂₂₂]
+Σ₃ = [σ₃₁₁  σ₃₁₂]   (3 parameters - symmetric)
+     [σ₃₂₁  σ₃₂₂]
+Total: 9 parameters
+
+Grand Total: 2 + 6 + 9 = 17 parameters
+```
+
+**Mathematical Verification:**
+
+**1. Constraint Verification:**
+$$\sum_{k=1}^{n} \pi_k = 1 \implies \pi_n = 1 - \sum_{k=1}^{n-1} \pi_k$$
+
+**2. Symmetry Verification:**
+$$\Sigma_k = \Sigma_k^T \implies \sigma_{kij} = \sigma_{kji}$$
+
+**3. Positive Definiteness:**
+$$\Sigma_k \succ 0 \implies \det(\Sigma_k) > 0 \text{ and } \text{tr}(\Sigma_k) > 0$$
+
+**Implementation Considerations:**
+
+**1. Parameter Initialization:**
+```python
+def initialize_gmm_parameters(n_components, n_features):
+    # Mixing weights (sum to 1)
+    pi = np.random.dirichlet(np.ones(n_components))
+    
+    # Means (random initialization)
+    means = np.random.randn(n_components, n_features)
+    
+    # Covariances (identity matrices)
+    covs = [np.eye(n_features) for _ in range(n_components)]
+    
+    return pi, means, covs
+```
+
+**2. Parameter Updates (EM Algorithm):**
+```python
+def update_parameters(X, responsibilities):
+    n_samples, n_features = X.shape
+    n_components = responsibilities.shape[1]
+    
+    # Update mixing weights
+    pi = np.sum(responsibilities, axis=0) / n_samples
+    
+    # Update means
+    means = np.dot(responsibilities.T, X) / np.sum(responsibilities, axis=0)[:, np.newaxis]
+    
+    # Update covariances
+    covs = []
+    for k in range(n_components):
+        diff = X - means[k]
+        cov = np.dot(responsibilities[:, k] * diff.T, diff) / np.sum(responsibilities[:, k])
+        covs.append(cov)
+    
+    return pi, means, covs
+```
+
+**3. Parameter Constraints:**
+```python
+def ensure_valid_parameters(pi, means, covs):
+    # Ensure mixing weights sum to 1
+    pi = pi / np.sum(pi)
+    
+    # Ensure covariances are positive definite
+    for k in range(len(covs)):
+        # Add small diagonal term for numerical stability
+        covs[k] = covs[k] + 1e-6 * np.eye(covs[k].shape[0])
+        
+        # Ensure symmetry
+        covs[k] = (covs[k] + covs[k].T) / 2
+    
+    return pi, means, covs
+```
+
+**Practical Implications:**
+
+**1. Model Complexity:**
+- **Parameter Count:** Grows quadratically with dimensionality
+- **Overfitting Risk:** High-dimensional data may require regularization
+- **Computational Cost:** More parameters = more computation
+
+**2. Model Selection:**
+- **AIC/BIC:** Penalize model complexity
+- **Cross-validation:** Balance fit and complexity
+- **Domain Knowledge:** Choose appropriate number of components
+
+**3. Regularization:**
+- **Covariance Constraints:** Shared covariance, diagonal covariance
+- **Prior Distributions:** Bayesian GMM
+- **Sparsity:** Sparse GMM variants
+
+**Example Applications:**
+
+**1. Clustering:**
+- **Customer Segmentation:** Different customer groups
+- **Image Segmentation:** Different image regions
+- **Document Clustering:** Different document topics
+
+**2. Density Estimation:**
+- **Anomaly Detection:** Low probability regions
+- **Data Generation:** Synthetic data creation
+- **Missing Data Imputation:** Probabilistic filling
+
+**3. Dimensionality Reduction:**
+- **Factor Analysis:** Latent variable models
+- **Probabilistic PCA:** Probabilistic principal components
+- **Manifold Learning:** Non-linear dimensionality reduction
+
+**Key Insights:**
+- Parameter count depends on number of components and data dimensionality
+- Mixing weights have one constraint (sum to 1)
+- Covariance matrices are symmetric (reduces parameter count)
+- Understanding parameter structure helps with model selection
+- Parameter count grows quadratically with dimensionality
+- Proper initialization and constraints are crucial for training
 
 ## Problem 26: Bootstrapping
 
