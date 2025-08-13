@@ -1,6 +1,6 @@
 # Practice 4 Solutions
 
-**1. True/False: Leave-one-out (LOO) and $k$-fold cross-validation can be used for hyperparameter tuning.**
+**Problem 1. True/False: Leave-one-out (LOO) and $k$-fold cross-validation can be used for hyperparameter tuning.**
 *   (a) True
 *   (b) False
 
