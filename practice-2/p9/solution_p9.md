@@ -580,3 +580,142 @@ The answer is 200.
 
 Since the batch size is 15, the number of forward passes for one epoch is $\frac{600}{15}$. Since the network is trained for 5 epochs, the total number of forwards passes is $\frac{600}{15} \cdot 5 = 200$.
 
+## Problem 31: Neural Network Derivatives
+
+**6 points**
+
+**Question:** We define a two-layer neural network for a regression task as follows:
+
+Let the input be:
+$x \in \mathbb{R}^d$
+
+The hidden layer applies a linear transformation followed by a ReLU activation:
+$h = \sigma(W_1x + b_1)$, where $\sigma(z) = \max(0, z)$, and $h \in \mathbb{R}^m$
+
+Where:
+- $W_1 \in \mathbb{R}^{m \times d}$ is the weight matrix for the hidden layer.
+- $b_1 \in \mathbb{R}^m$ is the bias vector for the hidden layer.
+- $\sigma(z)$ is the ReLU activation function, applied element-wise.
+- $h \in \mathbb{R}^m$ is the hidden layer output.
+
+The output layer applies a linear transformation without any activation:
+$\hat{y} = W_2h + b_2$, where $\hat{y} \in \mathbb{R}$
+
+Where:
+- $W_2 \in \mathbb{R}^{1 \times m}$ is the weight matrix for the output layer.
+- $b_2 \in \mathbb{R}$ is the bias term for the output layer.
+- $\hat{y} \in \mathbb{R}$ is the model prediction.
+
+We use the mean squared error (MSE) as the loss function:
+$L = \frac{1}{2}(\hat{y} - y)^2$
+
+Where:
+- $y \in \mathbb{R}$ is the true target value.
+- $\hat{y}$ is the predicted output.
+
+### Part (a): Find the gradient of $L$ with respect to $W_2$.
+
+**3 points**
+
+**Answer:**
+$\frac{\partial L}{\partial W_2}: (\hat{y} - y)h^T$
+
+**Explanation:**
+To find $\frac{\partial L}{\partial W_2}$, we use the chain rule:
+$\frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial W_2}$
+
+1. **Derivative of $L$ with respect to $\hat{y}$:**
+   $L = \frac{1}{2}(\hat{y} - y)^2$
+   $\frac{\partial L}{\partial \hat{y}} = \frac{1}{2} \cdot 2(\hat{y} - y) \cdot 1 = (\hat{y} - y)$
+
+2. **Derivative of $\hat{y}$ with respect to $W_2$:**
+   $\hat{y} = W_2h + b_2$
+   Since $W_2 \in \mathbb{R}^{1 \times m}$ and $h \in \mathbb{R}^m$, $W_2h$ is a scalar.
+   If $W_2 = [w_{2,1}, \dots, w_{2,m}]$ and $h = [h_1, \dots, h_m]^T$, then $\hat{y} = \sum_{j=1}^m w_{2,j}h_j + b_2$.
+   The derivative of a scalar with respect to a row vector is a column vector.
+   $\frac{\partial \hat{y}}{\partial W_2} = h^T$
+
+Combining these, we get:
+$\frac{\partial L}{\partial W_2} = (\hat{y} - y)h^T$
+
+### Part (b): Find the gradient of $L$ with respect to $b_1$.
+
+**3 points**
+
+**Hint:** Don't forget to take the gradient of the activation function!
+
+**Answer:**
+$\frac{\partial L}{\partial b_1}: (\hat{y} - y) (W_2 \odot \sigma'(W_1x + b_1))$
+
+**Explanation:**
+To find $\frac{\partial L}{\partial b_1}$, we apply the chain rule multiple times:
+$\frac{\partial L}{\partial b_1} = \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial h} \cdot \frac{\partial h}{\partial (W_1x + b_1)} \cdot \frac{\partial (W_1x + b_1)}{\partial b_1}$
+
+Let $a_1 = W_1x + b_1$. Then $h = \sigma(a_1)$.
+
+1. **Derivative of $L$ with respect to $\hat{y}$:**
+   $\frac{\partial L}{\partial \hat{y}} = (\hat{y} - y)$ (from Part a)
+
+2. **Derivative of $\hat{y}$ with respect to $h$:**
+   $\hat{y} = W_2h + b_2$
+   Since $\hat{y}$ is a scalar and $h$ is an $m \times 1$ vector, $\frac{\partial \hat{y}}{\partial h}$ is a $1 \times m$ row vector.
+   $\frac{\partial \hat{y}}{\partial h} = W_2$
+
+3. **Derivative of $h$ with respect to $a_1$:**
+   $h = \sigma(a_1)$, where $\sigma$ is applied element-wise.
+   The derivative $\frac{\partial h}{\partial a_1}$ is an $m \times m$ diagonal matrix where the $i$-th diagonal element is $\sigma'(a_{1,i})$.
+   This can be represented as $\text{diag}(\sigma'(a_1))$.
+
+4. **Derivative of $a_1$ with respect to $b_1$:**
+   $a_1 = W_1x + b_1$
+   $\frac{\partial a_1}{\partial b_1} = I$ (the $m \times m$ identity matrix)
+
+Combining these terms:
+$\frac{\partial L}{\partial b_1} = (\hat{y} - y) \cdot W_2 \cdot \text{diag}(\sigma'(a_1)) \cdot I$
+Since $W_2$ is a $1 \times m$ vector and $\text{diag}(\sigma'(a_1))$ is an $m \times m$ diagonal matrix, their product $W_2 \cdot \text{diag}(\sigma'(a_1))$ results in a $1 \times m$ vector where each element is the product of the corresponding elements from $W_2$ and $\sigma'(a_1)$. This is equivalent to an element-wise product.
+
+Therefore, $\frac{\partial L}{\partial b_1} = (\hat{y} - y) (W_2 \odot \sigma'(W_1x + b_1))$
+where $\odot$ denotes the element-wise (Hadamard) product.
+
+## Problem 32: Decision Tree Terminal Nodes
+
+**1 point**
+
+**Question:** Suppose a dataset has $n$ samples and $d$ features. What is the maximum number of non-empty terminal nodes a decision tree built on this dataset can have? Assume you cannot split on the same feature more than once on any given path.
+
+**Answer:** $\min\{n, 2^d\}$
+
+**Explanation:**
+In the worst case, we split on every feature on every path, which will result in $2^d$ terminal nodes. However, there are only $n$ data samples, so the number of non-empty terminal nodes is upperbounded by $n$.
+
+## Problem 33: K-means Convergence
+
+**3 points**
+
+**Question:** Prove K-means converges to a local minimum. An english proof (no explicit math) suffices.
+
+**Answer:** [Student response area]
+
+**Explanation:** 
+The loss function L for k-means is the sum of squared distances between all points and their nearest cluster center. Note that this value for loss is non-negative.
+
+With the assignment step of each iteration, the loss function cannot increase because every point is explicitly moved to the nearest centroid, which reduces or maintains the current total distance.
+
+With the centroid update step of each iteration, the loss function cannot increase because the centroids are recalculated as the mean of the points in each cluster. The mean minimizes the squared distance between the points in that cluster and the centroid. The update step either reduces the loss or leaves it unchanged.
+
+So at every iteration, either the loss is decreasing or staying the same. If it stays the same, then the cluster assignments haven't changed and the algorithm has converged. If it decreases, then there are a finite number of possible assignments to try ($k^n$). The algorithm will never revisit a cluster assignment because that means the loss function increases. So, in the worst case, the "last" possible assignment k-means finds, is the local minimum that it converges towards.
+
+See lecture 16 slide 19.
+https://courses.cs.washington.edu/courses/cse446/25wi/schedule/lecture-16/lecture_16.pdf
+
+## Problem 34: Eigenvalue and Eigenspace
+
+**1 point**
+
+**Question:** $M$ is a matrix in $\mathbb{R}^{d \times d}$. $\lambda$ is an eigenvalue of $M$. The eigenspace corresponding to $\lambda$ is equal to $\mathbb{R}^d$. Determine $M$ in terms of $\lambda$.
+
+**Answer:** $M = \lambda I$
+
+**Explanation:** 
+The eigenspace of $\lambda$ equaling $\mathbb{R}^d$ means for any $v \in \mathbb{R}^d$, $Mv = \lambda v$. $M = \lambda I$ immediately follows.
+
