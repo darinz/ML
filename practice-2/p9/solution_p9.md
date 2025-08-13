@@ -3118,6 +3118,203 @@ For degree $k$ polynomial kernel in $d$-dimensional space:
 - **For (d):** Scaling features is crucial because all features need to be on the same scale for distance calculation.
 - **For (e):** k-NN does not get faster as the dimensions of the data increase.
 
+## Detailed Solution Explanation
+
+**Understanding k-Nearest Neighbors (k-NN) Algorithm:**
+
+This problem explores the fundamental properties and limitations of the k-NN algorithm, focusing on computational complexity, scalability, and practical considerations.
+
+**Mathematical Framework:**
+
+**k-NN Algorithm:**
+1. **Training:** Store all training data points $\{(x_1, y_1), \ldots, (x_N, y_N)\}$
+2. **Prediction:** For query point $x_q$:
+   - Find $k$ nearest neighbors based on distance metric
+   - Predict using majority vote (classification) or average (regression)
+
+**Distance Metrics:**
+- **Euclidean:** $d(x, x') = \sqrt{\sum_{i=1}^{d} (x_i - x_i')^2}$
+- **Manhattan:** $d(x, x') = \sum_{i=1}^{d} |x_i - x_i'|$
+- **Cosine:** $d(x, x') = 1 - \frac{x^T x'}{||x|| \cdot ||x'||}$
+
+**Analysis of Each Option:**
+
+**Option A: "Time complexity of k-NN for a single query is O(N·d)"**
+
+**Why This is True:**
+
+**Computational Analysis:**
+1. **Distance Calculations:** For each of $N$ training points
+2. **Per Distance:** Compute distance in $d$-dimensional space
+3. **Total Operations:** $N \times d$ operations
+
+**Step-by-Step Breakdown:**
+```python
+def knn_query(query_point, training_data, k):
+    distances = []
+    for i in range(N):  # O(N)
+        dist = compute_distance(query_point, training_data[i])  # O(d)
+        distances.append(dist)
+    
+    # Find k nearest neighbors: O(N log N) or O(N) with heap
+    nearest_indices = find_k_smallest(distances, k)
+    
+    return predict(nearest_indices)
+```
+
+**Complexity:** $O(N \cdot d) + O(N \log N) = O(N \cdot d)$ (assuming $d \geq \log N$)
+
+**Option B: "k-NN is highly efficient for large datasets due to low computational cost during training"**
+
+**Why This is False:**
+
+**Training Phase Analysis:**
+- **Training Cost:** $O(1)$ - just store the data
+- **Storage Cost:** $O(N \cdot d)$ - store all training points
+- **Query Cost:** $O(N \cdot d)$ - scales linearly with dataset size
+
+**Practical Limitations:**
+- **Memory Usage:** Large datasets require significant memory
+- **Query Time:** Becomes prohibitive for very large $N$
+- **No Indexing:** No pre-computed structures for faster queries
+
+**Example:**
+For $N = 10^6, d = 100$:
+- **Training:** Instant
+- **Single Query:** $10^8$ operations
+- **Memory:** 800MB (assuming 8 bytes per value)
+
+**Option C: "k-NN can suffer from the curse of dimensionality"**
+
+**Why This is True:**
+
+**Curse of Dimensionality:**
+As dimensionality $d$ increases, the effectiveness of distance metrics diminishes.
+
+**Mathematical Explanation:**
+1. **Volume Concentration:** In high dimensions, most volume is near the surface
+2. **Distance Concentration:** All distances become similar
+3. **Nearest Neighbor Relevance:** Distinction between "near" and "far" becomes meaningless
+
+**Example:**
+Consider unit hypercube $[0,1]^d$:
+- **Volume near center:** $\left(\frac{1}{2}\right)^d \to 0$ as $d \to \infty$
+- **Most points:** Near the surface/corners
+- **Distance distribution:** Becomes uniform
+
+**Visual Representation:**
+```
+Low Dimensions:          High Dimensions:
+Points well separated    Points uniformly distributed
+Clear nearest neighbors  All distances similar
+```
+
+**Option D: "Scaling features is crucial for k-NN performance"**
+
+**Why This is True:**
+
+**Feature Scaling Importance:**
+Distance metrics are sensitive to feature scales.
+
+**Example:**
+Consider two features:
+- **Feature 1:** Age (0-100 years)
+- **Feature 2:** Income (0-1,000,000 dollars)
+
+**Without Scaling:**
+$$d(x, x') = \sqrt{(age_1 - age_2)^2 + (income_1 - income_2)^2}$$
+
+Income differences dominate age differences.
+
+**With Scaling (Standardization):**
+$$d(x, x') = \sqrt{\left(\frac{age_1 - age_2}{\sigma_{age}}\right)^2 + \left(\frac{income_1 - income_2}{\sigma_{income}}\right)^2}$$
+
+Both features contribute equally.
+
+**Option E: "k-NN is inherently faster with very high dimensions"**
+
+**Why This is False:**
+
+**High-Dimensional Challenges:**
+1. **Computational Cost:** $O(N \cdot d)$ increases with $d$
+2. **Memory Usage:** $O(N \cdot d)$ increases with $d$
+3. **Curse of Dimensionality:** Effectiveness decreases with $d$
+4. **No Dimensionality Reduction:** Cannot exploit structure
+
+**Counterexample:**
+- **Low dimensions:** $d = 2, N = 1000 \implies 2000$ operations
+- **High dimensions:** $d = 1000, N = 1000 \implies 1,000,000$ operations
+
+**Practical Implications:**
+
+**1. Algorithm Selection:**
+- **Small Datasets:** k-NN works well
+- **Large Datasets:** Consider approximate methods (LSH, KD-trees)
+- **High Dimensions:** Consider dimensionality reduction
+
+**2. Optimization Strategies:**
+- **Data Structures:** KD-trees, ball trees for faster queries
+- **Approximate Methods:** Locality Sensitive Hashing (LSH)
+- **Dimensionality Reduction:** PCA, feature selection
+
+**3. Hyperparameter Tuning:**
+- **k Selection:** Cross-validation for optimal k
+- **Distance Metric:** Choose appropriate metric for data
+- **Feature Scaling:** Standardization or normalization
+
+**Example Applications:**
+
+**1. Image Classification:**
+- **Feature Extraction:** SIFT, HOG, CNN features
+- **Distance Metric:** Euclidean or cosine similarity
+- **Challenges:** High-dimensional feature spaces
+
+**2. Recommendation Systems:**
+- **User-Item Matrix:** Collaborative filtering
+- **Similarity Metrics:** Cosine similarity
+- **Scalability:** Approximate nearest neighbors
+
+**3. Bioinformatics:**
+- **Gene Expression:** High-dimensional data
+- **Distance Metrics:** Correlation-based distances
+- **Dimensionality:** Feature selection crucial
+
+**Performance Optimization:**
+
+**1. Approximate Methods:**
+```python
+# Locality Sensitive Hashing
+def lsh_approximate_nn(query, data, num_hashes=100):
+    # Hash functions for approximate nearest neighbors
+    hashes = compute_hashes(query, num_hashes)
+    candidates = find_candidates(hashes, data)
+    return exact_search(query, candidates)
+```
+
+**2. Data Structures:**
+```python
+# KD-tree for faster queries
+from sklearn.neighbors import KDTree
+tree = KDTree(training_data)
+distances, indices = tree.query(query_point, k=k)
+```
+
+**3. Dimensionality Reduction:**
+```python
+# PCA for dimensionality reduction
+from sklearn.decomposition import PCA
+pca = PCA(n_components=50)
+X_reduced = pca.fit_transform(X)
+```
+
+**Key Insights:**
+- k-NN query time scales linearly with dataset size and dimensionality
+- Training is fast but querying becomes expensive for large datasets
+- Curse of dimensionality significantly impacts performance
+- Feature scaling is essential for meaningful distance calculations
+- High dimensions make k-NN slower, not faster
+- Understanding these limitations helps in algorithm selection and optimization
+
 ## Problem 21: Neural Network Overparameterization
 
 **1 point**
@@ -3132,6 +3329,200 @@ For degree $k$ polynomial kernel in $d$-dimensional space:
 
 **Explanation:** 
 In practice, overparameterized neural networks tend to generalize well, and overfitting is sometimes not entirely undesirable.
+
+## Detailed Solution Explanation
+
+**Understanding Neural Network Overparameterization:**
+
+This problem explores the modern understanding of overparameterization in neural networks, challenging traditional machine learning wisdom about model complexity and overfitting.
+
+**Mathematical Framework:**
+
+**Overparameterization Definition:**
+A model is overparameterized when the number of parameters exceeds the number of training samples:
+$$p > n$$
+
+where:
+- $p$ = number of parameters
+- $n$ = number of training samples
+
+**Traditional vs. Modern Understanding:**
+
+**Traditional Machine Learning:**
+- **Bias-Variance Tradeoff:** More parameters → higher variance → overfitting
+- **Occam's Razor:** Simpler models generalize better
+- **Regularization:** Penalize model complexity
+
+**Modern Deep Learning:**
+- **Double Descent:** Complex models can generalize well
+- **Interpolation:** Models can fit training data perfectly and still generalize
+- **Implicit Regularization:** Optimization dynamics provide regularization
+
+**Analysis of the Statement:**
+
+**The Statement Claims:**
+"When choosing neural network architecture, one generally avoids overparameterization to prevent overfitting."
+
+**Why This is False:**
+
+**1. Empirical Evidence:**
+
+**Double Descent Phenomenon:**
+```
+Test Error
+    ^
+    |    Classical U-shaped curve
+    |         /\
+    |        /  \
+    |       /    \____
+    |      /          \
+    |     /            \____
+    |    /                  \
+    |___/____________________\___> Model Complexity
+    |   |    |    |    |    |
+   Low Medium High Very High
+```
+
+**2. Theoretical Understanding:**
+
+**Interpolation Regime:**
+When $p > n$, models can perfectly fit training data:
+$$\hat{y}_i = y_i \quad \forall i = 1, \ldots, n$$
+
+**Implicit Regularization:**
+- **Gradient Descent:** Prefers solutions with small norm
+- **Early Stopping:** Natural regularization mechanism
+- **Architecture:** Network structure provides inductive bias
+
+**3. Practical Examples:**
+
+**Image Classification:**
+- **ResNet-50:** 25M parameters
+- **Training Set:** Often < 1M images
+- **Performance:** Excellent generalization
+
+**Language Models:**
+- **GPT-3:** 175B parameters
+- **Training Data:** Billions of tokens
+- **Generalization:** Strong few-shot learning
+
+**Mathematical Insights:**
+
+**1. Minimum Norm Solution:**
+For overparameterized linear models:
+$$\min_w ||w||^2 \quad \text{subject to } Xw = y$$
+
+**Solution:** $w = X^T(XX^T)^{-1}y$
+
+**Properties:**
+- **Interpolation:** Perfect fit to training data
+- **Minimum Norm:** Smallest possible parameter vector
+- **Generalization:** Often good despite interpolation
+
+**2. Neural Tangent Kernel (NTK):**
+For wide neural networks:
+$$f(x) \approx f_0(x) + \nabla_w f_0(x)^T(w - w_0)$$
+
+**Kernel:** $K(x, x') = \nabla_w f_0(x)^T \nabla_w f_0(x')$
+
+**Implication:** Wide networks behave like kernel methods
+
+**Visual Representation:**
+
+**Parameter Count vs. Performance:**
+```
+Performance
+    ^
+    |                    Modern Deep Learning
+    |                         ___________
+    |                        /
+    |                       /
+    |                      /
+    |                     /
+    |                    /
+    |                   /
+    |                  /
+    |                 /
+    |                /
+    |_______________/________________> Parameters
+    |   |    |    |    |    |
+   Low Medium High Very High
+```
+
+**Practical Implications:**
+
+**1. Architecture Design:**
+- **Wider Networks:** Often better than deeper
+- **Residual Connections:** Help with very deep networks
+- **Normalization:** BatchNorm, LayerNorm improve training
+
+**2. Training Strategies:**
+- **Large Learning Rates:** Can work well with overparameterized models
+- **Data Augmentation:** More important than model size
+- **Regularization:** Still useful but not always necessary
+
+**3. Model Selection:**
+- **Validation Performance:** More important than parameter count
+- **Computational Budget:** Often the limiting factor
+- **Task Complexity:** Should match model capacity
+
+**Example Applications:**
+
+**1. Computer Vision:**
+- **ResNet:** 50+ layers, excellent generalization
+- **EfficientNet:** Scaled architectures
+- **Vision Transformers:** Large attention models
+
+**2. Natural Language Processing:**
+- **BERT:** 340M parameters
+- **GPT Models:** Billions of parameters
+- **T5:** Unified text-to-text framework
+
+**3. Reinforcement Learning:**
+- **Deep Q-Networks:** Overparameterized value functions
+- **Policy Networks:** Large actor-critic architectures
+- **Multi-Agent Systems:** Complex interaction modeling
+
+**Counterarguments and Limitations:**
+
+**1. When Overparameterization Hurts:**
+- **Small Datasets:** Limited training data
+- **Computational Constraints:** Memory or time limitations
+- **Interpretability:** Simpler models may be preferred
+
+**2. Practical Considerations:**
+- **Training Time:** Larger models take longer to train
+- **Memory Usage:** GPU memory limitations
+- **Deployment:** Model size affects inference speed
+
+**3. Domain-Specific Factors:**
+- **Data Quality:** Noisy data may benefit from regularization
+- **Task Complexity:** Simple tasks may not need large models
+- **Real-time Requirements:** Speed constraints
+
+**Modern Research Insights:**
+
+**1. Lottery Ticket Hypothesis:**
+- **Sparse Subnetworks:** Small subnetworks can achieve similar performance
+- **Pruning:** Remove unnecessary parameters
+- **Efficiency:** Reduce computational cost
+
+**2. Neural Architecture Search (NAS):**
+- **Automated Design:** Find optimal architectures
+- **Efficiency:** Balance performance and computational cost
+- **Scalability:** Search in large architecture spaces
+
+**3. Knowledge Distillation:**
+- **Teacher-Student:** Large model teaches small model
+- **Transfer Learning:** Leverage pre-trained models
+- **Efficiency:** Deploy smaller models
+
+**Key Insights:**
+- Overparameterization doesn't necessarily lead to overfitting
+- Modern neural networks can generalize well despite large parameter counts
+- Implicit regularization from optimization dynamics is often sufficient
+- Architecture design should focus on task requirements, not just parameter count
+- Understanding these principles helps in modern deep learning practice
 
 ## Problem 22: Forward Stagewise Additive Modeling
 
