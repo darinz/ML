@@ -33,7 +33,7 @@ Therefore, the correct answer is D.
 
 **C: $(1 - P)^9 \times P \times 10 = 5.68\%$** - This formula calculates the probability of pulling exactly 1 SSR, given by: $P(X = 1) = \binom{10}{1} P^1(1 - P)^9 = 10 \times P \times (1 - P)^9$. Hence, the correct answer remains D.
 
-**2. Select All That Apply**
+**Problem 2. Select All That Apply**
 
 Below are several statements about Gradient Descent (GD) and Stochastic Gradient Descent (SGD). Which of the following are correct?
 
@@ -68,7 +68,7 @@ Since SGD approximates the full gradient using randomly sampled data points, its
 
 Therefore, the correct answers are (A), (B), and (D).
 
-**3.**
+**Problem 3.**
 
 In a gacha game, the probability of obtaining an SSR character per pull is $p$, but $p$ is unknown. To estimate $p$, Bob performed 100 pulls and obtained SSRs $k = 3$ times (i.e., 3 successes). Assume that each pull is independent and follows a Bernoulli distribution.
 
@@ -100,7 +100,7 @@ Solving for p:
 
 $\hat{p} = \frac{3}{100}$
 
-**4. One Answer**
+**Problem 4. One Answer**
 
 Suppose you train a linear regression model (without doing feature expansion), i.e., $f_w(x) = wx + b$, to approximate the cubic function $g(x) = 2x^3 + 7x^2 + 4x + 3$. What's the most likely outcome?
 
@@ -111,9 +111,54 @@ Suppose you train a linear regression model (without doing feature expansion), i
 
 **Correct answers:** (c)
 
-**Explanation:** The model being linear means the variance is likely to be low. The linear model trying to approximate a cubic function, which is of a higher degree, means that the bias is likely to be high.
+**Explanation:**
 
-**5. One Answer**
+**This question tests understanding of bias-variance tradeoff** in model complexity.
+
+**Why (c) is correct:**
+
+**Linear model approximating cubic function creates high bias, low variance:**
+
+**1. Model complexity analysis:**
+- **Linear model:** $f_w(x) = wx + b$ (degree 1)
+- **Target function:** $g(x) = 2x^3 + 7x^2 + 4x + 3$ (degree 3)
+- **Model is too simple** for the target function
+- **Cannot capture** cubic relationships
+
+**2. High bias (underfitting):**
+- **Systematic error** due to model simplicity
+- **Cannot represent** the true underlying function
+- **Consistent deviation** from target values
+- **Model assumptions** are wrong
+
+**3. Low variance:**
+- **Simple model** has few parameters
+- **Less sensitive** to training data variations
+- **Stable predictions** across different datasets
+- **Consistent behavior** regardless of data
+
+**4. Why other options are incorrect:**
+
+**Option (a): Low bias, low variance**
+- **Contradicts** the model complexity mismatch
+- **Linear model** cannot have low bias for cubic function
+- **Wrong assessment**
+
+**Option (b): Low bias, high variance**
+- **Linear model** cannot have low bias for cubic function
+- **Simple model** typically has low variance
+- **Incorrect combination**
+
+**Option (d): High bias, high variance**
+- **Linear model** has low variance due to simplicity
+- **Wrong variance assessment**
+- **Incorrect combination**
+
+**Key insight:** **Simple models** (linear) approximating **complex functions** (cubic) result in **high bias, low variance** due to systematic underfitting.
+
+---
+
+**Problem 5. One Answer**
 
 Adding more basis functions to a linear regression model always leads to better prediction accuracy on new, unseen data.
 
@@ -122,9 +167,43 @@ Adding more basis functions to a linear regression model always leads to better 
 
 **Correct answers:** (b)
 
-**Explanation:** As the complexity of the model increases, the prediction accuracy on new, unseen data (test data) doesn't always get better as the model may overfit.
+**Explanation:**
 
-**6. One Answer**
+**This question tests understanding of overfitting** and model complexity.
+
+**Why (b) is correct:**
+
+**Adding more basis functions doesn't always improve prediction accuracy:**
+
+**1. Overfitting mechanism:**
+- **More basis functions** = higher model complexity
+- **Model can fit** training data perfectly
+- **Poor generalization** to unseen data
+- **High variance** due to complexity
+
+**2. Bias-variance tradeoff:**
+- **Low bias:** Model can capture complex patterns
+- **High variance:** Sensitive to training data noise
+- **Optimal complexity** exists for best generalization
+- **Beyond optimal point:** Performance degrades
+
+**3. Mathematical intuition:**
+- **Training error:** Decreases with complexity
+- **Test error:** U-shaped curve (decreases then increases)
+- **Optimal point:** Minimum test error
+- **Overfitting region:** Test error increases
+
+**4. Why (a) is incorrect:**
+- **Ignores overfitting** phenomenon
+- **Assumes complexity** always helps
+- **Contradicts** empirical evidence
+- **Wrong assumption**
+
+**Key insight:** **Model complexity** has **diminishing returns** - beyond optimal complexity, **overfitting** causes **worse generalization**.
+
+---
+
+**Problem 6. One Answer**
 
 What datasets from the training/validation/test data split should you utilize during hyperparameter tuning?
 
@@ -135,9 +214,54 @@ What datasets from the training/validation/test data split should you utilize du
 
 **Correct answers:** (b)
 
-**Explanation:** You never want to use your Test Data for hyperparameter tuning, as it will bias the model on the test data. The test data should only be used for final evaluation of the model. Instead, for hyperparameter tuning, you want to train your model with different hyperparameters using the Training Data, then evaluate those models on the Validation Data to select the best hyperparameters for the model. (Methods like K-fold Cross Validation)
+**Explanation:**
 
-**7. One Answer**
+**This question tests understanding of data splitting** and hyperparameter tuning best practices.
+
+**Why (b) is correct:**
+
+**Training and validation data should be used for hyperparameter tuning:**
+
+**1. Purpose of each dataset:**
+- **Training data:** Learn model parameters
+- **Validation data:** Tune hyperparameters
+- **Test data:** Final evaluation only
+- **Never use test data** for tuning
+
+**2. Data leakage prevention:**
+- **Test data** must remain unseen during development
+- **Using test data** for tuning creates bias
+- **Overestimates** model performance
+- **Invalidates** final evaluation
+
+**3. Hyperparameter tuning process:**
+- **Train models** with different hyperparameters on training data
+- **Evaluate performance** on validation data
+- **Select best hyperparameters** based on validation performance
+- **Final evaluation** on test data (once only)
+
+**4. Why other options are incorrect:**
+
+**Option (a): Training data only**
+- **No validation** to assess hyperparameters
+- **Cannot compare** different configurations
+- **No way to select** best hyperparameters
+
+**Option (c): Including test data**
+- **Data leakage** - test data used for tuning
+- **Biased performance** estimates
+- **Invalidates** final evaluation
+
+**Option (d): Training and test data**
+- **Data leakage** - test data used for tuning
+- **Same problem** as option (c)
+- **Wrong practice**
+
+**Key insight:** **Test data** must remain **completely unseen** during model development to provide **unbiased final evaluation**.
+
+---
+
+**Problem 7. One Answer**
 
 Consider $u = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix}$, $v = \begin{bmatrix} -4 \\ 5 \\ 1 \end{bmatrix}$, $w = \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}$. Let $x \in \mathbb{R}^3$. Does there exist unique $a, b, c \in \mathbb{R}$ such that $a \cdot u + b \cdot v + c \cdot w = x$?
 
@@ -147,17 +271,87 @@ Consider $u = \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix}$, $v = \begin{bmatrix} -
 
 **Correct answers:** (a)
 
-**Explanation:** $u, v, w$ are linearly independent, so the function $f(a, b, c) = a \cdot u + b \cdot v + c \cdot w$ is onto $\mathbb{R}^3$ as well as one-to-one. This can be verified by using row reduction on $\begin{bmatrix} u & v & w \end{bmatrix}$ or by noticing the three vectors are orthogonal.
+**Explanation:**
 
-**8.**
+**This question tests understanding of linear algebra** and vector space properties.
+
+**Why (a) is correct:**
+
+**Three linearly independent vectors in $\mathbb{R}^3$ form a basis:**
+
+**1. Linear independence:**
+- **Vectors $u, v, w$** are linearly independent
+- **No non-trivial** linear combination equals zero
+- **Determinant** of matrix $[u \ v \ w]$ is non-zero
+- **Full rank** matrix
+
+**2. Basis properties:**
+- **Three independent vectors** in $\mathbb{R}^3$ span the space
+- **Any vector $x \in \mathbb{R}^3$** can be written as linear combination
+- **Unique coefficients** $a, b, c$ exist
+- **One-to-one and onto** mapping
+
+**3. Mathematical verification:**
+- **Matrix form:** $[u \ v \ w] \begin{bmatrix} a \\ b \\ c \end{bmatrix} = x$
+- **Unique solution:** $\begin{bmatrix} a \\ b \\ c \end{bmatrix} = [u \ v \ w]^{-1} x$
+- **Inverse exists** because vectors are independent
+- **Unique coefficients** guaranteed
+
+**4. Why other options are incorrect:**
+
+**Option (b): No unique solution**
+- **Contradicts** linear independence
+- **Independent vectors** guarantee unique solution
+- **Wrong conclusion**
+
+**Option (c): Not enough information**
+- **We have sufficient** information (3 independent vectors in $\mathbb{R}^3$)
+- **Linear algebra** provides clear answer
+- **Unnecessary uncertainty**
+
+**Key insight:** **Three linearly independent vectors** in **$\mathbb{R}^3$** form a **basis**, ensuring **unique representation** of any vector.
+
+---
+
+**Problem 8.**
 
 Consider data matrix $X \in \mathbb{R}^{n \times d}$, label vector $y \in \mathbb{R}^n$, and regularization parameter $\lambda > 0$. Write the closed form solution for ridge regression.
 
 **Answer:** $(X^T X + \lambda I)^{-1} X^T y$
 
-**Explanation:** $(X^T X + \lambda I)^{-1} X^T y$
+**Explanation:**
 
-**9. One Answer**
+**This question tests understanding of ridge regression** and its closed-form solution.
+
+**Why this is the correct answer:**
+
+**Ridge regression adds L2 regularization to linear regression:**
+
+**1. Ridge regression objective:**
+$\min_w \|Xw - y\|_2^2 + \lambda \|w\|_2^2$
+
+**2. Setting gradient to zero:**
+$\nabla_w (\|Xw - y\|_2^2 + \lambda \|w\|_2^2) = 0$
+
+**3. Computing gradients:**
+- **Loss term:** $\nabla_w \|Xw - y\|_2^2 = 2X^T(Xw - y)$
+- **Regularization term:** $\nabla_w \lambda \|w\|_2^2 = 2\lambda w$
+
+**4. Solving the equation:**
+$2X^T(Xw - y) + 2\lambda w = 0$
+
+$X^T X w - X^T y + \lambda w = 0$
+
+$(X^T X + \lambda I) w = X^T y$
+
+**5. Closed-form solution:**
+$w = (X^T X + \lambda I)^{-1} X^T y$
+
+**Key insight:** **Ridge regression** adds **$\lambda I$** to **$X^T X$** to ensure **invertibility** and provide **regularization**.
+
+---
+
+**Problem 9. One Answer**
 
 Consider a dataset containing three observations for a simple linear regression problem, where $y$ is the dependent variable and $x$ is the independent variable. The dataset is given as follows:
 
@@ -176,11 +370,34 @@ Find the coefficient $\beta_1$ of the linear regression (without bias) $y = \bet
 
 **Correct answers:** (c)
 
-**Explanation:** $\beta_1 = \frac{50}{14}$
+**Explanation:**
 
-$\beta_1 = (X^T X)^{-1} (X^T Y) = \frac{1}{14} \times 50$
+**This question tests understanding of linear regression** and least squares estimation.
 
-**10. One Answer**
+**Step-by-step calculation:**
+
+**1. Data matrix construction:**
+$X = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$, $Y = \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix}$
+
+**2. Matrix calculations:**
+$X^T X = [1 \ 2 \ 3] \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} = 1^2 + 2^2 + 3^2 = 1 + 4 + 9 = 14$
+
+$X^T Y = [1 \ 2 \ 3] \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix} = 1 \times 7 + 2 \times 8 + 3 \times 9 = 7 + 16 + 27 = 50$
+
+**3. Normal equation solution:**
+$\beta_1 = (X^T X)^{-1} (X^T Y) = \frac{1}{14} \times 50 = \frac{50}{14}$
+
+**4. Verification:**
+- **Model:** $y = \beta_1 x$
+- **Predictions:** $\hat{y}_1 = \frac{50}{14} \times 1 = \frac{50}{14}$
+- **Predictions:** $\hat{y}_2 = \frac{50}{14} \times 2 = \frac{100}{14}$
+- **Predictions:** $\hat{y}_3 = \frac{50}{14} \times 3 = \frac{150}{14}$
+
+**Key insight:** **Normal equations** provide **closed-form solution** for **least squares** linear regression without bias term.
+
+---
+
+**Problem 10. One Answer**
 
 We can find the solution for LASSO by setting the gradient of the loss to 0 and solving for weight parameter $w$.
 
@@ -189,9 +406,46 @@ We can find the solution for LASSO by setting the gradient of the loss to 0 and 
 
 **Correct answers:** (b)
 
-**Explanation:** LASSO has no closed form solution, which is why we use gradient descent.
+**Explanation:**
 
-**11. One Answer**
+**This question tests understanding of LASSO regression** and optimization methods.
+
+**Why (b) is correct:**
+
+**LASSO has no closed-form solution due to L1 regularization:**
+
+**1. LASSO objective function:**
+$\min_w \|Xw - y\|_2^2 + \lambda \|w\|_1$
+
+**2. L1 penalty properties:**
+- **Non-differentiable** at $w_i = 0$
+- **Creates sparsity** by setting coefficients to exactly zero
+- **No analytical solution** possible
+- **Requires iterative** optimization
+
+**3. Why gradient-based methods fail:**
+- **Subgradient** exists but not unique
+- **Cannot set gradient** to zero directly
+- **Coordinate descent** or **proximal gradient** needed
+- **No closed-form** solution exists
+
+**4. Comparison with Ridge:**
+- **Ridge:** L2 penalty, differentiable everywhere
+- **Ridge:** Closed-form solution exists
+- **LASSO:** L1 penalty, non-differentiable at zero
+- **LASSO:** Requires iterative optimization
+
+**5. Why (a) is incorrect:**
+- **Assumes** LASSO has closed-form solution
+- **Ignores** non-differentiability of L1 penalty
+- **Contradicts** optimization theory
+- **Wrong assumption**
+
+**Key insight:** **L1 regularization** creates **non-differentiability** at zero, making **closed-form solutions** impossible for LASSO.
+
+---
+
+**Problem 11. One Answer**
 
 You are building a model to detect fraudulent transactions from a dataset of 100K samples. What would be the most effective way to split and utilize your data?
 
@@ -202,9 +456,50 @@ You are building a model to detect fraudulent transactions from a dataset of 100
 
 **Correct answers:** (c)
 
-**Explanation:** A is incorrect since the validation and test set should be separate. B is incorrect since the data splits should be randomized. C is the correct as it is the standard data split method. D is incorrect since evaluating on the known train set induces bias.
+**Explanation:**
 
-**12. One Answer**
+**This question tests understanding of data splitting** best practices for machine learning.
+
+**Why (c) is correct:**
+
+**Random 80-10-10 split is the standard approach:**
+
+**1. Proper data splitting:**
+- **Training (80%):** Learn model parameters
+- **Validation (10%):** Tune hyperparameters
+- **Test (10%):** Final evaluation only
+- **Random sampling** ensures representative splits
+
+**2. Why other options are incorrect:**
+
+**Option (a): 80-20 split for training and validation/test**
+- **Validation and test** should be separate
+- **Cannot use same data** for both purposes
+- **Data leakage** between validation and test
+
+**Option (b): Sequential splitting**
+- **Data may have** temporal dependencies
+- **Non-random splits** can introduce bias
+- **Training on past,** testing on future creates bias
+- **Not representative** of real-world scenario
+
+**Option (d): Training and validation only**
+- **No test set** for final evaluation
+- **Cannot assess** true generalization
+- **Overfitting** to validation set possible
+- **No unbiased** performance estimate
+
+**3. Best practices:**
+- **Random sampling** ensures i.i.d. assumption
+- **Stratified sampling** for imbalanced datasets
+- **Sufficient data** in each split
+- **No overlap** between splits
+
+**Key insight:** **Random 80-10-10 split** provides **proper separation** of concerns and **unbiased evaluation**.
+
+---
+
+**Problem 12. One Answer**
 
 You are implementing a model to predict house prices. Your dataset contains 15 features (e.g., location, acres, proximity to city, etc.). However, you believe that many of these features are irrelevant to the house prices. Which method would be most suitable for your model?
 
@@ -215,9 +510,54 @@ You are implementing a model to predict house prices. Your dataset contains 15 f
 
 **Correct answers:** (c)
 
-**Explanation:** Since this is a regression not classification task, we use linear regression. Additionally, since we are interested in some kind of feature selection, L1 regularization would be more effective in setting unimportant features to 0.
+**Explanation:**
 
-**13. Select All That Apply**
+**This question tests understanding of model selection** and regularization for feature selection.
+
+**Why (c) is correct:**
+
+**Linear regression with L1 regularization is best for feature selection:**
+
+**1. Problem analysis:**
+- **Regression task:** Predicting house prices (continuous output)
+- **Feature selection needed:** Many irrelevant features
+- **15 features:** Need to identify important ones
+- **L1 regularization:** Creates sparsity
+
+**2. Why linear regression:**
+- **Continuous target:** House prices are continuous values
+- **Not classification:** No binary/multi-class labels
+- **Linear relationship:** Assumes linear feature relationships
+- **Interpretable:** Coefficients show feature importance
+
+**3. Why L1 regularization:**
+- **Feature selection:** Sets irrelevant coefficients to exactly zero
+- **Sparsity:** Creates sparse weight vector
+- **Interpretability:** Clear feature importance
+- **Automatic selection:** No manual feature elimination
+
+**4. Why other options are incorrect:**
+
+**Option (a): Logistic regression with L1**
+- **Wrong task:** Classification, not regression
+- **House prices** are continuous, not categorical
+- **Inappropriate** model choice
+
+**Option (b): Logistic regression with L2**
+- **Wrong task:** Classification, not regression
+- **L2 doesn't create** sparsity for feature selection
+- **Double wrong** choice
+
+**Option (d): Linear regression with L2**
+- **Correct task** but wrong regularization
+- **L2 shrinks** coefficients but doesn't set them to zero
+- **No feature selection** capability
+
+**Key insight:** **Linear regression with L1 regularization** provides **feature selection** for **regression tasks** with **many irrelevant features**.
+
+---
+
+**Problem 13. Select All That Apply**
 
 While training a model, you notice that it has a small bias but a high variance on the training data. Which of the following are valid strategies to address the high variance?
 
@@ -230,7 +570,7 @@ While training a model, you notice that it has a small bias but a high variance 
 
 **Explanation:** A and B are correct because increasing regularization and simplifying model complexity help decrease the impact of less important features, improving generalization and reducing variance. C is also correct because increasing the training set size allows the model to generalize better, which can reduce variance. D is incorrect since using higher-degree features increases model complexity and often leads to overfitting, increasing variance.
 
-**14. Select All That Apply**
+**Problem 14. Select All That Apply**
 
 After a student trains and evaluates a Logistic Regression model, you notice their test accuracy is 99.99%. You know that this was supposed to be a difficult dataset to model, so you investigate. Which of the following are reasonable explanations for this excessively high accuracy? Note that if you select multiple answers, not all of them have to be true at the same time.
 
@@ -243,7 +583,7 @@ After a student trains and evaluates a Logistic Regression model, you notice the
 
 **Explanation:** A is true. Train/test leakage can result in incredibly high performance on the evaluation data. C and D are also true. A very imbalanced dataset can make it so that the model only predicts the majority class yet scores very high. B is false as having data that is not linearly separable does not make it easier for a linear model to separate the classes.
 
-**15. One Answer**
+**Problem 15. One Answer**
 
 Given $W \in \mathbb{R}^{m \times n}, X \in \mathbb{R}^{n \times n}, Y \in \mathbb{R}^{p \times m}, Z \in \mathbb{R}^{m \times m}$, and $a \in \mathbb{R}^n$. If $m, n, p$ are distinct, which one of the following expressions is valid?
 
@@ -256,7 +596,7 @@ Given $W \in \mathbb{R}^{m \times n}, X \in \mathbb{R}^{n \times n}, Y \in \math
 
 **Explanation:** A is incorrect because $X^{-1}aa^T W^T \in \mathbb{R}^{n \times m}$, and you cannot take the inverse of a non-square matrix. B is correct because even though $Xa^T$ is not possible ($n \times n, 1 \times n$), $a^T a$ becomes a scalar and allows for the expression to be valid. C is incorrect because $XZ$ is not possible ($n \times n, m \times m$). D is incorrect because B is correct.
 
-**16.**
+**Problem 16.**
 
 For what value of $k$ will $k$-fold cross-validation create cross-validation splits equivalent to Leave-one-out cross-validation (LOOCV)? Assume you have $n$ data points.
 
@@ -264,7 +604,7 @@ For what value of $k$ will $k$-fold cross-validation create cross-validation spl
 
 **Explanation:** If $k = n$, then there will be $n$ folds, each one only leaving 1 datapoint out. This is equivalent to LOOCV.
 
-**17. One Answer**
+**Problem 17. One Answer**
 
 We can decrease the variance of a model by increasing the model complexity.
 
@@ -275,7 +615,7 @@ We can decrease the variance of a model by increasing the model complexity.
 
 **Explanation:** As model complexity increases, this increases the variance error due to higher degree of freedom.
 
-**18. Select All That Apply**
+**Problem 18. Select All That Apply**
 
 Which of the following statements are true about logistic regression? Recall that the sigmoid function is defined as $\sigma(x) = \frac{1}{1+e^{-x}}$ for $x \in \mathbb{R}$
 
@@ -290,7 +630,7 @@ Which of the following statements are true about logistic regression? Recall tha
 
 (d) True. $\sigma(x)$ has horizontal asymptotes at 0 and 1 and therefore is strictly bounded between those values. Because the output probability is the output of, this implies that the output probability is also strictly contained in (0,1). As it cannot output positive or negative labels with probability 1, it is therefore unable to reduce the training loss to exactly 0, though it can get arbitrarily close.
 
-**19. Select All That Apply**
+**Problem 19. Select All That Apply**
 
 Below are several statements about the train/test/validation sets and cross-validation. Which of the following are correct?
 
@@ -303,7 +643,7 @@ Below are several statements about the train/test/validation sets and cross-vali
 
 **Explanation:** A is correct since k-fold is faster but generally more biased. D is correct since the purpose of the test set is to test the model on unseen data and assess its performance.
 
-**20. Select All That Apply**
+**Problem 20. Select All That Apply**
 
 Consider the principle of Maximum Likelihood Estimation (MLE), which is a method to estimate the parameters of a statistical model. Which of the following statements is correct?
 
@@ -316,7 +656,7 @@ Consider the principle of Maximum Likelihood Estimation (MLE), which is a method
 
 **Explanation:** While i.i.d. is commonly assumed when doing MLE, it is not strictly necessary. Additionally, although it can sometimes be unbiased, MLE is generally a biased estimator.
 
-**21. One Answer**
+**Problem 21. One Answer**
 
 If we run gradient descent on $f(x)$, gradient descent guarantees that we will converge to the global minimum even if $\nabla^2f(x) \ge 0$ does not hold some $x$, i.e., the Hessian of the objective function is not positive semi-definite for some $x$.
 
@@ -327,7 +667,7 @@ If we run gradient descent on $f(x)$, gradient descent guarantees that we will c
 
 **Explanation:** Gradient descent only guarantees a global minimum if $f(x)$ is convex.
 
-**22. One Answer**
+**Problem 22. One Answer**
 
 Let $A_1, A_2,..., A_n \sim N(\mu, \sigma^2)$. What is $E[A_1 + A_2 + A_3]$?
 
@@ -340,7 +680,7 @@ Let $A_1, A_2,..., A_n \sim N(\mu, \sigma^2)$. What is $E[A_1 + A_2 + A_3]$?
 
 **Explanation:** By linearity of expectation, $E[A_1 + A_2 + A_3] = E[A_1] + E[A_2] + E[A_3]$. Since $A_1, A_2,..., A_n \sim N(\mu, \sigma^2)$, $E[A_1] = E[A_2] = E[A_3] = \mu$. Thus, $E[A_1] + E[A_2] + E[A_3] = \mu + \mu + \mu = 3\mu$.
 
-**23.**
+**Problem 23.**
 
 Consider a function $f(x,y)$ representing a loss function in a 2-dimensional space, where gradient descent is used to minimize $f$. Given the function: $f(x, y) = x^2 + 2y^2 + 4xy$ where the initial point is $(x_0, y_0) = (1, 1)$ and the learning rate is 0.1, write down the $(x_1, y_1)$ you get after one step of gradient descent.
 
@@ -348,7 +688,7 @@ Consider a function $f(x,y)$ representing a loss function in a 2-dimensional spa
 
 **Explanation:** From the gradient descent algorithm: $x_1 = x_0 - \eta \cdot \frac{\partial f(x_0, y_0)}{\partial x}$ and $y_1 = y_0 - \eta \cdot \frac{\partial f(x_0, y_0)}{\partial y}$. It is given that $\eta = 0.1$. $\frac{\partial f(x,y)}{\partial x} = 2x + 4y$. $\frac{\partial f(x,y)}{\partial y} = 4y + 4x$. So, $x_1 = 1 - 0.1 \cdot 6 = 0.4$ and $y_1 = 1 - 0.1 \cdot 8 = 0.2$.
 
-**24. One Answer**
+**Problem 24. One Answer**
 
 For machine learning models and datasets in general, as the number of training data points grows, the prediction error of the model on unseen data (data not found in the training set) eventually reaches 0.
 
@@ -359,7 +699,7 @@ For machine learning models and datasets in general, as the number of training d
 
 **Explanation:** There is irreducible error that leads to non-zero error.
 
-**25. One Answer**
+**Problem 25. One Answer**
 
 Which of the following statements about ridge regression are true?
 
@@ -372,7 +712,7 @@ Which of the following statements about ridge regression are true?
 
 **Explanation:** Ridge regression typically shrinks the weights of correlated features about evenly. This means it probably won't set the weights of all but one of the correlated features to 0. That would be more akin to LASSO regression. The additional computational cost increases proportional to the number of weights in the dataset. Ridge-regression is an example of the bias-variance trade off. The sum of convex functions is convex so ridge and LASSO regression combined is still convex.
 
-**26. Select All That Apply**
+**Problem 26. Select All That Apply**
 
 Let $n \in \mathbb{N}$ such that $n > 1$. Which of the following functions are convex (with respect to $x$) over its entire domain?
 
@@ -393,7 +733,7 @@ Let $n \in \mathbb{N}$ such that $n > 1$. Which of the following functions are c
 
 **(d) Explanation:** $\log x$ is concave, and $x$ is convex, so $x - \log_{\pi}(x^n) = x - n \cdot \log_{\pi}(x)$ is convex on $(0, \infty)$.
 
-**27.**
+**Problem 27.**
 
 Assume $n \neq d$. Suppose $x_1, x_2, \dots, x_n$ span $\mathbb{R}^d$. What is the rank of $\sum_{i=1}^{n} x_i x_i^T$? Write your answer in terms of $n$ and $d$. Hint: for any matrix $A$, $\text{rank}(A^T A) = \text{rank}(A)$.
 
@@ -409,7 +749,7 @@ $= d$
 
 **Takeaway:** The takeaway here is that our design matrix $X^T X$ is full rank (invertible) if and only if our data spans $\mathbb{R}^d$.
 
-**28.**
+**Problem 28.**
 
 Describe one advantage of full-batch gradient descent over mini-batch gradient descent.
 
@@ -417,7 +757,7 @@ Describe one advantage of full-batch gradient descent over mini-batch gradient d
 
 **Explanation:** Full batch gradient descent will be more accurate when calculating the gradient as it uses the whole dataset while mini-batch gradient descent uses a subset of the dataset to calculate gradient. This result in a more stable convergence.
 
-**29.**
+**Problem 29.**
 
 Describe one advantage of mini-batch stochastic gradient descent ($1 < B < n$) over stochastic gradient descent with batch size $B = 1$ (e.g., updating the parameters at each iteration based only on one randomly sampled training point).
 
