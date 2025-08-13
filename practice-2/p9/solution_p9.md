@@ -1310,6 +1310,164 @@ Which of the following actions could Snoopy take to help reduce the difference b
 
 **Correct Answer:** a), b), c)
 
+## Detailed Solution Explanation
+
+**Understanding Overfitting Reduction Strategies in Neural Networks:**
+
+This problem demonstrates a classic overfitting scenario and explores various strategies to reduce the gap between training and validation performance.
+
+**Mathematical Framework:**
+
+**Overfitting Definition:**
+A model is overfitting when:
+$$\text{Training Error} \ll \text{Validation Error}$$
+
+**Bias-Variance Decomposition:**
+$$\text{Expected Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+**Analysis of the Training Plot:**
+
+**Key Observations:**
+1. **Training Accuracy:** Reaches 100% by epoch 15
+2. **Validation Accuracy:** Plateaus around 78% by epoch 20
+3. **Gap:** Growing difference between training and validation performance
+4. **Timing:** Gap starts increasing around epoch 7.5
+
+**Why Options A, B, and C Are Correct:**
+
+**Option A: Increase the Amount of Training Data**
+
+**Mathematical Justification:**
+- **Variance Reduction:** More data reduces model variance
+- **Generalization:** Larger datasets provide better representation of true distribution
+- **Overfitting Prevention:** More data makes memorization harder
+
+**Effect on Performance:**
+$$\text{Variance} \propto \frac{1}{n}$$
+where $n$ is the number of training samples.
+
+**Option B: Apply Regularization Techniques**
+
+**Types of Regularization:**
+
+**1. L1/L2 Regularization:**
+$$\mathcal{L}_{reg} = \mathcal{L} + \lambda \sum_{i} |w_i| \text{ (L1)}$$
+$$\mathcal{L}_{reg} = \mathcal{L} + \lambda \sum_{i} w_i^2 \text{ (L2)}$$
+
+**2. Dropout:**
+- Randomly disable neurons during training
+- Prevents co-adaptation of neurons
+- Forces network to learn robust features
+
+**3. Early Stopping:**
+- Stop training when validation error starts increasing
+- Prevents overfitting to training data
+- Balances bias and variance
+
+**Option C: Reduce Model Complexity**
+
+**Mathematical Framework:**
+- **Parameter Reduction:** Fewer weights to learn
+- **Capacity Control:** Limits model's ability to memorize
+- **Bias-Variance Tradeoff:** Increases bias, decreases variance
+
+**Complexity Reduction Methods:**
+- **Fewer Layers:** Reduce network depth
+- **Fewer Units:** Reduce neurons per layer
+- **Feature Selection:** Use fewer input features
+
+**Why Other Options Are Incorrect:**
+
+**Option D: Train for More Epochs**
+- **Contradiction:** The plot shows validation accuracy plateauing
+- **Reality:** More training would worsen overfitting
+- **Evidence:** Gap increases after epoch 7.5
+
+**Option E: Decrease Learning Rate**
+- **Limited Impact:** Learning rate affects convergence speed, not overfitting
+- **Timing:** The model has already converged (training accuracy = 100%)
+- **Root Cause:** The issue is model capacity, not learning rate
+
+**Visual Representation:**
+
+**Current Situation:**
+```
+Training:    ████████████████████████████████ (100%)
+Validation:  ████████████████████ (78%)
+Gap:         ████████████████████ (22%)
+```
+
+**After Applying Solutions:**
+```
+Training:    ████████████████████ (85%)
+Validation:  ████████████████████ (82%)
+Gap:         ████ (3%)
+```
+
+**Implementation Strategies:**
+
+**1. Data Augmentation:**
+- **Image Rotation:** Rotate images by small angles
+- **Noise Addition:** Add Gaussian noise to inputs
+- **Translation:** Shift images slightly
+- **Color Jittering:** Modify brightness, contrast
+
+**2. Regularization Implementation:**
+
+**Dropout:**
+```python
+# During training
+if training:
+    h = dropout(h, rate=0.5)
+```
+
+**L2 Regularization:**
+```python
+loss = cross_entropy + 0.01 * tf.reduce_sum(tf.square(weights))
+```
+
+**3. Model Simplification:**
+```python
+# Before (complex)
+model = Sequential([
+    Dense(512, activation='relu'),
+    Dense(512, activation='relu'),
+    Dense(512, activation='relu'),
+    Dense(2, activation='softmax')
+])
+
+# After (simpler)
+model = Sequential([
+    Dense(128, activation='relu'),
+    Dense(64, activation='relu'),
+    Dense(2, activation='softmax')
+])
+```
+
+**Monitoring Overfitting:**
+
+**1. Learning Curves:**
+- Plot training vs validation loss/accuracy
+- Look for divergence point
+- Use early stopping
+
+**2. Cross-Validation:**
+- Use K-fold cross-validation
+- More reliable performance estimates
+- Better model selection
+
+**3. Regularization Strength:**
+- Tune regularization parameters
+- Balance between underfitting and overfitting
+- Use validation set for tuning
+
+**Key Insights:**
+- Overfitting occurs when model capacity exceeds data complexity
+- Multiple strategies can be combined for better results
+- Regularization trades bias for variance
+- Data augmentation effectively increases dataset size
+- Model complexity should match data complexity
+
 ## Problem 11: Feature Selection (LASSO vs. PCA)
 
 **1 point**
@@ -1324,6 +1482,160 @@ Which of the following actions could Snoopy take to help reduce the difference b
 
 **Explanation:** 
 PCA selects features that capture the most variance, and produces a linear combination of the original features.
+
+## Detailed Solution Explanation
+
+**Understanding Feature Selection: LASSO vs PCA:**
+
+This problem explores the fundamental differences between LASSO and PCA as feature selection/dimensionality reduction techniques.
+
+**Mathematical Framework:**
+
+**LASSO (Least Absolute Shrinkage and Selection Operator):**
+$$\min_w \sum_{i=1}^{n} (y_i - w^T x_i)^2 + \lambda \sum_{j=1}^{d} |w_j|$$
+
+**PCA (Principal Component Analysis):**
+$$\max_w w^T \Sigma w \quad \text{subject to } ||w|| = 1$$
+
+where $\Sigma$ is the covariance matrix of the data.
+
+**Key Differences:**
+
+**LASSO Approach:**
+
+**1. Feature Selection:**
+- **Sparsity:** Sets some weights to exactly zero
+- **Feature Subset:** Selects a subset of original features
+- **Interpretability:** Uses original feature names
+
+**Mathematical Properties:**
+- **L1 Regularization:** $||w||_1 = \sum_{j=1}^{d} |w_j|$
+- **Sparse Solution:** Many $w_j = 0$
+- **Feature Elimination:** Removes irrelevant features
+
+**Example:**
+```
+Original Features: [age, height, weight, income, education]
+LASSO Result:     [age, weight, income] (height, education eliminated)
+```
+
+**PCA Approach:**
+
+**1. Feature Transformation:**
+- **Linear Combination:** Creates new features from original ones
+- **Variance Maximization:** Finds directions of maximum variance
+- **Dimensionality Reduction:** Reduces number of features
+
+**Mathematical Properties:**
+- **Eigenvalue Decomposition:** $\Sigma = U \Lambda U^T$
+- **Principal Components:** Columns of $U$
+- **Variance Explained:** Diagonal elements of $\Lambda$
+
+**Example:**
+```
+Original Features: [age, height, weight, income, education]
+PCA Result:       [PC1, PC2, PC3] (linear combinations)
+PC1 = 0.3*age + 0.2*height + 0.4*weight + 0.1*income + 0.0*education
+```
+
+**Why the Statement is False:**
+
+**The statement claims:**
+"LASSO sets some weight coefficients to 0 and selects a subset of the original features, whereas PCA selects features that minimize variance and creates linear combinations of the original features."
+
+**Error in the Statement:**
+- **PCA doesn't minimize variance** - it **maximizes variance**
+- **PCA doesn't select features** - it **transforms features**
+
+**Corrected Statement:**
+"LASSO sets some weight coefficients to 0 and selects a subset of the original features, whereas PCA selects directions that **maximize** variance and creates linear combinations of the original features."
+
+**Visual Comparison:**
+
+**LASSO Feature Selection:**
+```
+Original: [f1, f2, f3, f4, f5]
+LASSO:    [f1, 0,  f3, 0,  f5]  (sparse)
+Selected: [f1, f3, f5]          (subset)
+```
+
+**PCA Feature Transformation:**
+```
+Original: [f1, f2, f3, f4, f5]
+PCA:      [PC1, PC2, PC3]       (transformed)
+PC1 = w1*f1 + w2*f2 + w3*f3 + w4*f4 + w5*f5
+```
+
+**Practical Applications:**
+
+**When to Use LASSO:**
+
+**1. Feature Selection:**
+- Want to identify important original features
+- Need interpretable results
+- Want sparse solutions
+
+**2. High Dimensionality:**
+- Many features, few samples
+- Need to reduce overfitting
+- Want automatic feature selection
+
+**3. Interpretability:**
+- Need to understand which features matter
+- Want to communicate results to stakeholders
+- Need feature importance ranking
+
+**When to Use PCA:**
+
+**1. Dimensionality Reduction:**
+- Want to reduce computational cost
+- Need to visualize high-dimensional data
+- Want to remove noise
+
+**2. Feature Engineering:**
+- Want to create new features
+- Need to handle multicollinearity
+- Want to capture underlying structure
+
+**3. Data Compression:**
+- Want to reduce storage requirements
+- Need to speed up algorithms
+- Want to preserve most variance
+
+**Mathematical Properties Comparison:**
+
+| Aspect | LASSO | PCA |
+|--------|-------|-----|
+| **Objective** | Minimize MSE + L1 penalty | Maximize variance |
+| **Output** | Sparse weight vector | Orthogonal components |
+| **Features** | Original feature subset | Linear combinations |
+| **Interpretability** | High (original features) | Low (transformed features) |
+| **Sparsity** | Yes (many zeros) | No (dense) |
+| **Orthogonality** | No | Yes |
+
+**Implementation Example:**
+
+**LASSO Implementation:**
+```python
+from sklearn.linear_model import Lasso
+lasso = Lasso(alpha=0.1)
+lasso.fit(X, y)
+selected_features = X.columns[lasso.coef_ != 0]
+```
+
+**PCA Implementation:**
+```python
+from sklearn.decomposition import PCA
+pca = PCA(n_components=3)
+X_transformed = pca.fit_transform(X)
+```
+
+**Key Insights:**
+- LASSO performs feature selection by setting weights to zero
+- PCA performs feature transformation by creating linear combinations
+- LASSO maximizes interpretability, PCA maximizes variance
+- The choice depends on the specific problem requirements
+- Understanding these differences is crucial for proper application
 
 ## Problem 12: Logistic Loss Minimization Objective
 
