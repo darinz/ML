@@ -1,6 +1,6 @@
 # Practice 9 Solutions
 
-**1. One Answer**
+**Problem 1. One Answer**
 
 In a popular gacha game, the probability of pulling an SSR character on a single pull is 0.6% (P = 0.006). Assume that each pull is independent and follows a Bernoulli distribution. In such games, players often perform a 10-pull, which means making 10 pulls. Each of these 10 pulls is still independent, meaning the probability of getting an SSR in each pull remains 0.006. If you perform a 10-pull, what is the probability of pulling exactly 2 SSRs? You do not need to know what gacha game is to solve this problem.
 
