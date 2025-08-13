@@ -5183,6 +5183,325 @@ def equalized_odds(predictions, protected_attr, y_true):
 **Explanation:** 
 Images are an example of a task. CNNs use shared parameters to learn filters that can be applied at any point in the image. So, if a cat occurs in the top left or top right corner, you can still recognize it.
 
+## Detailed Solution Explanation
+
+**Understanding Convolutional Neural Networks vs. Deep Neural Networks:**
+
+This problem explores the fundamental differences between CNNs and DNNs, focusing on their architectural advantages and when each performs better.
+
+**Mathematical Framework:**
+
+**Deep Neural Network (DNN):**
+For input $x \in \mathbb{R}^d$:
+$$h_1 = \sigma(W_1 x + b_1)$$
+$$h_2 = \sigma(W_2 h_1 + b_2)$$
+$$\vdots$$
+$$y = \sigma(W_L h_{L-1} + b_L)$$
+
+where $W_i \in \mathbb{R}^{d_i \times d_{i-1}}$ are weight matrices.
+
+**Convolutional Neural Network (CNN):**
+For input image $X \in \mathbb{R}^{H \times W \times C}$:
+$$h_1 = \text{ReLU}(\text{Conv}(X, K_1) + b_1)$$
+$$h_2 = \text{ReLU}(\text{Conv}(h_1, K_2) + b_2)$$
+$$\vdots$$
+$$y = \text{Softmax}(\text{FC}(h_L))$$
+
+where $K_i$ are convolutional kernels.
+
+**Example Task: Image Classification**
+
+**Why CNNs Perform Better:**
+
+**1. Parameter Sharing:**
+
+**DNN Approach:**
+For an image of size $H \times W$:
+- **Input:** Flattened to $H \times W$ dimensions
+- **Parameters:** $O(H \times W \times d)$ per layer
+- **No Sharing:** Each pixel position has independent weights
+
+**CNN Approach:**
+- **Convolutional Kernel:** $k \times k$ parameters shared across entire image
+- **Parameters:** $O(k^2 \times C)$ per layer
+- **Sharing:** Same kernel applied at every position
+
+**Mathematical Comparison:**
+```python
+# DNN parameters for 224x224 image
+H, W = 224, 224
+dnn_params = H * W * 512  # 25,690,368 parameters
+
+# CNN parameters with 3x3 kernel
+k = 3
+cnn_params = k * k * 3 * 64  # 1,728 parameters for first layer
+```
+
+**2. Translation Invariance:**
+
+**Mathematical Definition:**
+A function $f$ is translation invariant if:
+$$f(T_x(I)) = f(I) \quad \forall x$$
+
+where $T_x$ is a translation by $x$.
+
+**CNN Property:**
+$$\text{Conv}(T_x(I), K) = T_x(\text{Conv}(I, K))$$
+
+**Example:**
+```python
+# Cat detection in different positions
+def detect_cat_cnn(image):
+    # Same kernel detects cat regardless of position
+    conv_output = conv_layer(image, cat_kernel)
+    return max_pool(conv_output)
+
+# Cat in top-left
+cat_tl = image[0:64, 0:64]
+result_tl = detect_cat_cnn(cat_tl)
+
+# Cat in bottom-right  
+cat_br = image[160:224, 160:224]
+result_br = detect_cat_cnn(cat_br)
+
+# Same detection capability
+assert result_tl == result_br
+```
+
+**3. Local Receptive Fields:**
+
+**DNN Limitation:**
+- **Global Connections:** Each neuron connects to all inputs
+- **No Spatial Structure:** Ignores spatial relationships
+- **High Dimensionality:** Curse of dimensionality
+
+**CNN Advantage:**
+- **Local Connections:** Each neuron connects to local region
+- **Spatial Structure:** Preserves spatial relationships
+- **Hierarchical Features:** Builds complex features from simple ones
+
+**Mathematical Representation:**
+```python
+# DNN: Global connections
+def dnn_layer(x):
+    return W @ x + b  # W has shape (output_dim, input_dim)
+
+# CNN: Local connections
+def conv_layer(x, kernel):
+    return convolve2d(x, kernel, mode='same')  # Local operations
+```
+
+**4. Hierarchical Feature Learning:**
+
+**Feature Hierarchy:**
+```
+Level 1: Edges, textures (3x3 kernels)
+Level 2: Simple shapes (combining Level 1 features)
+Level 3: Complex patterns (combining Level 2 features)
+Level 4: Objects (combining Level 3 features)
+```
+
+**Mathematical Process:**
+$$f_1 = \text{Conv}(X, K_1) \quad \text{(edges)}$$
+$$f_2 = \text{Conv}(f_1, K_2) \quad \text{(shapes)}$$
+$$f_3 = \text{Conv}(f_2, K_3) \quad \text{(patterns)}$$
+$$f_4 = \text{Conv}(f_3, K_4) \quad \text{(objects)}$$
+
+**Visual Representation:**
+
+**DNN vs CNN Architecture:**
+```
+DNN (Fully Connected):
+Input: [50176] → Hidden: [512] → Hidden: [256] → Output: [10]
+       ↑           ↑           ↑           ↑
+   Flattened    Dense      Dense      Dense
+   Image       Layer      Layer      Layer
+
+CNN (Convolutional):
+Input: [224×224×3] → Conv: [224×224×64] → Conv: [112×112×128] → Output: [10]
+       ↑                ↑                    ↑                    ↑
+   Original         Convolutional        Convolutional        Dense
+   Image           Layer               Layer               Layer
+```
+
+**Parameter Efficiency:**
+
+**DNN Parameter Count:**
+For image of size $H \times W \times C$:
+$$\text{Params}_{\text{DNN}} = H \times W \times C \times d_1 + d_1 \times d_2 + \ldots$$
+
+**CNN Parameter Count:**
+For $L$ convolutional layers with kernel size $k$:
+$$\text{Params}_{\text{CNN}} = \sum_{i=1}^{L} k^2 \times C_{i-1} \times C_i + \text{FC params}$$
+
+**Example Calculation:**
+```python
+# 224x224x3 image, 512 hidden units
+H, W, C = 224, 224, 3
+hidden_size = 512
+
+# DNN parameters
+dnn_params = H * W * C * hidden_size  # 76,800,000 parameters
+
+# CNN parameters (3x3 kernels, 64 channels)
+k = 3
+cnn_params = k * k * C * 64  # 1,728 parameters for first conv layer
+
+print(f"DNN: {dnn_params:,} parameters")
+print(f"CNN: {cnn_params:,} parameters")
+print(f"Efficiency: {dnn_params/cnn_params:.0f}x more parameters in DNN")
+```
+
+**Computational Efficiency:**
+
+**DNN Operations:**
+$$\text{Ops}_{\text{DNN}} = O(H \times W \times C \times d)$$
+
+**CNN Operations:**
+$$\text{Ops}_{\text{CNN}} = O(H \times W \times k^2 \times C)$$
+
+**Memory Efficiency:**
+```python
+# Memory usage comparison
+def memory_usage_dnn(image_size, hidden_size):
+    return image_size * hidden_size * 4  # 4 bytes per float
+
+def memory_usage_cnn(image_size, kernel_size, channels):
+    return kernel_size * kernel_size * channels * 4
+
+# Example
+img_size = 224 * 224 * 3
+hidden = 512
+kernel = 3
+channels = 64
+
+dnn_memory = memory_usage_dnn(img_size, hidden)
+cnn_memory = memory_usage_cnn(img_size, kernel, channels)
+
+print(f"DNN memory: {dnn_memory / 1e6:.1f} MB")
+print(f"CNN memory: {cnn_memory / 1e6:.1f} MB")
+```
+
+**Training Efficiency:**
+
+**1. Fewer Parameters:**
+- **Faster Training:** Less parameters to optimize
+- **Less Overfitting:** Reduced model complexity
+- **Better Generalization:** More robust to noise
+
+**2. Gradient Flow:**
+```python
+# DNN: Vanishing gradients in deep networks
+def dnn_gradient_flow(depth):
+    gradients = []
+    for layer in range(depth):
+        grad = compute_gradient(layer)
+        gradients.append(grad)
+        if grad < 1e-6:  # Vanishing gradient
+            break
+    return gradients
+
+# CNN: Better gradient flow due to skip connections
+def cnn_gradient_flow(depth):
+    gradients = []
+    for layer in range(depth):
+        grad = compute_gradient(layer)
+        gradients.append(grad)
+        # Residual connections help maintain gradient flow
+    return gradients
+```
+
+**3. Data Efficiency:**
+```python
+# Data augmentation effectiveness
+def augment_image(image):
+    # CNNs benefit more from data augmentation
+    augmented = []
+    augmented.append(rotate(image, 15))
+    augmented.append(translate(image, (10, 10)))
+    augmented.append(scale(image, 1.1))
+    return augmented
+
+# DNN: Less effective with augmented data
+# CNN: Translation invariance makes augmentation more effective
+```
+
+**Practical Examples:**
+
+**1. Image Classification:**
+```python
+# CNN for image classification
+def cnn_classifier(image):
+    # Convolutional layers
+    x = conv2d(image, 64, 3)  # 64 filters, 3x3 kernel
+    x = relu(x)
+    x = max_pool2d(x, 2)      # 2x2 pooling
+    
+    x = conv2d(x, 128, 3)     # 128 filters, 3x3 kernel
+    x = relu(x)
+    x = max_pool2d(x, 2)      # 2x2 pooling
+    
+    # Fully connected layers
+    x = flatten(x)
+    x = dense(x, 512)
+    x = relu(x)
+    x = dense(x, num_classes)
+    
+    return softmax(x)
+```
+
+**2. Object Detection:**
+```python
+# CNN for object detection
+def detect_objects(image):
+    # Feature extraction
+    features = cnn_backbone(image)
+    
+    # Object detection heads
+    boxes = detection_head(features)
+    classes = classification_head(features)
+    
+    return boxes, classes
+```
+
+**3. Semantic Segmentation:**
+```python
+# CNN for semantic segmentation
+def segment_image(image):
+    # Encoder (feature extraction)
+    features = encoder(image)
+    
+    # Decoder (upsampling)
+    segmentation = decoder(features)
+    
+    return segmentation
+```
+
+**When DNNs Might Be Better:**
+
+**1. Tabular Data:**
+- No spatial structure
+- No translation invariance needed
+- Global relationships important
+
+**2. Time Series:**
+- Sequential dependencies
+- No spatial structure
+- Global patterns important
+
+**3. Small Input Size:**
+- Parameter efficiency less important
+- Simpler architecture sufficient
+- Faster training with DNN
+
+**Key Insights:**
+- CNNs excel at image tasks due to parameter sharing and translation invariance
+- DNNs struggle with high-dimensional spatial data due to parameter explosion
+- CNNs learn hierarchical features that build from simple to complex
+- Parameter efficiency makes CNNs more practical for large images
+- Translation invariance allows CNNs to generalize better to new positions
+- Understanding these differences helps in architecture selection
+
 ## Problem 29: Basis Functions in Linear Regression
 
 **1 point**
@@ -5202,6 +5521,339 @@ Images are an example of a task. CNNs use shared parameters to learn filters tha
 - B is also wrong since basis functions don't directly affect the convergence rate.
 - For C, sparsity isn't directly affected by using basis functions or not.
 - D is the right answer as transforming input data to higher dimensional space is the exact purpose of basis functions.
+
+## Detailed Solution Explanation
+
+**Understanding Basis Functions in Linear Regression:**
+
+This problem explores the fundamental concept of basis functions and their role in transforming linear regression into a more powerful modeling framework.
+
+**Mathematical Framework:**
+
+**Standard Linear Regression:**
+$$y = w_0 + w_1 x_1 + w_2 x_2 + \ldots + w_d x_d + \epsilon$$
+
+**Linear Regression with Basis Functions:**
+$$y = w_0 + w_1 \phi_1(x) + w_2 \phi_2(x) + \ldots + w_m \phi_m(x) + \epsilon$$
+
+where $\phi_i(x)$ are basis functions that transform the input.
+
+**Analysis of Each Option:**
+
+**Option A: "Minimize the computational complexity of linear regression models"**
+
+**Why This is False:**
+
+**Computational Complexity Analysis:**
+
+**Standard Linear Regression:**
+- **Parameters:** $d + 1$ (one per feature plus bias)
+- **Training:** $O(nd^2)$ for normal equations
+- **Prediction:** $O(d)$ per prediction
+
+**Basis Function Expansion:**
+- **Parameters:** $m + 1$ (one per basis function plus bias)
+- **Training:** $O(nm^2)$ for normal equations
+- **Prediction:** $O(m)$ per prediction
+
+**Complexity Comparison:**
+```python
+# Standard linear regression
+def standard_lr_complexity(n, d):
+    training = n * d * d  # O(nd²)
+    prediction = d        # O(d)
+    return training, prediction
+
+# Basis function expansion
+def basis_lr_complexity(n, m):
+    training = n * m * m  # O(nm²)
+    prediction = m        # O(m)
+    return training, prediction
+
+# Example: d=10 features, m=50 basis functions
+n, d, m = 1000, 10, 50
+
+std_train, std_pred = standard_lr_complexity(n, d)
+basis_train, basis_pred = basis_lr_complexity(n, m)
+
+print(f"Standard LR - Training: {std_train}, Prediction: {std_pred}")
+print(f"Basis LR - Training: {basis_train}, Prediction: {basis_pred}")
+print(f"Training complexity increased by {basis_train/std_train:.1f}x")
+```
+
+**Option B: "Increase the speed of convergence in gradient descent optimization"**
+
+**Why This is False:**
+
+**Convergence Rate Analysis:**
+
+**Gradient Descent Convergence:**
+The convergence rate depends on:
+1. **Condition Number:** $\kappa = \frac{\lambda_{\max}}{\lambda_{\min}}$ of the Hessian
+2. **Learning Rate:** Step size in gradient descent
+3. **Initialization:** Starting point
+
+**Basis Functions Effect:**
+- **May Increase Condition Number:** Poor basis functions can make optimization harder
+- **No Direct Speed Improvement:** Basis functions don't inherently speed up convergence
+- **Can Slow Down:** Ill-conditioned basis expansions can slow convergence
+
+**Mathematical Example:**
+```python
+# Condition number comparison
+def compute_condition_number(X):
+    # Compute condition number of X^T X
+    XTX = X.T @ X
+    eigenvals = np.linalg.eigvals(XTX)
+    return np.max(eigenvals) / np.min(eigenvals)
+
+# Standard features
+X_std = np.random.randn(100, 5)
+cond_std = compute_condition_number(X_std)
+
+# Polynomial basis functions
+X_poly = np.column_stack([X_std, X_std**2, X_std**3])
+cond_poly = compute_condition_number(X_poly)
+
+print(f"Standard condition number: {cond_std:.2f}")
+print(f"Polynomial condition number: {cond_poly:.2f}")
+# Polynomial basis often has higher condition number
+```
+
+**Option C: "Encourage sparsity in the learned weights"**
+
+**Why This is False:**
+
+**Sparsity and Basis Functions:**
+
+**Sparsity Definition:**
+A weight vector $w$ is sparse if most elements are zero.
+
+**Basis Functions and Sparsity:**
+- **No Direct Sparsity:** Basis functions don't inherently encourage sparsity
+- **May Increase Density:** More basis functions often mean more non-zero weights
+- **Sparsity Requires Regularization:** L1 regularization (Lasso) encourages sparsity
+
+**Mathematical Comparison:**
+```python
+# Standard linear regression
+def standard_lr_weights(X, y):
+    w = np.linalg.inv(X.T @ X) @ X.T @ y
+    sparsity = np.sum(w == 0) / len(w)
+    return w, sparsity
+
+# Basis function expansion
+def basis_lr_weights(X, y, basis_functions):
+    # Apply basis functions
+    X_basis = apply_basis_functions(X, basis_functions)
+    w = np.linalg.inv(X_basis.T @ X_basis) @ X_basis.T @ y
+    sparsity = np.sum(w == 0) / len(w)
+    return w, sparsity
+
+# Example
+X = np.random.randn(100, 3)
+y = np.random.randn(100)
+
+w_std, sparsity_std = standard_lr_weights(X, y)
+w_basis, sparsity_basis = basis_lr_weights(X, y, ['poly', 'rbf'])
+
+print(f"Standard sparsity: {sparsity_std:.2f}")
+print(f"Basis sparsity: {sparsity_basis:.2f}")
+# Basis functions typically don't increase sparsity
+```
+
+**Option D: "Transform the input data into a higher-dimensional space to capture non-linear relationships"**
+
+**Why This is True:**
+
+**Basis Function Purpose:**
+
+**1. Non-linear Transformation:**
+$$\phi: \mathbb{R}^d \to \mathbb{R}^m$$
+
+where $m > d$ (higher-dimensional space).
+
+**2. Non-linear Relationship Capture:**
+Original space: $y = f(x)$ where $f$ is non-linear
+Basis space: $y = w^T \phi(x)$ where the relationship is linear in $\phi(x)$
+
+**Mathematical Example:**
+```python
+# Non-linear relationship in original space
+def true_function(x):
+    return 2 * x**2 + 3 * x + 1
+
+# Linear relationship in basis space
+def basis_function(x):
+    return np.array([1, x, x**2])  # [1, x, x²]
+
+# In basis space: y = w₀ + w₁x + w₂x²
+# This is linear in the basis functions!
+```
+
+**Common Basis Functions:**
+
+**1. Polynomial Basis:**
+$$\phi(x) = [1, x, x^2, x^3, \ldots, x^p]$$
+
+**Example:**
+```python
+def polynomial_basis(x, degree):
+    return np.array([x**i for i in range(degree + 1)])
+
+# Quadratic polynomial
+x = 2.0
+phi = polynomial_basis(x, 2)  # [1, 2, 4]
+# y = w₀ + w₁(2) + w₂(4) - linear in weights!
+```
+
+**2. Radial Basis Functions (RBF):**
+$$\phi_i(x) = \exp\left(-\frac{||x - \mu_i||^2}{2\sigma^2}\right)$$
+
+**Example:**
+```python
+def rbf_basis(x, centers, sigma):
+    return np.array([np.exp(-np.linalg.norm(x - c)**2 / (2*sigma**2)) 
+                    for c in centers])
+
+# RBF centers
+centers = np.array([0, 1, 2])
+sigma = 1.0
+x = 1.5
+
+phi = rbf_basis(x, centers, sigma)
+# y = w₀φ₀(x) + w₁φ₁(x) + w₂φ₂(x) - linear in weights!
+```
+
+**3. Fourier Basis:**
+$$\phi_k(x) = \cos(kx), \sin(kx)$$
+
+**Example:**
+```python
+def fourier_basis(x, frequencies):
+    basis = []
+    for k in frequencies:
+        basis.extend([np.cos(k*x), np.sin(k*x)])
+    return np.array(basis)
+
+# Fourier frequencies
+freqs = [1, 2, 3]
+x = np.pi/4
+
+phi = fourier_basis(x, freqs)
+# y = w₀cos(x) + w₁sin(x) + w₂cos(2x) + w₃sin(2x) + ... - linear in weights!
+```
+
+**Visual Representation:**
+
+**Transformation Process:**
+```
+Original Space:          Basis Space:
+y = f(x)                 y = w^T φ(x)
+   ↑                        ↑
+Non-linear function    Linear function
+
+Example:
+y = 2x² + 3x + 1       y = w₀ + w₁x + w₂x²
+   ↑                        ↑
+Non-linear in x         Linear in [1, x, x²]
+```
+
+**Kernel Trick Connection:**
+
+**Basis Function Expansion:**
+$$y = \sum_{i=1}^{m} w_i \phi_i(x)$$
+
+**Kernel Representation:**
+$$y = \sum_{i=1}^{n} \alpha_i k(x, x_i)$$
+
+where $k(x, x') = \phi(x)^T \phi(x')$ is the kernel function.
+
+**Example:**
+```python
+# Polynomial kernel
+def polynomial_kernel(x1, x2, degree=2):
+    return (1 + x1 @ x2)**degree
+
+# Equivalent to polynomial basis expansion
+def polynomial_basis_kernel(x1, x2, degree=2):
+    phi1 = polynomial_basis(x1, degree)
+    phi2 = polynomial_basis(x2, degree)
+    return phi1 @ phi2
+
+# Verification
+x1, x2 = np.array([1, 2]), np.array([3, 4])
+kernel = polynomial_kernel(x1, x2, 2)
+basis_kernel = polynomial_basis_kernel(x1, x2, 2)
+assert np.allclose(kernel, basis_kernel)
+```
+
+**Practical Applications:**
+
+**1. Polynomial Regression:**
+```python
+def polynomial_regression(X, y, degree):
+    # Create polynomial features
+    X_poly = np.column_stack([X**i for i in range(degree + 1)])
+    
+    # Fit linear regression
+    w = np.linalg.inv(X_poly.T @ X_poly) @ X_poly.T @ y
+    
+    return w
+
+# Example: Quadratic regression
+X = np.random.randn(100, 1)
+y = 2*X**2 + 3*X + 1 + 0.1*np.random.randn(100, 1)
+
+w = polynomial_regression(X, y, 2)
+print(f"Learned weights: {w.flatten()}")
+# Should recover approximately [1, 3, 2]
+```
+
+**2. Spline Regression:**
+```python
+def spline_basis(x, knots):
+    basis = []
+    for i, knot in enumerate(knots):
+        basis.append(np.maximum(0, x - knot)**3)
+    return np.column_stack(basis)
+
+# Cubic spline regression
+knots = [0.25, 0.5, 0.75]
+X_spline = spline_basis(X, knots)
+w = np.linalg.inv(X_spline.T @ X_spline) @ X_spline.T @ y
+```
+
+**3. Wavelet Regression:**
+```python
+def wavelet_basis(x, scales, translations):
+    basis = []
+    for scale in scales:
+        for trans in translations:
+            basis.append(wavelet_function((x - trans) / scale))
+    return np.column_stack(basis)
+```
+
+**Advantages and Disadvantages:**
+
+**Advantages:**
+- **Non-linear Modeling:** Can capture complex relationships
+- **Flexibility:** Many basis functions available
+- **Interpretability:** Linear in basis space
+- **Theoretical Foundation:** Well-understood mathematics
+
+**Disadvantages:**
+- **Curse of Dimensionality:** High-dimensional basis spaces
+- **Overfitting:** Too many basis functions
+- **Computational Cost:** Increased complexity
+- **Basis Selection:** Choosing appropriate basis functions
+
+**Key Insights:**
+- Basis functions transform non-linear problems into linear ones
+- They increase computational complexity, not reduce it
+- They don't inherently speed up convergence or encourage sparsity
+- The main purpose is capturing non-linear relationships through higher-dimensional transformations
+- Understanding basis functions is crucial for kernel methods and feature engineering
 
 ## Problem 30: Neural Network Forward Passes
 
