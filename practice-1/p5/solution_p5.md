@@ -9,10 +9,68 @@
 **Correct answers:** (a), (b), (d)
 
 **Explanation:**
-*   (a) $\text{Cov}(X,Y) = 0$: True. If $X$ and $Y$ are independent, their covariance is zero because independence implies there is no linear relationship between $X$ and $Y$.
-*   (b) $E[XY] = E[X]E[Y]$: True. For independent random variables, the expectation of their product is the product of their expectations.
-*   (c) $\text{Var}(XY) = \text{Var}(X)\text{Var}(Y)$: False. The variance of the product of two independent variables is generally not equal to the product of their variances; it's more complex and requires additional terms.
-*   (d) $P(X,Y) = P(Y|X)P(X|Y)$: True. For independent random variables, $P(X,Y) = P(X)P(Y)$, which is equivalent to $P(Y|X) = P(Y)$ and $P(X|Y) = P(X)$.
+
+**Options (a), (b), and (d) are true** for independent random variables.
+
+**Why (a) is true - Covariance is zero:**
+
+**1. Definition of independence:**
+- **X and Y are independent** if P(X,Y) = P(X)P(Y)
+- **No relationship** between X and Y
+
+**2. Covariance definition:**
+```
+Cov(X,Y) = E[XY] - E[X]E[Y]
+```
+
+**3. For independent variables:**
+- **E[XY] = E[X]E[Y]** (from option b)
+- **Therefore:** Cov(X,Y) = E[X]E[Y] - E[X]E[Y] = 0
+
+**Why (b) is true - Expectation of product:**
+
+**1. Independence property:**
+- **E[XY] = E[X]E[Y]** is a fundamental property of independence
+- **No correlation** means no linear relationship
+
+**2. Intuitive explanation:**
+- **Independent variables** don't influence each other
+- **Product expectation** factors into individual expectations
+
+**Why (c) is false - Variance of product:**
+
+**1. Correct formula:**
+```
+Var(XY) = E[X²]E[Y²] - (E[X]E[Y])²
+```
+
+**2. This is NOT equal to:**
+```
+Var(X)Var(Y) = (E[X²] - E[X]²)(E[Y²] - E[Y]²)
+```
+
+**3. Example:**
+- **X, Y ~ N(0,1)** independent
+- **Var(XY) = 1** (not Var(X)Var(Y) = 1×1 = 1, but this is a special case)
+
+**Why (d) is true - Joint probability:**
+
+**1. For independent variables:**
+```
+P(X,Y) = P(X)P(Y)
+```
+
+**2. Also:**
+```
+P(Y|X) = P(Y) and P(X|Y) = P(X)
+```
+
+**3. Therefore:**
+```
+P(X,Y) = P(Y|X)P(X|Y) = P(Y)P(X) ✓
+```
+
+**Key insight:** **Independence** implies **no linear relationship** (zero covariance) and **factorization** of expectations and probabilities.
 
 **2. A certain disease affects 2% of the population. A diagnostic test for this disease has the following characteristics:**
 *   **Sensitivity (True Positive Rate):** If a person has the disease, the test returns a positive result with probability 0.90.
@@ -26,32 +84,53 @@
 
 **Correct answers:** (b)
 
-**Explanation:** Let $D$ be the event that the person has the disease and $T$ be the event that the test result is positive. To find $P(D|T)$, the probability that a person has the disease given a positive test result, we use Bayes' Theorem:
+**Explanation:**
 
-$$P(D|T) = \frac{P(T|D)P(D)}{P(T)}$$
+**This is a classic Bayes' theorem problem** - finding the probability of having the disease given a positive test result.
 
-We are given:
-*   $P(D) = 0.02$ (2% of the population has the disease)
-*   $P(D^c) = 1 - P(D) = 1 - 0.02 = 0.98$ (98% of the population does not have the disease)
-*   $P(T|D) = 0.90$ (Sensitivity: True Positive Rate)
-*   $P(T|D^c) = 0.10$ (False Positive Rate)
+**Step-by-step solution:**
 
-First, calculate $P(T)$ using the law of total probability:
-$$P(T) = P(T|D)P(D) + P(T|D^c)P(D^c)$$
-$$P(T) = (0.90)(0.02) + (0.10)(0.98)$$
-$$P(T) = 0.018 + 0.098$$
-$$P(T) = 0.116$$
+**1. Define events:**
+- **D** = "Person has the disease" (P(D) = 0.02)
+- **T** = "Test result is positive"
+- **D^c** = "Person does not have the disease" (P(D^c) = 0.98)
 
-Now, substitute these values into Bayes' Theorem:
-$$P(D|T) = \frac{(0.90)(0.02)}{0.116}$$
-$$P(D|T) = \frac{0.018}{0.116}$$
+**2. Given information:**
+- **Sensitivity:** P(T|D) = 0.90 (90% of diseased people test positive)
+- **False Positive Rate:** P(T|D^c) = 0.10 (10% of healthy people test positive)
 
-To express this as a fraction, multiply the numerator and denominator by 1000:
-$$P(D|T) = \frac{18}{116}$$
+**3. Apply Bayes' theorem:**
+```
+P(D|T) = P(T|D)P(D) / P(T)
+```
 
-Simplify the fraction by dividing both by their greatest common divisor, which is 2:
-$$P(D|T) = \frac{18 \div 2}{116 \div 2}$$
-$$P(D|T) = \frac{9}{58}$$
+**4. Calculate P(T) using law of total probability:**
+```
+P(T) = P(T|D)P(D) + P(T|D^c)P(D^c)
+     = (0.90)(0.02) + (0.10)(0.98)
+     = 0.018 + 0.098
+     = 0.116
+```
+
+**5. Substitute into Bayes' theorem:**
+```
+P(D|T) = (0.90)(0.02) / 0.116
+       = 0.018 / 0.116
+       = 18/116
+       = 9/58
+```
+
+**6. Intuitive interpretation:**
+- **Only 9/58 ≈ 15.5%** of positive test results indicate actual disease
+- **Low prevalence** (2%) combined with **high false positive rate** (10%) leads to many false alarms
+- **Most positive tests** are false positives due to the large healthy population
+
+**7. Why other options are incorrect:**
+- **(a) 11/58:** Incorrect calculation
+- **(c) 9/50:** Wrong denominator
+- **(d) 49/58:** Much too high
+
+**Key insight:** **Low disease prevalence** combined with **imperfect test accuracy** means most positive results are **false positives**.
 
 **3.**
 
@@ -63,25 +142,56 @@ $$P(X=k|p) = (1-p)^{k-1}p$$
 
 **Hint: don't forget about the chain rule: for $h(x) = f(g(x))$, $h'(x) = f'(g(x))g'(x)$.**
 
-**Answer:**
+**Answer:** $\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$
 
 **Explanation:**
 
-The likelihood function $L_n(p)$ is given by:
-$$L_n(p) = \prod_{i=1}^{n} (1-p)^{x_i-1}p$$
+**The MLE for the geometric distribution parameter p is the reciprocal of the sample mean.**
 
-The log-likelihood function $\log(L_n(p))$ is derived as:
-$$\log(L_n(p)) = \sum_{i=1}^{n} \log((1-p)^{x_i-1}p)$$
-$$= \sum_{i=1}^{n} [(x_i - 1)\log(1 - p) + \log(p)]$$
+**Step-by-step derivation:**
 
-The derivative of the log-likelihood with respect to $p$ is then calculated:
-$$\frac{d}{dp} \log(L_n(p)) = \sum_{i=1}^{n} \left[-(x_i - 1)\frac{1}{1 - p} + \frac{1}{p}\right]$$
+**1. Likelihood function:**
+```
+L_n(p) = ∏ᵢ₌₁ⁿ P(X=xᵢ|p) = ∏ᵢ₌₁ⁿ (1-p)^(xᵢ-1)p
+```
 
-Setting the derivative to zero to find the MLE $\hat{p}$:
-$$0 = \sum_{i=1}^{n} \left[-(x_i - 1)\frac{1}{1 - \hat{p}} + \frac{1}{\hat{p}}\right]$$
+**2. Log-likelihood function:**
+```
+log L_n(p) = Σᵢ₌₁ⁿ log((1-p)^(xᵢ-1)p)
+           = Σᵢ₌₁ⁿ [(xᵢ-1)log(1-p) + log(p)]
+           = Σᵢ₌₁ⁿ (xᵢ-1)log(1-p) + Σᵢ₌₁ⁿ log(p)
+           = (Σᵢ₌₁ⁿ xᵢ - n)log(1-p) + n log(p)
+```
 
-The final expression for $\hat{p}$ is:
-$$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
+**3. Take derivative with respect to p:**
+```
+d/dp[log L_n(p)] = -(Σᵢ₌₁ⁿ xᵢ - n)/(1-p) + n/p
+```
+
+**4. Set derivative to zero:**
+```
+0 = -(Σᵢ₌₁ⁿ xᵢ - n)/(1-p) + n/p
+```
+
+**5. Solve for p:**
+```
+n/p = (Σᵢ₌₁ⁿ xᵢ - n)/(1-p)
+n(1-p) = p(Σᵢ₌₁ⁿ xᵢ - n)
+n - np = pΣᵢ₌₁ⁿ xᵢ - np
+n = pΣᵢ₌₁ⁿ xᵢ
+p = n/Σᵢ₌₁ⁿ xᵢ
+```
+
+**6. Verification:**
+- **Second derivative:** d²/dp²[log L_n(p)] < 0 for 0 < p < 1
+- **Maximum** confirmed at p = n/Σᵢ₌₁ⁿ xᵢ
+
+**7. Interpretation:**
+- **p = n/Σᵢ₌₁ⁿ xᵢ** is the **reciprocal of the sample mean**
+- **Geometric distribution** models number of trials until first success
+- **MLE** estimates success probability as reciprocal of average trials needed
+
+**Key insight:** **MLE for geometric distribution** is the **reciprocal of the sample mean**, similar to the exponential distribution.
 
 **4. Select All That Apply**
 
@@ -95,10 +205,62 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 **Correct answers:** (b), (c), (d)
 
 **Explanation:**
-*   A is false: For example, as we covered in the class, the MLE for the variance is biased.
-*   B and C are true: MLE can be applied to continuous probability distributions (like we did in linear regression) and to discrete probability distributions (like we did for logistic regression).
-*   D is true: MLE finds the model parameters that maximize the likelihood of the data.
-*   E is false: we do not define a probability distribution over the model parameters, so we cannot maximize its likelihood in the MLE framework. However, due to ambiguity in the option wording, we have decided to give everyone two points for D and E regardless of their answers.
+
+**Options (b), (c), and (d) are true** about maximum likelihood estimation.
+
+**Why (a) is false - MLE is not always unbiased:**
+
+**1. Counterexample - Sample variance:**
+- **MLE for variance:** σ²_MLE = (1/n)Σ(xᵢ - μ)²
+- **Unbiased estimator:** σ²_unbiased = (1/(n-1))Σ(xᵢ - μ)²
+- **MLE is biased** - underestimates true variance
+
+**2. Other examples:**
+- **MLE for normal mean:** unbiased
+- **MLE for exponential rate:** unbiased
+- **MLE for variance:** biased (Bessel's correction needed)
+
+**Why (b) and (c) are true - Applicable to all distributions:**
+
+**1. Continuous distributions:**
+- **Normal distribution** (linear regression)
+- **Exponential distribution**
+- **Uniform distribution**
+- **Any continuous PDF**
+
+**2. Discrete distributions:**
+- **Bernoulli distribution** (logistic regression)
+- **Poisson distribution**
+- **Geometric distribution**
+- **Any discrete PMF**
+
+**Why (d) is true - Correct interpretation:**
+
+**1. MLE objective:**
+```
+max L(θ) = max P(data|θ)
+```
+- **θ** = model parameters
+- **data** = observed data
+- **L(θ)** = likelihood function
+
+**2. Frequentist framework:**
+- **Parameters are fixed** (not random)
+- **Data is random**
+- **We maximize P(data|θ)**, not P(θ|data)
+
+**Why (e) is false - Wrong interpretation:**
+
+**1. P(θ|data) is Bayesian:**
+- **Requires prior P(θ)**
+- **Posterior P(θ|data) = P(data|θ)P(θ)/P(data)**
+- **MLE doesn't use priors**
+
+**2. MLE vs MAP:**
+- **MLE:** max P(data|θ) (frequentist)
+- **MAP:** max P(θ|data) (Bayesian)
+
+**Key insight:** **MLE** is a **frequentist method** that maximizes **data likelihood** and works for **any distribution type**.
 
 **5. Select All That Apply**
 
@@ -111,10 +273,52 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 **Correct answers:** (a)
 
 **Explanation:**
-*   Choice A is the only correct answer. By definition, $A$ is PSD implies that $x^T A x \geq 0 \forall x$. We showed in lecture 5 (ridge regression, in the context of $A = X^T X$) that this is equivalent to saying that all eigenvalues of $A$ are non-negative.
-*   Choice B is incorrect-PSD is not a property of the individual elements of $A$, but rather a property of the entire matrix.
-*   Choice C is incorrect because if any eigenvalues of $A$ are equal to zero, $A$ is rank deficient and cannot be inverted.
-*   Choice D is incorrect because the inequality is written in the wrong direction (see choice A above).
+
+**Only option (a) is always true** for positive semi-definite matrices.
+
+**Why (a) is true - Non-negative eigenvalues:**
+
+**1. Definition of PSD:**
+- **A is PSD** if x^T A x ≥ 0 for all x ∈ ℝ^n
+- **Equivalent condition:** All eigenvalues of A are ≥ 0
+
+**2. Spectral theorem:**
+- **Symmetric matrices** have real eigenvalues
+- **PSD matrices** have non-negative eigenvalues
+- **Eigendecomposition:** A = QΛQ^T where Λ ≥ 0
+
+**3. Mathematical proof:**
+```
+For eigenvector v with eigenvalue λ:
+Av = λv
+v^T Av = λv^T v = λ||v||² ≥ 0
+Since ||v||² > 0, we must have λ ≥ 0
+```
+
+**Why other options are false:**
+
+**Option (b): All elements non-negative**
+- **PSD** is about quadratic forms, not individual elements
+- **Counterexample:** A = [2 -1; -1 2] is PSD but has negative elements
+- **Individual elements** can be negative
+
+**Option (c): A is invertible**
+- **PSD** allows zero eigenvalues
+- **Zero eigenvalue** → singular matrix → not invertible
+- **Example:** A = [1 0; 0 0] is PSD but not invertible
+
+**Option (d): x^T A x ≤ 0**
+- **Wrong direction** - should be ≥ 0
+- **This would be** negative semi-definite
+- **PSD** means x^T A x ≥ 0 for all x
+
+**4. Examples of PSD matrices:**
+- **X^T X** (Gram matrix)
+- **Covariance matrices**
+- **Correlation matrices**
+- **Identity matrix**
+
+**Key insight:** **PSD matrices** have **non-negative eigenvalues** and satisfy **x^T A x ≥ 0** for all vectors x.
 
 **6.**
 
@@ -122,7 +326,54 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Answer:** $\hat{y}_{\text{new}} = x_{\text{new}}^T (X^T X)^{-1} X^T Y$
 
-**Explanation:** $\hat{y}_{\text{new}} = x_{\text{new}}^T (X^T X)^{-1} X^T Y$
+**Explanation:**
+
+**This is the prediction formula for linear regression without intercept** using the normal equations solution.
+
+**Step-by-step derivation:**
+
+**1. Linear regression model (no intercept):**
+```
+y = Xw + ε
+```
+where w ∈ ℝ^p is the weight vector
+
+**2. Normal equations solution:**
+```
+ŵ = (X^T X)^(-1) X^T Y
+```
+
+**3. Prediction for new data point:**
+```
+ŷ_new = x_new^T ŵ
+      = x_new^T (X^T X)^(-1) X^T Y
+```
+
+**4. Why this works:**
+
+**Training phase:**
+- **Minimize:** ||Y - Xw||²
+- **Solution:** ŵ = (X^T X)^(-1) X^T Y
+- **Assumes:** X^T X is invertible (full rank)
+
+**Prediction phase:**
+- **New input:** x_new ∈ ℝ^p
+- **Prediction:** ŷ_new = x_new^T ŵ
+- **Substitute:** ŵ from training
+
+**5. Comparison with intercept model:**
+- **With intercept:** ŷ_new = [x_new^T, 1] × [ŵ^T, b]^T
+- **Without intercept:** ŷ_new = x_new^T ŵ
+- **No bias term** b in the model
+
+**6. Matrix dimensions:**
+- **X:** n × p
+- **Y:** n × 1
+- **x_new:** p × 1
+- **ŵ:** p × 1
+- **ŷ_new:** scalar
+
+**Key insight:** **Prediction** is the **dot product** of the new feature vector with the **learned weight vector**.
 
 **7.**
 
@@ -130,7 +381,58 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Answer:** $n = d+1$
 
-**Explanation:** Correct answer: $n = d+1$. Since we are including an offset term, we build a data matrix $X \in \mathbb{R}^{n \times (d+1)}$, where each row $i$ is $[x_i^T \ 1] \in \mathbb{R}^{1 \times (d+1)}$. The solution to the regression requires computing $(X^T X)^{-1}$. That inverse only exists if $X^T X$ is full rank, which requires $n \ge d + 1$.
+**Explanation:**
+
+**The minimum number of data points needed is n = d+1** to ensure a unique solution for linear regression with intercept.
+
+**Step-by-step reasoning:**
+
+**1. Linear regression model with intercept:**
+```
+y_i = x_i^T w + b + ε_i
+```
+
+**2. Augmented data matrix:**
+```
+X_aug = [X, 1] ∈ ℝ^(n×(d+1))
+```
+where 1 is a column of ones
+
+**3. Normal equations:**
+```
+ŵ_aug = (X_aug^T X_aug)^(-1) X_aug^T Y
+```
+
+**4. Rank requirement for unique solution:**
+- **X_aug^T X_aug** must be **invertible**
+- **Invertible** requires **full rank**
+- **Full rank** requires **n ≥ d+1**
+
+**5. Why n = d+1 is minimum:**
+
+**If n < d+1:**
+- **X_aug** has more columns than rows
+- **Rank(X_aug) ≤ n < d+1**
+- **X_aug^T X_aug** is singular
+- **No unique solution**
+
+**If n = d+1:**
+- **X_aug** is square (d+1) × (d+1)
+- **Full rank** possible (if data is well-conditioned)
+- **Unique solution** exists
+
+**6. Geometric interpretation:**
+- **d+1 points** in d-dimensional space
+- **Can fit** a unique hyperplane through these points
+- **Fewer points** → infinite solutions
+- **More points** → overdetermined system
+
+**7. Example:**
+- **d = 2 features**
+- **n = 3 data points** minimum
+- **Fits unique plane** through 3 points in 3D space
+
+**Key insight:** **n = d+1** ensures the **augmented data matrix** has **full rank** for a **unique solution**.
 
 **8. One Answer**
 
@@ -142,7 +444,61 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Correct answers:** (a)
 
-**Explanation:** (a) is correct because the primary purpose of using general basis functions in regression is to transform nonlinear relationships into a form that allows linear modeling techniques to be applied. By mapping features into a higher-dimensional space, basis functions can capture nonlinear patterns in the data. (b) is false because general basis functions alone do not perform regularization. (c) is false because using general basis functions typically does not reduce the number of samples required. In fact, using more complex basis functions often requires more data to fit the model accurately. (d) is false because general basis functions often increase the number of features by expanding the feature space (for example, by adding polynomials or interaction terms). This does not simplify the model; rather, it increases its complexity.
+**Explanation:**
+
+**Option (a) is correct** - basis functions transform nonlinear relationships into linear form.
+
+**Why (a) is correct - Nonlinear to linear transformation:**
+
+**1. Primary purpose:**
+- **Capture nonlinear patterns** in data
+- **Transform features** into higher-dimensional space
+- **Enable linear modeling** of nonlinear relationships
+- **Maintain interpretability** of linear models
+
+**2. Mathematical approach:**
+```
+Original: y = f(x) (nonlinear)
+Basis expansion: y = w₁φ₁(x) + w₂φ₂(x) + ... + wₖφₖ(x)
+```
+where φᵢ(x) are basis functions
+
+**3. Examples of basis functions:**
+- **Polynomial:** φ(x) = [1, x, x², x³, ...]
+- **Radial:** φ(x) = exp(-||x-c||²/2σ²)
+- **Fourier:** φ(x) = [sin(x), cos(x), sin(2x), ...]
+- **Spline:** Piecewise polynomial functions
+
+**4. Why other options are incorrect:**
+
+**Option (b): Regularization**
+- **Basis functions** don't regularize by themselves
+- **Regularization** is separate (L1/L2 penalties)
+- **Basis functions** can actually increase overfitting risk
+
+**Option (c): Reduce data requirements**
+- **More complex models** typically need more data
+- **Higher-dimensional space** requires more samples
+- **Curse of dimensionality** effect
+
+**Option (d): Simplify model**
+- **Basis functions** increase feature count
+- **More parameters** to estimate
+- **Higher complexity**, not lower
+
+**5. Practical benefits:**
+- **Flexible modeling** of complex patterns
+- **Linear optimization** techniques still applicable
+- **Feature engineering** for domain knowledge
+- **Kernel methods** foundation
+
+**6. Trade-offs:**
+- **Increased complexity** (more features)
+- **Higher computational cost**
+- **Risk of overfitting**
+- **Need for regularization**
+
+**Key insight:** **Basis functions** enable **linear models** to capture **nonlinear patterns** through **feature transformation**.
 
 **9. One Answer**
 
@@ -152,7 +508,60 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Correct answers:** (b)
 
-**Explanation:** False because it would be minimizing the sum of squared differences, not absolute differences for linear-Gaussian.
+**Explanation:**
+
+**This statement is false** - MLE for linear-Gaussian regression minimizes squared differences, not absolute differences.
+
+**Why this is false:**
+
+**1. Linear-Gaussian model:**
+```
+y_i ~ N(x_i^T w, σ²)
+```
+
+**2. Likelihood function:**
+```
+L(w) = ∏ᵢ (1/√(2πσ²)) exp(-(y_i - x_i^T w)²/(2σ²))
+```
+
+**3. Log-likelihood:**
+```
+log L(w) = -n/2 log(2πσ²) - (1/(2σ²)) Σᵢ (y_i - x_i^T w)²
+```
+
+**4. MLE objective:**
+```
+max log L(w) = min Σᵢ (y_i - x_i^T w)²
+```
+
+**5. Comparison of loss functions:**
+
+**Squared error (MLE for Gaussian):**
+```
+L_squared = Σᵢ (y_i - x_i^T w)²
+```
+
+**Absolute error (MLE for Laplace):**
+```
+L_absolute = Σᵢ |y_i - x_i^T w|
+```
+
+**6. Why Gaussian noise leads to squared error:**
+- **Gaussian distribution** has exponential decay with squared distance
+- **Log-likelihood** contains squared terms
+- **MLE** naturally leads to squared error minimization
+
+**7. Alternative noise distributions:**
+- **Laplace noise** → absolute error loss
+- **Gaussian noise** → squared error loss
+- **Poisson noise** → different loss function
+
+**8. Mathematical intuition:**
+- **Squared error** penalizes large errors more heavily
+- **Absolute error** penalizes all errors equally
+- **Gaussian MLE** prefers squared error due to distribution shape
+
+**Key insight:** **Gaussian noise assumption** leads to **squared error loss**, not **absolute error loss**.
 
 **10. Select All That Apply**
 
@@ -167,12 +576,70 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 **Correct answers:** (c), (e), (f)
 
 **Explanation:**
-*   (a) is incorrect because $X^T X$ is positive semi-definite, which is not always invertible if $X$ has a non-empty null space.
-*   (b) is incorrect because when $\lambda$ is 0, it can be reduced to (a).
-*   (c) is correct since increasing $\lambda$ results in an increase to $\lambda^2/(n + \lambda)^2(w^T x)^2$ in the biased square term when $n$ is large. Conceptually, the model penalizes large weights, pulling them closer to zero. This constraint often reduces the model's flexibility, which adds bias.
-*   (d) is incorrect since increasing $\lambda$ results in a decrease to $\sigma^2 n/(n + \lambda)^2 ||x||^2$. Conceptually, it makes the model it less sensitive to fluctuations in the training data, which lowers variance at the cost of potentially increasing bias.
-*   (e) is correct by definition of OLS.
-*   (f) is correct because the regularization term dominates, causing the ridge regression to shrink toward zero.
+
+**Options (c), (e), and (f) are true** about ridge regression.
+
+**Why (c) is true - Increasing λ adds bias:**
+
+**1. Ridge regression objective:**
+```
+min ||y - Xw||² + λ||w||²
+```
+
+**2. Effect of increasing λ:**
+- **Stronger penalty** on large weights
+- **Weights shrink** toward zero
+- **Model becomes less flexible**
+- **Higher bias, lower variance**
+
+**3. Mathematical intuition:**
+- **Large λ** → strong regularization
+- **Constrained parameters** → less capacity to fit data
+- **Underfitting risk** → increased bias
+
+**Why (e) is true - λ = 0 reduces to OLS:**
+
+**1. When λ = 0:**
+```
+ŵ_ridge = (X^T X + 0I)^(-1) X^T y
+       = (X^T X)^(-1) X^T y
+       = ŵ_OLS
+```
+
+**2. No regularization:**
+- **λ = 0** means no penalty term
+- **Objective:** min ||y - Xw||²
+- **Same as** ordinary least squares
+
+**Why (f) is true - λ → ∞ shrinks to zero:**
+
+**1. As λ → ∞:**
+- **Regularization term** dominates
+- **Objective:** approximately min λ||w||²
+- **Solution:** w → 0
+
+**2. Intuitive explanation:**
+- **Infinite penalty** on non-zero weights
+- **Optimal solution** is w = 0
+- **Simplest possible model**
+
+**Why other options are false:**
+
+**Option (a): X^T X always invertible**
+- **X^T X** is positive semi-definite
+- **Can be singular** if X has null space
+- **Not always invertible**
+
+**Option (b): X^T X + λI always invertible**
+- **True when λ > 0**
+- **False when λ = 0** (reduces to option a)
+
+**Option (d): Increasing λ adds variance**
+- **Opposite effect** - λ reduces variance
+- **More regularization** → less sensitivity to data
+- **Lower variance, higher bias**
+
+**Key insight:** **Ridge regression** trades **bias for variance** through **L2 regularization**.
 
 **11. One Answer**
 
@@ -182,7 +649,71 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Correct answers:** (b)
 
-**Explanation:** The correct answer is (b), Lasso regression, because Lasso uses L1 regularization while Ridge uses L2. L1 penalizes all weights at the same rate unlike L2, so it encourages higher sparsity in the weights. We want higher sparsity in the weights because we know beforehand that only a small portion of the features are actually relevant. So, we want only a small portion of features to have weight that is not 0. If we used L2 regularization, then more features would have non-zero weight and we would assign meaning to many features that should not have any based on our a priori knowledge.
+**Explanation:**
+
+**Lasso regression is better** when you know only a small portion of features are relevant.
+
+**Why Lasso is preferred:**
+
+**1. Sparsity induction:**
+- **L1 regularization** can set coefficients exactly to zero
+- **L2 regularization** shrinks coefficients but rarely to exactly zero
+- **Feature selection** happens automatically with Lasso
+
+**2. Mathematical difference:**
+
+**Lasso (L1):**
+```
+min ||y - Xw||² + λ||w||₁
+```
+- **||w||₁ = Σ|wᵢ|** (L1 norm)
+- **Sharp corners** at axes
+- **Can produce exact zeros**
+
+**Ridge (L2):**
+```
+min ||y - Xw||² + λ||w||₂²
+```
+- **||w||₂² = Σwᵢ²** (L2 norm)
+- **Smooth surface**
+- **Rarely produces exact zeros**
+
+**3. Geometric interpretation:**
+
+**L1 constraint region:**
+- **Diamond-shaped** in 2D
+- **Sharp corners** touch the axes
+- **Optimal solution** often at corners (zeros)
+
+**L2 constraint region:**
+- **Circular** in 2D
+- **Smooth surface**
+- **Optimal solution** rarely on axes
+
+**4. Feature selection capability:**
+
+**Lasso:**
+- **Automatic feature selection**
+- **Zero coefficients** = irrelevant features
+- **Non-zero coefficients** = relevant features
+- **Matches a priori knowledge**
+
+**Ridge:**
+- **No feature selection**
+- **All features** get non-zero weights
+- **Assigns meaning** to irrelevant features
+
+**5. Practical example:**
+- **100 features, 10 relevant**
+- **Lasso:** May select 10-15 features
+- **Ridge:** Uses all 100 features with small weights
+
+**6. When to use each:**
+- **Lasso:** When you expect sparsity
+- **Ridge:** When all features might be relevant
+- **Elastic Net:** When you want both properties
+
+**Key insight:** **Lasso's sparsity** makes it ideal for **feature selection** when you know most features are irrelevant.
 
 **12. One Answer**
 
@@ -194,7 +725,64 @@ $$\hat{p} = \frac{n}{\sum_{i=1}^{n} x_i}$$
 
 **Correct answers:** (c)
 
-**Explanation:** The correct answer is (c) because Lasso regression penalizes the $l_1$ norm of the weight vector, which shrinks coefficients (often to 0). This reduces the complexity of our model. A less complex model has higher bias and less variance. (a), (b), (d) are all incorrect because a less complex model has decreased variance.
+**Explanation:**
+
+**Option (c) is correct** - Lasso reduces variance and can increase bias through coefficient shrinkage and feature selection.
+
+**Why (c) is correct:**
+
+**1. Lasso's effect on model complexity:**
+- **Shrinks coefficients** toward zero
+- **Sets some coefficients** exactly to zero
+- **Reduces effective** number of features
+- **Simplifies the model**
+
+**2. Bias-variance tradeoff:**
+- **Reduced complexity** → **lower variance**
+- **Reduced complexity** → **higher bias**
+- **Feature selection** can increase bias if important features are dropped
+
+**3. Mathematical intuition:**
+
+**Variance reduction:**
+- **Fewer parameters** to estimate
+- **Less sensitive** to training data noise
+- **More stable** predictions across datasets
+- **Lower overfitting** risk
+
+**Bias increase:**
+- **Simpler model** may miss true patterns
+- **Dropped features** could be important
+- **Underfitting** risk if regularization is too strong
+
+**4. Why other options are incorrect:**
+
+**Option (a): Reduces both bias and variance**
+- **Impossible** - bias and variance typically trade off
+- **Cannot reduce** both simultaneously
+- **Violates** fundamental tradeoff principle
+
+**Option (b): Reduces bias, increases variance**
+- **Opposite effect** - Lasso reduces variance
+- **Simpler models** have lower variance
+- **Wrong direction** of tradeoff
+
+**Option (d): Increases both bias and variance**
+- **Incorrect** - Lasso reduces variance
+- **Simpler models** are more stable
+- **Lower variance** is a key benefit
+
+**5. Practical implications:**
+- **Strong L1 penalty** → high bias, low variance
+- **Weak L1 penalty** → low bias, high variance
+- **Optimal λ** balances the tradeoff
+
+**6. Comparison with Ridge:**
+- **Both** reduce variance and increase bias
+- **Lasso** can set coefficients to zero
+- **Ridge** only shrinks coefficients
+
+**Key insight:** **Lasso** implements the **bias-variance tradeoff** through **L1 regularization** and **feature selection**.
 
 **13. One Answer**
 
