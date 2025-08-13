@@ -411,8 +411,85 @@ Minimizing the reconstruction error is equivalent to maximizing the variance.
 **Correct answers:** (c), (d)
 
 **Explanation:** 
-- **C is correct** because using fewer components reduces computational complexity.
-- **D is correct** because visualization is a valid reason for dimensionality reduction.
-- **A is incorrect** because we typically keep the highest variance components, not discard them.
-- **B is incorrect** because PCA components are orthogonal and not redundant.
+If we chose the top $q$ components, those would be the ones with highest variance, so A is incorrect. B is incorrect as we have 100 features and 100 PCs in this case, so we are not reducing redundant features here; all of them are meaningful features. C is correct, because by only picking the top $q$ PCs, we are reducing the dimensionality of the dataset and thus reducing computational cost. D is correct, as it has been mentioned numerous times in lecture before: it helps us create a beautiful plot.
+
+## Problem 19: Decision Trees Bias-Variance
+
+**1 points One Answer**
+
+**Question:** Generally, decision trees have:
+
+**Clarification:** Clarification made during exam: "It should be 'decision trees' instead of 'tree-based methods.'"
+
+**Options:**
+- a) Low bias, low variance
+- b) Low bias, high variance
+- c) High bias, low variance
+- d) High bias, high variance
+
+**Correct answers:** (b)
+
+**Explanation:** 
+Tree-based methods usually have low bias and high variance.
+
+## Problem 20: Decision Tree Overfitting
+
+**1 points Select All That Apply**
+
+**Question:** Forrest just trained a decision tree for predicting whether a person will like a song based on features like its genre, key, length, etc. He notices an extremely low training error, but an abnormally large test error. He also notices that a regularized multi-class logistic regression model performs much better than his tree. What could be the cause of his problem?
+
+**Options:**
+- a) Learning rate too high
+- b) Decision tree is too deep
+- c) There is too much training data
+- d) Decision tree is overfitting
+
+**Correct answers:** (b), (d)
+
+**Explanation:** 
+He is observing overfitting which could be caused by a complex/deep tree.
+
+## Problem 21: Model Selection Matching
+
+**2.5 points**
+
+**Question:** Match each modeling problem with the best machine learning method from the list below. Use each model type once.
+
+**Modeling Problems:**
+
+**A)** Training a model for a medical setting with a small number of categorical input features, where interpretability of decisions is important.
+
+**B)** Having a small dataset (small $n$) with continuous $Y$ labels and many features. The goal is an interpretable model that can be regularized to identify important features.
+
+**C)** Having a large dataset (large $n$) of images.
+
+**D)** Having a lot of data (large $n$) in a small dimensional feature space (small $d$), assuming labels $y$ change smoothly with changes in the feature space.
+
+**E)** Data with a relatively small number of categorical features, with the goal of winning a Kaggle competition.
+
+<img src="./img/q21_problem.png" width="500px">
+
+**Available Machine Learning Methods:**
+- k-Nearest Neighbours (kNN)
+- Decision Tree (DT)
+- Random Forest (RF)
+- Convolutional Neural Network (CNN)
+- Linear Regression (LR)
+
+**Matching Table:**
+
+| Problem | Machine Learning Method |
+|---------|------------------------|
+| A | $\text{\textcircled{O}}$ DT (Decision Tree) |
+| B | $\text{\textcircled{O}}$ LR (Linear Regression) |
+| C | $\text{\textcircled{O}}$ CNN (Convolutional Neural Network) |
+| D | $\text{\textcircled{O}}$ kNN (k-Nearest Neighbours) |
+| E | $\text{\textcircled{O}}$ RF (Random Forest) |
+
+**Explanation:** 
+- **Problem A:** Decision Tree, because they are good for categorical features and are interpretable.
+- **Problem B:** Linear Regression, because it works for small datasets and continuous labels.
+- **Problem C:** Convolutional Neural Networks.
+- **Problem D:** kNN.
+- **Problem E:** Random Forests.
 
