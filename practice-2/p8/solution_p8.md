@@ -493,3 +493,233 @@ He is observing overfitting which could be caused by a complex/deep tree.
 - **Problem D:** kNN.
 - **Problem E:** Random Forests.
 
+## Problem 22: Entropy in Decision Trees
+
+**1 points One Answer**
+
+**Question:** You are training a decision tree to perform classification into labels $Y \in \{0,1\}$. Your tree sorts the labels into the following leaves. What is the entropy $H(X)$ for each of the following sets $X$:
+
+- a) $X = 1, 1, 1, 1:$
+- b) $X = 1, 1, 0, 0:$
+- c) $X = 0, 0, 0, 0:$
+
+**Explanation:** The entropy $H(X)$ is calculated using the formula $H(X) = - \sum_i p(i) \log_2 p(i)$.
+
+**Answers:**
+- a) 0.0 ($H = -(1 \cdot \log_2(1)) = 0$)
+- b) 1.0 ($H = -(0.5 \cdot \log_2(0.5) + 0.5 \cdot \log_2(0.5)) = -(0.5 \cdot (-1) + 0.5 \cdot (-1)) = -(-0.5 - 0.5) = -(-1) = 1$)
+- c) 0.0 ($H = -(1 \cdot \log_2(1)) = 0$)
+
+## Problem 23: Kernel Method
+
+**1 points Select All That Apply**
+
+**Question:** You are applying the kernel method to $n$ data points, where each data point $x_i \in \mathbb{R}^d$. Which of the following statements are true.
+
+**Options:**
+- a) The kernel method performs computations on a high dimensional feature space $\phi(x_i) \in \mathbb{R}^p$, where $p \gg d$.
+- b) A function $K$ is a kernel for a feature map $\phi$ if $K(x, x') = \phi(x)^T \phi(x')$.
+- c) The kernel trick relies on the fact if $p \gg n$, then the data spans at most a $d$-dimensional subspace of $\mathbb{R}^p$.
+- d) Kernel methods can be considered non-parametric because they require retaining the training data for making predictions about new points.
+
+**Correct answers:** (b), (d)
+
+**Explanation:** 
+- **a) is not correct** because the kernel method *avoids* actually performing computations in the $p$-dimensional feature space. Instead, it computes the dot product in the original space.
+- **b) is correct**, as this is the definition of a kernel function for a feature map $\phi$.
+- **c) is incorrect**. The kernel trick relies on the fact that the data spans at most an $n$-dimensional subspace of $\mathbb{R}^p$, not a $d$-dimensional subspace.
+- **d) is correct**. Kernel methods, such as Support Vector Machines (SVMs) with non-linear kernels, are often considered non-parametric because their model complexity grows with the number of training data points, and they typically require retaining (or at least referencing) a subset of the training data (e.g., support vectors) to make predictions on new points.
+
+## Problem 24: Kernel Matrix and Diagonal Entry
+
+**Problem Statement:** Consider data matrix $X \in \mathbb{R}^{n \times d}$ and feature mapping $\phi: \mathbb{R}^d \to \mathbb{R}^p$, for some $p$. Let $K$ be the corresponding kernel matrix.
+
+### Part (a)
+
+**1 points**
+
+**Question:** Let $\phi(X)$ denote $X$ with $\phi$ applied to each data point. Write $K$ in terms of $\phi(X)$.
+
+**Answer:** $K = \phi(X)\phi(X)^T$
+
+### Part (b)
+
+**1 points One Answer**
+
+**Question:** The $i^{th}$ entry on the diagonal of $K$ is:
+
+**Options:**
+- a) $\bigcirc$ $||\phi(x_i)||_1$
+- b) $\bigcirc$ $||\phi(x_i)||_2$
+- c) $\text{\textcircled{O}}$ $||\phi(x_i)||_2^2$
+- d) $\bigcirc$ None of the above
+
+**Correct answers:** (c)
+
+**Explanation:** 
+- **Part (a):** $K = \phi(X)\phi(X)^T$
+- **Part (b):** $K_{ii} = \phi(x_i)^T \phi(x_i) = ||\phi(x_i)||_2^2$
+
+## Problem 25: Curse of Dimensionality
+
+**1 points Select All That Apply**
+
+**Question:** Natasha is trying to train a k-Nearest Neighbors model, and she encounters the "curse of dimensionality". This refers to the fact that as the dimensionality of her feature space $d$ increases...
+
+**Options:**
+- a) $\text{\textcircled{O}}$ Distances between points become less meaningful, since all points are far apart.
+- b) $\bigcirc$ She has too much data making computation too expensive to perform on a single machine.
+- c) $\text{\textcircled{O}}$ The amount of data required to cover the space increases exponentially.
+- d) $\bigcirc$ Thinking in more than three dimensions is hard so we should use PCA to make a 2D plot.
+
+**Correct answers:** (a), (c)
+
+**Explanation:** 
+a-c are all correct statements of the same idea. d is a joke.
+
+## Problem 26: Clustering Algorithms
+
+**1 points Select All That Apply**
+
+**Question:** You want to cluster this data into 2 clusters. Which of the these algorithms would work well?
+
+*(Image description: A scatter plot of data points forming a distinct 'plus' or 'cross' shape, with four arms extending outwards from a central, denser region. The arms are somewhat spread out, and the central region shows an overlap of points from different arms.)*
+
+**Options:**
+- a) Spectral clustering
+- b) K-means
+- c) $\text{\textcircled{O}}$ GMM clustering
+
+**Correct answers:** (c)
+
+**Explanation:** 
+- Only GMM takes the Gaussian distributions of the two clusters into account even when they overlap.
+
+## Problem 27: K-means Clustering Properties
+
+**1 points One Answer**
+
+**Question:** Which of the following statements is true about K-means clustering?
+
+**Options:**
+- a) K-means clustering works effectively in all data distributions.
+- b) $\text{\textcircled{O}}$ K-means is guaranteed to converge.
+- c) K-means clustering is a supervised learning algorithm.
+- d) The accuracy of K-means clustering is not affected by the initial centroid selections.
+
+**Correct answers:** (b)
+
+**Explanation:** 
+- **A is false** since K-means doesn't work well in all distributions, such as non-spherical clusters.
+- **B is true**, since K-means will always converge (see lecture notes for proof).
+- **C is false**, since K-means is unsupervised.
+- **D is false**, since the accuracy of the classifier is influenced by the initial centroid selections.
+
+## Problem 28: Gaussian Mixture Model Parameters
+
+**1 points One Answer**
+
+**Question:** Suppose a Gaussian Mixture Model (GMM) with $k$ components/clusters is used to model a dataset of dimensionality $d$. Which value does the total number of parameters in the GMM primarily scale with respect to?
+
+**Options:**
+- a) $O(k \cdot d)$
+- b) $O(k \cdot d^2)$
+- c) $O(d)$
+- d) $O(d^2)$
+- e) $O(k)$
+- f) $O(n)$
+- g) $O(\frac{d}{n})$
+
+**Correct answers:** (b)
+
+**Explanation:** 
+The parameters of a GMM are the mixture weights, the means, and the covariance matrices. There are $k$ mixing weights, each $\in \mathbb{R}$. There are $k$ means, each $\in \mathbb{R}^d$. There are $k$ covariance matrices, each $\in \mathbb{R}^{d \times d}$. Since the covariance matrices have the most parameters, the $k$ covariance matrices are the "determining factor". So the answer is $O(k \cdot d^2)$.
+
+## Problem 29: Bootstrap Sampling
+
+**1 points One Answer**
+
+**Question:** Because bootstrap sampling randomly draws data points with replacement, the size of the original dataset does not affect accuracy of the estimated statistics produced by bootstrapping.
+
+**Options:**
+- a) True
+- b) False
+
+**Correct answers:** (b)
+
+**Explanation:** 
+Smaller datasets will not be as representative of the true dataset, yielding less accurate statistics.
+
+## Problem 30: Fairness in Machine Learning
+
+**1 points One Answer**
+
+**Question:** A loan approval model performs worse and is more likely to reject underrepresented minorities due to bias in demographic information. What is the best way to address this bias?
+
+**Options:**
+- a) Remove demographic information.
+- b) Over-sample underrepresented groups.
+- c) Include fairness constraints to balance Type II error (probability of rejecting someone who deserved a loan) across groups.
+- d) Collect more historical data for underrepresented groups and retrain the model.
+
+**Correct answers:** (c)
+
+**Explanation:** 
+- **Option (a)** is not entirely helpful because demographic information is often correlated with other features.
+- **Option (b)** is helpful for balancing data but not addressing the underlying bias issue.
+- **Option (c)** is the current state-of-the-art approach.
+- **Option (d)** does not necessarily work because historical data might still be biased.
+
+## Problem 31: Feature Importance in Linear Regression
+
+**1 points One Answer**
+
+**Question:** A linear regression model has been trained, and for two features, $i$ and $j$, the weight $w_i$ is greater than $w_j$ ($w_i > w_j$). Can you conclude that feature $i$ is more important than feature $j$?
+
+**Options:**
+- a) True
+- b) False
+
+**Correct answers:** (b)
+
+**Explanation:** 
+This conclusion is false because features could have different scales (e.g., square feet vs. number of bathrooms), which affects the magnitude of their weights without necessarily indicating importance.
+
+## Problem 32: Neural Network Derivatives
+
+**4 points**
+
+**Question:** Consider the following network:
+
+<img src="./img/q32_problem.png" width="350px">
+
+A diagram of a feedforward neural network is shown.
+- **Input Layer:** Consists of a bias node (labeled '1', represented by a dotted circle) and three input nodes (labeled '$x_0$', '$x_1$', '$x_2$', represented by solid circles).
+- **Hidden Layer:** Consists of a bias node (labeled '1', represented by a dotted circle) and four hidden nodes (all labeled '$z_0$', represented by solid circles).
+- **Output Layer:** Consists of a single output node (labeled '$y$', represented by a solid circle).
+
+**Connections:**
+- Dotted lines labeled '$b_0$' connect the input layer bias node to all hidden layer nodes.
+- Solid lines connect the input nodes ($x_0, x_1, x_2$) to all hidden layer nodes. These connections are associated with weights $W_0$.
+- A dotted line labeled '$b_1$' connects the hidden layer bias node to the output node $y$.
+- Solid lines connect all hidden layer nodes ($z_0$) to the output node $y$. These connections are associated with weights $W_1$.
+
+**Network Equations:**
+The forward pass for the hidden layer is $z = \sigma(W^{(0)}x+b^0)$, where $\sigma$ refers to the sigmoid activation function.
+The output layer is $y= W^{(1)}z+b^1$.
+
+**Task:**
+Derive the partial derivatives with respect to $W^{(1)} \in \mathbb{R}^{1 \times h}$, $b^{(1)} \in \mathbb{R}$, $W^{(0)} \in \mathbb{R}^{h \times d}$, and $b^{(0)} \in \mathbb{R}^h$, where $d = 3$ and $h = 4$.
+
+**Clarification made during exam:** "Typo: $b^0 = b_0 = b^{(0)}$. They all refer to the same thing."
+
+**Derivatives to find:**
+a) $\frac{\partial y}{\partial W^{(1)}}:$
+b) $\frac{\partial y}{\partial b^{(1)}}:$
+c) $\frac{\partial y}{\partial W^{(0)}}:$
+d) $\frac{\partial y}{\partial b^{(0)}}:$
+
+**Explanation:**
+- **a) $\frac{\partial y}{\partial W^{(1)}} = z$**
+- **b) $\frac{\partial y}{\partial b^{(1)}} = 1$**
+
