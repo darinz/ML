@@ -39,7 +39,7 @@
 
 **Key insight:** **Cross-validation** provides **honest estimates** of hyperparameter performance for **model selection**.
 
-**2. Which of the following is most indicative of a model overfitting?**
+**Problem 2. Which of the following is most indicative of a model overfitting?**
 *   (a) High bias, low variance
 *   (b) Low bias, high variance
 *   (c) Low bias, low variance
@@ -81,7 +81,7 @@
 
 **Key insight:** **Overfitting** occurs when a model has **too much capacity** relative to the amount of training data.
 
-**3. Which of the following statements about LASSO is true?**
+**Problem 3. Which of the following statements about LASSO is true?**
 *   (a) LASSO's objective function has a closed-form solution.
 *   (b) LASSO has lower bias than ordinary least squares.
 *   (c) LASSO can be interpreted as least squares regression when the model's weights are regularized with the $l_1$ norm.
@@ -131,7 +131,7 @@ min ||y - Xw||² + λ||w||₁
 
 **Key insight:** **LASSO** combines **least squares loss** with **L1 regularization** for **sparse solutions**.
 
-**4. Which of the following is not a convex set?**
+**Problem 4. Which of the following is not a convex set?**
 *   (a) The hyperplane given by $H = \{\mathbf{x} \in \mathbb{R}^n : \sum_{i=1}^n \alpha_i \mathbf{x}_i = \beta_i\}$
 *   (b) The interval $[a, b]$ where $a, b \in \mathbb{R}$
 *   (c) The "unit square" $\{\mathbf{x} \in \mathbb{R}^2: ||\mathbf{x}||_1 = 1\}$
@@ -167,7 +167,7 @@ Actually, the L1 unit sphere **IS convex**! The line segment between any two poi
 
 **Key insight:** All the given sets are actually convex. The L1 unit sphere is the boundary of a convex diamond shape.
 
-**5. Extra Credit: Consider a data matrix $X \in \mathbb{R}^{n \times m}$, target vector $y \in \mathbb{R}^n$, and the resulting least squares solution $\hat{w} \in \mathbb{R}^m$. Now let $y'$ be the vector that results from squaring every value in the target vector $y$, and let $\hat{w}'$ be the vector that results from squaring every value in $\hat{w}$.**
+**Problem 5. Extra Credit: Consider a data matrix $X \in \mathbb{R}^{n \times m}$, target vector $y \in \mathbb{R}^n$, and the resulting least squares solution $\hat{w} \in \mathbb{R}^m$. Now let $y'$ be the vector that results from squaring every value in the target vector $y$, and let $\hat{w}'$ be the vector that results from squaring every value in $\hat{w}$.**
 
 **$y' = [y_1^2, \dots, y_n^2]$**
 
@@ -215,7 +215,7 @@ Consider X = [1], y = [2], then:
 
 **Key insight:** **Nonlinear transformations** of targets create **fundamentally different** optimization problems.
 
-**6. Reducing the regularization of a model would typically . . .**
+**Problem 6. Reducing the regularization of a model would typically . . .**
 *   (a) Decrease its bias and increase its variance
 *   (b) Decrease its bias and decrease its variance
 *   (c) Increase its bias and decrease its variance
@@ -259,7 +259,7 @@ Weak λ:      Complex model   ← High variance, Low bias
 
 **Key insight:** **Regularization strength** controls the **bias-variance tradeoff** - less regularization means more flexibility but less stability.
 
-**7. How many models must be trained when using $k$-fold cross-validation to determine which of three possible $\lambda$ values ($\lambda_1, \lambda_2, \lambda_3$) is best for ridge regression on training set with $n$ samples (assume $n$ is a multiple of $k$)?**
+**Problem 7. How many models must be trained when using $k$-fold cross-validation to determine which of three possible $\lambda$ values ($\lambda_1, \lambda_2, \lambda_3$) is best for ridge regression on training set with $n$ samples (assume $n$ is a multiple of $k$)?**
 *   (a) $3n/k$
 *   (b) $k$
 *   (c) $n$
@@ -307,7 +307,7 @@ Total models = 3 × k = 3k
 
 **Key insight:** **k-fold CV** trains **k models per hyperparameter**, so total models = **number of hyperparameters × k**.
 
-**8. $k$-fold cross-validation is equivalent to leave-one-out (LOO) cross-validation on a training set of $n$ samples when $k$ is equal to**
+**Problem 8. $k$-fold cross-validation is equivalent to leave-one-out (LOO) cross-validation on a training set of $n$ samples when $k$ is equal to**
 *   (a) $k$ is not computable
 *   (b) $n-1$
 *   (c) $n$
@@ -353,7 +353,7 @@ Total models = 3 × k = 3k
 
 **Key insight:** **k = n** makes k-fold CV **identical** to LOO CV in terms of fold structure and model training.
 
-**9. Let $X \in \mathbb{R}^{m \times n}$, and $Y \in \mathbb{R}^m$. We want to fit a linear regression model. We call a matrix a "short wide" matrix if there are more columns than rows. Which of the following is NOT always true when $X$ is a "short wide" matrix (i.e., $n > m$):**
+**Problem 9. Let $X \in \mathbb{R}^{m \times n}$, and $Y \in \mathbb{R}^m$. We want to fit a linear regression model. We call a matrix a "short wide" matrix if there are more columns than rows. Which of the following is NOT always true when $X$ is a "short wide" matrix (i.e., $n > m$):**
 *   (a) $X^T X$ is symmetric and positive semidefinite.
 *   (b) $X^T X$ is not invertible.
 *   (c) The columns of $X$ are linearly independent.
@@ -402,7 +402,7 @@ Consider X = [1 2 3; 4 5 6] (2×3 matrix):
 
 **Key insight:** **"Short wide" matrices** (n > m) **cannot have linearly independent columns** due to rank constraints.
 
-**10. Assume you (1) standardized a training set and (2) trained a machine learning model on this standardized training set. Before you use your model to make predictions on a test set, you should do which of the following (choose exactly one answer)**
+**Problem 10. Assume you (1) standardized a training set and (2) trained a machine learning model on this standardized training set. Before you use your model to make predictions on a test set, you should do which of the following (choose exactly one answer)**
 *   (a) not standardize the test set.
 *   (b) use the mean and standard deviation from train set to standardize the test set.
 *   (c) use the mean and standard deviation from test set to standardize the test set.
