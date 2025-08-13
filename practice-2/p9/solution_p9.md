@@ -6012,6 +6012,77 @@ def compute_derivatives(x, y, W1, b1, W2, b2):
 - Derivatives flow backward through the network
 - Understanding derivatives enables gradient-based optimization
 
+## Problem 32: Maximum Likelihood Estimation
+
+## Detailed Solution Explanation
+
+**Understanding Neural Network Derivatives:**
+
+This problem explores the computation of derivatives in a two-layer neural network with ReLU activation, focusing on the chain rule and backpropagation.
+
+**Mathematical Framework:**
+
+**Network Architecture:**
+- **Input:** $x \in \mathbb{R}^d$
+- **Hidden Layer:** $h = \sigma(W_1x + b_1)$ where $\sigma(z) = \max(0, z)$
+- **Output Layer:** $\hat{y} = W_2h + b_2$
+
+**Forward Pass:**
+$$h = \sigma(W_1x + b_1)$$
+$$\hat{y} = W_2h + b_2$$
+
+**Loss Function:**
+$$L = \frac{1}{2}(\hat{y} - y)^2$$
+
+**Backpropagation Derivatives:**
+
+**1. Output Layer Derivatives:**
+$$\frac{\partial L}{\partial \hat{y}} = \hat{y} - y$$
+$$\frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial \hat{y}} \cdot h^T$$
+$$\frac{\partial L}{\partial b_2} = \frac{\partial L}{\partial \hat{y}}$$
+
+**2. Hidden Layer Derivatives:**
+$$\frac{\partial L}{\partial h} = W_2^T \frac{\partial L}{\partial \hat{y}}$$
+$$\frac{\partial L}{\partial W_1} = \frac{\partial L}{\partial h} \cdot \sigma'(W_1x + b_1) \cdot x^T$$
+$$\frac{\partial L}{\partial b_1} = \frac{\partial L}{\partial h} \cdot \sigma'(W_1x + b_1)$$
+
+**3. ReLU Derivative:**
+$$\sigma'(z) = \begin{cases} 1 & \text{if } z > 0 \\ 0 & \text{if } z \leq 0 \end{cases}$$
+
+**Implementation:**
+```python
+def compute_derivatives(x, y, W1, b1, W2, b2):
+    # Forward pass
+    z1 = W1 @ x + b1
+    h = np.maximum(0, z1)  # ReLU
+    z2 = W2 @ h + b2
+    y_pred = z2
+    
+    # Loss
+    loss = 0.5 * (y_pred - y)**2
+    
+    # Backward pass
+    dL_dy = y_pred - y
+    
+    # Output layer derivatives
+    dL_dW2 = dL_dy * h.T
+    dL_db2 = dL_dy
+    
+    # Hidden layer derivatives
+    dL_dh = W2.T * dL_dy
+    dL_dz1 = dL_dh * (z1 > 0)  # ReLU derivative
+    dL_dW1 = dL_dz1 * x.T
+    dL_db1 = dL_dz1
+    
+    return dL_dW1, dL_db1, dL_dW2, dL_db2
+```
+
+**Key Insights:**
+- Chain rule is fundamental to backpropagation
+- ReLU derivative is piecewise constant
+- Derivatives flow backward through the network
+- Understanding derivatives enables gradient-based optimization
+
 ## Problem 31: Neural Network Derivatives
 
 **6 points**
@@ -6119,6 +6190,214 @@ where $\odot$ denotes the element-wise (Hadamard) product.
 
 **Explanation:**
 In the worst case, we split on every feature on every path, which will result in $2^d$ terminal nodes. However, there are only $n$ data samples, so the number of non-empty terminal nodes is upperbounded by $n$.
+
+## Detailed Solution Explanation
+
+**Understanding Decision Tree Terminal Nodes:**
+
+This problem explores the theoretical limits on the number of terminal nodes in a decision tree, considering both feature constraints and data constraints.
+
+**Mathematical Framework:**
+
+**Decision Tree Structure:**
+- **Internal Nodes:** Decision points (splits)
+- **Terminal Nodes:** Leaf nodes (final predictions)
+- **Path:** Sequence of splits from root to leaf
+
+**Constraints:**
+1. **Feature Constraint:** Cannot split on same feature twice on any path
+2. **Data Constraint:** Only $n$ data samples available
+
+**Analysis:**
+
+**1. Feature-Based Upper Bound:**
+
+**Maximum Splits per Path:**
+- **Available Features:** $d$ features
+- **Constraint:** Each feature used at most once per path
+- **Maximum Path Length:** $d$ splits
+- **Maximum Terminal Nodes:** $2^d$
+
+**Mathematical Derivation:**
+```python
+def max_terminal_nodes_feature_based(d):
+    # Each split creates 2 branches
+    # Maximum d splits per path
+    return 2**d
+
+# Example: d = 3 features
+d = 3
+max_nodes = max_terminal_nodes_feature_based(d)
+print(f"Feature-based maximum: {max_nodes}")  # 8 nodes
+```
+
+**Visual Example:**
+```
+Binary Tree with d=3:
+        Root
+       /    \
+    Split1  Split1
+   /    \   /    \
+Split2 Split2 Split2 Split2
+/  \   /  \   /  \   /  \
+T1  T2 T3  T4 T5  T6 T7  T8
+
+Total: 2³ = 8 terminal nodes
+```
+
+**2. Data-Based Upper Bound:**
+
+**Data Constraint:**
+- **Available Data:** $n$ samples
+- **Non-empty Nodes:** Each terminal node must contain at least one sample
+- **Maximum Non-empty Nodes:** $n$
+
+**Mathematical Verification:**
+```python
+def max_terminal_nodes_data_based(n):
+    # Each terminal node needs at least one sample
+    return n
+
+# Example: n = 5 samples
+n = 5
+max_nodes = max_terminal_nodes_data_based(n)
+print(f"Data-based maximum: {max_nodes}")  # 5 nodes
+```
+
+**3. Combined Constraint:**
+
+**Final Answer:** $\min\{n, 2^d\}$
+
+**Mathematical Justification:**
+- **Feature Limit:** Cannot exceed $2^d$ due to feature constraint
+- **Data Limit:** Cannot exceed $n$ due to data constraint
+- **Combined:** Must satisfy both constraints
+
+**Example Scenarios:**
+
+**Scenario 1: More Features than Samples ($d > \log_2 n$)**
+```python
+# Example: d = 10, n = 5
+d, n = 10, 5
+max_nodes = min(n, 2**d)
+print(f"Max terminal nodes: {max_nodes}")  # 5 (limited by data)
+```
+
+**Scenario 2: More Samples than Possible Nodes ($d < \log_2 n$)**
+```python
+# Example: d = 2, n = 10
+d, n = 2, 10
+max_nodes = min(n, 2**d)
+print(f"Max terminal nodes: {max_nodes}")  # 4 (limited by features)
+```
+
+**Scenario 3: Balanced Case ($d = \log_2 n$)**
+```python
+# Example: d = 3, n = 8
+d, n = 3, 8
+max_nodes = min(n, 2**d)
+print(f"Max terminal nodes: {max_nodes}")  # 8 (both constraints active)
+```
+
+**Practical Implications:**
+
+**1. Overfitting Prevention:**
+```python
+def prevent_overfitting(d, n):
+    max_nodes = min(n, 2**d)
+    # Limit tree depth to prevent overfitting
+    max_depth = min(d, int(np.log2(n)))
+    return max_depth, max_nodes
+
+# Example
+d, n = 20, 100
+max_depth, max_nodes = prevent_overfitting(d, n)
+print(f"Max depth: {max_depth}, Max nodes: {max_nodes}")
+```
+
+**2. Computational Complexity:**
+```python
+def tree_complexity(d, n):
+    max_nodes = min(n, 2**d)
+    # Training complexity: O(n * d * max_nodes)
+    training_complexity = n * d * max_nodes
+    return training_complexity
+
+# Example
+complexity = tree_complexity(5, 1000)
+print(f"Training complexity: O({complexity})")
+```
+
+**3. Memory Requirements:**
+```python
+def memory_requirements(d, n):
+    max_nodes = min(n, 2**d)
+    # Each node stores: feature index, threshold, prediction
+    memory_per_node = 3  # assuming 3 values per node
+    total_memory = max_nodes * memory_per_node
+    return total_memory
+
+# Example
+memory = memory_requirements(10, 1000)
+print(f"Memory requirements: {memory} values")
+```
+
+**Edge Cases:**
+
+**1. Single Feature ($d = 1$):**
+- **Maximum Nodes:** $\min\{n, 2^1\} = \min\{n, 2\}$
+- **Result:** At most 2 terminal nodes
+
+**2. Single Sample ($n = 1$):**
+- **Maximum Nodes:** $\min\{1, 2^d\} = 1$
+- **Result:** Exactly 1 terminal node
+
+**3. No Features ($d = 0$):**
+- **Maximum Nodes:** $\min\{n, 2^0\} = \min\{n, 1\} = 1$
+- **Result:** Exactly 1 terminal node (no splits possible)
+
+**Implementation Considerations:**
+
+**1. Tree Construction:**
+```python
+def build_decision_tree(X, y, max_depth=None):
+    n, d = X.shape
+    
+    # Determine maximum nodes
+    max_nodes = min(n, 2**d)
+    
+    # Set maximum depth if not specified
+    if max_depth is None:
+        max_depth = min(d, int(np.log2(n)))
+    
+    # Build tree with constraints
+    tree = DecisionTree(max_depth=max_depth, max_nodes=max_nodes)
+    tree.fit(X, y)
+    
+    return tree
+```
+
+**2. Validation:**
+```python
+def validate_tree_constraints(tree, n, d):
+    # Count actual terminal nodes
+    actual_nodes = count_terminal_nodes(tree)
+    
+    # Check constraints
+    max_allowed = min(n, 2**d)
+    
+    if actual_nodes > max_allowed:
+        raise ValueError(f"Tree has {actual_nodes} nodes, but maximum allowed is {max_allowed}")
+    
+    return True
+```
+
+**Key Insights:**
+- Feature constraint limits tree to $2^d$ terminal nodes
+- Data constraint limits tree to $n$ non-empty terminal nodes
+- Combined constraint is the minimum of both limits
+- Understanding these limits helps prevent overfitting
+- Practical trees often use much fewer nodes than theoretical maximum
 
 ## Problem 33: K-means Convergence
 
