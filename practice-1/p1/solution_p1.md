@@ -114,6 +114,54 @@ The **(i,j)** entry of $A^T$ A is **$aᵢ^T aⱼ$**. Since the columns are ortho
 
 **Therefore:** $A^T A$ is a diagonal matrix with diagonal entries **$||aᵢ||²$**.
 
+**Extended Explanation**
+
+The statement in the problem is **true**: "If the columns of $A$ are orthogonal, then $A^T A$ is diagonal."
+
+### To break it down:
+
+Let matrix $A$ have columns $a_1, a_2, \dots, a_n$. So, we can write:
+
+$$
+A = \begin{bmatrix} a_1 & a_2 & \dots & a_n \end{bmatrix}
+$$
+
+Now, when we compute $A^T A$, we are multiplying the **transpose** of $A$ by $A$.
+
+* The transpose $A^T$ turns the columns of $A$ into rows.
+* The multiplication $A^T A$ then combines these rows and columns to compute the dot products between each pair of columns of $A$.
+
+### What's happening in the multiplication:
+
+1. **Matrix multiplication of $A^T$ and $A$:**
+
+   $A^T A$ results in a matrix where the **(i, j)** entry is the dot product of the **i-th column** of $A$ with the **j-th column** of $A$. Specifically:
+
+   $$
+   (A^T A)_{ij} = a_i^T a_j
+   $$
+
+2. **Orthogonality of the columns:**
+
+   If the columns of $A$ are **orthogonal**, this means:
+
+   * $a_i^T a_j = 0$ for $i \neq j$, meaning that the dot product of any two distinct columns is zero.
+   * $a_i^T a_i = ||a_i||^2$, meaning the dot product of a column with itself is the square of its norm (its length).
+
+   This property of orthogonality means that **off-diagonal entries** of $A^T A$ (where $i \neq j$) will be zero.
+
+3. **Diagonal nature of $A^T A$:**
+
+   Since the off-diagonal entries are zero, the resulting matrix $A^T A$ will have non-zero entries only on the diagonal. These diagonal entries will be the squared norms of the columns of $A$, i.e., $||a_1||^2, ||a_2||^2, \dots, ||a_n||^2$.
+
+### In summary:
+
+* If the columns of $A$ are orthogonal, $A^T A$ will be a diagonal matrix.
+* The diagonal entries will be the squared norms of the columns of $A$.
+
+Therefore, the statement is **true**, and the answer is **(A) True**.
+
+
 ## Problem 5
 
 True/False: Assume we train a model on a given dataset. If we were to remove 50% of samples from the dataset and re-train the model from scratch, the new model will be more likely to overfit to its training data than the old one.
