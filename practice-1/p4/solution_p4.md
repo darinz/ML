@@ -1203,7 +1203,7 @@ E[XY²] - E[X]E[Y]² = 9 - 6 = 3
 
 **Key insight:** **Independence** allows us to factor expectations: E[XY²] = E[X]E[Y²].
 
-**26. (True/False: ) Stochastic Gradient Descent (SGD) will always be at least as computationally expensive as Gradient Descent (GD) and (True/False: ) the number of update steps in SGD is greater than or equal to the number of update steps in GD.**
+**Problem 26. (True/False: ) Stochastic Gradient Descent (SGD) will always be at least as computationally expensive as Gradient Descent (GD) and (True/False: ) the number of update steps in SGD is greater than or equal to the number of update steps in GD.**
 *   (a) True, True
 *   (b) True, False
 *   (c) False, True
@@ -1254,7 +1254,7 @@ E[XY²] - E[X]E[Y]² = 9 - 6 = 3
 
 **Key insight:** **SGD** trades **iteration efficiency** for **computational efficiency** per iteration, making it better for large datasets.
 
-**27. Which technique is most likely to reduce the variance of a model, holding all else fixed?**
+**Problem 27. Which technique is most likely to reduce the variance of a model, holding all else fixed?**
 *   (a) Reducing the complexity of the model
 *   (b) Using a smaller number of training samples
 *   (c) Increasing the number of features
