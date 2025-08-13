@@ -222,7 +222,7 @@ $L(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** **Irreducible error** comes from the **data itself**, while **reducible error** comes from **modeling choices**.
 
-**7. Suppose that we are given train, validation, and test sets. Which set(s) should be used to standardize the test data when generating a prediction?**
+**Problem 7. Suppose that we are given train, validation, and test sets. Which set(s) should be used to standardize the test data when generating a prediction?**
 
 **Answer:** Use the mean and standard deviation from the training data
 
@@ -253,7 +253,7 @@ $L(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** **Never use test set information** during model development to maintain honest performance estimates.
 
-**8. Suppose we are performing leave-one-out (LOO) validation and 10-fold cross validation on a dataset of size 100,000 to pick between 4 different values of a single hyperparameter. How many times greater is the number of models that need to be trained for LOO validation versus 10-fold cross validation?**
+**Problem 8. Suppose we are performing leave-one-out (LOO) validation and 10-fold cross validation on a dataset of size 100,000 to pick between 4 different values of a single hyperparameter. How many times greater is the number of models that need to be trained for LOO validation versus 10-fold cross validation?**
 
 **Answer:** 10,000
 
@@ -289,7 +289,7 @@ $\text{LOO models} / \text{10-fold models} = 400,000 / 40 = 10,000$
 
 **Key insight:** LOO becomes **prohibitively expensive** for large datasets, making k-fold CV the practical choice.
 
-**9. What are two possible ways to reduce the variance of a model?**
+**Problem 9. What are two possible ways to reduce the variance of a model?**
 
 **Answer:** 
 1. Use more training data
@@ -319,7 +319,7 @@ $\text{LOO models} / \text{10-fold models} = 400,000 / 40 = 10,000$
 
 **Key insight:** **More data** and **simpler models** are the most effective ways to reduce variance and improve generalization.
 
-**10. Below are a list of potential advantages and disadvantages of stochastic gradient descent(SGD). Select all that are true regarding SGD.**
+**Problem 10. Below are a list of potential advantages and disadvantages of stochastic gradient descent(SGD). Select all that are true regarding SGD.**
 
 **Advantages:**
 *   (a) SGD is more memory-efficient because it takes a smaller number of samples at a time compared to classical gradient descent which takes the entire dataset into weight update
@@ -367,7 +367,7 @@ $\text{LOO models} / \text{10-fold models} = 400,000 / 40 = 10,000$
 
 **Key insight:** SGD trades **stability for efficiency** - faster per iteration but requires more careful hyperparameter tuning.
 
-**11. Which of the following is not a convex function?**
+**Problem 11. Which of the following is not a convex function?**
 *   (a) $f(x) = x$
 *   (b) $f(x) = x^2$
 *   (c) $f(x) = e^x$
@@ -407,7 +407,7 @@ $f''(x) = \frac{e^{-x}(e^{-x}-1)}{(1+e^{-x})^3}$
 
 **Key insight:** The **sigmoid function** has an **S-shape** that makes it **non-convex** overall, despite being convex in some regions.
 
-**12. Recall the loss function used in ridge regression,**
+**Problem 12. Recall the loss function used in ridge regression,**
 
 $$f(w) = \sum_{i=1}^{n} (y_i - x_i^T w)^2 + \lambda ||w||_2^2$$
 
@@ -446,7 +446,7 @@ $\min f(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** **Infinite regularization** creates the **simplest possible model** with all weights equal to zero.
 
-**13. Why is it important to use a different test set to evaluate the final performance of the model, rather than the validation set used during model selection?**
+**Problem 13. Why is it important to use a different test set to evaluate the final performance of the model, rather than the validation set used during model selection?**
 *   (a) The model may have overfit to the validation set
 *   (b) The test set is a better representation of new, unseen data
 *   (c) Both a and b
@@ -484,7 +484,7 @@ $\min f(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** **Three-way split** (train/validation/test) ensures honest evaluation by keeping the test set completely isolated.
 
-**14. What is cross-validation not used for?**
+**Problem 14. What is cross-validation not used for?**
 *   (a) To evaluate the performance of a machine learning model on unseen data.
 *   (b) To select a model's hyperparameters.
 *   (c) To determine the generalization of a machine learning model.
@@ -524,7 +524,7 @@ $\min f(w) = \|y - Xw\|^2 + \lambda\|w\|^2$
 
 **Key insight:** Cross-validation is a **resampling technique** for the same dataset, not a method for training different models on different datasets.
 
-**15. The plots below show linear regression results on the basis of only three data points.**
+**Problem 15. The plots below show linear regression results on the basis of only three data points.**
 
 <img src="./linear_regression_plots.png" width="600px">
 
@@ -571,7 +571,7 @@ $\min f(w,b) = \sum(y_i - wx_i - b)^2 + \lambda w^2$
 
 **Key insight:** **Strong regularization** creates a **simple, flat model** that generalizes better than complex fits.
 
-**16. Let $a \in \mathbb{R}^n$ and $b \in \mathbb{R}^m$. Let $C = ab^T$. What are the dimensions of the matrix $C$, what is the range of $C$, and what is the null space of $C$?**
+**Problem 16. Let $a \in \mathbb{R}^n$ and $b \in \mathbb{R}^m$. Let $C = ab^T$. What are the dimensions of the matrix $C$, what is the range of $C$, and what is the null space of $C$?**
 
 **Answer:**
 
@@ -604,7 +604,7 @@ This is a **rank-1 matrix** problem. Let's analyze each component:
 
 **Key insight:** **Rank-1 matrices** have **1-dimensional range** and **(m-1)-dimensional null space**.
 
-**17. What is the objective of least squares regression?**
+**Problem 17. What is the objective of least squares regression?**
 *   (a) To minimize the sum of the absolute differences between predicted and actual values.
 *   (b) To minimize the sum of the squared differences between predicted and actual values.
 *   (c) To maximize the number of points on the line of best fit.
@@ -644,7 +644,7 @@ $\min \sum(y_i - \hat{y}_i)^2 = \min \sum(y_i - x_i^T w)^2$
 
 **Key insight:** **Squared loss** provides **mathematical tractability** and **statistical optimality** under Gaussian assumptions.
 
-**18. An unbiased machine learning model is trained on a dataset with noisy features and achieves a prediction accuracy of 75%. If the irreducible error due to noise in the features is estimated to be 10%, what is the estimated variance of the model?**
+**Problem 18. An unbiased machine learning model is trained on a dataset with noisy features and achieves a prediction accuracy of 75%. If the irreducible error due to noise in the features is estimated to be 10%, what is the estimated variance of the model?**
 
 **Answer:** 15%
 
@@ -687,7 +687,7 @@ $\text{Variance} = 25\% - 10\% = 15\%$
 
 **Key insight:** **Variance = Total Error - Irreducible Error** when bias is zero.
 
-**19. Convexity is a desirable property in machine learning because it:**
+**Problem 19. Convexity is a desirable property in machine learning because it:**
 *   (a) guarantees gradient descent finds a global minimum in optimization problems for functions that have a global minimum
 *   (b) helps to avoid the model overfitting
 *   (c) speeds up model training
@@ -731,7 +731,7 @@ $\text{Variance} = 25\% - 10\% = 15\%$
 
 **Key insight:** **Convexity** provides **optimization guarantees**, not **generalization guarantees**.
 
-**20. True/False: Stochastic gradient descent typically results in a smoother convergence plot (loss vs. epochs) as compared to gradient descent.**
+**Problem 20. True/False: Stochastic gradient descent typically results in a smoother convergence plot (loss vs. epochs) as compared to gradient descent.**
 *   (a) True
 *   (b) False
 
@@ -771,7 +771,7 @@ Full GD: \________/  (smooth, steady)
 
 **Key insight:** **SGD trades smoothness for speed** - the noise is the price paid for computational efficiency.
 
-**21. Consider the univariate function $f(x) = x^2$. This function has a unique minimum at $x^*= 0$. We're using gradient descent (GD) to find this minimum and at time $t$ we arrive at the point $x_t = 2$. What is the step size that would bring us to $x^*$ at time $t + 1$?**
+**Problem 21. Consider the univariate function $f(x) = x^2$. This function has a unique minimum at $x^*= 0$. We're using gradient descent (GD) to find this minimum and at time $t$ we arrive at the point $x_t = 2$. What is the step size that would bring us to $x^*$ at time $t + 1$?**
 
 **Answer:** η = 1/2
 
@@ -813,7 +813,7 @@ $x_{t+1} = 2 - (1/2) \times 4 = 2 - 2 = 0$ ✓
 
 **Key insight:** For **quadratic functions**, the **optimal step size** is η = 1/L where L is the Lipschitz constant of the gradient (L = 2 for f(x) = x²).
 
-**22. Let $X \in \mathbb{R}^{m \times n}$, $w \in \mathbb{R}^n$, $Y \in \mathbb{R}^m$, and $R(w)$ be some regularization function from $\mathbb{R}^n \to \mathbb{R}$. Consider mean squared error with regularization $L(w) = \|Xw - Y\|_2^2 + \lambda R(w)$. What is $\nabla_w L(w)$?**
+**Problem 22. Let $X \in \mathbb{R}^{m \times n}$, $w \in \mathbb{R}^n$, $Y \in \mathbb{R}^m$, and $R(w)$ be some regularization function from $\mathbb{R}^n \to \mathbb{R}$. Consider mean squared error with regularization $L(w) = \|Xw - Y\|_2^2 + \lambda R(w)$. What is $\nabla_w L(w)$?**
 *   (a) $2Y^T (Xw - Y) + \lambda$
 *   (b) $2X^T (X^T Xw - Y) + \lambda \nabla_w R(w)$
 *   (c) $2X^T (Xw - Y) + \lambda \nabla_w R(w)$
@@ -857,7 +857,7 @@ $\nabla_w L(w) = 2X^T (Xw - Y) + \lambda \nabla_w R(w)$
 
 **Key insight:** **Chain rule** and **matrix calculus** give us the correct gradient for regularized least squares.
 
-**23. Suppose we have $n$ Gaussian distributions $\mathcal{D}_1, \dots, \mathcal{D}_n$, where each $\mathcal{D}_i = \mathcal{N}(\mu_i, \sigma^2)$. In other words, each Gaussian distribution shares the same variance $\sigma^2$, but may have different means $\mu_i$. For each distribution, we draw a single data point $X_i \sim \mathcal{D}_i$. Given**
+**Problem 23. Suppose we have $n$ Gaussian distributions $\mathcal{D}_1, \dots, \mathcal{D}_n$, where each $\mathcal{D}_i = \mathcal{N}(\mu_i, \sigma^2)$. In other words, each Gaussian distribution shares the same variance $\sigma^2$, but may have different means $\mu_i$. For each distribution, we draw a single data point $X_i \sim \mathcal{D}_i$. Given**
 $$\begin{pmatrix} X_1 \\ \vdots \\ X_n \end{pmatrix}, \text{ we want to predict } \begin{pmatrix} \mu_1 \\ \vdots \\ \mu_n \end{pmatrix}$$
 **Solution 1 is to predict $X$, and Solution 2 is to predict $\frac{7}{8}X$. Why might Solution 2 produce lower mean squared error than Solution 1?**
 
