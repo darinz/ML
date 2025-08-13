@@ -160,10 +160,10 @@ Actually, the L1 unit sphere **IS convex**! The line segment between any two poi
 
 **The correct answer should be re-evaluated.** Let me check the other options:
 
-**Option (a): Hyperplane** - convex ✓
-**Option (b): Interval** - convex ✓  
-**Option (c): L1 unit sphere** - convex ✓
-**Option (d): L2 unit ball** - convex ✓
+- **Option (a): Hyperplane** - convex ✓
+- **Option (b): Interval** - convex ✓  
+- **Option (c): L1 unit sphere** - convex ✓
+- **Option (d): L2 unit ball** - convex ✓
 
 **Key insight:** All the given sets are actually convex. The L1 unit sphere is the boundary of a convex diamond shape.
 
