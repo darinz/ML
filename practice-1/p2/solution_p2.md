@@ -52,7 +52,7 @@ $P(Y = 1|X = x, \theta) = \sigma(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}$
 **Key properties:**
 - **Output range:** [0, 1] - perfect for probability interpretation
 - **Smooth and differentiable** - enables gradient-based optimization
-- **Symmetric around 0.5** - when $θ^T x = 0$, P(Y = 1) = 0.5
+- **Symmetric around 0.5** - when $θ^T x = 0$, $P(Y = 1) = 0.5$
 
 **Mathematical intuition:**
 - When $\theta^T x \to \infty$, $P(Y = 1) \to 1$
