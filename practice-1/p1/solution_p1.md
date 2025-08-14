@@ -721,10 +721,14 @@ Which function is not a convex function?
 
 **Solution:** The answer is (A).
 
-**Explanation:** The sigmoid/logistic function f(x) = 1/(1+e^(-x)) is not convex. To verify this, we can check its second derivative:
+**Explanation:** The sigmoid/logistic function $f(x) = 1/(1+e^{-x})$ is not convex. To verify this, we can check its second derivative:
 
-f'(x) = e^(-x)/(1+e^(-x))²
-f''(x) = e^(-x)(e^(-x)-1)/(1+e^(-x))³
+$$
+f'(x) = e^{-x}/(1+e^{-x})²
+$$
+$$
+f''(x) = e^{-x}(e^{-x}-1)/(1+e^{-x})³
+$$
 
 The second derivative is negative for x > 0, making the function concave (not convex) in that region.
 
