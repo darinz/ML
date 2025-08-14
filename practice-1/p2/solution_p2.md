@@ -1,10 +1,14 @@
 # Practice 2 Solutions
 
 **Problem 1. Which of the following is the definition of irreducible error in machine learning?**
-*   (a) The error that cannot be eliminated by any model
-*   (b) The error that is caused by overfitting to the training data
-*   (c) The error that is caused by underfitting to the testing data
-*   (d) All of the above
+
+(a) The error that cannot be eliminated by any model
+
+(b) The error that is caused by overfitting to the training data
+
+(c) The error that is caused by underfitting to the testing data
+
+(d) All of the above
 
 **Correct answers:** (a)
 
