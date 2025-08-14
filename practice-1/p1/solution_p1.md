@@ -860,7 +860,7 @@ True/False: The bias of a model is defined as the expected difference between th
 
 (B) False
 
-**Solution:** In Autumn 2022, we accepted either answer due to ambiguity in the question.
+**Solution:** Could be either answer due to ambiguity in the question.
 
 **Explanation:** The question is ambiguous because it doesn't specify whether we're talking about the bias of the model's predictions or the bias of the model's parameters.
 
@@ -868,7 +868,7 @@ If we interpret bias as the expected prediction error: E[ŷ - y], then this coul
 
 If we interpret bias as the difference between the expected prediction and the true function: E[ŷ] - f*(x), then this is generally true because having more features can only reduce (or keep the same) the bias.
 
-The ambiguity led to accepting both answers in the original exam.
+The ambiguity led to both answers as acceptable.
 
 ## Problem 35
 
