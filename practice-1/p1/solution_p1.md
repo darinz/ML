@@ -953,7 +953,7 @@ This gives: $X^T X w = X^T y$
 
 Solving for w: $w = (X^T X)^{-1} X^T y$
 
-This is the closed-form solution for the optimal parameters that minimize the squared error loss. The matrix (X^T X)^(-1) X^T is called the Moore-Penrose pseudoinverse of X.
+This is the closed-form solution for the optimal parameters that minimize the squared error loss. The matrix $(X^T X)^{-1} X^T$ is called the Moore-Penrose pseudoinverse of X.
 
 ## Problem 39
 
