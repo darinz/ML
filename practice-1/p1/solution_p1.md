@@ -749,7 +749,7 @@ Which of the following is not a convex set?
 
 (D) Line: $\{x \in \mathbb{R}^2 | x_1 + x_2 = 1\}$
 
-**Solution:** No solution is provided for this question.
+**Solution:** (B)
 
 **Explanation:** The unit sphere $\{x \in \mathbb{R}^2 \mid \|x\|_2 = 1\}$ is not a convex set. A set is convex if for any two points in the set, the line segment connecting them is also in the set.
 
