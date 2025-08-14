@@ -996,4 +996,3 @@ If we double X to 2X, the solution becomes:
 $\hat{w}_{\text{new}} = ((2X)^T (2X))^{-1} (2X)^T y = (4X^T X)^{-1} (2X^T y) = \frac{1}{4}(X^T X)^{-1} (2X^T y) = \frac{1}{2}(X^T X)^{-1} X^T y = \frac{1}{2}\hat{w}$
 
 So doubling X actually halves the solution, not doubles it. This makes sense because if we scale the features by 2, the coefficients need to be scaled by 1/2 to maintain the same predictions.
-
