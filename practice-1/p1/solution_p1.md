@@ -969,7 +969,7 @@ True/False: Let $x_1, \dots, x_n \in \mathbb{R}^+$ be sampled i.i.d. from the di
 
 **Solution:** The answer is (C).
 
-**Explanation:** For the exponential distribution Exp(θ) = θe^(-θx), we need to find the MLE of θ.
+**Explanation:** For the exponential distribution $Exp(θ) = θe^{-θx}$, we need to find the MLE of θ.
 
 The likelihood function is: $L(\theta) = \prod_{i=1}^{n} \theta e^{-\theta x_i} = \theta^n e^{-\theta\sum_{i=1}^{n} x_i}$
 
