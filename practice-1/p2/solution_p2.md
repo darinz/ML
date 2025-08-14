@@ -32,10 +32,14 @@
 - **(d)** Not all errors are irreducible
 
 **Problem 2. What is the general model for $P(Y = 1|X = x,\theta)$ in logistic regression, where $X = (X_0, X_1,..., X_n)$ is the features, $Y$ is the predictions, and $\theta$ is the parameters? Assume that a bias term has already been appended to $X$ (i.e., $X_0 = 1$).**
-*   (a) $P(Y = 1|X = x, \theta) = \frac{1}{1+e^{-\theta^T x}}$
-*   (b) $P(Y = 1|X = x, \theta) = \theta^T x$
-*   (c) $P(Y = 1|X = x, \theta) = \log(1 + e^{-\theta^T x})$
-*   (d) $P(Y = 1|X = x, \theta) = \log(1 + e^{\theta^T x})$
+
+(a) $P(Y = 1|X = x, \theta) = \frac{1}{1+e^{-\theta^T x}}$
+
+(b) $P(Y = 1|X = x, \theta) = \theta^T x$
+
+(c) $P(Y = 1|X = x, \theta) = \log(1 + e^{-\theta^T x})$
+
+(d) $P(Y = 1|X = x, \theta) = \log(1 + e^{\theta^T x})$
 
 **Correct answers:** (a)
 
