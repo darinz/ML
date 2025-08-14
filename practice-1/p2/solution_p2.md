@@ -176,38 +176,6 @@ $L(\theta) = -\sum_i [y_i \log(\sigma(\theta^T x_i)) + (1-y_i) \log(1-\sigma(\th
 
 **Explanation:**
 
-**Unbiased MLE estimates** for a Gaussian distribution require the **n-1 denominator** for variance.
-
-**Correct formulas:**
-
-$\hat{\mu}_{\text{MLE}} = \bar{x}$ (sample mean)
-
-$\hat{\sigma}^2_{\text{MLE}} = \frac{1}{n-1} \sum_i(x_i - \hat{\mu}_{\text{MLE}})^2$
-
-**Why n-1 instead of n:**
-
-**1. Bias correction:**
-- **n denominator** gives the MLE estimate (biased)
-- **n-1 denominator** gives the unbiased estimate
-- This is called **Bessel's correction**
-
-**2. Degrees of freedom:**
-- We lose one degree of freedom by estimating μ from the data
-- The n-1 denominator accounts for this estimation
-
-**3. Mathematical justification:**
-- $E[\hat{\sigma}^2_{\text{MLE}}] = \sigma^2$ (unbiased)
-- $E[\frac{1}{n}\sum_i(x_i - \bar{x})^2] = \frac{n-1}{n}\sigma^2$ (biased)
-
-**Why other options are incorrect:**
-- **(a)** Uses n in denominator (biased)
-- **(b)** Uses n in denominator (biased)
-- **(d)** Incorrectly scales the mean
-
-**Key insight:** **Unbiased estimation** requires **Bessel's correction** (n-1 denominator).
-
-**Explanation:**
-
 **Logistic regression assumptions:**
 
 **✓ Valid assumptions:**
