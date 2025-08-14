@@ -592,7 +592,7 @@ In LASSO regression, if the regularization parameter $\lambda = 0$, then which o
 
 (D) Large coefficients are penalized.
 
-**Solution:** No solution is provided for this question.
+**Solution:** (C)
 
 **Explanation:**
 
