@@ -500,7 +500,7 @@ This is **false**. Decreasing the learning rate does **not guarantee** convergen
 
 **Explanation:**
 
-**e^x is strictly convex** over its entire domain ℝ.
+**$e^x$ is strictly convex** over its entire domain ℝ.
 
 **Analysis of each function:**
 
