@@ -404,6 +404,61 @@ $g(\lambda x_1 + (1-\lambda)x_2) \leq \lambda g(x_1) + (1-\lambda)g(x_2)$
 
 **Correct answers:** (c)
 
+**Explanation:**
+
+This problem involves **maximum likelihood estimation (MLE)** for a univariate Gaussian distribution. The key insight is understanding the difference between **MLE estimates** and **unbiased estimates**.
+
+**Step 1: Maximum Likelihood Estimation**
+
+For a univariate Gaussian distribution $N(\mu, \sigma^2)$, the likelihood function is:
+
+$L(\mu, \sigma^2) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x_i - \mu)^2}{2\sigma^2}\right)$
+
+Taking the log-likelihood:
+
+$\log L(\mu, \sigma^2) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2$
+
+**Step 2: MLE for μ**
+
+Setting $\frac{\partial \log L}{\partial \mu} = 0$:
+
+$\frac{\partial \log L}{\partial \mu} = \frac{1}{\sigma^2}\sum_{i=1}^n (x_i - \mu) = 0$
+
+Solving: $\sum_{i=1}^n x_i = n\mu$
+
+Therefore: **$\hat{\mu}_{MLE} = \frac{1}{n}\sum_{i=1}^n x_i = \bar{x}$**
+
+**Step 3: MLE for σ²**
+
+Setting $\frac{\partial \log L}{\partial \sigma^2} = 0$:
+
+$\frac{\partial \log L}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2}\sum_{i=1}^n (x_i - \mu)^2 = 0$
+
+Solving: $\sum_{i=1}^n (x_i - \mu)^2 = n\sigma^2$
+
+Therefore: **$\hat{\sigma}^2_{MLE} = \frac{1}{n}\sum_{i=1}^n (x_i - \hat{\mu}_{MLE})^2$**
+
+**Step 4: Bias Correction**
+
+The MLE estimate for σ² is **biased**. To make it unbiased, we need to use **Bessel's correction**:
+
+**$\hat{\sigma}^2_{unbiased} = \frac{1}{n-1}\sum_{i=1}^n (x_i - \hat{\mu}_{MLE})^2$**
+
+**Why n-1 instead of n?**
+
+- **Degrees of freedom:** We lose one degree of freedom by estimating μ from the data
+- **Bias correction:** The factor $\frac{n}{n-1}$ corrects for the downward bias
+- **Mathematical expectation:** $E[\frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2] = \sigma^2$
+
+**Analysis of options:**
+
+- **(a)** Incorrect: Uses $x_i$ instead of $(x_i - \hat{\mu}_{MLE})^2$
+- **(b)** Incorrect: Uses MLE (biased) estimate with factor $\frac{1}{n}$
+- **(c)** **Correct:** Uses unbiased estimate with factor $\frac{1}{n-1}$
+- **(d)** Incorrect: Wrong formula for $\hat{\mu}_{MLE}$
+
+**Key insight:** The **unbiased estimate** uses **n-1** in the denominator, while the **MLE estimate** uses **n**. The unbiased estimate is preferred for statistical inference.
+
 **Problem 15. True/False: When performing gradient descent, decreasing the learning rate enough will slow down convergence but will eventually guarantee you arrive at the global minimum.**
 
 *   (a) True
