@@ -521,7 +521,7 @@ This is **false**. Decreasing the learning rate does **not guarantee** convergen
 - Second derivative: $f''(x) = e^x > 0$ for all x
 - **Strictly convex** over entire domain $\mathbb{R}$
 
-**Key insight:** **e^x** is the only function with **positive second derivative everywhere**.
+**Key insight:** **$e^x$** is the only function with **positive second derivative everywhere**.
 
 **Problem 17. Which of the following is true about a validation set and how it is used?**
 
