@@ -669,7 +669,7 @@ $P(\text{All 3 red}) = \frac{4}{7} \times \frac{3}{6} \times \frac{2}{5} = \frac
 
 **Explanation:**
 
-This is **true**. For a matrix X ∈ ℝ^(n×d) of rank d, the matrix X^T X has an **eigendecomposition** with orthogonal eigenvectors.
+This is **true**. For a matrix X ∈ ℝ^(n×d) of rank d, the matrix $X^T X$ has an **eigendecomposition** with orthogonal eigenvectors.
 
 **Why this is true:**
 
