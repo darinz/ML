@@ -571,7 +571,66 @@ $$x_{n+1} = x_n - \eta f'(x_n) \quad (12)$$
 
 **Answer:** For $x_0 \neq 0$, the gradient descent will head towards $\text{sign}(x_0) \infty$ very slowly.
 
-**Explanation:** For $x_0 = 0$ gradient descent is stationary and for $x_0 \neq 0$ it will head towards $\text{sign}(x_0) \infty$ very slowly.
+**Explanation:**
+
+This problem explores the **behavior of gradient descent** on a pathological function that has unusual properties around $x = 0$.
+
+**Part (a) - Starting at x₀ = 0:**
+
+**Step 1: Understanding the function at x = 0**
+- **$f(0) = 1$** (by definition)
+- **$f'(0)$** needs to be computed using the limit definition
+
+**Step 2: Computing the derivative at x = 0**
+For $x \neq 0$, the derivative is:
+$f'(x) = \frac{d}{dx}\left(1 - e^{-\frac{1}{x^2}}\right) = -\frac{2}{x^3}e^{-\frac{1}{x^2}}$
+
+**Step 3: Limit as x approaches 0**
+$\lim_{x \to 0} f'(x) = \lim_{x \to 0} -\frac{2}{x^3}e^{-\frac{1}{x^2}}$
+
+Using L'Hôpital's rule or substitution $y = \frac{1}{x^2}$:
+$\lim_{x \to 0} f'(x) = \lim_{y \to \infty} -2y^{3/2}e^{-y} = 0$
+
+**Step 4: Gradient descent behavior**
+Since $f'(0) = 0$, the update rule becomes:
+$x_{n+1} = x_n - \eta f'(x_n) = 0 - 1 \times 0 = 0$
+
+**Conclusion:** The algorithm **stays at x = 0** for all iterations.
+
+**Part (b) - Starting near x = 0:**
+
+**Step 1: Initial condition**
+- **$x_0 \sim \mathcal{N}(0, \epsilon)$** means $x_0$ is very close to 0 but not exactly 0
+- **$\epsilon$ is small**, so $|x_0| \ll 1$
+
+**Step 2: Behavior for $x_0 \neq 0$**
+For any $x_0 \neq 0$, no matter how small:
+- **$f'(x_0) \neq 0$** (the derivative is non-zero for any non-zero x)
+- **$f'(x_0)$ has the same sign as $x_0$** (positive for positive x, negative for negative x)
+
+**Step 3: Gradient descent dynamics**
+The update rule becomes:
+$x_{n+1} = x_n - \eta f'(x_n) = x_n - f'(x_n)$
+
+Since $f'(x_n)$ has the same sign as $x_n$:
+- **If $x_n > 0$**: $f'(x_n) > 0$, so $x_{n+1} < x_n$ (moving away from 0)
+- **If $x_n < 0$**: $f'(x_n) < 0$, so $x_{n+1} > x_n$ (moving away from 0)
+
+**Step 4: Asymptotic behavior**
+- **The algorithm moves away from x = 0** in the direction of the initial sign
+- **Convergence is very slow** because $f'(x) \to 0$ as $|x| \to \infty$
+- **Eventually reaches $\text{sign}(x_0) \infty$** but takes infinitely many steps
+
+**Key insights:**
+1. **Unstable equilibrium**: x = 0 is a critical point but not a minimum
+2. **Sensitivity to initialization**: Tiny perturbations lead to completely different behavior
+3. **Slow convergence**: The function becomes very flat as |x| increases
+4. **Pathological function**: This demonstrates why gradient descent can fail on certain functions
+
+**Mathematical intuition:**
+- The function has a **saddle point** or **plateau** at x = 0
+- **Any perturbation** from x = 0 causes the algorithm to diverge
+- The **flatness** of the function away from 0 causes very slow convergence
 
 **Problem 19. A bag contains 4 red balls and 3 green balls. We draw 3 balls from the bag without replacement. What is the probability that all 3 balls are red? Express your result as a fraction, or as a percentage rounded to the integer percentage (e.g. 77%).**
 
