@@ -871,7 +871,7 @@ $\max \log L(w) = \min \sum_i (y_i - x_i^T w)^2$
 
 **Key insight:** **Symmetric matrices** have **real eigenvalues** regardless of other properties.
 
-**Problem 26. Consider the closed form of the optimal weight for Ridge Regression, as derived in a previous homework (HW1):**
+**Problem 26. Consider the closed form of the optimal weight for Ridge Regression:**
 
 $$\hat{W} = (X^T X + \lambda I)^{-1} X^T Y$$
 
