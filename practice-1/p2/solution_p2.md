@@ -883,7 +883,7 @@ $$\hat{W} = (X^T X + \lambda I)^{-1} X^T Y$$
 
 **Explanation:**
 
-**Proof that X^T X + λI is invertible when λ > 0:**
+**Proof that $X^T X + λI$ is invertible when $λ > 0$:**
 
 **1. Positive definiteness:**
 For any non-zero vector $v \in \mathbb{R}^d$:
@@ -903,4 +903,4 @@ $v^T (X^T X + \lambda I) v > 0 \text{ for all } v \neq 0$
 - **Eigenvalues** are all positive
 - **Determinant** is positive
 
-**Key insight:** The **λI term** ensures positive definiteness, making the matrix **always invertible** regardless of X's rank.
+**Key insight:** The **$λI$ term** ensures positive definiteness, making the matrix **always invertible** regardless of $X$'s rank.
