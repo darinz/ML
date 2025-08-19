@@ -12,7 +12,7 @@
 [![Stanford CS229](https://img.shields.io/badge/Stanford-CS229%20Based-navy.svg)](https://cs229.stanford.edu/)
 [![UW CSE446](https://img.shields.io/badge/UW-CSE446%20Inspired-purple.svg)](https://courses.cs.washington.edu/courses/cse446/)
 
-> **Important**: Before starting on machine learning material in this repo, if you have not done any machine learning related course before, it is highly recommended that you review the following introduction to machine learning book first: **[CIML v0.99 All](./reference/ciml-v0_99-all.pdf)**
+> **Important**: Before starting on machine learning material in this repo, if you have not done any machine learning related course before, it is highly recommended that you review the following introduction to machine learning book first: **[A Course in Machine Learning](./reference/ciml-v0_99-all.pdf)**
 
 > **Note**: Some files have both `.md` and `.ipynb` formats due to LaTeX rendering issues on GitHub. Use `.ipynb` files for proper math rendering, or view `.md` files in an editor with LaTeX support.
 
