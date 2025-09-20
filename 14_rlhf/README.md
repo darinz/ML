@@ -120,7 +120,9 @@ ai = ConstitutionalAI(model, principles=['helpful', 'harmless', 'honest'])
 
 ## Reference Papers
 
-- **RLHF**: Training language models to follow instructions with human feedback
+- **Deep RL**: [Deep reinforcement learning from human preferences](https://arxiv.org/abs/1706.03741)
+- **RLHF**: [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
+- **DeepSeek-R1**: [Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](https://arxiv.org/abs/2501.12948)
 - **DPO**: Direct Preference Optimization
 - **Constitutional AI**: Self-critique and revision
 - **Red Teaming**: Adversarial testing for language models
